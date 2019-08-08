@@ -48,7 +48,7 @@ type FileListEntryState = {
     thumbnailUrl: Nullable<string>;
 }
 
-export default class FileListEntry extends React.Component<FileListEntryProps, FileListEntryState> {
+export default class FileListEntry extends React.PureComponent<FileListEntryProps, FileListEntryState> {
 
     static defaultProps = {};
 

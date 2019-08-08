@@ -4,32 +4,28 @@
  * @license MIT
  */
 
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import IntroComp from './Introduction';
-import IntroDoc from './Introduction.md';
+import FullDemoComp from './FullDemo';
+import {getParams, wrapExample} from '../util/StoriesUtil';
 
+import IntroDoc from './Introduction.md';
 import InstallationComp from './Installation.js';
 import InstallationDoc from './Installation.md';
-
-import PassingFilesMarkdown from './Passing-files.md';
-import FileBrowserPropsMarkdown from './File-Browser-props.md';
-import {getParams, wrapExample} from '../util/StoriesUtil';
+import PassingFilesComp from './Passing-files.js';
+import PassingFilesDoc from './Passing-files.md';
+import CustomStylingDoc from './Custom-styling.md';
+import NotAvailableDoc from './Not-available.md';
 
 
 storiesOf('Chonky docs', module)
-    .add('Introduction', wrapExample(IntroComp, 440), getParams(IntroDoc))
+    .add('Introduction', wrapExample(FullDemoComp, 440), getParams(IntroDoc))
     .add('Installation & usage', wrapExample(InstallationComp), getParams(InstallationDoc))
-    .add('Passing files to Chonky', () => <span/>, {
-        options: {showPanel: false},
-        readme: {content: PassingFilesMarkdown},
-    })
-    .add('Custom component styling', () => <span/>, {
-        options: {showPanel: false},
-        readme: {content: PassingFilesMarkdown},
-    })
-    .add('FileBrowser props', () => <span/>, {
-        options: {showPanel: false},
-        readme: {content: FileBrowserPropsMarkdown},
-    });
+    .add('Passing files to Chonky', wrapExample(PassingFilesComp), getParams(PassingFilesDoc))
+    .add('Specifying current folder', wrapExample(), getParams(NotAvailableDoc))
+    .add('Generating file descriptions', wrapExample(), getParams(NotAvailableDoc))
+    .add('Custom styling', wrapExample(), getParams(CustomStylingDoc))
+    .add('Displaying file thumbnails', wrapExample(), getParams(NotAvailableDoc))
+    .add('Handling file actions', wrapExample(), getParams(NotAvailableDoc))
+    .add('Managing file selection', wrapExample(), getParams(NotAvailableDoc))
+    .add('File browser props', wrapExample(), getParams(NotAvailableDoc));

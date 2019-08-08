@@ -74,7 +74,8 @@ const wrapperStyle = {
     padding: 10,
 };
 
-export const wrapExample = (Element: React.ElementType, minHeight?: any) => {
+export const wrapExample = (Element?: React.ElementType, minHeight?: any) => {
+    if (!Element) return () => <span/>;
     const style: any = {...wrapperStyle};
     if (minHeight) style.minHeight = minHeight;
     return () => <div style={style}><Element/></div>;

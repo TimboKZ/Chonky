@@ -62,11 +62,55 @@ This configuration will render 2 files and 4 loading placeholders. Check the exa
 
 ## Example with different files
 
-## Generating file descriptions
+<!-- STORY -->
 
+The example above is rendering the following `files` array:
 
-## Loading placeholders
-
-
-
-MIT © [Tim Kuzhagaliyev](https://github.com/TimboKZ), 2019
+```javascript
+const files = [
+    null,
+    null,
+    {
+        id: 'zxc',
+        base: 'Hidden file.mp4',
+        name: 'Hidden file',
+        ext: '.mp4',
+        isDir: false,
+        isHidden: true,
+        size: 890,
+    },
+    {
+        id: 'bnm',
+        base: 'Normal folder',
+        name: 'Normal folder',
+        isDir: true,
+        childrenIds: ['random-id-1', 'random-id-2']
+    },
+    {
+        id: 'vfr',
+        base: 'Symlink folder',
+        name: 'Symlink folder',
+        isDir: true,
+        isSymlink: true,
+    },
+    {
+        id: 'qwe',
+        base: 'Not selectable.zip',
+        name: 'Not selectable',
+        ext: '.zip',
+        isDir: false,
+        selectable: false,
+        size: 54300000000,
+        modDate: new Date(),
+    },
+    {
+        id: 'rty',
+        base: 'Not openable.pem',
+        name: 'Not openable',
+        ext: '.pem',
+        isDir: false,
+        openable: false,
+        size: 100000000,
+    },
+];
+```

@@ -257,7 +257,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
             const oldSelected = oldSelection[file.id];
             switch (type) {
                 case SelectionType.Single:
-                    if (!oldSelected) newSelection[file.id] = true;
+                    if (!oldSelected && file.selectable !== false) newSelection[file.id] = true;
                     break;
                 case SelectionType.Multiple:
                     newSelection = {...oldSelection};
@@ -270,7 +270,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                     if (indexA > indexB) [indexA, indexB] = [indexB, indexA];
                     for (let i = indexA; i < indexB + 1; ++i) {
                         const file = sortedFiles[i];
-                        if (file) newSelection[file.id] = true;
+                        if (file && file.selectable !== false) newSelection[file.id] = true;
                     }
                     break;
             }
@@ -292,7 +292,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         }
         if (preventDefault) return;
 
-        if (onFileOpen) onFileOpen(file);
+        if (onFileOpen && file.openable !== false) onFileOpen(file);
     };
 
     render() {

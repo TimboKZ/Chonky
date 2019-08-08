@@ -7,7 +7,7 @@ import {FileData} from '../../src/typedef';
 import {FileBrowser, FolderView} from '../../src';
 import {getMainDemoFsData} from '../util/StoriesUtil';
 
-export default class ExampleComponent extends React.Component<any, any> {
+export default class FullDemo extends React.Component<any, any> {
 
     fileMap: { [id: string]: FileData };
 
