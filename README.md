@@ -15,6 +15,8 @@ list", enter folders, and so on.
 
 ### [Click here for demos and documentation.](https://timbokz.github.io/Chonky/)
 
+## Preview
+
 <p align="center">
   <img src="https://timbokz.github.io/Chonky/Chonky_preview.jpg" alt="Chonky logo">
 </p>

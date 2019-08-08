@@ -21,12 +21,13 @@ import {
     Option,
     Options,
     Selection,
+    SelectionStatus,
     SelectionType,
     SortOrder,
     SortProperty,
     ThumbnailGenerator,
 } from './typedef';
-import {isNumber} from 'util';
+import Util from './Util';
 
 // Important: Make sure to keep `FileBrowserProps` and `FileBrowserPropTypes` in sync!
 type FileBrowserProps = {
@@ -41,7 +42,6 @@ type FileBrowserProps = {
 
     thumbnailGenerator?: ThumbnailGenerator,
 
-    selection?: Selection,
     disableSelection?: boolean,
     view?: FolderView;
     options?: Partial<Options>;
@@ -62,7 +62,6 @@ const FileBrowserPropTypes = {
 
     thumbnailGenerator: PropTypes.func,
 
-    selection: PropTypes.object,
     disableSelection: PropTypes.bool,
     view: PropTypes.string,
     options: PropTypes.object,
@@ -96,12 +95,12 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         super(props);
 
         const {
-            files: rawFiles, folderChain, selection: propSelection, view: propView,
+            files: rawFiles, folderChain, view: propView,
             options: propOptions, sortProperty: propSortProperty, sortOrder: propSortOrder,
         } = props;
         // const rawFiles = files.concat([null, null]);
 
-        const selection = propSelection ? propSelection : {};
+        const selection = {};
         const view = propView ? propView : FolderView.Details;
         const options = {
             [Option.ShowHidden]: true,
@@ -128,30 +127,60 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
 
     componentWillReceiveProps(nextProps: Readonly<FileBrowserProps>): void {
         const old = this.props;
-        const state = this.state;
-        const {files, folderChain, selection, disableSelection, view, options, sortProperty, sortOrder} = nextProps;
+        const {
+            files, folderChain, onSelectionChange, disableSelection,
+            view, options, sortProperty, sortOrder,
+        } = nextProps;
+
+        let selectionStatus = SelectionStatus.Ok;
+
         if (!shallowEqualArrays(files, old.files)) {
-            this.setState(prevState => {
-                const newSelection = {};
-                files.map(f => {
-                    if (f && prevState.selection[f.id] === true) newSelection[f.id] = true;
-                });
-                return {rawFiles: files, selection: newSelection};
-            });
+            selectionStatus = SelectionStatus.NeedsCleaning;
+            this.setState({rawFiles: files});
         }
-        if (!shallowEqualArrays(folderChain, old.folderChain)) this.setState({folderChain});
-
-        if (!shallowEqualObjects(selection, old.selection) && !shallowEqualObjects(selection, state.selection)) {
-            this.setState({selection: {...selection}});
+        if (!shallowEqualArrays(folderChain, old.folderChain)) {
+            if (!folderChain || !old.folderChain
+                || folderChain[folderChain.length - 1] !== old.folderChain[old.folderChain.length - 1]) {
+                selectionStatus = SelectionStatus.NeedsResetting;
+            }
+            this.setState({folderChain});
         }
 
-        if (disableSelection && disableSelection !== old.disableSelection) this.setState({selection: {}});
+        if (disableSelection && disableSelection !== old.disableSelection) {
+            selectionStatus = SelectionStatus.NeedsResetting;
+        }
         if (!!view && view !== old.view) this.setState({view});
         if (!!options && options !== old.options) {
             this.setState(prevState => ({options: {...prevState.options, ...options}}));
         }
         if (!!sortProperty && sortProperty !== old.sortProperty) this.setState({sortProperty});
         if (!!sortOrder && sortOrder !== old.sortOrder) this.setState({sortOrder});
+
+        if (selectionStatus === SelectionStatus.NeedsResetting) {
+            this.setState(() => {
+                const selection = {};
+                if (onSelectionChange) onSelectionChange(selection);
+                return {selection, previousSelectionIndex: undefined};
+            });
+        } else if (selectionStatus === SelectionStatus.NeedsCleaning) {
+            this.setState(prevState => {
+                const {rawFiles: files, selection: oldSelection, previousSelectionIndex: prevIndex} = prevState;
+                const selection = {};
+                let previousSelectionIndex = undefined;
+                if (files) {
+                    previousSelectionIndex = prevIndex ? Util.clamp(prevIndex, 0, files.length - 1) : undefined;
+                    files.map(file => {
+                        if (!file) return;
+                        const wasSelected = oldSelection[file.id] === true;
+                        const canBeSelected = file.selectable !== false;
+                        if (wasSelected && canBeSelected) selection[file.id] = true;
+                    });
+                }
+
+                if (onSelectionChange) onSelectionChange(selection);
+                return {selection, previousSelectionIndex};
+            });
+        }
     }
 
     componentDidUpdate(prevProps: Readonly<FileBrowserProps>, prevState: Readonly<FileBrowserState>,
@@ -213,17 +242,22 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
 
         this.setState(prevState => {
             const {sortedFiles, selection: oldSelection, previousSelectionIndex: prevI} = prevState;
-            const prevIndex = isNumber(prevI) ? Math.max(0, Math.min(sortedFiles.length - 1, prevI)) : null;
+            const prevIndex = Util.isNumber(prevI) ? Util.clamp(prevI as number, 0, sortedFiles.length - 1) : null;
 
             let type = SelectionType.Single;
             if (event.ctrlKey) type = SelectionType.Multiple;
-            if (event.shiftKey && isNumber(prevIndex)) type = SelectionType.Range;
+            if (event.shiftKey && Util.isNumber(prevIndex)) type = SelectionType.Range;
+
+            let selectionIndexToPersist = displayIndex;
+            if (type == SelectionType.Multiple || type == SelectionType.Range) {
+                if (Util.isNumber(prevIndex)) selectionIndexToPersist = prevIndex as number;
+            }
 
             let newSelection: Selection = {};
             const oldSelected = oldSelection[file.id];
             switch (type) {
                 case SelectionType.Single:
-                    newSelection[file.id] = true;
+                    if (!oldSelected) newSelection[file.id] = true;
                     break;
                 case SelectionType.Multiple:
                     newSelection = {...oldSelection};
@@ -242,7 +276,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
             }
 
             if (onSelectionChange) onSelectionChange(newSelection);
-            return {selection: newSelection, previousSelectionIndex: displayIndex};
+            return {selection: newSelection, previousSelectionIndex: selectionIndexToPersist};
         });
     };
 

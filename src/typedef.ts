@@ -51,6 +51,12 @@ export type ClickEvent = {
 
 export type FileClickHandler<T = void> = (file: FileData, fileIndex: number, event: ClickEvent, keyboard: boolean) => T;
 
+export enum SelectionStatus {
+    NeedsCleaning,
+    NeedsResetting,
+    Ok,
+}
+
 export type ThumbnailGenerator = (file: FileData) => Promise<Nullable<string>> | Nullable<string>;
 
 export enum FolderView {
