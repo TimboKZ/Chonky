@@ -4,11 +4,12 @@
  * @license MIT
  */
 
+import {Nullable} from 'tsdef';
 import * as React from 'react';
 import classnames from 'classnames';
 import {Else, If, Then, When} from 'react-if';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faEyeSlash as HiddenIcon} from '@fortawesome/free-solid-svg-icons';
+import {faExternalLinkAlt as SymlinkIcon, faEyeSlash as HiddenIcon} from '@fortawesome/free-solid-svg-icons';
 
 import {
     ClickEvent,
@@ -18,7 +19,8 @@ import {
     FileData,
     FolderView,
     FolderViewSizeMap,
-    Nullable, ThumbnailGenerator,
+    ThumbnailGenerator,
+    ThumbnailGeneratorResult,
 } from './typedef';
 import {FileUtil} from './FileUtil';
 import LoadingPlaceholder from './LoadingPlaceholder';
@@ -69,12 +71,20 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         if (!file || !thumbnailGenerator) return;
 
         // Check if thumbnail generator returns anything at all
-        const syncResult = thumbnailGenerator(file);
+        let syncResult: ThumbnailGeneratorResult = null;
+
+        try {
+            syncResult = thumbnailGenerator(file);
+        } catch (error) {
+            ConsoleUtil.logUnhandledException(error, `loading thumbnail for "${file.base}"`);
+            return;
+        }
+
         if (!syncResult) return this.setState({thumbnailUrl: null});
 
         if (typeof syncResult === 'string') return this.setState({thumbnailUrl: syncResult});
         syncResult
-            .then(thumbnailUrl => this.setState({thumbnailUrl}))
+            .then((thumbnailUrl: Nullable<string>) => this.setState({thumbnailUrl}))
             .catch(error => {
                 ConsoleUtil.logUnhandledPromiseError(error, `loading thumbnail for "${file.base}"`);
             });
@@ -89,6 +99,10 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         const {file} = this.props;
         if (!file) return <LoadingPlaceholder/>;
         return [
+            <When key="chonky-filename-symlink" condition={file.isSymlink === true}>
+                <span className="chonky-text-subtle"><FontAwesomeIcon icon={SymlinkIcon} size="xs"/></span>
+                &nbsp;&nbsp;
+            </When>,
             <When key="chonky-filename-hidden" condition={file.isHidden === true}>
                 <span className="chonky-text-subtle"><FontAwesomeIcon icon={HiddenIcon} size="xs"/></span>
                 &nbsp;&nbsp;

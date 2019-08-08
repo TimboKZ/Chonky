@@ -18,7 +18,7 @@ export type FileData = {
 
     isDir: boolean; // !! Is a directory
     isHidden?: boolean; // Is a hidden file, default: false
-    isSymLink?: boolean; // Is a symlink, default: false
+    isSymlink?: boolean; // Is a symlink, default: false
     openable?: boolean // Can be opened, default: true
     selectable?: boolean, // Can be selected, default: true
 
@@ -57,7 +57,9 @@ export enum SelectionStatus {
     Ok,
 }
 
-export type ThumbnailGenerator = (file: FileData) => Promise<Nullable<string>> | Nullable<string>;
+export type ThumbnailGeneratorResult = Nullable<string> | Promise<Nullable<string>>;
+
+export type ThumbnailGenerator = (file: FileData) => ThumbnailGeneratorResult;
 
 export enum FolderView {
     Details = 'view-details',

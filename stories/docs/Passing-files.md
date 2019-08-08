@@ -1,8 +1,8 @@
 
 # Passing file list to Chonky
 
-The `FileBrowser` component accepts a prop called `files`, which should be an array of file objects. It also the only
-required component, so the most basic Chonky usage could look like this:
+The `FileBrowser` component accepts a property called `files`, which should be an array of file objects. It also the 
+only required property, so the most basic Chonky usage could look like this:
  
 ```typescript jsx
 export const ExampleComponent = () => {
@@ -28,7 +28,7 @@ export type FileData = {
 
     isDir: boolean; // !! Is a directory
     isHidden?: boolean; // Is a hidden file, default: false
-    isSymLink?: boolean; // Is a symlink, default: false
+    isSymlink?: boolean; // Is a symlink, default: false
     openable?: boolean // Can be opened, default: true
     selectable?: boolean, // Can be selected, default: true
 
