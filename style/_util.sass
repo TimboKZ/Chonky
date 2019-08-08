@@ -1,0 +1,78 @@
+$base-padding: 0.3em
+$base-bar-height: 1.9em
+
+$border-lighter: #f6f6f6
+$border-light: #e4e4e4
+$border-dark: #ccc
+$border-darker: #aaa
+
+$fg-base: #000
+$fg-subtle: #bbb
+$fg-subtle-light: #ddd
+$fg-subtle-dark: #666
+$fg-active: #09f
+
+$bg-base: #fff
+$bg-light: #f5f5f5
+$bg-dark: #ccc
+$bg-darker: #888
+$bg-darkest: #333
+$bg-active: #09f
+
+$radius-small: 2px
+$radius-medium: 4px
+
+$tooltip-bg: rgba(0, 0, 0, 0.8)
+$tooltip-fg: #fff
+
+@mixin reset-button
+  background: none
+  //outline: inherit
+  cursor: pointer
+  color: inherit
+  font: inherit
+  border: none
+  padding: 0
+
+@mixin transition($args...)
+  -webkit-transition: $args
+  -moz-transition: $args
+  -o-transition: $args
+  transition: $args
+
+@mixin default-transition($property)
+  @include transition($property 100ms ease-in-out)
+
+@mixin transform($args...)
+  -webkit-transform: $args
+  -moz-transform: $args
+  -ms-transform: $args
+  -o-transform: $args
+  transform: $args
+
+=keyframes($name)
+  @-webkit-keyframes #{$name}
+    @content
+  @-moz-keyframes #{$name}
+    @content
+  @-ms-keyframes #{$name}
+    @content
+  @keyframes #{$name}
+    @content
+
+@mixin animation($args...)
+  -webkit-animation: $args
+  -moz-animation: $args
+  -o-animation: $args
+  animation: $args
+
+
+@mixin outline($outline-width, $outline-color, $outline-style, $outline-offset)
+  outline: $outline-width $outline-color $outline-style
+  outline-offset: (-1 * ($outline-width + $outline-offset))
+
+@mixin default-outline()
+  @include outline(1px, rgba($fg-active, 0.4), dashed, 1px)
+
+@mixin striped-background($color1, $color2, $angle: 45deg, $size: 10px)
+  background: repeating-linear-gradient($angle, $color1, $color1 $size, $color2 $size, $color2 $size*2)

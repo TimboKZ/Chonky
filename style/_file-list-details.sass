@@ -1,0 +1,74 @@
+@import "util"
+
+.chonky
+  $table-side-padding: 0.6em
+
+  &-file-list
+
+    &-details &-header
+      @extend %header-row-shared
+
+      & > div
+        border-bottom-color: $border-light !important
+        border-top-color: transparent !important
+        color: $fg-subtle-dark
+
+        &.chonky-active
+          border-bottom-color: $border-darker !important
+
+        &.chonky-clickable
+          cursor: pointer
+
+          &:hover
+            background-color: $bg-light
+
+    &-details &-entry
+      @extend %header-row-shared
+
+      &.chonky-selected
+        background-color: rgba($bg-active, 0.04)
+        @include striped-background(rgba($bg-active, 0.04), rgba($bg-active, 0.10))
+
+        &:hover
+          background-color: rgba($bg-active, 0.07)
+          @include striped-background(rgba($bg-active, 0.07), rgba($bg-active, 0.14))
+
+        & + .chonky-selected, &:nth-child(2)
+          & > div
+            border-top-color: transparent !important
+
+        & > div
+          border-color: rgba($bg-active, 0.3) transparent !important
+
+      &-icon
+        padding-bottom: $table-side-padding * 0.6 !important
+        padding-right: $table-side-padding * 0.5 !important
+        font-size: 1.3em
+
+      &:hover
+        background-color: $bg-light
+
+      & > div
+        border-color: transparent
+        border-bottom-color: $border-lighter !important
+        &:not(:first-child)
+          margin-top: -5px
+
+    // Rules that determine general layout:
+    &-details
+      position: relative
+      display: table
+
+      %header-row-shared
+        display: table-row !important
+        vertical-align: middle
+        font-size: 0.95em
+
+        & > div
+          padding: 0.4em $table-side-padding
+          display: table-cell !important
+          border-width: 1px 0
+          border-style: solid
+
+          &:first-child
+            width: 1px

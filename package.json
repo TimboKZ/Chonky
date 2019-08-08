@@ -1,0 +1,92 @@
+{
+  "name": "chonky",
+  "version": "0.0.4",
+  "description": "React file browser component",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "style"
+  ],
+  "scripts": {
+    "build:tsc": "tsc",
+    "storybook": "start-storybook -s ./static -p 6006",
+    "build-storybook": "build-storybook -s ./static -o ./docs"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.20",
+    "@fortawesome/free-brands-svg-icons": "^5.10.0",
+    "@fortawesome/free-regular-svg-icons": "^5.10.0",
+    "@fortawesome/free-solid-svg-icons": "^5.10.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "animate.css": "^3.7.2",
+    "classnames": "^2.2.6",
+    "dateformat": "^3.0.3",
+    "denque": "^1.4.1",
+    "exact-trie": "^1.0.11",
+    "filesize": "^4.1.2",
+    "javascript-time-ago": "^2.0.1",
+    "prop-types": "^15.7.2",
+    "react-if": "^3.4.3",
+    "shallow-equal": "^1.2.0"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0 || ^16.0.0",
+    "react-dom": "^15.0.0 || ^16.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@storybook/addon-actions": "^5.1.10",
+    "@storybook/addon-backgrounds": "^5.1.10",
+    "@storybook/addon-info": "^5.1.10",
+    "@storybook/addon-links": "^5.1.10",
+    "@storybook/addon-options": "^5.1.10",
+    "@storybook/addons": "^5.1.10",
+    "@storybook/react": "^5.1.10",
+    "@types/bluebird": "^3.5.27",
+    "@types/classnames": "^2.2.9",
+    "@types/dateformat": "^3.0.0",
+    "@types/filesize": "^4.1.0",
+    "@types/fs-extra": "^8.0.0",
+    "@types/react": "^16.8.24",
+    "@types/react-dom": "^16.8.5",
+    "@types/storybook__react": "^4.0.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.6",
+    "fs-thumbnail": "^1.0.5",
+    "md5": "^2.2.1",
+    "react": "^16.8.6",
+    "react-docgen-typescript-loader": "^3.1.0",
+    "react-document-title": "^2.0.3",
+    "react-dom": "^16.8.6",
+    "react-notifications-component": "^1.1.1",
+    "react-styleguidist": "^9.1.13",
+    "sharp": "^0.23.0",
+    "storybook-addon-jsx": "^7.1.5",
+    "storybook-readme": "^5.0.6",
+    "tsdef": "0.0.13",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  },
+  "homepage": "https://github.com/TimboKZ/Chonky#readme",
+  "author": {
+    "name": "Timur Kuzhagaliyev",
+    "email": "tim.kuzh@gmail.com",
+    "url": "https://foxypanda.me/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimboKZ/Chonky.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TimboKZ/Chonky/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "file",
+    "chonky",
+    "file-dialog",
+    "file-browser",
+    "react-component"
+  ]
+}

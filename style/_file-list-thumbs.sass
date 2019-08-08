@@ -1,0 +1,128 @@
+@import "util"
+
+.chonky
+  $description-padding: 0.4em
+  $element-padding: 0.15em 0.3em
+
+  &-file-list
+    $list-class: #{&}-thumbs
+    $entry-class: #{&}-entry
+
+    &-thumbs &-entry
+      $parent-entry: &
+      border: solid 1px $border-light
+      margin: 0.3em 0.5em 0.5em 0.3em
+      display: inline-block
+      border-radius: 2px
+      position: relative
+      overflow: hidden
+
+      // Dirty hack to get modifiers to work correctly:
+      @at-root #{$list-class} #{$entry-class}
+
+        &:hover
+          #{$entry-class}-background
+            background-color: rgba($bg-base, 0.55)
+
+        &.chonky-selected
+          #{$entry-class}-selection
+            opacity: 1
+
+          #{$entry-class}-icon
+            color: rgba($bg-active, 0.4)
+            opacity: 1 !important
+            &.chonky-icon-over-image
+              color: rgba($bg-active, 0.7)
+
+      &-content
+        flex-direction: column
+        position: relative
+        display: flex
+        height: 100%
+
+      &-thumb
+        position: relative
+        flex: 1
+
+      %file-entry-thumb-overlay
+        position: absolute
+        height: 100%
+        width: 100%
+
+      &-background
+        background-color: rgba($bg-base, 0.6)
+        @extend %file-entry-thumb-overlay
+        z-index: 1
+
+
+      %file-entry-image-shared
+        @include transition(opacity 0.2s ease-in)
+        @extend %file-entry-thumb-overlay
+        background-repeat: no-repeat
+        background-position: center
+        opacity: 0
+
+      &-image
+        &-bg, &-fg
+          @extend %file-entry-image-shared
+
+        &-bg
+          background-size: cover
+          z-index: 2
+
+          &.chonky-thumbnail-loaded
+            opacity: 0.1
+
+        &-fg
+          background-size: contain
+          z-index: 3
+
+          &.chonky-thumbnail-loaded
+            opacity: 1
+
+      &-selection
+        @extend %file-entry-thumb-overlay
+        background-color: rgba($bg-active, 0.14)
+        @include striped-background(rgba($bg-active, 0.14), rgba($bg-active, 0.2))
+        z-index: 4
+        opacity: 0
+
+      &-icon
+        $icon-text: 4em
+        $icon-size: 1.6em
+        z-index: 5
+
+        @include transform(translateX(-50%) translateY(-50%))
+        //background-color: rgba($bg-darkest, 0.2)
+        //border-radius: 100%
+        //height: $icon-size
+        //width: $icon-size
+
+        line-height: $icon-size
+        font-size: $icon-text
+        text-align: center
+        position: absolute
+        color: #fff
+        left: 50%
+        top: 50%
+
+        &.chonky-icon-over-image
+          filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))
+          opacity: 0.6
+
+      &-description
+        padding: $description-padding
+        background-color: $bg-base
+        flex: 0
+
+      &-name, &-group
+        padding: $element-padding
+
+      &-name
+        font-size: 0.95em
+
+      &-group
+        justify-content: space-between
+        color: $fg-subtle-dark
+        font-size: 0.8em
+        display: flex

@@ -1,0 +1,84 @@
+@import "util"
+@import "controls"
+@import "file-list"
+@import "file-list-details"
+@import "file-list-thumbs"
+
+.chonky
+  font-family: sans-serif
+  flex-direction: column
+  display: flex
+
+  &.chonky-no-select
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+
+  &-text-subtle
+    color: $fg-subtle
+
+  &-text-subtle-light
+    color: $fg-subtle-light
+
+  &-text-subtle-dark
+    color: $fg-subtle-dark
+
+  &-text-active
+    color: $fg-active
+
+  &-tooltip
+    position: relative
+
+    &:hover, &:focus, &:active
+      &::before, &::after
+        opacity: 1
+
+    &::before, &::after
+      @include default-transition(opacity)
+      pointer-events: none
+      position: absolute
+      display: block
+      bottom: 100%
+      opacity: 0
+      left: 50%
+
+    &::before
+      @include transform(translateX(-50%))
+      background-color: $tooltip-bg
+      border-radius: $radius-small
+      content: attr(data-tooltip)
+      padding: 0.4em 0.5em
+      white-space: nowrap
+      margin-bottom: 6px
+      line-height: 1.0em
+      color: $tooltip-fg
+      font-size: 0.8em
+      height: auto
+
+    &::after
+      @include transform(translateX(-50%) rotate(45deg))
+      border: solid 2px $tooltip-bg
+      border-left-color: transparent
+      border-top-color: transparent
+
+      margin-bottom: 4px
+      content: ''
+
+  &-loading-placeholder
+    @include animation(loading-placeholder 1.5s infinite linear)
+    background-color: $bg-dark
+    white-space: nowrap
+    border-radius: 4px
+    overflow: hidden
+    min-width: 20px
+    max-width: 40%
+
+  +keyframes(loading-placeholder)
+    0%
+      opacity: 0.2
+    50%
+      opacity: 0.4
+    100%
+      opacity: 0.2

@@ -1,0 +1,455 @@
+.chonky-side-left, .chonky-side-right {
+  padding-bottom: 0;
+}
+.chonky-side-left > *, .chonky-side-right > * {
+  vertical-align: middle;
+  display: inline-block;
+}
+.chonky-side-left > * {
+  margin-right: 0.525em;
+}
+.chonky-side-right > * {
+  margin-left: 0.525em;
+}
+.chonky-controls {
+  justify-content: space-between;
+  margin-bottom: 0.3em;
+  display: flex;
+}
+.chonky-folder-chain-entry, .chonky-folder-chain-separator {
+  vertical-align: middle;
+  display: inline-block;
+}
+.chonky-folder-chain-entry {
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  border: none;
+  padding: 0;
+  -webkit-transition: background-color 100ms ease-in-out;
+  -moz-transition: background-color 100ms ease-in-out;
+  -o-transition: background-color 100ms ease-in-out;
+  transition: background-color 100ms ease-in-out;
+  border-radius: 4px;
+  border: solid 1px transparent;
+  line-height: 1.9em;
+  padding: 0 0.4em !important;
+  height: 1.9em;
+  box-sizing: border-box;
+}
+.chonky-folder-chain-entry:last-child .chonky-folder-chain-entry-name {
+  text-decoration: underline #bbb;
+}
+.chonky-folder-chain-entry.chonky-loading {
+  font-style: italic;
+  color: #bbb;
+}
+div.chonky-folder-chain-entry {
+  cursor: default;
+}
+
+button.chonky-folder-chain-entry:hover {
+  background-color: #f5f5f5;
+}
+button.chonky-folder-chain-entry:active {
+  border-color: #ccc;
+}
+
+.chonky-folder-chain-separator {
+  line-height: 1.9em;
+  height: 1.9em;
+  color: #bbb;
+  padding: 0 0.2em;
+}
+.chonky-button-group button:not(:first-child) {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.chonky-button-group button:not(:last-child) {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  margin-right: -1px;
+}
+.chonky-dropdown {
+  position: relative;
+}
+.chonky-dropdown.chonky-active .chonky-dropdown-contents, .chonky-dropdown:hover .chonky-dropdown-contents, .chonky-dropdown:active .chonky-dropdown-contents {
+  display: block;
+}
+.chonky-dropdown-contents {
+  border: solid 1px #e4e4e4;
+  border-radius: 4px;
+  background-color: #fff;
+  position: absolute;
+  overflow: hidden;
+  margin-top: 4px;
+  display: none;
+  z-index: 888;
+  top: 100%;
+  right: 0;
+}
+.chonky-dropdown-button {
+  padding: 0.5em !important;
+  white-space: nowrap;
+  text-align: left;
+  display: block;
+  width: 100%;
+}
+.chonky-dropdown-button:active + .chonky-dropdown-contents, .chonky-dropdown-button:focus + .chonky-dropdown-contents {
+  display: block;
+}
+.chonky-dropdown-button:not(:last-child) {
+  border-bottom: solid 1px #f6f6f6;
+}
+.chonky-dropdown-button, .chonky-icon-button {
+  -webkit-transition: background-color 100ms ease-in-out;
+  -moz-transition: background-color 100ms ease-in-out;
+  -o-transition: background-color 100ms ease-in-out;
+  transition: background-color 100ms ease-in-out;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  border: none;
+  padding: 0;
+}
+.chonky-dropdown-button[disabled], .chonky-icon-button[disabled] {
+  color: #bbb !important;
+  pointer-events: none;
+}
+.chonky-dropdown-button.chonky-active, .chonky-icon-button.chonky-active {
+  color: #09f;
+}
+.chonky-dropdown-button:hover, .chonky-icon-button:hover {
+  background-color: #f5f5f5;
+  z-index: 2;
+}
+.chonky-icon-button {
+  border-radius: 4px;
+  line-height: 1.9em;
+  border: solid 1px transparent;
+  min-width: 1.9em;
+  height: 1.9em;
+  vertical-align: middle;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.chonky-icon-button.chonky-active {
+  z-index: 3;
+}
+.chonky-icon-button:hover {
+  z-index: 2;
+}
+.chonky-icon-button:active {
+  border-color: #ccc;
+}
+.chonky-icon-button > span {
+  border-color: #ccc;
+  padding: 0.6em;
+}
+
+.chonky-file-list {
+  flex: 1;
+}
+
+.chonky-file-list-details .chonky-file-list-header > div {
+  border-bottom-color: #e4e4e4 !important;
+  border-top-color: transparent !important;
+  color: #666;
+}
+.chonky-file-list-details .chonky-file-list-header > div.chonky-active {
+  border-bottom-color: #aaa !important;
+}
+.chonky-file-list-details .chonky-file-list-header > div.chonky-clickable {
+  cursor: pointer;
+}
+.chonky-file-list-details .chonky-file-list-header > div.chonky-clickable:hover {
+  background-color: #f5f5f5;
+}
+.chonky-file-list-details .chonky-file-list-entry.chonky-selected {
+  background-color: rgba(0, 153, 255, 0.04);
+  background: repeating-linear-gradient(45deg, rgba(0, 153, 255, 0.04), rgba(0, 153, 255, 0.04) 10px, rgba(0, 153, 255, 0.1) 10px, rgba(0, 153, 255, 0.1) 20px);
+}
+.chonky-file-list-details .chonky-file-list-entry.chonky-selected:hover {
+  background-color: rgba(0, 153, 255, 0.07);
+  background: repeating-linear-gradient(45deg, rgba(0, 153, 255, 0.07), rgba(0, 153, 255, 0.07) 10px, rgba(0, 153, 255, 0.14) 10px, rgba(0, 153, 255, 0.14) 20px);
+}
+.chonky-file-list-details .chonky-file-list-entry.chonky-selected + .chonky-selected > div, .chonky-file-list-details .chonky-file-list-entry.chonky-selected:nth-child(2) > div {
+  border-top-color: transparent !important;
+}
+.chonky-file-list-details .chonky-file-list-entry.chonky-selected > div {
+  border-color: rgba(0, 153, 255, 0.3) transparent !important;
+}
+.chonky-file-list-details .chonky-file-list-entry-icon {
+  padding-bottom: 0.36em !important;
+  padding-right: 0.3em !important;
+  font-size: 1.3em;
+}
+.chonky-file-list-details .chonky-file-list-entry:hover {
+  background-color: #f5f5f5;
+}
+.chonky-file-list-details .chonky-file-list-entry > div {
+  border-color: transparent;
+  border-bottom-color: #f6f6f6 !important;
+}
+.chonky-file-list-details .chonky-file-list-entry > div:not(:first-child) {
+  margin-top: -5px;
+}
+.chonky-file-list-details {
+  position: relative;
+  display: table;
+}
+.chonky-file-list-details .chonky-file-list-header, .chonky-file-list-details .chonky-file-list-entry {
+  display: table-row !important;
+  vertical-align: middle;
+  font-size: 0.95em;
+}
+.chonky-file-list-details .chonky-file-list-header > div, .chonky-file-list-details .chonky-file-list-entry > div {
+  padding: 0.4em 0.6em;
+  display: table-cell !important;
+  border-width: 1px 0;
+  border-style: solid;
+}
+.chonky-file-list-details .chonky-file-list-header > div:first-child, .chonky-file-list-details .chonky-file-list-entry > div:first-child {
+  width: 1px;
+}
+
+.chonky-file-list-thumbs .chonky-file-list-entry {
+  border: solid 1px #e4e4e4;
+  margin: 0.3em 0.5em 0.5em 0.3em;
+  display: inline-block;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry:hover .chonky-file-list-entry-background {
+  background-color: rgba(255, 255, 255, 0.55);
+}
+.chonky-file-list-thumbs .chonky-file-list-entry.chonky-selected .chonky-file-list-entry-selection {
+  opacity: 1;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry.chonky-selected .chonky-file-list-entry-icon {
+  color: rgba(0, 153, 255, 0.4);
+  opacity: 1 !important;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry.chonky-selected .chonky-file-list-entry-icon.chonky-icon-over-image {
+  color: rgba(0, 153, 255, 0.7);
+}
+
+.chonky-file-list-thumbs .chonky-file-list-entry-content {
+  flex-direction: column;
+  position: relative;
+  display: flex;
+  height: 100%;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-thumb {
+  position: relative;
+  flex: 1;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-selection, .chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-image-bg, .chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-image-fg, .chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-background {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-background {
+  background-color: rgba(255, 255, 255, 0.6);
+  z-index: 1;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-image-bg, .chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-image-fg {
+  -webkit-transition: opacity 0.2s ease-in;
+  -moz-transition: opacity 0.2s ease-in;
+  -o-transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-image-bg {
+  background-size: cover;
+  z-index: 2;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-image-bg.chonky-thumbnail-loaded {
+  opacity: 0.1;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-image-fg {
+  background-size: contain;
+  z-index: 3;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-image-fg.chonky-thumbnail-loaded {
+  opacity: 1;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-selection {
+  background-color: rgba(0, 153, 255, 0.14);
+  background: repeating-linear-gradient(45deg, rgba(0, 153, 255, 0.14), rgba(0, 153, 255, 0.14) 10px, rgba(0, 153, 255, 0.2) 10px, rgba(0, 153, 255, 0.2) 20px);
+  z-index: 4;
+  opacity: 0;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-icon {
+  z-index: 5;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  line-height: 1.6em;
+  font-size: 4em;
+  text-align: center;
+  position: absolute;
+  color: #fff;
+  left: 50%;
+  top: 50%;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-icon.chonky-icon-over-image {
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+  opacity: 0.6;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-description {
+  padding: 0.4em;
+  background-color: #fff;
+  flex: 0;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-name, .chonky-file-list-thumbs .chonky-file-list-entry-group {
+  padding: 0.15em 0.3em;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-name {
+  font-size: 0.95em;
+}
+.chonky-file-list-thumbs .chonky-file-list-entry-group {
+  justify-content: space-between;
+  color: #666;
+  font-size: 0.8em;
+  display: flex;
+}
+
+.chonky {
+  font-family: sans-serif;
+  flex-direction: column;
+  display: flex;
+}
+.chonky.chonky-no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.chonky-text-subtle {
+  color: #bbb;
+}
+.chonky-text-subtle-light {
+  color: #ddd;
+}
+.chonky-text-subtle-dark {
+  color: #666;
+}
+.chonky-text-active {
+  color: #09f;
+}
+.chonky-tooltip {
+  position: relative;
+}
+.chonky-tooltip:hover::before, .chonky-tooltip:hover::after, .chonky-tooltip:focus::before, .chonky-tooltip:focus::after, .chonky-tooltip:active::before, .chonky-tooltip:active::after {
+  opacity: 1;
+}
+.chonky-tooltip::before, .chonky-tooltip::after {
+  -webkit-transition: opacity 100ms ease-in-out;
+  -moz-transition: opacity 100ms ease-in-out;
+  -o-transition: opacity 100ms ease-in-out;
+  transition: opacity 100ms ease-in-out;
+  pointer-events: none;
+  position: absolute;
+  display: block;
+  bottom: 100%;
+  opacity: 0;
+  left: 50%;
+}
+.chonky-tooltip::before {
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 2px;
+  content: attr(data-tooltip);
+  padding: 0.4em 0.5em;
+  white-space: nowrap;
+  margin-bottom: 6px;
+  line-height: 1em;
+  color: #fff;
+  font-size: 0.8em;
+  height: auto;
+}
+.chonky-tooltip::after {
+  -webkit-transform: translateX(-50%) rotate(45deg);
+  -moz-transform: translateX(-50%) rotate(45deg);
+  -ms-transform: translateX(-50%) rotate(45deg);
+  -o-transform: translateX(-50%) rotate(45deg);
+  transform: translateX(-50%) rotate(45deg);
+  border: solid 2px rgba(0, 0, 0, 0.8);
+  border-left-color: transparent;
+  border-top-color: transparent;
+  margin-bottom: 4px;
+  content: "";
+}
+.chonky-loading-placeholder {
+  -webkit-animation: loading-placeholder 1.5s infinite linear;
+  -moz-animation: loading-placeholder 1.5s infinite linear;
+  -o-animation: loading-placeholder 1.5s infinite linear;
+  animation: loading-placeholder 1.5s infinite linear;
+  background-color: #ccc;
+  white-space: nowrap;
+  border-radius: 4px;
+  overflow: hidden;
+  min-width: 20px;
+  max-width: 40%;
+}
+@-webkit-keyframes loading-placeholder {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+@-moz-keyframes loading-placeholder {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+@-ms-keyframes loading-placeholder {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+@keyframes loading-placeholder {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

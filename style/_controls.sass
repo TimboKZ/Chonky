@@ -1,0 +1,144 @@
+@import "util"
+
+.chonky
+  &-side
+    &-left, &-right
+      padding-bottom: 0
+
+      & > *
+        vertical-align: middle
+        display: inline-block
+
+
+    &-left > *
+      margin-right: $base-padding * 1.75
+
+    &-right > *
+      margin-left: $base-padding * 1.75
+
+  &-controls
+    justify-content: space-between
+    margin-bottom: $base-padding
+    display: flex
+
+  &-folder-chain
+    &-entry, &-separator
+      vertical-align: middle
+      display: inline-block
+
+    &-entry
+      @include reset-button
+      @include default-transition(background-color)
+      border-radius: $radius-medium
+      border: solid 1px transparent
+      line-height: $base-bar-height
+      padding: 0 0.4em !important
+      height: $base-bar-height
+      box-sizing: border-box
+
+      &:last-child &-name
+        text-decoration: underline $fg-subtle
+
+      &.chonky-loading
+        font-style: italic
+        color: $fg-subtle
+
+      @at-root div#{&}
+        cursor: default
+      @at-root button#{&}
+        &:hover
+          background-color: $bg-light
+
+        &:active
+          border-color: $border-dark
+
+
+    &-separator
+      line-height: $base-bar-height
+      height: $base-bar-height
+      color: $fg-subtle
+      padding: 0 0.2em
+
+  &-button-group
+    button:not(:first-child)
+      border-bottom-left-radius: 0
+      border-top-left-radius: 0
+
+    button:not(:last-child)
+      border-bottom-right-radius: 0
+      border-top-right-radius: 0
+      margin-right: -1px
+
+  &-dropdown
+    $dropdown-parent: &
+    position: relative
+
+    &.chonky-active, &:hover, &:active
+      #{$dropdown-parent}-contents
+        display: block
+
+    &-contents
+      border: solid 1px $border-light
+      border-radius: $radius-medium
+      background-color: $bg-base
+      position: absolute
+      overflow: hidden
+      margin-top: 4px
+      display: none
+      z-index: 888
+      top: 100%
+      right: 0
+
+    &-button
+      padding: 0.5em !important
+      white-space: nowrap
+      text-align: left
+      display: block
+      width: 100%
+
+      &:active, &:focus
+        & + #{$dropdown-parent}-contents
+          display: block
+
+      &:not(:last-child)
+        border-bottom: solid 1px $border-lighter
+
+  &-dropdown-button, &-icon-button
+    @include default-transition(background-color)
+    @include reset-button
+
+    &[disabled]
+      color: $fg-subtle !important
+      pointer-events: none
+
+    &.chonky-active
+      color: $fg-active
+
+    &:hover
+      background-color: $bg-light
+      z-index: 2
+
+  &-icon-button
+    border-radius: $radius-medium
+    line-height: $base-bar-height
+    border: solid 1px transparent
+    min-width: $base-bar-height
+    height: $base-bar-height
+    vertical-align: middle
+    box-sizing: border-box
+    text-align: center
+    position: relative
+    z-index: 1
+
+    &.chonky-active
+      z-index: 3
+
+    &:hover
+      z-index: 2
+
+    &:active
+      border-color: $border-dark
+
+    & > span
+      border-color: $border-dark
+      padding: $base-padding * 2

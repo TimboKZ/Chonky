@@ -1,0 +1,10 @@
+# JetBrains IDEs, Vim swap files
+.idea/
+*.swp
+
+/coverage
+/es
+/lib
+/node_modules
+/umd
+npm-debug.log*
