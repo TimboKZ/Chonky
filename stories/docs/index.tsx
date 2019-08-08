@@ -19,7 +19,7 @@ import {getParams, wrapExample} from '../util/StoriesUtil';
 
 
 storiesOf('Chonky docs', module)
-    .add('Introduction', wrapExample(IntroComp, 400), getParams(IntroDoc))
+    .add('Introduction', wrapExample(IntroComp, 420), getParams(IntroDoc))
     .add('Installation & usage', wrapExample(InstallationComp), getParams(InstallationDoc))
     .add('Passing files to Chonky', () => <span/>, {
         options: {showPanel: false},
