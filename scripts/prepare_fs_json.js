@@ -65,22 +65,20 @@ const readDir = (dirPath, parentFile) => {
         });
 };
 
-const fileMap = {};
-
-const dirToFsTree = (dirPath, parentFile) => {
+const dirToFsTree = (fileMap, dirPath, parentFile) => {
     return readDir(dirPath, parentFile)
         .then(files => {
             const promises = [];
             for (const file of files) {
                 const skipFile = file.base === 'node_modules'
-                    // || file.base === '.git'
+                    || file.base === '.git'
                     || file.base === 'public'
                     || file.base === '.idea';
                 if (skipFile) continue;
 
                 fileMap[file.id] = file;
                 if (parentFile) parentFile.childrenIds.push(file.id);
-                if (file.isDir) promises.push(dirToFsTree(path.join(dirPath, file.base), file));
+                if (file.isDir) promises.push(dirToFsTree(fileMap, path.join(dirPath, file.base), file));
             }
             return Promise.all(promises);
         });
@@ -88,17 +86,28 @@ const dirToFsTree = (dirPath, parentFile) => {
 
 const prepareFsJson = (rootPath, outPath) => {
     let rootFile;
+    const fileMap = {};
     readFile(rootPath, null)
         .then(file => {
             fileMap[file.id] = file;
             rootFile = file;
         })
-        .then(() => dirToFsTree(rootPath, rootFile))
+        .then(() => dirToFsTree(fileMap, rootPath, rootFile))
         .then(() => fs.writeFile(outPath, JSON.stringify({rootFolderId: rootFile.id, fileMap}, null, 2)))
         .catch(console.error);
 };
 
-prepareFsJson(path.resolve(__dirname, '..'),
-    path.resolve(__dirname, '..', 'stories', 'util', 'chonky_project.fs_map.json'));
-prepareFsJson(path.resolve(__dirname, '..', '..', '..', 'misc', 'Images with thumbnails'),
-    path.resolve(__dirname, '..', 'stories', 'util', 'japan_pics.fs_map.json'));
+const chonkyProjectDir = path.resolve(__dirname, '..');
+const japanPicsDir = path.resolve(__dirname, '..', '..', '..', 'misc', 'Images with thumbnails');
+const storiesUtilDir = path.resolve(__dirname, '..', 'stories', 'util');
+
+Promise.resolve()
+    .then(() => {
+        return prepareFsJson(chonkyProjectDir, path.join(storiesUtilDir, 'chonky_project.fs_map.json'));
+    })
+    .then(() => {
+        fileMap = {};
+        return prepareFsJson(japanPicsDir, path.join(storiesUtilDir, 'japan_pics.fs_map.json'));
+    });
+
+

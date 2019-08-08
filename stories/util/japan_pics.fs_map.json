@@ -1,19 +1,6 @@
 {
   "rootFolderId": "0b9e8a6706d9",
   "fileMap": {
-    "3573ce1da0ba": {
-      "id": "3573ce1da0ba",
-      "base": "Chonky",
-      "name": "Chonky",
-      "ext": "",
-      "isDir": true,
-      "isHidden": false,
-      "isSymlink": false,
-      "size": null,
-      "modDate": "2019-08-08T01:16:29.603Z",
-      "parentId": null,
-      "childrenIds": []
-    },
     "0b9e8a6706d9": {
       "id": "0b9e8a6706d9",
       "base": "Images with thumbnails",
