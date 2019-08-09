@@ -11,21 +11,22 @@ import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 
 import {FileData, FileIndexMap, Option, Options, SortOrder, SortProperty} from './typedef';
+import {isNil, isObject} from './Util';
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
 
 export class FileUtil {
 
-    static relativeDate = (date: Date) => timeAgo.format(date);
-    static readableDate = (date: Date) => dateFormat(date, 'HH:MM, mmm d, yyyy');
-    static readableSize = (size: number) => filesize(size, {bits: false, exponent: 1});
+    public static relativeDate = (date: Date) => timeAgo.format(date);
+    public static readableDate = (date: Date) => dateFormat(date, 'HH:MM, mmm d, yyyy');
+    public static readableSize = (size: number) => filesize(size, {bits: false, exponent: 1});
 
-    static prepareComparator = (foldersFirst: boolean, sortProperty: SortProperty, sortOrder: SortOrder) => {
+    public static prepareComparator = (foldersFirst: boolean, sortProperty: SortProperty, sortOrder: SortOrder) => {
         return (fileA: Nullable<FileData>, fileB: Nullable<FileData>) => {
             // If file is `null` (i.e. is loading) show it last
-            if (!fileA) return 1;
-            if (!fileB) return -1;
+            if (isNil(fileA)) return 1;
+            if (isNil(fileB)) return -1;
 
             if (foldersFirst) {
                 if (fileA.isDir && !fileB.isDir) return -1;
@@ -52,7 +53,7 @@ export class FileUtil {
         };
     };
 
-    static sortFiles(rawFiles: Nullable<FileData>[], options: Options,
+    public static sortFiles(rawFiles: Nullable<FileData>[], options: Options,
                      sortProperty: SortProperty, sortOrder: SortOrder): [Nullable<FileData>[], FileIndexMap] {
         let files = rawFiles.slice(0);
         if (!options[Option.ShowHidden]) {
@@ -64,7 +65,7 @@ export class FileUtil {
         const fileIndexMap = {};
         for (let i = 0; i < files.length; ++i) {
             const currentFile = files[i];
-            if (currentFile) fileIndexMap[currentFile.id] = i;
+            if (isObject(currentFile)) fileIndexMap[currentFile.id] = i;
         }
 
         return [files, fileIndexMap];

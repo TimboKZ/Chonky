@@ -45,6 +45,7 @@ method exposed by Chonky (see [relevant example](./?path=/story/file-browser-exa
 * Supports file sorting and text search.
 * Supports [windowing](https://reactjs.org/docs/optimizing-performance.html#virtualize-long-lists) (a.k.a.
 virtualization) for long file lists.
+* Supports common keyboard shortcuts.
 * Supports file thumbnails (e.g. generated from videos or images).
 * Detects common file types, showing appropriate icons.
 

@@ -9,25 +9,25 @@ import classnames from 'classnames';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faChevronDown} from '@fortawesome/free-solid-svg-icons';
 
-type DropdownProps = {
+interface DropdownProps {
     title: string;
     active?: boolean;
 }
 
-type DropdownState = {}
+interface DropdownState {}
 
 export default class Dropdown extends React.Component<DropdownProps, DropdownState> {
 
-    static defaultProps = {
+    public static defaultProps = {
         title: 'Dropdown',
         active: false,
     };
 
-    constructor(props: DropdownProps) {
+    public constructor(props: DropdownProps) {
         super(props);
     }
 
-    render() {
+    public render() {
         const {children, title, active} = this.props;
 
         const className = classnames({

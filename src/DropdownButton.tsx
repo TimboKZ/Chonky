@@ -6,8 +6,9 @@
 
 import * as React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {isFunction, isNil} from './Util';
 
-type DropdownButtonProps = {
+interface DropdownButtonProps {
     icon: any;
     altIcon?: any;
     active: boolean;
@@ -15,22 +16,16 @@ type DropdownButtonProps = {
     onClick?: (event: any) => void;
 }
 
-type DropdownButtonState = {}
+interface DropdownButtonState {}
 
 export default class DropdownButton extends React.Component<DropdownButtonProps, DropdownButtonState> {
 
-    static defaultProps = {};
-
-    constructor(props: DropdownButtonProps) {
-        super(props);
-    }
-
-    render() {
+    public render() {
         const {icon, altIcon, active, text, onClick} = this.props;
 
         let iconToUse = icon;
         let iconClass = '';
-        if (altIcon && active !== undefined) {
+        if (!isNil(altIcon) && active !== undefined) {
             if (active) {
                 iconClass = 'chonky-text-active';
             } else {
@@ -40,7 +35,7 @@ export default class DropdownButton extends React.Component<DropdownButtonProps,
         }
 
         const buttonProps: any = {};
-        if (onClick) buttonProps.onClick = onClick;
+        if (isFunction(onClick)) buttonProps.onClick = onClick;
         else buttonProps.disabled = true;
 
         return <button className="chonky-dropdown-button" {...buttonProps}>

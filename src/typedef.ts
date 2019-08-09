@@ -8,7 +8,7 @@ import {Nullable} from 'tsdef';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 
 // Required properties are marked with `!!`
-export type FileData = {
+export interface FileData {
     id: string; // !! String that uniquely identifies the file
 
     name: string; // !! Full name, e.g. `MyImage.jpg`
@@ -17,8 +17,8 @@ export type FileData = {
     isDir: boolean; // !! Is a directory
     isHidden?: boolean; // Is a hidden file, default: false
     isSymlink?: boolean; // Is a symlink, default: false
-    openable?: boolean // Can be opened, default: true
-    selectable?: boolean, // Can be selected, default: true
+    openable?: boolean; // Can be opened, default: true
+    selectable?: boolean; // Can be selected, default: true
 
     size?: number; // File size in bytes
     modDate?: Date; // Last change date
@@ -27,11 +27,11 @@ export type FileData = {
     childrenIds?: string[]; // An array of IDs of children (only for folders)
 }
 
-export type FileIndexMap = { [id: string]: number };
+export interface FileIndexMap {[id: string]: number}
 
-export type Selection = {
-    [fileId: string]: boolean | undefined,
-};
+export interface Selection {
+    [fileId: string]: boolean | undefined;
+}
 
 export enum SelectionType {
     Single,
@@ -39,14 +39,14 @@ export enum SelectionType {
     Range,
 }
 
-export type IconData = {
+export interface IconData {
     icon: IconProp;
     colorCode: number;
 }
 
-export type ClickEvent = {
-    ctrlKey: boolean,
-    shiftKey: boolean,
+export interface ClickEvent {
+    ctrlKey: boolean;
+    shiftKey: boolean;
 }
 
 export type FileClickHandler<T = void> = (file: FileData, fileIndex: number,
@@ -68,7 +68,10 @@ export enum FolderView {
     LargeThumbs = 'large-thumbs',
 }
 
-export type EntrySize = { width: number, height: number };
+export interface EntrySize {
+    width: number;
+    height: number;
+}
 
 export enum Option {
     ShowHidden = 'show-hidden',
@@ -78,12 +81,12 @@ export enum Option {
     DisableSelection = 'disable-selection',
 }
 
-export type Options = {
-    [Option.ShowHidden]: boolean,
-    [Option.FoldersFirst]: boolean,
-    [Option.ShowExtensions]: boolean,
-    [Option.ConfirmDeletions]: boolean,
-    [Option.DisableSelection]: boolean,
+export interface Options {
+    [Option.ShowHidden]: boolean;
+    [Option.FoldersFirst]: boolean;
+    [Option.ShowExtensions]: boolean;
+    [Option.ConfirmDeletions]: boolean;
+    [Option.DisableSelection]: boolean;
 }
 
 export enum SortProperty {

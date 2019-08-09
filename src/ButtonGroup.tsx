@@ -6,19 +6,19 @@
 
 import * as React from 'react';
 
-type IconGroupProps = {}
+interface IconGroupProps {}
 
-type IconGroupState = {}
+interface IconGroupState {}
 
 export default class ButtonGroup extends React.Component<IconGroupProps, IconGroupState> {
 
-    static defaultProps = {};
+    public static defaultProps = {};
 
-    constructor(props: IconGroupProps) {
+    public constructor(props: IconGroupProps) {
         super(props);
     }
 
-    render() {
+    public render() {
         const {children} = this.props;
         return <div className="chonky-button-group">
             {children}

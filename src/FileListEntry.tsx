@@ -28,32 +28,33 @@ import ConsoleUtil from './ConsoleUtil';
 import LoadingPlaceholder from './LoadingPlaceholder';
 import {getIconData, LoadingIconData} from './IconUtil';
 import ClickableWrapper, {ClickableWrapperProps} from './ClickableWrapper';
+import {isFunction, isNil, isNumber, isObject, isString} from './Util';
 
-type FileListEntryProps = {
+interface FileListEntryProps {
     instanceId: string;
     file: Nullable<FileData>;
     selected: boolean;
     displayIndex: number;
-    view: FolderView,
+    view: FolderView;
 
     doubleClickDelay: number;
     onFileSingleClick: FileClickHandler;
     onFileDoubleClick: FileClickHandler;
 
-    thumbnailGenerator?: ThumbnailGenerator,
+    thumbnailGenerator?: ThumbnailGenerator;
 
     size?: EntrySize;
 }
 
-type FileListEntryState = {
+interface FileListEntryState {
     thumbnailUrl: Nullable<string>;
 }
 
 export default class FileListEntry extends React.PureComponent<FileListEntryProps, FileListEntryState> {
 
-    static defaultProps = {};
+    public static defaultProps = {};
 
-    constructor(props: FileListEntryProps) {
+    public constructor(props: FileListEntryProps) {
         super(props);
 
         this.state = {
@@ -61,13 +62,13 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         };
     }
 
-    componentDidMount() {
+    public componentDidMount() {
         this.requestThumbnail();
     }
 
-    requestThumbnail() {
+    private requestThumbnail() {
         const {file, thumbnailGenerator} = this.props;
-        if (!file || !thumbnailGenerator) return;
+        if (isNil(file) || !isFunction(thumbnailGenerator)) return;
 
         // Check if thumbnail generator returns anything at all
         let syncResult: ThumbnailGeneratorResult = null;
@@ -79,7 +80,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
             return;
         }
 
-        if (!syncResult) return this.setState({thumbnailUrl: null});
+        if (isNil(syncResult)) return this.setState({thumbnailUrl: null});
 
         if (typeof syncResult === 'string') return this.setState({thumbnailUrl: syncResult});
         syncResult
@@ -89,21 +90,19 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
             });
     }
 
-    getIconData() {
+    private getIconData() {
         const {file} = this.props;
-        return file ? getIconData(file) : LoadingIconData;
+        return isObject(file) ? getIconData(file) : LoadingIconData;
     }
 
-    renderFilename() {
+    private renderFilename() {
         const {file} = this.props;
-        if (!file) return <LoadingPlaceholder/>;
+        if (isNil(file)) return <LoadingPlaceholder/>;
 
         let displayExtension = '';
 
-        if (file.ext) displayExtension = file.ext;
-        else if (typeof file.ext !== 'string') {
-            displayExtension = path.extname(file.name);
-        }
+        if (isString(file.ext)) displayExtension = file.ext;
+        else displayExtension = path.extname(file.name);
 
         return [
             <When key="chonky-filename-symlink" condition={file.isSymlink === true}>
@@ -114,7 +113,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
                 <span className="chonky-text-subtle"><FontAwesomeIcon icon={HiddenIcon} size="xs"/></span>
                 &nbsp;&nbsp;
             </When>,
-            <If key="chonky-file-name" condition={!!displayExtension}>
+            <If key="chonky-file-name" condition={displayExtension.length !== 0}>
                 <Then>
                     {file.name.substr(0, file.name.length - displayExtension.length)}
                     <span className="chonky-text-subtle-dark">{displayExtension}</span>
@@ -129,17 +128,17 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         ];
     };
 
-    renderSize() {
+    private renderSize() {
         const {file} = this.props;
-        if (!file) return <LoadingPlaceholder/>;
-        if (!file.size) return <span className="chonky-text-subtle">—</span>;
+        if (isNil(file)) return <LoadingPlaceholder/>;
+        if (!isNumber(file.size)) return <span className="chonky-text-subtle">—</span>;
         return FileUtil.readableSize(file.size);
     }
 
-    renderModDate() {
+    private renderModDate() {
         const {file} = this.props;
-        if (!file) return <LoadingPlaceholder/>;
-        if (!file.modDate) return <span className="chonky-text-subtle">—</span>;
+        if (isNil(file)) return <LoadingPlaceholder/>;
+        if (!(file.modDate instanceof Date)) return <span className="chonky-text-subtle">—</span>;
         const relativeDate = FileUtil.relativeDate(file.modDate);
         const readableDate = FileUtil.readableDate(file.modDate);
 
@@ -149,9 +148,9 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         return <span className="chonky-tooltip" data-tooltip={tooltipDate}>{displayDate}</span>;
     }
 
-    renderDetailsEntry() {
+    private renderDetailsEntry() {
         const {file} = this.props;
-        const loading = !file;
+        const loading = isNil(file);
 
         const iconData = this.getIconData();
         const iconProps = {
@@ -164,7 +163,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
 
         return [
             <div key="chonky-file-icon" {...iconProps}>
-                <FontAwesomeIcon icon={iconData.icon} fixedWidth spin={loading}/>
+                <FontAwesomeIcon icon={iconData.icon} fixedWidth={true} spin={loading}/>
             </div>,
             <div key="chonky-file-name" className="chonky-file-list-entry-name">{this.renderFilename()}</div>,
             <div key="chonky-file-size" className="chonky-file-list-entry-size">{this.renderSize()}</div>,
@@ -172,30 +171,31 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         ];
     }
 
-    renderThumbsEntry() {
+    private renderThumbsEntry() {
         const {file} = this.props;
         const {thumbnailUrl} = this.state;
-        const loading = !file;
+        const loading = isNil(file);
 
+        const hasThumbnail = isString(thumbnailUrl);
         const iconData = this.getIconData();
         const iconProps = {
             className: classnames({
                 'chonky-file-list-entry-icon': true,
                 'chonky-text-subtle-light': loading,
-                'chonky-icon-over-image': !!thumbnailUrl,
+                'chonky-icon-over-image': hasThumbnail,
             }),
         };
 
         const imageBgClassName = classnames({
             'chonky-file-list-entry-image-bg': true,
-            'chonky-thumbnail-loaded': !!thumbnailUrl,
+            'chonky-thumbnail-loaded': hasThumbnail,
         });
         const imageFgClassName = classnames({
             'chonky-file-list-entry-image-fg': true,
-            'chonky-thumbnail-loaded': !!thumbnailUrl,
+            'chonky-thumbnail-loaded': hasThumbnail,
         });
-        const imageStyle = thumbnailUrl ? {backgroundImage: `url('${thumbnailUrl}')`} : {};
-        const BgColors = thumbnailUrl ? ColorsDark : ColorsLight;
+        const imageStyle = hasThumbnail ? {backgroundImage: `url('${thumbnailUrl}')`} : {};
+        const BgColors = hasThumbnail ? ColorsDark : ColorsLight;
 
         return <div className="chonky-file-list-entry-content"
                     style={{backgroundColor: BgColors[iconData.colorCode]}}>
@@ -204,7 +204,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
                 <div className={imageBgClassName} style={imageStyle}/>
                 <div className={imageFgClassName} style={imageStyle}/>
                 <div className="chonky-file-list-entry-selection"/>
-                <div {...iconProps}><FontAwesomeIcon icon={iconData.icon} fixedWidth spin={loading}/></div>
+                <div {...iconProps}><FontAwesomeIcon icon={iconData.icon} fixedWidth={true} spin={loading}/></div>
             </div>
             <div className="chonky-file-list-entry-description">
                 <div className="chonky-file-list-entry-name">{this.renderFilename()}</div>
@@ -216,7 +216,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         </div>;
     }
 
-    render() {
+    public render() {
         const {
             instanceId, file, selected, displayIndex, view, doubleClickDelay,
             onFileSingleClick, onFileDoubleClick, size,
@@ -230,20 +230,22 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
                     'chonky-file-list-entry': true,
                     'chonky-selected': selected,
                 }),
-                'data-chonky-file-id': file ? file.id : undefined,
+                'data-chonky-file-id': isObject(file) ? file.id : undefined,
                 'data-chonky-instance-id': instanceId,
             },
             doubleClickDelay,
         };
-        if (file) {
-            if (onFileSingleClick) wrapperProps.onSingleClick =
+        if (isObject(file)) {
+            if (isFunction(onFileSingleClick)) wrapperProps.onSingleClick =
                 (event: ClickEvent, keyboard: boolean) => onFileSingleClick(file, displayIndex, event, keyboard);
-            if (onFileDoubleClick) wrapperProps.onDoubleClick =
+            if (isFunction(onFileDoubleClick)) wrapperProps.onDoubleClick =
                 (event: ClickEvent, keyboard: boolean) => onFileDoubleClick(file, displayIndex, event, keyboard);
         }
 
         return <ClickableWrapper {...wrapperProps}>
+            {/* eslint-disable-next-line */}
             {view === FolderView.Details && this.renderDetailsEntry()}
+            {/* eslint-disable-next-line */}
             {view !== FolderView.Details && this.renderThumbsEntry()}
         </ClickableWrapper>;
     }

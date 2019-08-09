@@ -6,8 +6,10 @@
 
 import * as React from 'react';
 
-type LoadingPlaceholderProps = {
-    maxWidth?: string | number,
+import {isNumber} from './Util';
+
+interface LoadingPlaceholderProps {
+    maxWidth?: string | number;
 }
 
 const randomInt = (min: number, max: number): number => {
@@ -21,7 +23,7 @@ const LoadingPlaceholder = (props: LoadingPlaceholderProps) => {
     const compProps = {
         className: 'chonky-loading-placeholder',
         style: {
-            maxWidth: props.maxWidth ? props.maxWidth : `${30 + randomNoise(10)}%`,
+            maxWidth: isNumber(props.maxWidth) ? props.maxWidth : `${30 + randomNoise(10)}%`,
         },
     };
     return <div {...compProps}>&nbsp;</div>;

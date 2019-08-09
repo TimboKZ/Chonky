@@ -37,6 +37,7 @@ import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {faAdobe, faGitAlt, faLinux, faNodeJs, faPhp, faPython, faUbuntu} from '@fortawesome/free-brands-svg-icons';
 
 import {IconData, ColorsLight, VideoExtensions, ImageExtensions, AudioExtensions, FileData} from './typedef';
+import {isNil, isObject} from './Util';
 
 const ErrorIconData: IconData = {icon: faExclamationTriangle, colorCode: 1};
 export const LoadingIconData: IconData = {icon: faCircleNotch, colorCode: 0};
@@ -89,9 +90,9 @@ for (const pair of IconsToExtensions) {
 }
 
 export const getIconData = (file: Nullable<FileData>): IconData => {
-    if (!file) return ErrorIconData;
+    if (!isObject(file)) return ErrorIconData;
     if (file.isDir) return FolderIconData;
 
     const match = exactTrie.getWithCheckpoints(file.name, '.', true);
-    return match ? match : FileIconData;
+    return !isNil(match) ? match : FileIconData;
 };

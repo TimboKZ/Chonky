@@ -6,12 +6,13 @@ import '../../style/main.css';
 import {FileData} from '../../src/typedef';
 import {FileBrowser, FolderView} from '../../src';
 import {getMainDemoFsData} from '../util/StoriesUtil';
+import {isArray, isNil, isObject} from '../../src/Util';
 
 export default class FullDemo extends React.Component<any, any> {
 
-    fileMap: { [id: string]: FileData };
+    private readonly fileMap: { [id: string]: FileData };
 
-    constructor(props: any) {
+    public constructor(props: any) {
         super(props);
 
         const {fileMap, rootFolderId} = getMainDemoFsData();
@@ -19,7 +20,7 @@ export default class FullDemo extends React.Component<any, any> {
         this.state = {currentFolderId: rootFolderId};
     }
 
-    handleFileOpen = (file: FileData) => {
+    private handleFileOpen = (file: FileData) => {
         if (file.isDir) {
             this.setState({currentFolderId: file.id});
         } else {
@@ -28,8 +29,8 @@ export default class FullDemo extends React.Component<any, any> {
         }
     };
 
-    thumbGenerator = (file: any) => {
-        if (!file.thumbnailUrl) return null;
+    private thumbGenerator = (file: any) => {
+        if (isNil(file.thumbnailUrl)) return null;
         return new Promise((resolve: any, reject: any) => {
             const image = new Image();
             image.onload = () => resolve(file.thumbnailUrl);
@@ -39,20 +40,20 @@ export default class FullDemo extends React.Component<any, any> {
             .catch((error: any) => console.error(`Failed to load thumbnail: ${error}`));
     };
 
-    render() {
+    public render() {
         const {currentFolderId} = this.state;
         const folder = this.fileMap[currentFolderId];
 
         const folderChain = [];
         let files: Nullable<FileData>[] = [];
-        if (folder) {
+        if (isObject(folder)) {
             let currentFolder: Nullable<FileData> = folder;
-            while (currentFolder) {
+            while (isObject(currentFolder)) {
                 folderChain.unshift(currentFolder);
                 const parentId: Undefinable<string> = currentFolder.parentId;
-                currentFolder = parentId ? this.fileMap[parentId] : null;
+                currentFolder = !isNil(parentId) ? this.fileMap[parentId] : null;
             }
-            if (folder.childrenIds) {
+            if (isArray(folder.childrenIds)) {
                 files = folder.childrenIds.map(id => this.fileMap[id]);
             }
         }

@@ -9,10 +9,10 @@ import React from 'react';
 import {fileMap as picsFileMap, rootFolderId as picsFolderId} from './japan_pics.fs_map.json';
 import {fileMap as chonkyFileMap, rootFolderId as chonkyFolderId} from './chonky_project.fs_map.json';
 import {FileData} from '../../src/typedef';
+import {isNil} from '../../src/Util';
 
 const processFileMapDates = (fileMap: any) => {
     for (const fileId in fileMap) {
-        if (!fileMap.hasOwnProperty(fileId)) continue;
         fileMap[fileId].modDate = new Date(fileMap[fileId].modDate);
     }
 };
@@ -73,9 +73,9 @@ const wrapperStyle = {
 };
 
 export const wrapExample = (Element?: React.ElementType, minHeight?: any) => {
-    if (!Element) return () => <span/>;
+    if (isNil(Element)) return () => <span/>;
     const style: any = {...wrapperStyle};
-    if (minHeight) style.minHeight = minHeight;
+    if (!isNil(minHeight)) style.minHeight = minHeight;
     return () => <div style={style}><Element/></div>;
 };
 
@@ -83,6 +83,6 @@ export const getParams = (readme?: string, extraParams?: object) => {
     const baseParams: any = {
         options: {showPanel: false},
     };
-    if (readme) baseParams.readme = {content: readme};
+    if (!isNil(readme)) baseParams.readme = {content: readme};
     return {...baseParams, ...extraParams};
 };

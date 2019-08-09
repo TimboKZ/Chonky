@@ -22,8 +22,9 @@ import {
     SortProperty,
     ThumbnailGenerator, EntrySize,
 } from './typedef';
+import {isObject, isString} from './Util';
 
-type FileListProps = {
+interface FileListProps {
     instanceId: string;
     files: Nullable<FileData>[];
     selection: Selection;
@@ -33,14 +34,14 @@ type FileListProps = {
     onFileSingleClick: FileClickHandler;
     onFileDoubleClick: FileClickHandler;
 
-    thumbnailGenerator?: ThumbnailGenerator,
+    thumbnailGenerator?: ThumbnailGenerator;
 
     sortProperty: SortProperty;
     sortOrder: SortOrder;
     activateSortProperty: (name: SortProperty) => void;
 }
 
-type FileListState = {}
+interface FileListState {}
 
 const HeaderDetails = [
     [null, ''],
@@ -56,18 +57,12 @@ const EntrySizeMap: { [view: string]: EntrySize } = {
 
 export default class FileList extends React.Component<FileListProps, FileListState> {
 
-    static defaultProps = {};
-
-    constructor(props: FileListProps) {
-        super(props);
-    }
-
-    renderDetailsHeaders() {
+    private renderDetailsHeaders() {
         const {sortProperty, sortOrder, activateSortProperty} = this.props;
         const comps = new Array(HeaderDetails.length);
         for (let i = 0; i < HeaderDetails.length; ++i) {
             const [name, title] = HeaderDetails[i];
-            const headerProps = !name ? {} : {
+            const headerProps = !isString(name) ? {} : {
                 tabIndex: 0,
                 className: classnames({
                     'chonky-clickable': true,
@@ -77,10 +72,12 @@ export default class FileList extends React.Component<FileListProps, FileListSta
             };
             comps[i] = <div key={`header-${name}`} {...headerProps}>
                 {title}
+                {/* eslint-disable-next-line */}
                 {sortProperty === name &&
                 <span className="chonky-text-subtle">
                     &nbsp;
-                    <FontAwesomeIcon icon={sortOrder === SortOrder.Asc ? AscIcon : DescIcon} fixedWidth size="sm"/>
+                    <FontAwesomeIcon icon={sortOrder === SortOrder.Asc ? AscIcon : DescIcon}
+                                     fixedWidth={true} size="sm"/>
                 </span>
                 }
             </div>;
@@ -88,7 +85,7 @@ export default class FileList extends React.Component<FileListProps, FileListSta
         return <div className="chonky-file-list-header">{comps}</div>;
     }
 
-    renderFileEntries() {
+    private renderFileEntries() {
         const {
             instanceId, files, selection, view, doubleClickDelay,
             onFileSingleClick, onFileDoubleClick, thumbnailGenerator,
@@ -103,7 +100,7 @@ export default class FileList extends React.Component<FileListProps, FileListSta
                     'chonky-file-list-notification-empty': true,
                 }),
             };
-            if (entrySize) {
+            if (isObject(entrySize)) {
                 placeholderProps.style = {
                     height: entrySize.height,
                 };
@@ -122,8 +119,8 @@ export default class FileList extends React.Component<FileListProps, FileListSta
         let loadingCounter = 0;
         for (let i = 0; i < comps.length; ++i) {
             const file = files[i];
-            const key = file ? file.id : `loading-file-${loadingCounter++}`;
-            const selected = file ? !!selection[file.id] : false;
+            const key = isObject(file) ? file.id : `loading-file-${loadingCounter++}`;
+            const selected = isObject(file) ? selection[file.id] === true : false;
             comps[i] = <FileListEntry key={key} instanceId={instanceId}
                                       selected={selected} file={file} displayIndex={i}
                                       view={view} doubleClickDelay={doubleClickDelay}
@@ -135,7 +132,7 @@ export default class FileList extends React.Component<FileListProps, FileListSta
         return comps;
     }
 
-    render() {
+    public render() {
         const {view} = this.props;
         const isThumbs = view === FolderView.SmallThumbs || view === FolderView.LargeThumbs;
 

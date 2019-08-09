@@ -26,9 +26,10 @@ import Dropdown from './Dropdown';
 import IconButton from './IconButton';
 import ButtonGroup from './ButtonGroup';
 import DropdownButton from './DropdownButton';
+import {getNonNil, isFunction, isNil, isObject} from './Util';
 import {FileData, FolderView, Option, Options} from './typedef';
 
-type ControlsProps = {
+interface ControlsProps {
     folderChain?: (FileData | null)[];
 
     onFileOpen?: (file: FileData) => void;
@@ -37,9 +38,9 @@ type ControlsProps = {
     setView: (view: FolderView) => void;
     options: Options;
     setOption: (name: Option, value: boolean) => void;
-};
+}
 
-type ControlsState = {};
+interface ControlsState {}
 
 const ViewControls = [
     [faList, FolderView.Details, 'Details'],
@@ -56,16 +57,9 @@ const DropdownButtons = [
 
 export default class Controls extends React.Component<ControlsProps, ControlsState> {
 
-    static defaultProps = {};
-
-
-    constructor(props: ControlsProps) {
-        super(props);
-    }
-
-    renderFolderChain() {
+    private renderFolderChain() {
         const {folderChain, onFileOpen} = this.props;
-        if (!folderChain) return null;
+        if (isNil(folderChain)) return null;
 
         const comps = new Array(Math.max(0, folderChain.length * 2 - 1));
         for (let i = 0; i < folderChain.length; ++i) {
@@ -77,22 +71,25 @@ export default class Controls extends React.Component<ControlsProps, ControlsSta
                 key: `folder-chain-entry-${j}`,
                 className: classnames({
                     'chonky-folder-chain-entry': true,
-                    'chonky-loading': !folder,
+                    'chonky-loading': isNil(folder),
                 }),
             };
-            if (folder
+            if (!isNil(folder)
                 && folder.openable !== false
-                && onFileOpen
+                && isFunction(onFileOpen)
                 && !isLast) {
                 compProps.onClick = () => onFileOpen(folder);
             }
 
-            const TagToUse = compProps.onClick ? 'button' : 'div';
-            comps[j] = <TagToUse {...compProps} >
+            const TagToUse = isFunction(compProps.onClick) ? 'button' : 'div';
+            comps[j] = <TagToUse {...compProps}>
+                {/* eslint-disable-next-line */}
                 {j === 0 && <span className="chonky-text-subtle-dark">
                     <FontAwesomeIcon icon={faFolder}/>&nbsp;&nbsp;
                 </span>}
-                <span className="chonky-folder-chain-entry-name">{folder ? folder.name : 'Loading...'}</span>
+                <span className="chonky-folder-chain-entry-name">
+                    {isObject(folder) ? folder.name : 'Loading...'}
+                </span>
             </TagToUse>;
             if (!isLast) {
                 comps[j + 1] = <div key={`folder-chain-separator-${j}`} className="chonky-folder-chain-separator">
@@ -104,7 +101,7 @@ export default class Controls extends React.Component<ControlsProps, ControlsSta
         return <div className="chonky-folder-chain">{comps}</div>;
     }
 
-    renderViewControls() {
+    private renderViewControls() {
         const {view, setView} = this.props;
         let i = 0;
         const comps = new Array(ViewControls.length);
@@ -115,12 +112,12 @@ export default class Controls extends React.Component<ControlsProps, ControlsSta
         return <ButtonGroup>{comps}</ButtonGroup>;
     }
 
-    renderOptionsDropdown() {
+    private renderOptionsDropdown() {
         const {options, setOption} = this.props;
         const comps = new Array(DropdownButtons.length);
         let i = 0;
         for (const [optionName, text] of DropdownButtons) {
-            const value = options[optionName];
+            const value = options[optionName] as boolean;
             comps[i++] = <DropdownButton key={`option-${optionName}`}
                                          icon={faCheckCircle} altIcon={faCircle} active={options[optionName]}
                                          text={text} onClick={() => setOption(optionName as Option, !value)}/>;
@@ -128,12 +125,12 @@ export default class Controls extends React.Component<ControlsProps, ControlsSta
         return <Dropdown title="Options">{comps}</Dropdown>;
     }
 
-    render() {
+    public render() {
         const {folderChain, onFileOpen} = this.props;
         const parentDirButtonProps: any = {};
-        if (onFileOpen && folderChain && folderChain.length > 1) {
-            const parentFolder = folderChain[folderChain.length - 2];
-            if (parentFolder && parentFolder.openable !== false) {
+        if (isFunction(onFileOpen)) {
+            const parentFolder = getNonNil(folderChain, -2);
+            if (!isNil(parentFolder) && parentFolder.openable !== false) {
                 parentDirButtonProps.onClick = () => onFileOpen(parentFolder);
             }
         }
