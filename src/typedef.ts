@@ -48,7 +48,8 @@ export type ClickEvent = {
     shiftKey: boolean,
 }
 
-export type FileClickHandler<T = void> = (file: FileData, fileIndex: number, event: ClickEvent, keyboard: boolean) => T;
+export type FileClickHandler<T = void> = (file: FileData, fileIndex: number,
+                                          event: ClickEvent, keyboard: boolean) => T;
 
 export enum SelectionStatus {
     NeedsCleaning,
@@ -61,9 +62,9 @@ export type ThumbnailGeneratorResult = Nullable<string> | Promise<Nullable<strin
 export type ThumbnailGenerator = (file: FileData) => ThumbnailGeneratorResult;
 
 export enum FolderView {
-    Details = 'view-details',
-    SmallThumbs = 'view-small-thumbs',
-    LargeThumbs = 'view-large-thumbs',
+    Details = 'details',
+    SmallThumbs = 'small-thumbs',
+    LargeThumbs = 'large-thumbs',
 }
 
 export type EntrySize = { width: number, height: number };

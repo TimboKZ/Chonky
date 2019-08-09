@@ -19,6 +19,7 @@ import SpecifyingFolderDoc from './Specifying-folder.md';
 import DisplayThumbnailsComp from './Display-thumbnails.js';
 import DisplayThumbnailsDoc from './Display-thumbnails.md';
 import CustomStylingDoc from './Custom-styling.md';
+import FileBrowserPropsDoc from './FileBrowser-props.md';
 import NotAvailableDoc from './Not-available.md';
 
 
@@ -32,4 +33,5 @@ storiesOf('Chonky docs', module)
     .add('Displaying file thumbnails', wrapExample(DisplayThumbnailsComp), getParams(DisplayThumbnailsDoc))
     .add('Handling file actions', wrapExample(), getParams(NotAvailableDoc))
     .add('Managing file selection', wrapExample(), getParams(NotAvailableDoc))
-    .add('File browser props', wrapExample(), getParams(NotAvailableDoc));
+    .add('Setting file browser options', wrapExample(), getParams(NotAvailableDoc))
+    .add('FileBrowser props', wrapExample(), getParams(FileBrowserPropsDoc));
