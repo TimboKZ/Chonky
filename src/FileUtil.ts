@@ -4,12 +4,13 @@
  * @license MIT
  */
 
+import {Nullable} from 'tsdef';
 import filesize from 'filesize';
 import dateFormat from 'dateformat';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 
-import {FileData, Nullable, Option, Options, SortOrder, SortProperty} from './typedef';
+import {FileData, FileIndexMap, Option, Options, SortOrder, SortProperty} from './typedef';
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
@@ -52,14 +53,21 @@ export class FileUtil {
     };
 
     static sortFiles(rawFiles: Nullable<FileData>[], options: Options,
-                     sortProperty: SortProperty, sortOrder: SortOrder): Nullable<FileData>[] {
+                     sortProperty: SortProperty, sortOrder: SortOrder): [Nullable<FileData>[], FileIndexMap] {
         let files = rawFiles.slice(0);
         if (!options[Option.ShowHidden]) {
             files = files.filter(f => f === null || f.name.charAt(0) !== '.');
         }
         const comparator = FileUtil.prepareComparator(options[Option.FoldersFirst], sortProperty, sortOrder);
         files.sort(comparator);
-        return files;
+
+        const fileIndexMap = {};
+        for (let i = 0; i < files.length; ++i) {
+            const currentFile = files[i];
+            if (currentFile) fileIndexMap[currentFile.id] = i;
+        }
+
+        return [files, fileIndexMap];
     }
 
 }

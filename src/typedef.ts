@@ -4,9 +4,8 @@
  * @license MIT
  */
 
+import {Nullable} from 'tsdef';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
-
-export type Nullable<T> = T | null;
 
 // Required properties are marked with `!!`
 export type FileData = {
@@ -27,6 +26,8 @@ export type FileData = {
     parentId?: string; // ID of the parent folder
     childrenIds?: string[]; // An array of IDs of children (only for folders)
 }
+
+export type FileIndexMap = { [id: string]: number };
 
 export type Selection = {
     [fileId: string]: boolean | undefined,

@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import {Nullable} from 'tsdef';
 import ExactTrie from 'exact-trie';
 import {
     faBalanceScale,
@@ -35,7 +36,7 @@ import {
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {faAdobe, faGitAlt, faLinux, faNodeJs, faPhp, faPython, faUbuntu} from '@fortawesome/free-brands-svg-icons';
 
-import {IconData, ColorsLight, VideoExtensions, ImageExtensions, AudioExtensions, FileData, Nullable} from './typedef';
+import {IconData, ColorsLight, VideoExtensions, ImageExtensions, AudioExtensions, FileData} from './typedef';
 
 const ErrorIconData: IconData = {icon: faExclamationTriangle, colorCode: 1};
 export const LoadingIconData: IconData = {icon: faCircleNotch, colorCode: 0};

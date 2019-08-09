@@ -6,8 +6,10 @@
 
 import {When} from 'react-if';
 import * as React from 'react';
+import {Nullable} from 'tsdef';
 import classnames from 'classnames';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faFolderOpen} from '@fortawesome/free-regular-svg-icons/faFolderOpen';
 import {faArrowDown as DescIcon, faArrowUp as AscIcon} from '@fortawesome/free-solid-svg-icons';
 
 import FileListEntry from './FileListEntry';
@@ -15,15 +17,14 @@ import {
     FileClickHandler,
     FileData,
     FolderView,
-    Nullable,
     Selection,
     SortOrder,
     SortProperty,
     ThumbnailGenerator, EntrySize,
 } from './typedef';
-import {faFolderOpen} from '@fortawesome/free-regular-svg-icons/faFolderOpen';
 
 type FileListProps = {
+    instanceId: string;
     files: Nullable<FileData>[];
     selection: Selection;
     view: FolderView;
@@ -89,8 +90,8 @@ export default class FileList extends React.Component<FileListProps, FileListSta
 
     renderFileEntries() {
         const {
-            files, selection, view, doubleClickDelay, onFileSingleClick, onFileDoubleClick,
-            thumbnailGenerator,
+            instanceId, files, selection, view, doubleClickDelay,
+            onFileSingleClick, onFileDoubleClick, thumbnailGenerator,
         } = this.props;
 
         const entrySize = EntrySizeMap[view];
@@ -112,7 +113,7 @@ export default class FileList extends React.Component<FileListProps, FileListSta
                 <div className="chonky-file-list-notification-content">
                     <FontAwesomeIcon icon={faFolderOpen}/>
                     &nbsp;
-                    Nothing to show.
+                    Nothing to show
                 </div>
             </div>;
         }
@@ -123,7 +124,8 @@ export default class FileList extends React.Component<FileListProps, FileListSta
             const file = files[i];
             const key = file ? file.id : `loading-file-${loadingCounter++}`;
             const selected = file ? !!selection[file.id] : false;
-            comps[i] = <FileListEntry key={key} selected={selected} file={file} displayIndex={i}
+            comps[i] = <FileListEntry key={key} instanceId={instanceId}
+                                      selected={selected} file={file} displayIndex={i}
                                       view={view} doubleClickDelay={doubleClickDelay}
                                       onFileSingleClick={onFileSingleClick}
                                       onFileDoubleClick={onFileDoubleClick}

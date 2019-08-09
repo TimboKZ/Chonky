@@ -24,12 +24,13 @@ import {
     EntrySize,
 } from './typedef';
 import {FileUtil} from './FileUtil';
+import ConsoleUtil from './ConsoleUtil';
 import LoadingPlaceholder from './LoadingPlaceholder';
 import {getIconData, LoadingIconData} from './IconUtil';
 import ClickableWrapper, {ClickableWrapperProps} from './ClickableWrapper';
-import ConsoleUtil from './ConsoleUtil';
 
 type FileListEntryProps = {
+    instanceId: string;
     file: Nullable<FileData>;
     selected: boolean;
     displayIndex: number;
@@ -102,11 +103,6 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         if (file.ext) displayExtension = file.ext;
         else if (typeof file.ext !== 'string') {
             displayExtension = path.extname(file.name);
-        }
-
-        const hasExtension = typeof file.ext === 'string' && file.ext.length > 0;
-        if (hasExtension) {
-
         }
 
         return [
@@ -222,7 +218,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
 
     render() {
         const {
-            file, selected, displayIndex, view, doubleClickDelay,
+            instanceId, file, selected, displayIndex, view, doubleClickDelay,
             onFileSingleClick, onFileDoubleClick, size,
         } = this.props;
 
@@ -234,6 +230,8 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
                     'chonky-file-list-entry': true,
                     'chonky-selected': selected,
                 }),
+                'data-chonky-file-id': file ? file.id : undefined,
+                'data-chonky-instance-id': instanceId,
             },
             doubleClickDelay,
         };
