@@ -48,6 +48,7 @@ export default class ClickableWrapper extends React.Component<ClickableWrapperPr
             if (this.clickTimeout) {
                 clearTimeout(this.clickTimeout);
                 this.clickTimeout = undefined;
+                this.clickCount = 0;
             }
         }
     };
