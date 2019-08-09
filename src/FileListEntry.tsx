@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import path from 'path';
 import {Nullable} from 'tsdef';
 import * as React from 'react';
 import classnames from 'classnames';
@@ -18,20 +19,15 @@ import {
     FileClickHandler,
     FileData,
     FolderView,
-    FolderViewSizeMap,
     ThumbnailGenerator,
     ThumbnailGeneratorResult,
+    EntrySize,
 } from './typedef';
 import {FileUtil} from './FileUtil';
 import LoadingPlaceholder from './LoadingPlaceholder';
 import {getIconData, LoadingIconData} from './IconUtil';
 import ClickableWrapper, {ClickableWrapperProps} from './ClickableWrapper';
 import ConsoleUtil from './ConsoleUtil';
-
-const SizeMap: FolderViewSizeMap = {
-    [FolderView.SmallThumbs]: {width: 250, height: 180},
-    [FolderView.LargeThumbs]: {width: 400, height: 300},
-};
 
 type FileListEntryProps = {
     file: Nullable<FileData>;
@@ -44,6 +40,8 @@ type FileListEntryProps = {
     onFileDoubleClick: FileClickHandler;
 
     thumbnailGenerator?: ThumbnailGenerator,
+
+    size?: EntrySize;
 }
 
 type FileListEntryState = {
@@ -76,7 +74,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         try {
             syncResult = thumbnailGenerator(file);
         } catch (error) {
-            ConsoleUtil.logUnhandledException(error, `loading thumbnail for "${file.base}"`);
+            ConsoleUtil.logUnhandledException(error, `loading thumbnail for "${file.name}"`);
             return;
         }
 
@@ -86,7 +84,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         syncResult
             .then((thumbnailUrl: Nullable<string>) => this.setState({thumbnailUrl}))
             .catch(error => {
-                ConsoleUtil.logUnhandledPromiseError(error, `loading thumbnail for "${file.base}"`);
+                ConsoleUtil.logUnhandledPromiseError(error, `loading thumbnail for "${file.name}"`);
             });
     }
 
@@ -98,6 +96,19 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
     renderFilename() {
         const {file} = this.props;
         if (!file) return <LoadingPlaceholder/>;
+
+        let displayExtension = '';
+
+        if (file.ext) displayExtension = file.ext;
+        else if (typeof file.ext !== 'string') {
+            displayExtension = path.extname(file.name);
+        }
+
+        const hasExtension = typeof file.ext === 'string' && file.ext.length > 0;
+        if (hasExtension) {
+
+        }
+
         return [
             <When key="chonky-filename-symlink" condition={file.isSymlink === true}>
                 <span className="chonky-text-subtle"><FontAwesomeIcon icon={SymlinkIcon} size="xs"/></span>
@@ -107,16 +118,18 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
                 <span className="chonky-text-subtle"><FontAwesomeIcon icon={HiddenIcon} size="xs"/></span>
                 &nbsp;&nbsp;
             </When>,
-            <If key="chonky-file-is-dir" condition={file.isDir}>
+            <If key="chonky-file-name" condition={!!displayExtension}>
                 <Then>
-                    {file.base}
-                    <span className="chonky-text-subtle" style={{marginLeft: 2}}>/</span>
+                    {file.name.substr(0, file.name.length - displayExtension.length)}
+                    <span className="chonky-text-subtle-dark">{displayExtension}</span>
                 </Then>
                 <Else>
                     {file.name}
-                    <span className="chonky-text-subtle-dark">{file.ext}</span>
                 </Else>
             </If>,
+            <When key="chonky-file-is-dir" condition={file.isDir}>
+                <span className="chonky-text-subtle" style={{marginLeft: 2}}>/</span>
+            </When>,
         ];
     };
 
@@ -208,12 +221,15 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
     }
 
     render() {
-        const {file, selected, displayIndex, view, doubleClickDelay, onFileSingleClick, onFileDoubleClick} = this.props;
+        const {
+            file, selected, displayIndex, view, doubleClickDelay,
+            onFileSingleClick, onFileDoubleClick, size,
+        } = this.props;
 
         const wrapperProps: ClickableWrapperProps = {
             wrapperTag: 'div',
             passthroughProps: {
-                style: {...SizeMap[view]},
+                style: {...size},
                 className: classnames({
                     'chonky-file-list-entry': true,
                     'chonky-selected': selected,

@@ -31,17 +31,13 @@ const handleFileOpen = (file) => {
 // Define some files and folders
 const readmeFile = {
     id: 'abcd1234',
-    base: 'README.md',
-    name: 'README',
-    ext: '.md',
+    name: 'README.md',
     isDir: false,
 };
 const myFiles = [readmeFile, null];
 const parentFolder = {
     id: 'qwer5678',
-    base: 'Simple example',
     name: 'Simple example',
-    ext: '',
     isDir: true,
 };
 const folderChain = [parentFolder];

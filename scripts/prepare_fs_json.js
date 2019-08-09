@@ -33,8 +33,7 @@ const readFile = (filePath, parentFile) => {
             return {
                 id,
 
-                base: parsed.base,
-                name: parsed.name,
+                name: parsed.base,
                 ext: parsed.ext,
 
                 isDir: stats.isDirectory(),
@@ -70,17 +69,17 @@ const dirToFsTree = (fileMap, dirPath, parentFile) => {
         .then(files => {
             const promises = [];
             for (const file of files) {
-                const skipFile = file.base === 'node_modules'
-                    || file.base === '.git'
-                    || file.base === 'public'
-                    || file.base === 'thumbnails'
-                    || file.base === 'docs'
-                    || file.base === '.idea';
+                const skipFile = file.name === 'node_modules'
+                    || file.name === '.git'
+                    || file.name === 'public'
+                    || file.name === 'thumbnails'
+                    || file.name === 'docs'
+                    || file.name === '.idea';
                 if (skipFile) continue;
 
                 fileMap[file.id] = file;
                 if (parentFile) parentFile.childrenIds.push(file.id);
-                if (file.isDir) promises.push(dirToFsTree(fileMap, path.join(dirPath, file.base), file));
+                if (file.isDir) promises.push(dirToFsTree(fileMap, path.join(dirPath, file.name), file));
             }
             return Promise.all(promises);
         });
@@ -108,7 +107,6 @@ Promise.resolve()
         return prepareFsJson(chonkyProjectDir, path.join(storiesUtilDir, 'chonky_project.fs_map.json'));
     })
     .then(() => {
-        fileMap = {};
         return prepareFsJson(japanPicsDir, path.join(storiesUtilDir, 'japan_pics.fs_map.json'));
     });
 

@@ -8,10 +8,27 @@
     $list-class: #{&}-thumbs
     $entry-class: #{&}-entry
 
+    &-thumbs
+      %file-entry-shared
+        margin: 0.3em 0.5em 0.5em 0.3em
+        vertical-align: bottom
+        box-sizing: border-box
+
+    &-thumbs &-notification
+      @extend %file-entry-shared
+      justify-content: center
+      align-items: center
+      display: flex
+
+      &-content
+        vertical-align: middle
+        text-align: center
+        font-size: 1.2em
+
     &-thumbs &-entry
       $parent-entry: &
+      @extend %file-entry-shared
       border: solid 1px $border-light
-      margin: 0.3em 0.5em 0.5em 0.3em
       display: inline-block
       border-radius: 2px
       position: relative
@@ -31,6 +48,7 @@
           #{$entry-class}-icon
             color: rgba($bg-active, 0.4)
             opacity: 1 !important
+
             &.chonky-icon-over-image
               color: rgba($bg-active, 0.7)
 

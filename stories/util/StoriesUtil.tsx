@@ -48,9 +48,7 @@ export const getMainDemoFsData = () => {
     const fileMap: { [id: string]: FileData } = {
         [rootId]: {
             id: rootId,
-            base: 'Demo Folder',
             name: 'Demo Folder',
-            ext: '',
             isDir: true,
             modDate: new Date(),
             childrenIds: [chonkyFolderId, picsFolderId, foreverFolderId, emptyId],

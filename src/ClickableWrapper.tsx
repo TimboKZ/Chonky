@@ -7,7 +7,6 @@
 import * as React from 'react';
 
 import {ClickEvent} from './typedef';
-import Timer = NodeJS.Timer;
 
 export type ClickableWrapperProps = {
     wrapperTag: any;
@@ -24,7 +23,7 @@ export default class ClickableWrapper extends React.Component<ClickableWrapperPr
 
     static defaultProps = {};
 
-    clickTimeout?: Timer;
+    clickTimeout?: number;
     clickCount: number = 0;
 
     constructor(props: ClickableWrapperProps) {
@@ -42,9 +41,14 @@ export default class ClickableWrapper extends React.Component<ClickableWrapperPr
         if (this.clickCount === 1) {
             if (onSingleClick) onSingleClick(customEvent, false);
             this.clickCount = 1;
-            setTimeout(() => this.clickCount = 0, doubleClickDelay);
+            // @ts-ignore
+            this.clickTimeout = setTimeout(() => this.clickCount = 0, doubleClickDelay);
         } else if (this.clickCount === 2) {
             if (onDoubleClick) onDoubleClick(customEvent, false);
+            if (this.clickTimeout) {
+                clearTimeout(this.clickTimeout);
+                this.clickTimeout = undefined;
+            }
         }
     };
 

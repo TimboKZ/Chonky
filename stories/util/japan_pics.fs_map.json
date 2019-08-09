@@ -3,7 +3,6 @@
   "fileMap": {
     "0b9e8a6706d9": {
       "id": "0b9e8a6706d9",
-      "base": "Images with thumbnails",
       "name": "Images with thumbnails",
       "ext": "",
       "isDir": true,
@@ -24,8 +23,7 @@
     },
     "2927d99637cc": {
       "id": "2927d99637cc",
-      "base": "Kyoto Station.jpg",
-      "name": "Kyoto Station",
+      "name": "Kyoto Station.jpg",
       "ext": ".jpg",
       "isDir": false,
       "isHidden": false,
@@ -38,8 +36,7 @@
     },
     "bb2b9350a62a": {
       "id": "bb2b9350a62a",
-      "base": "Kyoto Vibes.jpg",
-      "name": "Kyoto Vibes",
+      "name": "Kyoto Vibes.jpg",
       "ext": ".jpg",
       "isDir": false,
       "isHidden": false,
@@ -52,8 +49,7 @@
     },
     "5c32605f67be": {
       "id": "5c32605f67be",
-      "base": "Kyoto.jpg",
-      "name": "Kyoto",
+      "name": "Kyoto.jpg",
       "ext": ".jpg",
       "isDir": false,
       "isHidden": false,
@@ -66,8 +62,7 @@
     },
     "632e30fca596": {
       "id": "632e30fca596",
-      "base": "Little Japanese neighborhood.jpg",
-      "name": "Little Japanese neighborhood",
+      "name": "Little Japanese neighborhood.jpg",
       "ext": ".jpg",
       "isDir": false,
       "isHidden": false,
@@ -80,8 +75,7 @@
     },
     "71b9f6fa4e92": {
       "id": "71b9f6fa4e92",
-      "base": "Mt. Fuji.jpg",
-      "name": "Mt. Fuji",
+      "name": "Mt. Fuji.jpg",
       "ext": ".jpg",
       "isDir": false,
       "isHidden": false,
@@ -94,8 +88,7 @@
     },
     "df72d20ae06d": {
       "id": "df72d20ae06d",
-      "base": "Tokyo Skytree.jpg",
-      "name": "Tokyo Skytree",
+      "name": "Tokyo Skytree.jpg",
       "ext": ".jpg",
       "isDir": false,
       "isHidden": false,
@@ -108,8 +101,7 @@
     },
     "ae448f09934f": {
       "id": "ae448f09934f",
-      "base": "Yoshinoyama.jpg",
-      "name": "Yoshinoyama",
+      "name": "Yoshinoyama.jpg",
       "ext": ".jpg",
       "isDir": false,
       "isHidden": false,

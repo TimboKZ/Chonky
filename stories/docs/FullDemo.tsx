@@ -24,7 +24,7 @@ export default class FullDemo extends React.Component<any, any> {
             this.setState({currentFolderId: file.id});
         } else {
             const type = file.isDir ? 'folder' : 'file';
-            alert(`You tried to open a ${type}: ${file.base}`);
+            alert(`You tried to open a ${type}: ${file.name}`);
         }
     };
 

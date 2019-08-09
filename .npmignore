@@ -1,2 +1,5 @@
-demo/
-tests/
+.storybook/
+docs/
+src/
+static/
+stories/

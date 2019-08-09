@@ -91,6 +91,6 @@ export const getIconData = (file: Nullable<FileData>): IconData => {
     if (!file) return ErrorIconData;
     if (file.isDir) return FolderIconData;
 
-    const match = exactTrie.getWithCheckpoints(file.base, '.', true);
+    const match = exactTrie.getWithCheckpoints(file.name, '.', true);
     return match ? match : FileIconData;
 };

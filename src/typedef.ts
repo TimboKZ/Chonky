@@ -12,9 +12,8 @@ export type Nullable<T> = T | null;
 export type FileData = {
     id: string; // !! String that uniquely identifies the file
 
-    base: string; // !! Full name, e.g. `MyImage.jpg`
-    name: string; // !! Name without extension, e.g. `MyImage`
-    ext: string; // !! Extension, e.g. `.jpg`
+    name: string; // !! Full name, e.g. `MyImage.jpg`
+    ext?: string; // File extension, e.g. `.jpg`
 
     isDir: boolean; // !! Is a directory
     isHidden?: boolean; // Is a hidden file, default: false
@@ -67,9 +66,7 @@ export enum FolderView {
     LargeThumbs = 'view-large-thumbs',
 }
 
-export type FolderViewSizeMap = {
-    [view: string]: { width: number, height: number }
-}
+export type EntrySize = { width: number, height: number };
 
 export enum Option {
     ShowHidden = 'show-hidden',

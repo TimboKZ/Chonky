@@ -154,7 +154,37 @@ button.chonky-folder-chain-entry:active {
 .chonky-file-list {
   flex: 1;
 }
+.chonky-file-list-notification-empty {
+  color: #bbb;
+}
 
+.chonky-file-list-details {
+  position: relative;
+  display: table;
+}
+.chonky-file-list-details .chonky-file-list-entry, .chonky-file-list-details .chonky-file-list-header {
+  display: table-row !important;
+  font-size: 0.95em;
+}
+.chonky-file-list-details .chonky-file-list-entry > div, .chonky-file-list-details .chonky-file-list-header > div {
+  padding: 0.4em 0.6em;
+  box-sizing: border-box;
+  border-width: 1px 0;
+  border-style: solid;
+  display: table-cell;
+}
+.chonky-file-list-details .chonky-file-list-entry > div:first-child, .chonky-file-list-details .chonky-file-list-header > div:first-child {
+  width: 1px;
+}
+.chonky-file-list-details .chonky-file-list-notification {
+  display: table-caption !important;
+  caption-side: bottom;
+}
+.chonky-file-list-details .chonky-file-list-notification-content {
+  padding: 0.6em;
+  text-align: center;
+  font-size: 1.03em;
+}
 .chonky-file-list-details .chonky-file-list-header > div {
   border-bottom-color: #e4e4e4 !important;
   border-top-color: transparent !important;
@@ -198,28 +228,24 @@ button.chonky-folder-chain-entry:active {
 .chonky-file-list-details .chonky-file-list-entry > div:not(:first-child) {
   margin-top: -5px;
 }
-.chonky-file-list-details {
-  position: relative;
-  display: table;
-}
-.chonky-file-list-details .chonky-file-list-header, .chonky-file-list-details .chonky-file-list-entry {
-  display: table-row !important;
-  vertical-align: middle;
-  font-size: 0.95em;
-}
-.chonky-file-list-details .chonky-file-list-header > div, .chonky-file-list-details .chonky-file-list-entry > div {
-  padding: 0.4em 0.6em;
-  display: table-cell !important;
-  border-width: 1px 0;
-  border-style: solid;
-}
-.chonky-file-list-details .chonky-file-list-header > div:first-child, .chonky-file-list-details .chonky-file-list-entry > div:first-child {
-  width: 1px;
-}
 
+.chonky-file-list-thumbs .chonky-file-list-entry, .chonky-file-list-thumbs .chonky-file-list-notification {
+  margin: 0.3em 0.5em 0.5em 0.3em;
+  vertical-align: bottom;
+  box-sizing: border-box;
+}
+.chonky-file-list-thumbs .chonky-file-list-notification {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.chonky-file-list-thumbs .chonky-file-list-notification-content {
+  vertical-align: middle;
+  text-align: center;
+  font-size: 1.2em;
+}
 .chonky-file-list-thumbs .chonky-file-list-entry {
   border: solid 1px #e4e4e4;
-  margin: 0.3em 0.5em 0.5em 0.3em;
   display: inline-block;
   border-radius: 2px;
   position: relative;

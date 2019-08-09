@@ -80,7 +80,12 @@ export default class Controls extends React.Component<ControlsProps, ControlsSta
                     'chonky-loading': !folder,
                 }),
             };
-            if (folder && onFileOpen && !isLast) compProps.onClick = () => onFileOpen(folder);
+            if (folder
+                && folder.openable !== false
+                && onFileOpen
+                && !isLast) {
+                compProps.onClick = () => onFileOpen(folder);
+            }
 
             const TagToUse = compProps.onClick ? 'button' : 'div';
             comps[j] = <TagToUse {...compProps} >
@@ -128,7 +133,9 @@ export default class Controls extends React.Component<ControlsProps, ControlsSta
         const parentDirButtonProps: any = {};
         if (onFileOpen && folderChain && folderChain.length > 1) {
             const parentFolder = folderChain[folderChain.length - 2];
-            if (parentFolder) parentDirButtonProps.onClick = () => onFileOpen(parentFolder);
+            if (parentFolder && parentFolder.openable !== false) {
+                parentDirButtonProps.onClick = () => onFileOpen(parentFolder);
+            }
         }
 
         return <div className="chonky-controls">

@@ -19,8 +19,9 @@ import {
     Selection,
     SortOrder,
     SortProperty,
-    ThumbnailGenerator,
+    ThumbnailGenerator, EntrySize,
 } from './typedef';
+import {faFolderOpen} from '@fortawesome/free-regular-svg-icons/faFolderOpen';
 
 type FileListProps = {
     files: Nullable<FileData>[];
@@ -46,6 +47,11 @@ const HeaderDetails = [
     [SortProperty.Size, 'Size'],
     [SortProperty.ModDate, 'Last change'],
 ];
+
+const EntrySizeMap: { [view: string]: EntrySize } = {
+    [FolderView.SmallThumbs]: {width: 250, height: 180},
+    [FolderView.LargeThumbs]: {width: 400, height: 300},
+};
 
 export default class FileList extends React.Component<FileListProps, FileListState> {
 
@@ -87,6 +93,30 @@ export default class FileList extends React.Component<FileListProps, FileListSta
             thumbnailGenerator,
         } = this.props;
 
+        const entrySize = EntrySizeMap[view];
+
+        if (files.length === 0) {
+            const placeholderProps: any = {
+                className: classnames({
+                    'chonky-file-list-notification': true,
+                    'chonky-file-list-notification-empty': true,
+                }),
+            };
+            if (entrySize) {
+                placeholderProps.style = {
+                    height: entrySize.height,
+                };
+            }
+
+            return <div {...placeholderProps}>
+                <div className="chonky-file-list-notification-content">
+                    <FontAwesomeIcon icon={faFolderOpen}/>
+                    &nbsp;
+                    Nothing to show.
+                </div>
+            </div>;
+        }
+
         const comps = new Array(files.length);
         let loadingCounter = 0;
         for (let i = 0; i < comps.length; ++i) {
@@ -97,7 +127,8 @@ export default class FileList extends React.Component<FileListProps, FileListSta
                                       view={view} doubleClickDelay={doubleClickDelay}
                                       onFileSingleClick={onFileSingleClick}
                                       onFileDoubleClick={onFileDoubleClick}
-                                      thumbnailGenerator={thumbnailGenerator}/>;
+                                      thumbnailGenerator={thumbnailGenerator}
+                                      size={entrySize}/>;
         }
         return comps;
     }

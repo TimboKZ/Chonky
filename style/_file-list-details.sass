@@ -5,8 +5,35 @@
 
   &-file-list
 
+    &-details
+      position: relative
+      display: table
+
+      %row-content
+        display: table-row !important
+        font-size: 0.95em
+
+        & > div
+          padding: 0.4em $table-side-padding
+          box-sizing: border-box
+          border-width: 1px 0
+          border-style: solid
+          display: table-cell
+
+          &:first-child
+            width: 1px
+
+    &-details &-notification
+      display: table-caption !important
+      caption-side: bottom
+
+      &-content
+        padding: $table-side-padding
+        text-align: center
+        font-size: 1.03em
+
     &-details &-header
-      @extend %header-row-shared
+      @extend %row-content
 
       & > div
         border-bottom-color: $border-light !important
@@ -23,7 +50,7 @@
             background-color: $bg-light
 
     &-details &-entry
-      @extend %header-row-shared
+      @extend %row-content
 
       &.chonky-selected
         background-color: rgba($bg-active, 0.04)
@@ -51,24 +78,7 @@
       & > div
         border-color: transparent
         border-bottom-color: $border-lighter !important
+
         &:not(:first-child)
           margin-top: -5px
 
-    // Rules that determine general layout:
-    &-details
-      position: relative
-      display: table
-
-      %header-row-shared
-        display: table-row !important
-        vertical-align: middle
-        font-size: 0.95em
-
-        & > div
-          padding: 0.4em $table-side-padding
-          display: table-cell !important
-          border-width: 1px 0
-          border-style: solid
-
-          &:first-child
-            width: 1px

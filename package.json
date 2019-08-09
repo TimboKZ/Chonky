@@ -63,7 +63,7 @@
     "react-styleguidist": "^9.1.13",
     "sharp": "^0.23.0",
     "storybook-addon-jsx": "^7.1.5",
-    "storybook-readme": "^5.0.6",
+    "storybook-readme": "^5.0.7-alpha.0",
     "tsdef": "0.0.13",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"

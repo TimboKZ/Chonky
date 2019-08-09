@@ -40,8 +40,8 @@ export class FileUtil {
                 propA = fileA.modDate;
                 propB = fileB.modDate;
             } else {
-                propA = fileA.base;
-                propB = fileB.base;
+                propA = fileA.name;
+                propB = fileB.name;
             }
             if (propA === undefined || propA === null) return -returnVal;
             else if (propB === undefined || propB === null) return returnVal;
