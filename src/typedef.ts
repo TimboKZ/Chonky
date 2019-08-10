@@ -14,7 +14,7 @@ export interface FileData {
     name: string; // !! Full name, e.g. `MyImage.jpg`
     ext?: string; // File extension, e.g. `.jpg`
 
-    isDir: boolean; // !! Is a directory
+    isDir?: boolean; // Is a directory, default: false
     isHidden?: boolean; // Is a hidden file, default: false
     isSymlink?: boolean; // Is a symlink, default: false
     openable?: boolean; // Can be opened, default: true
@@ -25,6 +25,10 @@ export interface FileData {
 
     parentId?: string; // ID of the parent folder
     childrenIds?: string[]; // An array of IDs of children (only for folders)
+}
+
+export interface FileMap {
+    [id: string]: FileData;
 }
 
 export interface FileIndexMap {[id: string]: number}

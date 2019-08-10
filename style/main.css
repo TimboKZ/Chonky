@@ -62,11 +62,11 @@ button.chonky-folder-chain-entry:active {
   color: #bbb;
   padding: 0 0.2em;
 }
-.chonky-button-group button:not(:first-child) {
+.chonky-button-group button:not(:first-of-type) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-.chonky-button-group button:not(:last-child) {
+.chonky-button-group button:not(:last-of-type) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   margin-right: -1px;
@@ -99,7 +99,7 @@ button.chonky-folder-chain-entry:active {
 .chonky-dropdown-button:active + .chonky-dropdown-contents, .chonky-dropdown-button:focus + .chonky-dropdown-contents {
   display: block;
 }
-.chonky-dropdown-button:not(:last-child) {
+.chonky-dropdown-button:not(:last-of-type) {
   border-bottom: solid 1px #f6f6f6;
 }
 .chonky-dropdown-button, .chonky-icon-button {
@@ -173,7 +173,7 @@ button.chonky-folder-chain-entry:active {
   border-style: solid;
   display: table-cell;
 }
-.chonky-file-list-details .chonky-file-list-entry > div:first-child, .chonky-file-list-details .chonky-file-list-header > div:first-child {
+.chonky-file-list-details .chonky-file-list-entry > div:first-of-type, .chonky-file-list-details .chonky-file-list-header > div:first-of-type {
   width: 1px;
 }
 .chonky-file-list-details .chonky-file-list-notification {
@@ -225,7 +225,7 @@ button.chonky-folder-chain-entry:active {
   border-color: transparent;
   border-bottom-color: #f6f6f6 !important;
 }
-.chonky-file-list-details .chonky-file-list-entry > div:not(:first-child) {
+.chonky-file-list-details .chonky-file-list-entry > div:not(:first-of-type) {
   margin-top: -5px;
 }
 

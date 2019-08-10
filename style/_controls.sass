@@ -60,11 +60,11 @@
       padding: 0 0.2em
 
   &-button-group
-    button:not(:first-child)
+    button:not(:first-of-type)
       border-bottom-left-radius: 0
       border-top-left-radius: 0
 
-    button:not(:last-child)
+    button:not(:last-of-type)
       border-bottom-right-radius: 0
       border-top-right-radius: 0
       margin-right: -1px
@@ -100,7 +100,7 @@
         & + #{$dropdown-parent}-contents
           display: block
 
-      &:not(:last-child)
+      &:not(:last-of-type)
         border-bottom: solid 1px $border-lighter
 
   &-dropdown-button, &-icon-button

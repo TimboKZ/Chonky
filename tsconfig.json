@@ -23,8 +23,8 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "src/**/*",
-    "stories/**/*"
+    "index.ts",
+    "src/**/*"
   ],
   "types": [
     "typePatches"

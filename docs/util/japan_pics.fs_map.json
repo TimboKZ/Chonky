@@ -1,0 +1,69 @@
+{
+  "rootFolderId": "0b9e8a6706d9",
+  "fileMap": {
+    "0b9e8a6706d9": {
+      "id": "0b9e8a6706d9",
+      "name": "Images with thumbnails",
+      "modDate": "2019-08-04T01:08:54.140Z",
+      "isDir": true,
+      "childrenIds": [
+        "2927d99637cc",
+        "bb2b9350a62a",
+        "5c32605f67be",
+        "632e30fca596",
+        "71b9f6fa4e92",
+        "df72d20ae06d",
+        "ae448f09934f"
+      ]
+    },
+    "2927d99637cc": {
+      "id": "2927d99637cc",
+      "name": "Kyoto Station.jpg",
+      "modDate": "2019-08-04T00:45:57.010Z",
+      "parentId": "0b9e8a6706d9",
+      "size": 546247
+    },
+    "bb2b9350a62a": {
+      "id": "bb2b9350a62a",
+      "name": "Kyoto Vibes.jpg",
+      "modDate": "2019-08-04T00:45:14.234Z",
+      "parentId": "0b9e8a6706d9",
+      "size": 1699335
+    },
+    "5c32605f67be": {
+      "id": "5c32605f67be",
+      "name": "Kyoto.jpg",
+      "modDate": "2019-08-04T00:45:45.910Z",
+      "parentId": "0b9e8a6706d9",
+      "size": 981549
+    },
+    "632e30fca596": {
+      "id": "632e30fca596",
+      "name": "Little Japanese neighborhood.jpg",
+      "modDate": "2019-08-04T00:44:32.960Z",
+      "parentId": "0b9e8a6706d9",
+      "size": 225062
+    },
+    "71b9f6fa4e92": {
+      "id": "71b9f6fa4e92",
+      "name": "Mt. Fuji.jpg",
+      "modDate": "2019-08-04T00:45:31.314Z",
+      "parentId": "0b9e8a6706d9",
+      "size": 929880
+    },
+    "df72d20ae06d": {
+      "id": "df72d20ae06d",
+      "name": "Tokyo Skytree.jpg",
+      "modDate": "2019-08-04T00:44:55.204Z",
+      "parentId": "0b9e8a6706d9",
+      "size": 1036620
+    },
+    "ae448f09934f": {
+      "id": "ae448f09934f",
+      "name": "Yoshinoyama.jpg",
+      "modDate": "2019-08-04T00:45:02.500Z",
+      "parentId": "0b9e8a6706d9",
+      "size": 594389
+    }
+  }
+}
