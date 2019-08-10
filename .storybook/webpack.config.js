@@ -7,7 +7,6 @@ module.exports = ({config}) => {
             {loader: require.resolve('eslint-loader')},
         ],
     });
-    config.resolve.symlinks = false;
     config.resolve.extensions.push('.ts', '.tsx');
     return config;
 };

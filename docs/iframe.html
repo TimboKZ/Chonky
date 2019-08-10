@@ -64,10 +64,52 @@
     // eslint-disable-next-line no-console
     console.warn('unable to connect to parent frame for connecting dev tools');
   }</script><link href="https://fonts.googleapis.com/css?family=Fira+Code&display=swap" rel="stylesheet"><style>body {
-        height: calc(100% - 20px);
-        width: calc(100% - 20px);
         box-sizing: border-box;
-        padding: 20px;
+    }
+
+    @media only screen and (min-width: 381px) {
+        body {
+            height: calc(100% - 20px);
+            width: calc(100% - 20px);
+            font-size: 16px;
+            padding: 20px;
+        }
+
+        .example-wrapper {
+            box-shadow: rgba(0, 0, 0, 0.1) 0 2px 3px;
+            border: solid 1px #ddd;
+            border-radius: 4px;
+            margin: 20px 0;
+            padding: 10px;
+        }
+
+        .markdown-body {
+            font-size: 16px !important;
+        }
+    }
+
+    @media only screen and (max-width: 380px) {
+        body {
+            height: calc(100% - 16px);
+            width: calc(100% - 16px);
+            font-size: 15px;
+            padding: 6px;
+        }
+
+        .example-wrapper {
+            box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px;
+            border-radius: 3px;
+            padding: 2px 3px;
+            margin: 10px 0;
+        }
+
+        .markdown-body {
+            font-size: 15px !important;
+        }
+    }
+
+    img {
+        max-width: 100%;
     }
 
     #root {
@@ -82,4 +124,4 @@
         background-color: #f2f2f2;
         border-radius: 2px;
         font-size: 0.9em;
-    }</style></head><body><div class="sb-nopreview sb-wrapper"><div class="sb-nopreview_main"><h1 class="sb-nopreview_heading sb-heading">No Preview</h1><p>Sorry, but you either have no stories or none are selected somehow.</p><ul><li>Please check the Storybook config.</li><li>Try reloading the page.</li></ul><p>If the problem persists, check the browser console, or the terminal you've run Storybook from.</p></div></div><div class="sb-errordisplay sb-wrapper"><div id="error-message" class="sb-heading"></div><pre class="sb-errordisplay_code"><code id="error-stack"></code></pre></div><div id="root"></div><script src="runtime~main.809ff742265ab4986d24.bundle.js"></script><script src="vendors~main.809ff742265ab4986d24.bundle.js"></script><script src="main.809ff742265ab4986d24.bundle.js"></script></body></html>
+    }</style></head><body><div class="sb-nopreview sb-wrapper"><div class="sb-nopreview_main"><h1 class="sb-nopreview_heading sb-heading">No Preview</h1><p>Sorry, but you either have no stories or none are selected somehow.</p><ul><li>Please check the Storybook config.</li><li>Try reloading the page.</li></ul><p>If the problem persists, check the browser console, or the terminal you've run Storybook from.</p></div></div><div class="sb-errordisplay sb-wrapper"><div id="error-message" class="sb-heading"></div><pre class="sb-errordisplay_code"><code id="error-stack"></code></pre></div><div id="root"></div><script src="runtime~main.8d445b8a0a8d20237fd2.bundle.js"></script><script src="vendors~main.8d445b8a0a8d20237fd2.bundle.js"></script><script src="main.8d445b8a0a8d20237fd2.bundle.js"></script></body></html>

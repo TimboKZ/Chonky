@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./Chonky_clear.png" alt="Chonky logo" style="max-width: 500px; background: transparent !important">
+  <img src="./Chonky_clear.png" alt="Chonky logo" style="width: 500px; background: transparent !important">
   <br/>
   <img alt="NPM package" src="https://img.shields.io/npm/v/chonky.svg">
   <img alt="NPM downloads" src="https://img.shields.io/npm/dt/chonky">

@@ -64,19 +64,12 @@ export const getMainDemoFsData = () => {
     return {fileMap, rootFolderId: rootId};
 };
 
-const wrapperStyle = {
-    boxShadow: 'rgba(0, 0, 0, 0.1) 0 2px 3px',
-    border: 'solid 1px #ddd',
-    margin: '20px 0',
-    borderRadius: 4,
-    padding: 10,
-};
 
 export const wrapExample = (Element?: React.ElementType, minHeight?: any) => {
     if (isNil(Element)) return () => <span/>;
-    const style: any = {...wrapperStyle};
+    const style: any = {};
     if (!isNil(minHeight)) style.minHeight = minHeight;
-    return () => <div style={style}><Element/></div>;
+    return () => <div className="example-wrapper" style={style}><Element/></div>;
 };
 
 export const getParams = (readme?: string, extraParams?: object) => {

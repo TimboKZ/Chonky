@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build:tsc": "tsc",
-    "storybook": "start-storybook -s ./static -p 6006",
+    "storybook": "start-storybook -s ./static -p 6006 --ci",
     "build-storybook": "build-storybook -s ./static -o ./docs"
   },
   "dependencies": {
