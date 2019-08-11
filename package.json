@@ -9,7 +9,9 @@
     "style"
   ],
   "scripts": {
-    "build:tsc": "tsc",
+    "tsc:build": "tsc",
+    "ange:build": "ange docs/ -r",
+    "ange:watch": "ange docs/ -r -w",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build"
   },
@@ -46,7 +48,7 @@
     "@types/react-dom": "^16.8.5",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
-    "ange": "^1.1.0",
+    "ange": "^1.2.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -61,7 +63,6 @@
     "react": "^16.8.6",
     "react-docgen-typescript": "^1.12.5",
     "react-dom": "^16.8.6",
-    "react-styleguidist": "^9.1.14",
     "sharp": "^0.23.0",
     "style-loader": "^1.0.0",
     "tsdef": "0.0.13",

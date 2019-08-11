@@ -10,7 +10,7 @@ import {isNil} from '../../src/util/Util';
 import {fileMap as picsFileMap, rootFolderId as picsFolderId} from './japan_pics.fs_map.json';
 import {fileMap as chonkyFileMap, rootFolderId as chonkyFolderId} from './chonky_project.fs_map.json';
 
-import '../documentation/FullDemo';
+import '../components/FullDemo';
 
 const processFileMapDates = (fileMap: any) => {
     for (const fileId in fileMap) {

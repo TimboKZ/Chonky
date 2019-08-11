@@ -12,7 +12,7 @@ const ThumbnailGenerator = require('fs-thumbnail');
 
 const getFileId = filePath => md5(filePath).substring(0, 12);
 
-const thumbDirPath = path.resolve(__dirname, '..', 'static', 'thumbnails');
+const thumbDirPath = path.resolve(__dirname, '..', 'assets', 'thumbnails');
 const thumbGen = new ThumbnailGenerator({verbose: false, size: 300, quality: 60});
 
 const readFile = (filePath, parentFile) => {

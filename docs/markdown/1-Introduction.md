@@ -4,14 +4,8 @@ and "detailed list", enter folders, and so on.
 
 ### Quick demo
 
-```js { "file": "./FullDemo.js" }
+```js { "componentPath": "../components/FullDemo.js" }
 ```
-
-```js
-import FullDemo from './FullDemo';
-;<FullDemo/>;
-```
-
 
 ### Philosophy
 

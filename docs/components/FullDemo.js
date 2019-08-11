@@ -1,6 +1,12 @@
+// Import React as usual
 import React from 'react';
-import Promise from 'bluebird';
 
+// Import Noty for nice file open notifications
+import Noty from 'noty';
+import 'noty/lib/noty.css';
+import 'noty/lib/themes/relax.css';
+
+// Import Chonky
 import 'chonky/style/main.css';
 import {FileBrowser, FolderView, demoFileMap, demoRootFolderId} from 'chonky';
 
@@ -18,7 +24,8 @@ export default class FullDemo extends React.Component {
             this.setState({currentFolderId: file.id});
         } else {
             const type = file.isDir ? 'folder' : 'file';
-            alert(`You tried to open a ${type}: ${file.name}`);
+            const text = `You tried to open a ${type}: ${file.name}`;
+            new Noty({text: text, type: 'success', theme: 'relax', timeout: 3000}).show();
         }
     };
 
@@ -56,5 +63,3 @@ export default class FullDemo extends React.Component {
     }
 
 }
-
-;<FullDemo/>;

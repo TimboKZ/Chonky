@@ -1,6 +1,3 @@
-
-# Specifying the current folder
-
 The current folder is shown in the status bar of `FileBrowser` component. You can specify the current folder 
 hierarchy by passing an array of file objects as `folderChain` property of `FileBrowser`.
 
@@ -12,20 +9,11 @@ required. Just like with `files`, you can add some `null` values to the `folderC
 It is assumed that the first element in `folderChain` is the top level folder, and the last element is the folder that 
 user is currently in. All folders except for the current folder are clickable, unless `file.openable` is set to `false`.
 
-## Example
+### Example folder chain
 
-Try clicking on folder names in the status bar. Note that `Folder 3` in the example below is not clickable, since it's 
-`openable` property is set to false. Note also how "go up a directory" button is disabled - this is because second to
-last folder in the `folderChain` is not openable.
+Here's the folder chain we will use: 
 
-<!-- STORY -->
-
-```javascript
-import React from 'react';
-
-import 'chonky/style/main.css';
-import {FileBrowser} from 'chonky';
-
+```js
 const folderChain = [
     {
         id: 'folder-1',
@@ -50,31 +38,9 @@ const folderChain = [
         isDir: true,
     },
 ];
+```
 
-export default class ExampleComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {infoFile: null};
-    }
+Try clicking on folder names in the status bar. Note that `Folder 3` in the example below is not clickable, since it's `openable` property is set to false. Note also how "go up a directory" button is disabled - this is because second to last folder in the `folderChain` is not openable. 
 
-    handleFileOpen = (file) => {
-        this.setState({
-            infoFile: {
-                id: 'info-file',
-                name: `You opened "${file.name}"`,
-                isDir: false,
-                openable: false,
-            },
-        });
-    };
-
-    render() {
-        const {infoFile} = this.state;
-        const files = [];
-        if (infoFile) files.push(infoFile);
-
-        return <FileBrowser files={files} folderChain={folderChain}
-                            onFileOpen={this.handleFileOpen}/>;
-    }
-}
+```js { "componentPath" : "../components/Folder-chain.js" }
 ```

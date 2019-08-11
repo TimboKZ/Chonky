@@ -21,49 +21,56 @@
       "name": "Kyoto Station.jpg",
       "modDate": "2019-08-04T00:45:57.010Z",
       "parentId": "0b9e8a6706d9",
-      "size": 546247
+      "size": 546247,
+      "thumbnailUrl": "./thumbnails/Kyoto Station.jpg"
     },
     "bb2b9350a62a": {
       "id": "bb2b9350a62a",
       "name": "Kyoto Vibes.jpg",
       "modDate": "2019-08-04T00:45:14.234Z",
       "parentId": "0b9e8a6706d9",
-      "size": 1699335
+      "size": 1699335,
+      "thumbnailUrl": "./thumbnails/Kyoto Vibes.jpg"
     },
     "5c32605f67be": {
       "id": "5c32605f67be",
       "name": "Kyoto.jpg",
       "modDate": "2019-08-04T00:45:45.910Z",
       "parentId": "0b9e8a6706d9",
-      "size": 981549
+      "size": 981549,
+      "thumbnailUrl": "./thumbnails/Kyoto.jpg"
     },
     "632e30fca596": {
       "id": "632e30fca596",
       "name": "Little Japanese neighborhood.jpg",
       "modDate": "2019-08-04T00:44:32.960Z",
       "parentId": "0b9e8a6706d9",
-      "size": 225062
+      "size": 225062,
+      "thumbnailUrl": "./thumbnails/Little Japanese neighborhood.jpg"
     },
     "71b9f6fa4e92": {
       "id": "71b9f6fa4e92",
       "name": "Mt. Fuji.jpg",
       "modDate": "2019-08-04T00:45:31.314Z",
       "parentId": "0b9e8a6706d9",
-      "size": 929880
+      "size": 929880,
+      "thumbnailUrl": "./thumbnails/Mt. Fuji.jpg"
     },
     "df72d20ae06d": {
       "id": "df72d20ae06d",
       "name": "Tokyo Skytree.jpg",
       "modDate": "2019-08-04T00:44:55.204Z",
       "parentId": "0b9e8a6706d9",
-      "size": 1036620
+      "size": 1036620,
+      "thumbnailUrl": "./thumbnails/Tokyo Skytree.jpg"
     },
     "ae448f09934f": {
       "id": "ae448f09934f",
       "name": "Yoshinoyama.jpg",
       "modDate": "2019-08-04T00:45:02.500Z",
       "parentId": "0b9e8a6706d9",
-      "size": 594389
+      "size": 594389,
+      "thumbnailUrl": "./thumbnails/Yoshinoyama.jpg"
     }
   }
 }

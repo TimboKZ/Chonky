@@ -1,5 +1,4 @@
-.storybook/
+assets/
 docs/
+public/
 src/
-static/
-stories/

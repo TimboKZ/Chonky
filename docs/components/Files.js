@@ -1,14 +1,20 @@
-// Import React as you normally would
+// Import React as usual
 import React from 'react';
 
-// Import Chonky styles and relevant components
-import '../../style/main.css';
-import {FileBrowser, FolderView} from '../../index';
+// Import Noty for nice file open notifications
+import Noty from 'noty';
+import 'noty/lib/noty.css';
+import 'noty/lib/themes/relax.css';
+
+// Import Chonky
+import 'chonky/style/main.css';
+import {FileBrowser, FolderView} from 'chonky';
 
 // Define a handler for "open file" action
 const handleFileOpen = (file) => {
     const type = file.isDir ? 'folder' : 'file';
-    alert(`You tried to open a ${type}:  ${file.base}`);
+    const text = `You tried to open a ${type}: ${file.name}`;
+    new Noty({text: text, type: 'success', theme: 'relax', timeout: 3000}).show();
 };
 
 const files = [
@@ -25,7 +31,7 @@ const files = [
         id: 'bnm',
         name: 'Normal folder',
         isDir: true,
-        childrenIds: ['random-id-1', 'random-id-2']
+        childrenIds: ['random-id-1', 'random-id-2'],
     },
     {
         id: 'vfr',

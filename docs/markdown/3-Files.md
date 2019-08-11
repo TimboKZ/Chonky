@@ -1,6 +1,3 @@
-
-# Passing file list to Chonky
-
 The `FileBrowser` component accepts a property called `files`, which should be an array of file objects. It also the 
 only required property, so the most basic Chonky usage could look like this:
  
@@ -11,7 +8,7 @@ export const ExampleComponent = () => {
 }
 ```
 
-## File object type
+### File object type
 
 Each object in the `files` array should describe a file. To be precise, each object should satisfy the `FileData` 
 type. The full definition of `FileData` type can be seen below (taken from
@@ -19,17 +16,17 @@ type. The full definition of `FileData` type can be seen below (taken from
 
 ```typescript
 // Required properties are marked with `!!`
-export type FileData = {
+export interface FileData {
     id: string; // !! String that uniquely identifies the file
 
     name: string; // !! Full name, e.g. `MyImage.jpg`
     ext?: string; // File extension, e.g. `.jpg`
 
-    isDir: boolean; // !! Is a directory
+    isDir?: boolean; // Is a directory, default: false
     isHidden?: boolean; // Is a hidden file, default: false
     isSymlink?: boolean; // Is a symlink, default: false
-    openable?: boolean // Can be opened, default: true
-    selectable?: boolean, // Can be selected, default: true
+    openable?: boolean; // Can be opened, default: true
+    selectable?: boolean; // Can be selected, default: true
 
     size?: number; // File size in bytes
     modDate?: Date; // Last change date
@@ -39,8 +36,8 @@ export type FileData = {
 }
 ``` 
 
-The main idea to take away here is that each file object must, at the very least, have the following 3 properties:
-`id`, `name`, and `isDir`. All of the other properties are optional, but they could significantly improve user 
+The main idea to take away here is that each file object must, at the very least, have the following 2 properties:
+`id` and `name`. All of the other properties are optional, but they could significantly improve user 
 experience if they are present.
 
 If you don't specify the file extension (`ext` property), extension will be extracted automatically using
@@ -48,12 +45,12 @@ If you don't specify the file extension (`ext` property), extension will be extr
 can set `ext` to an empty string: `file.ext = ''`. If you do specify an extension, make sure it matches the actual 
 file extension and starts with a dot, e.g. `file.ext = '.tar.gz'`.
 
-### Custom file properties
+#### Custom file properties
 
 You are also free to add custom properties to objects, e.g. `file.encryption = 'RSA'`. `FileBrowser` will just 
 ignore them, but they might be useful for your action handlers.
 
-### Loading placeholders
+#### Loading placeholders
 
 If you want to have a nice loading animation, you can pass several `null` values instead of a file object. For example,
 if you know that a directory has 6 files in total, but only 2 of them were loaded, your `files` array could look like
@@ -65,7 +62,7 @@ const files = [myFile1, myFile2, null, null, null, null];
 
 This configuration will render 2 files and 4 loading placeholders. Check the examples below to get a better idea.
 
-## Immutability
+### Immutability
 
 To prevent useless re-renders and maximize performance, Chonky treats the list of files you pass in as an [immutable 
 data structure](https://wecodetheweb.com/2016/02/12/immutable-javascript-using-es6-and-beyond/). If you're familiar 
@@ -80,7 +77,7 @@ Consider the following example: Your React component state holds an array called
 have a function that renames the second file to some predefined value, let's call it `renameSecond()`. You might be 
 tempted to update your state in a way shown below.
 
-```javascript
+```js
 class BadComponent extends React.Component {
     //...
     renameSecond() {
@@ -99,7 +96,7 @@ This is a bad practice because it changes the second file object directly. It al
 of creating a new copy. As a result, passing `this.state.files` to `FileBrowser` will not actually update the rendered 
 file name. The correct way to update state in this case looks like this:
 
-```javascript
+```js
 class GoodComponent extends React.Component {
     //...
     renameSecond() {
@@ -125,13 +122,11 @@ class GoodComponent extends React.Component {
 This way, the immutability properties are satisfied, and Chonky will correctly detect that the second object has 
 changed and re-render file names as necessary.
 
-## Example with different files
+## Example file list
 
-<!-- STORY -->
+We'll use the following `files` array:
 
-The example above is rendering the following `files` array:
-
-```javascript
+```js
 const files = [
     null,
     null,
@@ -157,18 +152,21 @@ const files = [
     {
         id: 'qwe',
         name: 'Not selectable.tar.gz',
-        ext: '.tar.gz',
-        isDir: false,
-        selectable: false,
+        ext: '.tar.gz', // Custom extension
+        selectable: false, // Disable selection
         size: 54300000000,
         modDate: new Date(),
     },
     {
         id: 'rty',
         name: 'Not openable.pem',
-        isDir: false,
-        openable: false,
+        openable: false, // Prevent opening
         size: 100000000,
     },
 ];
+```
+
+Notice how each boolean flag changes the relevant file entries in same way:
+
+```js { "componentPath" : "../components/Files.js" }
 ```

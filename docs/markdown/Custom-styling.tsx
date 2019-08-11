@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-import FullDemo from './FullDemo';
+import FullDemo from '../components/FullDemo';
 
 const ExampleComponent = () => {
     return <FullDemo/>;

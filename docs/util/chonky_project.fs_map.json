@@ -4,7 +4,7 @@
     "3573ce1da0ba": {
       "id": "3573ce1da0ba",
       "name": "Chonky",
-      "modDate": "2019-08-10T17:29:37.021Z",
+      "modDate": "2019-08-11T04:50:37.954Z",
       "isDir": true,
       "childrenIds": [
         "fff8e18a9b96",
@@ -12,8 +12,10 @@
         "be18ce728989",
         "eacebf72b41d",
         "6f58da9b42c9",
+        "ceef6b7a4947",
         "f5084135f71e",
         "48d02193ab5e",
+        "5131c563faac",
         "cf59d0cdf104",
         "8aee12544c32",
         "24884393761f",
@@ -45,10 +47,10 @@
     "be18ce728989": {
       "id": "be18ce728989",
       "name": ".npmignore",
-      "modDate": "2019-08-09T02:39:32.345Z",
+      "modDate": "2019-08-11T04:54:04.534Z",
       "isHidden": true,
       "parentId": "3573ce1da0ba",
-      "size": 40
+      "size": 27
     },
     "eacebf72b41d": {
       "id": "eacebf72b41d",
@@ -70,17 +72,25 @@
         "4e6a8b3e482b"
       ]
     },
+    "ceef6b7a4947": {
+      "id": "ceef6b7a4947",
+      "name": "babel.config.js",
+      "modDate": "2019-08-11T00:25:36.684Z",
+      "parentId": "3573ce1da0ba",
+      "size": 125
+    },
     "f5084135f71e": {
       "id": "f5084135f71e",
       "name": "docs",
-      "modDate": "2019-08-10T14:37:57.298Z",
+      "modDate": "2019-08-11T03:19:25.414Z",
       "isDir": true,
       "parentId": "3573ce1da0ba",
       "childrenIds": [
         "f361e5b988f6",
         "d300279b481a",
-        "8f7ba2db1bcd",
+        "3925a3566846",
         "39ab856134f6",
+        "3707b6fc5ce5",
         "b6b98158c1e7",
         "e475afa3b58e"
       ]
@@ -88,23 +98,34 @@
     "48d02193ab5e": {
       "id": "48d02193ab5e",
       "name": "index.ts",
-      "modDate": "2019-08-10T16:42:38.618Z",
+      "modDate": "2019-08-10T18:05:44.134Z",
       "parentId": "3573ce1da0ba",
-      "size": 323
+      "size": 467
+    },
+    "5131c563faac": {
+      "id": "5131c563faac",
+      "name": "lib",
+      "modDate": "2019-08-11T04:50:37.957Z",
+      "isDir": true,
+      "parentId": "3573ce1da0ba",
+      "childrenIds": [
+        "217a31b0845c",
+        "589030d4ba66"
+      ]
     },
     "cf59d0cdf104": {
       "id": "cf59d0cdf104",
       "name": "package-lock.json",
-      "modDate": "2019-08-10T17:29:37.021Z",
+      "modDate": "2019-08-11T01:39:51.948Z",
       "parentId": "3573ce1da0ba",
-      "size": 431531
+      "size": 336889
     },
     "8aee12544c32": {
       "id": "8aee12544c32",
       "name": "package.json",
-      "modDate": "2019-08-10T17:29:36.828Z",
+      "modDate": "2019-08-11T01:39:51.784Z",
       "parentId": "3573ce1da0ba",
-      "size": 2430
+      "size": 2573
     },
     "24884393761f": {
       "id": "24884393761f",
@@ -149,16 +170,16 @@
     "3f767bba8dfe": {
       "id": "3f767bba8dfe",
       "name": "styleguide.config.js",
-      "modDate": "2019-08-10T16:12:31.451Z",
+      "modDate": "2019-08-11T04:40:51.047Z",
       "parentId": "3573ce1da0ba",
-      "size": 1880
+      "size": 3064
     },
     "b8ad5141a779": {
       "id": "b8ad5141a779",
       "name": "styleguide.styles.js",
-      "modDate": "2019-08-10T16:30:24.888Z",
+      "modDate": "2019-08-11T04:50:00.867Z",
       "parentId": "3573ce1da0ba",
-      "size": 551
+      "size": 1343
     },
     "480cccd14bf9": {
       "id": "480cccd14bf9",
@@ -177,9 +198,48 @@
     "2fd7054da4e4": {
       "id": "2fd7054da4e4",
       "name": "webpack.config.js",
-      "modDate": "2019-08-10T17:07:23.244Z",
+      "modDate": "2019-08-10T19:07:52.114Z",
       "parentId": "3573ce1da0ba",
-      "size": 989
+      "size": 736
+    },
+    "23162c9fc258": {
+      "id": "23162c9fc258",
+      "name": "Chonky.jpg",
+      "modDate": "2019-08-06T18:29:02.182Z",
+      "parentId": "6f58da9b42c9",
+      "size": 15357,
+      "thumbnailUrl": "./thumbnails/Chonky.jpg"
+    },
+    "1cdb3acf3dee": {
+      "id": "1cdb3acf3dee",
+      "name": "Chonky_clear.png",
+      "modDate": "2019-08-06T18:32:22.142Z",
+      "parentId": "6f58da9b42c9",
+      "size": 44584,
+      "thumbnailUrl": "./thumbnails/Chonky_clear.jpg"
+    },
+    "06cee22b3442": {
+      "id": "06cee22b3442",
+      "name": "Chonky_preview.jpg",
+      "modDate": "2019-08-08T03:15:25.009Z",
+      "parentId": "6f58da9b42c9",
+      "size": 116385,
+      "thumbnailUrl": "./thumbnails/Chonky_preview.jpg"
+    },
+    "4e6a8b3e482b": {
+      "id": "4e6a8b3e482b",
+      "name": "favicon.png",
+      "modDate": "2019-08-06T18:18:10.062Z",
+      "parentId": "6f58da9b42c9",
+      "size": 1977,
+      "thumbnailUrl": "./thumbnails/favicon.jpg"
+    },
+    "b2eb81885437": {
+      "id": "b2eb81885437",
+      "name": "read_fs_to_json.js",
+      "modDate": "2019-08-11T04:55:59.354Z",
+      "parentId": "24884393761f",
+      "size": 5342
     },
     "da07e3cc0256": {
       "id": "da07e3cc0256",
@@ -210,9 +270,9 @@
     "b992ee749646": {
       "id": "b992ee749646",
       "name": "typedef.ts",
-      "modDate": "2019-08-09T06:53:18.121Z",
+      "modDate": "2019-08-10T18:03:01.741Z",
       "parentId": "a8f7f6eec846",
-      "size": 7120
+      "size": 7192
     },
     "2b03bcaae56f": {
       "id": "2b03bcaae56f",
@@ -228,6 +288,258 @@
         "3355de52018a",
         "89c3e0ad9f2c"
       ]
+    },
+    "217a31b0845c": {
+      "id": "217a31b0845c",
+      "name": "index.d.ts",
+      "modDate": "2019-08-11T04:50:37.957Z",
+      "parentId": "5131c563faac",
+      "size": 432
+    },
+    "589030d4ba66": {
+      "id": "589030d4ba66",
+      "name": "src",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "isDir": true,
+      "parentId": "5131c563faac",
+      "childrenIds": [
+        "cdeb58342107",
+        "818d1352c042",
+        "b16d1b1569da"
+      ]
+    },
+    "f361e5b988f6": {
+      "id": "f361e5b988f6",
+      "name": "Not-available.md",
+      "modDate": "2019-08-10T14:37:57.298Z",
+      "parentId": "f5084135f71e",
+      "size": 83
+    },
+    "d300279b481a": {
+      "id": "d300279b481a",
+      "name": "Readme.md",
+      "modDate": "2019-08-11T04:19:42.414Z",
+      "parentId": "f5084135f71e",
+      "size": 1706
+    },
+    "3925a3566846": {
+      "id": "3925a3566846",
+      "name": "components",
+      "modDate": "2019-08-11T04:08:16.311Z",
+      "isDir": true,
+      "parentId": "f5084135f71e",
+      "childrenIds": [
+        "d589942c2725",
+        "a2aa895bdc83",
+        "9ef55b931327",
+        "36bc6aa71378",
+        "f62cf8f62cf0"
+      ]
+    },
+    "39ab856134f6": {
+      "id": "39ab856134f6",
+      "name": "examples",
+      "modDate": "2019-08-10T14:11:22.388Z",
+      "isDir": true,
+      "parentId": "f5084135f71e",
+      "childrenIds": [
+        "abbf0a9db6c5"
+      ]
+    },
+    "3707b6fc5ce5": {
+      "id": "3707b6fc5ce5",
+      "name": "markdown",
+      "modDate": "2019-08-11T04:08:10.021Z",
+      "isDir": true,
+      "parentId": "f5084135f71e",
+      "childrenIds": [
+        "7d26426d86d9",
+        "db0701ad9a54",
+        "f2a8166bc9b7",
+        "9af74352a755",
+        "c52ec04a47b7",
+        "5ba95be79740",
+        "5db0d1a33edf",
+        "771390d27c7e"
+      ]
+    },
+    "b6b98158c1e7": {
+      "id": "b6b98158c1e7",
+      "name": "markdown.d.ts",
+      "modDate": "2019-08-10T14:11:22.825Z",
+      "parentId": "f5084135f71e",
+      "size": 83
+    },
+    "e475afa3b58e": {
+      "id": "e475afa3b58e",
+      "name": "util",
+      "modDate": "2019-08-10T17:43:53.848Z",
+      "isDir": true,
+      "parentId": "f5084135f71e",
+      "childrenIds": [
+        "1eea0221ec22",
+        "299c04676a9b",
+        "1f13362cb687",
+        "e1ea769af621"
+      ]
+    },
+    "abbf0a9db6c5": {
+      "id": "abbf0a9db6c5",
+      "name": "index.tsx",
+      "modDate": "2019-08-08T00:07:07.709Z",
+      "parentId": "39ab856134f6",
+      "size": 260
+    },
+    "364a10786dc1": {
+      "id": "364a10786dc1",
+      "name": "ConsoleUtil.ts",
+      "modDate": "2019-08-10T11:03:15.348Z",
+      "parentId": "2b03bcaae56f",
+      "size": 873
+    },
+    "f745e60164b2": {
+      "id": "f745e60164b2",
+      "name": "FileUtil.ts",
+      "modDate": "2019-08-10T18:08:50.541Z",
+      "parentId": "2b03bcaae56f",
+      "size": 3232
+    },
+    "46d5f93e4605": {
+      "id": "46d5f93e4605",
+      "name": "IconUtil.ts",
+      "modDate": "2019-08-10T17:58:04.201Z",
+      "parentId": "2b03bcaae56f",
+      "size": 2999
+    },
+    "ce56e7c0a603": {
+      "id": "ce56e7c0a603",
+      "name": "Util.ts",
+      "modDate": "2019-08-10T11:03:15.398Z",
+      "parentId": "2b03bcaae56f",
+      "size": 1832
+    },
+    "3355de52018a": {
+      "id": "3355de52018a",
+      "name": "demo.fs_map.json",
+      "modDate": "2019-08-10T17:52:11.391Z",
+      "parentId": "2b03bcaae56f",
+      "size": 19244
+    },
+    "89c3e0ad9f2c": {
+      "id": "89c3e0ad9f2c",
+      "name": "fs_map.d.ts",
+      "modDate": "2019-08-10T17:44:11.124Z",
+      "parentId": "2b03bcaae56f",
+      "size": 199
+    },
+    "cdeb58342107": {
+      "id": "cdeb58342107",
+      "name": "components",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "isDir": true,
+      "parentId": "589030d4ba66",
+      "childrenIds": [
+        "1366c6727b04",
+        "e920261e92ea",
+        "8075d383bfaa",
+        "bd299c0c6dbb",
+        "6c3125c0864b",
+        "622086895049",
+        "72b4266221ec",
+        "dae681c1d556",
+        "d0d97f58cae8",
+        "03635dbc5508"
+      ]
+    },
+    "818d1352c042": {
+      "id": "818d1352c042",
+      "name": "typedef.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "589030d4ba66",
+      "size": 2356
+    },
+    "b16d1b1569da": {
+      "id": "b16d1b1569da",
+      "name": "util",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "isDir": true,
+      "parentId": "589030d4ba66",
+      "childrenIds": [
+        "165a095d7179",
+        "34620426e829",
+        "f6e01f8f5a11",
+        "cefd00cc41aa"
+      ]
+    },
+    "17cd4d420e1e": {
+      "id": "17cd4d420e1e",
+      "name": "ButtonGroup.tsx",
+      "modDate": "2019-08-10T11:02:00.635Z",
+      "parentId": "fdeb8a7205cd",
+      "size": 555
+    },
+    "263583bcd5cb": {
+      "id": "263583bcd5cb",
+      "name": "ClickableWrapper.tsx",
+      "modDate": "2019-08-10T16:34:07.018Z",
+      "parentId": "fdeb8a7205cd",
+      "size": 2194
+    },
+    "5c775cef6cb2": {
+      "id": "5c775cef6cb2",
+      "name": "Controls.tsx",
+      "modDate": "2019-08-10T11:03:32.505Z",
+      "parentId": "fdeb8a7205cd",
+      "size": 5759
+    },
+    "81c2292ad4b2": {
+      "id": "81c2292ad4b2",
+      "name": "Dropdown.tsx",
+      "modDate": "2019-08-10T11:02:00.951Z",
+      "parentId": "fdeb8a7205cd",
+      "size": 1303
+    },
+    "4cf5f5f5b75a": {
+      "id": "4cf5f5f5b75a",
+      "name": "DropdownButton.tsx",
+      "modDate": "2019-08-10T11:03:32.515Z",
+      "parentId": "fdeb8a7205cd",
+      "size": 1355
+    },
+    "1685cdfa2666": {
+      "id": "1685cdfa2666",
+      "name": "FileBrowser.tsx",
+      "modDate": "2019-08-10T15:53:29.331Z",
+      "parentId": "fdeb8a7205cd",
+      "size": 15355
+    },
+    "9dceda7e3c21": {
+      "id": "9dceda7e3c21",
+      "name": "FileList.tsx",
+      "modDate": "2019-08-10T11:03:32.498Z",
+      "parentId": "fdeb8a7205cd",
+      "size": 5312
+    },
+    "eebe5e326d6a": {
+      "id": "eebe5e326d6a",
+      "name": "FileListEntry.tsx",
+      "modDate": "2019-08-11T04:55:24.844Z",
+      "parentId": "fdeb8a7205cd",
+      "size": 9703
+    },
+    "f209a00db51c": {
+      "id": "f209a00db51c",
+      "name": "IconButton.tsx",
+      "modDate": "2019-08-10T11:03:32.501Z",
+      "parentId": "fdeb8a7205cd",
+      "size": 1325
+    },
+    "3ee2107452c9": {
+      "id": "3ee2107452c9",
+      "name": "LoadingPlaceholder.tsx",
+      "modDate": "2019-08-10T11:03:32.508Z",
+      "parentId": "fdeb8a7205cd",
+      "size": 848
     },
     "d9d265de6c66": {
       "id": "d9d265de6c66",
@@ -285,339 +597,12 @@
       "parentId": "35a2782f9a66",
       "size": 1729
     },
-    "f361e5b988f6": {
-      "id": "f361e5b988f6",
-      "name": "Not-available.md",
-      "modDate": "2019-08-10T14:37:57.298Z",
-      "parentId": "f5084135f71e",
-      "size": 83
-    },
-    "d300279b481a": {
-      "id": "d300279b481a",
-      "name": "Readme.md",
-      "modDate": "2019-08-10T15:38:37.894Z",
-      "parentId": "f5084135f71e",
-      "size": 1230
-    },
-    "8f7ba2db1bcd": {
-      "id": "8f7ba2db1bcd",
-      "name": "documentation",
-      "modDate": "2019-08-10T16:35:20.511Z",
-      "isDir": true,
-      "parentId": "f5084135f71e",
-      "childrenIds": [
-        "4cc506543894",
-        "7b0a301c5a04",
-        "f9cc472f212a",
-        "70ff2a479a54",
-        "dfcfc8182967",
-        "6e81a71dcd58",
-        "26a48844135f",
-        "ed271b4724c3",
-        "7a01d686a375",
-        "7585306ec7d3",
-        "863a260a9db2",
-        "597a1b2a3c93",
-        "fc2e69f1bee4",
-        "a9c2d4014f23",
-        "cede16426525"
-      ]
-    },
-    "39ab856134f6": {
-      "id": "39ab856134f6",
-      "name": "examples",
-      "modDate": "2019-08-10T14:11:22.388Z",
-      "isDir": true,
-      "parentId": "f5084135f71e",
-      "childrenIds": [
-        "abbf0a9db6c5"
-      ]
-    },
-    "b6b98158c1e7": {
-      "id": "b6b98158c1e7",
-      "name": "markdown.d.ts",
-      "modDate": "2019-08-10T14:11:22.825Z",
-      "parentId": "f5084135f71e",
-      "size": 83
-    },
-    "e475afa3b58e": {
-      "id": "e475afa3b58e",
-      "name": "util",
-      "modDate": "2019-08-10T17:43:53.848Z",
-      "isDir": true,
-      "parentId": "f5084135f71e",
-      "childrenIds": [
-        "1eea0221ec22",
-        "299c04676a9b",
-        "1f13362cb687",
-        "e1ea769af621"
-      ]
-    },
-    "b2eb81885437": {
-      "id": "b2eb81885437",
-      "name": "read_fs_to_json.js",
-      "modDate": "2019-08-10T17:52:01.464Z",
-      "parentId": "24884393761f",
-      "size": 5342
-    },
-    "23162c9fc258": {
-      "id": "23162c9fc258",
-      "name": "Chonky.jpg",
-      "modDate": "2019-08-06T18:29:02.182Z",
-      "parentId": "6f58da9b42c9",
-      "size": 15357
-    },
-    "1cdb3acf3dee": {
-      "id": "1cdb3acf3dee",
-      "name": "Chonky_clear.png",
-      "modDate": "2019-08-06T18:32:22.142Z",
-      "parentId": "6f58da9b42c9",
-      "size": 44584
-    },
-    "06cee22b3442": {
-      "id": "06cee22b3442",
-      "name": "Chonky_preview.jpg",
-      "modDate": "2019-08-08T03:15:25.009Z",
-      "parentId": "6f58da9b42c9",
-      "size": 116385
-    },
-    "4e6a8b3e482b": {
-      "id": "4e6a8b3e482b",
-      "name": "favicon.png",
-      "modDate": "2019-08-06T18:18:10.062Z",
-      "parentId": "6f58da9b42c9",
-      "size": 1977
-    },
-    "364a10786dc1": {
-      "id": "364a10786dc1",
-      "name": "ConsoleUtil.ts",
-      "modDate": "2019-08-10T11:03:15.348Z",
-      "parentId": "2b03bcaae56f",
-      "size": 873
-    },
-    "f745e60164b2": {
-      "id": "f745e60164b2",
-      "name": "FileUtil.ts",
-      "modDate": "2019-08-10T11:03:32.505Z",
-      "parentId": "2b03bcaae56f",
-      "size": 2828
-    },
-    "46d5f93e4605": {
-      "id": "46d5f93e4605",
-      "name": "IconUtil.ts",
-      "modDate": "2019-08-10T16:59:34.811Z",
-      "parentId": "2b03bcaae56f",
-      "size": 2990
-    },
-    "ce56e7c0a603": {
-      "id": "ce56e7c0a603",
-      "name": "Util.ts",
-      "modDate": "2019-08-10T11:03:15.398Z",
-      "parentId": "2b03bcaae56f",
-      "size": 1832
-    },
-    "3355de52018a": {
-      "id": "3355de52018a",
-      "name": "demo.fs_map.json",
-      "modDate": "2019-08-10T17:49:19.498Z",
-      "parentId": "2b03bcaae56f",
-      "size": 20904
-    },
-    "89c3e0ad9f2c": {
-      "id": "89c3e0ad9f2c",
-      "name": "fs_map.d.ts",
-      "modDate": "2019-08-10T17:44:11.124Z",
-      "parentId": "2b03bcaae56f",
-      "size": 199
-    },
-    "17cd4d420e1e": {
-      "id": "17cd4d420e1e",
-      "name": "ButtonGroup.tsx",
-      "modDate": "2019-08-10T11:02:00.635Z",
-      "parentId": "fdeb8a7205cd",
-      "size": 555
-    },
-    "263583bcd5cb": {
-      "id": "263583bcd5cb",
-      "name": "ClickableWrapper.tsx",
-      "modDate": "2019-08-10T16:34:07.018Z",
-      "parentId": "fdeb8a7205cd",
-      "size": 2194
-    },
-    "5c775cef6cb2": {
-      "id": "5c775cef6cb2",
-      "name": "Controls.tsx",
-      "modDate": "2019-08-10T11:03:32.505Z",
-      "parentId": "fdeb8a7205cd",
-      "size": 5759
-    },
-    "81c2292ad4b2": {
-      "id": "81c2292ad4b2",
-      "name": "Dropdown.tsx",
-      "modDate": "2019-08-10T11:02:00.951Z",
-      "parentId": "fdeb8a7205cd",
-      "size": 1303
-    },
-    "4cf5f5f5b75a": {
-      "id": "4cf5f5f5b75a",
-      "name": "DropdownButton.tsx",
-      "modDate": "2019-08-10T11:03:32.515Z",
-      "parentId": "fdeb8a7205cd",
-      "size": 1355
-    },
-    "1685cdfa2666": {
-      "id": "1685cdfa2666",
-      "name": "FileBrowser.tsx",
-      "modDate": "2019-08-10T15:53:29.331Z",
-      "parentId": "fdeb8a7205cd",
-      "size": 15355
-    },
-    "9dceda7e3c21": {
-      "id": "9dceda7e3c21",
-      "name": "FileList.tsx",
-      "modDate": "2019-08-10T11:03:32.498Z",
-      "parentId": "fdeb8a7205cd",
-      "size": 5312
-    },
-    "eebe5e326d6a": {
-      "id": "eebe5e326d6a",
-      "name": "FileListEntry.tsx",
-      "modDate": "2019-08-10T17:18:11.591Z",
-      "parentId": "fdeb8a7205cd",
-      "size": 9493
-    },
-    "f209a00db51c": {
-      "id": "f209a00db51c",
-      "name": "IconButton.tsx",
-      "modDate": "2019-08-10T11:03:32.501Z",
-      "parentId": "fdeb8a7205cd",
-      "size": 1325
-    },
-    "3ee2107452c9": {
-      "id": "3ee2107452c9",
-      "name": "LoadingPlaceholder.tsx",
-      "modDate": "2019-08-10T11:03:32.508Z",
-      "parentId": "fdeb8a7205cd",
-      "size": 848
-    },
-    "4cc506543894": {
-      "id": "4cc506543894",
-      "name": "Custom-styling.md",
-      "modDate": "2019-08-08T06:34:59.152Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 2369
-    },
-    "7b0a301c5a04": {
-      "id": "7b0a301c5a04",
-      "name": "Custom-styling.tsx",
-      "modDate": "2019-08-10T14:11:12.901Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 257
-    },
-    "f9cc472f212a": {
-      "id": "f9cc472f212a",
-      "name": "Display-thumbnails.js",
-      "modDate": "2019-08-10T16:42:38.621Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 777
-    },
-    "70ff2a479a54": {
-      "id": "70ff2a479a54",
-      "name": "Display-thumbnails.md",
-      "modDate": "2019-08-09T01:34:51.775Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 2851
-    },
-    "dfcfc8182967": {
-      "id": "dfcfc8182967",
-      "name": "FileBrowser-props.md",
-      "modDate": "2019-08-09T03:38:59.105Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 3834
-    },
-    "6e81a71dcd58": {
-      "id": "6e81a71dcd58",
-      "name": "FullDemo.js",
-      "modDate": "2019-08-10T17:12:18.788Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 2127
-    },
-    "26a48844135f": {
-      "id": "26a48844135f",
-      "name": "Installation.js",
-      "modDate": "2019-08-10T17:12:34.951Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 979
-    },
-    "ed271b4724c3": {
-      "id": "ed271b4724c3",
-      "name": "Installation.md",
-      "modDate": "2019-08-10T17:08:52.988Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 426
-    },
-    "7a01d686a375": {
-      "id": "7a01d686a375",
-      "name": "Introduction.md",
-      "modDate": "2019-08-10T17:18:45.804Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 2928
-    },
-    "7585306ec7d3": {
-      "id": "7585306ec7d3",
-      "name": "Passing-files.js",
-      "modDate": "2019-08-10T16:42:38.621Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 1408
-    },
-    "863a260a9db2": {
-      "id": "863a260a9db2",
-      "name": "Passing-files.md",
-      "modDate": "2019-08-09T01:25:50.982Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 6054
-    },
-    "597a1b2a3c93": {
-      "id": "597a1b2a3c93",
-      "name": "Specifying-folder.js",
-      "modDate": "2019-08-10T16:42:38.624Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 1183
-    },
-    "fc2e69f1bee4": {
-      "id": "fc2e69f1bee4",
-      "name": "Specifying-folder.md",
-      "modDate": "2019-08-09T02:52:43.018Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 2380
-    },
-    "a9c2d4014f23": {
-      "id": "a9c2d4014f23",
-      "name": "example.d.ts",
-      "modDate": "2019-08-07T22:54:51.826Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 88
-    },
-    "cede16426525": {
-      "id": "cede16426525",
-      "name": "index.tsx",
-      "modDate": "2019-08-10T14:38:05.975Z",
-      "parentId": "8f7ba2db1bcd",
-      "size": 1867
-    },
-    "abbf0a9db6c5": {
-      "id": "abbf0a9db6c5",
-      "name": "index.tsx",
-      "modDate": "2019-08-08T00:07:07.709Z",
-      "parentId": "39ab856134f6",
-      "size": 260
-    },
     "1eea0221ec22": {
       "id": "1eea0221ec22",
       "name": "StoriesUtil.tsx",
-      "modDate": "2019-08-10T17:09:04.294Z",
+      "modDate": "2019-08-11T00:24:56.791Z",
       "parentId": "e475afa3b58e",
-      "size": 2561
+      "size": 1685
     },
     "299c04676a9b": {
       "id": "299c04676a9b",
@@ -629,16 +614,205 @@
     "1f13362cb687": {
       "id": "1f13362cb687",
       "name": "chonky_project.fs_map.json",
-      "modDate": "2019-08-10T17:49:19.498Z",
+      "modDate": "2019-08-10T17:52:11.391Z",
       "parentId": "e475afa3b58e",
-      "size": 18074
+      "size": 16622
     },
     "e1ea769af621": {
       "id": "e1ea769af621",
       "name": "japan_pics.fs_map.json",
-      "modDate": "2019-08-10T17:52:11.268Z",
+      "modDate": "2019-08-11T04:56:02.861Z",
       "parentId": "e475afa3b58e",
-      "size": 1760
+      "size": 2150
+    },
+    "7d26426d86d9": {
+      "id": "7d26426d86d9",
+      "name": "1-Introduction.md",
+      "modDate": "2019-08-11T04:13:36.944Z",
+      "parentId": "3707b6fc5ce5",
+      "size": 2949
+    },
+    "db0701ad9a54": {
+      "id": "db0701ad9a54",
+      "name": "2-Installation.md",
+      "modDate": "2019-08-11T04:04:55.891Z",
+      "parentId": "3707b6fc5ce5",
+      "size": 367
+    },
+    "f2a8166bc9b7": {
+      "id": "f2a8166bc9b7",
+      "name": "3-Files.md",
+      "modDate": "2019-08-11T04:42:23.081Z",
+      "parentId": "3707b6fc5ce5",
+      "size": 6113
+    },
+    "9af74352a755": {
+      "id": "9af74352a755",
+      "name": "4-Folder-chain.md",
+      "modDate": "2019-08-11T04:13:00.587Z",
+      "parentId": "3707b6fc5ce5",
+      "size": 1657
+    },
+    "c52ec04a47b7": {
+      "id": "c52ec04a47b7",
+      "name": "6-Styling.md",
+      "modDate": "2019-08-11T04:07:36.011Z",
+      "parentId": "3707b6fc5ce5",
+      "size": 2321
+    },
+    "5ba95be79740": {
+      "id": "5ba95be79740",
+      "name": "7-Thumbnails.md",
+      "modDate": "2019-08-11T04:09:09.717Z",
+      "parentId": "3707b6fc5ce5",
+      "size": 2179
+    },
+    "5db0d1a33edf": {
+      "id": "5db0d1a33edf",
+      "name": "Custom-styling.tsx",
+      "modDate": "2019-08-11T00:24:56.788Z",
+      "parentId": "3707b6fc5ce5",
+      "size": 269
+    },
+    "771390d27c7e": {
+      "id": "771390d27c7e",
+      "name": "example.d.ts",
+      "modDate": "2019-08-07T22:54:51.826Z",
+      "parentId": "3707b6fc5ce5",
+      "size": 88
+    },
+    "d589942c2725": {
+      "id": "d589942c2725",
+      "name": "Files.js",
+      "modDate": "2019-08-11T04:37:21.271Z",
+      "parentId": "3925a3566846",
+      "size": 1587
+    },
+    "a2aa895bdc83": {
+      "id": "a2aa895bdc83",
+      "name": "Folder-chain.js",
+      "modDate": "2019-08-11T04:06:41.664Z",
+      "parentId": "3925a3566846",
+      "size": 1183
+    },
+    "9ef55b931327": {
+      "id": "9ef55b931327",
+      "name": "FullDemo.js",
+      "modDate": "2019-08-11T04:52:04.254Z",
+      "parentId": "3925a3566846",
+      "size": 2178
+    },
+    "36bc6aa71378": {
+      "id": "36bc6aa71378",
+      "name": "Installation.js",
+      "modDate": "2019-08-11T04:04:38.334Z",
+      "parentId": "3925a3566846",
+      "size": 1163
+    },
+    "f62cf8f62cf0": {
+      "id": "f62cf8f62cf0",
+      "name": "Thumbnails.js",
+      "modDate": "2019-08-11T04:08:16.311Z",
+      "parentId": "3925a3566846",
+      "size": 777
+    },
+    "1366c6727b04": {
+      "id": "1366c6727b04",
+      "name": "ButtonGroup.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "cdeb58342107",
+      "size": 384
+    },
+    "e920261e92ea": {
+      "id": "e920261e92ea",
+      "name": "ClickableWrapper.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "cdeb58342107",
+      "size": 766
+    },
+    "8075d383bfaa": {
+      "id": "8075d383bfaa",
+      "name": "Controls.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "cdeb58342107",
+      "size": 696
+    },
+    "bd299c0c6dbb": {
+      "id": "bd299c0c6dbb",
+      "name": "Dropdown.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "cdeb58342107",
+      "size": 470
+    },
+    "6c3125c0864b": {
+      "id": "6c3125c0864b",
+      "name": "DropdownButton.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "cdeb58342107",
+      "size": 447
+    },
+    "622086895049": {
+      "id": "622086895049",
+      "name": "FileBrowser.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "cdeb58342107",
+      "size": 2857
+    },
+    "72b4266221ec": {
+      "id": "72b4266221ec",
+      "name": "FileList.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "cdeb58342107",
+      "size": 908
+    },
+    "dae681c1d556": {
+      "id": "dae681c1d556",
+      "name": "FileListEntry.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "cdeb58342107",
+      "size": 1112
+    },
+    "d0d97f58cae8": {
+      "id": "d0d97f58cae8",
+      "name": "IconButton.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "cdeb58342107",
+      "size": 550
+    },
+    "03635dbc5508": {
+      "id": "03635dbc5508",
+      "name": "LoadingPlaceholder.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "cdeb58342107",
+      "size": 314
+    },
+    "165a095d7179": {
+      "id": "165a095d7179",
+      "name": "ConsoleUtil.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "b16d1b1569da",
+      "size": 282
+    },
+    "34620426e829": {
+      "id": "34620426e829",
+      "name": "FileUtil.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "b16d1b1569da",
+      "size": 837
+    },
+    "f6e01f8f5a11": {
+      "id": "f6e01f8f5a11",
+      "name": "IconUtil.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "b16d1b1569da",
+      "size": 299
+    },
+    "cefd00cc41aa": {
+      "id": "cefd00cc41aa",
+      "name": "Util.d.ts",
+      "modDate": "2019-08-11T04:50:37.961Z",
+      "parentId": "b16d1b1569da",
+      "size": 1038
     }
   }
 }

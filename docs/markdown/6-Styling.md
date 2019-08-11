@@ -1,11 +1,8 @@
-
-# Custom styling
-
 As you might remember from the *Installation & usage* section, Chonky requires CSS styles to be imported into the 
 project for the `FileBrowser` component to be displayed correctly. You import Chonky's `main.css` similar to how you 
 import JS modules:
 
-```javascript
+```js
 // Import CSS styles
 import 'chonky/style/main.css';
 
@@ -22,7 +19,7 @@ There is no way to specify custom classes for the `FileBrowser` component, but y
     your project directory. You can then make necessary changes to the styles, and import your custom `main.css` **in 
     place** of Chonky's version:
     
-    ```javascript
+    ```js
     import './my_styles/custom_main.css';
     import {FileBrowser, FolderView} from 'chonky';
     ```
@@ -33,7 +30,7 @@ There is no way to specify custom classes for the `FileBrowser` component, but y
 2. (**Recommended**) You can write your own `style.css` that overrides and/or extends Chonky's stylesheet, and import
     it **after** after Chonky's `main.css`:
     
-    ```javascript
+    ```js
     import 'chonky/style/main.css';
     import './style.css';
     import {FileBrowser, FolderView} from 'chonky';
@@ -44,17 +41,17 @@ There is no way to specify custom classes for the `FileBrowser` component, but y
     default values. You can override these defaults by including Chonky's styles in your custom `style.sass`. For 
     example, on could change the selection colour from light blue to orange using:
     
-    ```sass
-    // `style.sass`
-    $fg-active: #f90
-    $bg-active: #f90
-    @import "~chonky/style/main.sass"
+    ```scss
+    // `style.scss`
+    $fg-active: #f90;
+    $bg-active: #f90;
+    @import "~chonky/style/main.scss";
     ```
     
     Given you have a [SASS loader](https://github.com/webpack-contrib/sass-loader#imports) configured, you can then
     import your custom `style.sass` as shown below. Chonky styles will be included automatically.
     
-    ```javascript
-    import './my_styles/style.sass';
+    ```js
+    import './my_styles/style.scss';
     import {FileBrowser, FolderView} from 'chonky';
     ```

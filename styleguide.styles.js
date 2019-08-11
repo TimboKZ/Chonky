@@ -3,9 +3,31 @@ const theme = {
         base: ['sans-serif'],
         monospace: ['Fira Code', 'monospace'],
     },
+    maxWidth: 1024,
+    sidebarWidth: 280,
 };
 
 const styles = {
+    StyleGuide: {
+        '@global body': {
+            fontFamily: 'sans-serif',
+        },
+        '@global code': {
+            backgroundColor: '#eee !important',
+            whiteSpace: 'nowrap !important',
+            borderRadius: '3px !important',
+            fontSize: '0.9em !important',
+            padding: '0 4px !important',
+        },
+    },
+    SectionHeading: {
+        sectionName: {
+            textDecoration: 'none !important',
+            '&:hover': {
+                opacity: 0.75,
+            },
+        },
+    },
     Heading: {
         heading1: {
             borderBottom: 'solid 3px #ddd',
@@ -22,15 +44,12 @@ const styles = {
             marginTop: 60,
         },
         heading3: {
-            marginTop: 30,
+            fontWeight: 'bold',
+            marginTop: 40,
         },
-    },
-    SectionHeading: {
-        sectionName: {
-            textDecoration: 'none !important',
-            '&:hover': {
-                opacity: 0.75,
-            },
+        heading4: {
+            fontWeight: 'bold',
+            marginTop: 30,
         },
     },
 };
