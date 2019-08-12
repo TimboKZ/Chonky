@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import {Nullable} from 'tsdef';
+import {Nilable} from 'tsdef';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 
 import {FileData} from './FileData';
@@ -86,11 +86,10 @@ export interface InputEvent {
 }
 
 export type InputListener = (event: InputEvent) => boolean;
-export type ClickHandler = (file: FileData, fileIndex: number, event: InputEvent) => true;
+export type ClickHandler = (file: FileData, fileIndex: number, event: InputEvent) => Nilable<boolean> | Promise<Nilable<boolean>>;
 export type InternalClickHandler = (file: FileData, fileIndex: number, event: InputEvent) => void;
 
-export type ThumbnailGeneratorResult = Nullable<string> | Promise<Nullable<string>>;
-export type ThumbnailGenerator = (file: FileData) => ThumbnailGeneratorResult;
+export type ThumbnailGenerator = (file: FileData) => Nilable<string> | Promise<Nilable<string>>;
 
 export enum FileView {
     Details = 'details',

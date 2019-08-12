@@ -5,7 +5,7 @@
  */
 
 import path from 'path';
-import {Nullable} from 'tsdef';
+import {Nilable, Nullable} from 'tsdef';
 import * as React from 'react';
 import classnames from 'classnames';
 import {Else, If, Then, When} from 'react-if';
@@ -19,7 +19,6 @@ import {
     InternalClickHandler,
     FileView,
     ThumbnailGenerator,
-    ThumbnailGeneratorResult,
     EntrySize,
 } from '../types/typedef';
 import {FileUtil} from '../util/FileUtil';
@@ -47,7 +46,7 @@ interface FileListEntryProps {
 }
 
 interface FileListEntryState {
-    thumbnailUrl: Nullable<string>;
+    thumbnailUrl: Nilable<string>;
 }
 
 export default class FileListEntry extends React.PureComponent<FileListEntryProps, FileListEntryState> {
@@ -70,23 +69,18 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         const {file, thumbnailGenerator} = this.props;
         if (isNil(file) || !isFunction(thumbnailGenerator)) return;
 
-        // Check if thumbnail generator returns anything at all
-        let syncResult: ThumbnailGeneratorResult = null;
-
-        try {
-            syncResult = thumbnailGenerator(file);
-        } catch (error) {
-            ConsoleUtil.logUnhandledException(error, `loading thumbnail for "${file.name}"`);
-            return;
-        }
-
-        if (isNil(syncResult)) return this.setState({thumbnailUrl: null});
-
-        if (typeof syncResult === 'string') return this.setState({thumbnailUrl: syncResult});
-        syncResult
-            .then((thumbnailUrl: Nullable<string>) => this.setState({thumbnailUrl}))
+        let isPromise = true;
+        Promise.resolve()
+            .then(() => {
+                const result = thumbnailGenerator(file);
+                isPromise = !isNil(result) && !isString(result) && isFunction(result.then);
+                return result;
+            })
+            .then((thumbnailUrl: Nilable<string>) => this.setState({thumbnailUrl}))
             .catch((error: Error) => {
-                ConsoleUtil.logUnhandledPromiseError(error, `loading thumbnail for "${file.name}"`);
+                const action = `loading thumbnail for "${file.name}"`;
+                if (isPromise) ConsoleUtil.logUnhandledPromiseError(error, action);
+                else ConsoleUtil.logUnhandledException(error, action);
             });
     }
 

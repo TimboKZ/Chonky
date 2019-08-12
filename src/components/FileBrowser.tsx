@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import {Nullable} from 'tsdef';
+import {Nilable, Nullable} from 'tsdef';
 import classnames from 'classnames';
 import {shallowEqualArrays, shallowEqualObjects} from 'shallow-equal';
 
@@ -29,7 +29,7 @@ import {
     deregisterKbListener,
     generateId,
     getNonNil,
-    isArray,
+    isArray, isBoolean,
     isFunction,
     isNil,
     isNumber,
@@ -443,19 +443,33 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     private handleFileSingleClick: InternalClickHandler = (file: FileData, displayIndex: number, event: InputEvent) => {
         const {onFileSingleClick} = this.props;
 
-        // Prevent default behaviour if user's handler returns `true`
-        let preventDefault = false;
-        if (isFunction(onFileSingleClick)) {
-            const funcResult = onFileSingleClick(file, displayIndex, event) as boolean | undefined;
-            preventDefault = funcResult === true;
-        }
-        if (preventDefault) return;
+        let isPromise = true;
+        Promise.resolve()
+            .then(() => {
+                return Promise.resolve()
+                    .then(() => {
+                        if (!isFunction(onFileSingleClick)) return false;
+                        const result = onFileSingleClick(file, displayIndex, event);
+                        isPromise = !isNil(result) && !isBoolean(result) && isFunction(result.then);
+                        return result;
+                    })
+                    .catch((error: Error) => {
+                        const action = `running the single click handler`;
+                        if (isPromise) ConsoleUtil.logUnhandledPromiseError(error, action);
+                        else ConsoleUtil.logUnhandledException(error, action);
+                        return false;
+                    });
+            })
+            .then((preventDefault: Nilable<boolean>) => {
+                if (preventDefault === true) return;
 
-        let type = SelectionType.Single;
-        if (event.key === KbKey.Space || event.ctrlKey === true) type = SelectionType.Multiple;
-        if (event.shiftKey === true) type = SelectionType.Range;
+                let type = SelectionType.Single;
+                if (event.key === KbKey.Space || event.ctrlKey === true) type = SelectionType.Multiple;
+                if (event.shiftKey === true) type = SelectionType.Range;
 
-        this.handleSelectionToggle(type, file, displayIndex);
+                return this.handleSelectionToggle(type, file, displayIndex);
+            })
+            .catch((error: Error) => ConsoleUtil.logInternalException(error, 'handling selection toggle.'));
     };
 
     private handleFileDoubleClick: InternalClickHandler = (file: FileData, displayIndex: number, event: InputEvent) => {
@@ -469,7 +483,30 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         }
         if (preventDefault) return;
 
-        if (isFunction(onFileOpen) && file.openable !== false) onFileOpen(file);
+
+        let isPromise = true;
+        Promise.resolve()
+            .then(() => {
+                return Promise.resolve()
+                    .then(() => {
+                        if (!isFunction(onFileDoubleClick)) return false;
+                        const result = onFileDoubleClick(file, displayIndex, event);
+                        isPromise = !isNil(result) && !isBoolean(result) && isFunction(result.then);
+                        return result;
+                    })
+                    .catch((error: Error) => {
+                        const action = `running the double click handler`;
+                        if (isPromise) ConsoleUtil.logUnhandledPromiseError(error, action);
+                        else ConsoleUtil.logUnhandledException(error, action);
+                        return false;
+                    });
+            })
+            .then((preventDefault: Nilable<boolean>) => {
+                if (preventDefault === true) return;
+
+                if (isFunction(onFileOpen) && file.openable !== false) return onFileOpen(file);
+            })
+            .catch((error: Error) => ConsoleUtil.logUnhandledException(error, 'running the file opening handler'));
     };
 
     public render() {

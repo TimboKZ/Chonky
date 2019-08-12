@@ -12,6 +12,7 @@ import {InputEvent, InputEventType, InputListener, kbCodeMap, KbKey, kbKeyCodeMa
 // Assertions
 export const isNil = (value: any): value is nil => value === undefined || value === null;
 export const isNumber = (value: any): value is number => typeof value == 'number';
+export const isBoolean = (value: any): value is boolean => typeof value == 'boolean';
 export const isString = (value: any): value is string => typeof value == 'string';
 export const isArray = (value: any): value is any[] => Array.isArray(value);
 export const isObject = (value: any): value is object => typeof value === 'object' && value !== null;
