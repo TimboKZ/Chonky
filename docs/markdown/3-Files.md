@@ -36,14 +36,13 @@ export interface FileData {
 }
 ``` 
 
-The main idea to take away here is that each file object must, at the very least, have the following 2 properties:
-`id` and `name`. All of the other properties are optional, but they could significantly improve user 
-experience if they are present.
+The main idea to take away is that each object must have an `id` and `name` defined. All of the other properties are 
+optional, but they could significantly improve user experience if they are present.
 
 If you don't specify the file extension (`ext` property), extension will be extracted automatically using
 `path.extname(...)` function from the `path` module. If you dont want Chonky to automatically detect the extension, you 
 can set `ext` to an empty string: `file.ext = ''`. If you do specify an extension, make sure it matches the actual 
-file extension and starts with a dot, e.g. `file.ext = '.tar.gz'`.
+extension of the file and starts with a dot, e.g. `file.ext = '.tar.gz'`.
 
 #### Custom file properties
 
@@ -78,10 +77,10 @@ have a function that renames the second file to some predefined value, let's cal
 tempted to update your state in a way shown below.
 
 ```js
+// BAD PRACTICE: Don't do this.
 class BadComponent extends React.Component {
     //...
     renameSecond() {
-        // BAD PRACTICE: Don't do this.
         this.setState(prevState => {
             const files = prevState.files;
             // We change the object directly - this is bad!
@@ -97,10 +96,10 @@ of creating a new copy. As a result, passing `this.state.files` to `FileBrowser`
 file name. The correct way to update state in this case looks like this:
 
 ```js
+// GOOD PRACTICE: follow this example
 class GoodComponent extends React.Component {
     //...
     renameSecond() {
-        // Good practice, follow this example
         this.setState(prevState => {
             // Create a copy of the array using ES6 spread operator
             const files = [...prevState.files];
@@ -122,7 +121,7 @@ class GoodComponent extends React.Component {
 This way, the immutability properties are satisfied, and Chonky will correctly detect that the second object has 
 changed and re-render file names as necessary.
 
-## Example file list
+### Example file list
 
 We'll use the following `files` array:
 
@@ -166,7 +165,7 @@ const files = [
 ];
 ```
 
-Notice how each boolean flag changes the relevant file entries in same way:
+Note how each file is behaves differently based on its boolean flags:
 
 ```js { "componentPath" : "../components/Files.js" }
 ```

@@ -23,7 +23,7 @@
 
 > Chonky is a file browser component for React. It tries to recreate the native file browsing experience in your 
 > browser. This means your users can make selections, drag & drop files, toggle file view between "large thumbnails" 
-> and "detailed list", use keyboard shortcuts, and so on. 
+> and "detailed list", use keyboard shortcuts, and much more! 
 
 **Note #1:** You can view source code of all examples on this page - just click the "View Code" button below the 
 relevant example.

@@ -1,13 +1,13 @@
-The current folder is shown in the status bar of `FileBrowser` component. You can specify the current folder 
-hierarchy by passing an array of file objects as `folderChain` property of `FileBrowser`.
+The current folder is shown in the status bar at the top of the `FileBrowser` component. You can specify the current 
+folder hierarchy by passing an array of file objects as the `folderChain` property of `FileBrowser`.
 
-The `folderChain` property is very similar to `files` from the previous section. Each file in the array has to satisfy 
-the `FileData` type. Since we're dealing with folders here, ideally `file.isDir` should be set to true, but it is not
-required. Just like with `files`, you can add some `null` values to the `folderChain` array and loading placeholders
- will be display in their place.
+The `folderChain` property is very similar to the `files` array from the previous section. Each file in the array has
+to satisfy the `FileData` type. Since we're dealing with folders here, ideally `file.isDir` should be set to true, 
+but it is not required. Just like with `files`, you can add some `null` elements to your `folderChain` and they 
+will be replaced with loading placeholders during render.
 
-It is assumed that the first element in `folderChain` is the top level folder, and the last element is the folder that 
-user is currently in. All folders except for the current folder are clickable, unless `file.openable` is set to `false`.
+The first element of `folderChain` should be the top level folder, and the last element is the folder that user is 
+currently in. All folders except for the current folder are clickable, unless `file.openable` is set to `false`.
 
 ### Example folder chain
 
