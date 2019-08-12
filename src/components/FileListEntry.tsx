@@ -16,14 +16,14 @@ import {
     InputEvent,
     ColorsDark,
     ColorsLight,
-    FileClickHandler,
-    FileData,
-    FolderView,
+    InternalClickHandler,
+    FileView,
     ThumbnailGenerator,
     ThumbnailGeneratorResult,
     EntrySize,
-} from '../typedef';
+} from '../types/typedef';
 import {FileUtil} from '../util/FileUtil';
+import {FileData} from '../types/FileData';
 import ConsoleUtil from '../util/ConsoleUtil';
 import LoadingPlaceholder from './LoadingPlaceholder';
 import {getIconData, LoadingIconData} from '../util/IconUtil';
@@ -35,11 +35,11 @@ interface FileListEntryProps {
     file: Nullable<FileData>;
     selected: boolean;
     displayIndex: number;
-    view: FolderView;
+    view: FileView;
 
     doubleClickDelay: number;
-    onFileSingleClick: FileClickHandler;
-    onFileDoubleClick: FileClickHandler;
+    onFileSingleClick: InternalClickHandler;
+    onFileDoubleClick: InternalClickHandler;
 
     thumbnailGenerator?: ThumbnailGenerator;
 
@@ -245,9 +245,9 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
 
         return <ClickableWrapper {...wrapperProps}>
             {/* eslint-disable-next-line */}
-            {view === FolderView.Details && this.renderDetailsEntry()}
+            {view === FileView.Details && this.renderDetailsEntry()}
             {/* eslint-disable-next-line */}
-            {view !== FolderView.Details && this.renderThumbsEntry()}
+            {view !== FileView.Details && this.renderThumbsEntry()}
         </ClickableWrapper>;
     }
 

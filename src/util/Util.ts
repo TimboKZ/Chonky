@@ -7,7 +7,7 @@
 import {AnyFunction, nil, Nilable, Nullable} from 'tsdef';
 
 import ConsoleUtil from './ConsoleUtil';
-import {InputEvent, InputEventType, InputListener, kbCodeMap, KbKey, kbKeyCodeMap} from '../typedef';
+import {InputEvent, InputEventType, InputListener, kbCodeMap, KbKey, kbKeyCodeMap} from '../types/typedef';
 
 // Assertions
 export const isNil = (value: any): value is nil => value === undefined || value === null;

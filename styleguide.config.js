@@ -15,8 +15,6 @@ module.exports = {
     styleguideDir: 'public',
 
     usageMode: 'expand',
-    sortProps: props => props,
-    propsParser: require('react-docgen-typescript').withCustomConfig('./styleguide.tsconfig.json').parse,
     sections: [
         {
             name: '',
@@ -62,6 +60,41 @@ module.exports = {
                 },
             ],
         },
+    },
+    sortProps: props => props,
+    propsParser: (filePath, source, resolver, handlers) => {
+        const result = require('react-docgen-typescript')
+            .withCustomConfig('./tsconfig.json').parse(filePath, source, resolver, handlers);
+
+        return result.map(component => {
+            const {props} = component;
+            const mappedProps = Object.values(props).reduce((previous, prop) => {
+                const {name, type} = prop;
+                if (type.name.includes('| undefined')) {
+                    type.name = type.name.replace('| undefined', '');
+                    if (!prop.defaultValue) prop.defaultValue = {value: 'null'};
+                    if (type.name.charAt(0) === '(') {
+                        type.name = type.name.slice(1, type.name.length - 2);
+                    }
+                }
+                if (prop.defaultValue && prop.defaultValue.value.charAt(0) === '{') {
+                    let value = prop.defaultValue.value;
+                    value = value.replace(/(\n)+/g, '&');
+                    value = value.replace(/(\s)+/g, '|');
+                    value = value.replace(/:\|/g, ': ');
+                    value = value.replace(/&\|}/g, '\n}');
+                    value = value.replace(/&\|/g, '\n  ');
+                    prop.defaultValue.value = value;
+                }
+
+                return {...previous, [name]: {...prop}};
+            }, {});
+
+            return {
+                ...component,
+                props: mappedProps,
+            };
+        });
     },
     updateExample(props, exampleFilePath) {
         const {settings, lang} = props;

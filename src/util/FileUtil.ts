@@ -11,8 +11,9 @@ import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 
 import {isNil, isObject} from './Util';
+import {FileData} from '../types/FileData';
 import {fileMap as demoFileMap, rootFolderId as demoRootFolderId} from './demo.fs_map.json';
-import {FileData, FileIndexMap, FileMap, Option, Options, SortOrder, SortProperty} from '../typedef';
+import { FileIndexMap, FileMap, Option, Options, SortOrder, SortProperty} from '../types/typedef';
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');

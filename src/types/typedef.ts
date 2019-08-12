@@ -7,32 +7,14 @@
 import {Nullable} from 'tsdef';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 
+import {FileData} from './FileData';
+
 declare global {
     interface Window {
         _chonkyData: {
             kbListenerSet: Set<InputListener>;
         };
     }
-}
-
-// Required properties are marked with `!!`
-export interface FileData {
-    id: string; // !! String that uniquely identifies the file
-
-    name: string; // !! Full name, e.g. `MyImage.jpg`
-    ext?: string; // File extension, e.g. `.jpg`
-
-    isDir?: boolean; // Is a directory, default: false
-    isHidden?: boolean; // Is a hidden file, default: false
-    isSymlink?: boolean; // Is a symlink, default: false
-    openable?: boolean; // Can be opened, default: true
-    selectable?: boolean; // Can be selected, default: true
-
-    size?: number; // File size in bytes
-    modDate?: Date; // Last change date
-
-    parentId?: string; // ID of the parent folder
-    childrenIds?: string[]; // An array of IDs of children (only for folders)
 }
 
 export interface FileMap {
@@ -104,12 +86,13 @@ export interface InputEvent {
 }
 
 export type InputListener = (event: InputEvent) => boolean;
-export type FileClickHandler<T = void> = (file: FileData, fileIndex: number, event: InputEvent) => T;
+export type ClickHandler = (file: FileData, fileIndex: number, event: InputEvent) => true;
+export type InternalClickHandler = (file: FileData, fileIndex: number, event: InputEvent) => void;
 
 export type ThumbnailGeneratorResult = Nullable<string> | Promise<Nullable<string>>;
 export type ThumbnailGenerator = (file: FileData) => ThumbnailGeneratorResult;
 
-export enum FolderView {
+export enum FileView {
     Details = 'details',
     SmallThumbs = 'small-thumbs',
     LargeThumbs = 'large-thumbs',
@@ -121,19 +104,17 @@ export interface EntrySize {
 }
 
 export enum Option {
-    ShowHidden = 'show-hidden',
-    FoldersFirst = 'folders-first',
-    ShowExtensions = 'show-extensions',
-    ConfirmDeletions = 'confirm-deletions',
-    DisableSelection = 'disable-selection',
+    ShowHidden = 'showHidden',
+    FoldersFirst = 'foldersFirst',
+    ConfirmDeletions = 'confirmDeletions',
+    DisableTextSelection = 'disableTextSelection',
 }
 
 export interface Options {
-    [Option.ShowHidden]: boolean;
-    [Option.FoldersFirst]: boolean;
-    [Option.ShowExtensions]: boolean;
-    [Option.ConfirmDeletions]: boolean;
-    [Option.DisableSelection]: boolean;
+    showHidden: boolean;
+    foldersFirst: boolean;
+    confirmDeletions: boolean;
+    disableTextSelection: boolean;
 }
 
 export enum SortProperty {

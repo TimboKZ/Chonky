@@ -14,7 +14,7 @@ import {
     isObject,
     isString,
 } from '../util/Util';
-import {InputEvent, InputEventType, InputListener, KbKey} from '../typedef';
+import {InputEvent, InputEventType, InputListener, KbKey} from '../types/typedef';
 
 export interface ClickableWrapperProps {
     instanceId: string;

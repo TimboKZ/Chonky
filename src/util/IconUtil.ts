@@ -36,8 +36,9 @@ import {
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {faAdobe, faGitAlt, faLinux, faNodeJs, faPhp, faPython, faUbuntu} from '@fortawesome/free-brands-svg-icons';
 
-import {IconData, ColorsLight, VideoExtensions, ImageExtensions, AudioExtensions, FileData} from '../typedef';
+import {FileData} from '../types/FileData';
 import {isNil, isObject, isString} from './Util';
+import {IconData, ColorsLight, VideoExtensions, ImageExtensions, AudioExtensions} from '../types/typedef';
 
 const ErrorIconData: IconData = {icon: faExclamationTriangle, colorCode: 1};
 export const LoadingIconData: IconData = {icon: faCircleNotch, colorCode: 0};

@@ -3,7 +3,7 @@ import React from 'react';
 
 // Import Chonky styles and relevant components
 import '../../style/main.css';
-import {FileBrowser, FolderView} from '../../src';
+import {FileBrowser, FileView} from '../../src';
 
 const files = [
     {
@@ -22,5 +22,5 @@ const thumbnailGenerator = (file) => {
 
 const ExampleComponent = () => <FileBrowser files={files}
                                             thumbnailGenerator={thumbnailGenerator}
-                                            view={FolderView.SmallThumbs}/>;
+                                            view={FileView.SmallThumbs}/>;
 export default ExampleComponent;

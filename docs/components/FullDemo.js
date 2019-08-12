@@ -8,7 +8,7 @@ import 'noty/lib/themes/relax.css';
 
 // Import Chonky
 import 'chonky/style/main.css';
-import {FileBrowser, FolderView, demoFileMap, demoRootFolderId} from 'chonky';
+import {FileBrowser, FileView, demoFileMap, demoRootFolderId} from 'chonky';
 
 export default class FullDemo extends React.Component {
 
@@ -58,7 +58,7 @@ export default class FullDemo extends React.Component {
             }
         }
 
-        return <FileBrowser files={files} folderChain={folderChain} view={FolderView.SmallThumbs}
+        return <FileBrowser files={files} folderChain={folderChain} view={FileView.SmallThumbs}
                             onFileOpen={this.handleFileOpen} thumbnailGenerator={this.thumbGenerator}/>;
     }
 

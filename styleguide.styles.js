@@ -29,6 +29,17 @@ const styles = {
             fontSize: '0.9em !important',
             padding: '0 4px !important',
         },
+        '@global tbody > tr > td': {
+            borderBottom: 'solid 1px #efefef !important',
+        },
+        '@global tbody > tr > td:nth-of-type(2) > span': {
+            whiteSpace: 'pre',
+        },
+        '@global tbody > tr > td:nth-of-type(3) code': {
+            padding: '3px 6px 6px !important',
+            whiteSpace: 'pre !important',
+            display: 'inline-block',
+        },
     },
     SectionHeading: {
         sectionName: {

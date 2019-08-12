@@ -14,27 +14,8 @@ Each object in the `files` array should describe a file. To be precise, each obj
 type. The full definition of `FileData` type can be seen below (taken from
 [TypeScript definitions](https://github.com/TimboKZ/Chonky/blob/master/src/typedef.ts)).
 
-```typescript
-// Required properties are marked with `!!`
-export interface FileData {
-    id: string; // !! String that uniquely identifies the file
-
-    name: string; // !! Full name, e.g. `MyImage.jpg`
-    ext?: string; // File extension, e.g. `.jpg`
-
-    isDir?: boolean; // Is a directory, default: false
-    isHidden?: boolean; // Is a hidden file, default: false
-    isSymlink?: boolean; // Is a symlink, default: false
-    openable?: boolean; // Can be opened, default: true
-    selectable?: boolean; // Can be selected, default: true
-
-    size?: number; // File size in bytes
-    modDate?: Date; // Last change date
-
-    parentId?: string; // ID of the parent folder
-    childrenIds?: string[]; // An array of IDs of children (only for folders)
-}
-``` 
+```typescript { "filePath" : "../../src/types/FileData.ts" }
+```
 
 The main idea to take away is that each object must have an `id` and `name` defined. All of the other properties are 
 optional, but they could significantly improve user experience if they are present.

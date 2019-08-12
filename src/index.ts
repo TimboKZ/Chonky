@@ -9,7 +9,7 @@ import ConsoleUtil from './util/ConsoleUtil';
 import FileBrowser from './components/FileBrowser';
 import {handleKeyPress} from './components/ClickableWrapper';
 import {setupListeners, isNil, registerKbListener} from './util/Util';
-import {FolderView, Option, Options, SortProperty, SortOrder} from './typedef';
+import {FileView, Option, Options, SortProperty, SortOrder} from './types/typedef';
 
 const {demoFileMap, demoRootFolderId} = FileUtil.getDemoFs();
 
@@ -22,6 +22,6 @@ if (!isNil(window)) {
 
 export {
     FileBrowser,
-    FolderView, Option, Options, SortProperty, SortOrder,
+    FileView, Option, Options, SortProperty, SortOrder,
     demoFileMap, demoRootFolderId,
 };

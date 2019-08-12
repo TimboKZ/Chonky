@@ -25,17 +25,18 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Dropdown from './Dropdown';
 import IconButton from './IconButton';
 import ButtonGroup from './ButtonGroup';
+import {FileData} from '../types/FileData';
 import DropdownButton from './DropdownButton';
+import {FileView, Option, Options} from '../types/typedef';
 import {getNonNil, isFunction, isNil, isObject} from '../util/Util';
-import {FileData, FolderView, Option, Options} from '../typedef';
 
 interface ControlsProps {
     folderChain?: (FileData | null)[];
 
     onFileOpen?: (file: FileData) => void;
 
-    view: FolderView;
-    setView: (view: FolderView) => void;
+    view: FileView;
+    setView: (view: FileView) => void;
     options: Options;
     setOption: (name: Option, value: boolean) => void;
 }
@@ -43,16 +44,16 @@ interface ControlsProps {
 interface ControlsState {}
 
 const ViewControls = [
-    [faList, FolderView.Details, 'Details'],
-    [faTh, FolderView.SmallThumbs, 'Small thumbnails'],
-    [faThLarge, FolderView.LargeThumbs, 'Large thumbnails'],
+    [faList, FileView.Details, 'Details'],
+    [faTh, FileView.SmallThumbs, 'Small thumbnails'],
+    [faThLarge, FileView.LargeThumbs, 'Large thumbnails'],
 ];
 
 const DropdownButtons = [
     [Option.ShowHidden, 'Show hidden files'],
     [Option.FoldersFirst, 'Show folders first'],
     [Option.ConfirmDeletions, 'Confirm before deleting'],
-    [Option.DisableSelection, 'Disable text selection'],
+    [Option.DisableTextSelection, 'Disable text selection'],
 ];
 
 export default class Controls extends React.Component<ControlsProps, ControlsState> {
@@ -107,7 +108,7 @@ export default class Controls extends React.Component<ControlsProps, ControlsSta
         const comps = new Array(ViewControls.length);
         for (const [icon, buttonView, tooltip] of ViewControls) {
             comps[i++] = <IconButton key={`control-${buttonView}`} icon={icon} active={view === buttonView}
-                                     tooltip={tooltip as string} onClick={() => setView(buttonView as FolderView)}/>;
+                                     tooltip={tooltip as string} onClick={() => setView(buttonView as FileView)}/>;
         }
         return <ButtonGroup>{comps}</ButtonGroup>;
     }

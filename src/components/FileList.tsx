@@ -13,16 +13,16 @@ import {faFolderOpen} from '@fortawesome/free-regular-svg-icons/faFolderOpen';
 import {faArrowDown as DescIcon, faArrowUp as AscIcon} from '@fortawesome/free-solid-svg-icons';
 
 import {
-    FileClickHandler,
-    FileData,
-    FolderView,
+    InternalClickHandler,
+    FileView,
     Selection,
     SortOrder,
     SortProperty,
     ThumbnailGenerator,
     EntrySize,
     InputListener,
-} from '../typedef';
+} from '../types/typedef';
+import {FileData} from '../types/FileData';
 import FileListEntry from './FileListEntry';
 import {isObject, isString} from '../util/Util';
 import ClickableWrapper from './ClickableWrapper';
@@ -31,11 +31,11 @@ interface FileListProps {
     instanceId: string;
     files: Nullable<FileData>[];
     selection: Selection;
-    view: FolderView;
+    view: FileView;
 
     doubleClickDelay: number;
-    onFileSingleClick: FileClickHandler;
-    onFileDoubleClick: FileClickHandler;
+    onFileSingleClick: InternalClickHandler;
+    onFileDoubleClick: InternalClickHandler;
 
     thumbnailGenerator?: ThumbnailGenerator;
 
@@ -54,8 +54,8 @@ const HeaderDetails = [
 ];
 
 const EntrySizeMap: { [view: string]: EntrySize } = {
-    [FolderView.SmallThumbs]: {width: 250, height: 180},
-    [FolderView.LargeThumbs]: {width: 400, height: 300},
+    [FileView.SmallThumbs]: {width: 250, height: 180},
+    [FileView.LargeThumbs]: {width: 400, height: 300},
 };
 
 export default class FileList extends React.Component<FileListProps, FileListState> {
@@ -142,12 +142,12 @@ export default class FileList extends React.Component<FileListProps, FileListSta
 
     public render() {
         const {view} = this.props;
-        const isThumbs = view === FolderView.SmallThumbs || view === FolderView.LargeThumbs;
+        const isThumbs = view === FileView.SmallThumbs || view === FileView.LargeThumbs;
 
         const className = classnames({
             'chonky-file-list': true,
             'chonky-file-list-thumbs': isThumbs,
-            'chonky-file-list-thumbs-large': isThumbs && view === FolderView.LargeThumbs,
+            'chonky-file-list-thumbs-large': isThumbs && view === FileView.LargeThumbs,
             'chonky-file-list-details': !isThumbs,
         });
 

@@ -8,7 +8,7 @@ import 'noty/lib/themes/relax.css';
 
 // Import Chonky
 import 'chonky/style/main.css';
-import {FileBrowser, FolderView} from 'chonky';
+import {FileBrowser, FileView} from 'chonky';
 
 // Define a handler for "open file" action
 const handleFileOpen = (file) => {
@@ -34,6 +34,6 @@ const folderChain = [parentFolder];
 // Render the file browser
 const InstallationComponent = () => <FileBrowser files={myFiles} folderChain={folderChain}
                                                  onFileOpen={handleFileOpen}
-                                                 view={FolderView.SmallThumbs}/>;
+                                                 view={FileView.SmallThumbs}/>;
 
 export default InstallationComponent;
