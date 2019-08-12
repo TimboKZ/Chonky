@@ -85,12 +85,14 @@ export default class ClickableWrapper extends React.Component<ClickableWrapperPr
     }
 
     private handleClick = (event: React.MouseEvent) => {
-        const {doubleClickDelay, onSingleClick, onDoubleClick} = this.props;
+        const {doubleClickDelay, onSingleClick, onDoubleClick, onAllClicks} = this.props;
         const inputEvent: InputEvent = {
             type: InputEventType.Mouse,
             ctrlKey: event.ctrlKey,
             shiftKey: event.shiftKey,
         };
+
+        if (isFunction(onAllClicks)) onAllClicks(inputEvent);
 
         this.clickCount++;
         if (this.clickCount === 1) {
