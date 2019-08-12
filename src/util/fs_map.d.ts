@@ -1,4 +1,4 @@
-import {FileData} from '../types/FileData';
+import {FileData} from '../typedef';
 
 declare module '*.fs_map.json' {
     const fsMap: {

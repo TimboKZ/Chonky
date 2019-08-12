@@ -14,7 +14,7 @@ Each object in the `files` array should describe a file. To be precise, each obj
 type. The full definition of `FileData` type can be seen below (taken from
 [TypeScript definitions](https://github.com/TimboKZ/Chonky/blob/master/src/typedef.ts)).
 
-```typescript { "filePath" : "../../src/types/FileData.ts" }
+```typescript { "typeName" : "FileData" }
 ```
 
 The main idea to take away is that each object must have an `id` and `name` defined. All of the other properties are 

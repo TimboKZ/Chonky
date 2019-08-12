@@ -20,9 +20,9 @@ import {
     FileView,
     ThumbnailGenerator,
     EntrySize,
-} from '../types/typedef';
+    FileData,
+} from '../typedef';
 import {FileUtil} from '../util/FileUtil';
-import {FileData} from '../types/FileData';
 import ConsoleUtil from '../util/ConsoleUtil';
 import LoadingPlaceholder from './LoadingPlaceholder';
 import {getIconData, LoadingIconData} from '../util/IconUtil';

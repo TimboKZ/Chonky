@@ -3,8 +3,7 @@ should take in a file object and return either thumbnail URL or `null`. Async lo
 your thumbnail generator can return a promise that resolves into a thumbnail URL or `null`. Formally, the type of 
 `thumbnailGenerator` function is defined as follows:
 
-```ts
-export type ThumbnailGenerator = (file: FileData) => Nullable<string> | Promise<Nullable<string>>;
+```typescript { "typeName" : "ThumbnailGenerator" }
 ```
 
 The thumbnail URL you provide will be put inside the `background-image: url('<your_url>');` CSS rule on the file 

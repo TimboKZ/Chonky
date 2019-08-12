@@ -25,9 +25,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Dropdown from './Dropdown';
 import IconButton from './IconButton';
 import ButtonGroup from './ButtonGroup';
-import {FileData} from '../types/FileData';
 import DropdownButton from './DropdownButton';
-import {FileView, Option, Options} from '../types/typedef';
+import {FileData, FileView, Option, Options} from '../typedef';
 import {getNonNil, isFunction, isNil, isObject} from '../util/Util';
 
 interface ControlsProps {

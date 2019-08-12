@@ -21,8 +21,8 @@ import {
     ThumbnailGenerator,
     EntrySize,
     InputListener,
-} from '../types/typedef';
-import {FileData} from '../types/FileData';
+    FileData,
+} from '../typedef';
 import FileListEntry from './FileListEntry';
 import {isObject, isString} from '../util/Util';
 import ClickableWrapper from './ClickableWrapper';

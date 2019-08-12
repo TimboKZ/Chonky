@@ -9,7 +9,7 @@ import ConsoleUtil from './util/ConsoleUtil';
 import FileBrowser from './components/FileBrowser';
 import {handleKeyPress} from './components/ClickableWrapper';
 import {setupListeners, isNil, registerKbListener} from './util/Util';
-import {FileView, Option, Options, SortProperty, SortOrder} from './types/typedef';
+import {FileView, Option, Options, SortProperty, SortOrder} from './typedef';
 
 const {demoFileMap, demoRootFolderId} = FileUtil.getDemoFs();
 

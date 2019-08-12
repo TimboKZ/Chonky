@@ -22,8 +22,10 @@ import {
     SelectionType,
     SortOrder,
     SortProperty,
-    ThumbnailGenerator, ClickHandler,
-} from '../types/typedef';
+    ThumbnailGenerator,
+    ClickHandler,
+    FileData,
+} from '../typedef';
 import {
     clampIndex,
     deregisterKbListener,
@@ -39,7 +41,6 @@ import {
 import FileList from './FileList';
 import Controls from './Controls';
 import {FileUtil} from '../util/FileUtil';
-import {FileData} from '../types/FileData';
 import ConsoleUtil from '../util/ConsoleUtil';
 
 // Important: Make sure to keep `FileBrowserProps` and `FileBrowserPropTypes` in sync!

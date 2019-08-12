@@ -3,6 +3,7 @@ const path = require('path');
 
 const {version} = require('./package.json');
 const {theme, styles} = require('./styleguide.styles');
+const typeExtractor = require('./docs/util/TypeExtractor');
 
 let exampleCounter = 0;
 
@@ -116,6 +117,14 @@ module.exports = {
                 content: fs.readFileSync(filePath, 'utf8'),
                 settings,
                 lang,
+            };
+            props.settings.static = true;
+            return props;
+        } else if (typeof settings.typeName === 'string') {
+            const props = {
+                content: typeExtractor(settings.typeName),
+                settings,
+                lang: 'typescript',
             };
             props.settings.static = true;
             return props;
