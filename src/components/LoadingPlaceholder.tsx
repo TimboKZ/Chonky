@@ -19,7 +19,6 @@ const randomInt = (min: number, max: number): number => {
 const randomNoise = (noise: number) => randomInt(-noise, +noise);
 
 const LoadingPlaceholder = (props: LoadingPlaceholderProps) => {
-    // FIXME: Figure out why this component gets re-rendered
     const compProps = {
         className: 'chonky-loading-placeholder',
         style: {

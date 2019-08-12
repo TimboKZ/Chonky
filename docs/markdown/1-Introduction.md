@@ -1,45 +1,37 @@
-Chonky is a file browser component for React. It tries to recreate the native file browsing experience in your web 
-browser. This means your users can make selections, drag & drop files, toggle file view between "large thumbnails" 
-and "detailed list", enter folders, and so on.
-
 ### Quick demo
+
+Things you could try: Enter a folder, open a file, select multiple files using `Ctrl+Click`, select all files using 
+`Ctrl+A`, toggle file view between thumbnails and detailed list using the controls at the top.
 
 ```js { "componentPath": "../components/FullDemo.js" }
 ```
 
-### Philosophy
-
-Chonky tries to stay **unopinionated** when it comes to interactions with the file system (FS) or basic user input. To
-be precise, Chonky doesn't make any assumptions about where the files come from. You pass a list of files to Chonky 
-through component props, and as long as the description of each file matches the expected format, everything will be 
-displayed correctly.
-
-How you handle different FS operations is up to you. For example, Chonky lets you pass in an `onFileOpen` handler. 
-This handler is called every time a user double clicks a file or a folder. Let's say our user decided to open folder 
-**Pictures** . Usually, you'd want to fetch the contents of the **Pictures** folder from the server and update Chonky
-props to display new files, but you don't have to! Instead, you could redirect the user to a new page, or start a 
-download of the archive called `Pictures.zip`. You don't even have to make requests to the server - you could just 
-maintain some FS abstraction in browser memory.
-
-For similar reasons, Chonky only handles a small subset of possible user input. For example, a single click on a file
-would automatically add it to the current selection, but pressing `Ctrl+A` on your keyboard (common *Select All* 
-shortcut) will not do anything by default. This is done to avoid conflicts with existing shortcuts in your React 
-application, and make Chonky more flexible. You can easily implement this logic yourself using the `setSelection` 
-method exposed by Chonky (see [relevant example](./?path=/story/file-browser-examples--custom-keyboard-shortcuts)).
-
 ### Chonky features:
 
-* Lets users choose between 3 views: Details, medium thumbnails, large thumbnails.
-* Supports file selection and drag & drop.
-* Is file system agnostic - file data can come from any source as long as it follows the required format.
-* Supports callbacks for entering folders and opening, deleting or moving multiple files.
-* Supports async FS logic - via lazy loading and loading placeholders.
-* Supports file sorting and text search.
-* Supports [windowing](https://reactjs.org/docs/optimizing-performance.html#virtualize-long-lists) (a.k.a.
+* It's file system agnostic - data can come from an arbitrary source as long as it follows the required format.
+* Supports async file system logic - via thumb lazy-loading and loading placeholders.
+* Users can choose between 3 views: Details, medium thumbnails, large thumbnails.
+* Developers can pass file action handlers to define custom behaviour for file opening, moving or deleting.
+* Supports file selections and *drag & drop (WIP)*, sorting and *text search (WIP)*.
+* (WIP) Supports [windowing](https://reactjs.org/docs/optimizing-performance.html#virtualize-long-lists) (a.k.a.
 virtualization) for long file lists.
 * Supports common keyboard shortcuts.
 * Supports file thumbnails (e.g. generated from videos or images).
 * Detects common file types, showing appropriate icons.
+
+### Philosophy
+
+Chonky tries to stay **unopinionated** when it comes to interactions with the file system (FS). To be precise, Chonky
+doesn't make any assumptions about where the files come from. You pass an array of file objects to the `FileBrowser` 
+component, and as long as [each file satisfies the `FileData` type](#section-passing-files-to-chonky), everything
+will be displayed correctly.
+
+Additionally, Chonky doesn't provide implementation for any FS operations. It does, however, let you specify your own
+handlers for things like opening a file or moving multiple files. For example, you can define your own `onFileOpen`
+handler, which is called every time a user double clicks a file or a folder.
+
+At the same time, Chonky tries to cover all possible interactions with the user. This includes support for keyboard 
+navigation and common keyboard shortcuts, support for file selections, drag & drop, different file views, and much more.
 
 ### Notes
 

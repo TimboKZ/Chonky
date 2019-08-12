@@ -10,13 +10,7 @@ interface IconGroupProps {}
 
 interface IconGroupState {}
 
-export default class ButtonGroup extends React.Component<IconGroupProps, IconGroupState> {
-
-    public static defaultProps = {};
-
-    public constructor(props: IconGroupProps) {
-        super(props);
-    }
+export default class ButtonGroup extends React.PureComponent<IconGroupProps, IconGroupState> {
 
     public render() {
         const {children} = this.props;

@@ -13,7 +13,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faExternalLinkAlt as SymlinkIcon, faEyeSlash as HiddenIcon} from '@fortawesome/free-solid-svg-icons';
 
 import {
-    ClickEvent,
+    InputEvent,
     ColorsDark,
     ColorsLight,
     FileClickHandler,
@@ -223,6 +223,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         } = this.props;
 
         const wrapperProps: ClickableWrapperProps = {
+            instanceId,
             wrapperTag: 'div',
             passthroughProps: {
                 style: {...size},
@@ -230,16 +231,16 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
                     'chonky-file-list-entry': true,
                     'chonky-selected': selected,
                 }),
-                'data-chonky-file-id': isObject(file) ? file.id : undefined,
-                'data-chonky-instance-id': instanceId,
             },
             doubleClickDelay,
         };
         if (isObject(file)) {
-            if (isFunction(onFileSingleClick)) wrapperProps.onSingleClick =
-                (event: ClickEvent, keyboard: boolean) => onFileSingleClick(file, displayIndex, event, keyboard);
-            if (isFunction(onFileDoubleClick)) wrapperProps.onDoubleClick =
-                (event: ClickEvent, keyboard: boolean) => onFileDoubleClick(file, displayIndex, event, keyboard);
+            if (isFunction(onFileSingleClick)) {
+                wrapperProps.onSingleClick = (event: InputEvent) => onFileSingleClick(file, displayIndex, event);
+            }
+            if (isFunction(onFileDoubleClick)) {
+                wrapperProps.onDoubleClick = (event: InputEvent) => onFileDoubleClick(file, displayIndex, event);
+            }
         }
 
         return <ClickableWrapper {...wrapperProps}>

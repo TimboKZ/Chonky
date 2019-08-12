@@ -12,7 +12,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFolderOpen} from '@fortawesome/free-regular-svg-icons/faFolderOpen';
 import {faArrowDown as DescIcon, faArrowUp as AscIcon} from '@fortawesome/free-solid-svg-icons';
 
-import FileListEntry from './FileListEntry';
 import {
     FileClickHandler,
     FileData,
@@ -20,9 +19,13 @@ import {
     Selection,
     SortOrder,
     SortProperty,
-    ThumbnailGenerator, EntrySize,
+    ThumbnailGenerator,
+    EntrySize,
+    InputListener,
 } from '../typedef';
+import FileListEntry from './FileListEntry';
 import {isObject, isString} from '../util/Util';
+import ClickableWrapper from './ClickableWrapper';
 
 interface FileListProps {
     instanceId: string;
@@ -58,7 +61,7 @@ const EntrySizeMap: { [view: string]: EntrySize } = {
 export default class FileList extends React.Component<FileListProps, FileListState> {
 
     private renderDetailsHeaders() {
-        const {sortProperty, sortOrder, activateSortProperty} = this.props;
+        const {instanceId, doubleClickDelay, sortProperty, sortOrder, activateSortProperty} = this.props;
         const comps = new Array(HeaderDetails.length);
         for (let i = 0; i < HeaderDetails.length; ++i) {
             const [name, title] = HeaderDetails[i];
@@ -68,9 +71,14 @@ export default class FileList extends React.Component<FileListProps, FileListSta
                     'chonky-clickable': true,
                     'chonky-active': sortProperty === name,
                 }),
-                onClick: () => activateSortProperty(name as SortProperty),
             };
-            comps[i] = <div key={`header-${name}`} {...headerProps}>
+            const onClick: InputListener = () => {
+                activateSortProperty(name as SortProperty);
+                return true;
+            };
+            comps[i] = <ClickableWrapper key={`header-${name}`} instanceId={instanceId} wrapperTag={'div'}
+                                         passthroughProps={headerProps} doubleClickDelay={doubleClickDelay}
+                                         onAllClicks={onClick}>
                 {title}
                 {/* eslint-disable-next-line */}
                 {sortProperty === name &&
@@ -80,7 +88,7 @@ export default class FileList extends React.Component<FileListProps, FileListSta
                                      fixedWidth={true} size="sm"/>
                 </span>
                 }
-            </div>;
+            </ClickableWrapper>;
         }
         return <div className="chonky-file-list-header">{comps}</div>;
     }

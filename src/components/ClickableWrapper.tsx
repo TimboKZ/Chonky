@@ -6,34 +6,88 @@
 
 import * as React from 'react';
 
-import {ClickEvent} from '../typedef';
-import {isFunction, isNumber} from '../util/Util';
+import {
+    generateId,
+    isFunction,
+    isNil,
+    isNumber,
+    isObject,
+    isString,
+} from '../util/Util';
+import {InputEvent, InputEventType, InputListener, KbKey} from '../typedef';
 
 export interface ClickableWrapperProps {
+    instanceId: string;
     wrapperTag: any;
     passthroughProps?: object;
 
     doubleClickDelay: number;
-    onSingleClick?: (event: ClickEvent, keyboard: boolean) => void;
-    onDoubleClick?: (event: ClickEvent, keyboard: boolean) => void;
+    onSingleClick?: InputListener;
+    onDoubleClick?: InputListener;
+    onAllClicks?: InputListener;
 }
 
-interface ClickableWrapperState {}
+const listenerMap: {
+    [id: string]: {
+        onSingleClick?: InputListener;
+        onDoubleClick?: InputListener;
+        onAllClicks?: InputListener;
+    };
+} = {};
+export const handleKeyPress: InputListener = (event: InputEvent) => {
+    const {key} = event;
+    if (key !== KbKey.Enter && key !== KbKey.Space) return false;
 
-export default class ClickableWrapper extends React.Component<ClickableWrapperProps, ClickableWrapperState> {
+    const activeElem = document.activeElement;
+    if (isNil(activeElem)) return false;
 
-    public static defaultProps = {};
+    const listenerId = activeElem.getAttribute('data-chonky-listener-id');
+    if (!isString(listenerId)) return false;
 
+    const listener = listenerMap[listenerId];
+    if (!isObject(listener)) return false;
+
+    let handled = false;
+    if (key === KbKey.Space && isFunction(listener.onSingleClick)) {
+        listener.onSingleClick(event);
+        handled = true;
+    } else if (key === KbKey.Enter && isFunction(listener.onDoubleClick)) {
+        listener.onDoubleClick(event);
+        handled = true;
+    }
+    if (isFunction(listener.onAllClicks)) {
+        listener.onAllClicks(event);
+        handled = true;
+    }
+
+    return handled;
+};
+
+export default class ClickableWrapper extends React.Component<ClickableWrapperProps, {}> {
+
+    private readonly listenerId: string;
     private clickTimeout?: number;
     private clickCount: number = 0;
 
     public constructor(props: ClickableWrapperProps) {
         super(props);
+        const {instanceId} = props;
+        this.listenerId = `${instanceId}/${generateId()}`;
+    }
+
+    public componentDidMount(): void {
+        const {onSingleClick, onDoubleClick, onAllClicks} = this.props;
+        listenerMap[this.listenerId] = {onSingleClick, onDoubleClick, onAllClicks};
+    }
+
+    public componentWillUnmount(): void {
+        delete listenerMap[this.listenerId];
     }
 
     private handleClick = (event: React.MouseEvent) => {
         const {doubleClickDelay, onSingleClick, onDoubleClick} = this.props;
-        const customEvent: ClickEvent = {
+        const inputEvent: InputEvent = {
+            type: InputEventType.Mouse,
             ctrlKey: event.ctrlKey,
             shiftKey: event.shiftKey,
         };
@@ -41,13 +95,13 @@ export default class ClickableWrapper extends React.Component<ClickableWrapperPr
         this.clickCount++;
         if (this.clickCount === 1) {
             if (isFunction(onSingleClick)) {
-                onSingleClick(customEvent, false);
+                onSingleClick(inputEvent);
             }
             this.clickCount = 1;
             // @ts-ignore
             this.clickTimeout = setTimeout(() => this.clickCount = 0, doubleClickDelay);
         } else if (this.clickCount === 2) {
-            if (isFunction(onDoubleClick)) onDoubleClick(customEvent, false);
+            if (isFunction(onDoubleClick)) onDoubleClick(inputEvent);
             if (isNumber(this.clickTimeout)) {
                 clearTimeout(this.clickTimeout);
                 this.clickTimeout = undefined;
@@ -57,10 +111,14 @@ export default class ClickableWrapper extends React.Component<ClickableWrapperPr
     };
 
     public render() {
-        const {children, wrapperTag: WrapperTag, passthroughProps, onSingleClick, onDoubleClick} = this.props;
+        const {
+            children, wrapperTag: WrapperTag, passthroughProps,
+            onSingleClick, onDoubleClick,
+        } = this.props;
 
         const compProps: any = {
             onClick: this.handleClick,
+            'data-chonky-listener-id': this.listenerId,
         };
         if (isFunction(onSingleClick) || isFunction(onDoubleClick)) compProps.tabIndex = 0;
 

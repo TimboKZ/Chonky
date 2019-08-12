@@ -6,6 +6,10 @@
 
 import {AnyFunction, nil, Nilable, Nullable} from 'tsdef';
 
+import ConsoleUtil from './ConsoleUtil';
+import {InputEvent, InputEventType, InputListener, kbCodeMap, KbKey, kbKeyCodeMap} from '../typedef';
+
+// Assertions
 export const isNil = (value: any): value is nil => value === undefined || value === null;
 export const isNumber = (value: any): value is number => typeof value == 'number';
 export const isString = (value: any): value is string => typeof value == 'string';
@@ -21,20 +25,73 @@ export const getNonNil: <T>(array: Nilable<T[]>, index: number) => Nullable<T> =
     if (isNil(elem)) return null;
     return elem;
 };
+
+
+// Math operations
 export const clamp = (value: number, min: number, max: number) => {
     if (min > max) [min, max] = [max, min];
     return Math.min(max, Math.max(min, value));
 };
+export const clampIndex = (value: number, array: any[]) => clamp(value, 0, array.length - 1);
 
-export const clampIndex = (value: number, array: any[]) => {
-    return clamp(value, 0, array.length - 1);
+
+// Keyboard-related util
+export const detectKey = (event: KeyboardEvent): Nullable<KbKey> => {
+    let result = kbCodeMap[event.code];
+    if (!isNil(result)) return result;
+    result = kbKeyCodeMap[event.keyCode];
+    return isNil(result) ? result : null;
+};
+export const handleKeyPress = (event: KeyboardEvent) => {
+    if (!isNil(event.target) && event.target instanceof Element) {
+        const tagName = event.target.tagName.toUpperCase();
+        const isInInput = tagName === 'INPUT' || tagName === 'TEXTAREA';
+        if (isInInput) return;
+    }
+
+    const key = detectKey(event);
+    if (isNil(key)) return;
+
+    const inputEvent: InputEvent = {
+        type: InputEventType.Keyboard,
+        ctrlKey: event.ctrlKey,
+        shiftKey: event.shiftKey,
+        key,
+    };
+    const listenerSet = window._chonkyData.kbListenerSet;
+
+    let handled = false;
+    listenerSet.forEach(listener => {
+        if (listener(inputEvent)) handled = true;
+    });
+    if (handled) event.preventDefault();
+};
+export const setupListeners = () => {
+    if (!isNil(window._chonkyData)) return;
+
+    window._chonkyData = {
+        kbListenerSet: new Set(),
+    };
+    document.addEventListener('keydown', handleKeyPress);
+};
+
+
+// FileBrowser instance/ClickableWrapper related util
+export const generateId = () => Math.random().toString(36).substr(2, 9);
+export const registerKbListener = (kbListener: InputListener) => {
+    const set = window._chonkyData.kbListenerSet;
+    if (set.has(kbListener)) {
+        ConsoleUtil.warn('Tried to register the same keyboard listener twice!');
+        return;
+    }
+    set.add(kbListener);
+};
+export const deregisterKbListener = (kbListener: InputListener) => {
+    const set = window._chonkyData.kbListenerSet;
+    set.delete(kbListener);
 };
 
 export default class Util {
-
-    public static generateInstanceId() {
-        return Math.random().toString(36).substr(2, 9);
-    }
 
     public static kbEventIsSpace(event: KeyboardEvent) {
         return event.code === 'Space' || event.keyCode === 32;

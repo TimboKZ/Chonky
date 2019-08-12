@@ -21,12 +21,9 @@
   <br/>
 </div>
 
-> Chonky is still in development, please [create an issue](https://github.com/TimboKZ/Chonky/issues) if you have a 
-> problem or want to request a feature.
-
-Chonky is a file browser component for React. It tries to recreate the native file browsing experience in your browser.
-This means your users can make selections, drag & drop files, toggle file view between "large thumbnails" and "detailed
-list", use keyboard shortcuts, and so on.
+> Chonky is a file browser component for React. It tries to recreate the native file browsing experience in your 
+> browser. This means your users can make selections, drag & drop files, toggle file view between "large thumbnails" 
+> and "detailed list", use keyboard shortcuts, and so on. 
 
 **Note #1:** You can view source code of all examples on this page - just click the "View Code" button below the 
 relevant example.
@@ -34,5 +31,8 @@ relevant example.
 **Note #2:** Some code snippets on this page use [Noty](https://ned.im/noty/) notification library. This 
 library is used solely for demonstration purposes, it is not an actual dependency. When you perform some file 
 operations, you will see a notification popup in the top right corner of the screen.
+
+> Chonky is still in development, please [create an issue](https://github.com/TimboKZ/Chonky/issues) if you have a 
+> problem or want to request a feature.
 
 #### [View on Github](https://github.com/TimboKZ/Chonky)

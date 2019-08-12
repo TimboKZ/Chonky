@@ -7,6 +7,14 @@
 import {Nullable} from 'tsdef';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 
+declare global {
+    interface Window {
+        _chonkyData: {
+            kbListenerSet: Set<InputListener>;
+        };
+    }
+}
+
 // Required properties are marked with `!!`
 export interface FileData {
     id: string; // !! String that uniquely identifies the file
@@ -41,20 +49,9 @@ export enum SelectionType {
     Single,
     Multiple,
     Range,
+    All,
+    None,
 }
-
-export interface IconData {
-    icon: IconProp;
-    colorCode: number;
-}
-
-export interface ClickEvent {
-    ctrlKey: boolean;
-    shiftKey: boolean;
-}
-
-export type FileClickHandler<T = void> = (file: FileData, fileIndex: number,
-                                          event: ClickEvent, keyboard: boolean) => T;
 
 export enum SelectionStatus {
     NeedsCleaning,
@@ -62,8 +59,54 @@ export enum SelectionStatus {
     Ok,
 }
 
-export type ThumbnailGeneratorResult = Nullable<string> | Promise<Nullable<string>>;
+export interface IconData {
+    icon: IconProp;
+    colorCode: number;
+}
 
+export enum KbKey {
+    Backspace = 'backspace',
+    Enter = 'enter',
+    Escape = 'escape',
+    Space = 'space',
+    A = 'a',
+}
+
+// From https://keycode.info/
+export const kbCodeMap: { [code: string]: KbKey } = {
+    Backspace: KbKey.Backspace,
+    Enter: KbKey.Enter,
+    Escape: KbKey.Escape,
+    Space: KbKey.Space,
+    KeyA: KbKey.A,
+};
+export const kbKeyCodeMap: { [keyCode: number]: KbKey } = {
+    [8]: KbKey.Backspace,
+    [13]: KbKey.Enter,
+    [27]: KbKey.Escape,
+    [32]: KbKey.Space,
+    [65]: KbKey.A,
+};
+
+export enum InputEventType {
+    Mouse,
+    Keyboard,
+}
+
+export interface InputEvent {
+    type: InputEventType;
+    ctrlKey: boolean;
+    shiftKey: boolean;
+
+    // For keyboard events
+    key?: KbKey;
+
+}
+
+export type InputListener = (event: InputEvent) => boolean;
+export type FileClickHandler<T = void> = (file: FileData, fileIndex: number, event: InputEvent) => T;
+
+export type ThumbnailGeneratorResult = Nullable<string> | Promise<Nullable<string>>;
 export type ThumbnailGenerator = (file: FileData) => ThumbnailGeneratorResult;
 
 export enum FolderView {

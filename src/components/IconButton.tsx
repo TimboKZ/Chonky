@@ -19,7 +19,7 @@ interface IconButtonProps {
 
 interface IconButtonState {}
 
-export default class IconButton extends React.Component<IconButtonProps, IconButtonState> {
+export default class IconButton extends React.PureComponent<IconButtonProps, IconButtonState> {
 
     public static defaultProps = {
         active: false,

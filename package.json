@@ -10,8 +10,6 @@
   ],
   "scripts": {
     "tsc:build": "tsc",
-    "ange:build": "ange docs/ -r",
-    "ange:watch": "ange docs/ -r -w",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build"
   },

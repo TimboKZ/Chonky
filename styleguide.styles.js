@@ -12,6 +12,16 @@ const styles = {
         '@global body': {
             fontFamily: 'sans-serif',
         },
+        '@global img': {
+            maxWidth: '100%',
+        },
+        '@global blockquote': {
+            padding: '16px 16px 1px 16px !important',
+            borderLeft: 'solid 4px #bbb !important',
+            backgroundColor: '#eee !important',
+            borderRadius: '3px !important',
+            margin: '1.5em 0 !important',
+        },
         '@global code': {
             backgroundColor: '#eee !important',
             whiteSpace: 'nowrap !important',
