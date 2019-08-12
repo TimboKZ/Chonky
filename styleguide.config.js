@@ -29,9 +29,9 @@ module.exports = {
                 {name: 'Installation & usage', content: 'docs/markdown/2-Installation.md'},
                 {name: 'Passing files to Chonky', content: 'docs/markdown/3-Files.md'},
                 {name: 'Specifying current folder', content: 'docs/markdown/4-Folder-chain.md'},
-                {name: 'Generating file descriptions', content: 'docs/Not-available.md'},
+                {name: 'Generating file descriptions', content: 'docs/markdown/5-Generating-descriptions.md'},
                 {name: 'Custom component styling', content: 'docs/markdown/6-Styling.md'},
-                {name: 'Display file thumbnails', content: 'docs/markdown/7-Thumbnails.md'},
+                {name: 'Displaying file thumbnails', content: 'docs/markdown/7-Thumbnails.md'},
                 {name: 'Handling file actions', content: 'docs/Not-available.md'},
                 {name: 'Managing file selection', content: 'docs/Not-available.md'},
                 {name: 'Setting file browser options', content: 'docs/Not-available.md'},
@@ -65,8 +65,9 @@ module.exports = {
     },
     updateExample(props, exampleFilePath) {
         const {settings, lang} = props;
+        const exampleDir = path.dirname(exampleFilePath);
         if (typeof settings.componentPath === 'string') {
-            const filePath = path.resolve(path.dirname(exampleFilePath), settings.componentPath);
+            const filePath = path.resolve(exampleDir, settings.componentPath);
             const compName = `ExampleComp${exampleCounter++}`;
             const props = {
                 content: `import ${compName} from '${filePath}';\n;<${compName}/>;`,
@@ -76,10 +77,17 @@ module.exports = {
             // Use lower case, since settings are converted to lowercase for some reason...
             props.settings.displaycontent = fs.readFileSync(filePath, 'utf8');
             return props;
-
-        } else {
-            if (!props.live) props.settings.static = true;
+        } else if (typeof settings.filePath === 'string') {
+            const filePath = path.resolve(exampleDir, settings.filePath);
+            const props = {
+                content: fs.readFileSync(filePath, 'utf8'),
+                settings,
+                lang,
+            };
+            props.settings.static = true;
+            return props;
         }
+        props.settings.static = settings.live === undefined;
         return props;
     },
 };
