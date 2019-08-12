@@ -3,7 +3,7 @@ import React from 'react';
 
 // Import Chonky styles and relevant components
 import '../../style/main.css';
-import {FileBrowser, FolderView} from '../../index';
+import {FileBrowser, FolderView} from '../../src';
 
 const files = [
     {

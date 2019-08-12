@@ -24,7 +24,8 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx'],
         alias: {
-            chonky: path.resolve(__dirname),
+            'chonky/style': path.resolve(__dirname, 'style'),
+            chonky: path.resolve(__dirname, 'src'),
         },
     },
 };

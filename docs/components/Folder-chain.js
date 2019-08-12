@@ -1,7 +1,7 @@
 import React from 'react';
 
 import '../../style/main.css';
-import {FileBrowser} from '../../index';
+import {FileBrowser} from '../../src';
 
 const folderChain = [
     {

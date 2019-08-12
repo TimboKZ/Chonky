@@ -225,19 +225,32 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         } = prevState;
         const {rawFiles, selection, options, sortProperty, sortOrder} = this.state;
 
+        let justChangedSelection = false;
+
         const needToResort = !shallowEqualArrays(rawFiles, oldRawFiles)
             || !shallowEqualObjects(options, oldOptions)
             || sortProperty !== oldSortProperty
             || sortOrder !== oldSortOrder;
         if (needToResort) {
             const [sortedFiles, fileIndexMap] = FileUtil.sortFiles(rawFiles, options, sortProperty, sortOrder);
-            this.setState({
-                sortedFiles,
-                fileIndexMap,
-            });
+            const newState: Partial<FileBrowserState> = {sortedFiles, fileIndexMap};
+
+            const newSelection = {};
+            let additionCount = 0;
+            for (const file of sortedFiles) {
+                if (isNil(file) || selection[file.id] !== true) continue;
+                newSelection[file.id] = true;
+                additionCount++;
+            }
+            if (additionCount !== Object.keys(selection).length) {
+                newState.selection = newSelection;
+                justChangedSelection = true;
+            }
+
+            this.setState(newState as FileBrowserState);
         }
 
-        if (selection !== oldSelection && isFunction(onSelectionChange)) {
+        if (!justChangedSelection && selection !== oldSelection && isFunction(onSelectionChange)) {
             onSelectionChange(selection);
         }
     }

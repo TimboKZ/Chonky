@@ -1,5 +1,19 @@
 The current folder is shown in the status bar at the top of the `FileBrowser` component. You can specify the current 
-folder hierarchy by passing an array of file objects as the `folderChain` property of `FileBrowser`.
+folder hierarchy by passing an array of file objects as the `folderChain` property of `FileBrowser`:
+
+```jsx
+export const ExampleComponent = () => {
+    const files = [];
+    const folderChain = [
+        {
+            id: 'my_folder_abcd',
+            name: 'My Folder',
+            isDir: true,
+        },
+    ];
+    return <FileBrowser files={myFiles} folderChain={folderChain}/>
+}
+```
 
 The `folderChain` property is very similar to the `files` array from the previous section. Each file in the array has
 to satisfy the `FileData` type. Since we're dealing with folders here, ideally `file.isDir` should be set to true, 

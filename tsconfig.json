@@ -23,7 +23,6 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "index.ts",
     "src/**/*"
   ],
   "types": [

@@ -4,12 +4,12 @@
  * @license MIT
  */
 
-import {FileUtil} from './src/util/FileUtil';
-import ConsoleUtil from './src/util/ConsoleUtil';
-import FileBrowser from './src/components/FileBrowser';
-import {handleKeyPress} from './src/components/ClickableWrapper';
-import {setupListeners, isNil, registerKbListener} from './src/util/Util';
-import {FolderView, Option, Options, SortProperty, SortOrder} from './src/typedef';
+import {FileUtil} from './util/FileUtil';
+import ConsoleUtil from './util/ConsoleUtil';
+import FileBrowser from './components/FileBrowser';
+import {handleKeyPress} from './components/ClickableWrapper';
+import {setupListeners, isNil, registerKbListener} from './util/Util';
+import {FolderView, Option, Options, SortProperty, SortOrder} from './typedef';
 
 const {demoFileMap, demoRootFolderId} = FileUtil.getDemoFs();
 

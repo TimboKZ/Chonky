@@ -1,7 +1,7 @@
 The `FileBrowser` component accepts a property called `files`, which should be an array of file objects. It also the 
 only required property, so the most basic Chonky usage could look like this:
  
-```typescript jsx
+```jsx
 export const ExampleComponent = () => {
     const myFiles = [];
     return <FileBrowser files={myFiles}/>

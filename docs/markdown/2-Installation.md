@@ -12,7 +12,7 @@ import 'chonky/style/main.css';
 import {FileBrowser, FolderView} from 'chonky';
 ```
 
-Below, you can see a very basic usage example. Take a look at its source code by pressing "View Code" below the example.
+You can see a basic usage example below. Take a look at its source code by pressing "View Code" below the example.
 
 ```js { "componentPath": "../components/Installation.js" }
 ```
