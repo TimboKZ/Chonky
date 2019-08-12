@@ -30,7 +30,7 @@ const generateDescription = (filePath) => {
 const saveJson = (jsonPath, file) => {
     // Pretty print the object into a string and write it out
     const fileJson = JSON.stringify(file, null, 2);
-    fs.writeFileSync(jsonPath, fileJson);
+    fs.writeFileSync(jsonPath, fileJson, 'utf8');
 };
 
 const inputPath = path.resolve(__dirname, 'FullDemo.js');

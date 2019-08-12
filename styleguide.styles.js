@@ -62,7 +62,7 @@ const styles = {
             borderBottom: 'solid 2px #ddd',
             fontWeight: 'bold',
             marginBottom: 20,
-            marginTop: 60,
+            marginTop: 80,
         },
         heading3: {
             fontWeight: 'bold',

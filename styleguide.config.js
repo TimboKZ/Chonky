@@ -31,7 +31,7 @@ module.exports = {
                 {name: 'Generating file descriptions', content: 'docs/markdown/5-Generating-descriptions.md'},
                 {name: 'Custom component styling', content: 'docs/markdown/6-Styling.md'},
                 {name: 'Displaying file thumbnails', content: 'docs/markdown/7-Thumbnails.md'},
-                {name: 'Handling file actions', content: 'docs/Not-available.md'},
+                {name: 'Handling file actions', content: 'docs/markdown/8-File-actions.md'},
                 {name: 'Managing file selection', content: 'docs/Not-available.md'},
                 {name: 'Setting file browser options', content: 'docs/Not-available.md'},
             ],
@@ -121,8 +121,12 @@ module.exports = {
             props.settings.static = true;
             return props;
         } else if (typeof settings.typeName === 'string') {
+            const content = typeExtractor({
+                typeName: settings.typeName,
+                offset: settings.offset,
+            });
             const props = {
-                content: typeExtractor(settings.typeName),
+                content,
                 settings,
                 lang: 'typescript',
             };

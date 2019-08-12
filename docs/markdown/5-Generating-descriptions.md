@@ -18,7 +18,7 @@ Note that `JSON.stringify` automatically converted `modDate` into a string. Sinc
 `Date` object, you will need to convert it back into `Date` after loading the JSON:
 
 ```js
-const fileJson = fs.readFileSync('./file.json');
+const fileJson = fs.readFileSync('./file.json', 'utf8');
 const file = JSON.parse(fileJson);
 file.modDate = new Date(file.modDate);
 ```

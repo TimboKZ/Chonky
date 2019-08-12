@@ -450,7 +450,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                 return Promise.resolve()
                     .then(() => {
                         if (!isFunction(onFileSingleClick)) return false;
-                        const result = onFileSingleClick(file, displayIndex, event);
+                        const result = onFileSingleClick(file, event);
                         isPromise = !isNil(result) && !isBoolean(result) && isFunction(result.then);
                         return result;
                     })
@@ -476,22 +476,13 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     private handleFileDoubleClick: InternalClickHandler = (file: FileData, displayIndex: number, event: InputEvent) => {
         const {onFileDoubleClick, onFileOpen} = this.props;
 
-        // Prevent default behaviour if user's handler returns `true`
-        let preventDefault = false;
-        if (isFunction(onFileDoubleClick)) {
-            const funcResult = onFileDoubleClick(file, displayIndex, event) as boolean | undefined;
-            preventDefault = funcResult === true;
-        }
-        if (preventDefault) return;
-
-
         let isPromise = true;
         Promise.resolve()
             .then(() => {
                 return Promise.resolve()
                     .then(() => {
                         if (!isFunction(onFileDoubleClick)) return false;
-                        const result = onFileDoubleClick(file, displayIndex, event);
+                        const result = onFileDoubleClick(file, event);
                         isPromise = !isNil(result) && !isBoolean(result) && isFunction(result.then);
                         return result;
                     })

@@ -89,8 +89,8 @@ export const kbKeyCodeMap: { [keyCode: number]: KbKey } = {
 };
 
 export enum InputEventType {
-    Mouse,
-    Keyboard,
+    Mouse = 'mouse',
+    Keyboard = 'keyboard',
 }
 
 export interface InputEvent {
@@ -100,11 +100,13 @@ export interface InputEvent {
 
     // For keyboard events
     key?: KbKey;
-
 }
 
 export type InputListener = (event: InputEvent) => boolean;
-export type ClickHandler = (file: FileData, fileIndex: number, event: InputEvent) => Nilable<boolean> | Promise<Nilable<boolean>>;
+
+export type ClickHandlerResult = Nilable<boolean> | Promise<Nilable<boolean>>;
+export type ClickHandler = (file: FileData, event: InputEvent) => ClickHandlerResult;
+
 export type InternalClickHandler = (file: FileData, fileIndex: number, event: InputEvent) => void;
 
 export type ThumbnailGenerator = (file: FileData) => Nilable<string> | Promise<Nilable<string>>;
