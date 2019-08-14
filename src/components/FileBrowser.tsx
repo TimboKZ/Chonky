@@ -150,11 +150,11 @@ interface FileBrowserState {
     rawFiles: Nullable<FileData>[];
     folderChain?: Nullable<FileData>[];
     sortedFiles: Nullable<FileData>[];
-    fileIndexMap: { [id: string]: number }; // Maps file ID to its index in file array
 
     previousSelectionIndex?: number;
     selection: Selection;
 
+    // View, display & sort options
     view: FileView;
     options: Options;
     sortProperty: SortProperty;
@@ -201,13 +201,12 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         const sortProperty = !isNil(propSortProperty) ? propSortProperty : defaults.sortProperty as SortProperty;
         const sortOrder = !isNil(propSortOrder) ? propSortOrder : defaults.sortOrder as SortOrder;
 
-        const [sortedFiles, fileIndexMap] = FileUtil.sortFiles(rawFiles, options, sortProperty, sortOrder);
+        const sortedFiles = FileUtil.sortFiles(rawFiles, options, sortProperty, sortOrder);
 
         this.state = {
             rawFiles,
             folderChain,
             sortedFiles,
-            fileIndexMap,
             selection,
             view,
             options,
@@ -296,8 +295,8 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
             || sortProperty !== oldSortProperty
             || sortOrder !== oldSortOrder;
         if (needToResort) {
-            const [sortedFiles, fileIndexMap] = FileUtil.sortFiles(rawFiles, options, sortProperty, sortOrder);
-            const newState: Partial<FileBrowserState> = {sortedFiles, fileIndexMap};
+            const sortedFiles = FileUtil.sortFiles(rawFiles, options, sortProperty, sortOrder);
+            const newState: Partial<FileBrowserState> = {sortedFiles};
 
             const newSelection = {};
             let additionCount = 0;
