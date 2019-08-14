@@ -23,8 +23,8 @@ import {
     SortOrder,
     SortProperty,
     ThumbnailGenerator,
-    ClickHandler,
     FileData,
+    SingleFileActionHandler,
 } from '../typedef';
 import {
     clampIndex,
@@ -69,6 +69,24 @@ interface FileBrowserProps {
     thumbnailGenerator?: ThumbnailGenerator;
 
     /**
+     * The function that is called whenever the user tries to open a file. This behaviour can be triggered via a
+     * double-click on a file in the main container, or by clicking on the name of a folder in the top bar.
+     * [See relevant section](#section-handling-file-actions).
+     */
+    onFileOpen?: SingleFileActionHandler;
+
+    // /**
+    //  * This function is similar to `onFileOpen`, except the first argument is an array of files. The array will have
+    //  * more than one element if the user makes a file selection containing multiple files, and then double-clicks on
+    //  * one of the files.
+    //  * [See relevant section](#section-handling-file-actions).
+    //  */
+    // onOpenFiles?: MultiFileActionHandler;
+    // onDownloadFiles?: MultiFileActionHandler;
+    // onMoveFiles?: MultiFileActionHandler;
+    // onDeleteFiles?: MultiFileActionHandler;
+
+    /**
      * Maximum delay between the two clicks in a double click.
      */
     doubleClickDelay?: number;
@@ -78,21 +96,14 @@ interface FileBrowserProps {
      * returns `true` (or a promise that resolves into `true`), the default Chonky behaviour will be cancelled.
      * [See relevant section](#section-handling-file-actions).
      */
-    onFileSingleClick?: ClickHandler;
+    onFileSingleClick?: SingleFileActionHandler;
 
     /**
      * The function that is called whenever a file entry in the main `FileBrowser` container is double-clicked. If it
      * returns `true` (or a promise that resolves into `true`), the default Chonky behaviour will be cancelled.
      * [See relevant section](#section-handling-file-actions).
      */
-    onFileDoubleClick?: ClickHandler;
-
-    /**
-     * The function that is called whenever the user tries to open a file. This behaviour can be triggered via a
-     * double-click on a file in the main container, or by clicking on the name of a folder in the top bar.
-     * [See relevant section](#section-handling-file-actions).
-     */
-    onFileOpen?: (file: FileData) => void;
+    onFileDoubleClick?: SingleFileActionHandler;
 
     /**
      * The function that is called whenever file selection changes.
@@ -162,7 +173,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         options: {
             showHidden: true,
             foldersFirst: true,
-            confirmDeletions: true,
+            showRelativeDates: true,
             disableTextSelection: true,
         },
         sortProperty: SortProperty.Name,
@@ -444,6 +455,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     private handleFileSingleClick: InternalClickHandler = (file: FileData, displayIndex: number, event: InputEvent) => {
         const {onFileSingleClick} = this.props;
 
+        // TODO: Simplify this code, throw away `isPromise
         let isPromise = true;
         Promise.resolve()
             .then(() => {
@@ -476,6 +488,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     private handleFileDoubleClick: InternalClickHandler = (file: FileData, displayIndex: number, event: InputEvent) => {
         const {onFileDoubleClick, onFileOpen} = this.props;
 
+        // TODO: Simplify this code, throw away `isPromise
         let isPromise = true;
         Promise.resolve()
             .then(() => {
@@ -497,6 +510,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                 if (preventDefault === true) return;
 
                 if (isFunction(onFileOpen) && file.openable !== false) return onFileOpen(file);
+                return;
             })
             .catch((error: Error) => ConsoleUtil.logUnhandledException(error, 'running the file opening handler'));
     };
@@ -513,13 +527,15 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
             <div ref={this.ref} className={className}>
                 <Controls folderChain={folderChain} onFileOpen={onFileOpen} view={view}
                           setView={this.setView} options={options} setOption={this.setOption}/>
-                <FileList instanceId={this.instanceId} files={sortedFiles} selection={selection} view={view}
-                          sortProperty={sortProperty} sortOrder={sortOrder}
+                <FileList instanceId={this.instanceId} files={sortedFiles} selection={selection}
                           activateSortProperty={this.activateSortProperty}
                           doubleClickDelay={doubleClickDelay as number}
                           onFileSingleClick={this.handleFileSingleClick}
                           onFileDoubleClick={this.handleFileDoubleClick}
-                          thumbnailGenerator={thumbnailGenerator}/>
+                          thumbnailGenerator={thumbnailGenerator}
+                          view={view} sortProperty={sortProperty}
+                          sortOrder={sortOrder} showRelativeDates={options[Option.ShowRelativeDates]}
+                />
             </div>
         );
     }

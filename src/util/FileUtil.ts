@@ -21,10 +21,16 @@ for (const id in demoFileMap) {
     demoFileMap[id].modDate = new Date(demoFileMap[id].modDate);
 }
 
+const CurrentYear = new Date().getFullYear();
+
 export class FileUtil {
 
     public static relativeDate = (date: Date) => timeAgo.format(date);
-    public static readableDate = (date: Date) => dateFormat(date, 'HH:MM, mmm d, yyyy');
+    public static readableDate = (date: Date) => {
+        const currentYear = date.getFullYear() === CurrentYear;
+        if (currentYear) return dateFormat(date, 'd mmmm, HH:MM');
+        return dateFormat(date, 'd mmmm yyyy, HH:MM');
+    };
     public static readableSize = (size: number) => filesize(size, {bits: false, exponent: 1});
 
     public static prepareComparator = (foldersFirst: boolean, sortProperty: SortProperty, sortOrder: SortOrder) => {

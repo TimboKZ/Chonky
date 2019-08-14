@@ -34,15 +34,19 @@ interface FileListEntryProps {
     file: Nullable<FileData>;
     selected: boolean;
     displayIndex: number;
-    view: FileView;
 
+    // Action handlers and other functions
     doubleClickDelay: number;
     onFileSingleClick: InternalClickHandler;
     onFileDoubleClick: InternalClickHandler;
-
     thumbnailGenerator?: ThumbnailGenerator;
 
-    size?: EntrySize;
+    // Options
+    showRelativeDates: boolean;
+
+    // View & sort settings
+    view: FileView;
+    containerSize?: EntrySize;
 }
 
 interface FileListEntryState {
@@ -130,14 +134,19 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
     }
 
     private renderModDate() {
-        const {file} = this.props;
+        const {file, showRelativeDates} = this.props;
         if (isNil(file)) return <LoadingPlaceholder/>;
         if (!(file.modDate instanceof Date)) return <span className="chonky-text-subtle">—</span>;
         const relativeDate = FileUtil.relativeDate(file.modDate);
         const readableDate = FileUtil.readableDate(file.modDate);
 
-        const displayDate = relativeDate;
-        const tooltipDate = readableDate;
+        let displayDate;
+        let tooltipDate;
+        if (showRelativeDates) {
+            [displayDate, tooltipDate] = [relativeDate, readableDate];
+        } else {
+            [displayDate, tooltipDate] = [readableDate, relativeDate];
+        }
 
         return <span className="chonky-tooltip" data-tooltip={tooltipDate}>{displayDate}</span>;
     }
@@ -213,14 +222,14 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
     public render() {
         const {
             instanceId, file, selected, displayIndex, view, doubleClickDelay,
-            onFileSingleClick, onFileDoubleClick, size,
+            onFileSingleClick, onFileDoubleClick, containerSize,
         } = this.props;
 
         const wrapperProps: ClickableWrapperProps = {
             instanceId,
             wrapperTag: 'div',
             passthroughProps: {
-                style: {...size},
+                style: {...containerSize},
                 className: classnames({
                     'chonky-file-list-entry': true,
                     'chonky-selected': selected,

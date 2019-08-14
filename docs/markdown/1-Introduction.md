@@ -32,8 +32,3 @@ handler, which is called every time a user double clicks a file or a folder.
 
 At the same time, Chonky tries to cover all possible interactions with the user. This includes support for keyboard 
 navigation and common keyboard shortcuts, support for file selections, drag & drop, different file views, and much more.
-
-### Notes
-
-* It's a good idea to ask your users for confirmation before doing any FS manipulations in file operation handlers. 
-For example, you could show a confirm dialog asking "Are you sure?" before moving or deleting files.

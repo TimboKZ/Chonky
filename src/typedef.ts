@@ -97,15 +97,14 @@ export interface InputEvent {
     type: InputEventType;
     ctrlKey: boolean;
     shiftKey: boolean;
-
-    // For keyboard events
-    key?: KbKey;
+    key?: KbKey; // For keyboard events only
 }
 
 export type InputListener = (event: InputEvent) => boolean;
 
-export type ClickHandlerResult = Nilable<boolean> | Promise<Nilable<boolean>>;
-export type ClickHandler = (file: FileData, event: InputEvent) => ClickHandlerResult;
+export type ActionHandlerResult = Nilable<boolean> | Promise<Nilable<boolean>>;
+export type SingleFileActionHandler = (file: FileData, event?: InputEvent) => ActionHandlerResult;
+export type MultiFileActionHandler = (files: FileData[], event?: InputEvent) => ActionHandlerResult;
 
 export type InternalClickHandler = (file: FileData, fileIndex: number, event: InputEvent) => void;
 
@@ -125,14 +124,14 @@ export interface EntrySize {
 export enum Option {
     ShowHidden = 'showHidden',
     FoldersFirst = 'foldersFirst',
-    ConfirmDeletions = 'confirmDeletions',
+    ShowRelativeDates = 'showRelativeDates',
     DisableTextSelection = 'disableTextSelection',
 }
 
 export interface Options {
     showHidden: boolean;
     foldersFirst: boolean;
-    confirmDeletions: boolean;
+    showRelativeDates: boolean;
     disableTextSelection: boolean;
 }
 
@@ -147,7 +146,8 @@ export enum SortOrder {
     Desc = 'desc',
 }
 
-export const VideoExtensions: string[] = ['3g2',
+export const VideoExtensions: string[] = [
+    '3g2',
     '3gp',
     '3gpp',
     'asf',
@@ -208,7 +208,8 @@ export const VideoExtensions: string[] = ['3g2',
     'wmx',
     'wvx',
 ];
-export const ImageExtensions: string[] = ['3ds',
+export const ImageExtensions: string[] = [
+    '3ds',
     'apng',
     'azv',
     'bmp',

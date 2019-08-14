@@ -31,14 +31,18 @@ interface FileListProps {
     instanceId: string;
     files: Nullable<FileData>[];
     selection: Selection;
-    view: FileView;
 
+    // Action handlers and other functions
     doubleClickDelay: number;
     onFileSingleClick: InternalClickHandler;
     onFileDoubleClick: InternalClickHandler;
-
     thumbnailGenerator?: ThumbnailGenerator;
 
+    // Options
+    showRelativeDates: boolean;
+
+    // View & sort settings
+    view: FileView;
     sortProperty: SortProperty;
     sortOrder: SortOrder;
     activateSortProperty: (name: SortProperty) => void;
@@ -58,7 +62,7 @@ const EntrySizeMap: { [view: string]: EntrySize } = {
     [FileView.LargeThumbs]: {width: 400, height: 300},
 };
 
-export default class FileList extends React.Component<FileListProps, FileListState> {
+export default class FileList extends React.PureComponent<FileListProps, FileListState> {
 
     private renderDetailsHeaders() {
         const {instanceId, doubleClickDelay, sortProperty, sortOrder, activateSortProperty} = this.props;
@@ -95,8 +99,8 @@ export default class FileList extends React.Component<FileListProps, FileListSta
 
     private renderFileEntries() {
         const {
-            instanceId, files, selection, view, doubleClickDelay,
-            onFileSingleClick, onFileDoubleClick, thumbnailGenerator,
+            instanceId, files, selection, doubleClickDelay, onFileSingleClick, onFileDoubleClick, thumbnailGenerator,
+            showRelativeDates, view,
         } = this.props;
 
         const entrySize = EntrySizeMap[view];
@@ -131,11 +135,12 @@ export default class FileList extends React.Component<FileListProps, FileListSta
             const selected = isObject(file) ? selection[file.id] === true : false;
             comps[i] = <FileListEntry key={key} instanceId={instanceId}
                                       selected={selected} file={file} displayIndex={i}
-                                      view={view} doubleClickDelay={doubleClickDelay}
+                                      doubleClickDelay={doubleClickDelay}
                                       onFileSingleClick={onFileSingleClick}
                                       onFileDoubleClick={onFileDoubleClick}
                                       thumbnailGenerator={thumbnailGenerator}
-                                      size={entrySize}/>;
+                                      showRelativeDates={showRelativeDates} view={view} containerSize={entrySize}
+            />;
         }
         return comps;
     }

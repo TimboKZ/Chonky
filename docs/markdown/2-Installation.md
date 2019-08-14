@@ -9,7 +9,7 @@ import the CSS file to style the component. In the end, your imports would look 
 
 ```js
 import 'chonky/style/main.css';
-import {FileBrowser, FolderView} from 'chonky';
+import {FileBrowser, FileView} from 'chonky';
 ```
 
 You can see a basic usage example below. Take a look at its source code by pressing "View Code" below the example.
