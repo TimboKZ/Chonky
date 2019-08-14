@@ -29,7 +29,6 @@ import {
 import {
     clampIndex,
     deregisterKbListener,
-    generateId,
     getNonNil,
     isArray, isBoolean,
     isFunction,
@@ -181,13 +180,10 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     };
 
     private readonly ref = React.createRef<HTMLDivElement>();
-    private readonly instanceId: string;
 
     public constructor(props: FileBrowserProps) {
         super(props);
         this.ref = React.createRef();
-        this.instanceId = generateId();
-        this.instanceId = generateId();
 
         const {
             files: rawFiles, folderChain, view: propView,
@@ -526,7 +522,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
             <div ref={this.ref} className={className}>
                 <Controls folderChain={folderChain} onFileOpen={onFileOpen} view={view}
                           setView={this.setView} options={options} setOption={this.setOption}/>
-                <FileList instanceId={this.instanceId} files={sortedFiles} selection={selection}
+                <FileList files={sortedFiles} selection={selection}
                           activateSortProperty={this.activateSortProperty}
                           doubleClickDelay={doubleClickDelay as number}
                           onFileSingleClick={this.handleFileSingleClick}

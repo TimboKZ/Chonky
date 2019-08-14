@@ -30,7 +30,6 @@ import ClickableWrapper, {ClickableWrapperProps} from './ClickableWrapper';
 import {isFunction, isNil, isNumber, isObject, isString} from '../util/Util';
 
 interface FileListEntryProps {
-    instanceId: string;
     file: Nullable<FileData>;
     selected: boolean;
     displayIndex: number;
@@ -54,8 +53,6 @@ interface FileListEntryState {
 }
 
 export default class FileListEntry extends React.PureComponent<FileListEntryProps, FileListEntryState> {
-
-    public static defaultProps = {};
 
     public constructor(props: FileListEntryProps) {
         super(props);
@@ -221,12 +218,11 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
 
     public render() {
         const {
-            instanceId, file, selected, displayIndex, view, doubleClickDelay,
+            file, selected, displayIndex, view, doubleClickDelay,
             onFileSingleClick, onFileDoubleClick, containerSize,
         } = this.props;
 
         const wrapperProps: ClickableWrapperProps = {
-            instanceId,
             wrapperTag: 'div',
             passthroughProps: {
                 style: {...containerSize},

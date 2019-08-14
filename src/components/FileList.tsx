@@ -28,7 +28,6 @@ import {isObject, isString} from '../util/Util';
 import ClickableWrapper from './ClickableWrapper';
 
 interface FileListProps {
-    instanceId: string;
     files: Nullable<FileData>[];
     selection: Selection;
 
@@ -65,7 +64,7 @@ const EntrySizeMap: { [view: string]: EntrySize } = {
 export default class FileList extends React.PureComponent<FileListProps, FileListState> {
 
     private renderDetailsHeaders() {
-        const {instanceId, doubleClickDelay, sortProperty, sortOrder, activateSortProperty} = this.props;
+        const {doubleClickDelay, sortProperty, sortOrder, activateSortProperty} = this.props;
         const comps = new Array(HeaderDetails.length);
         for (let i = 0; i < HeaderDetails.length; ++i) {
             const [name, title] = HeaderDetails[i];
@@ -80,7 +79,7 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
                 activateSortProperty(name as SortProperty);
                 return true;
             };
-            comps[i] = <ClickableWrapper key={`header-${name}`} instanceId={instanceId} wrapperTag={'div'}
+            comps[i] = <ClickableWrapper key={`header-${name}`} wrapperTag={'div'}
                                          passthroughProps={headerProps} doubleClickDelay={doubleClickDelay}
                                          onAllClicks={onClick}>
                 {title}
@@ -99,7 +98,7 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
 
     private renderFileEntries() {
         const {
-            instanceId, files, selection, doubleClickDelay, onFileSingleClick, onFileDoubleClick, thumbnailGenerator,
+            files, selection, doubleClickDelay, onFileSingleClick, onFileDoubleClick, thumbnailGenerator,
             showRelativeDates, view,
         } = this.props;
 
@@ -133,8 +132,7 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
             const file = files[i];
             const key = isObject(file) ? file.id : `loading-file-${loadingCounter++}`;
             const selected = isObject(file) ? selection[file.id] === true : false;
-            comps[i] = <FileListEntry key={key} instanceId={instanceId}
-                                      selected={selected} file={file} displayIndex={i}
+            comps[i] = <FileListEntry key={key} selected={selected} file={file} displayIndex={i}
                                       doubleClickDelay={doubleClickDelay}
                                       onFileSingleClick={onFileSingleClick}
                                       onFileDoubleClick={onFileDoubleClick}
