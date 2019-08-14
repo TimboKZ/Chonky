@@ -25,9 +25,10 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Dropdown from './Dropdown';
 import IconButton from './IconButton';
 import ButtonGroup from './ButtonGroup';
+import ConsoleUtil from '../util/ConsoleUtil';
 import DropdownButton from './DropdownButton';
 import {FileData, FileView, Option, Options} from '../typedef';
-import {getNonNil, isFunction, isNil, isObject} from '../util/Util';
+import {getNonNil, isBoolean, isFunction, isNil, isObject} from '../util/Util';
 
 interface ControlsProps {
     folderChain?: (FileData | null)[];
@@ -51,7 +52,7 @@ const ViewControls = [
 const DropdownButtons = [
     [Option.ShowHidden, 'Show hidden files'],
     [Option.FoldersFirst, 'Show folders first'],
-    [Option.ConfirmDeletions, 'Confirm before deleting'],
+    [Option.ShowRelativeDates, 'Show relative dates'],
     [Option.DisableTextSelection, 'Disable text selection'],
 ];
 
@@ -117,10 +118,20 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
         const comps = new Array(DropdownButtons.length);
         let i = 0;
         for (const [optionName, text] of DropdownButtons) {
-            const value = options[optionName] as boolean;
-            comps[i++] = <DropdownButton key={`option-${optionName}`}
-                                         icon={faCheckCircle} altIcon={faCircle} active={options[optionName]}
-                                         text={text} onClick={() => setOption(optionName as Option, !value)}/>;
+            const value = options[optionName];
+            if (!isBoolean(value)) {
+                ConsoleUtil.warn(`Expected boolean value for option ${optionName}, got: ${value}`);
+                continue;
+            }
+
+            const onClick = (event: React.MouseEvent) => {
+                event.preventDefault();
+                setOption(optionName as Option, !value);
+            };
+            comps[i] = <DropdownButton key={`option-${optionName}`}
+                                       icon={faCheckCircle} altIcon={faCircle} active={options[optionName]}
+                                       text={text} onClick={onClick}/>;
+            i++;
         }
         return <Dropdown title="Options">{comps}</Dropdown>;
     }
