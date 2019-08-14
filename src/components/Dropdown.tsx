@@ -43,8 +43,10 @@ export default class Dropdown extends React.Component<DropdownProps, DropdownSta
             </span>
             </button>
 
-            <div className="chonky-dropdown-contents">
-                {children}
+            <div className="chonky-dropdown-contents-wrapper">
+                <div className="chonky-dropdown-contents">
+                    {children}
+                </div>
             </div>
         </div>;
     }

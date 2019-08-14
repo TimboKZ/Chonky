@@ -74,20 +74,27 @@
     position: relative
 
     &.chonky-active, &:hover, &:active
-      #{$dropdown-parent}-contents
+      #{$dropdown-parent}-contents-wrapper
         display: block
+
+    & > button
+      &:active, &:focus
+        & + #{$dropdown-parent}-contents-wrapper
+          display: block
 
     &-contents
       border: solid 1px $border-light
       border-radius: $radius-medium
       background-color: $bg-base
-      position: absolute
-      overflow: hidden
-      margin-top: 4px
-      display: none
-      z-index: 888
-      top: 100%
-      right: 0
+
+      &-wrapper
+        position: absolute
+        padding-top: 4px
+        overflow: hidden
+        display: none
+        z-index: 888
+        top: 100%
+        right: 0
 
     &-button
       padding: 0.5em !important
@@ -95,10 +102,6 @@
       text-align: left
       display: block
       width: 100%
-
-      &:active, &:focus
-        & + #{$dropdown-parent}-contents
-          display: block
 
       &:not(:last-of-type)
         border-bottom: solid 1px $border-lighter
