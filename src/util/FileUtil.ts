@@ -31,7 +31,15 @@ export class FileUtil {
         if (currentYear) return dateFormat(date, 'd mmmm, HH:MM');
         return dateFormat(date, 'd mmmm yyyy, HH:MM');
     };
-    public static readableSize = (size: number) => filesize(size, {bits: false, exponent: 1});
+    public static readableSize = (size: number) => {
+        const sizeData = filesize(size, {bits: false, output: 'object'}) as any;
+        if (sizeData.symbol === 'B') {
+            return `${Math.round(sizeData.value / 10) / 100.0} KB`;
+        } else if (sizeData.symbol === 'KB') {
+            return `${Math.round(sizeData.value)} ${sizeData.symbol}`;
+        }
+        return `${sizeData.value} ${sizeData.symbol}`;
+    };
 
     public static prepareComparator = (foldersFirst: boolean, sortProperty: SortProperty, sortOrder: SortOrder) => {
         return (fileA: Nullable<FileData>, fileB: Nullable<FileData>) => {
