@@ -400,7 +400,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                 case SelectionType.Multiple:
                     newSelection = {...oldSelection};
                     if (oldSelected === true) delete newSelection[file.id];
-                    else newSelection[file.id] = true;
+                    else if (file.selectable !== false) newSelection[file.id] = true;
                     break;
                 case SelectionType.Range:
                     let indexA = prevIndex as number;
