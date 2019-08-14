@@ -55,7 +55,7 @@ const DropdownButtons = [
     [Option.DisableTextSelection, 'Disable text selection'],
 ];
 
-export default class Controls extends React.Component<ControlsProps, ControlsState> {
+export default class Controls extends React.PureComponent<ControlsProps, ControlsState> {
 
     private renderFolderChain() {
         const {folderChain, onFileOpen} = this.props;
