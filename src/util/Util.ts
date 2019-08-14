@@ -68,6 +68,10 @@ export const handleKeyPress = (event: KeyboardEvent) => {
     if (handled) event.preventDefault();
 };
 export const setupListeners = () => {
+    if (isNil(window)) {
+        throw new Error('[Chonky] `window` object was not found - Chonky might not work correctly.. Are we running in' +
+            ' the browser?');
+    }
     if (!isNil(window._chonkyData)) return;
 
     window._chonkyData = {
@@ -80,6 +84,8 @@ export const setupListeners = () => {
 // FileBrowser instance/ClickableWrapper related util
 export const generateId = () => Math.random().toString(36).substr(2, 9);
 export const registerKbListener = (kbListener: InputListener) => {
+    setupListeners();
+
     const set = window._chonkyData.kbListenerSet;
     if (set.has(kbListener)) {
         ConsoleUtil.warn('Tried to register the same keyboard listener twice!');
