@@ -534,8 +534,8 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                           onFileDoubleClick={this.handleFileDoubleClick}
                           thumbnailGenerator={thumbnailGenerator}
                           view={view} sortProperty={sortProperty}
-                          sortOrder={sortOrder} showRelativeDates={options[Option.ShowRelativeDates]}
-                />
+                          sortOrder={sortOrder}
+                          showRelativeDates={options[Option.ShowRelativeDates]}/>
             </div>
         );
     }

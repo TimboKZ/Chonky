@@ -125,6 +125,7 @@ module.exports = {
                 typeName: settings.typeName,
                 offset: settings.offset,
             });
+            if (!content.trim()) throw new Error(`Could not find type ${settings.typeName}!`);
             const props = {
                 content,
                 settings,

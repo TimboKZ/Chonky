@@ -13,6 +13,7 @@ import {
     isNumber,
     isObject,
     isString,
+    registerKbListener,
 } from '../util/Util';
 import {InputEvent, InputEventType, InputListener, KbKey} from '../typedef';
 
@@ -34,7 +35,7 @@ const listenerMap: {
         onAllClicks?: InputListener;
     };
 } = {};
-export const handleKeyPress: InputListener = (event: InputEvent) => {
+const handleKeyPress: InputListener = (event: InputEvent) => {
     const {key} = event;
     if (key !== KbKey.Enter && key !== KbKey.Space) return false;
 
@@ -62,6 +63,7 @@ export const handleKeyPress: InputListener = (event: InputEvent) => {
 
     return handled;
 };
+registerKbListener(handleKeyPress);
 
 export default class ClickableWrapper extends React.Component<ClickableWrapperProps, {}> {
 
@@ -97,13 +99,17 @@ export default class ClickableWrapper extends React.Component<ClickableWrapperPr
         this.clickCount++;
         if (this.clickCount === 1) {
             if (isFunction(onSingleClick)) {
+                event.preventDefault();
                 onSingleClick(inputEvent);
             }
             this.clickCount = 1;
             // @ts-ignore
             this.clickTimeout = setTimeout(() => this.clickCount = 0, doubleClickDelay);
         } else if (this.clickCount === 2) {
-            if (isFunction(onDoubleClick)) onDoubleClick(inputEvent);
+            if (isFunction(onDoubleClick)) {
+                event.preventDefault();
+                onDoubleClick(inputEvent);
+            }
             if (isNumber(this.clickTimeout)) {
                 clearTimeout(this.clickTimeout);
                 this.clickTimeout = undefined;

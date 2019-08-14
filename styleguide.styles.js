@@ -22,6 +22,13 @@ const styles = {
             borderRadius: '3px !important',
             margin: '1.5em 0 !important',
         },
+        '@global li': {
+            marginBottom: '15px !important',
+        },
+        '@global article > div > pre': {
+            overflowX: 'scroll !important',
+            whiteSpace: 'pre !important',
+        },
         '@global code': {
             backgroundColor: '#eee !important',
             whiteSpace: 'nowrap !important',

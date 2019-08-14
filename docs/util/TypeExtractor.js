@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const lineBreakRegex = /\r?\n/;
+const exportRegex = /^export\s+/;
 const typedefPath = path.resolve(__dirname, '..', '..', 'src', 'typedef.ts');
 
 const extractTypedef = (data) => {
@@ -43,7 +44,7 @@ const extractTypedef = (data) => {
             }
         }
     }
-    return typeLines.join('\n');
+    return typeLines.map(line => line.replace(exportRegex, '')).join('\n');
 };
 
 module.exports = extractTypedef;
