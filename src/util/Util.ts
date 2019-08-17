@@ -7,7 +7,7 @@
 import {AnyFunction, nil, Nilable, Nullable} from 'tsdef';
 
 import ConsoleUtil from './ConsoleUtil';
-import {InputEvent, InputEventType, InputListener, kbCodeMap, KbKey, kbKeyCodeMap} from '../typedef';
+import {InputEvent, InputEventType, InputListener, kbCodeMap, KbKey, kbKeyCodeMap, kbKeyMap} from '../typedef';
 
 // Assertions
 export const isNil = (value: any): value is nil => value === undefined || value === null;
@@ -38,7 +38,9 @@ export const clampIndex = (value: number, array: any[]) => clamp(value, 0, array
 
 // Keyboard-related util
 export const detectKey = (event: KeyboardEvent): Nullable<KbKey> => {
-    let result = kbCodeMap[event.code];
+    let result = kbKeyMap[event.key];
+    if (!isNil(result)) return result;
+    result = kbCodeMap[event.code];
     if (!isNil(result)) return result;
     result = kbKeyCodeMap[event.keyCode];
     return isNil(result) ? result : null;
@@ -69,8 +71,8 @@ export const handleKeyPress = (event: KeyboardEvent) => {
 };
 export const setupListeners = () => {
     if (isNil(window)) {
-        throw new Error('[Chonky] `window` object was not found - Chonky might not work correctly.. Are we running in' +
-            ' the browser?');
+        throw new Error('[Chonky] `window` object was not found - Chonky might not work correctly. Are we running in'
+            + ' the browser?');
     }
     if (!isNil(window._chonkyData)) return;
 
@@ -82,7 +84,6 @@ export const setupListeners = () => {
 
 
 // FileBrowser instance/ClickableWrapper related util
-export const generateId = () => Math.random().toString(36).substr(2, 9);
 export const registerKbListener = (kbListener: InputListener) => {
     setupListeners();
 
