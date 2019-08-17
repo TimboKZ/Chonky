@@ -27,7 +27,7 @@ import ConsoleUtil from '../util/ConsoleUtil';
 import LoadingPlaceholder from './LoadingPlaceholder';
 import {getIconData, LoadingIconData} from '../util/IconUtil';
 import ClickableWrapper, {ClickableWrapperProps} from './ClickableWrapper';
-import {isFunction, isNil, isNumber, isObject, isString} from '../util/Util';
+import {isArray, isFunction, isNil, isNumber, isObject, isString} from '../util/Util';
 
 interface FileListEntryProps {
     file: Nullable<FileData>;
@@ -197,7 +197,12 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
                 <div className={imageBgClassName} style={imageStyle}/>
                 <div className={imageFgClassName} style={imageStyle}/>
                 <div className="chonky-file-list-entry-selection"/>
-                <div {...iconProps}><FontAwesomeIcon icon={iconData.icon} fixedWidth={true} spin={loading}/></div>
+                <div {...iconProps}>
+                    <FontAwesomeIcon icon={iconData.icon} fixedWidth={true} spin={loading}/>
+                    {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
+                    {!isNil(file) && isArray(file.childrenIds) &&
+                    <div className="chonky-file-list-entry-icon-inside">{`${file.childrenIds.length}`}</div>}
+                </div>
             </div>
             <div className="chonky-file-list-entry-description">
                 <div className="chonky-file-list-entry-name">{this.renderFilename()}</div>
