@@ -30,7 +30,7 @@ import {
     clampIndex,
     deregisterKbListener,
     getNonNil,
-    isArray, isBoolean,
+    isArray,
     isFunction,
     isNil,
     isNumber,
@@ -59,13 +59,6 @@ interface FileBrowserProps {
      * [See relevant section](#section-specifying-current-folder).
      */
     folderChain?: Nullable<FileData>[];
-
-    /**
-     * The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
-     * should return a `string` or `null`. It can also return a promise that resolves into a `string` or `null`.
-     * [See relevant section](#section-displaying-file-thumbnails).
-     */
-    thumbnailGenerator?: ThumbnailGenerator;
 
     /**
      * The function that is called whenever the user tries to open a file. This behaviour can be triggered via a
@@ -103,6 +96,13 @@ interface FileBrowserProps {
      * [See relevant section](#section-handling-file-actions).
      */
     onFileDoubleClick?: SingleFileActionHandler;
+
+    /**
+     * The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
+     * should return a `string` or `null`. It can also return a promise that resolves into a `string` or `null`.
+     * [See relevant section](#section-displaying-file-thumbnails).
+     */
+    thumbnailGenerator?: ThumbnailGenerator;
 
     /**
      * The function that is called whenever file selection changes.
@@ -450,21 +450,15 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     private handleFileSingleClick: InternalClickHandler = (file: FileData, displayIndex: number, event: InputEvent) => {
         const {onFileSingleClick} = this.props;
 
-        // TODO: Simplify this code, throw away `isPromise
-        let isPromise = true;
         Promise.resolve()
             .then(() => {
                 return Promise.resolve()
                     .then(() => {
                         if (!isFunction(onFileSingleClick)) return false;
-                        const result = onFileSingleClick(file, event);
-                        isPromise = !isNil(result) && !isBoolean(result) && isFunction(result.then);
-                        return result;
+                        return onFileSingleClick(file, event);
                     })
                     .catch((error: Error) => {
-                        const action = `running the single click handler`;
-                        if (isPromise) ConsoleUtil.logUnhandledPromiseError(error, action);
-                        else ConsoleUtil.logUnhandledException(error, action);
+                        ConsoleUtil.logUnhandledUserException(error, 'running the single click handler');
                         return false;
                     });
             })
@@ -472,8 +466,8 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                 if (preventDefault === true) return;
 
                 let type = SelectionType.Single;
-                if (event.key === KbKey.Space || event.ctrlKey === true) type = SelectionType.Multiple;
-                if (event.shiftKey === true) type = SelectionType.Range;
+                if (event.ctrlKey || event.key === KbKey.Space) type = SelectionType.Multiple;
+                if (event.shiftKey) type = SelectionType.Range;
 
                 return this.handleSelectionToggle(type, file, displayIndex);
             })
@@ -483,21 +477,15 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     private handleFileDoubleClick: InternalClickHandler = (file: FileData, displayIndex: number, event: InputEvent) => {
         const {onFileDoubleClick, onFileOpen} = this.props;
 
-        // TODO: Simplify this code, throw away `isPromise
-        let isPromise = true;
         Promise.resolve()
             .then(() => {
                 return Promise.resolve()
                     .then(() => {
                         if (!isFunction(onFileDoubleClick)) return false;
-                        const result = onFileDoubleClick(file, event);
-                        isPromise = !isNil(result) && !isBoolean(result) && isFunction(result.then);
-                        return result;
+                        return onFileDoubleClick(file, event);
                     })
                     .catch((error: Error) => {
-                        const action = `running the double click handler`;
-                        if (isPromise) ConsoleUtil.logUnhandledPromiseError(error, action);
-                        else ConsoleUtil.logUnhandledException(error, action);
+                        ConsoleUtil.logUnhandledUserException(error, 'running the double click handler');
                         return false;
                     });
             })
@@ -507,7 +495,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                 if (isFunction(onFileOpen) && file.openable !== false) return onFileOpen(file);
                 return;
             })
-            .catch((error: Error) => ConsoleUtil.logUnhandledException(error, 'running the file opening handler'));
+            .catch((error: Error) => ConsoleUtil.logUnhandledUserException(error, 'running the file opening handler'));
     };
 
     public render() {

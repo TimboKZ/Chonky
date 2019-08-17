@@ -70,18 +70,11 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         const {file, thumbnailGenerator} = this.props;
         if (isNil(file) || !isFunction(thumbnailGenerator)) return;
 
-        let isPromise = true;
         Promise.resolve()
-            .then(() => {
-                const result = thumbnailGenerator(file);
-                isPromise = !isNil(result) && !isString(result) && isFunction(result.then);
-                return result;
-            })
+            .then(() => thumbnailGenerator(file))
             .then((thumbnailUrl: Nilable<string>) => this.setState({thumbnailUrl}))
             .catch((error: Error) => {
-                const action = `loading thumbnail for "${file.name}"`;
-                if (isPromise) ConsoleUtil.logUnhandledPromiseError(error, action);
-                else ConsoleUtil.logUnhandledException(error, action);
+                ConsoleUtil.logUnhandledUserException(error, `loading thumbnail for "${file.name}"`);
             });
     }
 

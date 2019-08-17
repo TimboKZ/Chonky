@@ -30,15 +30,9 @@ export default class ConsoleUtil {
             + `\n    ${error}`);
     };
 
-    public static logUnhandledException = (error: Error, action: string) => {
-        ConsoleUtil.error(`Chonky caught an unhandled exception while ${action}. Ideally, you should catch exceptions`
-            + ` in your code yourself by writing it into try/catch blocks. The actual error was:`
-            + `\n    ${error}`);
-    };
-
-    public static logUnhandledPromiseError = (error: Error, action: string) => {
-        ConsoleUtil.error(`Chonky caught an unhandled promise error while ${action}. Ideally, you should handle`
-            + ` promise errors yourself and only return promises with error handlers attached. The actual error was:`
+    public static logUnhandledUserException = (error: Error, action: string) => {
+        ConsoleUtil.error(`Chonky caught an unhandled exception while ${action}. This exception originated in user`
+            + `code. Ideally, you should catch exceptions in your code yourself. The actual error was:`
             + `\n    ${error}`);
     };
 
