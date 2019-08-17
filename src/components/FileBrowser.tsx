@@ -25,6 +25,7 @@ import {
     ThumbnailGenerator,
     FileData,
     SingleFileActionHandler,
+    MultiFileActionHandler, FileArray, FileIndexMap,
 } from '../typedef';
 import {
     clampIndex,
@@ -41,8 +42,8 @@ import FileList from './FileList';
 import Controls from './Controls';
 import {FileUtil} from '../util/FileUtil';
 import ConsoleUtil from '../util/ConsoleUtil';
+import Denque = require('denque');
 
-// Important: Make sure to keep `FileBrowserProps` and `FileBrowserPropTypes` in sync!
 interface FileBrowserProps {
     /**
      * List of files that will be displayed in the main container. The provided value **must** be an array, where
@@ -67,13 +68,14 @@ interface FileBrowserProps {
      */
     onFileOpen?: SingleFileActionHandler;
 
-    // /**
-    //  * This function is similar to `onFileOpen`, except the first argument is an array of files. The array will have
-    //  * more than one element if the user makes a file selection containing multiple files, and then double-clicks on
-    //  * one of the files.
-    //  * [See relevant section](#section-handling-file-actions).
-    //  */
-    // onOpenFiles?: MultiFileActionHandler;
+    /**
+     * This function is similar to `onFileOpen`, except the first argument is an array of files. The array will have
+     * more than one element if the user makes a file selection containing multiple files, and then double-clicks on
+     * one of the files.
+     * [See relevant section](#section-handling-file-actions).
+     */
+    onOpenFiles?: MultiFileActionHandler;
+
     // onDownloadFiles?: MultiFileActionHandler;
     // onMoveFiles?: MultiFileActionHandler;
     // onDeleteFiles?: MultiFileActionHandler;
@@ -146,9 +148,10 @@ interface FileBrowserProps {
 }
 
 interface FileBrowserState {
-    rawFiles: Nullable<FileData>[];
-    folderChain?: Nullable<FileData>[];
-    sortedFiles: Nullable<FileData>[];
+    rawFiles: FileArray;
+    folderChain?: FileArray;
+    sortedFiles: FileArray;
+    fileIndexMap: FileIndexMap;
 
     previousSelectionIndex?: number;
     selection: Selection;
@@ -197,12 +200,13 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         const sortProperty = !isNil(propSortProperty) ? propSortProperty : defaults.sortProperty as SortProperty;
         const sortOrder = !isNil(propSortOrder) ? propSortOrder : defaults.sortOrder as SortOrder;
 
-        const sortedFiles = FileUtil.sortFiles(rawFiles, options, sortProperty, sortOrder);
+        const [sortedFiles, fileIndexMap] = FileUtil.sortFiles(rawFiles, options, sortProperty, sortOrder);
 
         this.state = {
             rawFiles,
             folderChain,
             sortedFiles,
+            fileIndexMap,
             selection,
             view,
             options,
@@ -291,8 +295,8 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
             || sortProperty !== oldSortProperty
             || sortOrder !== oldSortOrder;
         if (needToResort) {
-            const sortedFiles = FileUtil.sortFiles(rawFiles, options, sortProperty, sortOrder);
-            const newState: Partial<FileBrowserState> = {sortedFiles};
+            const [sortedFiles, fileIndexMap] = FileUtil.sortFiles(rawFiles, options, sortProperty, sortOrder);
+            const newState: Partial<FileBrowserState> = {sortedFiles, fileIndexMap};
 
             const newSelection = {};
             let additionCount = 0;
@@ -412,6 +416,41 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         });
     };
 
+    /**
+     * The method that returns the current file selection. The return value is an object where each key
+     * represents a file ID, and value of `true` indicates that the object should be selected. This object is read-only.
+     * [See relevant section](#section-managing-file-selection).
+     * @public
+     */
+    public getSelection(): Selection {
+        const {selection} = this.state;
+        return {...selection};
+    }
+
+    /**
+     * A method that can be used to set the current file selection. The input should be an object where each key
+     * represents a file ID, and value of `true` indicates that the object should be selected.
+     * [See relevant section](#section-managing-file-selection).
+     * @public
+     */
+    public setSelection(selection: Selection) {
+        this.setState(prevState => {
+            const {sortedFiles, fileIndexMap} = prevState;
+            const newSelection = {};
+            for (const id in selection) {
+                if (selection[id] !== true) continue;
+
+                const index = fileIndexMap[id];
+                if (!isNumber(index)) continue;
+                const file = sortedFiles[index];
+                if (isNil(file)) continue;
+
+                newSelection[file.id] = true;
+            }
+            return {selection: newSelection};
+        });
+    }
+
     public isInViewport(inputEvent: InputEvent, offset: number = 100): boolean {
         const ref = this.ref.current;
         if (isNil(ref)) return false;
@@ -475,9 +514,10 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     };
 
     private handleFileDoubleClick: InternalClickHandler = (file: FileData, displayIndex: number, event: InputEvent) => {
-        const {onFileDoubleClick, onFileOpen} = this.props;
+        const {onFileDoubleClick, onFileOpen, onOpenFiles} = this.props;
+        const {sortedFiles, fileIndexMap, selection} = this.state;
 
-        Promise.resolve()
+        return Promise.resolve()
             .then(() => {
                 return Promise.resolve()
                     .then(() => {
@@ -492,10 +532,29 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
             .then((preventDefault: Nilable<boolean>) => {
                 if (preventDefault === true) return;
 
-                if (isFunction(onFileOpen) && file.openable !== false) return onFileOpen(file);
-                return;
-            })
-            .catch((error: Error) => ConsoleUtil.logUnhandledUserException(error, 'running the file opening handler'));
+                let promise: Promise<any> = Promise.resolve();
+                if (isFunction(onFileOpen) && file.openable !== false) {
+                    promise = promise.then(() => onFileOpen(file, event))
+                        .catch((error: Error) => ConsoleUtil.logUnhandledUserException(error,
+                            'running the single file opening handler'));
+                }
+                if (isFunction(onOpenFiles)) {
+                    const queue = new Denque();
+                    for (const id in selection) {
+                        if (selection[id] !== true) continue;
+                        const index = fileIndexMap[id];
+                        if (!isNumber(index)) continue;
+                        const file = sortedFiles[index];
+                        if (isNil(file)) continue;
+                        queue.push(file);
+                    }
+                    const files = queue.toArray();
+                    promise = promise.then(() => onOpenFiles(files, event))
+                        .catch((error: Error) => ConsoleUtil.logUnhandledUserException(error,
+                            'running the multiple file opening handler'));
+                }
+                return promise;
+            });
     };
 
     public render() {

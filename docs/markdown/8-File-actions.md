@@ -1,3 +1,55 @@
+> *A note on user experience:* It's a good idea to ask your users for confirmation before doing any FS manipulations.
+> For example, before deleting multiple files, you could show a confirmation dialog asking "Are you sure you want to 
+> delete X, Y, Z?".
+
+### Action handler types
+
+There are two types of file action handlers. Handlers that operate on a single file take a `FileData` object as the 
+first argument and `InputEvent` object as the second argument. They should satisfy the `SingleFileActionHandler` type:
+```typescript { "typeName" : "SingleFileActionHandler" }
+```
+
+Handlers that work with multiple files are very similar. The only difference is that they take an array of file 
+objects as the first arguments. They should satisfy the `MultiFileActionHandler` type:
+```typescript { "typeName" : "MultiFileActionHandler" }
+```
+
+Note that the return value for all types of handlers should satisfy `ActionHandlerResult`:
+```typescript { "typeName" : "ActionHandlerResult" }
+```
+
+In plain english, this means that your action handlers can return a boolean or a promise that resolve into a boolean.
+Returning `true` will cancel the default Chonky behaviour that is usually executed after your handler (if any). If you 
+have some async logic in your handlers, it's a good idea to return the promise (even if it doesn't resolve into a 
+boolean) so Chonky can wait for your code to finish running before doing other things.
+
+The second argument for action handlers is an object of type `InputEvent`. This object contains information about the
+input event (e.g. click or keypress) that triggered the action. The relevant types are:
+
+```typescript { "typeName" : "InputEvent" }
+```
+```typescript { "typeName" : "InputEventType" }
+```
+```typescript { "typeName" : "KbKey" }
+```
+
+You can use the `InputEventType` and `KbKey` enums in your code by importing them from `chonky`:
+
+```typescript
+import {FileBrowser, InputEventType, KbKey} from 'chonky';
+
+const handleSingleClick = (file, event) => {
+    console.log(`File name is ${file.name}.`);
+    if (event && event.type === InputEventType.Keyboard) {
+        console.log('Event was triggered using a keyboard.');
+        if (event.key === KbKey.Space) {
+            console.log('The key pressed was Space.');
+        }
+    }
+};
+```
+
+
 ### `onFileOpen` handler
 
 `onFileOpen` is probably the most important file action handler. It is called whenever a file in the main `FileBrowser`
@@ -25,51 +77,19 @@ make sure to look at its source code.
 ### Explicit click handlers
 
 There are two methods you can use to set custom behaviour for single or double clicks. These handlers are called
-`onFileSingleClick` and `onFileDoubleClick`. Their type is defined as follows:
+`onFileSingleClick` and `onFileDoubleClick`. Both of these should satisfy the `SingleFileActionHandler` type. 
 
-```typescript { "typeName" : "ClickHandler", "offset" : 1 }
-```
+Recall that you can cancel default Chonky behaviour by returning `true` from your handlers. The default behaviour 
+for a single click is to select the current file (if applicable), and for a double click is to call `onFileOpen` and 
+`onOpenFiles` handlers. 
 
-In plain english, this type means that click handlers should take `FileData` and `InputEvent` as their arguments, and
-they should return a boolean or a promise that resolves into a boolean. If the boolean value returned from the 
-handler is `true`, the default Chonky behaviour will be cancelled. **Note:** Using `onFileSingleClick` and 
-`onFileDoubleClick` directly is **not recommended**: most of the time action handlers like `onFileOpen` should provide 
-sufficient for your needs. 
+**Note #1:** Using `onFileSingleClick` and `onFileDoubleClick` directly is **not recommended**: most of the time action
+handlers like `onFileOpen` should provide sufficient for your needs. 
 
-The default behaviour for a single click is to select the current file (if applicable), and for a double click is to 
-call the `onFileOpen` handler. Example below shows you how to use explicit click handlers. Try single-clicking or 
-double-clicking the file. 
+**Note #2:** Single click can also be triggered by tab-selecting a file and pressing the Space key. Double click can 
+be triggered by tab-selecting a file and pressing Enter.
+
+Example below shows you how to use explicit click handlers. Try single-clicking or double-clicking the file. 
 
 ```js { "componentPath" : "../components/File-actions.js" }
-```
-
-### Chonky's `InputEvent`
-
-As you might've noticed, the second argument for `ClickHandler` is an object of type of `InputEvent`. This object is 
-not a real event, but rather a special type defined by Chonky. The official definitions of `InputEvent` and relevant 
-enums is as follows:
-
-```typescript { "typeName" : "InputEvent" }
-```
-```typescript { "typeName" : "InputEventType" }
-```
-```typescript { "typeName" : "KbKey" }
-```
-
-You can import the enums into your code and use them in you click handlers:
-
-```typescript
-import {FileBrowser, InputEventType, KbKey} from 'chonky';
-
-const handleSingleClick = (file, event) => {
-    console.log(`File name is ${file.name}.`);
-    
-    if (event.type === InputEventType.Keyboard) {
-        console.log('Event was triggered using a keyboard.');
-        
-        if (event.key === KbKey.Space) {
-            console.log('The key pressed was Space.');
-        }
-    }
-};
 ```

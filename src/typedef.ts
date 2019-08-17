@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import {Nilable} from 'tsdef';
+import {Nilable, Nullable} from 'tsdef';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 
 declare global {
@@ -35,11 +35,13 @@ export interface FileData {
     childrenIds?: string[]; // An array of IDs of children (only for folders)
 }
 
+export type FileArray = Nullable<FileData>[];
+
+export interface FileIndexMap {[id: string]: number}
+
 export interface FileMap {
     [id: string]: FileData;
 }
-
-export interface FileIndexMap {[id: string]: number}
 
 export interface Selection {
     [fileId: string]: boolean | undefined;

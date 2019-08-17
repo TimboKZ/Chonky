@@ -11,8 +11,8 @@ import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 
 import {isNil} from './Util';
-import {FileData, FileMap, Option, Options, SortOrder, SortProperty} from '../typedef';
 import {fileMap as demoFileMap, rootFolderId as demoRootFolderId} from './demo.fs_map.json';
+import {FileArray, FileData, FileIndexMap, FileMap, Option, Options, SortOrder, SortProperty} from '../typedef';
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
@@ -73,14 +73,22 @@ export class FileUtil {
     };
 
     public static sortFiles(rawFiles: Nullable<FileData>[], options: Options,
-                            sortProperty: SortProperty, sortOrder: SortOrder): Nullable<FileData>[] {
+                            sortProperty: SortProperty, sortOrder: SortOrder): [FileArray, FileIndexMap] {
         let files = rawFiles.slice(0);
         if (!options[Option.ShowHidden]) {
             files = files.filter(f => f === null || f.name.charAt(0) !== '.');
         }
         const comparator = FileUtil.prepareComparator(options[Option.FoldersFirst], sortProperty, sortOrder);
         files.sort(comparator);
-        return files;
+
+        const fileIndexMap = {};
+        for (let i = 0; i < files.length; ++i) {
+            const file = files[i];
+            if (isNil(file)) continue;
+            fileIndexMap[file.id] = i;
+        }
+
+        return [files, fileIndexMap];
     }
 
     public static getDemoFs(): { demoFileMap: FileMap; demoRootFolderId: string } {
