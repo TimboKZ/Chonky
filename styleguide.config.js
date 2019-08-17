@@ -32,7 +32,7 @@ module.exports = {
                 {name: 'Custom component styling', content: 'docs/markdown/6-Styling.md'},
                 {name: 'Displaying file thumbnails', content: 'docs/markdown/7-Thumbnails.md'},
                 {name: 'Handling file actions', content: 'docs/markdown/8-File-actions.md'},
-                {name: 'Managing file selection', content: 'docs/Not-available.md'},
+                {name: 'Managing file selection', content: 'docs/markdown/9-Selection.md'},
                 {name: 'Setting file browser options', content: 'docs/Not-available.md'},
             ],
         },
