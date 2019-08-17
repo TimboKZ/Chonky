@@ -57,8 +57,9 @@ const HeaderDetails = [
 ];
 
 const EntrySizeMap: { [view: string]: EntrySize } = {
-    [FileView.SmallThumbs]: {width: 250, height: 180},
-    [FileView.LargeThumbs]: {width: 400, height: 300},
+    [FileView.SmallThumbs]: {width: 200, height: 150},
+    [FileView.LargeThumbs]: {width: 280, height: 220},
+    // [FileView.LargeThumbs]: {width: 400, height: 300},
 };
 
 export default class FileList extends React.PureComponent<FileListProps, FileListState> {
@@ -150,6 +151,7 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
         const className = classnames({
             'chonky-file-list': true,
             'chonky-file-list-thumbs': isThumbs,
+            'chonky-file-list-thumbs-small': isThumbs && view === FileView.SmallThumbs,
             'chonky-file-list-thumbs-large': isThumbs && view === FileView.LargeThumbs,
             'chonky-file-list-details': !isThumbs,
         });

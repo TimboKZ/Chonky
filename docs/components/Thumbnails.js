@@ -8,7 +8,7 @@ import {FileBrowser, FileView} from '../../src';
 const files = [
     {
         id: 'qwerty',
-        name: 'Random image.jpg',
+        name: 'Chonky logo.png',
         isDir: false,
 
         // This is a custom property, Chonky will just ignore it.

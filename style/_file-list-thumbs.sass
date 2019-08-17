@@ -9,6 +9,7 @@
     $entry-class: #{&}-entry
 
     &-thumbs
+
       %file-entry-shared
         margin: 0.3em 0.5em 0.5em 0.3em
         vertical-align: bottom
@@ -108,14 +109,10 @@
       &-icon
         $icon-text: 4em
         $icon-size: 1.6em
+        $icon-size-small: 3em
         z-index: 5
 
         @include transform(translateX(-50%) translateY(-50%))
-        //background-color: rgba($bg-darkest, 0.2)
-        //border-radius: 100%
-        //height: $icon-size
-        //width: $icon-size
-
         line-height: $icon-size
         font-size: $icon-text
         text-align: center
@@ -123,6 +120,9 @@
         color: #fff
         left: 50%
         top: 50%
+
+        @at-root #{$list-class}-small #{$entry-class}-icon
+          font-size: $icon-size-small
 
         &-inside
           position: absolute

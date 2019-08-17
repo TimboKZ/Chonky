@@ -330,6 +330,10 @@ button.chonky-folder-chain-entry:active {
   left: 50%;
   top: 50%;
 }
+.chonky-file-list-thumbs-small .chonky-file-list-entry-icon {
+  font-size: 3em;
+}
+
 .chonky-file-list-thumbs .chonky-file-list-entry-icon-inside {
   position: absolute;
   font-size: 0.35em;

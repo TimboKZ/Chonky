@@ -76,3 +76,6 @@ $tooltip-fg: #fff !default
 
 @mixin striped-background($color1, $color2, $angle: 45deg, $size: 10px)
   background: repeating-linear-gradient($angle, $color1, $color1 $size, $color2 $size, $color2 $size*2)
+
+@mixin chessboard-background($color1, $color2)
+  background: conic-gradient($color2 0deg, $color1 90deg, $color2 90deg, $color2 180deg, $color1 180deg, $color1 270deg, $color2 270deg, $color2 360deg) 0 0/20px 20px round
