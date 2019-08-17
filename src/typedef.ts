@@ -80,6 +80,10 @@ export const kbCodeMap: { [code: string]: KbKey } = {
     Space: KbKey.Space,
     KeyA: KbKey.A,
 };
+export const kbKeyMap: { [code: string]: KbKey } = {
+    Enter: KbKey.Enter,
+    ' ': KbKey.Space,
+};
 export const kbKeyCodeMap: { [keyCode: number]: KbKey } = {
     [8]: KbKey.Backspace,
     [13]: KbKey.Enter,
@@ -97,7 +101,7 @@ export interface InputEvent {
     type: InputEventType;
     ctrlKey: boolean;
     shiftKey: boolean;
-    key?: KbKey; // For keyboard events only
+    key?: Nilable<KbKey>; // For keyboard events only
 }
 
 export type InputListener = (event: InputEvent) => boolean;

@@ -4,16 +4,10 @@
  * @license MIT
  */
 
-import * as React from 'react';
+import React from 'react';
 
-import {
-    isFunction,
-    isNil,
-    isNumber,
-    registerKbListener,
-} from '../util/Util';
+import {detectKey, isFunction,  isNumber} from '../util/Util';
 import {InputEvent, InputEventType, InputListener, KbKey} from '../typedef';
-import {Nullable} from 'tsdef';
 
 export interface ClickableWrapperProps {
     wrapperTag: any;
@@ -25,46 +19,13 @@ export interface ClickableWrapperProps {
     onAllClicks?: InputListener;
 }
 
-interface ClickableWrapperListener {
-    onSingleClick?: InputListener;
-    onDoubleClick?: InputListener;
-    onAllClicks?: InputListener;
-}
-let activeListener: Nullable<ClickableWrapperListener> = null;
-const handleKeyPress: InputListener = (event: InputEvent) => {
-    if (isNil(activeListener)) return false;
-
-    const listener = activeListener;
-    const {key} = event;
-    if (key !== KbKey.Enter && key !== KbKey.Space) return false;
-
-    let handled = false;
-    if (key === KbKey.Space && isFunction(listener.onSingleClick)) {
-        listener.onSingleClick(event);
-        handled = true;
-    } else if (key === KbKey.Enter && isFunction(listener.onDoubleClick)) {
-        listener.onDoubleClick(event);
-        handled = true;
-    }
-    if (isFunction(listener.onAllClicks)) {
-        listener.onAllClicks(event);
-        handled = true;
-    }
-
-    return handled;
-};
-registerKbListener(handleKeyPress);
-
 export default class ClickableWrapper extends React.Component<ClickableWrapperProps, {}> {
 
-    private readonly listener: ClickableWrapperListener;
     private clickTimeout?: number;
     private clickCount: number = 0;
 
     public constructor(props: ClickableWrapperProps) {
         super(props);
-        const {onSingleClick, onDoubleClick, onAllClicks} = props;
-        this.listener = {onSingleClick, onDoubleClick, onAllClicks};
     }
 
     private handleClick = (event: React.MouseEvent) => {
@@ -99,12 +60,29 @@ export default class ClickableWrapper extends React.Component<ClickableWrapperPr
         }
     };
 
-    private handleFocus = () => {
-        activeListener = this.listener;
-    };
+    private handleKeyDown = (event: KeyboardEvent) => {
+        const {onSingleClick, onDoubleClick, onAllClicks} = this.props;
+        const key = detectKey(event);
+        const inputEvent: InputEvent = {
+            type: InputEventType.Keyboard,
+            ctrlKey: event.ctrlKey,
+            shiftKey: event.shiftKey,
+            key,
+        };
 
-    private handleBlur = () => {
-        activeListener = null;
+        if (isFunction(onAllClicks)) onAllClicks(inputEvent);
+
+        if (key === KbKey.Space) {
+            if (isFunction(onSingleClick)) {
+                event.preventDefault();
+                onSingleClick(inputEvent);
+            }
+        } else if (key === KbKey.Enter) {
+            if (isFunction(onDoubleClick)) {
+                event.preventDefault();
+                onDoubleClick(inputEvent);
+            }
+        }
     };
 
     public render() {
@@ -115,8 +93,7 @@ export default class ClickableWrapper extends React.Component<ClickableWrapperPr
 
         const compProps: any = {
             onClick: this.handleClick,
-            onFocus: this.handleFocus,
-            onBlur: this.handleBlur,
+            onKeyDown: this.handleKeyDown,
         };
         if (isFunction(onSingleClick) || isFunction(onDoubleClick)) compProps.tabIndex = 0;
 
