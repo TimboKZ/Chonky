@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import {Nilable, Nullable} from 'tsdef';
 import classnames from 'classnames';
+import {Nilable, Nullable} from 'tsdef';
 import {shallowEqualArrays, shallowEqualObjects} from 'shallow-equal';
 
 import {
