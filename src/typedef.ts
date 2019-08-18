@@ -71,6 +71,7 @@ export enum KbKey {
     Enter = 'enter',
     Escape = 'escape',
     Space = 'space',
+    Delete = 'delete',
     A = 'a',
 }
 
@@ -80,6 +81,7 @@ export const kbCodeMap: { [code: string]: KbKey } = {
     Enter: KbKey.Enter,
     Escape: KbKey.Escape,
     Space: KbKey.Space,
+    Delete: KbKey.Delete,
     KeyA: KbKey.A,
 };
 export const kbKeyMap: { [code: string]: KbKey } = {
@@ -91,6 +93,7 @@ export const kbKeyCodeMap: { [keyCode: number]: KbKey } = {
     [13]: KbKey.Enter,
     [27]: KbKey.Escape,
     [32]: KbKey.Space,
+    [46]: KbKey.Delete,
     [65]: KbKey.A,
 };
 

@@ -74,7 +74,7 @@ module.exports = {
                 if (type.name.includes('| undefined')) {
                     type.name = type.name.replace('| undefined', '');
                     if (!prop.defaultValue) prop.defaultValue = {value: 'null'};
-                    if (type.name.charAt(0) === '(') {
+                    if (type.name.startsWith('(') && type.name.endsWith(')')) {
                         type.name = type.name.slice(1, type.name.length - 2);
                     }
                 }

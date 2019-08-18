@@ -140,6 +140,9 @@
         background-color: $bg-base
         flex: 0
 
+        @at-root #{$list-class}-small #{$entry-class}-description
+          padding: $description-padding*0.6 $description-padding
+
       &-name, &-group
         padding: $element-padding
 

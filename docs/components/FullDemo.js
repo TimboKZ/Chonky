@@ -29,6 +29,17 @@ export default class FullDemo extends React.Component {
         }
     };
 
+    handleFolderCreate = () => {
+        new Noty({text: 'You tried to create a folder.', type: 'success', theme: 'relax', timeout: 3000}).show();
+    };
+
+    handleDeleteFiles = (files, inputEvent) => {
+        new Noty({
+            text: `You tried to delete ${files.length} file(s).`,
+            type: 'success', theme: 'relax', timeout: 3000,
+        }).show();
+    };
+
     thumbGenerator = (file) => {
         if (!file.thumbnailUrl) return null;
         return new Promise((resolve, reject) => {
@@ -58,8 +69,10 @@ export default class FullDemo extends React.Component {
             }
         }
 
-        return <FileBrowser files={files} folderChain={folderChain} view={FileView.SmallThumbs}
-                            onFileOpen={this.handleFileOpen} thumbnailGenerator={this.thumbGenerator}/>;
+        return <FileBrowser files={files} folderChain={folderChain} thumbnailGenerator={this.thumbGenerator}
+                            onFileOpen={this.handleFileOpen} onFolderCreate={this.handleFolderCreate}
+                            onDownloadFiles={null} onDeleteFiles={this.handleDeleteFiles}
+                            view={FileView.SmallThumbs}/>;
     }
 
 }

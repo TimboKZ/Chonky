@@ -8,13 +8,15 @@ import * as React from 'react';
 import classnames from 'classnames';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
+
+import {InputEvent, InputEventType, InputListener} from '../typedef';
 import {isFunction, isString} from '../util/Util';
 
 interface IconButtonProps {
     icon: any;
     active?: boolean;
     tooltip?: string;
-    onClick?: (event: any) => void;
+    onClick?: InputListener;
 }
 
 interface IconButtonState {}
@@ -38,7 +40,16 @@ export default class IconButton extends React.PureComponent<IconButtonProps, Ico
         const buttonProps: any = {
             className,
         };
-        if (isFunction(onClick)) buttonProps.onClick = onClick;
+        if (isFunction(onClick)) {
+            buttonProps.onClick = (event: React.MouseEvent) => {
+                const inputEvent: InputEvent = {
+                    type: InputEventType.Mouse,
+                    ctrlKey: event.ctrlKey,
+                    shiftKey: event.shiftKey,
+                };
+                onClick(inputEvent);
+            };
+        }
         else buttonProps.disabled = true;
         if (isString(tooltip)) buttonProps['data-tooltip'] = tooltip;
 

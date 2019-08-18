@@ -4,7 +4,8 @@
  * @license MIT
  */
 
-import * as React from 'react';
+import React from 'react';
+import {Nullable} from 'tsdef';
 import classnames from 'classnames';
 import {
     faTh,
@@ -14,10 +15,8 @@ import {
     faThLarge,
     faFolderPlus,
     faCheckCircle,
-    // faArrowLeft as iconPathBack,
-    // faArrowRight as iconPathForward,
     faLevelUpAlt as iconPathParentDir,
-    faChevronRight,
+    faChevronRight, faDownload, faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import {faFolder} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -27,13 +26,20 @@ import IconButton from './IconButton';
 import ButtonGroup from './ButtonGroup';
 import ConsoleUtil from '../util/ConsoleUtil';
 import DropdownButton from './DropdownButton';
-import {FileData, FileView, Option, Options} from '../typedef';
 import {getNonNil, isBoolean, isFunction, isNil, isObject} from '../util/Util';
+import {FileData, FileView, InputEvent, MultiFileActionHandler, Option, Options, Selection} from '../typedef';
 
 interface ControlsProps {
     folderChain?: (FileData | null)[];
+    selection: Selection;
 
     onFileOpen?: (file: FileData) => void;
+    onFolderCreate?: Nullable<() => void>;
+    onUploadClick?: Nullable<() => void>;
+    onDownloadFiles?: Nullable<MultiFileActionHandler>;
+    onDeleteFiles?: Nullable<MultiFileActionHandler>;
+
+    getFilesFromSelection: () => FileData[];
 
     view: FileView;
     setView: (view: FileView) => void;
@@ -108,7 +114,9 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
         const comps = new Array(ViewControls.length);
         for (const [icon, buttonView, tooltip] of ViewControls) {
             comps[i++] = <IconButton key={`control-${buttonView}`} icon={icon} active={view === buttonView}
-                                     tooltip={tooltip as string} onClick={() => setView(buttonView as FileView)}/>;
+                                     tooltip={tooltip as string}
+                // @ts-ignore
+                                     onClick={() => setView(buttonView as FileView)}/>;
         }
         return <ButtonGroup>{comps}</ButtonGroup>;
     }
@@ -137,7 +145,10 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
     }
 
     public render() {
-        const {folderChain, onFileOpen} = this.props;
+        const {
+            folderChain, selection, onFileOpen, onFolderCreate, onUploadClick,
+            onDownloadFiles, onDeleteFiles, getFilesFromSelection,
+        } = this.props;
         const parentDirButtonProps: any = {};
         if (isFunction(onFileOpen)) {
             const parentFolder = getNonNil(folderChain, -2);
@@ -146,18 +157,46 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
             }
         }
 
+        let selectionSize = 0;
+        for (const key in selection) {
+            if (selection[key] === true) selectionSize++;
+        }
+
+        const buttonData = [
+            [faFolderPlus, 'Create folder', onFolderCreate, false],
+            [faUpload, 'Upload files', onUploadClick, false],
+            [faDownload, 'Download files', onDownloadFiles, true],
+            [faTrash, 'Delete files', onDeleteFiles, true],
+        ];
+        const buttons = new Array(buttonData.length);
+        for (let i = 0; i < buttons.length; ++i) {
+            const button = buttonData[i];
+            const [iconData, tooltip, clickFunc, isMulti] = button as [any, string, any, boolean];
+            if (clickFunc !== null && !isFunction(clickFunc)) continue;
+            const buttonProps: any = {
+                key: `controls-button-${i}`,
+                icon: iconData,
+                tooltip,
+            };
+            if (clickFunc !== null && (!isMulti || selectionSize > 0)) {
+                buttonProps.onClick = (event: InputEvent) => {
+                    if (isMulti) clickFunc(getFilesFromSelection(), event);
+                    else clickFunc();
+                    return true;
+                };
+            }
+            buttons[i] = <IconButton {...buttonProps}/>;
+        }
+
         return <div className="chonky-controls">
             <div className="chonky-side chonky-side-left">
                 <ButtonGroup>
-                    {/*<IconButton icon={iconPathBack}/>*/}
-                    {/*<IconButton icon={iconPathForward}/>*/}
                     <IconButton icon={iconPathParentDir} {...parentDirButtonProps}/>
                 </ButtonGroup>
                 {this.renderFolderChain()}
             </div>
             <div className="chonky-side chonky-side-right">
-                <IconButton icon={faFolderPlus} tooltip="Create folder"/>
-                <IconButton icon={faUpload} tooltip="Upload files"/>
+                {buttons}
                 {this.renderViewControls()}
                 {this.renderOptionsDropdown()}
             </div>

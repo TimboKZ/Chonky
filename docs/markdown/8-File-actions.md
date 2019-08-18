@@ -50,7 +50,7 @@ const handleSingleClick = (file, event) => {
 ```
 
 
-### `onFileOpen` handler
+### `onFileOpen` and `onOpenFiles` handlers
 
 `onFileOpen` is probably the most important file action handler. It is called whenever a file in the main `FileBrowser`
 container is double-clicked. It can also be triggered if the user presses `Enter` while the file entry is tab-selected.
@@ -59,7 +59,8 @@ The `onFileOpen` handler should take in a `FileData` object as its only argument
 for both folders *and* files. Usually, you'd want to handle each case separately:
 
 ```js
-const handleFileOpen = (file) => {
+const handleFileOpen = (file, inputEvent) => {
+    console.log('Input event:', inputEvent);
     if (file.isDir) {
         // Open as a directory
     } else {
@@ -73,6 +74,9 @@ make sure to look at its source code.
 
 ```js { "componentPath": "../components/FullDemo.js" }
 ```
+
+`onOpenFiles` handler is very similar `onFileOpen`, except the first argument is now an array of files. This handler 
+is useful when you want to execute some logic when multiple files are opened (using a file selection).
 
 ### Explicit click handlers
 

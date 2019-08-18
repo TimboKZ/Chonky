@@ -350,6 +350,10 @@ button.chonky-folder-chain-entry:active {
   background-color: #fff;
   flex: 0;
 }
+.chonky-file-list-thumbs-small .chonky-file-list-entry-description {
+  padding: 0.24em 0.4em;
+}
+
 .chonky-file-list-thumbs .chonky-file-list-entry-name, .chonky-file-list-thumbs .chonky-file-list-entry-group {
   padding: 0.15em 0.3em;
 }

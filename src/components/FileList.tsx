@@ -57,7 +57,7 @@ const HeaderDetails = [
 ];
 
 const EntrySizeMap: { [view: string]: EntrySize } = {
-    [FileView.SmallThumbs]: {width: 200, height: 150},
+    [FileView.SmallThumbs]: {width: 200, height: 160},
     [FileView.LargeThumbs]: {width: 280, height: 220},
     // [FileView.LargeThumbs]: {width: 400, height: 300},
 };

@@ -10,22 +10,24 @@ import classnames from 'classnames';
 import {shallowEqualArrays, shallowEqualObjects} from 'shallow-equal';
 
 import {
-    InternalClickHandler,
+    FileArray,
+    FileData,
+    FileIndexMap,
     FileView,
     InputEvent,
     InputListener,
+    InternalClickHandler,
     KbKey,
+    MultiFileActionHandler,
     Option,
     Options,
     Selection,
     SelectionStatus,
     SelectionType,
+    SingleFileActionHandler,
     SortOrder,
     SortProperty,
     ThumbnailGenerator,
-    FileData,
-    SingleFileActionHandler,
-    MultiFileActionHandler, FileArray, FileIndexMap,
 } from '../typedef';
 import {
     clampIndex,
@@ -62,11 +64,32 @@ interface FileBrowserProps {
     folderChain?: Nullable<FileData>[];
 
     /**
+     * The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
+     * should return a `string` or `null`. It can also return a promise that resolves into a `string` or `null`.
+     * [See relevant section](#section-displaying-file-thumbnails).
+     */
+    thumbnailGenerator?: ThumbnailGenerator;
+
+    /**
      * The function that is called whenever the user tries to open a file. This behaviour can be triggered via a
      * double-click on a file in the main container, or by clicking on the name of a folder in the top bar.
      * [See relevant section](#section-handling-file-actions).
      */
     onFileOpen?: SingleFileActionHandler;
+
+    /**
+     * A callback that is called when user clicks on the "Create Folder" button in the control panel. If this
+     * callback is not provided, the button will be hidden. If you want the button to be displayed in disabled mode,
+     * pass `null` as the value.
+     */
+    onFolderCreate?: Nullable<() => void>;
+
+    /**
+     * A callback that is called when user clicks on the "Upload Files" button in the control panel. If this
+     * callback is not provided, the button will be hidden. If you want the button to be displayed in disabled mode,
+     * pass `null` as the value.
+     */
+    onUploadClick?: Nullable<() => void>;
 
     /**
      * This function is similar to `onFileOpen`, except the first argument is an array of files. The array will have
@@ -76,14 +99,9 @@ interface FileBrowserProps {
      */
     onOpenFiles?: MultiFileActionHandler;
 
-    // onDownloadFiles?: MultiFileActionHandler;
-    // onMoveFiles?: MultiFileActionHandler;
-    // onDeleteFiles?: MultiFileActionHandler;
-
-    /**
-     * Maximum delay between the two clicks in a double click.
-     */
-    doubleClickDelay?: number;
+    onMoveFiles?: MultiFileActionHandler;
+    onDownloadFiles?: Nullable<MultiFileActionHandler>;
+    onDeleteFiles?: Nullable<MultiFileActionHandler>;
 
     /**
      * The function that is called whenever a file entry in the main `FileBrowser` container is clicked once. If it
@@ -100,11 +118,9 @@ interface FileBrowserProps {
     onFileDoubleClick?: SingleFileActionHandler;
 
     /**
-     * The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
-     * should return a `string` or `null`. It can also return a promise that resolves into a `string` or `null`.
-     * [See relevant section](#section-displaying-file-thumbnails).
+     * Maximum delay between the two clicks in a double click, in milliseconds.
      */
-    thumbnailGenerator?: ThumbnailGenerator;
+    doubleClickDelay?: number;
 
     /**
      * The function that is called whenever file selection changes.
@@ -169,6 +185,10 @@ interface FileBrowserState {
 export default class FileBrowser extends React.Component<FileBrowserProps, FileBrowserState> {
 
     public static defaultProps: Partial<FileBrowserProps> = {
+        onFolderCreate: undefined,
+        onUploadClick: undefined,
+        onDownloadFiles: undefined,
+        onDeleteFiles: undefined,
         doubleClickDelay: 300,
         disableSelection: false,
         view: FileView.Details,
@@ -464,8 +484,22 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         return !outsideViewport;
     }
 
+    public getFilesFromSelection = () => {
+        const {sortedFiles, fileIndexMap, selection} = this.state;
+        const queue = new Denque();
+        for (const id in selection) {
+            if (selection[id] !== true) continue;
+            const index = fileIndexMap[id];
+            if (!isNumber(index)) continue;
+            const file = sortedFiles[index];
+            if (isNil(file)) continue;
+            queue.push(file);
+        }
+        return queue.toArray();
+    };
+
     private handleKeyPress: InputListener = (event: InputEvent) => {
-        const {folderChain, onFileOpen} = this.props;
+        const {folderChain, onFileOpen, onDeleteFiles} = this.props;
         if (!this.isInViewport(event)) return false;
 
         if (event.key === KbKey.Backspace) {
@@ -481,6 +515,12 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         } else if (event.key === KbKey.Escape) {
             this.handleSelectionToggle(SelectionType.None);
             return true;
+        } else if (event.key === KbKey.Delete) {
+            const files = this.getFilesFromSelection();
+            if (files.length > 0 && isFunction(onDeleteFiles)) {
+                onDeleteFiles(files, event);
+                return true;
+            }
         }
 
         return false;
@@ -515,7 +555,6 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
 
     private handleFileDoubleClick: InternalClickHandler = (file: FileData, displayIndex: number, event: InputEvent) => {
         const {onFileDoubleClick, onFileOpen, onOpenFiles} = this.props;
-        const {sortedFiles, fileIndexMap, selection} = this.state;
 
         return Promise.resolve()
             .then(() => {
@@ -539,17 +578,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                             'running the single file opening handler'));
                 }
                 if (isFunction(onOpenFiles)) {
-                    const queue = new Denque();
-                    for (const id in selection) {
-                        if (selection[id] !== true) continue;
-                        const index = fileIndexMap[id];
-                        if (!isNumber(index)) continue;
-                        const file = sortedFiles[index];
-                        if (isNil(file)) continue;
-                        queue.push(file);
-                    }
-                    const files = queue.toArray();
-                    promise = promise.then(() => onOpenFiles(files, event))
+                    promise = promise.then(() => onOpenFiles(this.getFilesFromSelection(), event))
                         .catch((error: Error) => ConsoleUtil.logUnhandledUserException(error,
                             'running the multiple file opening handler'));
                 }
@@ -558,7 +587,10 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     };
 
     public render() {
-        const {doubleClickDelay, onFileOpen, thumbnailGenerator} = this.props;
+        const {
+            doubleClickDelay, onFileOpen, onFolderCreate, onUploadClick, onDownloadFiles, onDeleteFiles,
+            thumbnailGenerator,
+        } = this.props;
         const {folderChain, sortedFiles, selection, view, options, sortProperty, sortOrder} = this.state;
 
         const className = classnames({
@@ -567,8 +599,11 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         });
         return (
             <div ref={this.ref} className={className}>
-                <Controls folderChain={folderChain} onFileOpen={onFileOpen} view={view}
-                          setView={this.setView} options={options} setOption={this.setOption}/>
+                <Controls folderChain={folderChain} selection={selection}
+                          onFileOpen={onFileOpen} onFolderCreate={onFolderCreate}
+                          onUploadClick={onUploadClick} onDownloadFiles={onDownloadFiles}
+                          onDeleteFiles={onDeleteFiles} getFilesFromSelection={this.getFilesFromSelection}
+                          view={view} setView={this.setView} options={options} setOption={this.setOption}/>
                 <FileList files={sortedFiles} selection={selection}
                           activateSortProperty={this.activateSortProperty}
                           doubleClickDelay={doubleClickDelay as number}
