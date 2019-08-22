@@ -11,8 +11,8 @@
   font-size: 15px
   display: flex
 
-  @media screen and (max-width: 400px)
-    font-size: 14px
+  @media screen and (max-width: $mobile-breakpoint)
+    font-size: 13px
 
   &.chonky-no-select
     -webkit-touch-callout: none
@@ -50,7 +50,7 @@
       left: 50%
 
     &::before
-      @include transform(translateX(-50%))
+      @include transform(translateX(-85%))
       background-color: $tooltip-bg
       border-radius: $radius-small
       content: attr(data-tooltip)
@@ -60,7 +60,7 @@
       line-height: 1.0em
       color: $tooltip-fg
       font-size: 0.8em
-      height: auto
+      height: 1.0em
 
     &::after
       @include transform(translateX(-50%) rotate(45deg))

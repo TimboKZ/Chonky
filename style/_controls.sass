@@ -9,15 +9,27 @@
         vertical-align: middle
         display: inline-block
 
+    &-left
+      flex-direction: row
+      display: flex
 
-    &-left > *
-      margin-right: $base-padding * 1.75
+      & > *
+        margin-right: $base-padding * 1.75
 
     &-right
       text-align: right
 
       & > *
         margin-left: $base-padding * 1.75
+
+    @media screen and (max-width: $mobile-breakpoint)
+      &-left > *
+        margin-right: 0
+      &-right
+        max-width: 130px
+
+        & > *
+          margin-left: 0
 
   &-controls
     justify-content: space-between
@@ -38,6 +50,10 @@
       padding: 0 0.4em !important
       height: $base-bar-height
       box-sizing: border-box
+      @media screen and (max-width: $mobile-breakpoint)
+        line-height: $base-bar-height-mobile
+        height: $base-bar-height-mobile
+        padding: 0 0.2em !important
 
       &:last-child &-name
         text-decoration: underline $fg-subtle
@@ -61,6 +77,10 @@
       height: $base-bar-height
       color: $fg-subtle
       padding: 0 0.2em
+      @media screen and (max-width: $mobile-breakpoint)
+        line-height: $base-bar-height-mobile
+        height: $base-bar-height-mobile
+        padding: 0 0.1em
 
   &-button-group
     button:not(:first-of-type)
@@ -135,6 +155,10 @@
     text-align: center
     position: relative
     z-index: 1
+    @media screen and (max-width: $mobile-breakpoint)
+      line-height: $base-bar-height-mobile
+      min-width: $base-bar-height-mobile
+      height: $base-bar-height-mobile
 
     &.chonky-active
       z-index: 3

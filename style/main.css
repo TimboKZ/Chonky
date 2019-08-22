@@ -5,6 +5,10 @@
   vertical-align: middle;
   display: inline-block;
 }
+.chonky-side-left {
+  flex-direction: row;
+  display: flex;
+}
 .chonky-side-left > * {
   margin-right: 0.525em;
 }
@@ -13,6 +17,17 @@
 }
 .chonky-side-right > * {
   margin-left: 0.525em;
+}
+@media screen and (max-width: 400px) {
+  .chonky-side-left > * {
+    margin-right: 0;
+  }
+  .chonky-side-right {
+    max-width: 130px;
+  }
+  .chonky-side-right > * {
+    margin-left: 0;
+  }
 }
 .chonky-controls {
   justify-content: space-between;
@@ -41,6 +56,13 @@
   height: 1.9em;
   box-sizing: border-box;
 }
+@media screen and (max-width: 400px) {
+  .chonky-folder-chain-entry {
+    line-height: 1.7em;
+    height: 1.7em;
+    padding: 0 0.2em !important;
+  }
+}
 .chonky-folder-chain-entry:last-child .chonky-folder-chain-entry-name {
   text-decoration: underline #bbb;
 }
@@ -64,6 +86,13 @@ button.chonky-folder-chain-entry:active {
   height: 1.9em;
   color: #bbb;
   padding: 0 0.2em;
+}
+@media screen and (max-width: 400px) {
+  .chonky-folder-chain-separator {
+    line-height: 1.7em;
+    height: 1.7em;
+    padding: 0 0.1em;
+  }
 }
 .chonky-button-group button:not(:first-of-type) {
   border-bottom-left-radius: 0;
@@ -141,6 +170,13 @@ button.chonky-folder-chain-entry:active {
   text-align: center;
   position: relative;
   z-index: 1;
+}
+@media screen and (max-width: 400px) {
+  .chonky-icon-button {
+    line-height: 1.7em;
+    min-width: 1.7em;
+    height: 1.7em;
+  }
 }
 .chonky-icon-button.chonky-active {
   z-index: 3;
@@ -379,7 +415,7 @@ button.chonky-folder-chain-entry:active {
 }
 @media screen and (max-width: 400px) {
   .chonky {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 .chonky.chonky-no-select {
@@ -420,11 +456,11 @@ button.chonky-folder-chain-entry:active {
   left: 50%;
 }
 .chonky-tooltip::before {
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  transform: translateX(-50%);
+  -webkit-transform: translateX(-85%);
+  -moz-transform: translateX(-85%);
+  -ms-transform: translateX(-85%);
+  -o-transform: translateX(-85%);
+  transform: translateX(-85%);
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 2px;
   content: attr(data-tooltip);
@@ -434,7 +470,7 @@ button.chonky-folder-chain-entry:active {
   line-height: 1em;
   color: #fff;
   font-size: 0.8em;
-  height: auto;
+  height: 1em;
 }
 .chonky-tooltip::after {
   -webkit-transform: translateX(-50%) rotate(45deg);
