@@ -414,6 +414,11 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
             const oldSelected = oldSelection[file.id];
             switch (type) {
                 case SelectionType.Single:
+                    if (file.selectable !== false) {
+                        if (oldSelected !== true || Object.keys(oldSelection).length > 1) {
+                            newSelection[file.id] = true;
+                        }
+                    }
                     if (isNil(oldSelected) && file.selectable !== false) newSelection[file.id] = true;
                     break;
                 case SelectionType.Multiple:
