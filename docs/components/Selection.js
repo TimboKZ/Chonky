@@ -12,10 +12,11 @@ export default class FileActionsComponent extends React.Component {
         super(props);
 
         const files = [];
+        const extensions = ['ini', 'csv', 'license', 'swf', 'sh', 'cpp', 'ipynb', 'php', 'psd'];
         for (let i = 0; i < 9; ++i) {
             files.push({
                 id: `file-${i}`,
-                name: `File #${i + 1}`,
+                name: `File ${i + 1}.${extensions[i]}`,
             });
         }
 

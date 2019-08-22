@@ -203,6 +203,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     };
 
     private readonly ref = React.createRef<HTMLDivElement>();
+    private selectedFilesSnapshotBeforeSingleClick: Nullable<FileData[]> = null;
 
     public constructor(props: FileBrowserProps) {
         super(props);
@@ -367,6 +368,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     private handleSelectionToggle = (type: SelectionType, file?: FileData, displayIndex?: number) => {
         const {disableSelection} = this.props;
 
+        this.selectedFilesSnapshotBeforeSingleClick = null;
         if (disableSelection === true) return;
 
         if (type === SelectionType.All) {
@@ -412,10 +414,13 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
 
             let newSelection: Selection = {};
             const oldSelected = oldSelection[file.id];
+            let singleAndInOldSelection = false;
             switch (type) {
                 case SelectionType.Single:
                     if (file.selectable !== false) {
-                        if (oldSelected !== true || Object.keys(oldSelection).length > 1) {
+                        const selectionSize = Object.keys(oldSelection).length;
+                        singleAndInOldSelection = oldSelected === true;
+                        if (oldSelected !== true || selectionSize > 1) {
                             newSelection[file.id] = true;
                         }
                     }
@@ -435,6 +440,10 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                         if (!isNil(file) && file.selectable !== false) newSelection[file.id] = true;
                     }
                     break;
+            }
+
+            if (singleAndInOldSelection) {
+                this.selectedFilesSnapshotBeforeSingleClick = this.getFilesFromSelection(oldSelection);
             }
 
             return {selection: newSelection, previousSelectionIndex: selectionIndexToPersist};
@@ -489,8 +498,9 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         return !outsideViewport;
     }
 
-    public getFilesFromSelection = () => {
-        const {sortedFiles, fileIndexMap, selection} = this.state;
+    public getFilesFromSelection = (customSelection?: Selection) => {
+        const {sortedFiles, fileIndexMap, selection: stateSelection} = this.state;
+        const selection = isNil(customSelection) ? stateSelection : customSelection;
         const queue = new Denque();
         for (const id in selection) {
             if (selection[id] !== true) continue;
@@ -561,6 +571,12 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     private handleFileDoubleClick: InternalClickHandler = (file: FileData, displayIndex: number, event: InputEvent) => {
         const {onFileDoubleClick, onFileOpen, onOpenFiles} = this.props;
 
+        // Tried to load snapshot to make double-clicking a file when it's a part of
+        // multi-file selection work correctly.
+        const localSelectedFilesSnapshot = this.selectedFilesSnapshotBeforeSingleClick;
+        const selectedFilesSnapshot = isNil(localSelectedFilesSnapshot) ?
+            this.getFilesFromSelection() : localSelectedFilesSnapshot;
+
         return Promise.resolve()
             .then(() => {
                 return Promise.resolve()
@@ -583,9 +599,13 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                             'running the single file opening handler'));
                 }
                 if (isFunction(onOpenFiles)) {
-                    promise = promise.then(() => onOpenFiles(this.getFilesFromSelection(), event))
-                        .catch((error: Error) => ConsoleUtil.logUnhandledUserException(error,
-                            'running the multiple file opening handler'));
+                    console.log('Selection:', selectedFilesSnapshot);
+                    const openableFiles = selectedFilesSnapshot.filter(f => f.openable !== false);
+                    if (openableFiles.length > 0) {
+                        promise = promise.then(() => onOpenFiles(openableFiles, event))
+                            .catch((error: Error) => ConsoleUtil.logUnhandledUserException(error,
+                                'running the multiple file opening handler'));
+                    }
                 }
                 return promise;
             });

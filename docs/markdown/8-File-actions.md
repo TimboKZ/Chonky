@@ -69,14 +69,14 @@ const handleFileOpen = (file, inputEvent) => {
 };
 ```
 
-The full demo from the top of this page (duplicated below) is a good example of how `onFileOpen` should be used, so 
-make sure to look at its source code.
-
-```js { "componentPath": "../components/FullDemo.js" }
-```
-
 `onOpenFiles` handler is very similar `onFileOpen`, except the first argument is now an array of files. This handler 
 is useful when you want to execute some logic when multiple files are opened (using a file selection).
+
+The example below shows how `onFileOpen` and `onOpenFiles` handlers can be used. To trigger the `onOpenFiles` 
+handler, try selecting multiple files and either double-clicking them or pressing Enter.
+
+```js { "componentPath": "../components/Open-files.js" }
+```
 
 ### Explicit click handlers
 
