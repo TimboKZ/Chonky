@@ -7,6 +7,7 @@
   <a href="https://tldrlegal.com/license/mit-license">
     <img alt="MIT license" src="https://img.shields.io/npm/l/chonky">
   </a>
+<a href="https://app.fossa.io/projects/git%2Bgithub.com%2FTimboKZ%2FChonky?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FTimboKZ%2FChonky.svg?type=shield"/></a>
   <a href="https://www.npmjs.com/package/chonky">
     <img alt="NPM downloads" src="https://img.shields.io/npm/dt/chonky">
   </a>
@@ -14,6 +15,9 @@
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/TimboKZ/Chonky">
   </a>
 </p>
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTimboKZ%2FChonky.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FTimboKZ%2FChonky?ref=badge_large)
 
 # Introduction
 
