@@ -10,6 +10,10 @@ code {
     padding: 0 4px !important;
 }
 
+div[class*='--preview-'] {
+    padding: 8px;
+}
+
 @media screen and (max-width: 400px) {
 
     div[class*='--preview-'] {

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import '../../style/main.css';
-import {FileBrowser} from '../../src';
+import 'chonky/style/main.css';
+import {FileBrowser} from 'chonky';
 
 const folderChain = [
     {

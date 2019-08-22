@@ -31,6 +31,7 @@ export default class DropdownSwitch extends React.Component<DropdownSwitchProps,
         for (let i = 0; i < buttonComps.length; ++i) {
             const item = items[i];
             const itemProps = {
+                key: `view-switch-${item.id}`,
                 className: classnames({
                     'chonky-dropdown-switch-button': true,
                     'chonky-tooltip': true,

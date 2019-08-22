@@ -2,8 +2,8 @@
 import React from 'react';
 
 // Import Chonky styles and relevant components
-import '../../style/main.css';
-import {FileBrowser, FileView} from '../../src';
+import 'chonky/style/main.css';
+import {FileBrowser, FileView} from 'chonky';
 
 const files = [
     {

@@ -254,6 +254,11 @@ button.chonky-folder-chain-entry:active {
   padding-right: 0.3em !important;
   font-size: 1.3em;
 }
+@media screen and (max-width: 400px) {
+  .chonky-file-list-details .chonky-file-list-entry-icon {
+    font-size: 1.05em;
+  }
+}
 .chonky-file-list-details .chonky-file-list-entry:hover {
   background-color: #f5f5f5;
 }
