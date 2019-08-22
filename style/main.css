@@ -8,6 +8,9 @@
 .chonky-side-left > * {
   margin-right: 0.525em;
 }
+.chonky-side-right {
+  text-align: right;
+}
 .chonky-side-right > * {
   margin-left: 0.525em;
 }
@@ -368,9 +371,16 @@ button.chonky-folder-chain-entry:active {
 }
 
 .chonky {
+  touch-action: manipulation;
   font-family: sans-serif;
   flex-direction: column;
+  font-size: 15px;
   display: flex;
+}
+@media screen and (max-width: 400px) {
+  .chonky {
+    font-size: 14px;
+  }
 }
 .chonky.chonky-no-select {
   -webkit-touch-callout: none;
