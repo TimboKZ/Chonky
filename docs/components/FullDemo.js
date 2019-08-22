@@ -69,10 +69,12 @@ export default class FullDemo extends React.Component {
             }
         }
 
-        return <FileBrowser files={files} folderChain={folderChain} thumbnailGenerator={this.thumbGenerator}
-                            onFileOpen={this.handleFileOpen} onFolderCreate={this.handleFolderCreate}
-                            onDownloadFiles={null} onDeleteFiles={this.handleDeleteFiles}
-                            view={FileView.SmallThumbs}/>;
+        return <div style={{height: 540}}>
+            <FileBrowser files={files} folderChain={folderChain} thumbnailGenerator={this.thumbGenerator}
+                         onFileOpen={this.handleFileOpen} onFolderCreate={this.handleFolderCreate}
+                         onDownloadFiles={null} onDeleteFiles={this.handleDeleteFiles}
+                         fillParentContainer={true} view={FileView.SmallThumbs}/>
+        </div>;
     }
 
 }

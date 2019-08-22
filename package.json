@@ -1,6 +1,6 @@
 {
   "name": "chonky",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "React file browser component",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -28,6 +28,7 @@
     "filesize": "^4.1.2",
     "javascript-time-ago": "^2.0.1",
     "react-if": "^3.4.3",
+    "react-virtualized": "^9.21.1",
     "shallow-equal": "^1.2.0"
   },
   "peerDependencies": {
@@ -49,6 +50,7 @@
     "@types/jest": "^24.0.17",
     "@types/react": "^16.8.24",
     "@types/react-dom": "^16.8.5",
+    "@types/react-virtualized": "^9.21.4",
     "@types/sinon": "^7.0.13",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",

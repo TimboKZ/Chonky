@@ -31,7 +31,6 @@ export default class DropdownSwitch extends React.Component<DropdownSwitchProps,
         for (let i = 0; i < buttonComps.length; ++i) {
             const item = items[i];
             const itemProps = {
-                key: `view-switch-${item.id}`,
                 className: classnames({
                     'chonky-dropdown-switch-button': true,
                     'chonky-tooltip': true,
@@ -40,7 +39,7 @@ export default class DropdownSwitch extends React.Component<DropdownSwitchProps,
                 onClick: () => onClick(item.id),
                 'data-tooltip': item.tooltip,
             };
-            buttonComps[i] = <button {...itemProps}>
+            buttonComps[i] = <button key={`view-switch-${item.id}`} {...itemProps}>
                 <FontAwesomeIcon icon={item.icon} fixedWidth/>
             </button>;
         }

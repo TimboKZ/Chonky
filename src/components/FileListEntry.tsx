@@ -19,7 +19,6 @@ import {
     InternalClickHandler,
     FileView,
     ThumbnailGenerator,
-    EntrySize,
     FileData,
 } from '../typedef';
 import {FileUtil} from '../util/FileUtil';
@@ -31,6 +30,7 @@ import {isArray, isFunction, isNil, isNumber, isObject, isString} from '../util/
 
 interface FileListEntryProps {
     file: Nullable<FileData>;
+    style: any;
     selected: boolean;
     displayIndex: number;
 
@@ -45,7 +45,6 @@ interface FileListEntryProps {
 
     // View & sort settings
     view: FileView;
-    containerSize?: EntrySize;
 }
 
 interface FileListEntryState {
@@ -216,14 +215,14 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
 
     public render() {
         const {
-            file, selected, displayIndex, view, doubleClickDelay,
-            onFileSingleClick, onFileDoubleClick, containerSize,
+            file, style, selected, displayIndex, view, doubleClickDelay,
+            onFileSingleClick, onFileDoubleClick,
         } = this.props;
 
         const wrapperProps: ClickableWrapperProps = {
             wrapperTag: 'div',
             passthroughProps: {
-                style: {...containerSize},
+                style,
                 className: classnames({
                     'chonky-file-list-entry': true,
                     'chonky-selected': selected,

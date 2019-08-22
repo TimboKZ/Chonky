@@ -13,8 +13,8 @@ Things you could try: Enter a folder, open a file, select multiple files using `
 * Users can choose between 3 views: Details, medium thumbnails, large thumbnails.
 * Developers can pass file action handlers to define custom behaviour for file opening, moving or deleting.
 * Supports file selections and *drag & drop (WIP)*, sorting and *text search (WIP)*.
-* (WIP) Supports [windowing](https://reactjs.org/docs/optimizing-performance.html#virtualize-long-lists) (a.k.a.
-virtualization) for long file lists.
+* Supports [windowing](https://reactjs.org/docs/optimizing-performance.html#virtualize-long-lists) (a.k.a.
+virtualization) for long file lists ([see example](#section-virtualization-with-10000-files)).
 * Supports common keyboard shortcuts.
 * Supports file thumbnails (e.g. generated from videos or images).
 * Detects common file types, showing appropriate icons.

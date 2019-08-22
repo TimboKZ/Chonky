@@ -136,6 +136,13 @@ interface FileBrowserProps {
     disableSelection?: boolean;
 
     /**
+     * The flag that determines whether Chonky should fill the height parent container. When set to `true`, the maximum
+     * height of the file browser will be limited to the height of the parent container, and scrollbar will be shown
+     * when necessary. When set to `false`, file browser height will be extended to display all files at the same time.
+     */
+    fillParentContainer?: boolean;
+
+    /**
      * The initial file view. This should be set using the `FileView` enum. Users can change file view using the
      * controls in the top bar.
      * [See relevant section](#section-setting-file-browser-options).
@@ -191,6 +198,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
         onDeleteFiles: undefined,
         doubleClickDelay: 300,
         disableSelection: false,
+        fillParentContainer: false,
         view: FileView.Details,
         options: {
             showHidden: true,
@@ -613,13 +621,14 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
     public render() {
         const {
             doubleClickDelay, onFileOpen, onFolderCreate, onUploadClick, onDownloadFiles, onDeleteFiles,
-            thumbnailGenerator,
+            thumbnailGenerator, fillParentContainer,
         } = this.props;
         const {folderChain, sortedFiles, selection, view, options, sortProperty, sortOrder} = this.state;
 
         const className = classnames({
             'chonky': true,
             'chonky-no-select': options[Option.DisableTextSelection],
+            'chonky-fill-parent': fillParentContainer === true,
         });
         return (
             <div ref={this.ref} className={className}>
@@ -634,9 +643,9 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                           onFileSingleClick={this.handleFileSingleClick}
                           onFileDoubleClick={this.handleFileDoubleClick}
                           thumbnailGenerator={thumbnailGenerator}
-                          view={view} sortProperty={sortProperty}
-                          sortOrder={sortOrder}
-                          showRelativeDates={options[Option.ShowRelativeDates]}/>
+                          showRelativeDates={options[Option.ShowRelativeDates]}
+                          fillParentContainer={fillParentContainer === true} view={view}
+                          sortProperty={sortProperty} sortOrder={sortOrder}/>
             </div>
         );
     }

@@ -271,7 +271,6 @@ button.chonky-folder-chain-entry:active {
 }
 
 .chonky-file-list-thumbs .chonky-file-list-entry, .chonky-file-list-thumbs .chonky-file-list-notification {
-  margin: 0.3em 0.5em 0.5em 0.3em;
   vertical-align: bottom;
   box-sizing: border-box;
 }
@@ -412,6 +411,9 @@ button.chonky-folder-chain-entry:active {
   flex-direction: column;
   font-size: 15px;
   display: flex;
+}
+.chonky.chonky-fill-parent {
+  height: 100%;
 }
 @media screen and (max-width: 400px) {
   .chonky {

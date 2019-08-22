@@ -17,13 +17,12 @@ div[class*='--preview-'] {
 @media screen and (max-width: 400px) {
 
     div[class*='--preview-'] {
-        padding: 5px 5px 0 5px;
-        border-bottom: none;
         border-right: none;
         border-left: none;
         border-radius: 0;
         margin: 0 -16px;
         display: block;
+        padding: 5px;
         width: auto;
     }
 

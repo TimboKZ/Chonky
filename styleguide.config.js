@@ -47,7 +47,9 @@ module.exports = {
         },
         {
             name: 'Advanced examples',
-            content: 'docs/Not-available.md',
+            sections: [
+                {name: 'Virtualization with 10000 files', content: 'docs/examples/Virtualization.md'},
+            ],
         },
     ],
     template: {
