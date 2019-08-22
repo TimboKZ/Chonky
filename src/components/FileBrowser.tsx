@@ -599,7 +599,6 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                             'running the single file opening handler'));
                 }
                 if (isFunction(onOpenFiles)) {
-                    console.log('Selection:', selectedFilesSnapshot);
                     const openableFiles = selectedFilesSnapshot.filter(f => f.openable !== false);
                     if (openableFiles.length > 0) {
                         promise = promise.then(() => onOpenFiles(openableFiles, event))
