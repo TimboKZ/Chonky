@@ -3,33 +3,13 @@
 .chonky
   &-side
     &-left, &-right
+      flex-direction: row
       padding-bottom: 0
+      display: flex
 
       & > *
         vertical-align: middle
         display: inline-block
-
-    &-left
-      flex-direction: row
-      display: flex
-
-      & > *
-        margin-right: $base-padding * 1.75
-
-    &-right
-      text-align: right
-
-      & > *
-        margin-left: $base-padding * 1.75
-
-    @media screen and (max-width: $mobile-breakpoint)
-      &-left > *
-        margin-right: 0
-      &-right
-        max-width: 130px
-
-        & > *
-          margin-left: 0
 
   &-controls
     justify-content: space-between
@@ -47,13 +27,12 @@
       border-radius: $radius-medium
       border: solid 1px transparent
       line-height: $base-bar-height
-      padding: 0 0.4em !important
+      padding: 0 0.2em !important
       height: $base-bar-height
       box-sizing: border-box
       @media screen and (max-width: $mobile-breakpoint)
         line-height: $base-bar-height-mobile
         height: $base-bar-height-mobile
-        padding: 0 0.2em !important
 
       &:last-child &-name
         text-decoration: underline $fg-subtle
@@ -113,11 +92,22 @@
       &-wrapper
         position: absolute
         padding-top: 4px
-        overflow: hidden
         display: none
         z-index: 888
         top: 100%
         right: 0
+
+    &-switch
+      border-bottom: solid 1px $border-lighter
+      flex-direction: row
+      display: flex
+
+      &-button
+        @include reset-button
+        border-left: solid 1px $border-lighter !important
+        line-height: $base-bar-height
+        height: $base-bar-height
+        flex-grow: 1
 
     &-button
       padding: 0.5em !important
@@ -129,7 +119,7 @@
       &:not(:last-of-type)
         border-bottom: solid 1px $border-lighter
 
-  &-dropdown-button, &-icon-button
+  &-dropdown-button, &-dropdown-switch-button, &-icon-button
     @include default-transition(background-color)
     @include reset-button
 
@@ -170,5 +160,6 @@
       border-color: $border-dark
 
     & > span
+      padding: $base-padding * 1.2
       border-color: $border-dark
-      padding: $base-padding * 2
+      white-space: nowrap

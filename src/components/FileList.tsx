@@ -20,12 +20,11 @@ import {
     SortProperty,
     ThumbnailGenerator,
     EntrySize,
-    InputListener,
     FileData,
 } from '../typedef';
 import FileListEntry from './FileListEntry';
-import {isObject, isString} from '../util/Util';
 import ClickableWrapper from './ClickableWrapper';
+import {isNil, isObject, isString} from '../util/Util';
 
 interface FileListProps {
     files: Nullable<FileData>[];
@@ -77,10 +76,13 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
                     'chonky-active': sortProperty === name,
                 }),
             };
-            const onClick: InputListener = () => {
-                activateSortProperty(name as SortProperty);
-                return true;
-            };
+            let onClick = undefined;
+            if (!isNil(name)) {
+                onClick = () => {
+                    activateSortProperty(name as SortProperty);
+                    return true;
+                };
+            }
             comps[i] = <ClickableWrapper key={`header-${name}`} wrapperTag={'div'}
                                          passthroughProps={headerProps} doubleClickDelay={doubleClickDelay}
                                          onAllClicks={onClick}>

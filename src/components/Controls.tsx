@@ -28,6 +28,7 @@ import ConsoleUtil from '../util/ConsoleUtil';
 import DropdownButton from './DropdownButton';
 import {getNonNil, isBoolean, isFunction, isNil, isObject} from '../util/Util';
 import {FileData, FileView, InputEvent, MultiFileActionHandler, Option, Options, Selection} from '../typedef';
+import DropdownSwitch from './DropdownSwitch';
 
 interface ControlsProps {
     folderChain?: (FileData | null)[];
@@ -49,10 +50,22 @@ interface ControlsProps {
 
 interface ControlsState {}
 
-const ViewControls = [
-    [faList, FileView.Details, 'Details'],
-    [faTh, FileView.SmallThumbs, 'Small thumbnails'],
-    [faThLarge, FileView.LargeThumbs, 'Large thumbnails'],
+const ViewButtons = [
+    {
+        id: FileView.Details,
+        icon: faList,
+        tooltip: 'Details',
+    },
+    {
+        id: FileView.SmallThumbs,
+        icon: faTh,
+        tooltip: 'Small thumbnails',
+    },
+    {
+        id: FileView.LargeThumbs,
+        icon: faThLarge,
+        tooltip: 'Large thumbnails',
+    },
 ];
 
 const DropdownButtons = [
@@ -100,7 +113,7 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
             </TagToUse>;
             if (!isLast) {
                 comps[j + 1] = <div key={`folder-chain-separator-${j}`} className="chonky-folder-chain-separator">
-                    <FontAwesomeIcon icon={faChevronRight} size="sm"/>
+                    <FontAwesomeIcon icon={faChevronRight} size="xs"/>
                 </div>;
             }
         }
@@ -108,23 +121,11 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
         return <div className="chonky-folder-chain">{comps}</div>;
     }
 
-    private renderViewControls() {
-        const {view, setView} = this.props;
-        let i = 0;
-        const comps = new Array(ViewControls.length);
-        for (const [icon, buttonView, tooltip] of ViewControls) {
-            comps[i++] = <IconButton key={`control-${buttonView}`} icon={icon} active={view === buttonView}
-                                     tooltip={tooltip as string}
-                // @ts-ignore
-                                     onClick={() => setView(buttonView as FileView)}/>;
-        }
-        return <ButtonGroup>{comps}</ButtonGroup>;
-    }
-
     private renderOptionsDropdown() {
-        const {options, setOption} = this.props;
-        const comps = new Array(DropdownButtons.length);
-        let i = 0;
+        const {view, setView, options, setOption} = this.props;
+        const comps = new Array(DropdownButtons.length + 1);
+        comps[0] = <DropdownSwitch activeId={view} items={ViewButtons} onClick={setView}/>;
+        let i = 1;
         for (const [optionName, text] of DropdownButtons) {
             const value = options[optionName];
             if (!isBoolean(value)) {
@@ -197,7 +198,6 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
             </div>
             <div className="chonky-side chonky-side-right">
                 {buttons}
-                {this.renderViewControls()}
                 {this.renderOptionsDropdown()}
             </div>
         </div>;
