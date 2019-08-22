@@ -14,6 +14,9 @@ module.exports = {
 
     assetsDir: 'assets',
     styleguideDir: 'public',
+    require: [
+        path.join(__dirname, 'styleguide.css')
+    ],
 
     usageMode: 'expand',
     sections: [

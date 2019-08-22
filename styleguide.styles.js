@@ -29,13 +29,6 @@ const styles = {
             overflowX: 'scroll !important',
             whiteSpace: 'pre !important',
         },
-        '@global code': {
-            backgroundColor: '#eee !important',
-            whiteSpace: 'nowrap !important',
-            borderRadius: '3px !important',
-            fontSize: '0.9em !important',
-            padding: '0 4px !important',
-        },
         '@global tbody > tr > td': {
             borderBottom: 'solid 1px #efefef !important',
         },
