@@ -254,7 +254,7 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
             <AutoSizer {...autoSizerProps}>
                 {({width, height}) => {
                     const entrySize = this.getEntrySize();
-                    const scrollbarWidth = 16;
+                    const scrollbarWidth = fillParentContainer ? 16 : 0;
                     const columnCountFloat = (width + GutterSize - scrollbarWidth) / (entrySize.width + GutterSize);
                     const columnCount = Math.max(1, Math.floor(columnCountFloat));
                     const rowCount = Math.ceil(files.length / columnCount);
@@ -265,7 +265,8 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
                                  columnWidth={({index}) => this.getColumnWidth(index, columnCount)}
                                  rowHeight={({index}) => this.getRowHeight(index, rowCount)}
                                  width={width} height={isNil(height) ? 500 : height}
-                                 autoHeight={!fillParentContainer}/>;
+                                 autoHeight={!fillParentContainer}
+                                 tabIndex={null}/>;
                 }}
             </AutoSizer>
         </div>;

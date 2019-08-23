@@ -35,7 +35,7 @@ const thumbnailGenerator = (file) => {
     return new Promise((resolve, reject) => {
         const image = new Image();
         image.onload = () => resolve(file.thumbnailUrl);
-        image.onerror = () => reject(new Error(`Failed to load thumbnail for "${file.base}".`));
+        image.onerror = () => reject(new Error(`Failed to load thumbnail for "${file.name}".`));
         image.src = file.thumbnailUrl;
     })
         .catch((error) => console.error(error));

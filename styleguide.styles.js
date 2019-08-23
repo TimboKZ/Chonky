@@ -25,10 +25,6 @@ const styles = {
         '@global li': {
             marginBottom: '15px !important',
         },
-        '@global article > div > pre': {
-            overflowX: 'scroll !important',
-            whiteSpace: 'pre !important',
-        },
         '@global tbody > tr > td': {
             borderBottom: 'solid 1px #efefef !important',
         },

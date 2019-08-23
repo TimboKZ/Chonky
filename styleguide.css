@@ -2,6 +2,11 @@
 /*    border: solid 1px #000 !important;*/
 /*}*/
 
+article > div > pre {
+    overflow-x: auto !important;
+    white-space: pre !important;
+}
+
 code {
     background-color: #eee !important;
     white-space: nowrap !important;
