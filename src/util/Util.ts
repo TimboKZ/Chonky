@@ -9,6 +9,11 @@ import {AnyFunction, nil, Nilable, Nullable} from 'tsdef';
 import ConsoleUtil from './ConsoleUtil';
 import {InputEvent, InputEventType, InputListener, kbCodeMap, KbKey, kbKeyCodeMap, kbKeyMap} from '../typedef';
 
+// Detect mobile device
+export const isMobileDevice = () => {
+    return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
+};
+
 // Assertions
 export const isNil = (value: any): value is nil => value === undefined || value === null;
 export const isNumber = (value: any): value is number => typeof value == 'number';

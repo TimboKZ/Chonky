@@ -121,42 +121,10 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
         return <div className="chonky-folder-chain">{comps}</div>;
     }
 
-    private renderOptionsDropdown() {
-        const {view, setView, options, setOption} = this.props;
-        const comps = new Array(DropdownButtons.length + 1);
-        comps[0] = <DropdownSwitch activeId={view} items={ViewButtons} onClick={setView}/>;
-        let i = 1;
-        for (const [optionName, text] of DropdownButtons) {
-            const value = options[optionName];
-            if (!isBoolean(value)) {
-                ConsoleUtil.warn(`Expected boolean value for option ${optionName}, got: ${value}`);
-                continue;
-            }
-
-            const onClick = (event: React.MouseEvent) => {
-                event.preventDefault();
-                setOption(optionName as Option, !value);
-            };
-            comps[i] = <DropdownButton key={`option-${optionName}`}
-                                       icon={faCheckCircle} altIcon={faCircle} active={options[optionName]}
-                                       text={text} onClick={onClick}/>;
-            i++;
-        }
-        return <Dropdown title="Options">{comps}</Dropdown>;
-    }
-
-    public render() {
+    private renderActionButtons() {
         const {
-            folderChain, selection, onFileOpen, onFolderCreate, onUploadClick,
-            onDownloadFiles, onDeleteFiles, getFilesFromSelection,
+            selection, onFolderCreate, onUploadClick, onDownloadFiles, onDeleteFiles, getFilesFromSelection,
         } = this.props;
-        const parentDirButtonProps: any = {};
-        if (isFunction(onFileOpen)) {
-            const parentFolder = getNonNil(folderChain, -2);
-            if (!isNil(parentFolder) && parentFolder.openable !== false) {
-                parentDirButtonProps.onClick = () => onFileOpen(parentFolder);
-            }
-        }
 
         let selectionSize = 0;
         for (const key in selection) {
@@ -188,6 +156,47 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
             }
             buttons[i] = <IconButton {...buttonProps}/>;
         }
+        return buttons;
+    }
+
+    // private renderSortDropdownButtons() {
+    //
+    // }
+
+    private renderOptionsDropdownButtons() {
+        const {view, setView, options, setOption} = this.props;
+        const comps = new Array(DropdownButtons.length + 1);
+        comps[0] = <DropdownSwitch key={'dropdown-switch'} activeId={view} items={ViewButtons} onClick={setView}/>;
+        let i = 1;
+        for (const [optionName, text] of DropdownButtons) {
+            const value = options[optionName];
+            if (!isBoolean(value)) {
+                ConsoleUtil.warn(`Expected boolean value for option ${optionName}, got: ${value}`);
+                continue;
+            }
+
+            const onClick = (event: React.MouseEvent) => {
+                event.preventDefault();
+                setOption(optionName as Option, !value);
+            };
+            comps[i] = <DropdownButton key={`option-${optionName}`}
+                                       icon={faCheckCircle} altIcon={faCircle} active={options[optionName]}
+                                       text={text} onClick={onClick}/>;
+            i++;
+        }
+        return comps;
+    }
+
+    public render() {
+        const {folderChain, onFileOpen} = this.props;
+        const parentDirButtonProps: any = {};
+        if (isFunction(onFileOpen)) {
+            const parentFolder = getNonNil(folderChain, -2);
+            if (!isNil(parentFolder) && parentFolder.openable !== false) {
+                parentDirButtonProps.onClick = () => onFileOpen(parentFolder);
+            }
+        }
+
 
         return <div className="chonky-controls">
             <div className="chonky-side chonky-side-left">
@@ -197,8 +206,9 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
                 {this.renderFolderChain()}
             </div>
             <div className="chonky-side chonky-side-right">
-                {buttons}
-                {this.renderOptionsDropdown()}
+                {this.renderActionButtons()}
+                {/*<Dropdown title="Sort by">{this.renderSortDropdownButtons()}</Dropdown>*/}
+                <Dropdown title="Options">{this.renderOptionsDropdownButtons()}</Dropdown>
             </div>
         </div>;
     }
