@@ -156,11 +156,12 @@ interface FileBrowserProps {
     options?: Partial<Options>;
 
     /**
-     * The file object property that files are initially sorted by. This should be set using the `SortProperty` enum.
-     * Users can change the sort property by clicking on column names in detailed view.
+     * The file object property that files are initially sorted by. This can be a string corresponding to one of the
+     * file properties, or a function that takes in a `FileData` object and returns some value. This should can be set
+     * using the `SortProperty` enum. Users can change the sort property by clicking on column names in detailed view.
      * [See relevant section](#section-setting-file-browser-options).
      */
-    sortProperty?: SortProperty;
+    sortProperty?: string | ((file: FileData) => any);
 
     /**
      * The order in which the files are presented. This should be set using the `SortOrder` enum. Users can change the
@@ -182,7 +183,7 @@ interface FileBrowserState {
     // View, display & sort options
     view: FileView;
     options: Options;
-    sortProperty: SortProperty;
+    sortProperty: string | ((file: FileData) => any);
     sortOrder: SortOrder;
 }
 
@@ -636,16 +637,17 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
                           onFileOpen={onFileOpen} onFolderCreate={onFolderCreate}
                           onUploadClick={onUploadClick} onDownloadFiles={onDownloadFiles}
                           onDeleteFiles={onDeleteFiles} getFilesFromSelection={this.getFilesFromSelection}
-                          view={view} setView={this.setView} options={options} setOption={this.setOption}/>
-                <FileList files={sortedFiles} selection={selection}
+                          view={view} setView={this.setView}
+                          options={options} setOption={this.setOption}
                           activateSortProperty={this.activateSortProperty}
+                          sortProperty={sortProperty} sortOrder={sortOrder}/>
+                <FileList files={sortedFiles} selection={selection}
                           doubleClickDelay={doubleClickDelay as number}
                           onFileSingleClick={this.handleFileSingleClick}
                           onFileDoubleClick={this.handleFileDoubleClick}
                           thumbnailGenerator={thumbnailGenerator}
                           showRelativeDates={options[Option.ShowRelativeDates]}
-                          fillParentContainer={fillParentContainer === true} view={view}
-                          sortProperty={sortProperty} sortOrder={sortOrder}/>
+                          fillParentContainer={fillParentContainer === true} view={view}/>
             </div>
         );
     }

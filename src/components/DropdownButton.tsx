@@ -40,7 +40,7 @@ export default class DropdownButton extends React.Component<DropdownButtonProps,
 
         return <button className="chonky-dropdown-button" {...buttonProps}>
             <span className={iconClass}>
-                <FontAwesomeIcon icon={iconToUse} fixedWidth size="sm"/>
+                <FontAwesomeIcon icon={iconToUse} fixedWidth size="xs"/>
             </span>
             &nbsp;
             {text}

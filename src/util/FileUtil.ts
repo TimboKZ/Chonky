@@ -10,9 +10,9 @@ import dateFormat from 'dateformat';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 
-import {isNil} from './Util';
+import {isFunction, isNil} from './Util';
 import {fileMap as demoFileMap, rootFolderId as demoRootFolderId} from './demo.fs_map.json';
-import {FileArray, FileData, FileIndexMap, FileMap, Option, Options, SortOrder, SortProperty} from '../typedef';
+import {FileArray, FileData, FileIndexMap, FileMap, Option, Options, SortOrder} from '../typedef';
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
@@ -41,7 +41,9 @@ export class FileUtil {
         return `${sizeData.value} ${sizeData.symbol}`;
     };
 
-    public static prepareComparator = (foldersFirst: boolean, sortProperty: SortProperty, sortOrder: SortOrder) => {
+    public static prepareComparator = (foldersFirst: boolean,
+                                       sortProperty: string | ((file: FileData) => any),
+                                       sortOrder: SortOrder) => {
         return (fileA: Nullable<FileData>, fileB: Nullable<FileData>) => {
             // If file is `null` (i.e. is loading) show it last
             if (isNil(fileA)) return 1;
@@ -51,19 +53,17 @@ export class FileUtil {
                 if (fileA.isDir === true && fileB.isDir !== true) return -1;
                 else if (fileA.isDir !== true && fileB.isDir === true) return 1;
             }
+            let returnVal = sortOrder === SortOrder.Asc ? 1 : -1;
             let propA;
             let propB;
-            let returnVal = sortOrder === SortOrder.Asc ? 1 : -1;
-            if (sortProperty === SortProperty.Size) {
-                propA = fileA.size;
-                propB = fileB.size;
-            } else if (sortProperty === SortProperty.ModDate) {
-                propA = fileA.modDate;
-                propB = fileB.modDate;
+            if (isFunction(sortProperty)) {
+                propA = sortProperty(fileA);
+                propB = sortProperty(fileB);
             } else {
-                propA = fileA.name;
-                propB = fileB.name;
+                propA = fileA[sortProperty];
+                propB = fileB[sortProperty];
             }
+
             if (propA === undefined || propA === null) return -returnVal;
             else if (propB === undefined || propB === null) return returnVal;
             else if (propA > propB) return returnVal;
@@ -72,8 +72,10 @@ export class FileUtil {
         };
     };
 
-    public static sortFiles(rawFiles: Nullable<FileData>[], options: Options,
-                            sortProperty: SortProperty, sortOrder: SortOrder): [FileArray, FileIndexMap] {
+    public static sortFiles(rawFiles: Nullable<FileData>[],
+                            options: Options,
+                            sortProperty: string | ((file: FileData) => any),
+                            sortOrder: SortOrder): [FileArray, FileIndexMap] {
         let files = rawFiles.slice(0);
         if (!options[Option.ShowHidden]) {
             files = files.filter(f => f === null || f.name.charAt(0) !== '.');

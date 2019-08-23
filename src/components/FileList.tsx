@@ -18,8 +18,6 @@ import {
     FileView,
     InternalClickHandler,
     Selection,
-    SortOrder,
-    SortProperty,
     ThumbnailGenerator,
 } from '../typedef';
 import FileListEntry from './FileListEntry';
@@ -42,9 +40,6 @@ interface FileListProps {
     // View & sort settings
     fillParentContainer: boolean;
     view: FileView;
-    sortProperty: SortProperty;
-    sortOrder: SortOrder;
-    activateSortProperty: (name: SortProperty) => void;
 }
 
 interface FileListState {}

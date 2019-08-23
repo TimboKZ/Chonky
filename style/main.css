@@ -126,6 +126,10 @@ button.chonky-folder-chain-entry:active {
   display: block;
   width: 100%;
 }
+.chonky-dropdown-button span {
+  position: relative;
+  top: -0.07em;
+}
 .chonky-dropdown-button:not(:last-of-type) {
   border-bottom: solid 1px #f6f6f6;
 }

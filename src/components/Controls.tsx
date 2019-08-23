@@ -8,27 +8,41 @@ import React from 'react';
 import {Nullable} from 'tsdef';
 import classnames from 'classnames';
 import {
-    faTh,
-    faList,
-    faCircle,
-    faUpload,
-    faThLarge,
-    faFolderPlus,
+    faArrowDown as DescIcon,
+    faArrowUp as AscIcon,
     faCheckCircle,
+    faChevronRight,
+    faCircle,
+    faDownload,
+    faFolder,
+    faFolderPlus,
     faLevelUpAlt as iconPathParentDir,
-    faChevronRight, faDownload, faTrash,
+    faList,
+    faTh,
+    faThLarge,
+    faTrash,
+    faUpload,
 } from '@fortawesome/free-solid-svg-icons';
-import {faFolder} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
+import {
+    FileData,
+    FileView,
+    InputEvent,
+    MultiFileActionHandler,
+    Option,
+    Options,
+    Selection,
+    SortOrder,
+    SortProperty,
+} from '../typedef';
 import Dropdown from './Dropdown';
 import IconButton from './IconButton';
 import ButtonGroup from './ButtonGroup';
 import ConsoleUtil from '../util/ConsoleUtil';
 import DropdownButton from './DropdownButton';
-import {getNonNil, isBoolean, isFunction, isNil, isObject} from '../util/Util';
-import {FileData, FileView, InputEvent, MultiFileActionHandler, Option, Options, Selection} from '../typedef';
 import DropdownSwitch from './DropdownSwitch';
+import {getNonNil, isBoolean, isFunction, isNil, isObject} from '../util/Util';
 
 interface ControlsProps {
     folderChain?: (FileData | null)[];
@@ -46,6 +60,9 @@ interface ControlsProps {
     setView: (view: FileView) => void;
     options: Options;
     setOption: (name: Option, value: boolean) => void;
+    sortProperty: string | ((file: FileData) => any);
+    sortOrder: SortOrder;
+    activateSortProperty: (name: string | ((file: FileData) => any)) => void;
 }
 
 interface ControlsState {}
@@ -66,6 +83,12 @@ const ViewButtons = [
         icon: faThLarge,
         tooltip: 'Large thumbnails',
     },
+];
+
+const SortButtons = [
+    [SortProperty.Name, 'Name'],
+    [SortProperty.Size, 'Size'],
+    [SortProperty.ModDate, 'Last change'],
 ];
 
 const DropdownButtons = [
@@ -159,9 +182,24 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
         return buttons;
     }
 
-    // private renderSortDropdownButtons() {
-    //
-    // }
+    private renderSortDropdownButtons() {
+        const {sortProperty, sortOrder, activateSortProperty} = this.props;
+        const orderIcon = sortOrder === SortOrder.Asc ? AscIcon : DescIcon;
+
+        const comps = new Array(SortButtons.length);
+        for (let i = 0; i < comps.length; ++i) {
+            const [propName, propTitle] = SortButtons[i];
+            const isActive = sortProperty === propName;
+            const onClick = (event: MouseEvent) => {
+                event.preventDefault();
+                activateSortProperty(propName);
+            };
+            comps[i] = <DropdownButton key={`sort-button-${i}`} icon={orderIcon}
+                                       altIcon={faCircle} onClick={onClick}
+                                       active={isActive} text={propTitle}/>;
+        }
+        return comps;
+    }
 
     private renderOptionsDropdownButtons() {
         const {view, setView, options, setOption} = this.props;
@@ -207,7 +245,7 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
             </div>
             <div className="chonky-side chonky-side-right">
                 {this.renderActionButtons()}
-                {/*<Dropdown title="Sort by">{this.renderSortDropdownButtons()}</Dropdown>*/}
+                <Dropdown title="Sort by">{this.renderSortDropdownButtons()}</Dropdown>
                 <Dropdown title="Options">{this.renderOptionsDropdownButtons()}</Dropdown>
             </div>
         </div>;
