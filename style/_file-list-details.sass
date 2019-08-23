@@ -7,81 +7,53 @@
 
     &-details
       position: relative
-      display: table
-      width: 100%
-
-      %row-content
-        display: table-row !important
-        font-size: 0.95em
-
-        & > div
-          padding: 0.4em $table-side-padding
-          box-sizing: border-box
-          border-width: 1px 0
-          border-style: solid
-          display: table-cell
-
-          &:first-of-type
-            width: 1px
 
     &-details &-notification
-      display: table-caption !important
-      caption-side: bottom
-
       &-content
         padding: $table-side-padding
         text-align: center
         font-size: 1.03em
 
-    &-details &-header
-      @extend %row-content
+    &-details &-entry
+      border-color: transparent
+      border-bottom-color: $border-lighter
+
+      box-sizing: border-box
+      flex-direction: row
+      border-width: 1px 0
+      border-style: solid
+      align-items: center
+      font-size: 0.95em
+      display: flex
+      z-index: 1
 
       & > div
-        border-bottom-color: $border-light !important
-        border-top-color: transparent !important
-        color: $fg-subtle-dark
+        box-sizing: border-box
+        padding: 0.4em
+        flex-grow: 1
 
-        &.chonky-active
-          border-bottom-color: $border-darker !important
-
-        &.chonky-clickable
-          cursor: pointer
-
-          &:hover
-            background-color: $bg-light
-
-    &-details &-entry
-      @extend %row-content
+      &:hover
+        background-color: $bg-light
+        z-index: 2
 
       &.chonky-selected
         background-color: rgba($bg-active, 0.04)
         @include striped-background(rgba($bg-active, 0.04), rgba($bg-active, 0.10))
+        border-color: rgba($bg-active, 0.3) transparent !important
+        z-index: 3 !important
 
         &:hover
           background-color: rgba($bg-active, 0.07)
           @include striped-background(rgba($bg-active, 0.07), rgba($bg-active, 0.14))
 
-        & + .chonky-selected, &:nth-child(2)
-          & > div
-            border-top-color: transparent !important
+        & + .chonky-selected
+          border-top-color: transparent !important
 
-        & > div
-          border-color: rgba($bg-active, 0.3) transparent !important
 
       &-icon
-        padding-bottom: $table-side-padding * 0.6 !important
-        padding-right: $table-side-padding * 0.5 !important
-        font-size: 1.3em
-        @media screen and (max-width: $mobile-breakpoint)
-          font-size: 1.05em
+        padding-left: 0.6em !important
+        flex-grow: 0 !important
 
-      &:hover
-        background-color: $bg-light
-
-      & > div
-        border-color: transparent
-        border-bottom-color: $border-lighter !important
-
-        &:not(:first-of-type)
-          margin-top: -5px
+      &-name
+        flex-grow: 20 !important
 

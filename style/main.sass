@@ -41,13 +41,14 @@
 
     &:hover, &:focus, &:active
       &::before, &::after
+        display: block
         opacity: 1
 
     &::before, &::after
       @include default-transition(opacity)
       pointer-events: none
       position: absolute
-      display: block
+      display: none
       bottom: 100%
       opacity: 0
       left: 50%

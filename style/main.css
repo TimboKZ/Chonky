@@ -154,7 +154,7 @@ button.chonky-folder-chain-entry:active {
 }
 .chonky-dropdown-button:hover, .chonky-dropdown-switch-button:hover, .chonky-icon-button:hover {
   background-color: #f5f5f5;
-  z-index: 2;
+  z-index: 992;
 }
 .chonky-icon-button {
   border-radius: 4px;
@@ -166,7 +166,7 @@ button.chonky-folder-chain-entry:active {
   box-sizing: border-box;
   text-align: center;
   position: relative;
-  z-index: 1;
+  z-index: 991;
 }
 @media screen and (max-width: 400px) {
   .chonky-icon-button {
@@ -176,10 +176,10 @@ button.chonky-folder-chain-entry:active {
   }
 }
 .chonky-icon-button.chonky-active {
-  z-index: 3;
+  z-index: 993;
 }
 .chonky-icon-button:hover {
-  z-index: 2;
+  z-index: 992;
 }
 .chonky-icon-button:active {
   border-color: #ccc;
@@ -199,79 +199,52 @@ button.chonky-folder-chain-entry:active {
 
 .chonky-file-list-details {
   position: relative;
-  display: table;
-  width: 100%;
-}
-.chonky-file-list-details .chonky-file-list-entry, .chonky-file-list-details .chonky-file-list-header {
-  display: table-row !important;
-  font-size: 0.95em;
-}
-.chonky-file-list-details .chonky-file-list-entry > div, .chonky-file-list-details .chonky-file-list-header > div {
-  padding: 0.4em 0.6em;
-  box-sizing: border-box;
-  border-width: 1px 0;
-  border-style: solid;
-  display: table-cell;
-}
-.chonky-file-list-details .chonky-file-list-entry > div:first-of-type, .chonky-file-list-details .chonky-file-list-header > div:first-of-type {
-  width: 1px;
-}
-.chonky-file-list-details .chonky-file-list-notification {
-  display: table-caption !important;
-  caption-side: bottom;
 }
 .chonky-file-list-details .chonky-file-list-notification-content {
   padding: 0.6em;
   text-align: center;
   font-size: 1.03em;
 }
-.chonky-file-list-details .chonky-file-list-header > div {
-  border-bottom-color: #e4e4e4 !important;
-  border-top-color: transparent !important;
-  color: #666;
+.chonky-file-list-details .chonky-file-list-entry {
+  border-color: transparent;
+  border-bottom-color: #f6f6f6;
+  box-sizing: border-box;
+  flex-direction: row;
+  border-width: 1px 0;
+  border-style: solid;
+  align-items: center;
+  font-size: 0.95em;
+  display: flex;
+  z-index: 1;
 }
-.chonky-file-list-details .chonky-file-list-header > div.chonky-active {
-  border-bottom-color: #aaa !important;
+.chonky-file-list-details .chonky-file-list-entry > div {
+  box-sizing: border-box;
+  padding: 0.4em;
+  flex-grow: 1;
 }
-.chonky-file-list-details .chonky-file-list-header > div.chonky-clickable {
-  cursor: pointer;
-}
-.chonky-file-list-details .chonky-file-list-header > div.chonky-clickable:hover {
+.chonky-file-list-details .chonky-file-list-entry:hover {
   background-color: #f5f5f5;
+  z-index: 2;
 }
 .chonky-file-list-details .chonky-file-list-entry.chonky-selected {
   background-color: rgba(0, 153, 255, 0.04);
   background: repeating-linear-gradient(45deg, rgba(0, 153, 255, 0.04), rgba(0, 153, 255, 0.04) 10px, rgba(0, 153, 255, 0.1) 10px, rgba(0, 153, 255, 0.1) 20px);
+  border-color: rgba(0, 153, 255, 0.3) transparent !important;
+  z-index: 3 !important;
 }
 .chonky-file-list-details .chonky-file-list-entry.chonky-selected:hover {
   background-color: rgba(0, 153, 255, 0.07);
   background: repeating-linear-gradient(45deg, rgba(0, 153, 255, 0.07), rgba(0, 153, 255, 0.07) 10px, rgba(0, 153, 255, 0.14) 10px, rgba(0, 153, 255, 0.14) 20px);
 }
-.chonky-file-list-details .chonky-file-list-entry.chonky-selected + .chonky-selected > div, .chonky-file-list-details .chonky-file-list-entry.chonky-selected:nth-child(2) > div {
+.chonky-file-list-details .chonky-file-list-entry.chonky-selected + .chonky-selected {
   border-top-color: transparent !important;
 }
-.chonky-file-list-details .chonky-file-list-entry.chonky-selected > div {
-  border-color: rgba(0, 153, 255, 0.3) transparent !important;
-}
 .chonky-file-list-details .chonky-file-list-entry-icon {
-  padding-bottom: 0.36em !important;
-  padding-right: 0.3em !important;
-  font-size: 1.3em;
+  padding-left: 0.6em !important;
+  flex-grow: 0 !important;
 }
-@media screen and (max-width: 400px) {
-  .chonky-file-list-details .chonky-file-list-entry-icon {
-    font-size: 1.05em;
-  }
-}
-.chonky-file-list-details .chonky-file-list-entry:hover {
-  background-color: #f5f5f5;
-}
-.chonky-file-list-details .chonky-file-list-entry > div {
-  border-color: transparent;
-  border-bottom-color: #f6f6f6 !important;
-}
-.chonky-file-list-details .chonky-file-list-entry > div:not(:first-of-type) {
-  margin-top: -5px;
+.chonky-file-list-details .chonky-file-list-entry-name {
+  flex-grow: 20 !important;
 }
 
 .chonky-file-list-thumbs .chonky-file-list-entry, .chonky-file-list-thumbs .chonky-file-list-notification {
@@ -447,6 +420,7 @@ button.chonky-folder-chain-entry:active {
   position: relative;
 }
 .chonky-tooltip:hover::before, .chonky-tooltip:hover::after, .chonky-tooltip:focus::before, .chonky-tooltip:focus::after, .chonky-tooltip:active::before, .chonky-tooltip:active::after {
+  display: block;
   opacity: 1;
 }
 .chonky-tooltip::before, .chonky-tooltip::after {
@@ -456,7 +430,7 @@ button.chonky-folder-chain-entry:active {
   transition: opacity 100ms ease-in-out;
   pointer-events: none;
   position: absolute;
-  display: block;
+  display: none;
   bottom: 100%;
   opacity: 0;
   left: 50%;

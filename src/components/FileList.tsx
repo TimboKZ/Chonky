@@ -7,22 +7,15 @@
 import React from 'react';
 import {Nullable} from 'tsdef';
 import classnames from 'classnames';
-import {AutoSizer, Grid} from 'react-virtualized';
+import {AutoSizer, Grid, List} from 'react-virtualized';
 import {faFolderOpen} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-// import {faArrowDown as DescIcon, faArrowUp as AscIcon, faFolderOpen} from '@fortawesome/free-solid-svg-icons';
-
-import {
-    EntrySize,
-    FileData,
-    FileView,
-    InternalClickHandler,
-    Selection,
-    ThumbnailGenerator,
-} from '../typedef';
+import {EntrySize, FileData, FileView, InternalClickHandler, Selection, ThumbnailGenerator} from '../typedef';
 import FileListEntry from './FileListEntry';
 // import ClickableWrapper from './ClickableWrapper';
-import {isMobileDevice, isNil, isObject} from '../util/Util';
+import {isMobileDevice, isNil, isNumber, isObject} from '../util/Util';
+
+// import {faArrowDown as DescIcon, faArrowUp as AscIcon, faFolderOpen} from '@fortawesome/free-solid-svg-icons';
 
 interface FileListProps {
     files: Nullable<FileData>[];
@@ -44,53 +37,10 @@ interface FileListProps {
 
 interface FileListState {}
 
-// const HeaderDetails = [
-//     [null, ''],
-//     [SortProperty.Name, 'Name'],
-//     [SortProperty.Size, 'Size'],
-//     [SortProperty.ModDate, 'Last change'],
-// ];
-
 const SmallThumbsSize: EntrySize = {width: 200, height: 160};
 const LargeThumbsSize: EntrySize = {width: 280, height: 220};
 
 export default class FileList extends React.PureComponent<FileListProps, FileListState> {
-
-    // private renderDetailsHeaders() {
-    //     const {doubleClickDelay, sortProperty, sortOrder, activateSortProperty} = this.props;
-    //     const comps = new Array(HeaderDetails.length);
-    //     for (let i = 0; i < HeaderDetails.length; ++i) {
-    //         const [name, title] = HeaderDetails[i];
-    //         const headerProps = !isString(name) ? {} : {
-    //             tabIndex: 0,
-    //             className: classnames({
-    //                 'chonky-clickable': true,
-    //                 'chonky-active': sortProperty === name,
-    //             }),
-    //         };
-    //         let onClick = undefined;
-    //         if (!isNil(name)) {
-    //             onClick = () => {
-    //                 activateSortProperty(name as SortProperty);
-    //                 return true;
-    //             };
-    //         }
-    //         comps[i] = <ClickableWrapper key={`header-${name}`} wrapperTag={'div'}
-    //                                      passthroughProps={headerProps} doubleClickDelay={doubleClickDelay}
-    //                                      onAllClicks={onClick}>
-    //             {title}
-    //             {/* eslint-disable-next-line */}
-    //             {sortProperty === name &&
-    //             <span className="chonky-text-subtle">
-    //                 &nbsp;
-    //                 <FontAwesomeIcon icon={sortOrder === SortOrder.Asc ? AscIcon : DescIcon}
-    //                                  fixedWidth={true} size="sm"/>
-    //             </span>
-    //             }
-    //         </ClickableWrapper>;
-    //     }
-    //     return <div className="chonky-file-list-header">{comps}</div>;
-    // }
 
     private getColWidth = (index: number, columnCount: number, entrySize: EntrySize, gutterSize: number) => {
         if (index === columnCount - 1) return entrySize.width;
@@ -102,25 +52,23 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
         return entrySize.height + gutterSize;
     };
 
-    private cellRenderer = (data: { key: string; parent: any; rowIndex: number; columnIndex: number; style: any },
-                            gutterSize: number) => {
+    private entryRenderer = (virtualKey: string, index: number, style: any,
+                            gutterSize?: number, lastRow?: boolean, lastColumn?: boolean) => {
         const {
             files, selection,
             doubleClickDelay, onFileSingleClick, onFileDoubleClick, thumbnailGenerator,
             showRelativeDates, view,
         } = this.props;
-        const {rowIndex, columnIndex, style: rawStyle} = data;
-        const {rowCount, columnCount} = data.parent.props;
-        const style = {...rawStyle};
 
-        const index = rowIndex * columnCount + columnIndex;
+        if (isNumber(gutterSize)) {
+            if (lastRow !== true) style.height = style.height - gutterSize;
+            if (lastColumn !== true) style.width = style.width - gutterSize;
+        }
+
         if (index >= files.length) return null;
-
-        if (rowIndex !== rowCount - 1) style.height = style.height - gutterSize;
-        if (columnIndex !== columnCount - 1) style.width = style.width - gutterSize;
-
+        console.log('Rendering file', style);
         const file = files[index];
-        const key = isObject(file) ? file.id : `loading-file-${data.key}`;
+        const key = isObject(file) ? file.id : `loading-file-${virtualKey}`;
         const selected = isObject(file) ? selection[file.id] === true : false;
         return <FileListEntry key={key}
                               file={file} style={style} selected={selected} displayIndex={index}
@@ -131,18 +79,14 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
                               showRelativeDates={showRelativeDates} view={view}/>;
     };
 
-    private noContentRenderer = (entrySize: EntrySize) => {
+    private noContentRenderer = (height?: number) => {
         const placeholderProps: any = {
             className: classnames({
                 'chonky-file-list-notification': true,
                 'chonky-file-list-notification-empty': true,
             }),
         };
-        if (isObject(entrySize)) {
-            placeholderProps.style = {
-                height: entrySize.height,
-            };
-        }
+        if (isNumber(height)) placeholderProps.style = {height};
 
         return <div {...placeholderProps}>
             <div className="chonky-file-list-notification-content">
@@ -172,6 +116,18 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
             <AutoSizer {...autoSizerProps}>
                 {({width, height}) => {
                     let rowCount: number;
+
+                    if (view === FileView.Details) {
+                        rowCount = files.length;
+                        const rowHeight = 35;
+                        return <List rowRenderer={data => this.entryRenderer(data.key, data.index, data.style)}
+                                     noRowsRenderer={() => this.noContentRenderer(rowHeight)}
+                                     rowCount={rowCount} rowHeight={rowHeight}
+                                     width={width} height={isNil(height) ? 500 : height}
+                                     autoHeight={!fillParentContainer}
+                                     tabIndex={null}/>;
+                    }
+
                     let columnCount: number;
                     let entrySize: EntrySize;
 
@@ -194,8 +150,12 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
                     }
                     rowCount = Math.ceil(files.length / columnCount);
 
-                    return <Grid cellRenderer={data => this.cellRenderer(data, gutterSize)}
-                                 noContentRenderer={() => this.noContentRenderer(entrySize)}
+                    return <Grid cellRenderer={data => {
+                        const index = data.rowIndex * columnCount + data.columnIndex;
+                        return this.entryRenderer(data.key, index, {...data.style},
+                            gutterSize, data.rowIndex === rowCount - 1, data.columnIndex === columnCount - 1);
+                    }}
+                                 noContentRenderer={() => this.noContentRenderer(entrySize.height)}
                                  rowCount={rowCount} columnCount={columnCount}
                                  columnWidth={({index}) => this.getColWidth(index, columnCount, entrySize, gutterSize)}
                                  rowHeight={({index}) => this.getRowHeight(index, rowCount, entrySize, gutterSize)}
