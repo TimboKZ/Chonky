@@ -180,7 +180,7 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
                     const scrollbarWidth = (!fillParentContainer || isMobile) ? 0 : 16;
 
                     const isLargeThumbs = view === FileView.LargeThumbs;
-                    if (width < 400) {
+                    if (isMobile && width < 400) {
                         // Hardcode column count on mobile
                         columnCount = isLargeThumbs ? 2 : 3;
                         entrySize = {
