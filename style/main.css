@@ -154,7 +154,7 @@ button.chonky-folder-chain-entry:active {
 }
 .chonky-dropdown-button:hover, .chonky-dropdown-switch-button:hover, .chonky-icon-button:hover {
   background-color: #f5f5f5;
-  z-index: 992;
+  z-index: 92;
 }
 .chonky-icon-button {
   border-radius: 4px;
@@ -166,7 +166,7 @@ button.chonky-folder-chain-entry:active {
   box-sizing: border-box;
   text-align: center;
   position: relative;
-  z-index: 991;
+  z-index: 91;
 }
 @media screen and (max-width: 400px) {
   .chonky-icon-button {
@@ -176,10 +176,10 @@ button.chonky-folder-chain-entry:active {
   }
 }
 .chonky-icon-button.chonky-active {
-  z-index: 993;
+  z-index: 93;
 }
 .chonky-icon-button:hover {
-  z-index: 992;
+  z-index: 92;
 }
 .chonky-icon-button:active {
   border-color: #ccc;
@@ -431,6 +431,7 @@ button.chonky-folder-chain-entry:active {
   pointer-events: none;
   position: absolute;
   display: none;
+  z-index: 9999;
   bottom: 100%;
   opacity: 0;
   left: 50%;

@@ -10,12 +10,10 @@ import classnames from 'classnames';
 import {AutoSizer, Grid, List} from 'react-virtualized';
 import {faFolderOpen} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {EntrySize, FileData, FileView, InternalClickHandler, Selection, ThumbnailGenerator} from '../typedef';
-import FileListEntry from './FileListEntry';
-// import ClickableWrapper from './ClickableWrapper';
-import {isMobileDevice, isNil, isNumber, isObject} from '../util/Util';
 
-// import {faArrowDown as DescIcon, faArrowUp as AscIcon, faFolderOpen} from '@fortawesome/free-solid-svg-icons';
+import FileListEntry from './FileListEntry';
+import {isMobileDevice, isNil, isNumber, isObject} from '../util/Util';
+import {EntrySize, FileData, FileView, InternalClickHandler, Selection, ThumbnailGenerator} from '../typedef';
 
 interface FileListProps {
     files: Nullable<FileData>[];
