@@ -42,6 +42,11 @@
           #{$entry-class}-background
             background-color: rgba($bg-base, 0.55)
 
+        &:focus
+          outline: none
+          #{$entry-class}-description
+            box-shadow: inset rgba($fg-active, 0.75) 0 0 0 2px
+
         &.chonky-selected
           #{$entry-class}-selection
             opacity: 1

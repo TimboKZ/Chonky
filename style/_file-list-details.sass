@@ -36,6 +36,10 @@
         background-color: $bg-light
         z-index: 2
 
+      &:focus
+        box-shadow: inset rgba($fg-active, 0.75) 0 0 0 2px
+        outline: none
+
       &.chonky-selected
         background-color: rgba($bg-active, 0.04)
         @include striped-background(rgba($bg-active, 0.04), rgba($bg-active, 0.10))
