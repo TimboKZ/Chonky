@@ -103,19 +103,3 @@ export const deregisterKbListener = (kbListener: InputListener) => {
     const set = window._chonkyData.kbListenerSet;
     set.delete(kbListener);
 };
-
-export default class Util {
-
-    public static kbEventIsSpace(event: KeyboardEvent) {
-        return event.code === 'Space' || event.keyCode === 32;
-    }
-
-    public static kbEventIsEnter(event: KeyboardEvent) {
-        return event.code === 'Enter' || event.keyCode === 13;
-    }
-
-    public static kbEventIsBackspace(event: KeyboardEvent) {
-        return event.code === 'Backspace' || event.keyCode === 8;
-    }
-
-}

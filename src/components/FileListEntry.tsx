@@ -5,10 +5,10 @@
  */
 
 import path from 'path';
-import {Nilable, Nullable} from 'tsdef';
+import {When} from 'react-if';
 import * as React from 'react';
 import classnames from 'classnames';
-import {Else, If, Then, When} from 'react-if';
+import {Nilable, Nullable} from 'tsdef';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faExternalLinkAlt as SymlinkIcon, faEyeSlash as HiddenIcon} from '@fortawesome/free-solid-svg-icons';
 
@@ -28,7 +28,7 @@ import {getIconData, LoadingIconData} from '../util/IconUtil';
 import ClickableWrapper, {ClickableWrapperProps} from './ClickableWrapper';
 import {isArray, isFunction, isNil, isNumber, isObject, isString} from '../util/Util';
 
-interface FileListEntryProps {
+export interface FileListEntryProps {
     file: Nullable<FileData>;
     style: any;
     selected: boolean;
@@ -45,6 +45,9 @@ interface FileListEntryProps {
 
     // View & sort settings
     view: FileView;
+
+    // Util props
+    onMount?: () => void;
 }
 
 interface FileListEntryState {
@@ -62,6 +65,9 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
     }
 
     public componentDidMount() {
+        const {onMount} = this.props;
+
+        if (isFunction(onMount)) onMount();
         this.requestThumbnail();
     }
 
@@ -86,33 +92,43 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         const {file} = this.props;
         if (isNil(file)) return <LoadingPlaceholder/>;
 
+        let displayName: any = file.name;
         let displayExtension = '';
 
         if (isString(file.ext)) displayExtension = file.ext;
         else displayExtension = path.extname(file.name);
 
-        return [
-            <When key="chonky-filename-symlink" condition={file.isSymlink === true}>
+        const hasExtension = displayExtension.length !== 0;
+        if (hasExtension) displayName = file.name.substr(0, file.name.length - displayExtension.length);
+
+        const maxNameLength = 150;
+        const namePartLength = Math.floor((maxNameLength - 3) / 2);
+        if (displayName.length > maxNameLength) {
+            // TODO: Collapse file names in a nicer way - don't break up words, etc.
+            displayName = <span title={displayName}>
+                {displayName.substr(0, namePartLength).trimRight()}
+                <span className="chonky-text-subtle-dark">&lt;...&gt;</span>
+                {displayName.substr(displayName.length - namePartLength, namePartLength).trimRight()}
+            </span>;
+        }
+
+        return <React.Fragment>
+            <When condition={file.isSymlink === true}>
                 <span className="chonky-text-subtle"><FontAwesomeIcon icon={SymlinkIcon} size="xs"/></span>
                 &nbsp;&nbsp;
-            </When>,
-            <When key="chonky-filename-hidden" condition={file.isHidden === true}>
+            </When>
+            <When condition={file.isHidden === true}>
                 <span className="chonky-text-subtle"><FontAwesomeIcon icon={HiddenIcon} size="xs"/></span>
                 &nbsp;&nbsp;
-            </When>,
-            <If key="chonky-file-name" condition={displayExtension.length !== 0}>
-                <Then>
-                    {file.name.substr(0, file.name.length - displayExtension.length)}
-                    <span className="chonky-text-subtle-dark">{displayExtension}</span>
-                </Then>
-                <Else>
-                    {file.name}
-                </Else>
-            </If>,
-            <When key="chonky-file-is-dir" condition={file.isDir === true}>
+            </When>
+            {displayName}
+            <When condition={hasExtension}>
+                <span className="chonky-text-subtle-dark">{displayExtension}</span>
+            </When>
+            <When condition={file.isDir === true}>
                 <span className="chonky-text-subtle" style={{marginLeft: 2}}>/</span>
-            </When>,
-        ];
+            </When>
+        </React.Fragment>;
     };
 
     private renderSize() {
@@ -137,7 +153,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
             [displayDate, tooltipDate] = [readableDate, relativeDate];
         }
 
-        return <span className="chonky-tooltip" data-tooltip={tooltipDate}>{displayDate}</span>;
+        return <span title={tooltipDate}>{displayDate}</span>;
     }
 
     private renderDetailsEntry() {

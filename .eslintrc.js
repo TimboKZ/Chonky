@@ -11,6 +11,7 @@ module.exports = {
     },
     rules: {
         'indent': 'off',
+        'no-console': 1,
         'react/display-name': 0,
         '@typescript-eslint/indent': 'off',
         '@typescript-eslint/no-var-requires': 'off',

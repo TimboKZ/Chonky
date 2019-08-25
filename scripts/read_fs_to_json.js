@@ -106,11 +106,16 @@ const japanFsJson = path.join(docsUtilDir, 'chonky_project.fs_map.json');
 const picsFsJson = path.join(docsUtilDir, 'japan_pics.fs_map.json');
 const demoFsJson = path.join(srcUtilDir, 'demo.fs_map.json');
 
+const createFile = (id, name, parentId) => ({
+    id,
+    name,
+    modDate: new Date(),
+    parentId,
+});
+
 const createFolder = (id, name, parentId, childrenIds) => ({
     id,
-    base: name,
     name,
-    ext: '',
     isDir: true,
     modDate: new Date(),
     parentId,
@@ -122,9 +127,12 @@ Promise.resolve()
     .then(results => {
         const {fileMap: picsFileMap, rootFolderId: picsFolderId} = results[0];
         const {fileMap: chonkyFileMap, rootFolderId: chonkyFolderId} = results[1];
+
         const rootId = 'my-root-id';
         const foreverFolderId = 'forever-id';
-        const emptyId = 'empty-id';
+        const longNameFolderId = 'long-names-id';
+        const emptyFolderId = 'empty-id';
+
         // @ts-ignore
         const fileMap = {
             [rootId]: {
@@ -132,16 +140,39 @@ Promise.resolve()
                 name: 'Demo Folder',
                 isDir: true,
                 modDate: new Date(),
-                childrenIds: [chonkyFolderId, picsFolderId, foreverFolderId, emptyId],
+                childrenIds: [chonkyFolderId, picsFolderId, foreverFolderId, longNameFolderId, emptyFolderId],
             },
             [foreverFolderId]: createFolder(foreverFolderId, 'Folder that loads forever', rootId,
                 ['bad-id-1', 'bad-id-2', 'bad-id-3', 'bad-id-3']),
-            [emptyId]: createFolder(emptyId, 'Empty folder', rootId),
+            [emptyFolderId]: createFolder(emptyFolderId, 'Empty folder', rootId),
             ...chonkyFileMap,
             ...picsFileMap,
         };
         fileMap[chonkyFolderId].parentId = rootId;
         fileMap[picsFolderId].parentId = rootId;
+
+        // Generate some long names
+        const longNames = [
+            'File with a short name.tiff',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus viverra mattis eleifend. In hac' +
+            ' habitasse platea dictumst. Cras risus arcu, vehicula feugiat diam eget, accumsan vestibulum nibh.md',
+            'Lorem.ipsum.dolor.sit.amet,consectetur.adipiscing.elit.Vivamus.viverra.mattis.eleifend.In.hac' +
+            '.habitasse.platea.dictumst.Cras.risus.arcu,vehicula.feugiat.diam.eget,accumsan.vestibulum.nibh.mp3',
+            'Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Vivamus-viverra-mattis-eleifend-In-hac' +
+            '-habitasse-platea-dictumst-Cras-risus-arcu-vehicula-feugiat-diam-eget-accumsan-vestibulum-nibh.tar.gz',
+            'LoremipsumdolorsitametconsecteturadipiscingelitVivamusviverramattiseleifendInhac' +
+            'loremipsumdolorsitametconsecteturadipiscingelitVivamusviverramattiseleifendInhac' +
+            'loremipsumdolorsitametconsecteturadipiscingelitVivamusviverramattiseleifendInhac' +
+            'habitasseplateadictumstCrasrisusarcuvehiculafeugiatdiamegetaccumsanvestibulumnibh.wav',
+        ];
+        const longNameFileIds = [];
+        for (let i = 0; i < longNames.length; ++i) {
+            const id = `long-name-file-${i}`;
+            longNameFileIds.push(id);
+            fileMap[id] = createFile(id, longNames[i], longNameFolderId);
+        }
+        fileMap[longNameFolderId] = createFolder(longNameFolderId, 'Files with long names', rootId, longNameFileIds);
+
         return fs.writeFile(demoFsJson, JSON.stringify({rootFolderId: rootId, fileMap}, null, 2));
     })
     .catch(console.error);

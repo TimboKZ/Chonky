@@ -64,8 +64,12 @@ export class FileUtil {
                 propB = fileB[sortProperty];
             }
 
-            if (propA === undefined || propA === null) return -returnVal;
-            else if (propB === undefined || propB === null) return returnVal;
+            const aIsNil = isNil(propA);
+            const bIsNil = isNil(propB);
+
+            if (aIsNil && bIsNil) return 0;
+            else if (aIsNil) return -returnVal;
+            else if (bIsNil) return returnVal;
             else if (propA > propB) return returnVal;
             else if (propA === propB) return 0;
             else return -returnVal;

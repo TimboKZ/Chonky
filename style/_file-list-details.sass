@@ -29,7 +29,7 @@
 
       & > div
         box-sizing: border-box
-        padding: 0.4em
+        padding: 0.5em
         flex-grow: 1
 
       &:hover
@@ -60,4 +60,10 @@
 
       &-name
         flex-grow: 20 !important
+        word-break: break-word
 
+      &-size
+        color: $fg-subtle-dark
+
+      &-size, &-date
+        white-space: nowrap

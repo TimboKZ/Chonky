@@ -7,11 +7,11 @@
 import React from 'react';
 import {Nullable} from 'tsdef';
 import classnames from 'classnames';
-import {AutoSizer, Grid, List} from 'react-virtualized';
+import {AutoSizer, CellMeasurer, CellMeasurerCache, Grid, List} from 'react-virtualized';
 import {faFolderOpen} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import FileListEntry from './FileListEntry';
+import FileListEntry, {FileListEntryProps} from './FileListEntry';
 import {isMobileDevice, isNil, isNumber, isObject} from '../util/Util';
 import {EntrySize, FileData, FileView, InternalClickHandler, Selection, ThumbnailGenerator} from '../typedef';
 
@@ -35,10 +35,24 @@ interface FileListProps {
 
 interface FileListState {}
 
+const DefaultRowHeight = 35;
+const DetailsRowParameters = {
+    defaultHeight: DefaultRowHeight,
+    minHeight: DefaultRowHeight,
+    fixedWidth: true,
+};
 const SmallThumbsSize: EntrySize = {width: 200, height: 160};
 const LargeThumbsSize: EntrySize = {width: 280, height: 220};
 
 export default class FileList extends React.PureComponent<FileListProps, FileListState> {
+
+    private readonly detailsMeasureCache: CellMeasurerCache;
+    private lastDetailsRenderWidth?: number;
+
+    public constructor(props: FileListProps) {
+        super(props);
+        this.detailsMeasureCache = new CellMeasurerCache(DetailsRowParameters);
+    }
 
     private getColWidth = (index: number, columnCount: number, entrySize: EntrySize, gutterSize: number) => {
         if (index === columnCount - 1) return entrySize.width;
@@ -50,8 +64,8 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
         return entrySize.height + gutterSize;
     };
 
-    private entryRenderer = (virtualKey: string, index: number, style: any,
-                            gutterSize?: number, lastRow?: boolean, lastColumn?: boolean) => {
+    private entryRenderer = (virtualKey: string, index: number, style: any, parent: any,
+                             gutterSize?: number, lastRow?: boolean, lastColumn?: boolean) => {
         const {
             files, selection,
             doubleClickDelay, onFileSingleClick, onFileDoubleClick, thumbnailGenerator,
@@ -64,17 +78,31 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
         }
 
         if (index >= files.length) return null;
-        console.log('Rendering file', style);
         const file = files[index];
         const key = isObject(file) ? file.id : `loading-file-${virtualKey}`;
         const selected = isObject(file) ? selection[file.id] === true : false;
-        return <FileListEntry key={key}
-                              file={file} style={style} selected={selected} displayIndex={index}
-                              doubleClickDelay={doubleClickDelay}
-                              onFileSingleClick={onFileSingleClick}
-                              onFileDoubleClick={onFileDoubleClick}
-                              thumbnailGenerator={thumbnailGenerator}
-                              showRelativeDates={showRelativeDates} view={view}/>;
+        const entryProps: FileListEntryProps = {
+            file,
+            style,
+            selected,
+            displayIndex: index,
+            doubleClickDelay,
+            onFileSingleClick,
+            onFileDoubleClick,
+            thumbnailGenerator,
+            showRelativeDates,
+            view,
+        };
+
+        if (view === FileView.Details) {
+            return <CellMeasurer key={key} parent={parent}
+                                 rowIndex={index} columnIndex={0}
+                                 cache={this.detailsMeasureCache}>
+                {({measure}) => <FileListEntry key={key} onMount={measure} {...entryProps}/>}
+            </CellMeasurer>;
+        }
+
+        return <FileListEntry key={key} {...entryProps}/>;
     };
 
     private noContentRenderer = (height?: number) => {
@@ -116,11 +144,17 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
                     let rowCount: number;
 
                     if (view === FileView.Details) {
+                        if (this.lastDetailsRenderWidth !== width) {
+                            this.lastDetailsRenderWidth = width;
+                            this.detailsMeasureCache.clearAll();
+                        }
+
                         rowCount = files.length;
-                        const rowHeight = 35;
-                        return <List rowRenderer={data => this.entryRenderer(data.key, data.index, data.style)}
-                                     noRowsRenderer={() => this.noContentRenderer(rowHeight)}
-                                     rowCount={rowCount} rowHeight={rowHeight}
+                        return <List rowRenderer={data => this.entryRenderer(data.key, data.index,
+                            data.style, data.parent)}
+                                     noRowsRenderer={() => this.noContentRenderer(DefaultRowHeight)}
+                                     deferredMeasurementCache={this.detailsMeasureCache}
+                                     rowCount={rowCount} rowHeight={this.detailsMeasureCache.rowHeight}
                                      width={width} height={isNil(height) ? 500 : height}
                                      autoHeight={!fillParentContainer}
                                      tabIndex={null}/>;
@@ -150,7 +184,7 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
 
                     return <Grid cellRenderer={data => {
                         const index = data.rowIndex * columnCount + data.columnIndex;
-                        return this.entryRenderer(data.key, index, {...data.style},
+                        return this.entryRenderer(data.key, index, {...data.style}, data.parent,
                             gutterSize, data.rowIndex === rowCount - 1, data.columnIndex === columnCount - 1);
                     }}
                                  noContentRenderer={() => this.noContentRenderer(entrySize.height)}

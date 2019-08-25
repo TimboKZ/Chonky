@@ -219,7 +219,7 @@ button.chonky-folder-chain-entry:active {
 }
 .chonky-file-list-details .chonky-file-list-entry > div {
   box-sizing: border-box;
-  padding: 0.4em;
+  padding: 0.5em;
   flex-grow: 1;
 }
 .chonky-file-list-details .chonky-file-list-entry:hover {
@@ -249,6 +249,13 @@ button.chonky-folder-chain-entry:active {
 }
 .chonky-file-list-details .chonky-file-list-entry-name {
   flex-grow: 20 !important;
+  word-break: break-word;
+}
+.chonky-file-list-details .chonky-file-list-entry-size {
+  color: #666;
+}
+.chonky-file-list-details .chonky-file-list-entry-size, .chonky-file-list-details .chonky-file-list-entry-date {
+  white-space: nowrap;
 }
 
 .chonky-file-list-thumbs .chonky-file-list-entry, .chonky-file-list-thumbs .chonky-file-list-notification {
@@ -300,6 +307,7 @@ button.chonky-folder-chain-entry:active {
 }
 .chonky-file-list-thumbs .chonky-file-list-entry-thumb {
   position: relative;
+  overflow: hidden;
   flex: 1;
 }
 .chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-selection, .chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-image-bg, .chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-image-fg, .chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-background {
@@ -383,6 +391,7 @@ button.chonky-folder-chain-entry:active {
   padding: 0.15em 0.3em;
 }
 .chonky-file-list-thumbs .chonky-file-list-entry-name {
+  word-break: break-word;
   font-size: 0.95em;
 }
 .chonky-file-list-thumbs .chonky-file-list-entry-group {
