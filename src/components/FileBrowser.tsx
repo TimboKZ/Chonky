@@ -35,6 +35,7 @@ import {
     getNonNil,
     isArray,
     isFunction,
+    isMobileDevice,
     isNil,
     isNumber,
     isObject,
@@ -568,7 +569,7 @@ export default class FileBrowser extends React.Component<FileBrowserProps, FileB
             .then((preventDefault: Nilable<boolean>) => {
                 if (preventDefault === true) return;
 
-                let type = SelectionType.Single;
+                let type = isMobileDevice() ? SelectionType.Multiple : SelectionType.Single;
                 if (event.ctrlKey || event.key === KbKey.Space) type = SelectionType.Multiple;
                 if (event.shiftKey) type = SelectionType.Range;
 
