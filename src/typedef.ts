@@ -147,7 +147,7 @@ export interface Options {
 export enum SortProperty {
     Name = 'name',
     Size = 'size',
-    ModDate = 'mod-date',
+    ModDate = 'modDate',
 }
 
 export enum SortOrder {
