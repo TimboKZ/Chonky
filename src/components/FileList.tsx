@@ -41,17 +41,35 @@ const DetailsRowParameters = {
     minHeight: DefaultRowHeight,
     fixedWidth: true,
 };
-const SmallThumbsSize: EntrySize = {width: 200, height: 160};
-const LargeThumbsSize: EntrySize = {width: 280, height: 220};
+const determineThumbsSize = (() => {
+    const SmallThumbsSize: EntrySize = {width: 200, height: 160};
+    const LargeThumbsSize: EntrySize = {width: 280, height: 220};
+    return (view: FileView) => view === FileView.LargeThumbs ? LargeThumbsSize : SmallThumbsSize;
+})();
 
 export default class FileList extends React.PureComponent<FileListProps, FileListState> {
 
     private readonly detailsMeasureCache: CellMeasurerCache;
     private lastDetailsRenderWidth?: number;
+    private readonly thumbsGridRef: React.Ref<Grid>;
 
     public constructor(props: FileListProps) {
         super(props);
         this.detailsMeasureCache = new CellMeasurerCache(DetailsRowParameters);
+        this.thumbsGridRef = React.createRef<Grid>();
+    }
+
+    public componentDidUpdate(prevProps: Readonly<FileListProps>): void {
+        const {view: oldView} = prevProps;
+        const {view} = this.props;
+
+        if (view !== oldView) {
+            // @ts-ignore
+            const current: Nullable<Grid> = this.thumbsGridRef.current;
+            if (!isNil(current)) {
+                current.recomputeGridSize();
+            }
+        }
     }
 
     private getColWidth = (index: number, columnCount: number, entrySize: EntrySize, gutterSize: number) => {
@@ -161,36 +179,35 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
                     }
 
                     let columnCount: number;
-                    let entrySize: EntrySize;
+                    let entrySize = determineThumbsSize(view);
 
                     const isMobile = isMobileDevice();
-                    const gutterSize = isMobile ? 5 : 10;
-                    const scrollbarWidth = (!fillParentContainer || isMobile) ? 0 : 16;
+                    const gutter = isMobile ? 5 : 10;
+                    const scrollbar = (!fillParentContainer || isMobile) ? 0 : 16;
 
                     const isLargeThumbs = view === FileView.LargeThumbs;
                     if (isMobile && width < 400) {
                         // Hardcode column count on mobile
                         columnCount = isLargeThumbs ? 2 : 3;
                         entrySize = {
-                            width: Math.floor((width - gutterSize * (columnCount - 1)) / columnCount),
+                            width: Math.floor((width - gutter * (columnCount - 1)) / columnCount),
                             height: isLargeThumbs ? 180 : 140,
                         };
                     } else {
-                        entrySize = isLargeThumbs ? LargeThumbsSize : SmallThumbsSize;
-                        const columnCountFloat = (width + gutterSize - scrollbarWidth) / (entrySize.width + gutterSize);
+                        const columnCountFloat = (width + gutter - scrollbar) / (entrySize.width + gutter);
                         columnCount = Math.max(1, Math.floor(columnCountFloat));
                     }
                     rowCount = Math.ceil(files.length / columnCount);
 
-                    return <Grid cellRenderer={data => {
+                    return <Grid ref={this.thumbsGridRef} cellRenderer={data => {
                         const index = data.rowIndex * columnCount + data.columnIndex;
                         return this.entryRenderer(data.key, index, {...data.style}, data.parent,
-                            gutterSize, data.rowIndex === rowCount - 1, data.columnIndex === columnCount - 1);
+                            gutter, data.rowIndex === rowCount - 1, data.columnIndex === columnCount - 1);
                     }}
                                  noContentRenderer={() => this.noContentRenderer(entrySize.height)}
                                  rowCount={rowCount} columnCount={columnCount}
-                                 columnWidth={({index}) => this.getColWidth(index, columnCount, entrySize, gutterSize)}
-                                 rowHeight={({index}) => this.getRowHeight(index, rowCount, entrySize, gutterSize)}
+                                 columnWidth={({index}) => this.getColWidth(index, columnCount, entrySize, gutter)}
+                                 rowHeight={({index}) => this.getRowHeight(index, rowCount, entrySize, gutter)}
                                  width={width} height={isNil(height) ? 500 : height}
                                  autoHeight={!fillParentContainer}
                                  tabIndex={null}/>;
