@@ -10,16 +10,19 @@ export default class ConsoleUtil {
 
     public static log = (...inputArgs: any) => {
         let args = [].slice.call(inputArgs);
+        // eslint-disable-next-line no-console
         console.log.apply(null, [Prefix].concat(args));
     };
 
     public static warn = (...inputArgs: any) => {
         let args = [].slice.call(inputArgs);
+        // eslint-disable-next-line no-console
         console.warn.apply(null, [Prefix].concat(args));
     };
 
     public static error = (...inputArgs: any) => {
         let args = [].slice.call(inputArgs);
+        // eslint-disable-next-line no-console
         console.error.apply(null, [Prefix].concat(args));
     };
 

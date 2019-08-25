@@ -84,11 +84,14 @@ const dirToFsTree = (fileMap, dirPath, parentFile) => {
         });
 };
 
-const prepareFsJson = (rootPath, outPath) => {
+const prepareFsJson = (rootPath, outPath, customRootFolderName) => {
     let rootFile;
     const fileMap = {};
     return readFile(rootPath, null)
         .then(file => {
+            if (customRootFolderName) {
+                file.name = customRootFolderName;
+            }
             fileMap[file.id] = file;
             rootFile = file;
         })
@@ -123,7 +126,10 @@ const createFolder = (id, name, parentId, childrenIds) => ({
 });
 
 Promise.resolve()
-    .then(() => Promise.all([prepareFsJson(chonkyProjectDir, japanFsJson), prepareFsJson(japanPicsDir, picsFsJson)]))
+    .then(() => Promise.all([
+        prepareFsJson(chonkyProjectDir, japanFsJson, 'Chonky source code'),
+        prepareFsJson(japanPicsDir, picsFsJson, 'Images with thumbnails'),
+    ]))
     .then(results => {
         const {fileMap: picsFileMap, rootFolderId: picsFolderId} = results[0];
         const {fileMap: chonkyFileMap, rootFolderId: chonkyFolderId} = results[1];
@@ -142,7 +148,7 @@ Promise.resolve()
                 modDate: new Date(),
                 childrenIds: [chonkyFolderId, picsFolderId, foreverFolderId, longNameFolderId, emptyFolderId],
             },
-            [foreverFolderId]: createFolder(foreverFolderId, 'Folder that loads forever', rootId,
+            [foreverFolderId]: createFolder(foreverFolderId, 'Files that loads forever', rootId,
                 ['bad-id-1', 'bad-id-2', 'bad-id-3', 'bad-id-3']),
             [emptyFolderId]: createFolder(emptyFolderId, 'Empty folder', rootId),
             ...chonkyFileMap,
