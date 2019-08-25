@@ -13,13 +13,13 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faExternalLinkAlt as SymlinkIcon, faEyeSlash as HiddenIcon} from '@fortawesome/free-solid-svg-icons';
 
 import {
-    InputEvent,
     ColorsDark,
     ColorsLight,
-    InternalClickHandler,
-    FileView,
-    ThumbnailGenerator,
     FileData,
+    FileView,
+    InputEvent,
+    InternalClickHandler,
+    ThumbnailGenerator,
 } from '../typedef';
 import {FileUtil} from '../util/FileUtil';
 import ConsoleUtil from '../util/ConsoleUtil';
@@ -89,7 +89,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
     }
 
     private renderFilename() {
-        const {file} = this.props;
+        const {file, view} = this.props;
         if (isNil(file)) return <LoadingPlaceholder/>;
 
         let displayName: any = file.name;
@@ -103,7 +103,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
 
         const maxNameLength = 150;
         const namePartLength = Math.floor((maxNameLength - 3) / 2);
-        if (displayName.length > maxNameLength) {
+        if (displayName.length > maxNameLength && view !== FileView.Details) {
             // TODO: Collapse file names in a nicer way - don't break up words, etc.
             displayName = <span title={displayName}>
                 {displayName.substr(0, namePartLength).trimRight()}

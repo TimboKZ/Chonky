@@ -148,7 +148,7 @@ Promise.resolve()
                 modDate: new Date(),
                 childrenIds: [chonkyFolderId, picsFolderId, foreverFolderId, longNameFolderId, emptyFolderId],
             },
-            [foreverFolderId]: createFolder(foreverFolderId, 'Files that loads forever', rootId,
+            [foreverFolderId]: createFolder(foreverFolderId, 'Files that load forever', rootId,
                 ['bad-id-1', 'bad-id-2', 'bad-id-3', 'bad-id-3']),
             [emptyFolderId]: createFolder(emptyFolderId, 'Empty folder', rootId),
             ...chonkyFileMap,
