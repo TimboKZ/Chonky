@@ -1,20 +1,39 @@
 @import "util"
 
 .chonky
-  &-side
-    &-left, &-right
-      flex-direction: row
-      padding-bottom: 0
-      display: flex
 
+  &-controls
+    justify-content: space-between
+    flex-wrap: wrap-reverse
+    flex-direction: row
+    display: flex
+
+  &-side
+    margin-bottom: $base-padding * 1.5
+    flex-direction: row
+    padding-bottom: 0
+    display: flex
+    flex-grow: 1
+
+    &-left
+      flex-grow: 100
+
+    &-right
+      justify-content: space-between
+
+    &-inside
+      flex-direction: row
+      display: flex
       & > *
         vertical-align: middle
         display: inline-block
 
-  &-controls
-    justify-content: space-between
-    margin-bottom: $base-padding
-    display: flex
+  @media screen and (max-width: $mobile-breakpoint)
+    &-controls
+      flex-direction: column-reverse
+    &-side
+      &-right
+        justify-content: space-between
 
   &-folder-chain
     &-entry, &-separator

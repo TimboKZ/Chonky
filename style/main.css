@@ -1,16 +1,37 @@
-.chonky-side-left, .chonky-side-right {
+.chonky-controls {
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+  flex-direction: row;
+  display: flex;
+}
+.chonky-side {
+  margin-bottom: 0.45em;
   flex-direction: row;
   padding-bottom: 0;
   display: flex;
+  flex-grow: 1;
 }
-.chonky-side-left > *, .chonky-side-right > * {
+.chonky-side-left {
+  flex-grow: 100;
+}
+.chonky-side-right {
+  justify-content: space-between;
+}
+.chonky-side-inside {
+  flex-direction: row;
+  display: flex;
+}
+.chonky-side-inside > * {
   vertical-align: middle;
   display: inline-block;
 }
-.chonky-controls {
-  justify-content: space-between;
-  margin-bottom: 0.3em;
-  display: flex;
+@media screen and (max-width: 400px) {
+  .chonky-controls {
+    flex-direction: column-reverse;
+  }
+  .chonky-side-right {
+    justify-content: space-between;
+  }
 }
 .chonky-folder-chain-entry, .chonky-folder-chain-separator {
   vertical-align: middle;
@@ -382,6 +403,11 @@ button.chonky-folder-chain-entry:active {
   padding: 0.4em;
   background-color: #fff;
   flex: 0;
+}
+@media screen and (max-width: 400px) {
+  .chonky-file-list-thumbs .chonky-file-list-entry-description {
+    padding: 0.08em !important;
+  }
 }
 .chonky-file-list-thumbs-small .chonky-file-list-entry-description {
   padding: 0.24em 0.4em;

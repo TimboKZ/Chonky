@@ -22,9 +22,6 @@ const styles = {
             borderRadius: '3px !important',
             margin: '1.5em 0 !important',
         },
-        '@global li': {
-            marginBottom: '15px !important',
-        },
         '@global tbody > tr > td': {
             borderBottom: 'solid 1px #efefef !important',
         },

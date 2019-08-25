@@ -191,7 +191,7 @@ export default class FileList extends React.PureComponent<FileListProps, FileLis
                         columnCount = isLargeThumbs ? 2 : 3;
                         entrySize = {
                             width: Math.floor((width - gutter * (columnCount - 1)) / columnCount),
-                            height: isLargeThumbs ? 180 : 140,
+                            height: isLargeThumbs ? 160 : 120,
                         };
                     } else {
                         const columnCountFloat = (width + gutter - scrollbar) / (entrySize.width + gutter);

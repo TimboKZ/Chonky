@@ -138,6 +138,7 @@ Promise.resolve()
         const foreverFolderId = 'forever-id';
         const longNameFolderId = 'long-names-id';
         const emptyFolderId = 'empty-id';
+        const nestedFolderId = 'nested-folder-0';
 
         // @ts-ignore
         const fileMap = {
@@ -146,7 +147,10 @@ Promise.resolve()
                 name: 'Demo Folder',
                 isDir: true,
                 modDate: new Date(),
-                childrenIds: [chonkyFolderId, picsFolderId, foreverFolderId, longNameFolderId, emptyFolderId],
+                childrenIds: [
+                    chonkyFolderId, picsFolderId, foreverFolderId,
+                    longNameFolderId, emptyFolderId, nestedFolderId,
+                ],
             },
             [foreverFolderId]: createFolder(foreverFolderId, 'Files that load forever', rootId,
                 ['bad-id-1', 'bad-id-2', 'bad-id-3', 'bad-id-3']),
@@ -178,6 +182,20 @@ Promise.resolve()
             fileMap[id] = createFile(id, longNames[i], longNameFolderId);
         }
         fileMap[longNameFolderId] = createFolder(longNameFolderId, 'Files with long names', rootId, longNameFileIds);
+
+        // Generate nested folders
+        const nestedFolderCount = 20;
+        let nestedChild = {};
+        for (let i = 0; i < nestedFolderCount; ++i) {
+            const folderName = i === 0 ? 'Final folder' : `${i} nested folders`;
+            const children = i === 0 ? [] : [nestedChild.id];
+            nestedChild = createFolder(`nested-folder-${nestedFolderCount - i}`, folderName,
+                `nested-folder-${nestedFolderCount - i - 1}`, children);
+            fileMap[nestedChild.id] = nestedChild;
+        }
+        console.log(nestedChild);
+        fileMap[nestedFolderId] = createFolder(nestedFolderId, `${nestedFolderCount} nested folders`,
+            rootId, [nestedChild.id]);
 
         return fs.writeFile(demoFsJson, JSON.stringify({rootFolderId: rootId, fileMap}, null, 2));
     })

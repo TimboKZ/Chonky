@@ -7,6 +7,10 @@ article > div > pre {
     white-space: pre !important;
 }
 
+li {
+    margin-bottom: 10px !important;
+}
+
 code {
     background-color: #eee !important;
     white-space: nowrap !important;

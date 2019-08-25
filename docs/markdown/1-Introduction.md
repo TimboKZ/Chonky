@@ -10,7 +10,8 @@ Things you could try: Enter a folder, open a file, select multiple files using `
 
 * It's file system agnostic - data can come from an arbitrary source as long as it follows the required format.
 * Supports async file system logic - via thumb lazy-loading and loading placeholders.
-* Users can choose between 3 views: Details, medium thumbnails, large thumbnails.
+* Users can choose between 3 views: Details, medium thumbnails, large thumbnails. All file views are responsive and
+mobile-friendly.
 * Developers can pass file action handlers to define custom behaviour for file opening, moving or deleting.
 * Supports file selections and *drag & drop (WIP)*, sorting and *text search (WIP)*.
 * Supports [windowing](https://reactjs.org/docs/optimizing-performance.html#virtualize-long-lists) (a.k.a.

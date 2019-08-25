@@ -146,6 +146,9 @@
         background-color: $bg-base
         flex: 0
 
+        @media screen and (max-width: $mobile-breakpoint)
+          padding: $description-padding * 0.2 !important
+
         @at-root #{$list-class}-small #{$entry-class}-description
           padding: $description-padding*0.6 $description-padding
 

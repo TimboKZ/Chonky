@@ -26,7 +26,7 @@ import ConsoleUtil from '../util/ConsoleUtil';
 import LoadingPlaceholder from './LoadingPlaceholder';
 import {getIconData, LoadingIconData} from '../util/IconUtil';
 import ClickableWrapper, {ClickableWrapperProps} from './ClickableWrapper';
-import {isArray, isFunction, isNil, isNumber, isObject, isString} from '../util/Util';
+import {isArray, isFunction, isMobileDevice, isNil, isNumber, isObject, isString} from '../util/Util';
 
 export interface FileListEntryProps {
     file: Nullable<FileData>;
@@ -101,7 +101,7 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
         const hasExtension = displayExtension.length !== 0;
         if (hasExtension) displayName = file.name.substr(0, file.name.length - displayExtension.length);
 
-        const maxNameLength = 150;
+        const maxNameLength = isMobileDevice() ? 80 : 150;
         const namePartLength = Math.floor((maxNameLength - 3) / 2);
         if (displayName.length > maxNameLength && view !== FileView.Details) {
             // TODO: Collapse file names in a nicer way - don't break up words, etc.

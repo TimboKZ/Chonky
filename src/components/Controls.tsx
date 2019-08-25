@@ -244,9 +244,13 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
                 {this.renderFolderChain()}
             </div>
             <div className="chonky-side chonky-side-right">
-                {this.renderActionButtons()}
-                <Dropdown title="Sort by">{this.renderSortDropdownButtons()}</Dropdown>
-                <Dropdown title="Options">{this.renderOptionsDropdownButtons()}</Dropdown>
+                <div className="chonky-side-inside chonky-side-inside-left">
+                    {this.renderActionButtons()}
+                </div>
+                <div className="chonky-side-inside chonky-side-inside-right">
+                    <Dropdown title="Sort by">{this.renderSortDropdownButtons()}</Dropdown>
+                    <Dropdown title="Options">{this.renderOptionsDropdownButtons()}</Dropdown>
+                </div>
             </div>
         </div>;
     }
