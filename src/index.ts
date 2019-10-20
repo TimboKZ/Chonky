@@ -6,12 +6,12 @@
 
 import {FileUtil} from './util/FileUtil';
 import FileBrowser from './components/FileBrowser';
-import {FileView, InputEventType, KbKey, Option, Options, SortProperty, SortOrder} from './typedef';
+import {FileData, FileView, InputEventType, KbKey, Option, Options, SortProperty, SortOrder} from './typedef';
 
 const {demoFileMap, demoRootFolderId} = FileUtil.getDemoFs();
 
 export {
     FileBrowser,
-    FileView, InputEventType, KbKey, Option, Options, SortProperty, SortOrder,
+    FileData as ChonkyFile, FileView, InputEventType, KbKey, Option, Options, SortProperty, SortOrder,
     demoFileMap, demoRootFolderId,
 };

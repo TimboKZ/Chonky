@@ -12,7 +12,7 @@
   flex-grow: 1;
 }
 .chonky-side-left {
-  flex-grow: 100;
+  flex-grow: 10000;
 }
 .chonky-side-right {
   justify-content: space-between;
