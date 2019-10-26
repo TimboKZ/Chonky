@@ -112,8 +112,8 @@ export interface InputEvent {
 export type InputListener = (event: InputEvent) => boolean;
 
 export type ActionHandlerResult = Nilable<boolean> | Promise<Nilable<boolean>>;
-export type SingleFileActionHandler = (file: FileData, event?: InputEvent) => ActionHandlerResult;
-export type MultiFileActionHandler = (files: FileData[], event?: InputEvent) => ActionHandlerResult;
+export type SingleFileActionHandler = <T extends FileData = FileData>(file: T, event?: InputEvent) => ActionHandlerResult;
+export type MultiFileActionHandler = <T extends FileData = FileData>(files: T[], event?: InputEvent) => ActionHandlerResult;
 
 export type InternalClickHandler = (file: FileData, fileIndex: number, event: InputEvent) => void;
 
