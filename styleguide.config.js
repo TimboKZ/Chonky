@@ -46,9 +46,10 @@ module.exports = {
           name: 'Custom component styling',
           content: 'docs/markdown/6-Styling.md',
         },
+        { name: 'Custom icons', content: 'docs/markdown/7-Icons.md' },
         {
           name: 'Displaying file thumbnails',
-          content: 'docs/markdown/7-Thumbnails.md',
+          content: 'docs/markdown/10-Thumbnails.md',
         },
         {
           name: 'Handling file actions',
