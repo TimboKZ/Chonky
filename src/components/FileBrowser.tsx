@@ -46,8 +46,11 @@ import Controls from './Controls';
 import { FileUtil } from '../util/FileUtil';
 import ConsoleUtil from '../util/ConsoleUtil';
 import Denque = require('denque');
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { icons as defaultIcons, Icon as DefaultIcon } from './Icon';
+import { ConfigContext, ConfigValue } from './ConfigContext';
 
-interface FileBrowserProps {
+export interface FileBrowserProps {
   /**
    * List of files that will be displayed in the main container. The provided value **must** be an array, where
    * each element is either `null` or an object that satisfies the `FileData` type. If an element is `null`, a
@@ -170,6 +173,16 @@ interface FileBrowserProps {
    * [See relevant section](#section-setting-file-browser-options).
    */
   sortOrder?: SortOrder;
+
+  /**
+   * Icon component
+   */
+  Icon?: typeof FontAwesomeIcon;
+
+  /**
+   * Map of default icons
+   */
+  icons: Partial<typeof defaultIcons>;
 }
 
 interface FileBrowserState {
@@ -194,7 +207,7 @@ interface FileBrowserState {
 export default class FileBrowser extends React.Component<
   FileBrowserProps,
   FileBrowserState
-> {
+  > {
   public static defaultProps: Partial<FileBrowserProps> = {
     onFolderCreate: undefined,
     onUploadClick: undefined,
