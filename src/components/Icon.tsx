@@ -1,3 +1,4 @@
+import React, { CSSProperties } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons/faCheckCircle";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons/faArrowDown";
@@ -46,6 +47,16 @@ import { faPython } from "@fortawesome/free-brands-svg-icons/faPython";
 import { faUbuntu } from "@fortawesome/free-brands-svg-icons/faUbuntu";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons/faCircleNotch";
 import { faFile } from '@fortawesome/free-solid-svg-icons/faFile';
+
+export interface IconProps {
+  icon: any;
+  spin?: boolean;
+  className?: string;
+  color?: string;
+  fixedWidth?: boolean;
+  size?: "xs" | "lg" | "sm";
+  style?: CSSProperties;
+}
 
 export const icons = {
   checkActive: faCheckCircle,
@@ -99,4 +110,6 @@ export const icons = {
   ubuntu: faUbuntu,
 } as const;
 
-export const Icon = FontAwesomeIcon;
+export const Icon: React.FC<IconProps> = (props) => {
+  return <FontAwesomeIcon {...props} />;
+};
