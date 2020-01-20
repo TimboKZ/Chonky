@@ -33,7 +33,7 @@
     "shallow-equal": "^1.2.0"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
+    "react": "^16.3.0",
     "react-dom": "^16.0.0"
   },
   "devDependencies": {
@@ -76,6 +76,7 @@
     "react": "^16.8.6",
     "react-docgen-typescript": "^1.12.5",
     "react-dom": "^16.8.6",
+    "react-styleguidist": "^9.2.0",
     "sharp": "^0.23.0",
     "sinon": "^7.4.1",
     "style-loader": "^1.0.0",
