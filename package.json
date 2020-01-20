@@ -28,6 +28,7 @@
     "exact-trie": "^1.0.11",
     "filesize": "^4.1.2",
     "javascript-time-ago": "^2.0.1",
+    "memoizee": "^0.4.14",
     "react-if": "^3.4.3",
     "react-virtualized": "^9.21.1",
     "shallow-equal": "^1.2.0"
@@ -50,6 +51,7 @@
     "@types/fs-extra": "^8.0.0",
     "@types/jest": "^24.0.17",
     "@types/md5": "^2.1.33",
+    "@types/memoizee": "^0.4.3",
     "@types/react": "^16.8.24",
     "@types/react-dom": "^16.8.5",
     "@types/react-virtualized": "^9.21.4",
