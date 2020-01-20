@@ -5,8 +5,8 @@
  */
 
 import * as React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isFunction, isNil } from '../util/Util';
+import { ConfigContext } from './ConfigContext';
 
 interface DropdownButtonProps {
   icon: any;
@@ -16,14 +16,15 @@ interface DropdownButtonProps {
   onClick?: (event: any) => void;
 }
 
-interface DropdownButtonState {}
+interface DropdownButtonState { }
 
-export default class DropdownButton extends React.Component<
-  DropdownButtonProps,
-  DropdownButtonState
-> {
+export default class DropdownButton extends React.Component<DropdownButtonProps, DropdownButtonState> {
+  public static contextType = ConfigContext;
+  public context!: React.ContextType<typeof ConfigContext>
+
   public render() {
     const { icon, altIcon, active, text, onClick } = this.props;
+    const { Icon } = this.context;
 
     let iconToUse = icon;
     let iconClass = '';
@@ -43,10 +44,10 @@ export default class DropdownButton extends React.Component<
     return (
       <button className="chonky-dropdown-button" {...buttonProps}>
         <span className={iconClass}>
-          <FontAwesomeIcon icon={iconToUse} fixedWidth size="xs" />
+          <Icon icon={iconToUse} fixedWidth size="xs" />
         </span>
         &nbsp;
-        {text}
+                {text}
       </button>
     );
   }

@@ -9,11 +9,6 @@ import { When } from 'react-if';
 import * as React from 'react';
 import classnames from 'classnames';
 import { Nilable, Nullable } from 'tsdef';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faExternalLinkAlt as SymlinkIcon,
-  faEyeSlash as HiddenIcon,
-} from '@fortawesome/free-solid-svg-icons';
 
 import {
   ColorsDark,
@@ -29,15 +24,8 @@ import ConsoleUtil from '../util/ConsoleUtil';
 import LoadingPlaceholder from './LoadingPlaceholder';
 import { getIconData, LoadingIconData } from '../util/IconUtil';
 import ClickableWrapper, { ClickableWrapperProps } from './ClickableWrapper';
-import {
-  isArray,
-  isFunction,
-  isMobileDevice,
-  isNil,
-  isNumber,
-  isObject,
-  isString,
-} from '../util/Util';
+import { isArray, isFunction, isMobileDevice, isNil, isNumber, isObject, isString } from '../util/Util';
+import { ConfigContext } from './ConfigContext';
 
 export interface FileListEntryProps {
   file: Nullable<FileData>;
@@ -65,10 +53,10 @@ interface FileListEntryState {
   thumbnailUrl: Nilable<string>;
 }
 
-export default class FileListEntry extends React.PureComponent<
-  FileListEntryProps,
-  FileListEntryState
-> {
+export default class FileListEntry extends React.PureComponent<FileListEntryProps, FileListEntryState> {
+  public static contextType = ConfigContext;
+  public context!: React.ContextType<typeof ConfigContext>
+
   public constructor(props: FileListEntryProps) {
     super(props);
 
@@ -92,10 +80,7 @@ export default class FileListEntry extends React.PureComponent<
       .then(() => thumbnailGenerator(file))
       .then((thumbnailUrl: Nilable<string>) => this.setState({ thumbnailUrl }))
       .catch((error: Error) => {
-        ConsoleUtil.logUnhandledUserException(
-          error,
-          `loading thumbnail for "${file.name}"`
-        );
+        ConsoleUtil.logUnhandledUserException(error, `loading thumbnail for "${file.name}"`);
       });
   }
 
@@ -115,11 +100,7 @@ export default class FileListEntry extends React.PureComponent<
     else displayExtension = path.extname(file.name);
 
     const hasExtension = displayExtension.length !== 0;
-    if (hasExtension)
-      displayName = file.name.substr(
-        0,
-        file.name.length - displayExtension.length
-      );
+    if (hasExtension) displayName = file.name.substr(0, file.name.length - displayExtension.length);
 
     const maxNameLength = isMobileDevice() ? 80 : 150;
     const namePartLength = Math.floor((maxNameLength - 3) / 2);
@@ -129,53 +110,45 @@ export default class FileListEntry extends React.PureComponent<
         <span title={displayName}>
           {displayName.substr(0, namePartLength).trimRight()}
           <span className="chonky-text-subtle-dark">&lt;...&gt;</span>
-          {displayName
-            .substr(displayName.length - namePartLength, namePartLength)
-            .trimRight()}
+          {displayName.substr(displayName.length - namePartLength, namePartLength).trimRight()}
         </span>
       );
     }
 
+    const { Icon, icons } = this.context;
+
     return (
       <React.Fragment>
         <When condition={file.isSymlink === true}>
-          <span className="chonky-text-subtle">
-            <FontAwesomeIcon icon={SymlinkIcon} size="xs" />
-          </span>
+          <span className="chonky-text-subtle"><Icon icon={icons.symlink} size="xs" /></span>
           &nbsp;&nbsp;
-        </When>
+            </When>
         <When condition={file.isHidden === true}>
-          <span className="chonky-text-subtle">
-            <FontAwesomeIcon icon={HiddenIcon} size="xs" />
-          </span>
+          <span className="chonky-text-subtle"><Icon icon={icons.hidden} size="xs" /></span>
           &nbsp;&nbsp;
-        </When>
+            </When>
         {displayName}
         <When condition={hasExtension}>
           <span className="chonky-text-subtle-dark">{displayExtension}</span>
         </When>
         <When condition={file.isDir === true}>
-          <span className="chonky-text-subtle" style={{ marginLeft: 2 }}>
-            /
-          </span>
+          <span className="chonky-text-subtle" style={{ marginLeft: 2 }}>/</span>
         </When>
       </React.Fragment>
     );
-  }
+  };
 
   private renderSize() {
     const { file } = this.props;
     if (isNil(file)) return <LoadingPlaceholder />;
-    if (!isNumber(file.size))
-      return <span className="chonky-text-subtle">—</span>;
+    if (!isNumber(file.size)) return <span className="chonky-text-subtle">—</span>;
     return FileUtil.readableSize(file.size);
   }
 
   private renderModDate() {
     const { file, showRelativeDates } = this.props;
     if (isNil(file)) return <LoadingPlaceholder />;
-    if (!(file.modDate instanceof Date))
-      return <span className="chonky-text-subtle">—</span>;
+    if (!(file.modDate instanceof Date)) return <span className="chonky-text-subtle">—</span>;
     const relativeDate = FileUtil.relativeDate(file.modDate);
     const readableDate = FileUtil.readableDate(file.modDate);
 
@@ -192,6 +165,7 @@ export default class FileListEntry extends React.PureComponent<
 
   private renderDetailsEntry() {
     const { file } = this.props;
+    const { Icon } = this.context;
     const loading = isNil(file);
 
     const iconData = this.getIconData();
@@ -205,26 +179,17 @@ export default class FileListEntry extends React.PureComponent<
 
     return [
       <div key="chonky-file-icon" {...iconProps}>
-        <FontAwesomeIcon
-          icon={iconData.icon}
-          fixedWidth={true}
-          spin={loading}
-        />
+        <Icon icon={iconData.icon} fixedWidth={true} spin={loading} />
       </div>,
-      <div key="chonky-file-name" className="chonky-file-list-entry-name">
-        {this.renderFilename()}
-      </div>,
-      <div key="chonky-file-size" className="chonky-file-list-entry-size">
-        {this.renderSize()}
-      </div>,
-      <div key="chonky-file-date" className="chonky-file-list-entry-date">
-        {this.renderModDate()}
-      </div>,
+      <div key="chonky-file-name" className="chonky-file-list-entry-name">{this.renderFilename()}</div>,
+      <div key="chonky-file-size" className="chonky-file-list-entry-size">{this.renderSize()}</div>,
+      <div key="chonky-file-date" className="chonky-file-list-entry-date">{this.renderModDate()}</div>,
     ];
   }
 
   private renderThumbsEntry() {
     const { file } = this.props;
+    const { Icon } = this.context;
     const { thumbnailUrl } = this.state;
     const loading = isNil(file);
 
@@ -246,45 +211,26 @@ export default class FileListEntry extends React.PureComponent<
       'chonky-file-list-entry-image-fg': true,
       'chonky-thumbnail-loaded': hasThumbnail,
     });
-    const imageStyle = hasThumbnail
-      ? { backgroundImage: `url('${thumbnailUrl}')` }
-      : {};
+    const imageStyle = hasThumbnail ? { backgroundImage: `url('${thumbnailUrl}')` } : {};
     const BgColors = hasThumbnail ? ColorsDark : ColorsLight;
 
     return (
-      <div
-        className="chonky-file-list-entry-content"
-        style={{ backgroundColor: BgColors[iconData.colorCode] }}
-      >
+      <div className="chonky-file-list-entry-content"
+        style={{ backgroundColor: BgColors[iconData.colorCode] }}>
         <div className="chonky-file-list-entry-thumb">
           <div className="chonky-file-list-entry-background" />
           <div className={imageBgClassName} style={imageStyle} />
           <div className={imageFgClassName} style={imageStyle} />
           <div className="chonky-file-list-entry-selection" />
           <div {...iconProps}>
-            <FontAwesomeIcon
-              icon={iconData.icon}
-              fixedWidth={true}
-              spin={loading}
-            />
+            <Icon icon={iconData.icon} fixedWidth={true} spin={loading} />
             {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
-            {!isNil(file) && isArray(file.childrenIds) && (
-              <div className="chonky-file-list-entry-icon-inside">{`${file.childrenIds.length}`}</div>
-            )}
-          </div>
-        </div>
-        <div className="chonky-file-list-entry-description">
-          <div className="chonky-file-list-entry-name">
-            {this.renderFilename()}
-          </div>
-          <div className="chonky-file-list-entry-group">
-            <div className="chonky-file-list-entry-size">
-              {this.renderSize()}
+            {!isNil(file) && isArray(file.childrenIds) &&
+              <div className="chonky-file-list-entry-icon-inside">{`${file.childrenIds.length}`}</div>}
+          </div>ents to use context instead of direct imports
             </div>
-            <div className="chonky-file-list-entry-date">
-              {this.renderModDate()}
-            </div>
-          </div>
+        <div className="chonky-file-list-entry-date">
+          {this.renderModDate()}
         </div>
       </div>
     );
