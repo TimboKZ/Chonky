@@ -1,6 +1,6 @@
 {
   "name": "chonky",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "React file browser component",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -93,6 +93,12 @@
     "email": "tim.kuzh@gmail.com",
     "url": "https://foxypanda.me/"
   },
+  "contributors": [
+    {
+      "name": "Benjamin Leeds",
+      "email": "b.a.leeds@gmail.com"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TimboKZ/Chonky.git"
