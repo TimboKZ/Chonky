@@ -22,7 +22,7 @@ import {
 import { FileUtil } from '../util/FileUtil';
 import ConsoleUtil from '../util/ConsoleUtil';
 import LoadingPlaceholder from './LoadingPlaceholder';
-import { getIconData, LoadingIconData } from '../util/IconUtil';
+import { getIconData } from '../util/IconUtil';
 import ClickableWrapper, { ClickableWrapperProps } from './ClickableWrapper';
 import { isArray, isFunction, isMobileDevice, isNil, isNumber, isObject, isString } from '../util/Util';
 import { ConfigContext } from './ConfigContext';
@@ -86,7 +86,8 @@ export default class FileListEntry extends React.PureComponent<FileListEntryProp
 
   private getIconData() {
     const { file } = this.props;
-    return isObject(file) ? getIconData(file) : LoadingIconData;
+    const { icons } = this.context;
+    return getIconData(file, icons);
   }
 
   private renderFilename() {
