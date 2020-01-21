@@ -4,14 +4,31 @@
  * @license MIT
  */
 
-import {FileUtil} from './util/FileUtil';
+import { FileUtil } from './util/FileUtil';
 import FileBrowser from './components/FileBrowser';
-import {FileData, FileView, InputEventType, KbKey, Option, Options, SortProperty, SortOrder} from './typedef';
+import {
+  FileData,
+  FileView,
+  InputEventType,
+  KbKey,
+  Option,
+  Options,
+  SortProperty,
+  SortOrder,
+} from './typedef';
 
-const {demoFileMap, demoRootFolderId} = FileUtil.getDemoFs();
+const { demoFileMap, demoRootFolderId } = FileUtil.getDemoFs();
 
 export {
-    FileBrowser,
-    FileData as ChonkyFile, FileView, InputEventType, KbKey, Option, Options, SortProperty, SortOrder,
-    demoFileMap, demoRootFolderId,
+  FileBrowser,
+  FileData as ChonkyFile,
+  FileView,
+  InputEventType,
+  KbKey,
+  Option,
+  Options,
+  SortProperty,
+  SortOrder,
+  demoFileMap,
+  demoRootFolderId,
 };
