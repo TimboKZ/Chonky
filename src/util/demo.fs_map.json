@@ -21,12 +21,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.224Z",
       "parentId": "my-root-id",
-      "childrenIds": [
-        "bad-id-1",
-        "bad-id-2",
-        "bad-id-3",
-        "bad-id-3"
-      ]
+      "childrenIds": ["bad-id-1", "bad-id-2", "bad-id-3", "bad-id-3"]
     },
     "empty-id": {
       "id": "empty-id",
@@ -249,9 +244,7 @@
       "modDate": "2019-08-12T05:26:19.523Z",
       "isDir": true,
       "parentId": "3573ce1da0ba",
-      "childrenIds": [
-        "b2eb81885437"
-      ]
+      "childrenIds": ["b2eb81885437"]
     },
     "a8f7f6eec846": {
       "id": "a8f7f6eec846",
@@ -532,9 +525,7 @@
       "modDate": "2019-08-22T17:46:46.461Z",
       "isDir": true,
       "parentId": "f5084135f71e",
-      "childrenIds": [
-        "c165900da0c3"
-      ]
+      "childrenIds": ["c165900da0c3"]
     },
     "3707b6fc5ce5": {
       "id": "3707b6fc5ce5",
@@ -1477,9 +1468,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-18",
-      "childrenIds": [
-        "nested-folder-20"
-      ]
+      "childrenIds": ["nested-folder-20"]
     },
     "nested-folder-18": {
       "id": "nested-folder-18",
@@ -1487,9 +1476,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-17",
-      "childrenIds": [
-        "nested-folder-19"
-      ]
+      "childrenIds": ["nested-folder-19"]
     },
     "nested-folder-17": {
       "id": "nested-folder-17",
@@ -1497,9 +1484,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-16",
-      "childrenIds": [
-        "nested-folder-18"
-      ]
+      "childrenIds": ["nested-folder-18"]
     },
     "nested-folder-16": {
       "id": "nested-folder-16",
@@ -1507,9 +1492,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-15",
-      "childrenIds": [
-        "nested-folder-17"
-      ]
+      "childrenIds": ["nested-folder-17"]
     },
     "nested-folder-15": {
       "id": "nested-folder-15",
@@ -1517,9 +1500,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-14",
-      "childrenIds": [
-        "nested-folder-16"
-      ]
+      "childrenIds": ["nested-folder-16"]
     },
     "nested-folder-14": {
       "id": "nested-folder-14",
@@ -1527,9 +1508,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-13",
-      "childrenIds": [
-        "nested-folder-15"
-      ]
+      "childrenIds": ["nested-folder-15"]
     },
     "nested-folder-13": {
       "id": "nested-folder-13",
@@ -1537,9 +1516,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-12",
-      "childrenIds": [
-        "nested-folder-14"
-      ]
+      "childrenIds": ["nested-folder-14"]
     },
     "nested-folder-12": {
       "id": "nested-folder-12",
@@ -1547,9 +1524,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-11",
-      "childrenIds": [
-        "nested-folder-13"
-      ]
+      "childrenIds": ["nested-folder-13"]
     },
     "nested-folder-11": {
       "id": "nested-folder-11",
@@ -1557,9 +1532,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-10",
-      "childrenIds": [
-        "nested-folder-12"
-      ]
+      "childrenIds": ["nested-folder-12"]
     },
     "nested-folder-10": {
       "id": "nested-folder-10",
@@ -1567,9 +1540,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-9",
-      "childrenIds": [
-        "nested-folder-11"
-      ]
+      "childrenIds": ["nested-folder-11"]
     },
     "nested-folder-9": {
       "id": "nested-folder-9",
@@ -1577,9 +1548,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-8",
-      "childrenIds": [
-        "nested-folder-10"
-      ]
+      "childrenIds": ["nested-folder-10"]
     },
     "nested-folder-8": {
       "id": "nested-folder-8",
@@ -1587,9 +1556,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-7",
-      "childrenIds": [
-        "nested-folder-9"
-      ]
+      "childrenIds": ["nested-folder-9"]
     },
     "nested-folder-7": {
       "id": "nested-folder-7",
@@ -1597,9 +1564,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-6",
-      "childrenIds": [
-        "nested-folder-8"
-      ]
+      "childrenIds": ["nested-folder-8"]
     },
     "nested-folder-6": {
       "id": "nested-folder-6",
@@ -1607,9 +1572,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-5",
-      "childrenIds": [
-        "nested-folder-7"
-      ]
+      "childrenIds": ["nested-folder-7"]
     },
     "nested-folder-5": {
       "id": "nested-folder-5",
@@ -1617,9 +1580,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-4",
-      "childrenIds": [
-        "nested-folder-6"
-      ]
+      "childrenIds": ["nested-folder-6"]
     },
     "nested-folder-4": {
       "id": "nested-folder-4",
@@ -1627,9 +1588,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-3",
-      "childrenIds": [
-        "nested-folder-5"
-      ]
+      "childrenIds": ["nested-folder-5"]
     },
     "nested-folder-3": {
       "id": "nested-folder-3",
@@ -1637,9 +1596,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-2",
-      "childrenIds": [
-        "nested-folder-4"
-      ]
+      "childrenIds": ["nested-folder-4"]
     },
     "nested-folder-2": {
       "id": "nested-folder-2",
@@ -1647,9 +1604,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-1",
-      "childrenIds": [
-        "nested-folder-3"
-      ]
+      "childrenIds": ["nested-folder-3"]
     },
     "nested-folder-1": {
       "id": "nested-folder-1",
@@ -1657,9 +1612,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.225Z",
       "parentId": "nested-folder-0",
-      "childrenIds": [
-        "nested-folder-2"
-      ]
+      "childrenIds": ["nested-folder-2"]
     },
     "nested-folder-0": {
       "id": "nested-folder-0",
@@ -1667,9 +1620,7 @@
       "isDir": true,
       "modDate": "2019-08-25T11:38:32.227Z",
       "parentId": "my-root-id",
-      "childrenIds": [
-        "nested-folder-1"
-      ]
+      "childrenIds": ["nested-folder-1"]
     }
   }
 }

@@ -1,4 +1,4 @@
 declare module '*.js' {
-    const component: () => any;
-    export default component;
+  const component: () => any;
+  export default component;
 }

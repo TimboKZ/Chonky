@@ -33,7 +33,8 @@
     justify-content: space-between;
   }
 }
-.chonky-folder-chain-entry, .chonky-folder-chain-separator {
+.chonky-folder-chain-entry,
+.chonky-folder-chain-separator {
   vertical-align: middle;
   display: inline-block;
 }
@@ -104,10 +105,13 @@ button.chonky-folder-chain-entry:active {
 .chonky-dropdown {
   position: relative;
 }
-.chonky-dropdown.chonky-active .chonky-dropdown-contents-wrapper, .chonky-dropdown:hover .chonky-dropdown-contents-wrapper, .chonky-dropdown:active .chonky-dropdown-contents-wrapper {
+.chonky-dropdown.chonky-active .chonky-dropdown-contents-wrapper,
+.chonky-dropdown:hover .chonky-dropdown-contents-wrapper,
+.chonky-dropdown:active .chonky-dropdown-contents-wrapper {
   display: block;
 }
-.chonky-dropdown > button:active + .chonky-dropdown-contents-wrapper, .chonky-dropdown > button:focus + .chonky-dropdown-contents-wrapper {
+.chonky-dropdown > button:active + .chonky-dropdown-contents-wrapper,
+.chonky-dropdown > button:focus + .chonky-dropdown-contents-wrapper {
   display: block;
 }
 .chonky-dropdown-contents {
@@ -154,7 +158,9 @@ button.chonky-folder-chain-entry:active {
 .chonky-dropdown-button:not(:last-of-type) {
   border-bottom: solid 1px #f6f6f6;
 }
-.chonky-dropdown-button, .chonky-dropdown-switch-button, .chonky-icon-button {
+.chonky-dropdown-button,
+.chonky-dropdown-switch-button,
+.chonky-icon-button {
   -webkit-transition: background-color 100ms ease-in-out;
   -moz-transition: background-color 100ms ease-in-out;
   -o-transition: background-color 100ms ease-in-out;
@@ -166,14 +172,20 @@ button.chonky-folder-chain-entry:active {
   border: none;
   padding: 0;
 }
-.chonky-dropdown-button[disabled], .chonky-dropdown-switch-button[disabled], .chonky-icon-button[disabled] {
+.chonky-dropdown-button[disabled],
+.chonky-dropdown-switch-button[disabled],
+.chonky-icon-button[disabled] {
   color: #bbb !important;
   pointer-events: none;
 }
-.chonky-dropdown-button.chonky-active, .chonky-dropdown-switch-button.chonky-active, .chonky-icon-button.chonky-active {
+.chonky-dropdown-button.chonky-active,
+.chonky-dropdown-switch-button.chonky-active,
+.chonky-icon-button.chonky-active {
   color: #09f;
 }
-.chonky-dropdown-button:hover, .chonky-dropdown-switch-button:hover, .chonky-icon-button:hover {
+.chonky-dropdown-button:hover,
+.chonky-dropdown-switch-button:hover,
+.chonky-icon-button:hover {
   background-color: #f5f5f5;
   z-index: 92;
 }
@@ -253,15 +265,29 @@ button.chonky-folder-chain-entry:active {
 }
 .chonky-file-list-details .chonky-file-list-entry.chonky-selected {
   background-color: rgba(0, 153, 255, 0.04);
-  background: repeating-linear-gradient(45deg, rgba(0, 153, 255, 0.04), rgba(0, 153, 255, 0.04) 10px, rgba(0, 153, 255, 0.1) 10px, rgba(0, 153, 255, 0.1) 20px);
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 153, 255, 0.04),
+    rgba(0, 153, 255, 0.04) 10px,
+    rgba(0, 153, 255, 0.1) 10px,
+    rgba(0, 153, 255, 0.1) 20px
+  );
   border-color: rgba(0, 153, 255, 0.3) transparent !important;
   z-index: 3 !important;
 }
 .chonky-file-list-details .chonky-file-list-entry.chonky-selected:hover {
   background-color: rgba(0, 153, 255, 0.07);
-  background: repeating-linear-gradient(45deg, rgba(0, 153, 255, 0.07), rgba(0, 153, 255, 0.07) 10px, rgba(0, 153, 255, 0.14) 10px, rgba(0, 153, 255, 0.14) 20px);
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 153, 255, 0.07),
+    rgba(0, 153, 255, 0.07) 10px,
+    rgba(0, 153, 255, 0.14) 10px,
+    rgba(0, 153, 255, 0.14) 20px
+  );
 }
-.chonky-file-list-details .chonky-file-list-entry.chonky-selected + .chonky-selected {
+.chonky-file-list-details
+  .chonky-file-list-entry.chonky-selected
+  + .chonky-selected {
   border-top-color: transparent !important;
 }
 .chonky-file-list-details .chonky-file-list-entry-icon {
@@ -275,11 +301,13 @@ button.chonky-folder-chain-entry:active {
 .chonky-file-list-details .chonky-file-list-entry-size {
   color: #666;
 }
-.chonky-file-list-details .chonky-file-list-entry-size, .chonky-file-list-details .chonky-file-list-entry-date {
+.chonky-file-list-details .chonky-file-list-entry-size,
+.chonky-file-list-details .chonky-file-list-entry-date {
   white-space: nowrap;
 }
 
-.chonky-file-list-thumbs .chonky-file-list-entry, .chonky-file-list-thumbs .chonky-file-list-notification {
+.chonky-file-list-thumbs .chonky-file-list-entry,
+.chonky-file-list-thumbs .chonky-file-list-notification {
   vertical-align: bottom;
   box-sizing: border-box;
 }
@@ -300,23 +328,33 @@ button.chonky-folder-chain-entry:active {
   position: relative;
   overflow: hidden;
 }
-.chonky-file-list-thumbs .chonky-file-list-entry:hover .chonky-file-list-entry-background {
+.chonky-file-list-thumbs
+  .chonky-file-list-entry:hover
+  .chonky-file-list-entry-background {
   background-color: rgba(255, 255, 255, 0.55);
 }
 .chonky-file-list-thumbs .chonky-file-list-entry:focus {
   outline: none;
 }
-.chonky-file-list-thumbs .chonky-file-list-entry:focus .chonky-file-list-entry-description {
+.chonky-file-list-thumbs
+  .chonky-file-list-entry:focus
+  .chonky-file-list-entry-description {
   box-shadow: inset rgba(0, 153, 255, 0.75) 0 0 0 2px;
 }
-.chonky-file-list-thumbs .chonky-file-list-entry.chonky-selected .chonky-file-list-entry-selection {
+.chonky-file-list-thumbs
+  .chonky-file-list-entry.chonky-selected
+  .chonky-file-list-entry-selection {
   opacity: 1;
 }
-.chonky-file-list-thumbs .chonky-file-list-entry.chonky-selected .chonky-file-list-entry-icon {
+.chonky-file-list-thumbs
+  .chonky-file-list-entry.chonky-selected
+  .chonky-file-list-entry-icon {
   color: rgba(0, 153, 255, 0.4);
   opacity: 1 !important;
 }
-.chonky-file-list-thumbs .chonky-file-list-entry.chonky-selected .chonky-file-list-entry-icon.chonky-icon-over-image {
+.chonky-file-list-thumbs
+  .chonky-file-list-entry.chonky-selected
+  .chonky-file-list-entry-icon.chonky-icon-over-image {
   color: rgba(0, 153, 255, 0.7);
 }
 
@@ -331,7 +369,18 @@ button.chonky-folder-chain-entry:active {
   overflow: hidden;
   flex: 1;
 }
-.chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-selection, .chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-image-bg, .chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-image-fg, .chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-background {
+.chonky-file-list-thumbs
+  .chonky-file-list-entry
+  .chonky-file-list-entry-selection,
+.chonky-file-list-thumbs
+  .chonky-file-list-entry
+  .chonky-file-list-entry-image-bg,
+.chonky-file-list-thumbs
+  .chonky-file-list-entry
+  .chonky-file-list-entry-image-fg,
+.chonky-file-list-thumbs
+  .chonky-file-list-entry
+  .chonky-file-list-entry-background {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -340,7 +389,12 @@ button.chonky-folder-chain-entry:active {
   background-color: rgba(255, 255, 255, 0.6);
   z-index: 1;
 }
-.chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-image-bg, .chonky-file-list-thumbs .chonky-file-list-entry .chonky-file-list-entry-image-fg {
+.chonky-file-list-thumbs
+  .chonky-file-list-entry
+  .chonky-file-list-entry-image-bg,
+.chonky-file-list-thumbs
+  .chonky-file-list-entry
+  .chonky-file-list-entry-image-fg {
   -webkit-transition: opacity 0.2s ease-in;
   -moz-transition: opacity 0.2s ease-in;
   -o-transition: opacity 0.2s ease-in;
@@ -353,19 +407,27 @@ button.chonky-folder-chain-entry:active {
   background-size: cover;
   z-index: 2;
 }
-.chonky-file-list-thumbs .chonky-file-list-entry-image-bg.chonky-thumbnail-loaded {
+.chonky-file-list-thumbs
+  .chonky-file-list-entry-image-bg.chonky-thumbnail-loaded {
   opacity: 0.1;
 }
 .chonky-file-list-thumbs .chonky-file-list-entry-image-fg {
   background-size: contain;
   z-index: 3;
 }
-.chonky-file-list-thumbs .chonky-file-list-entry-image-fg.chonky-thumbnail-loaded {
+.chonky-file-list-thumbs
+  .chonky-file-list-entry-image-fg.chonky-thumbnail-loaded {
   opacity: 1;
 }
 .chonky-file-list-thumbs .chonky-file-list-entry-selection {
   background-color: rgba(0, 153, 255, 0.14);
-  background: repeating-linear-gradient(45deg, rgba(0, 153, 255, 0.14), rgba(0, 153, 255, 0.14) 10px, rgba(0, 153, 255, 0.2) 10px, rgba(0, 153, 255, 0.2) 20px);
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 153, 255, 0.14),
+    rgba(0, 153, 255, 0.14) 10px,
+    rgba(0, 153, 255, 0.2) 10px,
+    rgba(0, 153, 255, 0.2) 20px
+  );
   z-index: 4;
   opacity: 0;
 }
@@ -413,7 +475,8 @@ button.chonky-folder-chain-entry:active {
   padding: 0.24em 0.4em;
 }
 
-.chonky-file-list-thumbs .chonky-file-list-entry-name, .chonky-file-list-thumbs .chonky-file-list-entry-group {
+.chonky-file-list-thumbs .chonky-file-list-entry-name,
+.chonky-file-list-thumbs .chonky-file-list-entry-group {
   padding: 0.15em 0.3em;
 }
 .chonky-file-list-thumbs .chonky-file-list-entry-name {
@@ -464,11 +527,17 @@ button.chonky-folder-chain-entry:active {
 .chonky-tooltip {
   position: relative;
 }
-.chonky-tooltip:hover::before, .chonky-tooltip:hover::after, .chonky-tooltip:focus::before, .chonky-tooltip:focus::after, .chonky-tooltip:active::before, .chonky-tooltip:active::after {
+.chonky-tooltip:hover::before,
+.chonky-tooltip:hover::after,
+.chonky-tooltip:focus::before,
+.chonky-tooltip:focus::after,
+.chonky-tooltip:active::before,
+.chonky-tooltip:active::after {
   display: block;
   opacity: 1;
 }
-.chonky-tooltip::before, .chonky-tooltip::after {
+.chonky-tooltip::before,
+.chonky-tooltip::after {
   -webkit-transition: opacity 100ms ease-in-out;
   -moz-transition: opacity 100ms ease-in-out;
   -o-transition: opacity 100ms ease-in-out;
@@ -508,7 +577,7 @@ button.chonky-folder-chain-entry:active {
   border-left-color: transparent;
   border-top-color: transparent;
   margin-bottom: 4px;
-  content: "";
+  content: '';
 }
 .chonky-loading-placeholder {
   -webkit-animation: loading-placeholder 1.5s infinite linear;

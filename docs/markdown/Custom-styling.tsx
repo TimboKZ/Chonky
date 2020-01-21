@@ -9,6 +9,6 @@ import * as React from 'react';
 import FullDemo from '../components/FullDemo';
 
 const ExampleComponent = () => {
-    return <FullDemo/>;
+  return <FullDemo />;
 };
 export default ExampleComponent;
