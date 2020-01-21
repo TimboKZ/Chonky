@@ -268,10 +268,19 @@ export default class FileListEntry extends React.PureComponent<
               <div className="chonky-file-list-entry-icon-inside">{`${file.childrenIds.length}`}</div>
             )}
           </div>
-          ents to use context instead of direct imports
         </div>
-        <div className="chonky-file-list-entry-date">
-          {this.renderModDate()}
+        <div className="chonky-file-list-entry-description">
+          <div className="chonky-file-list-entry-name">
+            {this.renderFilename()}
+          </div>
+          <div className="chonky-file-list-entry-group">
+            <div className="chonky-file-list-entry-size">
+              {this.renderSize()}
+            </div>
+            <div className="chonky-file-list-entry-date">
+              {this.renderModDate()}
+            </div>
+          </div>
         </div>
       </div>
     );

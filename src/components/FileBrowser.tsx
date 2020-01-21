@@ -48,7 +48,7 @@ import ConsoleUtil from '../util/ConsoleUtil';
 import Denque = require('denque');
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icons as defaultIcons, Icon as DefaultIcon } from './Icon';
-import { ConfigContext, ConfigValue } from './ConfigContext';
+import { ConfigContext } from './ConfigContext';
 
 export interface FileBrowserProps {
   /**
@@ -767,6 +767,8 @@ export default class FileBrowser extends React.Component<
       onDeleteFiles,
       thumbnailGenerator,
       fillParentContainer,
+      Icon = DefaultIcon,
+      icons = {},
     } = this.props;
     const {
       folderChain,
@@ -784,36 +786,40 @@ export default class FileBrowser extends React.Component<
       'chonky-fill-parent': fillParentContainer === true,
     });
     return (
-      <div ref={this.ref} className={className}>
-        <Controls
-          folderChain={folderChain}
-          selection={selection}
-          onFileOpen={onFileOpen}
-          onFolderCreate={onFolderCreate}
-          onUploadClick={onUploadClick}
-          onDownloadFiles={onDownloadFiles}
-          onDeleteFiles={onDeleteFiles}
-          getFilesFromSelection={this.getFilesFromSelection}
-          view={view}
-          setView={this.setView}
-          options={options}
-          setOption={this.setOption}
-          activateSortProperty={this.activateSortProperty}
-          sortProperty={sortProperty}
-          sortOrder={sortOrder}
-        />
-        <FileList
-          files={sortedFiles}
-          selection={selection}
-          doubleClickDelay={doubleClickDelay as number}
-          onFileSingleClick={this.handleFileSingleClick}
-          onFileDoubleClick={this.handleFileDoubleClick}
-          thumbnailGenerator={thumbnailGenerator}
-          showRelativeDates={options[Option.ShowRelativeDates]}
-          fillParentContainer={fillParentContainer === true}
-          view={view}
-        />
-      </div>
+      <ConfigContext.Provider
+        value={{ Icon, icons: { ...defaultIcons, ...icons } }}
+      >
+        <div ref={this.ref} className={className}>
+          <Controls
+            folderChain={folderChain}
+            selection={selection}
+            onFileOpen={onFileOpen}
+            onFolderCreate={onFolderCreate}
+            onUploadClick={onUploadClick}
+            onDownloadFiles={onDownloadFiles}
+            onDeleteFiles={onDeleteFiles}
+            getFilesFromSelection={this.getFilesFromSelection}
+            view={view}
+            setView={this.setView}
+            options={options}
+            setOption={this.setOption}
+            activateSortProperty={this.activateSortProperty}
+            sortProperty={sortProperty}
+            sortOrder={sortOrder}
+          />
+          <FileList
+            files={sortedFiles}
+            selection={selection}
+            doubleClickDelay={doubleClickDelay as number}
+            onFileSingleClick={this.handleFileSingleClick}
+            onFileDoubleClick={this.handleFileDoubleClick}
+            thumbnailGenerator={thumbnailGenerator}
+            showRelativeDates={options[Option.ShowRelativeDates]}
+            fillParentContainer={fillParentContainer === true}
+            view={view}
+          />
+        </div>
+      </ConfigContext.Provider>
     );
   }
 }
