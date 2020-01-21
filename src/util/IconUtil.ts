@@ -10,7 +10,14 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { icons as defaultIcons } from '../components/Icon';
 
 import { isNil, isObject, isString } from './Util';
-import { IconData, ColorsLight, VideoExtensions, ImageExtensions, AudioExtensions, FileData } from '../typedef';
+import {
+  IconData,
+  ColorsLight,
+  VideoExtensions,
+  ImageExtensions,
+  AudioExtensions,
+  FileData,
+} from '../typedef';
 import memoize from 'memoizee';
 
 const generateIcons = memoize((icons: typeof defaultIcons) => {
@@ -29,7 +36,23 @@ const generateIcons = memoize((icons: typeof defaultIcons) => {
     [icons.pdf, ['pdf']],
     [icons.word, ['doc', 'docx', 'odt']],
     [icons.video, VideoExtensions],
-    [icons.code, ['html', 'php', 'css', 'sass', 'scss', 'less', 'cpp', 'h', 'hpp', 'c', 'xml', 'ipynb']],
+    [
+      icons.code,
+      [
+        'html',
+        'php',
+        'css',
+        'sass',
+        'scss',
+        'less',
+        'cpp',
+        'h',
+        'hpp',
+        'c',
+        'xml',
+        'ipynb',
+      ],
+    ],
     [icons.info, ['bib', 'readme', 'nfo']],
     [icons.key, ['pem', 'pub']],
     [icons.lock, ['lock', 'lock.json', 'shrinkwrap.json']],
@@ -54,7 +77,7 @@ const generateIcons = memoize((icons: typeof defaultIcons) => {
 
     for (let i = 0; i < exts.length; ++i) {
       colourIndex += step;
-      const colorCode = colourIndex % (ColorsLight.length - 1) + 1;
+      const colorCode = (colourIndex % (ColorsLight.length - 1)) + 1;
       exactTrie.put(exts[i], { icon, colorCode }, true);
     }
   }
@@ -62,11 +85,16 @@ const generateIcons = memoize((icons: typeof defaultIcons) => {
   return exactTrie;
 });
 
-export const getIconData = (file: Nullable<FileData>, icons: typeof defaultIcons): IconData => {
+export const getIconData = (
+  file: Nullable<FileData>,
+  icons: typeof defaultIcons
+): IconData => {
   if (!isObject(file)) return { icon: icons.loading, colorCode: 0 };
   if (file.isDir === true) return { icon: icons.folder, colorCode: 0 };
 
   const iconMap = generateIcons(icons);
-  const match = isString(file.name) ? iconMap.getWithCheckpoints(file.name, '.', true) : null;
+  const match = isString(file.name)
+    ? iconMap.getWithCheckpoints(file.name, '.', true)
+    : null;
   return !isNil(match) ? match : { icon: icons.file, colorCode: 32 };
 };

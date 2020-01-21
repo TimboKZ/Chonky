@@ -17,11 +17,14 @@ interface IconButtonProps {
   onClick?: InputListener;
 }
 
-interface IconButtonState { }
+interface IconButtonState {}
 
-export default class IconButton extends React.PureComponent<IconButtonProps, IconButtonState> {
+export default class IconButton extends React.PureComponent<
+  IconButtonProps,
+  IconButtonState
+> {
   public static contextType = ConfigContext;
-  public context!: React.ContextType<typeof ConfigContext>
+  public context!: React.ContextType<typeof ConfigContext>;
 
   public static defaultProps = {
     active: false,
@@ -49,8 +52,7 @@ export default class IconButton extends React.PureComponent<IconButtonProps, Ico
         };
         onClick(inputEvent);
       };
-    }
-    else buttonProps.disabled = true;
+    } else buttonProps.disabled = true;
     if (isString(tooltip)) buttonProps['data-tooltip'] = tooltip;
 
     return (

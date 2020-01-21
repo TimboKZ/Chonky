@@ -7,11 +7,24 @@
 import React from 'react';
 import { Nullable } from 'tsdef';
 import classnames from 'classnames';
-import { AutoSizer, CellMeasurer, CellMeasurerCache, Grid, List } from 'react-virtualized';
+import {
+  AutoSizer,
+  CellMeasurer,
+  CellMeasurerCache,
+  Grid,
+  List,
+} from 'react-virtualized';
 
 import FileListEntry, { FileListEntryProps } from './FileListEntry';
 import { isMobileDevice, isNil, isNumber, isObject } from '../util/Util';
-import { EntrySize, FileData, FileView, InternalClickHandler, Selection, ThumbnailGenerator } from '../typedef';
+import {
+  EntrySize,
+  FileData,
+  FileView,
+  InternalClickHandler,
+  Selection,
+  ThumbnailGenerator,
+} from '../typedef';
 import { ConfigContext } from './ConfigContext';
 
 interface FileListProps {
@@ -32,7 +45,7 @@ interface FileListProps {
   view: FileView;
 }
 
-interface FileListState { }
+interface FileListState {}
 
 const DefaultRowHeight = 35;
 const DetailsRowParameters = {
@@ -50,12 +63,12 @@ const determineThumbsSize = (() => {
 export default class FileList extends React.PureComponent<
   FileListProps,
   FileListState
-  > {
+> {
   private readonly detailsMeasureCache: CellMeasurerCache;
   private lastDetailsRenderWidth?: number;
   private readonly thumbsGridRef: React.Ref<Grid>;
   public static contextType = ConfigContext;
-  public context!: React.ContextType<typeof ConfigContext>
+  public context!: React.ContextType<typeof ConfigContext>;
 
   public constructor(props: FileListProps) {
     super(props);

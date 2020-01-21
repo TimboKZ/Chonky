@@ -13,11 +13,14 @@ interface DropdownProps {
   active?: boolean;
 }
 
-interface DropdownState { }
+interface DropdownState {}
 
-export default class Dropdown extends React.Component<DropdownProps, DropdownState> {
+export default class Dropdown extends React.Component<
+  DropdownProps,
+  DropdownState
+> {
   public static contextType = ConfigContext;
-  public context!: React.ContextType<typeof ConfigContext>
+  public context!: React.ContextType<typeof ConfigContext>;
 
   public static defaultProps = {
     title: 'Dropdown',
@@ -42,14 +45,16 @@ export default class Dropdown extends React.Component<DropdownProps, DropdownSta
           <span>
             {title}
             &nbsp;&nbsp;
-                <Icon icon={icons.angleDown} size="xs" style={{ verticalAlign: 'top', marginTop: '0.7em' }} />
+            <Icon
+              icon={icons.angleDown}
+              size="xs"
+              style={{ verticalAlign: 'top', marginTop: '0.7em' }}
+            />
           </span>
         </button>
 
         <div className="chonky-dropdown-contents-wrapper">
-          <div className="chonky-dropdown-contents">
-            {children}
-          </div>
+          <div className="chonky-dropdown-contents">{children}</div>
         </div>
       </div>
     );

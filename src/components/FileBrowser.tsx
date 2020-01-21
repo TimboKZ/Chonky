@@ -207,7 +207,7 @@ interface FileBrowserState {
 export default class FileBrowser extends React.Component<
   FileBrowserProps,
   FileBrowserState
-  > {
+> {
   public static defaultProps: Partial<FileBrowserProps> = {
     onFolderCreate: undefined,
     onUploadClick: undefined,

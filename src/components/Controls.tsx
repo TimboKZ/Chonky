@@ -25,7 +25,13 @@ import ButtonGroup from './ButtonGroup';
 import ConsoleUtil from '../util/ConsoleUtil';
 import DropdownButton from './DropdownButton';
 import DropdownSwitch from './DropdownSwitch';
-import { getNonNil, isBoolean, isFunction, isNil, isObject } from '../util/Util';
+import {
+  getNonNil,
+  isBoolean,
+  isFunction,
+  isNil,
+  isObject,
+} from '../util/Util';
 import { ConfigContext } from './ConfigContext';
 
 interface ControlsProps {
@@ -49,7 +55,7 @@ interface ControlsProps {
   activateSortProperty: (name: string | ((file: FileData) => any)) => void;
 }
 
-interface ControlsState { }
+interface ControlsState {}
 
 const SortButtons = [
   [SortProperty.Name, 'Name'],
@@ -64,9 +70,12 @@ const DropdownButtons = [
   [Option.DisableTextSelection, 'Disable text selection'],
 ];
 
-export default class Controls extends React.PureComponent<ControlsProps, ControlsState> {
+export default class Controls extends React.PureComponent<
+  ControlsProps,
+  ControlsState
+> {
   public static contextType = ConfigContext;
-  public context!: React.ContextType<typeof ConfigContext>
+  public context!: React.ContextType<typeof ConfigContext>;
 
   private renderFolderChain() {
     const { folderChain, onFileOpen } = this.props;
@@ -96,19 +105,29 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
         compProps.onClick = () => onFileOpen(folder);
       }
       const TagToUse = isFunction(compProps.onClick) ? 'button' : 'div';
-      comps[j] = <TagToUse {...compProps}>
-        {/* eslint-disable-next-line */}
-        {j === 0 && <span className="chonky-text-subtle-dark">
-          <Icon icon={icons.folder} />&nbsp;&nbsp;
-                </span>}
-        <span className="chonky-folder-chain-entry-name">
-          {isObject(folder) ? folder.name : 'Loading...'}
-        </span>
-      </TagToUse>;
+      comps[j] = (
+        <TagToUse {...compProps}>
+          {/* eslint-disable-next-line */}
+          {j === 0 && (
+            <span className="chonky-text-subtle-dark">
+              <Icon icon={icons.folder} />
+              &nbsp;&nbsp;
+            </span>
+          )}
+          <span className="chonky-folder-chain-entry-name">
+            {isObject(folder) ? folder.name : 'Loading...'}
+          </span>
+        </TagToUse>
+      );
       if (!isLast) {
-        comps[j + 1] = <div key={`folder-chain-separator-${j}`} className="chonky-folder-chain-separator">
-          <Icon icon={icons.angleRight} size="xs" />
-        </div>;
+        comps[j + 1] = (
+          <div
+            key={`folder-chain-separator-${j}`}
+            className="chonky-folder-chain-separator"
+          >
+            <Icon icon={icons.angleRight} size="xs" />
+          </div>
+        );
       }
     }
     return <div className="chonky-folder-chain">{comps}</div>;
@@ -116,7 +135,12 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
 
   private renderActionButtons() {
     const {
-      selection, onFolderCreate, onUploadClick, onDownloadFiles, onDeleteFiles, getFilesFromSelection,
+      selection,
+      onFolderCreate,
+      onUploadClick,
+      onDownloadFiles,
+      onDeleteFiles,
+      getFilesFromSelection,
     } = this.props;
     const { icons } = this.context;
 
@@ -134,7 +158,12 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
     const buttons = new Array(buttonData.length);
     for (let i = 0; i < buttons.length; ++i) {
       const button = buttonData[i];
-      const [iconData, tooltip, clickFunc, isMulti] = button as [any, string, any, boolean];
+      const [iconData, tooltip, clickFunc, isMulti] = button as [
+        any,
+        string,
+        any,
+        boolean
+      ];
       if (clickFunc !== null && !isFunction(clickFunc)) continue;
       const buttonProps: any = {
         key: `controls-button-${i}`,
@@ -167,9 +196,16 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
         event.preventDefault();
         activateSortProperty(propName);
       };
-      comps[i] = <DropdownButton key={`sort-button-${i}`} icon={orderIcon}
-        altIcon={icons.checkInactive} onClick={onClick}
-        active={isActive} text={propTitle} />;
+      comps[i] = (
+        <DropdownButton
+          key={`sort-button-${i}`}
+          icon={orderIcon}
+          altIcon={icons.checkInactive}
+          onClick={onClick}
+          active={isActive}
+          text={propTitle}
+        />
+      );
     }
     return comps;
   }
@@ -197,12 +233,21 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
     ];
 
     const comps = new Array(DropdownButtons.length + 1);
-    comps[0] = <DropdownSwitch key={'dropdown-switch'} activeId={view} items={ViewButtons} onClick={setView} />;
+    comps[0] = (
+      <DropdownSwitch
+        key={'dropdown-switch'}
+        activeId={view}
+        items={ViewButtons}
+        onClick={setView}
+      />
+    );
     let i = 1;
     for (const [optionName, text] of DropdownButtons) {
       const value = options[optionName];
       if (!isBoolean(value)) {
-        ConsoleUtil.warn(`Expected boolean value for option ${optionName}, got: ${value}`);
+        ConsoleUtil.warn(
+          `Expected boolean value for option ${optionName}, got: ${value}`
+        );
         continue;
       }
 
@@ -210,9 +255,16 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
         event.preventDefault();
         setOption(optionName as Option, !value);
       };
-      comps[i] = <DropdownButton key={`option-${optionName}`}
-        icon={icons.checkActive} altIcon={icons.checkInactive} active={options[optionName]}
-        text={text} onClick={onClick} />;
+      comps[i] = (
+        <DropdownButton
+          key={`option-${optionName}`}
+          icon={icons.checkActive}
+          altIcon={icons.checkInactive}
+          active={options[optionName]}
+          text={text}
+          onClick={onClick}
+        />
+      );
       i++;
     }
     return comps;
@@ -241,8 +293,12 @@ export default class Controls extends React.PureComponent<ControlsProps, Control
             {this.renderActionButtons()}
           </div>
           <div className="chonky-side-inside chonky-side-inside-right">
-            <Dropdown title="Sort by">{this.renderSortDropdownButtons()}</Dropdown>
-            <Dropdown title="Options">{this.renderOptionsDropdownButtons()}</Dropdown>
+            <Dropdown title="Sort by">
+              {this.renderSortDropdownButtons()}
+            </Dropdown>
+            <Dropdown title="Options">
+              {this.renderOptionsDropdownButtons()}
+            </Dropdown>
           </div>
         </div>
       </div>
