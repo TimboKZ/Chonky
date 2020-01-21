@@ -12,7 +12,8 @@
     "test": "jest",
     "tsc:build": "tsc",
     "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "styleguide:build": "styleguidist build",
+    "prettier": "prettier --write '**/*.{ts,js,tsx,jsx,css,scss,md,json,html}'"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.20",
