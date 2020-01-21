@@ -1,6 +1,8 @@
 Default icons are selected from [Font Awesome](https://fontawesome.com/) for controls and file types. These icons can be customized in two different ways:
 
-1. You can pass a map to override the default icons with alternatives from Font Awesome. You'll need to install the Font Awesome package that contains your desired icon.
+### Custom Icon Map
+
+You can pass a map to override the default icons with alternatives from Font Awesome. You'll need to install the Font Awesome package that contains your desired icon.
 
 ```bash
 npm install @fortawesome/free-brands-svg-icons
@@ -14,7 +16,9 @@ import { faCodepen } from '@fortawesome/free-brands-svg-icons';
 <FileBrowser icons={{ code: faCodepen }}>
 ```
 
-2. You can implement a whole new `Icon` component to render icons, that accepts icons from your custom map of icons. Remember that by default, the map will contain Font Awesome ligatures. Your `Icon` component should implement the following `IconProps` props, based on a subset of `FontAwesomeIcon`.
+### Custom Icon Component w/ Map
+
+You can implement a whole new `Icon` component to render icons, that accepts icons from your custom map of icons. Remember that by default, the map will contain Font Awesome ligatures. Your `Icon` component should implement the following `IconProps` props, based on a subset of `FontAwesomeIcon`.
 
 ```typescript
 export interface IconProps {
@@ -40,7 +44,7 @@ Your icon component will be called wherever an icon exists in the UI:
 <Icon icon={icons.code} />
 ```
 
-Available icons are:
+### Available Icons
 
 - checkActive
 - checkInactive
