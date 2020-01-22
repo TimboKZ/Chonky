@@ -14,8 +14,6 @@ import {
   Grid,
   List,
 } from 'react-virtualized';
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import FileListEntry, { FileListEntryProps } from './FileListEntry';
 import { isMobileDevice, isNil, isNumber, isObject } from '../util/Util';
@@ -27,6 +25,7 @@ import {
   Selection,
   ThumbnailGenerator,
 } from '../typedef';
+import { ConfigContext } from './ConfigContext';
 
 interface FileListProps {
   files: Nullable<FileData>[];
@@ -68,6 +67,8 @@ export default class FileList extends React.PureComponent<
   private readonly detailsMeasureCache: CellMeasurerCache;
   private lastDetailsRenderWidth?: number;
   private readonly thumbsGridRef: React.Ref<Grid>;
+  public static contextType = ConfigContext;
+  public context!: React.ContextType<typeof ConfigContext>;
 
   public constructor(props: FileListProps) {
     super(props);
@@ -178,10 +179,12 @@ export default class FileList extends React.PureComponent<
     };
     if (isNumber(height)) placeholderProps.style = { height };
 
+    const { Icon, icons } = this.context;
+
     return (
       <div {...placeholderProps}>
         <div className="chonky-file-list-notification-content">
-          <FontAwesomeIcon icon={faFolderOpen} />
+          <Icon icon={icons.folderOpen} />
           &nbsp; Nothing to show
         </div>
       </div>

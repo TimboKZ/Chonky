@@ -7,23 +7,6 @@
 import React from 'react';
 import { Nullable } from 'tsdef';
 import classnames from 'classnames';
-import {
-  faArrowDown as DescIcon,
-  faArrowUp as AscIcon,
-  faCheckCircle,
-  faChevronRight,
-  faCircle,
-  faDownload,
-  faFolder,
-  faFolderPlus,
-  faLevelUpAlt as iconPathParentDir,
-  faList,
-  faTh,
-  faThLarge,
-  faTrash,
-  faUpload,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
   FileData,
@@ -49,6 +32,7 @@ import {
   isNil,
   isObject,
 } from '../util/Util';
+import { ConfigContext } from './ConfigContext';
 
 interface ControlsProps {
   folderChain?: (FileData | null)[];
@@ -73,24 +57,6 @@ interface ControlsProps {
 
 interface ControlsState {}
 
-const ViewButtons = [
-  {
-    id: FileView.Details,
-    icon: faList,
-    tooltip: 'Details',
-  },
-  {
-    id: FileView.SmallThumbs,
-    icon: faTh,
-    tooltip: 'Small thumbnails',
-  },
-  {
-    id: FileView.LargeThumbs,
-    icon: faThLarge,
-    tooltip: 'Large thumbnails',
-  },
-];
-
 const SortButtons = [
   [SortProperty.Name, 'Name'],
   [SortProperty.Size, 'Size'],
@@ -108,8 +74,13 @@ export default class Controls extends React.PureComponent<
   ControlsProps,
   ControlsState
 > {
+  public static contextType = ConfigContext;
+  public context!: React.ContextType<typeof ConfigContext>;
+
   private renderFolderChain() {
     const { folderChain, onFileOpen } = this.props;
+    const { Icon, icons } = this.context;
+
     if (isNil(folderChain)) return null;
 
     const comps = new Array(Math.max(0, folderChain.length * 2 - 1));
@@ -133,14 +104,13 @@ export default class Controls extends React.PureComponent<
       ) {
         compProps.onClick = () => onFileOpen(folder);
       }
-
       const TagToUse = isFunction(compProps.onClick) ? 'button' : 'div';
       comps[j] = (
         <TagToUse {...compProps}>
           {/* eslint-disable-next-line */}
           {j === 0 && (
             <span className="chonky-text-subtle-dark">
-              <FontAwesomeIcon icon={faFolder} />
+              <Icon icon={icons.folder} />
               &nbsp;&nbsp;
             </span>
           )}
@@ -155,12 +125,11 @@ export default class Controls extends React.PureComponent<
             key={`folder-chain-separator-${j}`}
             className="chonky-folder-chain-separator"
           >
-            <FontAwesomeIcon icon={faChevronRight} size="xs" />
+            <Icon icon={icons.angleRight} size="xs" />
           </div>
         );
       }
     }
-
     return <div className="chonky-folder-chain">{comps}</div>;
   }
 
@@ -173,6 +142,7 @@ export default class Controls extends React.PureComponent<
       onDeleteFiles,
       getFilesFromSelection,
     } = this.props;
+    const { icons } = this.context;
 
     let selectionSize = 0;
     for (const key in selection) {
@@ -180,10 +150,10 @@ export default class Controls extends React.PureComponent<
     }
 
     const buttonData = [
-      [faFolderPlus, 'Create folder', onFolderCreate, false],
-      [faUpload, 'Upload files', onUploadClick, false],
-      [faDownload, 'Download files', onDownloadFiles, true],
-      [faTrash, 'Delete files', onDeleteFiles, true],
+      [icons.folderCreate, 'Create folder', onFolderCreate, false],
+      [icons.upload, 'Upload files', onUploadClick, false],
+      [icons.download, 'Download files', onDownloadFiles, true],
+      [icons.trash, 'Delete files', onDeleteFiles, true],
     ];
     const buttons = new Array(buttonData.length);
     for (let i = 0; i < buttons.length; ++i) {
@@ -214,7 +184,9 @@ export default class Controls extends React.PureComponent<
 
   private renderSortDropdownButtons() {
     const { sortProperty, sortOrder, activateSortProperty } = this.props;
-    const orderIcon = sortOrder === SortOrder.Asc ? AscIcon : DescIcon;
+    const { icons } = this.context;
+
+    const orderIcon = sortOrder === SortOrder.Asc ? icons.asc : icons.desc;
 
     const comps = new Array(SortButtons.length);
     for (let i = 0; i < comps.length; ++i) {
@@ -228,7 +200,7 @@ export default class Controls extends React.PureComponent<
         <DropdownButton
           key={`sort-button-${i}`}
           icon={orderIcon}
-          altIcon={faCircle}
+          altIcon={icons.checkInactive}
           onClick={onClick}
           active={isActive}
           text={propTitle}
@@ -240,6 +212,26 @@ export default class Controls extends React.PureComponent<
 
   private renderOptionsDropdownButtons() {
     const { view, setView, options, setOption } = this.props;
+    const { icons } = this.context;
+
+    const ViewButtons = [
+      {
+        id: FileView.Details,
+        icon: icons.list,
+        tooltip: 'Details',
+      },
+      {
+        id: FileView.SmallThumbs,
+        icon: icons.smallThumbnail,
+        tooltip: 'Small thumbnails',
+      },
+      {
+        id: FileView.LargeThumbs,
+        icon: icons.largetThumbnail,
+        tooltip: 'Large thumbnails',
+      },
+    ];
+
     const comps = new Array(DropdownButtons.length + 1);
     comps[0] = (
       <DropdownSwitch
@@ -266,8 +258,8 @@ export default class Controls extends React.PureComponent<
       comps[i] = (
         <DropdownButton
           key={`option-${optionName}`}
-          icon={faCheckCircle}
-          altIcon={faCircle}
+          icon={icons.checkActive}
+          altIcon={icons.checkInactive}
           active={options[optionName]}
           text={text}
           onClick={onClick}
@@ -280,6 +272,7 @@ export default class Controls extends React.PureComponent<
 
   public render() {
     const { folderChain, onFileOpen } = this.props;
+    const { icons } = this.context;
     const parentDirButtonProps: any = {};
     if (isFunction(onFileOpen)) {
       const parentFolder = getNonNil(folderChain, -2);
@@ -287,12 +280,11 @@ export default class Controls extends React.PureComponent<
         parentDirButtonProps.onClick = () => onFileOpen(parentFolder);
       }
     }
-
     return (
       <div className="chonky-controls">
         <div className="chonky-side chonky-side-left">
           <ButtonGroup>
-            <IconButton icon={iconPathParentDir} {...parentDirButtonProps} />
+            <IconButton icon={icons.directoryUp} {...parentDirButtonProps} />
           </ButtonGroup>
           {this.renderFolderChain()}
         </div>

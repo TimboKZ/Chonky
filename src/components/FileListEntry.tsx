@@ -9,11 +9,6 @@ import { When } from 'react-if';
 import * as React from 'react';
 import classnames from 'classnames';
 import { Nilable, Nullable } from 'tsdef';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faExternalLinkAlt as SymlinkIcon,
-  faEyeSlash as HiddenIcon,
-} from '@fortawesome/free-solid-svg-icons';
 
 import {
   ColorsDark,
@@ -27,7 +22,7 @@ import {
 import { FileUtil } from '../util/FileUtil';
 import ConsoleUtil from '../util/ConsoleUtil';
 import LoadingPlaceholder from './LoadingPlaceholder';
-import { getIconData, LoadingIconData } from '../util/IconUtil';
+import { getIconData } from '../util/IconUtil';
 import ClickableWrapper, { ClickableWrapperProps } from './ClickableWrapper';
 import {
   isArray,
@@ -38,6 +33,7 @@ import {
   isObject,
   isString,
 } from '../util/Util';
+import { ConfigContext } from './ConfigContext';
 
 export interface FileListEntryProps {
   file: Nullable<FileData>;
@@ -69,6 +65,9 @@ export default class FileListEntry extends React.PureComponent<
   FileListEntryProps,
   FileListEntryState
 > {
+  public static contextType = ConfigContext;
+  public context!: React.ContextType<typeof ConfigContext>;
+
   public constructor(props: FileListEntryProps) {
     super(props);
 
@@ -101,7 +100,8 @@ export default class FileListEntry extends React.PureComponent<
 
   private getIconData() {
     const { file } = this.props;
-    return isObject(file) ? getIconData(file) : LoadingIconData;
+    const { icons } = this.context;
+    return getIconData(file, icons);
   }
 
   private renderFilename() {
@@ -136,17 +136,19 @@ export default class FileListEntry extends React.PureComponent<
       );
     }
 
+    const { Icon, icons } = this.context;
+
     return (
       <React.Fragment>
         <When condition={file.isSymlink === true}>
           <span className="chonky-text-subtle">
-            <FontAwesomeIcon icon={SymlinkIcon} size="xs" />
+            <Icon icon={icons.symlink} size="xs" />
           </span>
           &nbsp;&nbsp;
         </When>
         <When condition={file.isHidden === true}>
           <span className="chonky-text-subtle">
-            <FontAwesomeIcon icon={HiddenIcon} size="xs" />
+            <Icon icon={icons.hidden} size="xs" />
           </span>
           &nbsp;&nbsp;
         </When>
@@ -192,6 +194,7 @@ export default class FileListEntry extends React.PureComponent<
 
   private renderDetailsEntry() {
     const { file } = this.props;
+    const { Icon } = this.context;
     const loading = isNil(file);
 
     const iconData = this.getIconData();
@@ -205,11 +208,7 @@ export default class FileListEntry extends React.PureComponent<
 
     return [
       <div key="chonky-file-icon" {...iconProps}>
-        <FontAwesomeIcon
-          icon={iconData.icon}
-          fixedWidth={true}
-          spin={loading}
-        />
+        <Icon icon={iconData.icon} fixedWidth={true} spin={loading} />
       </div>,
       <div key="chonky-file-name" className="chonky-file-list-entry-name">
         {this.renderFilename()}
@@ -225,6 +224,7 @@ export default class FileListEntry extends React.PureComponent<
 
   private renderThumbsEntry() {
     const { file } = this.props;
+    const { Icon } = this.context;
     const { thumbnailUrl } = this.state;
     const loading = isNil(file);
 
@@ -262,11 +262,7 @@ export default class FileListEntry extends React.PureComponent<
           <div className={imageFgClassName} style={imageStyle} />
           <div className="chonky-file-list-entry-selection" />
           <div {...iconProps}>
-            <FontAwesomeIcon
-              icon={iconData.icon}
-              fixedWidth={true}
-              spin={loading}
-            />
+            <Icon icon={iconData.icon} fixedWidth={true} spin={loading} />
             {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
             {!isNil(file) && isArray(file.childrenIds) && (
               <div className="chonky-file-list-entry-icon-inside">{`${file.childrenIds.length}`}</div>

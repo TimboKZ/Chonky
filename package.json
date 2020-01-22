@@ -1,6 +1,6 @@
 {
   "name": "chonky",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "React file browser component",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -28,13 +28,14 @@
     "exact-trie": "^1.0.11",
     "filesize": "^4.1.2",
     "javascript-time-ago": "^2.0.1",
+    "memoizee": "^0.4.14",
     "react-if": "^3.4.3",
     "react-virtualized": "^9.21.1",
     "shallow-equal": "^1.2.0"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -50,6 +51,7 @@
     "@types/fs-extra": "^8.0.0",
     "@types/jest": "^24.0.17",
     "@types/md5": "^2.1.33",
+    "@types/memoizee": "^0.4.3",
     "@types/react": "^16.8.24",
     "@types/react-dom": "^16.8.5",
     "@types/react-virtualized": "^9.21.4",
@@ -76,6 +78,7 @@
     "react": "^16.8.6",
     "react-docgen-typescript": "^1.12.5",
     "react-dom": "^16.8.6",
+    "react-styleguidist": "^9.2.0",
     "sharp": "^0.23.0",
     "sinon": "^7.4.1",
     "style-loader": "^1.0.0",
@@ -90,6 +93,12 @@
     "email": "tim.kuzh@gmail.com",
     "url": "https://foxypanda.me/"
   },
+  "contributors": [
+    {
+      "name": "Benjamin Leeds",
+      "email": "b.a.leeds@gmail.com"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TimboKZ/Chonky.git"

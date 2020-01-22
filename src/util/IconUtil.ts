@@ -6,43 +6,8 @@
 
 import { Nullable } from 'tsdef';
 import ExactTrie from 'exact-trie';
-import {
-  faBalanceScale,
-  faCircleNotch,
-  faCode,
-  faCogs,
-  faCubes,
-  faDatabase,
-  faExclamationTriangle,
-  faFile,
-  faFileAlt,
-  faFileArchive,
-  faFileCode,
-  faFileExcel,
-  faFileImage,
-  faFilePdf,
-  faFileWord,
-  faFilm,
-  faFolder,
-  faInfoCircle,
-  faKey,
-  faLock,
-  faMusic,
-  faRunning,
-  faTerminal,
-  faTrash,
-  faUsers,
-} from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import {
-  faAdobe,
-  faGitAlt,
-  faLinux,
-  faNodeJs,
-  faPhp,
-  faPython,
-  faUbuntu,
-} from '@fortawesome/free-brands-svg-icons';
+import { icons as defaultIcons } from '../components/Icon';
 
 import { isNil, isObject, isString } from './Util';
 import {
@@ -53,78 +18,83 @@ import {
   AudioExtensions,
   FileData,
 } from '../typedef';
+import memoize from 'memoizee';
 
-const ErrorIconData: IconData = { icon: faExclamationTriangle, colorCode: 1 };
-export const LoadingIconData: IconData = { icon: faCircleNotch, colorCode: 0 };
-const FolderIconData: IconData = { icon: faFolder, colorCode: 0 };
-const FileIconData: IconData = { icon: faFile, colorCode: 32 };
-const IconsToExtensions = [
-  [faBalanceScale, ['license']],
-  [faCode, ['ipynb']],
-  [faCogs, ['sfk', 'ini', 'toml', 'iml']],
-  [faCubes, ['3ds', 'obj', 'ply', 'fbx']],
-  [faDatabase, ['json', 'sql']],
-  [faFileAlt, ['txt', 'md', 'nfo']],
-  [faFileArchive, ['zip', 'rar', 'tar', 'tar.gz']],
-  [faFileExcel, ['csv', 'xls', 'xlsx']],
-  [faFileImage, ImageExtensions],
-  [faFilePdf, ['pdf']],
-  [faFileWord, ['doc', 'docx', 'odt']],
-  [faFilm, VideoExtensions],
-  [
-    faFileCode,
+const generateIcons = memoize((icons: typeof defaultIcons) => {
+  let colourIndex = 0;
+  const step = 5;
+
+  const IconsToExtensions = [
+    [icons.license, ['license']],
+    [icons.config, ['sfk', 'ini', 'toml', 'iml']],
+    [icons.model, ['3ds', 'obj', 'ply', 'fbx']],
+    [icons.database, ['json', 'sql']],
+    [icons.text, ['txt', 'md']],
+    [icons.archive, ['zip', 'rar', 'tar', 'tar.gz']],
+    [icons.csv, ['csv', 'xls', 'xlsx']],
+    [icons.image, ImageExtensions],
+    [icons.pdf, ['pdf']],
+    [icons.word, ['doc', 'docx', 'odt']],
+    [icons.video, VideoExtensions],
     [
-      'html',
-      'php',
-      'css',
-      'sass',
-      'scss',
-      'less',
-      'cpp',
-      'h',
-      'hpp',
-      'c',
-      'xml',
+      icons.code,
+      [
+        'html',
+        'php',
+        'css',
+        'sass',
+        'scss',
+        'less',
+        'cpp',
+        'h',
+        'hpp',
+        'c',
+        'xml',
+        'ipynb',
+      ],
     ],
-  ],
-  [faInfoCircle, ['bib', 'readme']],
-  [faKey, ['pem', 'pub']],
-  [faLock, ['lock', 'lock.json', 'shrinkwrap.json']],
-  [faMusic, AudioExtensions],
-  [faRunning, ['swf']],
-  [faTerminal, ['run', 'sh']],
-  [faTrash, ['.Trashes']],
-  [faUsers, ['authors', 'contributors']],
+    [icons.info, ['bib', 'readme', 'nfo']],
+    [icons.key, ['pem', 'pub']],
+    [icons.lock, ['lock', 'lock.json', 'shrinkwrap.json']],
+    [icons.music, AudioExtensions],
+    [icons.flash, ['swf']],
+    [icons.terminal, ['run', 'sh']],
+    [icons.trash, ['.Trashes']],
+    [icons.authors, ['authors', 'contributors']],
 
-  [faAdobe, ['psd']],
-  [faGitAlt, ['.gitignore']],
-  [faLinux, ['AppImage']],
-  [faNodeJs, ['js', 'jsx', 'ts', 'tsx', 'd.ts']],
-  [faPhp, ['php']],
-  [faPython, ['py']],
-  [faUbuntu, ['deb']],
-];
+    [icons.adobe, ['psd']],
+    [icons.git, ['.gitignore']],
+    [icons.linux, ['AppImage']],
+    [icons.nodejs, ['js', 'jsx', 'ts', 'tsx', 'd.ts']],
+    [icons.php, ['php']],
+    [icons.python, ['py']],
+    [icons.ubuntu, ['deb']],
+  ];
 
-const step = 5;
-let colourIndex = 0;
+  const exactTrie = new ExactTrie();
+  for (const pair of IconsToExtensions) {
+    const [icon, exts] = pair as [IconProp, string[]];
 
-const exactTrie = new ExactTrie();
-for (const pair of IconsToExtensions) {
-  const [icon, exts] = pair as [IconProp, string[]];
-
-  for (let i = 0; i < exts.length; ++i) {
-    colourIndex += step;
-    const colorCode = (colourIndex % (ColorsLight.length - 1)) + 1;
-    exactTrie.put(exts[i], { icon, colorCode }, true);
+    for (let i = 0; i < exts.length; ++i) {
+      colourIndex += step;
+      const colorCode = (colourIndex % (ColorsLight.length - 1)) + 1;
+      exactTrie.put(exts[i], { icon, colorCode }, true);
+    }
   }
-}
 
-export const getIconData = (file: Nullable<FileData>): IconData => {
-  if (!isObject(file)) return ErrorIconData;
-  if (file.isDir === true) return FolderIconData;
+  return exactTrie;
+});
 
+export const getIconData = (
+  file: Nullable<FileData>,
+  icons: typeof defaultIcons
+): IconData => {
+  if (!isObject(file)) return { icon: icons.loading, colorCode: 0 };
+  if (file.isDir === true) return { icon: icons.folder, colorCode: 0 };
+
+  const iconMap = generateIcons(icons);
   const match = isString(file.name)
-    ? exactTrie.getWithCheckpoints(file.name, '.', true)
+    ? iconMap.getWithCheckpoints(file.name, '.', true)
     : null;
-  return !isNil(match) ? match : FileIconData;
+  return !isNil(match) ? match : { icon: icons.file, colorCode: 32 };
 };

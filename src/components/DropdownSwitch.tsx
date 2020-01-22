@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 import classnames from 'classnames';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ConfigContext } from './ConfigContext';
 
 interface DropdownSwitchItem {
   id: string;
@@ -26,8 +26,12 @@ export default class DropdownSwitch extends React.Component<
   DropdownSwitchProps,
   DropdownSwitchState
 > {
+  public static contextType = ConfigContext;
+  public context!: React.ContextType<typeof ConfigContext>;
+
   public render() {
     const { activeId, items, onClick } = this.props;
+    const { Icon } = this.context;
 
     const buttonComps = new Array(items.length);
     for (let i = 0; i < buttonComps.length; ++i) {
@@ -43,7 +47,7 @@ export default class DropdownSwitch extends React.Component<
       };
       buttonComps[i] = (
         <button key={`view-switch-${item.id}`} {...itemProps}>
-          <FontAwesomeIcon icon={item.icon} fixedWidth />
+          <Icon icon={item.icon} fixedWidth />
         </button>
       );
     }

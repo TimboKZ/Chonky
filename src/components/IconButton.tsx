@@ -6,11 +6,9 @@
 
 import * as React from 'react';
 import classnames from 'classnames';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-
 import { InputEvent, InputEventType, InputListener } from '../typedef';
-import { isFunction, isString } from '../util/Util';
+import { isFunction, isString, isNil } from '../util/Util';
+import { ConfigContext } from './ConfigContext';
 
 interface IconButtonProps {
   icon: any;
@@ -25,13 +23,16 @@ export default class IconButton extends React.PureComponent<
   IconButtonProps,
   IconButtonState
 > {
+  public static contextType = ConfigContext;
+  public context!: React.ContextType<typeof ConfigContext>;
+
   public static defaultProps = {
     active: false,
-    icon: faExclamationTriangle,
   };
 
   public render() {
     const { icon, active, tooltip, onClick } = this.props;
+    const { Icon, icons } = this.context;
 
     const className = classnames({
       'chonky-icon-button': true,
@@ -56,7 +57,7 @@ export default class IconButton extends React.PureComponent<
 
     return (
       <button {...buttonProps}>
-        <FontAwesomeIcon icon={icon} />
+        <Icon icon={isNil(icon) ? icons.fallbackIcon : icon} />
       </button>
     );
   }
