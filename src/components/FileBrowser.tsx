@@ -22,7 +22,6 @@ import {
   Option,
   Options,
   Selection,
-  SelectionStatus,
   SelectionType,
   SingleFileActionHandler,
   SortOrder,
@@ -33,9 +32,7 @@ import {
   clampIndex,
   deregisterKbListener,
   getNonNil,
-  isArray,
   isFunction,
-  isMobileDevice,
   isNil,
   isNumber,
   isObject,
@@ -49,6 +46,7 @@ import Denque = require('denque');
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icons as defaultIcons, Icon as DefaultIcon } from './Icon';
 import { ConfigContext } from './ConfigContext';
+import { SelectionController } from './SelectionController';
 
 export interface FileBrowserProps {
   /**
@@ -289,39 +287,12 @@ export default class FileBrowser extends React.Component<
     nextProps: Readonly<FileBrowserProps>
   ): void {
     const old = this.props;
-    const {
-      files,
-      folderChain,
-      onSelectionChange,
-      disableSelection,
-      view,
-      options,
-      sortProperty,
-      sortOrder,
-    } = nextProps;
-
-    let selectionStatus = SelectionStatus.Ok;
+    const { files, view, options, sortProperty, sortOrder } = nextProps;
 
     if (!shallowEqualArrays(files, old.files)) {
-      selectionStatus = SelectionStatus.NeedsCleaning;
       this.setState({ rawFiles: files });
     }
-    if (!shallowEqualArrays(folderChain, old.folderChain)) {
-      if (
-        !isArray(folderChain) ||
-        getNonNil(folderChain, -1) !== getNonNil(old.folderChain, -1)
-      ) {
-        selectionStatus = SelectionStatus.NeedsResetting;
-      }
-      this.setState({ folderChain });
-    }
 
-    if (
-      disableSelection === true &&
-      disableSelection !== old.disableSelection
-    ) {
-      selectionStatus = SelectionStatus.NeedsResetting;
-    }
     if (!isNil(view) && view !== old.view) this.setState({ view });
     if (isObject(options) && options !== old.options) {
       this.setState(prevState => ({
@@ -332,61 +303,19 @@ export default class FileBrowser extends React.Component<
       this.setState({ sortProperty });
     if (!isNil(sortOrder) && sortOrder !== old.sortOrder)
       this.setState({ sortOrder });
-
-    if (selectionStatus === SelectionStatus.NeedsResetting) {
-      this.setState(() => {
-        const selection = {};
-        if (isFunction(onSelectionChange)) onSelectionChange(selection);
-        return { selection, previousSelectionIndex: undefined };
-      });
-    } else if (selectionStatus === SelectionStatus.NeedsCleaning) {
-      this.setState(prevState => {
-        const {
-          rawFiles: files,
-          selection: oldSelection,
-          previousSelectionIndex: prevIndex,
-        } = prevState;
-        const selection = {};
-        let previousSelectionIndex = undefined;
-        if (isArray(files)) {
-          previousSelectionIndex = isNumber(prevIndex)
-            ? clampIndex(prevIndex, files)
-            : undefined;
-          files.map(file => {
-            if (!isObject(file)) return;
-            const wasSelected = oldSelection[file.id] === true;
-            const canBeSelected = file.selectable !== false;
-            if (wasSelected && canBeSelected) selection[file.id] = true;
-          });
-        }
-
-        if (isFunction(onSelectionChange)) onSelectionChange(selection);
-        return { selection, previousSelectionIndex };
-      });
-    }
   }
 
   public componentDidUpdate(
     prevProps: Readonly<FileBrowserProps>,
     prevState: Readonly<FileBrowserState>
   ): void {
-    const { onSelectionChange } = this.props;
     const {
       rawFiles: oldRawFiles,
-      selection: oldSelection,
       options: oldOptions,
       sortProperty: oldSortProperty,
       sortOrder: oldSortOrder,
     } = prevState;
-    const {
-      rawFiles,
-      selection,
-      options,
-      sortProperty,
-      sortOrder,
-    } = this.state;
-
-    let justChangedSelection = false;
+    const { rawFiles, options, sortProperty, sortOrder } = this.state;
 
     const needToResort =
       !shallowEqualArrays(rawFiles, oldRawFiles) ||
@@ -402,27 +331,7 @@ export default class FileBrowser extends React.Component<
       );
       const newState: Partial<FileBrowserState> = { sortedFiles, fileIndexMap };
 
-      const newSelection = {};
-      let additionCount = 0;
-      for (const file of sortedFiles) {
-        if (isNil(file) || selection[file.id] !== true) continue;
-        newSelection[file.id] = true;
-        additionCount++;
-      }
-      if (additionCount !== Object.keys(selection).length) {
-        newState.selection = newSelection;
-        justChangedSelection = true;
-      }
-
       this.setState(newState as FileBrowserState);
-    }
-
-    if (
-      !justChangedSelection &&
-      selection !== oldSelection &&
-      isFunction(onSelectionChange)
-    ) {
-      onSelectionChange(selection);
     }
   }
 
@@ -655,45 +564,6 @@ export default class FileBrowser extends React.Component<
     return false;
   };
 
-  private handleFileSingleClick: InternalClickHandler = (
-    file: FileData,
-    displayIndex: number,
-    event: InputEvent
-  ) => {
-    const { onFileSingleClick } = this.props;
-
-    Promise.resolve()
-      .then(() => {
-        return Promise.resolve()
-          .then(() => {
-            if (!isFunction(onFileSingleClick)) return false;
-            return onFileSingleClick(file, event);
-          })
-          .catch((error: Error) => {
-            ConsoleUtil.logUnhandledUserException(
-              error,
-              'running the single click handler'
-            );
-            return false;
-          });
-      })
-      .then((preventDefault: Nilable<boolean>) => {
-        if (preventDefault === true) return;
-
-        let type = isMobileDevice()
-          ? SelectionType.Multiple
-          : SelectionType.Single;
-        if (event.ctrlKey || event.key === KbKey.Space)
-          type = SelectionType.Multiple;
-        if (event.shiftKey) type = SelectionType.Range;
-
-        return this.handleSelectionToggle(type, file, displayIndex);
-      })
-      .catch((error: Error) =>
-        ConsoleUtil.logInternalException(error, 'handling selection toggle.')
-      );
-  };
-
   private handleFileDoubleClick: InternalClickHandler = (
     file: FileData,
     displayIndex: number,
@@ -767,13 +637,14 @@ export default class FileBrowser extends React.Component<
       onDeleteFiles,
       thumbnailGenerator,
       fillParentContainer,
+      disableSelection = false,
+      onSelectionChange,
       Icon = DefaultIcon,
       icons = {},
     } = this.props;
     const {
       folderChain,
       sortedFiles,
-      selection,
       view,
       options,
       sortProperty,
@@ -789,36 +660,85 @@ export default class FileBrowser extends React.Component<
       <ConfigContext.Provider
         value={{ Icon, icons: { ...defaultIcons, ...icons } }}
       >
-        <div ref={this.ref} className={className}>
-          <Controls
-            folderChain={folderChain}
-            selection={selection}
-            onFileOpen={onFileOpen}
-            onFolderCreate={onFolderCreate}
-            onUploadClick={onUploadClick}
-            onDownloadFiles={onDownloadFiles}
-            onDeleteFiles={onDeleteFiles}
-            getFilesFromSelection={this.getFilesFromSelection}
-            view={view}
-            setView={this.setView}
-            options={options}
-            setOption={this.setOption}
-            activateSortProperty={this.activateSortProperty}
-            sortProperty={sortProperty}
-            sortOrder={sortOrder}
-          />
-          <FileList
-            files={sortedFiles}
-            selection={selection}
-            doubleClickDelay={doubleClickDelay as number}
-            onFileSingleClick={this.handleFileSingleClick}
-            onFileDoubleClick={this.handleFileDoubleClick}
-            thumbnailGenerator={thumbnailGenerator}
-            showRelativeDates={options[Option.ShowRelativeDates]}
-            fillParentContainer={fillParentContainer === true}
-            view={view}
-          />
-        </div>
+        <SelectionController
+          disableSelection={disableSelection}
+          files={sortedFiles}
+          folderChain={isNil(folderChain) ? [] : folderChain}
+          onSelectionChange={onSelectionChange}
+          options={options}
+          sortProperty={sortProperty}
+          sortOrder={sortOrder}
+        >
+          {({ selection = {}, handleFileSingleClick: selectionHandler }) => {
+            const handleFileSingleClick: InternalClickHandler = (
+              file: FileData,
+              displayIndex: number,
+              event: InputEvent
+            ) => {
+              const { onFileSingleClick } = this.props;
+
+              Promise.resolve()
+                .then(() => {
+                  return Promise.resolve()
+                    .then(() => {
+                      if (!isFunction(onFileSingleClick)) return false;
+                      return onFileSingleClick(file, event);
+                    })
+                    .catch((error: Error) => {
+                      ConsoleUtil.logUnhandledUserException(
+                        error,
+                        'running the single click handler'
+                      );
+                      return false;
+                    });
+                })
+                .then((preventDefault: Nilable<boolean>) => {
+                  if (preventDefault === true) return;
+
+                  selectionHandler(file, event, displayIndex);
+                })
+                .catch((error: Error) =>
+                  ConsoleUtil.logInternalException(
+                    error,
+                    'handling selection toggle.'
+                  )
+                );
+            };
+
+            return (
+              <div ref={this.ref} className={className}>
+                <Controls
+                  folderChain={folderChain}
+                  selection={selection}
+                  onFileOpen={onFileOpen}
+                  onFolderCreate={onFolderCreate}
+                  onUploadClick={onUploadClick}
+                  onDownloadFiles={onDownloadFiles}
+                  onDeleteFiles={onDeleteFiles}
+                  getFilesFromSelection={this.getFilesFromSelection}
+                  view={view}
+                  setView={this.setView}
+                  options={options}
+                  setOption={this.setOption}
+                  activateSortProperty={this.activateSortProperty}
+                  sortProperty={sortProperty}
+                  sortOrder={sortOrder}
+                />
+                <FileList
+                  files={sortedFiles}
+                  selection={selection}
+                  doubleClickDelay={doubleClickDelay as number}
+                  onFileSingleClick={handleFileSingleClick}
+                  onFileDoubleClick={this.handleFileDoubleClick}
+                  thumbnailGenerator={thumbnailGenerator}
+                  showRelativeDates={options[Option.ShowRelativeDates]}
+                  fillParentContainer={fillParentContainer === true}
+                  view={view}
+                />
+              </div>
+            );
+          }}
+        </SelectionController>
       </ConfigContext.Provider>
     );
   }
