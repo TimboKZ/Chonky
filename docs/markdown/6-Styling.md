@@ -45,7 +45,7 @@ There is no way to specify custom classes for the `FileBrowser` component, but y
    // `style.scss`
    $fg-active: #f90;
    $bg-active: #f90;
-   @import '~chonky/style/main.scss';
+   @import '~chonky/style/main.sass';
    ```
 
    Given you have a [SASS loader](https://github.com/webpack-contrib/sass-loader#imports) configured, you can then
