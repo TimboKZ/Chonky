@@ -17,7 +17,11 @@
     "strictNullChecks": true,
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "chonky": ["src/"]
+    }
   },
   "include": ["src/**/*"],
   "types": ["typePatches"],

@@ -1,0 +1,69 @@
+<div style={{ textAlign: 'center' }}>
+    <br />
+    <br />
+    <img src="./Chonky_clear.png" alt="Chonky logo" style={{ width: 500 }} />
+    <br />
+    <a href="https://www.npmjs.com/package/chonky" target="_blank">
+        <img alt="NPM package" src="https://img.shields.io/npm/v/chonky.svg" />
+    </a>
+    <a href="https://tldrlegal.com/license/mit-license" style={{ marginLeft: 5 }} target="_blank">
+        <img alt="MIT license" src="https://img.shields.io/npm/l/chonky" />
+    </a>
+    <a href="https://www.npmjs.com/package/chonky" style={{ marginLeft: 5 }} target="_blank">
+        <img alt="NPM downloads" src="https://img.shields.io/npm/dt/chonky" />
+    </a>
+    <a href="https://github.com/TimboKZ/Chonky" style={{ marginLeft: 5 }} target="_blank">
+        <img alt="GitHub stars" src="https://img.shields.io/github/stars/TimboKZ/Chonky" />
+    </a>
+    <a href="https://discord.gg/HT4ttdQ" style={{ marginLeft: 5 }} target="_blank">
+        <img alt="Chat on Discord" src="https://img.shields.io/discord/696033621986770957?label=Chat%20on%20Discord" />
+    </a>
+    <br />
+    <br />
+    <br />
+</div>
+
+### Introduction
+
+Chonky is a file browser component for React. It tries to recreate the native file browsing experience in your
+browser. This means your users can make selections, drag & drop files, toggle file view between "large thumbnails"
+and "detailed list", use keyboard shortcuts, and much more!
+
+### [View on Github](https://github.com/TimboKZ/Chonky)
+
+> Chonky is still in development, please [create an issue](https://github.com/TimboKZ/Chonky/issues) if you have a
+> problem or want to request a feature.
+
+### Installation
+
+```bash
+npm install chonky
+```
+
+### Chonky features:
+
+-   It's file system agnostic - data can come from an arbitrary source as long as it follows the required format.
+-   Supports async file system logic - via thumb lazy-loading and loading placeholders.
+-   Users can choose between 3 views: Details, medium thumbnails, large thumbnails. All file views are responsive and
+    mobile-friendly.
+-   Developers can pass file action handlers to define custom behaviour for file opening, moving or deleting.
+-   Supports file selections and _drag & drop (WIP)_, sorting and _text search (WIP)_.
+-   Supports [windowing](https://reactjs.org/docs/optimizing-performance.html#virtualize-long-lists) (a.k.a.
+    virtualization) for long file lists ([see example](#section-virtualization-with-10000-files)).
+-   Supports common keyboard shortcuts.
+-   Supports file thumbnails (e.g. generated from videos or images).
+-   Detects common file types, showing appropriate icons.
+
+### Philosophy
+
+Chonky tries to stay **unopinionated** when it comes to interactions with the file system (FS). To be precise, Chonky
+doesn't make any assumptions about where the files come from. You pass an array of file objects to the `FileBrowser`
+component, and as long as [each file satisfies the `FileData` type](#section-passing-files-to-chonky), everything
+will be displayed correctly.
+
+Additionally, Chonky doesn't provide implementation for any FS operations. It does, however, let you specify your own
+handlers for things like opening a file or moving multiple files. For example, you can define your own `onFileOpen`
+handler, which is called every time a user double clicks a file or a folder.
+
+At the same time, Chonky tries to cover all possible interactions with the user. This includes support for keyboard
+navigation and common keyboard shortcuts, support for file selections, drag & drop, different file views, and much more.
