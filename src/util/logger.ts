@@ -1,6 +1,6 @@
 export class Logger {
-    public static error(message: string) {
+    public static error(...args: any[]) {
         // eslint-disable-next-line no-console
-        console.error(`[Chonky runtime error] ${message}`);
+        console.error.call(console, '[Chonky runtime error]', ...args);
     }
 }

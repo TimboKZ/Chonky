@@ -1,6 +1,9 @@
 export { FileBrowser } from './components/external/FileBrowser';
 export { FileList } from './components/external/FileList';
-export { FileData } from './typedef';
+
+export { ChonkyFilesContext } from './util/context';
+
+export { FileData, FileArray } from './typedef';
 
 // Export interface separately to comply with isolated module requirements
 // @see https://github.com/microsoft/TypeScript/issues/28481

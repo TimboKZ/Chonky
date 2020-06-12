@@ -1,5 +1,8 @@
 import { Nilable, Nullable } from 'tsdef';
 
+// If you make changes to required params in `FileData`, make sure to makes relevant
+// changes `validation.ts` functions.
+
 // Required properties are marked with `!!`
 export interface FileData {
     id: string; // !! String that uniquely identifies the file

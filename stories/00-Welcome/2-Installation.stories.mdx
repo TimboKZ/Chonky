@@ -1,0 +1,51 @@
+import ChonkyHeader from '../Chonky-header.mdx';
+
+<Meta title="Installation" />
+
+<ChonkyHeader />
+
+## Installation
+
+Add Chonky to your NPM project:
+
+```shell
+npm install chonky
+```
+
+Then, import relevant components and styles:
+
+```js
+import 'chonky/style/main.css';
+import { FileBrowser, FileList } from 'chonky';
+```
+
+And you're good to go! Check other sections in the documentation to see how Chonky
+components can be used.
+
+### Usage with Typescript
+
+Chonky was built using Typescript. As such, many of the internal types and interfaces
+are exported. Some types are generic, to make it easier for you to integrate Chonky
+into you Typescript package.
+
+If you're also using Typescript, you can add Chonky types to your project using
+standard
+imports:
+
+```ts
+import 'chonky/style/main.css';
+import { FileBrowser, FileArray } from 'chonky';
+// FileArray is a type
+
+const myFiles: FileArray = [
+    {
+        id: 'abD3',
+        name: 'README.txt',
+    },
+    null,
+];
+
+<FileBrowser files={myFiles}>
+    // ...
+</FileBrowser>
+```

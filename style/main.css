@@ -9,5 +9,23 @@
 .chonky-error-name {
   opacity: 0.5;
 }
+.chonky-error ul {
+  padding-top: 0.1em;
+  margin: 0;
+}
+.chonky-error li {
+  margin-top: 0.5em;
+}
+
+.chonky-file-list-entry {
+  border-radius: 4px;
+  border: solid 1px #000;
+  display: inline-block;
+  line-height: 160px;
+  text-align: center;
+  height: 160px;
+  margin: 5px;
+  width: 200px;
+}
 
 /*# sourceMappingURL=main.css.map */

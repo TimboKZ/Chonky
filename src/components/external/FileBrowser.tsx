@@ -5,6 +5,7 @@ import { FileArray, FileData, ThumbnailGenerator } from '../../typedef';
 import { ChonkyFilesContext } from '../../util/context';
 import { ErrorMessage } from '../internal/ErrorMessage';
 import { Logger } from '../../util/logger';
+import { validateFileArray } from '../../util/validation';
 
 export interface FileBrowserProps {
     /**
@@ -144,12 +145,15 @@ export interface FileBrowserProps {
 export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const { files } = props;
 
-    if (!Array.isArray(files)) {
+    const fileArrayValidationErrors = validateFileArray(files);
+    if (fileArrayValidationErrors.length > 0) {
         const errorMessage =
-            `${FileBrowser.name} component expects "files" prop to be an array, ` +
-            `got type "${typeof files}" instead (value: ${files}).`;
+            `The "files" prop passed to ${FileBrowser.name} did not pass validation. ` +
+            `The following errors were encountered:`;
         Logger.error(errorMessage);
-        return <ErrorMessage message={errorMessage} />;
+        return (
+            <ErrorMessage message={errorMessage} bullets={fileArrayValidationErrors} />
+        );
     }
 
     const sortedFiles = files;

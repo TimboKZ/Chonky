@@ -20,13 +20,15 @@ export const FileList: React.FC<FileListProps> = () => {
     }
 
     const components = [];
-    for (const file of files) {
-        components.push(<div className="chonky-file-list-entry">
-            {file ? file.name : '---'}
-        </div>)
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const key = file ? file.id : `file-entry-${i}`;
+        components.push(
+            <div key={key} className="chonky-file-list-entry">
+                {file ? file.name : '---'}
+            </div>
+        );
     }
 
-    return <div className="chonky-file-list">
-        {components}
-    </div>;
+    return <div className="chonky-file-list">{components}</div>;
 };
