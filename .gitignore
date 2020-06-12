@@ -2,10 +2,33 @@
 .idea/
 *.swp
 
-/coverage
+# VS Code for external contributors
+.vscode
+
+# Nwb
+/demo/dist
 /es
 /lib
-/node_modules
 /umd
+
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production
+/build
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
 npm-debug.log*
-.vscode
+yarn-debug.log*
+yarn-error.log*

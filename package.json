@@ -1,0 +1,56 @@
+{
+  "name": "chonky",
+  "version": "1.0.0",
+  "description": "React file browser component",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "style"
+  ],
+  "scripts": {
+    "build:ts": "tsc",
+    "build:all": "npm run build:ts",
+    "watch:ts": "tsc -w"
+  },
+  "dependencies": {
+    "@types/react": "^16.9.36"
+  },
+  "peerDependencies": {
+    "react": "^16.10"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.2.0",
+    "@typescript-eslint/parser": "^3.2.0",
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.20.0",
+    "prettier": "^2.0.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "typescript": "^3.9.5"
+  },
+  "homepage": "https://github.com/TimboKZ/Chonky#readme",
+  "author": {
+    "name": "Timur Kuzhagaliyev",
+    "email": "tim.kuzh@gmail.com",
+    "url": "https://foxypanda.me/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimboKZ/Chonky.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TimboKZ/Chonky/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "file",
+    "chonky",
+    "file-dialog",
+    "file-browser",
+    "react-component"
+  ]
+}
