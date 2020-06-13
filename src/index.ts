@@ -3,6 +3,8 @@ export { FileToolbar } from './components/external/FileToolbar';
 export { FileList } from './components/external/FileList';
 export { ChonkyIconFA, ChonkyIconName } from './components/external/ChonkyIcon';
 
+export { ChonkyActions } from './util/file-actions';
+
 export * from './util/context';
 export * from './typedef';
 

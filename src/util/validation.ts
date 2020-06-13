@@ -1,4 +1,13 @@
+import { Nullable } from 'tsdef';
+import { useMemo } from 'react';
+
 import { FileArray } from '../../lib';
+import { Logger } from './logger';
+import { FileBrowser } from 'chonky';
+
+export const isPlainObject = (value: any): value is object => {
+    return Object.prototype.toString.call(value) === '[object Object]';
+};
 
 export const isMobileDevice = () => {
     return (
@@ -16,70 +25,177 @@ export const isMobileDevice = () => {
  * - some files are missing `name` field
  * - some files have invalid type (they are neither an object nor `null`)
  */
-export const validateFileArray = (
-    files: FileArray | any,
-    allowNull: boolean = false
-): string[] => {
-    const validationErrors = [];
+export const useCleanFileArray = <AllowNull extends boolean>(
+    fileArray: AllowNull extends false ? FileArray : Nullable<FileArray>,
+    allowNull: AllowNull
+): {
+    cleanFileArray: AllowNull extends false ? FileArray : Nullable<FileArray>;
+    warningMessage: Nullable<string>;
+    warningBullets: string[];
+} => {
+    let cleanFileArray: AllowNull extends false ? FileArray : Nullable<FileArray>;
+    let warningMessage = null;
+    const warningBullets = [];
 
-    if (!Array.isArray(files)) {
-        if (!allowNull || files !== null) {
-            validationErrors.push(
-                `Expected "files" to be an array, got type "${typeof files}" instead (value: ${files}).`
+    if (!Array.isArray(fileArray)) {
+        // @ts-ignore
+        cleanFileArray = allowNull ? null : [];
+        if (!allowNull || fileArray !== null) {
+            warningMessage =
+                `Provided value was replaced ` +
+                `with ${allowNull ? 'null' : 'empty array'}.`;
+            warningBullets.push(
+                `Expected "files" to be an array, got type ` +
+                    `"${typeof fileArray}" instead (value: ${fileArray}).`
             );
         }
     } else {
+        const indicesToBeRemoved = new Set<number>();
+
         const seenIds = {};
-        const duplicateIdSet = new Set();
+        const duplicateIdSet = new Set<string>();
         const missingIdIndices = [];
         const missingNameIndices = [];
         const invalidTypeIndices = [];
 
-        for (let i = 0; i < files.length; ++i) {
-            const file = files[i];
+        for (let i = 0; i < fileArray.length; ++i) {
+            const file = fileArray[i];
 
-            const prototypeStr = Object.prototype.toString.call(file);
+            if (isPlainObject(file)) {
+                if (file.id && seenIds[file.id]) {
+                    duplicateIdSet.add(file.id);
+                    indicesToBeRemoved.add(i);
+                } else {
+                    seenIds[file.id] = true;
+                }
 
-            if (prototypeStr === '[object Object]') {
-                if (file.id && seenIds[file.id]) duplicateIdSet.add(file.id);
-                else seenIds[file.id] = true;
-
-                if (!file.name) missingNameIndices.push(i);
-                if (!file.id) missingIdIndices.push(i);
-            } else if (prototypeStr !== '[object Null]') {
+                if (!file.name) {
+                    missingNameIndices.push(i);
+                    indicesToBeRemoved.add(i);
+                }
+                if (!file.id) {
+                    missingIdIndices.push(i);
+                    indicesToBeRemoved.add(i);
+                }
+            } else if (file !== null) {
                 invalidTypeIndices.push(i);
+                indicesToBeRemoved.add(i);
             }
         }
 
         if (duplicateIdSet.size > 0) {
-            validationErrors.push(
-                `Some files have duplicate IDs. These IDs appeared multiple times: ${Array.from(
-                    duplicateIdSet
-                )}`
+            warningBullets.push(
+                `Some files have duplicate IDs. These IDs appeared multiple ` +
+                    `times: ${Array.from(duplicateIdSet)}`
             );
         }
         if (missingIdIndices.length > 0) {
-            validationErrors.push(
-                `Some files are missing the "id" field. Relevant file indices: ${missingIdIndices.join(
-                    ', '
-                )}`
+            warningBullets.push(
+                `Some files are missing the "id" field. ` +
+                    `Relevant file indices: ${missingIdIndices.join(', ')}`
             );
         }
         if (missingNameIndices.length > 0) {
-            validationErrors.push(
-                `Some files are missing the "name" field. Relevant file indices: ${missingNameIndices.join(
-                    ', '
-                )}`
+            warningBullets.push(
+                `Some files are missing the "name" field. ` +
+                    `Relevant file indices: ${missingNameIndices.join(', ')}`
             );
         }
         if (invalidTypeIndices.length > 0) {
-            validationErrors.push(
-                `Some files have invalid type (they are neither an object nor "null"). Relevant file indices: ${invalidTypeIndices.join(
-                    ', '
-                )}`
+            warningBullets.push(
+                `Some files have invalid type (they are neither a plain object nor "null"). ` +
+                    `Relevant file indices: ${invalidTypeIndices.join(', ')}`
             );
+        }
+
+        if (indicesToBeRemoved.size > 0) {
+            // @ts-ignore
+            cleanFileArray = fileArray.filter(
+                (value, index) => !indicesToBeRemoved.has(index)
+            );
+            warningMessage =
+                `${indicesToBeRemoved.size} offending ` +
+                `file${indicesToBeRemoved.size === 1 ? ' was' : 's were'} ` +
+                ` removed from the array.`;
+        } else {
+            cleanFileArray = fileArray;
         }
     }
 
-    return validationErrors;
+    return { cleanFileArray, warningMessage, warningBullets };
+};
+
+export interface ErrorMessageData {
+    message: string;
+    bullets: string[];
+}
+
+export const useFileBrowserValidation = (
+    files: FileArray,
+    folderChain: Nullable<FileArray>
+): {
+    cleanFiles: FileArray;
+    cleanFolderChain: Nullable<FileArray>;
+    errorMessages: ErrorMessageData[];
+} => {
+    const filesDeps = [files];
+    const { cleanFiles, errorMessages: filesErrorMessages } = useMemo(() => {
+        const errorMessages: ErrorMessageData[] = [];
+
+        const cleanFilesResult = useCleanFileArray(files, false);
+        if (cleanFilesResult.warningMessage) {
+            const errorMessage =
+                `The "files" prop passed to ${FileBrowser.name} did not pass validation. ` +
+                `${cleanFilesResult.warningMessage} ` +
+                `The following errors were encountered:`;
+            Logger.error(
+                errorMessage,
+                Logger.formatBullets(cleanFilesResult.warningBullets)
+            );
+            errorMessages.push({
+                message: errorMessage,
+                bullets: cleanFilesResult.warningBullets,
+            });
+        }
+
+        return {
+            cleanFiles: cleanFilesResult.cleanFileArray,
+            errorMessages,
+        };
+    }, filesDeps);
+
+    const folderChainDeps = [folderChain];
+    const { cleanFolderChain, errorMessages: folderChainErrorMessages } = useMemo(
+        () => {
+            const errorMessages: ErrorMessageData[] = [];
+
+            const cleanFolderChainResult = useCleanFileArray(folderChain, true);
+            if (cleanFolderChainResult.warningMessage) {
+                const errorMessage =
+                    `The "folderChain" prop passed to ${FileBrowser.name} did not pass validation. ` +
+                    `${cleanFolderChainResult.warningMessage} ` +
+                    `The following errors were encountered:`;
+                Logger.error(
+                    errorMessage,
+                    Logger.formatBullets(cleanFolderChainResult.warningBullets)
+                );
+                errorMessages.push({
+                    message: errorMessage,
+                    bullets: cleanFolderChainResult.warningBullets,
+                });
+            }
+
+            return {
+                cleanFolderChain: cleanFolderChainResult.cleanFileArray,
+                errorMessages,
+            };
+        },
+        folderChainDeps
+    );
+
+    return {
+        cleanFiles,
+        cleanFolderChain,
+        errorMessages: [...filesErrorMessages, ...folderChainErrorMessages],
+    };
 };

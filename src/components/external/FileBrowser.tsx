@@ -15,8 +15,7 @@ import {
     ChonkyFolderChainContext,
 } from '../../util/context';
 import { ErrorMessage } from '../internal/ErrorMessage';
-import { Logger } from '../../util/logger';
-import { validateFileArray } from '../../util/validation';
+import { useFileBrowserValidation } from '../../util/validation';
 import { ContextComposer, ContextProviderData } from '../internal/ContextComposer';
 
 export interface FileBrowserProps {
@@ -37,7 +36,7 @@ export interface FileBrowserProps {
     folderChain?: FileArray;
 
     fileActions?: FileAction[];
-    onFileAction: FileActionHandler;
+    onFileAction?: FileActionHandler;
 
     /**
      * The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
@@ -119,25 +118,10 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const { files, children } = props;
     const folderChain = props.folderChain ? props.folderChain : null;
 
-    const fileArrayErrors = validateFileArray(files);
-    if (fileArrayErrors.length > 0) {
-        const errorMessage =
-            `The "files" prop passed to ${FileBrowser.name} did not pass validation. ` +
-            `The following errors were encountered:`;
-        Logger.error(errorMessage, '\n -', fileArrayErrors.join('\n - '));
-        return <ErrorMessage message={errorMessage} bullets={fileArrayErrors} />;
-    }
+    const validationResult = useFileBrowserValidation(files, folderChain);
 
-    const folderChainErrors = validateFileArray(folderChain, true);
-    if (folderChainErrors.length > 0) {
-        const errorMessage =
-            `The "folder" prop passed to ${FileBrowser.name} did not pass validation. ` +
-            `The following errors were encountered:`;
-        Logger.error(errorMessage, '\n -', folderChainErrors.join('\n - '));
-        return <ErrorMessage message={errorMessage} bullets={folderChainErrors} />;
-    }
-
-    const sortedFiles = files;
+    const sortedFiles = validationResult.cleanFiles;
+    const cleanFolderChain = validationResult.cleanFolderChain;
 
     const dispatchAction = useCallback((...args: any[]) => {
         alert(JSON.stringify(args));
@@ -146,7 +130,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     type ContextData<T = any> = { context: React.Context<T>; value: T };
     const contexts: ContextData[] = [
         { context: ChonkyFilesContext, value: sortedFiles },
-        { context: ChonkyFolderChainContext, value: folderChain },
+        { context: ChonkyFolderChainContext, value: cleanFolderChain },
         { context: ChonkyDispatchContext, value: dispatchAction },
     ];
 
@@ -162,7 +146,16 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     return (
         <DndProvider backend={HTML5Backend}>
             <ContextComposer providers={contextProviders}>
-                <div className="chonky-root">{children ? children : null}</div>
+                <div className="chonky-root">
+                    {validationResult.errorMessages.map((data, index) => (
+                        <ErrorMessage
+                            key={`error-message-${index}`}
+                            message={data.message}
+                            bullets={data.bullets}
+                        />
+                    ))}
+                    {children ? children : null}
+                </div>
             </ContextComposer>
         </DndProvider>
     );

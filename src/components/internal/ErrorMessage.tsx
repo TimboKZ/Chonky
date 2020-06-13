@@ -9,7 +9,7 @@ export const ErrorMessage = React.memo<ErrorMessageProps>((props) => {
     const { message, bullets } = props;
 
     let bulletList = null;
-    if (bullets) {
+    if (bullets && bullets.length > 0) {
         const items = [];
         for (let i = 0; i < bullets.length; ++i) {
             items.push(<li key={`error-bullet-${i}`}>{bullets[i]}</li>);

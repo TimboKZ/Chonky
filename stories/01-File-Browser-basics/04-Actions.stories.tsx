@@ -19,7 +19,19 @@ export default {
 
 export const ActionsExample = () => {
     const handleFileAction = (action: FileAction, data: FileActionData) => {
-        showNotification({ text: `You just triggered an action: ${action.name}` });
+        showNotification({
+            text:
+                `You just triggered an action: ${action.name}. ` +
+                `Check console for details.`,
+        });
+        // eslint-disable-next-line no-console
+        console.log(
+            `You just triggered the ${action.name} action:`,
+            '\nAction object:',
+            action,
+            '\nAction data:',
+            data
+        );
     };
 
     const folderChain = [

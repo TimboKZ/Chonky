@@ -5,13 +5,14 @@ import { ChonkyFilesContext } from '../../util/context';
 import { ErrorMessage } from '../internal/ErrorMessage';
 import { Logger } from '../../util/logger';
 import { FileEntry } from '../internal/FileEntry';
+import { isMobileDevice } from '../../util/validation';
 import {
     getColWidth,
-    getRowHeight, noContentRenderer,
+    getRowHeight,
+    noContentRenderer,
     SmallThumbsSize,
     useEntryRenderer,
 } from './FileList-virtualization';
-import { isMobileDevice } from '../../util/validation';
 import { FileBrowser } from './FileBrowser';
 
 export interface FileListProps {}
@@ -39,7 +40,6 @@ export const FileList: React.FC<FileListProps> = () => {
         const key = file ? file.id : `file-entry-${i}`;
         components.push(<FileEntry key={key} file={file} />);
     }
-
 
     return (
         <div className="chonky-file-list">
@@ -72,6 +72,7 @@ export const FileList: React.FC<FileListProps> = () => {
 
                     return (
                         <Grid
+                            style={{ minHeight: entrySize.height + 10 }}
                             ref={thumbsGridRef as any}
                             cellRenderer={(data) => {
                                 const index =
