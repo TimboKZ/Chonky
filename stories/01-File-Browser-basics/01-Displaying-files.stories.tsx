@@ -1,21 +1,35 @@
 import React from 'react';
 
+import 'chonky/style/main.css';
 import { FileBrowser, FileList } from 'chonky';
-import '../../style/main.css';
+
+import { createDocsObject } from '../story-helpers';
+
+// @ts-ignore
+// eslint-disable-next-line
+import markdown from './01-Displaying-files.md';
+
+// eslint-disable-next-line import/no-default-export
+export default {
+    title: '1 File Browser basics|Displaying files',
+    parameters: {
+        docs: createDocsObject({ markdown }),
+    },
+};
 
 export const FilesArrayExample = () => {
     const files = [
         {
-            id: 'gBt4',
+            id: 'gBt4z3',
             name: 'README.md',
         },
         {
-            id: 'gBt4',
+            id: 'gM5tTe',
             name: 'Blueprints',
             isDir: true,
         },
         {
-            id: 'gBt4',
+            id: 'mT7Et',
             name: 'I am not selectable!',
             selectable: false,
         },
@@ -23,17 +37,10 @@ export const FilesArrayExample = () => {
     ];
 
     return (
-        <FileBrowser files={files}>
-            <FileList />
-        </FileBrowser>
+        <div style={{ height: 500 }}>
+            <FileBrowser files={files}>
+                <FileList />
+            </FileBrowser>
+        </div>
     );
-};
-
-// --- Code below is not a part of the demo, just ignore it. ---
-// eslint-disable-next-line import/no-default-export
-export default {
-    title: 'File Browser basics',
-};
-FilesArrayExample.story = {
-    name: 'Displaying files',
 };

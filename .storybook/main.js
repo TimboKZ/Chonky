@@ -12,15 +12,9 @@ module.exports = {
     webpackFinal: async (config) => {
         config.resolve.alias = {
             ...config.resolve.alias,
-            chonky: path.resolve(__dirname, '..', 'src'),
             'chonky/style': path.resolve(__dirname, '..', 'style'),
+            chonky: path.resolve(__dirname, '..', 'src'),
         };
-
-        config.module.rules.push({
-            test: /\.scss$/,
-            use: ['style-loader', 'css-loader', 'sass-loader'],
-            include: path.resolve(__dirname, '../'),
-        });
 
         return config;
     },

@@ -1,3 +1,13 @@
+.chonky-root {
+  touch-action: manipulation;
+  background-color: #09f;
+  font-family: sans-serif;
+  flex-direction: column;
+  font-size: 15px;
+  display: flex;
+  height: 100%;
+}
+
 .chonky-error {
   border: solid 1px rgba(108, 72, 72, 0.11);
   border-radius: 4px;
@@ -17,15 +27,21 @@
   margin-top: 0.5em;
 }
 
+.chonky-file-list {
+  flex: 1;
+}
 .chonky-file-list-entry {
   border-radius: 4px;
+  box-sizing: border-box;
   border: solid 1px #000;
   display: inline-block;
   line-height: 160px;
   text-align: center;
   height: 160px;
-  margin: 5px;
   width: 200px;
+}
+.chonky-file-list-entry-dragging {
+  opacity: 0.5;
 }
 
 /*# sourceMappingURL=main.css.map */

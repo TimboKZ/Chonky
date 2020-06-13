@@ -15,6 +15,8 @@ export interface FileData {
     isSymlink?: boolean; // Is a symlink, default: false
     openable?: boolean; // Can be opened, default: true
     selectable?: boolean; // Can be selected, default: true
+    draggable?: boolean; // Can be dragged, default: true
+    droppable?: boolean; // Can have files dropped into it, default: true
 
     size?: number; // File size in bytes
     modDate?: Date; // Last change date

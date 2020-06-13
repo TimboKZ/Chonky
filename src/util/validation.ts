@@ -1,5 +1,12 @@
 import { FileArray } from '../../lib';
 
+export const isMobileDevice = () => {
+    return (
+        typeof window.orientation !== 'undefined' ||
+        navigator.userAgent.indexOf('IEMobile') !== -1
+    );
+};
+
 /**
  * This function validates the user-provided files array. It checks the following
  * criteria:
