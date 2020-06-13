@@ -1,13 +1,12 @@
 import { Nilable, Nullable } from 'tsdef';
+import { ChonkyIconName } from './components/external/ChonkyIcon';
 
 // If you make changes to required params in `FileData`, make sure to makes relevant
 // changes `validation.ts` functions.
-
-// Required properties are marked with `!!`
 export interface FileData {
-    id: string; // !! String that uniquely identifies the file
+    id: string; // (Required) String that uniquely identifies the file
 
-    name: string; // !! Full name, e.g. `MyImage.jpg`
+    name: string; // (Required) Full name, e.g. `MyImage.jpg`
     ext?: string; // File extension, e.g. `.jpg`
 
     isDir?: boolean; // Is a directory, default: false
@@ -26,6 +25,29 @@ export interface FileData {
 }
 
 export type FileArray = Nullable<FileData>[];
+
+export interface FileAction {
+    name: string; // Unique action name
+    metadata?: any; // Any user-defined value
+    requiresSelection?: boolean; // Requires selection of 1+ files
+
+    hotkeys?: string[]; // Hotkeys using `hotkey-js` notation
+    toolbarButton?: ToolbarButtonData; // Description below
+}
+
+export interface ToolbarButtonData {
+    name: string;
+    group?: string;
+    tooltip?: string;
+    icon?: ChonkyIconName | string;
+    iconOnly?: boolean;
+}
+
+export interface FileActionData {}
+
+export type FileActionHandler = (action: FileAction, data: FileActionData) => void;
+
+export type FileActionDispatcher = (actionName: string) => void;
 
 export type ThumbnailGenerator = (
     file: FileData

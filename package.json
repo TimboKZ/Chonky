@@ -23,6 +23,7 @@
     "@types/classnames": "^2.2.10",
     "@types/react-virtualized": "^9.21.10",
     "classnames": "^2.2.6",
+    "hotkeys-js": "^3.8.1",
     "react-dnd": "^11.1.3",
     "react-dnd-html5-backend": "^11.1.3",
     "react-virtualized": "^9.21.2",

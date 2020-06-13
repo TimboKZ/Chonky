@@ -4,8 +4,7 @@ export { FileList } from './components/external/FileList';
 export { ChonkyIconFA, ChonkyIconName } from './components/external/ChonkyIcon';
 
 export * from './util/context';
-
-export { FileData, FileArray } from './typedef';
+export * from './typedef';
 
 // Export interface separately to comply with isolated module requirements
 // @see https://github.com/microsoft/TypeScript/issues/28481

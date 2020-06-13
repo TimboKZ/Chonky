@@ -1,9 +1,19 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import { FileArray, FileData, ThumbnailGenerator } from '../../typedef';
-import { ChonkyFilesContext, ChonkyFolderChainContext } from '../../util/context';
+import {
+    FileAction,
+    FileActionHandler,
+    FileArray,
+    FileData,
+    ThumbnailGenerator,
+} from '../../typedef';
+import {
+    ChonkyDispatchContext,
+    ChonkyFilesContext,
+    ChonkyFolderChainContext,
+} from '../../util/context';
 import { ErrorMessage } from '../internal/ErrorMessage';
 import { Logger } from '../../util/logger';
 import { validateFileArray } from '../../util/validation';
@@ -25,6 +35,9 @@ export interface FileBrowserProps {
      * should be the current folder.
      */
     folderChain?: FileArray;
+
+    fileActions?: FileAction[];
+    onFileAction: FileActionHandler;
 
     /**
      * The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
@@ -126,16 +139,15 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
 
     const sortedFiles = files;
 
+    const dispatchAction = useCallback((...args: any[]) => {
+        alert(JSON.stringify(args));
+    }, []);
+
     type ContextData<T = any> = { context: React.Context<T>; value: T };
     const contexts: ContextData[] = [
-        {
-            context: ChonkyFilesContext,
-            value: sortedFiles,
-        },
-        {
-            context: ChonkyFolderChainContext,
-            value: folderChain,
-        },
+        { context: ChonkyFilesContext, value: sortedFiles },
+        { context: ChonkyFolderChainContext, value: folderChain },
+        { context: ChonkyDispatchContext, value: dispatchAction },
     ];
 
     const contextProviders = useMemo<ContextProviderData[]>(
