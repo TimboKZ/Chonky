@@ -10,7 +10,7 @@ import {
     getRowHeight, noContentRenderer,
     SmallThumbsSize,
     useEntryRenderer,
-} from '../internal/FileList-virtualization';
+} from './FileList-virtualization';
 import { isMobileDevice } from '../../util/validation';
 import { FileBrowser } from './FileBrowser';
 

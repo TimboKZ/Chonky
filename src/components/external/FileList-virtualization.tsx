@@ -3,7 +3,7 @@ import c from 'classnames';
 import { FileArray } from 'chonky';
 import { Nullable } from 'tsdef';
 
-import { FileEntry, FileEntryProps } from './FileEntry';
+import { FileEntry, FileEntryProps } from '../internal/FileEntry';
 
 export interface EntrySize {
     width: number;

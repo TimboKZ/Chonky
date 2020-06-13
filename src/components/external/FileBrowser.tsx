@@ -1,13 +1,13 @@
-import React from 'react';
-import { Nullable } from 'tsdef';
+import React, { useMemo } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { FileArray, FileData, ThumbnailGenerator } from '../../typedef';
-import { ChonkyFilesContext } from '../../util/context';
+import { ChonkyFilesContext, ChonkyFolderChainContext } from '../../util/context';
 import { ErrorMessage } from '../internal/ErrorMessage';
 import { Logger } from '../../util/logger';
 import { validateFileArray } from '../../util/validation';
+import { ContextComposer, ContextProviderData } from '../internal/ContextComposer';
 
 export interface FileBrowserProps {
     /**
@@ -19,12 +19,12 @@ export interface FileBrowserProps {
     files: FileArray;
 
     /**
-     * The current folder hierarchy. This should be an array to `files`, every element should either be `null` or an
-     * object of `FileData` type. The first element should represent the top-level directory, and the last element
+     * The current folder hierarchy. This should be an array of `files`, every
+     * element should either be `null` or an object of `FileData` type. The first
+     * element should represent the top-level directory, and the last element
      * should be the current folder.
-     * [See relevant section](#section-specifying-current-folder).
      */
-    folderChain?: Nullable<FileData>[];
+    folderChain?: FileArray;
 
     /**
      * The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
@@ -103,28 +103,55 @@ export interface FileBrowserProps {
 }
 
 export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
-    const { files } = props;
+    const { files, children } = props;
+    const folderChain = props.folderChain ? props.folderChain : null;
 
-    const fileArrayValidationErrors = validateFileArray(files);
-    if (fileArrayValidationErrors.length > 0) {
+    const fileArrayErrors = validateFileArray(files);
+    if (fileArrayErrors.length > 0) {
         const errorMessage =
             `The "files" prop passed to ${FileBrowser.name} did not pass validation. ` +
             `The following errors were encountered:`;
-        Logger.error(errorMessage, fileArrayValidationErrors.join('; '));
-        return (
-            <ErrorMessage message={errorMessage} bullets={fileArrayValidationErrors} />
-        );
+        Logger.error(errorMessage, '\n -', fileArrayErrors.join('\n - '));
+        return <ErrorMessage message={errorMessage} bullets={fileArrayErrors} />;
+    }
+
+    const folderChainErrors = validateFileArray(folderChain, true);
+    if (folderChainErrors.length > 0) {
+        const errorMessage =
+            `The "folder" prop passed to ${FileBrowser.name} did not pass validation. ` +
+            `The following errors were encountered:`;
+        Logger.error(errorMessage, '\n -', folderChainErrors.join('\n - '));
+        return <ErrorMessage message={errorMessage} bullets={folderChainErrors} />;
     }
 
     const sortedFiles = files;
 
+    type ContextData<T = any> = { context: React.Context<T>; value: T };
+    const contexts: ContextData[] = [
+        {
+            context: ChonkyFilesContext,
+            value: sortedFiles,
+        },
+        {
+            context: ChonkyFolderChainContext,
+            value: folderChain,
+        },
+    ];
+
+    const contextProviders = useMemo<ContextProviderData[]>(
+        () =>
+            contexts.map((data) => ({
+                provider: data.context.Provider,
+                value: data.value,
+            })),
+        contexts.map((data) => data.value)
+    );
+
     return (
         <DndProvider backend={HTML5Backend}>
-            <ChonkyFilesContext.Provider value={sortedFiles}>
-                <div className="chonky-root">
-                    {props.children ? props.children : null}
-                </div>
-            </ChonkyFilesContext.Provider>
+            <ContextComposer providers={contextProviders}>
+                <div className="chonky-root">{children ? children : null}</div>
+            </ContextComposer>
         </DndProvider>
     );
 };

@@ -1,6 +1,6 @@
 .chonky-root {
   touch-action: manipulation;
-  background-color: #09f;
+  background-color: #f6f6ff;
   font-family: sans-serif;
   flex-direction: column;
   font-size: 15px;
@@ -25,6 +25,219 @@
 }
 .chonky-error li {
   margin-top: 0.5em;
+}
+
+.chonky-toolbar {
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+  flex-direction: row;
+  display: flex;
+}
+.chonky-toolbar-side {
+  margin-bottom: 0.45em;
+  flex-direction: row;
+  padding-bottom: 0;
+  display: flex;
+  flex-grow: 1;
+}
+.chonky-toolbar-side-left {
+  flex-grow: 10000;
+}
+.chonky-toolbar-side-right {
+  justify-content: space-between;
+}
+.chonky-toolbar-side-inside {
+  flex-direction: row;
+  display: flex;
+}
+.chonky-toolbar-side-inside > * {
+  vertical-align: middle;
+  display: inline-block;
+}
+@media screen and (max-width: 400px) {
+  .chonky-toolbar {
+    flex-direction: column-reverse;
+  }
+  .chonky-side-right {
+    justify-content: space-between;
+  }
+}
+.chonky-folder-chain-entry, .chonky-folder-chain-separator {
+  vertical-align: middle;
+  display: inline-block;
+}
+.chonky-folder-chain-entry {
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  border: none;
+  padding: 0;
+  -webkit-transition: background-color 100ms ease-in-out;
+  -moz-transition: background-color 100ms ease-in-out;
+  -o-transition: background-color 100ms ease-in-out;
+  transition: background-color 100ms ease-in-out;
+  border-radius: 4px;
+  border: solid 1px transparent;
+  line-height: 1.9em;
+  padding: 0 0.2em !important;
+  height: 1.9em;
+  box-sizing: border-box;
+}
+@media screen and (max-width: 400px) {
+  .chonky-folder-chain-entry {
+    line-height: 1.7em;
+    height: 1.7em;
+  }
+}
+.chonky-folder-chain-entry:last-child .chonky-folder-chain-entry-name {
+  text-decoration: underline #bbb;
+}
+.chonky-folder-chain-entry.chonky-loading {
+  font-style: italic;
+  color: #bbb;
+}
+div.chonky-folder-chain-entry {
+  cursor: default;
+}
+
+button.chonky-folder-chain-entry:hover {
+  background-color: #f5f5f5;
+}
+button.chonky-folder-chain-entry:active {
+  border-color: #ccc;
+}
+
+.chonky-folder-chain-separator {
+  line-height: 1.9em;
+  height: 1.9em;
+  color: #bbb;
+  padding: 0 0.2em;
+}
+@media screen and (max-width: 400px) {
+  .chonky-folder-chain-separator {
+    line-height: 1.7em;
+    height: 1.7em;
+    padding: 0 0.1em;
+  }
+}
+.chonky-button-group button:not(:first-of-type) {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.chonky-button-group button:not(:last-of-type) {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  margin-right: -1px;
+}
+.chonky-dropdown {
+  position: relative;
+}
+.chonky-dropdown.chonky-active .chonky-dropdown-contents-wrapper, .chonky-dropdown:hover .chonky-dropdown-contents-wrapper, .chonky-dropdown:active .chonky-dropdown-contents-wrapper {
+  display: block;
+}
+.chonky-dropdown > button:active + .chonky-dropdown-contents-wrapper, .chonky-dropdown > button:focus + .chonky-dropdown-contents-wrapper {
+  display: block;
+}
+.chonky-dropdown-contents {
+  border: solid 1px #e4e4e4;
+  border-radius: 4px;
+  background-color: #fff;
+}
+.chonky-dropdown-contents-wrapper {
+  position: absolute;
+  padding-top: 4px;
+  display: none;
+  z-index: 888;
+  top: 100%;
+  right: 0;
+}
+.chonky-dropdown-switch {
+  border-bottom: solid 1px #f6f6f6;
+  flex-direction: row;
+  display: flex;
+}
+.chonky-dropdown-switch-button {
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  border: none;
+  padding: 0;
+  border-left: solid 1px #f6f6f6 !important;
+  line-height: 1.9em;
+  height: 1.9em;
+  flex-grow: 1;
+}
+.chonky-dropdown-button {
+  padding: 0.5em !important;
+  white-space: nowrap;
+  text-align: left;
+  display: block;
+  width: 100%;
+}
+.chonky-dropdown-button span {
+  position: relative;
+  top: -0.07em;
+}
+.chonky-dropdown-button:not(:last-of-type) {
+  border-bottom: solid 1px #f6f6f6;
+}
+.chonky-dropdown-button, .chonky-dropdown-switch-button, .chonky-icon-button {
+  -webkit-transition: background-color 100ms ease-in-out;
+  -moz-transition: background-color 100ms ease-in-out;
+  -o-transition: background-color 100ms ease-in-out;
+  transition: background-color 100ms ease-in-out;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  border: none;
+  padding: 0;
+}
+.chonky-dropdown-button[disabled], .chonky-dropdown-switch-button[disabled], .chonky-icon-button[disabled] {
+  color: #bbb !important;
+  pointer-events: none;
+}
+.chonky-dropdown-button.chonky-active, .chonky-dropdown-switch-button.chonky-active, .chonky-icon-button.chonky-active {
+  color: #09f;
+}
+.chonky-dropdown-button:hover, .chonky-dropdown-switch-button:hover, .chonky-icon-button:hover {
+  background-color: #f5f5f5;
+  z-index: 92;
+}
+.chonky-icon-button {
+  border-radius: 4px;
+  line-height: 1.9em;
+  border: solid 1px transparent;
+  min-width: 1.9em;
+  height: 1.9em;
+  vertical-align: middle;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  z-index: 91;
+}
+@media screen and (max-width: 400px) {
+  .chonky-icon-button {
+    line-height: 1.7em;
+    min-width: 1.7em;
+    height: 1.7em;
+  }
+}
+.chonky-icon-button.chonky-active {
+  z-index: 93;
+}
+.chonky-icon-button:hover {
+  z-index: 92;
+}
+.chonky-icon-button:active {
+  border-color: #ccc;
+}
+.chonky-icon-button > span {
+  padding: 0.36em;
+  border-color: #ccc;
+  white-space: nowrap;
 }
 
 .chonky-file-list {

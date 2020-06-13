@@ -15,16 +15,19 @@ export const isMobileDevice = () => {
  * - some files are missing `id` field
  * - some files are missing `name` field
  * - some files have invalid type (they are neither an object nor `null`)
- *
- * @param files
  */
-export const validateFileArray = (files: FileArray | any): string[] => {
+export const validateFileArray = (
+    files: FileArray | any,
+    allowNull: boolean = false
+): string[] => {
     const validationErrors = [];
 
     if (!Array.isArray(files)) {
-        validationErrors.push(
-            `Expected "files" to be an array, got type "${typeof files}" instead (value: ${files}).`
-        );
+        if (!allowNull || files !== null) {
+            validationErrors.push(
+                `Expected "files" to be an array, got type "${typeof files}" instead (value: ${files}).`
+            );
+        }
     } else {
         const seenIds = {};
         const duplicateIdSet = new Set();
@@ -49,16 +52,32 @@ export const validateFileArray = (files: FileArray | any): string[] => {
         }
 
         if (duplicateIdSet.size > 0) {
-            validationErrors.push(`Some files have duplicate IDs. These IDs appeared multiple times: ${Array.from(duplicateIdSet)}`);
+            validationErrors.push(
+                `Some files have duplicate IDs. These IDs appeared multiple times: ${Array.from(
+                    duplicateIdSet
+                )}`
+            );
         }
         if (missingIdIndices.length > 0) {
-            validationErrors.push(`Some files are missing the "id" field. Relevant file indices: ${missingIdIndices.join(', ')}`);
+            validationErrors.push(
+                `Some files are missing the "id" field. Relevant file indices: ${missingIdIndices.join(
+                    ', '
+                )}`
+            );
         }
         if (missingNameIndices.length > 0) {
-            validationErrors.push(`Some files are missing the "name" field. Relevant file indices: ${missingNameIndices.join(', ')}`);
+            validationErrors.push(
+                `Some files are missing the "name" field. Relevant file indices: ${missingNameIndices.join(
+                    ', '
+                )}`
+            );
         }
         if (invalidTypeIndices.length > 0) {
-            validationErrors.push(`Some files have invalid type (they are neither an object nor "null"). Relevant file indices: ${invalidTypeIndices.join(', ')}`);
+            validationErrors.push(
+                `Some files have invalid type (they are neither an object nor "null"). Relevant file indices: ${invalidTypeIndices.join(
+                    ', '
+                )}`
+            );
         }
     }
 
