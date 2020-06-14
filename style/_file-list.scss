@@ -2,19 +2,4 @@
 
 .chonky-file-list {
     flex: 1;
-
-    &-entry {
-        border-radius: $radius-medium;
-        box-sizing: border-box;
-        border: solid 1px #000;
-        display: inline-block;
-        line-height: 160px;
-        text-align: center;
-        height: 160px;
-        width: 200px;
-
-        &-dragging {
-            opacity: 0.5;
-        }
-    }
 }

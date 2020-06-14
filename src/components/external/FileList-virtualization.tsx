@@ -1,16 +1,17 @@
-import React, { useCallback } from 'react';
 import c from 'classnames';
-import { FileArray } from 'chonky';
+import React, { useCallback } from 'react';
 import { Nullable } from 'tsdef';
 
+import { FileArray } from '../../typedef';
 import { FileEntry, FileEntryProps } from '../internal/FileEntry';
+import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
 
 export interface EntrySize {
     width: number;
     height: number;
 }
 
-export const SmallThumbsSize: EntrySize = { width: 200, height: 160 };
+export const SmallThumbsSize: EntrySize = { width: 160, height: 100 };
 
 export const getColWidth = (
     index: number,
@@ -61,10 +62,13 @@ export const useEntryRenderer = (files: Nullable<FileArray>) => {
             const key = file ? file.id : `loading-file-${virtualKey}`;
             const entryProps: FileEntryProps = {
                 file,
-                style,
             };
 
-            return <FileEntry key={key} {...entryProps} />;
+            return (
+                <div key={key} className="chonky-virtualization-wrapper" style={style}>
+                    <FileEntry {...entryProps} />
+                </div>
+            );
         },
         [deps]
     );
@@ -84,7 +88,7 @@ export const noContentRenderer = (height?: number) => {
     return (
         <div {...placeholderProps}>
             <div className="chonky-file-list-notification-content">
-                {/* TODO: <Icon icon={icons.folderOpen} />*/}
+                <ChonkyIconFA icon={ChonkyIconName.folderOpen} />
                 &nbsp; Nothing to show
             </div>
         </div>

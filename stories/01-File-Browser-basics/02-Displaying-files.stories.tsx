@@ -1,7 +1,7 @@
 import React from 'react';
 
 import 'chonky/style/main.css';
-import { FileBrowser, FileList } from 'chonky';
+import { FileBrowser, FileList, FileToolbar } from 'chonky';
 
 import { createDocsObject } from '../story-helpers';
 
@@ -59,6 +59,7 @@ export const FilesArrayExample = () => {
     return (
         <div style={{ height: 500 }}>
             <FileBrowser files={files}>
+                <FileToolbar />
                 <FileList />
             </FileBrowser>
         </div>

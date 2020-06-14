@@ -1,4 +1,7 @@
 // Share variables
+$font-size-base: 15px;
+$font-size-small: 14px;
+
 $mobile-breakpoint: 400px !default;
 $base-padding: 0.3em !default;
 $radius-small: 2px !default;
@@ -26,11 +29,16 @@ $bg-active: #09f !default;
 $tooltip-bg: rgba(0, 0, 0, 0.8) !default;
 $tooltip-fg: #fff !default;
 
-// Variables for file toolbar
+// ======= File toolbar =======
 $base-bar-height: 1.9em !default;
 $base-bar-height-mobile: 1.7em !default;
 
-// =================== MIXINS ==================
+// ======= File entry =======
+$file-entry-border: $border-light;
+$file-entry-preview-bg: $bg-base;
+$file-entry-description-bg: $bg-base;
+
+// ======= Mixins =======
 
 @mixin reset-button {
     background: none;

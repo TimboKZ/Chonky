@@ -1,11 +1,11 @@
-import React, { useContext, useMemo } from 'react';
 import c from 'classnames';
+import React, { useContext, useMemo } from 'react';
 import { Nullable } from 'tsdef';
 
 import { FileAction, FileArray } from '../../typedef';
-import { FileHelper } from '../../util/file-helper';
-import { ChonkyActions } from '../../util/file-actions';
 import { ChonkyDispatchActionContext } from '../../util/context';
+import { ChonkyActions } from '../../util/file-actions';
+import { FileHelper } from '../../util/file-helper';
 import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
 import { ToolbarButton } from './ToolbarButton';
 

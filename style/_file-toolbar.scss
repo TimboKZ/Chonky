@@ -60,7 +60,7 @@
             border-radius: $radius-medium;
             border: solid 1px transparent;
             line-height: $base-bar-height;
-            padding: 0 0.2em !important;
+            padding: 0 0.3em !important;
             height: $base-bar-height;
             box-sizing: border-box;
 
@@ -97,7 +97,7 @@
             line-height: $base-bar-height;
             height: $base-bar-height;
             color: $fg-subtle;
-            padding: 0 0.2em;
+            padding: 0 0.1em;
 
             @media screen and (max-width: $mobile-breakpoint) {
                 line-height: $base-bar-height-mobile;

@@ -1,7 +1,7 @@
+import Promise from 'bluebird';
 import React, { useCallback, useMemo } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import Promise from 'bluebird';
 
 import {
     FileAction,
@@ -16,13 +16,14 @@ import {
     ChonkyFileActionsContext,
     ChonkyFilesContext,
     ChonkyFolderChainContext,
+    ChonkyThumbnailGeneratorContext,
     validateContextType,
 } from '../../util/context';
-import { ErrorMessage } from '../internal/ErrorMessage';
-import { isFunction, useFileBrowserValidation } from '../../util/validation';
-import { ContextComposer, ContextProviderData } from '../internal/ContextComposer';
 import { DefaultActions } from '../../util/file-actions';
 import { Logger } from '../../util/logger';
+import { isFunction, useFileBrowserValidation } from '../../util/validation';
+import { ContextComposer, ContextProviderData } from '../internal/ContextComposer';
+import { ErrorMessage } from '../internal/ErrorMessage';
 
 export interface FileBrowserProps {
     /**
@@ -41,8 +42,8 @@ export interface FileBrowserProps {
      */
     folderChain?: FileArray;
 
-    fileActions?: FileAction[];
-    onFileAction?: FileActionHandler;
+    action?: FileAction[];
+    onAction?: FileActionHandler;
 
     /**
      * The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
@@ -121,8 +122,11 @@ export interface FileBrowserProps {
 }
 
 export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
-    const { files, fileActions, onFileAction, children } = props;
+    const { files, action, onAction, children } = props;
     const folderChain = props.folderChain ? props.folderChain : null;
+    const thumbnailGenerator = props.thumbnailGenerator
+        ? props.thumbnailGenerator
+        : null;
 
     // TODO: Validate file actions
     const validationResult = useFileBrowserValidation(files, folderChain);
@@ -147,12 +151,12 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
 
         const action = actionMap[actionName];
         if (action) {
-            if (isFunction(onFileAction)) {
+            if (isFunction(onAction)) {
                 Promise.resolve()
-                    .then(() => onFileAction(action, actionData))
+                    .then(() => onAction(action, actionData))
                     .catch((error) =>
                         Logger.error(
-                            `User-defined "onFileAction" handler threw an error: ${error.message}`
+                            `User-defined "onAction" handler threw an error: ${error.message}`
                         )
                     );
             }
@@ -185,6 +189,10 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         validateContextType({
             context: ChonkyDispatchActionContext,
             value: dispatchAction,
+        }),
+        validateContextType({
+            context: ChonkyThumbnailGeneratorContext,
+            value: thumbnailGenerator,
         }),
     ];
 

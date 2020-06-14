@@ -2,18 +2,18 @@ import React, { useContext, useRef } from 'react';
 import { AutoSizer, Grid } from 'react-virtualized';
 
 import { ChonkyFilesContext } from '../../util/context';
-import { ErrorMessage } from '../internal/ErrorMessage';
 import { Logger } from '../../util/logger';
-import { FileEntry } from '../internal/FileEntry';
 import { isMobileDevice } from '../../util/validation';
+import { ErrorMessage } from '../internal/ErrorMessage';
+import { FileEntry } from '../internal/FileEntry';
+import { FileBrowser } from './FileBrowser';
 import {
+    SmallThumbsSize,
     getColWidth,
     getRowHeight,
     noContentRenderer,
-    SmallThumbsSize,
     useEntryRenderer,
 } from './FileList-virtualization';
-import { FileBrowser } from './FileBrowser';
 
 export interface FileListProps {}
 

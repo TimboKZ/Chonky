@@ -22,6 +22,10 @@ export interface FileData {
 
     parentId?: string; // ID of the parent folder
     childrenIds?: string[]; // An array of IDs of children (only for folders)
+
+    thumbnailUrl?: string; // Automatically load thumbnail from here
+
+    [property: string]: any;
 }
 
 export type FileArray = Nullable<FileData>[];
@@ -58,3 +62,8 @@ export type InternalFileActionDispatcher = (actionData: FileActionData) => void;
 export type ThumbnailGenerator = (
     file: FileData
 ) => Nilable<string> | Promise<Nilable<string>>;
+
+export interface FileIconData {
+    icon: ChonkyIconName | string;
+    colorCode: number;
+}

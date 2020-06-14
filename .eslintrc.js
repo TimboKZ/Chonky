@@ -8,6 +8,7 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:import/errors',
         'plugin:import/warnings',
+        'plugin:import/typescript',
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:prettier/recommended',
         'prettier',
@@ -24,7 +25,13 @@ module.exports = {
         ecmaVersion: 2018,
         sourceType: 'module',
     },
-    plugins: ['react', 'import', '@typescript-eslint', 'prettier'],
+    plugins: [
+        'react',
+        'import',
+        '@typescript-eslint',
+        'prettier',
+        'simple-import-sort',
+    ],
     rules: {
         quotes: ['warn', 'single', { allowTemplateLiterals: true }],
         'no-console': 'warn',
@@ -35,10 +42,11 @@ module.exports = {
             {
                 ignoreCase: false,
                 ignoreDeclarationSort: true,
-                ignoreMemberSort: true,
+                ignoreMemberSort: false,
                 memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
             },
         ],
+        'simple-import-sort/sort': 'error',
         'react/prop-types': 'off',
         'react/display-name': 'off',
         'import/first': 'error',
@@ -48,6 +56,7 @@ module.exports = {
         'import/no-default-export': 'error',
         'import/no-internal-modules': 'off',
         'import/newline-after-import': 'error',
+        'import/no-useless-path-segments': 'error',
         'import/order': [
             'error',
             {

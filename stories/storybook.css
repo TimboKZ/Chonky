@@ -22,7 +22,7 @@
   height: 25px;
   color: #fff;
 }
-.sbdocs-preview > div > div:first-child {
+.sbdocs-preview > div:first-child > div:first-child {
   padding: 10px 10px 30px 10px !important;
   margin: 0 !important;
   overflow: visible !important;

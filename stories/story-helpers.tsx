@@ -7,25 +7,26 @@ import {
     Description,
     DocsContext,
     DocsStory,
-    Primary,
     Title,
 } from '@storybook/addon-docs/blocks';
 import { getDocsStories } from '@storybook/addon-docs/dist/blocks/utils';
 
 import './storybook.css';
 
+// @ts-ignore
+import LiveExampleMd from './Live-examples.md';
+
 export const createDocsObject = (params: { markdown: string }) => {
     const { markdown } = params;
-
-    const documentationComponents = parseMarkdown(markdown);
 
     return {
         page: () => {
             return (
                 <React.Fragment>
                     <Title />
-                    {documentationComponents}
+                    {parseMarkdown(markdown)}
                     <CustomPrimary />
+                    {parseMarkdown(LiveExampleMd)}
                 </React.Fragment>
             );
         },
@@ -41,9 +42,7 @@ export const CustomPrimary: React.FC<any> = ({ name }) => {
             ? componentStories.find((s) => s.name === name)
             : componentStories[0];
     }
-    return story ? (
-        <DocsStory {...story} expanded={false} css={{ border: 'solid 1px #000' }} />
-    ) : null;
+    return story ? <DocsStory {...story} expanded={false} /> : null;
 };
 
 const parseMarkdown = (markdown: string): React.ReactElement[] => {
