@@ -6,6 +6,8 @@ import { faPhp } from '@fortawesome/free-brands-svg-icons/faPhp';
 import { faPython } from '@fortawesome/free-brands-svg-icons/faPython';
 import { faUbuntu } from '@fortawesome/free-brands-svg-icons/faUbuntu';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons/faArrowDown';
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
+import { faFistRaised } from '@fortawesome/free-solid-svg-icons/faFistRaised';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons/faArrowUp';
 import { faBalanceScale } from '@fortawesome/free-solid-svg-icons/faBalanceScale';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/faCheckCircle';
@@ -49,6 +51,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
 export enum ChonkyIconName {
+    // Misc
+    loading = 'loading',
+
+    // Drag & drop
+    dndDragging = 'dndDragging',
+    dndCanDrop = 'dndCanDrop',
+    dndCannotDrop = 'dndCannotDrop',
+
     checkActive = 'checkActive',
     checkInactive = 'checkInactive',
     desc = 'desc',
@@ -68,9 +78,8 @@ export enum ChonkyIconName {
     fallbackIcon = 'fallbackIcon',
     symlink = 'symlink',
     hidden = 'hidden',
-    loading = 'loading',
 
-    // file types
+    // File types
     file = 'file',
     license = 'license',
     code = 'code',
@@ -101,6 +110,14 @@ export enum ChonkyIconName {
 }
 
 const IconMap: { [iconName in ChonkyIconName]: any } = {
+    // Misc
+    [ChonkyIconName.loading]: faCircleNotch,
+
+    // Drag & drop
+    [ChonkyIconName.dndDragging]: faFistRaised,
+    [ChonkyIconName.dndCanDrop]: faArrowDown,
+    [ChonkyIconName.dndCannotDrop]: faTimes,
+
     [ChonkyIconName.checkActive]: faCheckCircle,
     [ChonkyIconName.checkInactive]: faCircle,
     [ChonkyIconName.desc]: faArrowDown,
@@ -120,7 +137,6 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     [ChonkyIconName.fallbackIcon]: faExclamationTriangle,
     [ChonkyIconName.symlink]: faExternalLinkAlt,
     [ChonkyIconName.hidden]: faEyeSlash,
-    [ChonkyIconName.loading]: faCircleNotch,
 
     // file types
     [ChonkyIconName.file]: faFile,
@@ -162,7 +178,7 @@ export interface ChonkyIconProps {
     style?: React.CSSProperties;
 }
 
-export const ChonkyIconFA: React.FC<ChonkyIconProps> = (props) => {
+export const ChonkyIconFA: React.FC<ChonkyIconProps> = React.memo((props) => {
     const { icon } = props;
 
     const faProps = {
@@ -170,4 +186,4 @@ export const ChonkyIconFA: React.FC<ChonkyIconProps> = (props) => {
         icon: IconMap[icon] ? IconMap[icon] : IconMap.fallbackIcon,
     } as const;
     return <FontAwesomeIcon {...faProps} />;
-};
+});

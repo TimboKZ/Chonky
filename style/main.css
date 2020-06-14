@@ -1,3 +1,7 @@
+.chonky-fill-parent {
+  height: 100%;
+}
+
 .chonky-root {
   border: solid 1px #e4e4e4;
   border-radius: 4px;
@@ -6,6 +10,7 @@
   font-size: 15px;
   font-family: sans-serif;
   flex-direction: column;
+  position: relative;
   display: flex;
   height: 100%;
 }
@@ -186,9 +191,9 @@ button.chonky-folder-chain-entry:active {
   font: inherit;
   border: none;
   padding: 0;
+  border: solid 1px #e4e4e4;
   border-radius: 4px;
   line-height: 1.9em;
-  border: solid 1px #f5f5f5;
   min-width: 1.9em;
   height: 1.9em;
   vertical-align: middle;
@@ -248,6 +253,13 @@ button.chonky-folder-chain-entry:active {
   flex: 1;
 }
 
+.chonky-file-drag-preview {
+  border: solid 1px #ccc;
+  background-color: #ccc;
+  padding: 0.3em;
+  display: inline-block;
+}
+
 .chonky-file-entry {
   border: solid 1px #e4e4e4;
   border-radius: 2px;
@@ -257,18 +269,37 @@ button.chonky-folder-chain-entry:active {
   display: flex;
   height: 100%;
 }
+.chonky-file-entry-dnd-indicator {
+  box-sizing: border-box;
+  position: absolute;
+  font-size: 1.2em;
+  opacity: 0.6;
+  padding: 6px;
+  z-index: 80;
+  left: 1px;
+  top: 1px;
+}
+.chonky-file-entry-dnd-indicator:before {
+  border-bottom: 50px solid transparent;
+  border-left: 50px solid #fff;
+  position: absolute;
+  content: "";
+  z-index: -1;
+  height: 0;
+  width: 0;
+  left: 0;
+  top: 0;
+}
 .chonky-file-entry-preview {
   background-color: #fff;
   position: relative;
+  overflow: hidden;
   flex-grow: 1;
 }
 .chonky-file-entry-description {
   background-color: #fff;
   font-size: 14px;
   padding: 0.3em;
-}
-.chonky-file-entry-dragging {
-  opacity: 0.5;
 }
 
 .chonky-file-icon, .chonky-file-thumbnail, .chonky-file-background {
@@ -316,7 +347,7 @@ button.chonky-folder-chain-entry:active {
 }
 .chonky-file-background {
   z-index: 10;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 /*# sourceMappingURL=main.css.map */

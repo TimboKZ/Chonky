@@ -1,7 +1,7 @@
 ### A note about live examples...
 
 All live examples are written in Typescript. All components and types are imported
-from the `chonky` package:
+from the `chonky` package, e.g.:
 
 ```ts
 import 'chonky/style/main.css';

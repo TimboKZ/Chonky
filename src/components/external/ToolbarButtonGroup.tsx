@@ -4,18 +4,15 @@
  * @license MIT
  */
 
-import * as React from 'react';
+import React from 'react';
 
 interface IconGroupProps {}
 
 interface IconGroupState {}
 
-export default class ButtonGroup extends React.PureComponent<
-  IconGroupProps,
-  IconGroupState
-> {
-  public render() {
-    const { children } = this.props;
-    return <div className="chonky-button-group">{children}</div>;
-  }
+export class ButtonGroup extends React.PureComponent<IconGroupProps, IconGroupState> {
+    public render() {
+        const { children } = this.props;
+        return <div className="chonky-button-group">{children}</div>;
+    }
 }

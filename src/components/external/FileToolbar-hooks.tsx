@@ -3,7 +3,7 @@ import React, { useContext, useMemo } from 'react';
 import { Nullable } from 'tsdef';
 
 import { FileAction, FileArray } from '../../typedef';
-import { ChonkyDispatchActionContext } from '../../util/context';
+import { ChonkyDispatchFileActionContext } from '../../util/context';
 import { ChonkyActions } from '../../util/file-actions';
 import { FileHelper } from '../../util/file-helper';
 import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
@@ -13,7 +13,7 @@ import { ToolbarButton } from './ToolbarButton';
  * Generates folder chain HTML components for the `FileToolbar` component.
  */
 export const useFolderChainComponent = (folderChain: FileArray) => {
-    const dispatchChonkyAction = useContext(ChonkyDispatchActionContext);
+    const dispatchChonkyAction = useContext(ChonkyDispatchFileActionContext);
     // All hook params should go into `deps`
     const deps = [folderChain, dispatchChonkyAction];
     const folderChainComponent = useMemo(() => {
@@ -80,7 +80,7 @@ export const useFileActionButtons = (
     openParentFolderButton: Nullable<React.ReactElement>;
     buttonComponents: React.ReactElement[];
 } => {
-    const dispatchChonkyAction = useContext(ChonkyDispatchActionContext);
+    const dispatchChonkyAction = useContext(ChonkyDispatchFileActionContext);
     // All hook params should go into `deps`
     const deps = [fileActions, dispatchChonkyAction];
     return useMemo(() => {

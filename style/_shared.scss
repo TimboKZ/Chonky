@@ -1,5 +1,9 @@
 @import 'util';
 
+.chonky-fill-parent {
+    height: 100%;
+}
+
 .chonky-root {
     border: solid 1px $border-light;
     border-radius: $radius-medium;
@@ -8,6 +12,7 @@
     font-size: $font-size-base;
     font-family: sans-serif;
     flex-direction: column;
+    position: relative;
     display: flex;
     height: 100%;
 }

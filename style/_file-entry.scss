@@ -1,5 +1,12 @@
 @import 'util';
 
+.chonky-file-drag-preview {
+    border: solid 1px $border-dark;
+    background-color: $bg-dark;
+    padding: $base-padding;
+    display: inline-block;
+}
+
 .chonky-file-entry {
     border: solid 1px $file-entry-border;
     border-radius: $radius-small;
@@ -9,9 +16,33 @@
     display: flex;
     height: 100%;
 
+    &-dnd-indicator {
+        box-sizing: border-box;
+        position: absolute;
+        font-size: 1.2em;
+        opacity: 0.6;
+        padding: 6px;
+        z-index: 80;
+        left: 1px;
+        top: 1px;
+
+        &:before {
+            border-bottom: 50px solid transparent;
+            border-left: 50px solid $file-entry-description-bg;
+            position: absolute;
+            content: '';
+            z-index: -1;
+            height: 0;
+            width: 0;
+            left: 0;
+            top: 0;
+        }
+    }
+
     &-preview {
         background-color: $file-entry-preview-bg;
         position: relative;
+        overflow: hidden;
         flex-grow: 1;
     }
 
@@ -22,9 +53,6 @@
     }
 
     // ======= Modifiers =======
-    &-dragging {
-        opacity: 0.5;
-    }
 }
 
 .chonky-file {
@@ -72,6 +100,6 @@
     &-background {
         z-index: 10;
 
-        opacity: 0.4;
+        opacity: 0.5;
     }
 }

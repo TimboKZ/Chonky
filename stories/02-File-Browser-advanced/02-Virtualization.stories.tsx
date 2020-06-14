@@ -11,7 +11,7 @@ import markdown from './02-Virtualization.md';
 
 // eslint-disable-next-line import/no-default-export
 export default {
-    title: '2 File Browser examples|Virtualization with 10,000 examples',
+    title: '2 File Browser examples|Virtualization with 10,000 files',
     parameters: {
         docs: createDocsObject({ markdown }),
     },

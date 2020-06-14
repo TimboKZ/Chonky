@@ -5,7 +5,7 @@ import { ChonkyFilesContext } from '../../util/context';
 import { Logger } from '../../util/logger';
 import { isMobileDevice } from '../../util/validation';
 import { ErrorMessage } from '../internal/ErrorMessage';
-import { FileEntry } from '../internal/FileEntry';
+import { BaseFileEntry } from '../internal/BaseFileEntry';
 import { FileBrowser } from './FileBrowser';
 import {
     SmallThumbsSize,
@@ -19,6 +19,7 @@ export interface FileListProps {}
 
 export const FileList: React.FC<FileListProps> = () => {
     const files = useContext(ChonkyFilesContext);
+
     const entryRenderer = useEntryRenderer(files);
     const thumbsGridRef = useRef<Grid>();
 
@@ -38,7 +39,7 @@ export const FileList: React.FC<FileListProps> = () => {
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const key = file ? file.id : `file-entry-${i}`;
-        components.push(<FileEntry key={key} file={file} />);
+        components.push(<BaseFileEntry key={key} file={file} />);
     }
 
     return (

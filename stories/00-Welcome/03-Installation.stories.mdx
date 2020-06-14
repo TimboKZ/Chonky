@@ -33,9 +33,8 @@ standard
 imports:
 
 ```ts
-import 'chonky/style/main.css';
-import { FileBrowser, FileArray } from 'chonky';
-// FileArray is a type
+// FileArray is a TS type
+import { FileArray } from 'chonky';
 
 const myFiles: FileArray = [
     {
@@ -44,8 +43,4 @@ const myFiles: FileArray = [
     },
     null,
 ];
-
-<FileBrowser files={myFiles}>
-    // ...
-</FileBrowser>
 ```

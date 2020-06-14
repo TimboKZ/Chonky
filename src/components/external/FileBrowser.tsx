@@ -1,5 +1,4 @@
-import Promise from 'bluebird';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -8,21 +7,23 @@ import {
     FileActionHandler,
     FileArray,
     FileData,
-    InternalFileActionDispatcher,
     ThumbnailGenerator,
 } from '../../typedef';
 import {
-    ChonkyDispatchActionContext,
+    ChonkyDisableDragNDropContext,
+    ChonkyDispatchFileActionContext,
+    ChonkyDispatchSpecialActionContext,
     ChonkyFileActionsContext,
     ChonkyFilesContext,
     ChonkyFolderChainContext,
     ChonkyThumbnailGeneratorContext,
     validateContextType,
 } from '../../util/context';
-import { DefaultActions } from '../../util/file-actions';
-import { Logger } from '../../util/logger';
-import { isFunction, useFileBrowserValidation } from '../../util/validation';
+import { DefaultActions, useFileActionDispatcher } from '../../util/file-actions';
+import { useSpecialActionDispatcher } from '../../util/special-actions';
+import { useFileBrowserValidation } from '../../util/validation';
 import { ContextComposer, ContextProviderData } from '../internal/ContextComposer';
+import { DnDFileListDragLayer } from '../internal/DnDFileListDragLayer';
 import { ErrorMessage } from '../internal/ErrorMessage';
 
 export interface FileBrowserProps {
@@ -42,8 +43,8 @@ export interface FileBrowserProps {
      */
     folderChain?: FileArray;
 
-    action?: FileAction[];
-    onAction?: FileActionHandler;
+    fileActions?: FileAction[];
+    onFileAction?: FileActionHandler;
 
     /**
      * The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
@@ -122,51 +123,31 @@ export interface FileBrowserProps {
 }
 
 export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
-    const { files, action, onAction, children } = props;
+    const { files, children } = props;
     const folderChain = props.folderChain ? props.folderChain : null;
+    const fileActions = props.fileActions ? props.fileActions : [];
+    const onFileAction = props.onFileAction ? props.onFileAction : null;
     const thumbnailGenerator = props.thumbnailGenerator
         ? props.thumbnailGenerator
         : null;
+    const disableDragNDrop =
+        typeof props.disableDragNDrop === 'boolean' ? props.disableDragNDrop : false;
 
-    // TODO: Validate file actions
     const validationResult = useFileBrowserValidation(files, folderChain);
 
     const sortedFiles = validationResult.cleanFiles;
     const cleanFolderChain = validationResult.cleanFolderChain;
 
-    const extendedFileActions = [...DefaultActions];
+    // TODO: Validate file actions
+    // TODO: Remove duplicates if they are default actions, otherwise error on
+    //  duplicates.
+    const extendedFileActions = [...fileActions, ...DefaultActions];
 
-    const actionMap = useMemo(() => {
-        const actionMap = {};
-        if (Array.isArray(extendedFileActions)) {
-            for (const fileAction of extendedFileActions) {
-                actionMap[fileAction.name] = fileAction;
-            }
-        }
-        return actionMap;
-    }, [extendedFileActions]);
-
-    const dispatchAction: InternalFileActionDispatcher = useCallback((actionData) => {
-        const { actionName } = actionData;
-
-        const action = actionMap[actionName];
-        if (action) {
-            if (isFunction(onAction)) {
-                Promise.resolve()
-                    .then(() => onAction(action, actionData))
-                    .catch((error) =>
-                        Logger.error(
-                            `User-defined "onAction" handler threw an error: ${error.message}`
-                        )
-                    );
-            }
-        } else {
-            Logger.error(
-                `Internal components dispatched the "${actionName}" action, ` +
-                    `but such action was not registered.`
-            );
-        }
-    }, []);
+    const dispatchFileAction = useFileActionDispatcher(
+        extendedFileActions,
+        onFileAction
+    );
+    const dispatchSpecialAction = useSpecialActionDispatcher(dispatchFileAction);
 
     type ExtractContextType<P> = P extends React.Context<infer T> ? T : never;
     interface ContextData<ContextType extends React.Context<any>> {
@@ -187,12 +168,20 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
             value: extendedFileActions,
         }),
         validateContextType({
-            context: ChonkyDispatchActionContext,
-            value: dispatchAction,
+            context: ChonkyDispatchFileActionContext,
+            value: dispatchFileAction,
+        }),
+        validateContextType({
+            context: ChonkyDispatchSpecialActionContext,
+            value: dispatchSpecialAction,
         }),
         validateContextType({
             context: ChonkyThumbnailGeneratorContext,
             value: thumbnailGenerator,
+        }),
+        validateContextType({
+            context: ChonkyDisableDragNDropContext,
+            value: disableDragNDrop,
         }),
     ];
 
@@ -209,6 +198,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         <DndProvider backend={HTML5Backend}>
             <ContextComposer providers={contextProviders}>
                 <div className="chonky-root">
+                    {!disableDragNDrop && <DnDFileListDragLayer />}
                     {validationResult.errorMessages.map((data, index) => (
                         <ErrorMessage
                             key={`error-message-${index}`}

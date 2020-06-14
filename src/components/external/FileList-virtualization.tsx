@@ -1,9 +1,11 @@
 import c from 'classnames';
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Nullable } from 'tsdef';
 
 import { FileArray } from '../../typedef';
-import { FileEntry, FileEntryProps } from '../internal/FileEntry';
+import { ChonkyDisableDragNDropContext } from '../../util/context';
+import { DnDFileEntry } from '../internal/DnDFileEntry';
+import { BaseFileEntry, FileEntryProps } from '../internal/BaseFileEntry';
 import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
 
 export interface EntrySize {
@@ -11,7 +13,7 @@ export interface EntrySize {
     height: number;
 }
 
-export const SmallThumbsSize: EntrySize = { width: 160, height: 100 };
+export const SmallThumbsSize: EntrySize = { width: 160, height: 120 };
 
 export const getColWidth = (
     index: number,
@@ -34,8 +36,9 @@ export const getRowHeight = (
 };
 
 export const useEntryRenderer = (files: Nullable<FileArray>) => {
+    const disableDragNDrop = useContext(ChonkyDisableDragNDropContext);
     // All hook parameters should go into `deps` array
-    const deps = [files];
+    const deps = [files, disableDragNDrop];
     const entryRenderer = useCallback(
         (
             virtualKey: string,
@@ -64,13 +67,18 @@ export const useEntryRenderer = (files: Nullable<FileArray>) => {
                 file,
             };
 
+            const fileEntryComponent = disableDragNDrop ? (
+                <BaseFileEntry {...entryProps} />
+            ) : (
+                <DnDFileEntry {...entryProps} />
+            );
             return (
                 <div key={key} className="chonky-virtualization-wrapper" style={style}>
-                    <FileEntry {...entryProps} />
+                    {fileEntryComponent}
                 </div>
             );
         },
-        [deps]
+        deps
     );
 
     return entryRenderer;

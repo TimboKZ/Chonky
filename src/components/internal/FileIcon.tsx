@@ -6,14 +6,14 @@
 
 import React from 'react';
 
+import { FileIconData } from '../../typedef';
 import { ChonkyIconFA } from '../external/ChonkyIcon';
-import {  FileIconData } from '../../typedef';
 
 export interface FileIconProps {
     iconData: FileIconData;
 }
 
-export const FileIcon: React.FC<FileIconProps> = (props) => {
+export const FileIcon: React.FC<FileIconProps> = React.memo((props) => {
     const { iconData } = props;
 
     return (
@@ -21,4 +21,4 @@ export const FileIcon: React.FC<FileIconProps> = (props) => {
             <ChonkyIconFA icon={iconData.icon} />
         </div>
     );
-};
+});

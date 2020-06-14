@@ -4,9 +4,9 @@
     @include default-transition(background-color);
     @include reset-button;
 
+    border: solid 1px $border-light;
     border-radius: $radius-medium;
     line-height: $base-bar-height;
-    border: solid 1px $bg-light;
     min-width: $base-bar-height;
     height: $base-bar-height;
     vertical-align: middle;

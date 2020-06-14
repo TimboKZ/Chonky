@@ -1,5 +1,6 @@
 import { Nilable, Nullable } from 'tsdef';
 import { ChonkyIconName } from './components/external/ChonkyIcon';
+import { SpecialActionData } from './util/special-actions';
 
 // If you make changes to required params in `FileData`, make sure to makes relevant
 // changes `validation.ts` functions.
@@ -49,7 +50,8 @@ export interface ToolbarButtonData {
 
 export interface FileActionData {
     actionName: string;
-    file?: FileData;
+    target?: FileData;
+    files?: FileData[];
 }
 
 export type FileActionHandler = (
@@ -58,6 +60,7 @@ export type FileActionHandler = (
 ) => void | Promise<void>;
 
 export type InternalFileActionDispatcher = (actionData: FileActionData) => void;
+export type InternalSpecialActionDispatcher = (actionData: SpecialActionData) => void;
 
 export type ThumbnailGenerator = (
     file: FileData

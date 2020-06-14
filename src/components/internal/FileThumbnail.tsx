@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import React from 'react';
 import c from 'classnames';
+import React from 'react';
 import { Nullable } from 'tsdef';
 
 export interface FileThumbnailProps {

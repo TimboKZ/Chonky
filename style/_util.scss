@@ -38,6 +38,9 @@ $file-entry-border: $border-light;
 $file-entry-preview-bg: $bg-base;
 $file-entry-description-bg: $bg-base;
 
+$file-entry-dnd-shadow-dragging: red;
+$file-entry-dnd-shadow-can-drop: #09f;
+
 // ======= Mixins =======
 
 @mixin reset-button {

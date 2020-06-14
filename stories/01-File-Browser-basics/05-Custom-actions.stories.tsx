@@ -1,10 +1,9 @@
+import 'chonky/style/main.css';
+
+import { FileAction, FileActionData, FileBrowser, FileList, FileToolbar } from 'chonky';
 import React from 'react';
 
-import 'chonky/style/main.css';
-import { FileBrowser, FileList, FileToolbar, FileAction, FileActionData } from 'chonky';
-
 import { createDocsObject, showNotification } from '../story-helpers';
-
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './04-Actions.md';
