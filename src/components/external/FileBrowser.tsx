@@ -1,22 +1,28 @@
 import React, { useCallback, useMemo } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import Promise from 'bluebird';
 
 import {
     FileAction,
     FileActionHandler,
     FileArray,
     FileData,
+    InternalFileActionDispatcher,
     ThumbnailGenerator,
 } from '../../typedef';
 import {
-    ChonkyDispatchContext,
+    ChonkyDispatchActionContext,
+    ChonkyFileActionsContext,
     ChonkyFilesContext,
     ChonkyFolderChainContext,
+    validateContextType,
 } from '../../util/context';
 import { ErrorMessage } from '../internal/ErrorMessage';
-import { useFileBrowserValidation } from '../../util/validation';
+import { isFunction, useFileBrowserValidation } from '../../util/validation';
 import { ContextComposer, ContextProviderData } from '../internal/ContextComposer';
+import { DefaultActions } from '../../util/file-actions';
+import { Logger } from '../../util/logger';
 
 export interface FileBrowserProps {
     /**
@@ -115,23 +121,71 @@ export interface FileBrowserProps {
 }
 
 export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
-    const { files, children } = props;
+    const { files, fileActions, onFileAction, children } = props;
     const folderChain = props.folderChain ? props.folderChain : null;
 
+    // TODO: Validate file actions
     const validationResult = useFileBrowserValidation(files, folderChain);
 
     const sortedFiles = validationResult.cleanFiles;
     const cleanFolderChain = validationResult.cleanFolderChain;
 
-    const dispatchAction = useCallback((...args: any[]) => {
-        alert(JSON.stringify(args));
+    const extendedFileActions = [...DefaultActions];
+
+    const actionMap = useMemo(() => {
+        const actionMap = {};
+        if (Array.isArray(extendedFileActions)) {
+            for (const fileAction of extendedFileActions) {
+                actionMap[fileAction.name] = fileAction;
+            }
+        }
+        return actionMap;
+    }, [extendedFileActions]);
+
+    const dispatchAction: InternalFileActionDispatcher = useCallback((actionData) => {
+        const { actionName } = actionData;
+
+        const action = actionMap[actionName];
+        if (action) {
+            if (isFunction(onFileAction)) {
+                Promise.resolve()
+                    .then(() => onFileAction(action, actionData))
+                    .catch((error) =>
+                        Logger.error(
+                            `User-defined "onFileAction" handler threw an error: ${error.message}`
+                        )
+                    );
+            }
+        } else {
+            Logger.error(
+                `Internal components dispatched the "${actionName}" action, ` +
+                    `but such action was not registered.`
+            );
+        }
     }, []);
 
-    type ContextData<T = any> = { context: React.Context<T>; value: T };
-    const contexts: ContextData[] = [
-        { context: ChonkyFilesContext, value: sortedFiles },
-        { context: ChonkyFolderChainContext, value: cleanFolderChain },
-        { context: ChonkyDispatchContext, value: dispatchAction },
+    type ExtractContextType<P> = P extends React.Context<infer T> ? T : never;
+    interface ContextData<ContextType extends React.Context<any>> {
+        context: ContextType;
+        value: ExtractContextType<ContextType>;
+    }
+    const contexts: ContextData<any>[] = [
+        validateContextType({
+            context: ChonkyFilesContext,
+            value: sortedFiles,
+        }),
+        validateContextType({
+            context: ChonkyFolderChainContext,
+            value: cleanFolderChain,
+        }),
+        validateContextType({
+            context: ChonkyFileActionsContext,
+            value: extendedFileActions,
+        }),
+        validateContextType({
+            context: ChonkyDispatchActionContext,
+            value: dispatchAction,
+        }),
     ];
 
     const contextProviders = useMemo<ContextProviderData[]>(

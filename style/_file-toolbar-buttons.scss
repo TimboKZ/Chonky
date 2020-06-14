@@ -1,0 +1,74 @@
+@import 'util';
+
+.chonky-toolbar-button {
+    @include default-transition(background-color);
+    @include reset-button;
+
+    border-radius: $radius-medium;
+    line-height: $base-bar-height;
+    border: solid 1px $bg-light;
+    min-width: $base-bar-height;
+    height: $base-bar-height;
+    vertical-align: middle;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+    z-index: 91;
+    flex-direction: row;
+
+    &-icon,
+    &-text {
+        display: inline-block;
+    }
+
+    &-icon {
+        min-width: $base-bar-height;
+    }
+
+    &-text {
+        padding-right: $base-padding * 2;
+        padding-left: $base-padding * 2;
+    }
+
+    &-icon + &-text {
+        padding-left: 0 !important;
+    }
+
+    @media screen and (max-width: $mobile-breakpoint) {
+        line-height: $base-bar-height-mobile;
+        min-width: $base-bar-height-mobile;
+        height: $base-bar-height-mobile;
+    }
+
+    &.chonky-active {
+        z-index: 93;
+    }
+
+    &:hover {
+        z-index: 92;
+    }
+
+    &:active {
+        border-color: $border-dark;
+    }
+
+    & > span {
+        padding: $base-padding * 1.2;
+        border-color: $border-dark;
+        white-space: nowrap;
+    }
+
+    &[disabled] {
+        color: $fg-subtle !important;
+        pointer-events: none;
+    }
+
+    &.chonky-active {
+        color: $fg-active;
+    }
+
+    &:hover {
+        background-color: $bg-light;
+        z-index: 92;
+    }
+}

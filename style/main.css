@@ -1,6 +1,8 @@
 .chonky-root {
+  border-radius: 4px;
+  border: solid 1px #f5f5f5;
   touch-action: manipulation;
-  background-color: #f6f6ff;
+  padding: 0.6em;
   font-family: sans-serif;
   flex-direction: column;
   font-size: 15px;
@@ -26,6 +28,56 @@
 }
 .chonky-error li {
   margin-top: 0.5em;
+}
+
+.chonky-tooltip {
+  position: relative;
+}
+.chonky-tooltip:hover::before, .chonky-tooltip:hover::after, .chonky-tooltip:focus::before, .chonky-tooltip:focus::after, .chonky-tooltip:active::before, .chonky-tooltip:active::after {
+  display: block;
+  opacity: 1;
+}
+.chonky-tooltip::before, .chonky-tooltip::after {
+  -webkit-transition: opacity 100ms ease-in-out;
+  -moz-transition: opacity 100ms ease-in-out;
+  -o-transition: opacity 100ms ease-in-out;
+  transition: opacity 100ms ease-in-out;
+  pointer-events: none;
+  position: absolute;
+  display: none;
+  z-index: 9999;
+  bottom: 100%;
+  opacity: 0;
+  left: 50%;
+}
+.chonky-tooltip::before {
+  -webkit-transform: translateX(-75%);
+  -moz-transform: translateX(-75%);
+  -ms-transform: translateX(-75%);
+  -o-transform: translateX(-75%);
+  transform: translateX(-75%);
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 2px;
+  content: attr(data-tooltip);
+  padding: 0.4em 0.5em;
+  white-space: nowrap;
+  margin-bottom: 6px;
+  line-height: 1em;
+  color: #fff;
+  font-size: 0.8em;
+  height: 1em;
+}
+.chonky-tooltip::after {
+  -webkit-transform: translateX(-50%) rotate(45deg);
+  -moz-transform: translateX(-50%) rotate(45deg);
+  -ms-transform: translateX(-50%) rotate(45deg);
+  -o-transform: translateX(-50%) rotate(45deg);
+  transform: translateX(-50%) rotate(45deg);
+  border: solid 2px rgba(0, 0, 0, 0.8);
+  border-left-color: transparent;
+  border-top-color: transparent;
+  margin-bottom: 4px;
+  content: "";
 }
 
 .chonky-toolbar {
@@ -122,69 +174,8 @@ button.chonky-folder-chain-entry:active {
     padding: 0 0.1em;
   }
 }
-.chonky-button-group button:not(:first-of-type) {
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-}
-.chonky-button-group button:not(:last-of-type) {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  margin-right: -1px;
-}
-.chonky-dropdown {
-  position: relative;
-}
-.chonky-dropdown.chonky-active .chonky-dropdown-contents-wrapper, .chonky-dropdown:hover .chonky-dropdown-contents-wrapper, .chonky-dropdown:active .chonky-dropdown-contents-wrapper {
-  display: block;
-}
-.chonky-dropdown > button:active + .chonky-dropdown-contents-wrapper, .chonky-dropdown > button:focus + .chonky-dropdown-contents-wrapper {
-  display: block;
-}
-.chonky-dropdown-contents {
-  border: solid 1px #e4e4e4;
-  border-radius: 4px;
-  background-color: #fff;
-}
-.chonky-dropdown-contents-wrapper {
-  position: absolute;
-  padding-top: 4px;
-  display: none;
-  z-index: 888;
-  top: 100%;
-  right: 0;
-}
-.chonky-dropdown-switch {
-  border-bottom: solid 1px #f6f6f6;
-  flex-direction: row;
-  display: flex;
-}
-.chonky-dropdown-switch-button {
-  background: none;
-  cursor: pointer;
-  color: inherit;
-  font: inherit;
-  border: none;
-  padding: 0;
-  border-left: solid 1px #f6f6f6 !important;
-  line-height: 1.9em;
-  height: 1.9em;
-  flex-grow: 1;
-}
-.chonky-dropdown-button {
-  padding: 0.5em !important;
-  white-space: nowrap;
-  text-align: left;
-  display: block;
-  width: 100%;
-}
-.chonky-dropdown-button span {
-  position: relative;
-  top: -0.07em;
-}
-.chonky-dropdown-button:not(:last-of-type) {
-  border-bottom: solid 1px #f6f6f6;
-}
-.chonky-dropdown-button, .chonky-dropdown-switch-button, .chonky-icon-button {
+
+.chonky-toolbar-button {
   -webkit-transition: background-color 100ms ease-in-out;
   -moz-transition: background-color 100ms ease-in-out;
   -o-transition: background-color 100ms ease-in-out;
@@ -195,22 +186,9 @@ button.chonky-folder-chain-entry:active {
   font: inherit;
   border: none;
   padding: 0;
-}
-.chonky-dropdown-button[disabled], .chonky-dropdown-switch-button[disabled], .chonky-icon-button[disabled] {
-  color: #bbb !important;
-  pointer-events: none;
-}
-.chonky-dropdown-button.chonky-active, .chonky-dropdown-switch-button.chonky-active, .chonky-icon-button.chonky-active {
-  color: #09f;
-}
-.chonky-dropdown-button:hover, .chonky-dropdown-switch-button:hover, .chonky-icon-button:hover {
-  background-color: #f5f5f5;
-  z-index: 92;
-}
-.chonky-icon-button {
   border-radius: 4px;
   line-height: 1.9em;
-  border: solid 1px transparent;
+  border: solid 1px #f5f5f5;
   min-width: 1.9em;
   height: 1.9em;
   vertical-align: middle;
@@ -218,27 +196,52 @@ button.chonky-folder-chain-entry:active {
   text-align: center;
   position: relative;
   z-index: 91;
+  flex-direction: row;
+}
+.chonky-toolbar-button-icon, .chonky-toolbar-button-text {
+  display: inline-block;
+}
+.chonky-toolbar-button-icon {
+  min-width: 1.9em;
+}
+.chonky-toolbar-button-text {
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+}
+.chonky-toolbar-button-icon + .chonky-toolbar-button-text {
+  padding-left: 0 !important;
 }
 @media screen and (max-width: 400px) {
-  .chonky-icon-button {
+  .chonky-toolbar-button {
     line-height: 1.7em;
     min-width: 1.7em;
     height: 1.7em;
   }
 }
-.chonky-icon-button.chonky-active {
+.chonky-toolbar-button.chonky-active {
   z-index: 93;
 }
-.chonky-icon-button:hover {
+.chonky-toolbar-button:hover {
   z-index: 92;
 }
-.chonky-icon-button:active {
+.chonky-toolbar-button:active {
   border-color: #ccc;
 }
-.chonky-icon-button > span {
+.chonky-toolbar-button > span {
   padding: 0.36em;
   border-color: #ccc;
   white-space: nowrap;
+}
+.chonky-toolbar-button[disabled] {
+  color: #bbb !important;
+  pointer-events: none;
+}
+.chonky-toolbar-button.chonky-active {
+  color: #09f;
+}
+.chonky-toolbar-button:hover {
+  background-color: #f5f5f5;
+  z-index: 92;
 }
 
 .chonky-file-list {

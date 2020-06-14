@@ -1,29 +1,30 @@
 {
-  "compilerOptions": {
-    "outDir": "lib",
-    "lib": ["es6", "dom"],
-    "jsx": "react",
-    "target": "es5",
-    "allowJs": false,
-    "sourceMap": true,
-    "declaration": true,
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "noImplicitReturns": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "chonky": ["src/"]
-    }
-  },
-  "include": ["src/**/*"],
-  "types": ["typePatches"],
-  "awesomeTypescriptLoaderOptions": {}
+    "compilerOptions": {
+        "outDir": "lib",
+        "lib": ["es6", "dom"],
+        "jsx": "react",
+        "target": "es5",
+        "allowJs": false,
+        "sourceMap": true,
+        "declaration": true,
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "noImplicitReturns": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": ".",
+        "paths": {
+            "chonky": ["src/"]
+        },
+        "types": ["node_modules/react-popper/typings/react-popper.d.ts"]
+    },
+    "include": ["src/**/*"],
+    "types": ["typePatches"],
+    "awesomeTypescriptLoaderOptions": {}
 }

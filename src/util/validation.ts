@@ -8,6 +8,9 @@ import { FileBrowser } from 'chonky';
 export const isPlainObject = (value: any): value is object => {
     return Object.prototype.toString.call(value) === '[object Object]';
 };
+export const isFunction = (value: any): value is Function => {
+    return !!(value && value.constructor && value.call && value.apply);
+};
 
 export const isMobileDevice = () => {
     return (

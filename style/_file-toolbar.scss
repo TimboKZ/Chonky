@@ -1,0 +1,109 @@
+@import 'util';
+
+.chonky {
+    &-toolbar {
+        justify-content: space-between;
+        flex-wrap: wrap-reverse;
+        flex-direction: row;
+        display: flex;
+    }
+
+    &-toolbar-side {
+        margin-bottom: $base-padding * 1.5;
+        flex-direction: row;
+        padding-bottom: 0;
+        display: flex;
+        flex-grow: 1;
+
+        &-left {
+            flex-grow: 10000;
+        }
+
+        &-right {
+            justify-content: space-between;
+        }
+
+        &-inside {
+            flex-direction: row;
+            display: flex;
+
+            & > * {
+                vertical-align: middle;
+                display: inline-block;
+            }
+        }
+    }
+
+    @media screen and (max-width: $mobile-breakpoint) {
+        &-toolbar {
+            flex-direction: column-reverse;
+        }
+
+        &-side {
+            &-right {
+                justify-content: space-between;
+            }
+        }
+    }
+
+    &-folder-chain {
+        &-entry,
+        &-separator {
+            vertical-align: middle;
+            display: inline-block;
+        }
+
+        &-entry {
+            @include reset-button;
+            @include default-transition(background-color);
+
+            border-radius: $radius-medium;
+            border: solid 1px transparent;
+            line-height: $base-bar-height;
+            padding: 0 0.2em !important;
+            height: $base-bar-height;
+            box-sizing: border-box;
+
+            @media screen and (max-width: $mobile-breakpoint) {
+                line-height: $base-bar-height-mobile;
+                height: $base-bar-height-mobile;
+            }
+
+            &:last-child &-name {
+                text-decoration: underline $fg-subtle;
+            }
+
+            &.chonky-loading {
+                font-style: italic;
+                color: $fg-subtle;
+            }
+
+            @at-root div#{&} {
+                cursor: default;
+            }
+
+            @at-root button#{&} {
+                &:hover {
+                    background-color: $bg-light;
+                }
+
+                &:active {
+                    border-color: $border-dark;
+                }
+            }
+        }
+
+        &-separator {
+            line-height: $base-bar-height;
+            height: $base-bar-height;
+            color: $fg-subtle;
+            padding: 0 0.2em;
+
+            @media screen and (max-width: $mobile-breakpoint) {
+                line-height: $base-bar-height-mobile;
+                height: $base-bar-height-mobile;
+                padding: 0 0.1em;
+            }
+        }
+    }
+}

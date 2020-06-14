@@ -1,9 +1,3 @@
-TODO Explain:
-
--   Functionality differs.
--   Some controls come built-in.
--   Other controls you have to work for.
-
 Every application using Chonky will be different. Some will require a feature to
 upload files, other will need to support cutting & pasting. Bottom line -
 requirements will differ! Chonky tries to address this problem using **File Actions**
@@ -19,29 +13,32 @@ examples of file actions:
 -   User initializes a file upload by clicking on "Upload File" button.
 -   User moves some files from one folder to another using drag & drop.
 
-Action definitions can be passed to the `FileBrowser` component via the `fileActions`
-prop. Each definition should be an object of the following type:
+Action definitions can be passed to the `FileBrowser` component via the `actions`.
+For your convenience, Chonky includes definitions for many common actions. You just
+need to import and enable them as follows:
 
-```ts
-export interface FileAction {
-    name: string;
-    metadata?: any;
-    requiresSelection?: boolean;
+```tsx
+import { FileBrowser, FileList, FileToolbar, ChonkyActions } from 'chonky';
 
-    hotkeys?: string[]; // Hotkeys using `hotkey-js` notation
-    toolbarButton?: ToolbarButtonData; // Description below
-}
+export const MyComponent = () => {
+    const actions = [
+        ChonkyActions.CopyFiles, // Adds a shortcut, Ctrl+C
+        ChonkyActions.CreateFolder, // Adds a button to the toolbar
+        ChonkyActions.UploadFiles, // Adds a button to the toolbar
+        ChonkyActions.DownloadFiles, // Adds a button to the toolbar
+    ];
 
-export interface ToolbarButtonData {
-    name: string;
-    group?: string;
-    tooltip?: string;
-    icon?: ChonkyIconName | string;
-    iconOnly?: boolean;
-}
-
-// You can use these types in your Typescript code:
-import {FileAction, ToolbarButtonData} from 'chonky';
+    return (
+        <FileBrowser files={[]} actions={actions}>
+            <FileToolbar />
+            <FileList />
+        </FileBrowser>
+    );
+};
 ```
 
 ## Action handlers
+
+```ts
+const helloWorld = '123';
+```

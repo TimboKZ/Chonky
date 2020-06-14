@@ -20,18 +20,11 @@ export default {
 export const ActionsExample = () => {
     const handleFileAction = (action: FileAction, data: FileActionData) => {
         showNotification({
-            text:
-                `You just triggered an action: ${action.name}. ` +
-                `Check console for details.`,
+            text: `Action: <strong>${action.name}</strong>`,
         });
+
         // eslint-disable-next-line no-console
-        console.log(
-            `You just triggered the ${action.name} action:`,
-            '\nAction object:',
-            action,
-            '\nAction data:',
-            data
-        );
+        console.log('\nAction object:', action, '\nAction data:', data);
     };
 
     const folderChain = [
@@ -44,7 +37,7 @@ export const ActionsExample = () => {
     ];
 
     return (
-        <div style={{ height: 500 }}>
+        <div className="live-example" style={{ height: 500 }}>
             <FileBrowser
                 files={files}
                 folderChain={folderChain}

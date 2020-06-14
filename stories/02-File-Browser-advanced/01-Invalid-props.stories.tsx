@@ -1,8 +1,9 @@
 import React from 'react';
-import { Description, Primary, Title } from '@storybook/addon-docs/blocks';
 
 import 'chonky/style/main.css';
 import { FileBrowser, FileList, FileToolbar } from 'chonky';
+
+import { createDocsObject } from '../story-helpers';
 
 // @ts-ignore
 // eslint-disable-next-line
@@ -12,17 +13,7 @@ import markdown from './01-Invalid-props.md';
 export default {
     title: '2 File Browser examples|Passing invalid props',
     parameters: {
-        docs: {
-            page: () => {
-                return (
-                    <React.Fragment>
-                        <Title />
-                        <Description markdown={markdown} />
-                        <Primary />
-                    </React.Fragment>
-                );
-            },
-        },
+        docs: createDocsObject({ markdown }),
     },
 };
 

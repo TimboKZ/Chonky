@@ -31,7 +31,7 @@ export interface FileAction {
     metadata?: any; // Any user-defined value
     requiresSelection?: boolean; // Requires selection of 1+ files
 
-    hotkeys?: string[]; // Hotkeys using `hotkey-js` notation
+    hotkeys?: readonly string[]; // Hotkeys using `hotkey-js` notation
     toolbarButton?: ToolbarButtonData; // Description below
 }
 
@@ -43,11 +43,17 @@ export interface ToolbarButtonData {
     iconOnly?: boolean;
 }
 
-export interface FileActionData {}
+export interface FileActionData {
+    actionName: string;
+    file?: FileData;
+}
 
-export type FileActionHandler = (action: FileAction, data: FileActionData) => void;
+export type FileActionHandler = (
+    action: FileAction,
+    data: FileActionData
+) => void | Promise<void>;
 
-export type FileActionDispatcher = (actionName: string) => void;
+export type InternalFileActionDispatcher = (actionData: FileActionData) => void;
 
 export type ThumbnailGenerator = (
     file: FileData
