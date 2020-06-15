@@ -4,14 +4,13 @@ import { AutoSizer, Grid } from 'react-virtualized';
 import { ChonkyFilesContext } from '../../util/context';
 import { Logger } from '../../util/logger';
 import { isMobileDevice } from '../../util/validation';
-import { BaseFileEntry } from '../internal/BaseFileEntry';
 import { ErrorMessage } from '../internal/ErrorMessage';
 import { FileBrowser } from './FileBrowser';
 import {
-    SmallThumbsSize,
     getColWidth,
     getRowHeight,
     noContentRenderer,
+    SmallThumbsSize,
     useEntryRenderer,
 } from './FileList-virtualization';
 
@@ -33,13 +32,6 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
             `component.`;
         Logger.error(errorMessage);
         return <ErrorMessage message={errorMessage} />;
-    }
-
-    const components: React.ReactElement[] = [];
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const key = file ? file.id : `file-entry-${i}`;
-        components.push(<BaseFileEntry key={key} file={file} />);
     }
 
     return (
@@ -105,8 +97,6 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
                             tabIndex={null}
                         />
                     );
-
-                    return components;
                 }}
             </AutoSizer>
         </div>

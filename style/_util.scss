@@ -13,18 +13,20 @@ $border-light: #e4e4e4 !default;
 $border-dark: #ccc !default;
 $border-darker: #aaa !default;
 
+$active: #09f !default;
+
 $fg-base: #000 !default;
 $fg-subtle: #bbb !default;
 $fg-subtle-light: #ddd !default;
 $fg-subtle-dark: #666 !default;
-$fg-active: #09f !default;
+$fg-active: $active !default;
 
 $bg-base: #fff !default;
 $bg-light: #f5f5f5 !default;
 $bg-dark: #ccc !default;
 $bg-darker: #888 !default;
 $bg-darkest: #333 !default;
-$bg-active: #09f !default;
+$bg-active: $active !default;
 
 $tooltip-bg: rgba(0, 0, 0, 0.8) !default;
 $tooltip-fg: #fff !default;
@@ -38,11 +40,12 @@ $file-entry-border: $border-light;
 $file-entry-preview-bg: $bg-base;
 $file-entry-description-bg: $bg-base;
 
+$file-entry-highlight-border-width: 2px;
 $file-entry-focus-border: #000;
-$file-entry-focus-border-width: 2px;
+$file-entry-selected-border: lighten($active, 10);
 
 $file-entry-dnd-shadow-dragging: red;
-$file-entry-dnd-shadow-can-drop: #09f;
+$file-entry-dnd-shadow-can-drop: $active;
 
 // ======= Mixins =======
 

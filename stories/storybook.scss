@@ -31,3 +31,13 @@
         }
     }
 }
+
+.live-example {
+    &-action {
+        font-family: sans-serif !important;
+        font-size: 1.2em !important;
+        margin-bottom: 16px;
+        text-align: center;
+        color: #5f0707;
+    }
+}

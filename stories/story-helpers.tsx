@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
-import { Source } from '@storybook/components';
-import Noty from 'noty';
 import 'noty/lib/noty.css';
 import 'noty/lib/themes/relax.css';
+import './storybook.css';
+
 import {
     Description,
     DocsContext,
@@ -10,8 +9,9 @@ import {
     Title,
 } from '@storybook/addon-docs/blocks';
 import { getDocsStories } from '@storybook/addon-docs/dist/blocks/utils';
-
-import './storybook.css';
+import { Source } from '@storybook/components';
+import Noty from 'noty';
+import React, { useContext } from 'react';
 
 // @ts-ignore
 import LiveExampleMd from './Live-examples.md';
@@ -123,6 +123,6 @@ export const showNotification = (params: {
         text,
         type: type ? type : 'success',
         theme: 'relax',
-        timeout: 5000,
+        timeout: 3000,
     }).show();
 };

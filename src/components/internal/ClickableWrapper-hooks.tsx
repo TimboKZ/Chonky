@@ -1,0 +1,84 @@
+/**
+ * @author Timur Kuzhagaliyev <tim.kuzh@gmail.com>
+ * @copyright 2020
+ * @license MIT
+ */
+
+import React, { useCallback, useContext, useMemo } from 'react';
+import { Nilable, Nullable } from 'tsdef';
+
+import { ChonkyDoubleClickDelayContext } from '../../util/context';
+import {
+    KeyboardClickEvent,
+    KeyboardClickEventHandler,
+    MouseClickEvent,
+    MouseClickEventHandler,
+} from './ClickableWrapper';
+
+export const useClickHandler = (
+    onSingleClick: Nilable<MouseClickEventHandler>,
+    onDoubleClick: Nilable<MouseClickEventHandler>
+) => {
+    const doubleClickDelay = useContext(ChonkyDoubleClickDelayContext);
+
+    const counter = useMemo(
+        () => ({
+            clickCount: 0,
+            clickTimeout: null as Nullable<number>,
+        }),
+        []
+    );
+
+    const deps = [doubleClickDelay, onSingleClick, onDoubleClick];
+    return useCallback((event: React.MouseEvent) => {
+        const mouseClickEvent: MouseClickEvent = {
+            altKey: event.altKey,
+            ctrlKey: event.ctrlKey,
+            shiftKey: event.shiftKey,
+        };
+
+        counter.clickCount++;
+        if (counter.clickCount === 1) {
+            if (onSingleClick) {
+                event.preventDefault();
+                onSingleClick(mouseClickEvent);
+            }
+            counter.clickCount = 1;
+            // @ts-ignore
+            counter.clickTimeout = setTimeout(
+                () => (counter.clickCount = 0),
+                doubleClickDelay
+            );
+        } else if (counter.clickCount === 2) {
+            if (onDoubleClick) {
+                event.preventDefault();
+                onDoubleClick(mouseClickEvent);
+            }
+            if (typeof counter.clickTimeout === 'number') {
+                clearTimeout(counter.clickTimeout);
+                counter.clickTimeout = null;
+                counter.clickCount = 0;
+            }
+        }
+    }, deps);
+};
+
+export const useKeyDownHandler = (onKeyboardClick?: KeyboardClickEventHandler) => {
+    const deps = [onKeyboardClick];
+    return useCallback((event: React.KeyboardEvent) => {
+        if (!onKeyboardClick) return;
+
+        const keyboardClickEvent: KeyboardClickEvent = {
+            enterKey: event.nativeEvent.code === 'Enter',
+            spaceKey: event.nativeEvent.code === 'Space',
+            altKey: event.altKey,
+            ctrlKey: event.ctrlKey,
+            shiftKey: event.shiftKey,
+        };
+
+        if (keyboardClickEvent.spaceKey || keyboardClickEvent.enterKey) {
+            event.preventDefault();
+            onKeyboardClick(keyboardClickEvent);
+        }
+    }, deps);
+};

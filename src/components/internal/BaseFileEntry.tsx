@@ -12,6 +12,9 @@ import { SelectableProps } from './SelectableFileEntry';
 
 export interface FileEntryProps extends SelectableProps, DnDProps {
     file: Nullable<FileData>;
+
+    displayIndex: number; // Index at which this file appears in the file list
+
     style?: React.CSSProperties;
 }
 

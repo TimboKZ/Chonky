@@ -57,6 +57,8 @@ export const useEntryRenderer = (files: FileArray) => {
             // When rendering the file list, some browsers cut off the last pixel of
             // a file entry, making it look ugly. To get around this rendering bug
             // we make file entries in the last row/column 1 pixel shorter.
+            // TODO: Instead of subtracting 1 here, add 1 to width/height of last
+            //  column.
             if (lastRow) style.height = style.height - 1;
             if (lastColumn) style.width = style.width - 1;
 
@@ -65,6 +67,7 @@ export const useEntryRenderer = (files: FileArray) => {
             const key = file ? file.id : `loading-file-${virtualKey}`;
             const entryProps: FileEntryProps = {
                 file,
+                displayIndex: index,
             };
 
             const fileEntryComponent = disableDragNDrop ? (

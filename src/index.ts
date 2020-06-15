@@ -5,8 +5,14 @@ export { ChonkyIconFA, ChonkyIconName } from './components/external/ChonkyIcon';
 
 export { ChonkyActions } from './util/file-actions';
 
-export * from './util/context';
-export * from './typedef';
+export {
+    FileData,
+    FileArray,
+    FileSelection,
+    FileAction,
+    FileActionHandler,
+    FileActionData,
+} from './typedef';
 
 // Export interface separately to comply with isolated module requirements
 // @see https://github.com/microsoft/TypeScript/issues/28481

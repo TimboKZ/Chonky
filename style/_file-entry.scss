@@ -4,23 +4,20 @@
     outline: none !important;
     position: relative;
 
-    &:focus .chonky-file-entry {
-        &-inside:before {
-            box-shadow: inset 0 0 0 $file-entry-focus-border-width
-                $file-entry-focus-border;
-            border-radius: $radius-medium;
-            position: absolute;
-            display: block;
-            z-index: 999;
-            content: '';
-            bottom: 0;
-            right: 0;
-            left: 0;
-            top: 0;
+    &:focus {
+        .chonky-file-entry {
+            &-inside:before {
+                box-shadow: inset 0 0 0 $file-entry-highlight-border-width
+                    $file-entry-focus-border !important;
+            }
+
+            &-description {
+                border-top-color: $file-entry-focus-border !important;
+            }
         }
 
-        &-description {
-            border-top-color: $file-entry-focus-border;
+        .chonky-file-icon-inside {
+            color: $file-entry-focus-border;
         }
     }
 }
@@ -46,6 +43,19 @@
         flex-direction: column;
         display: flex;
         height: 100%;
+
+        &:before {
+            // This pseudo element is used to render the focus and selection border
+            border-radius: $radius-medium;
+            position: absolute;
+            display: block;
+            z-index: 999;
+            content: '';
+            bottom: 0;
+            right: 0;
+            left: 0;
+            top: 0;
+        }
     }
 
     &-dnd-indicator {
@@ -79,16 +89,28 @@
     }
 
     &-description {
-        border-top: solid $file-entry-focus-border-width transparent;
+        // This border is used to render the focus and selection border
+        border-top: solid $file-entry-highlight-border-width transparent;
         background-color: $file-entry-description-bg;
         font-size: $font-size-small;
 
-        padding: $base-padding - $file-entry-focus-border-width $base-padding
+        padding: $base-padding - $file-entry-highlight-border-width $base-padding
             $base-padding $base-padding;
     }
 
     // ======= Modifiers =======
     &-selected {
+        .chonky-file-entry {
+            &-inside:before {
+                box-shadow: inset 0 0 0 $file-entry-highlight-border-width
+                    $file-entry-selected-border !important;
+            }
+
+            &-description {
+                border-top-color: $file-entry-selected-border !important;
+            }
+        }
+
         .chonky-file-selection {
             opacity: 1 !important;
         }

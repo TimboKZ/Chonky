@@ -9,18 +9,29 @@ import { ChonkyActions } from './file-actions';
 import { Logger } from './logger';
 
 export enum SpecialAction {
-    ClickFile = 'click_file',
+    MouseClickFile = 'mouse_click_file',
+    KeyboardClickFile = 'keyboard_click_file',
 
     DragNDropFiles = 'drag_n_drop_files',
 }
 
-export interface SpecialClickFileAction {
-    actionName: SpecialAction.ClickFile;
+export interface SpecialFileMouseClickAction {
+    actionName: SpecialAction.MouseClickFile;
     file: FileData;
-    alt: boolean;
-    ctrl: boolean;
-    shift: boolean;
+    altKey: boolean;
+    ctrlKey: boolean;
+    shiftKey: boolean;
     clickType: 'single' | 'double';
+}
+
+export interface SpecialFileKeyboardClickAction {
+    actionName: SpecialAction.KeyboardClickFile;
+    file: FileData;
+    enterKey: boolean;
+    spaceKey: boolean;
+    altKey: boolean;
+    ctrlKey: boolean;
+    shiftKey: boolean;
 }
 
 export interface SpecialDndDropAction {
@@ -30,7 +41,10 @@ export interface SpecialDndDropAction {
     dropEffect: 'move' | 'copy';
 }
 
-export type SpecialActionData = SpecialClickFileAction | SpecialDndDropAction;
+export type SpecialActionData =
+    | SpecialFileMouseClickAction
+    | SpecialFileKeyboardClickAction
+    | SpecialDndDropAction;
 
 /**
  * Returns a dispatch method meant to be used by child components. This dispatch
@@ -44,11 +58,16 @@ export const useSpecialActionDispatcher = (
     dispatchFileAction: InternalFileActionDispatcher
 ): InternalSpecialActionDispatcher => {
     // Define handlers in a map
-    const specialActionHandlerMapDeps = [dispatchFileAction];
+    const specialActionHandlerMapDeps = [
+        selectFiles,
+        toggleSelection,
+        clearSelection,
+        dispatchFileAction,
+    ];
     const specialActionHandlerMap = useMemo(
         () =>
             ({
-                [SpecialAction.ClickFile]: (data: SpecialClickFileAction) => {
+                [SpecialAction.MouseClickFile]: (data: SpecialFileMouseClickAction) => {
                     if (data.clickType === 'double') {
                         dispatchFileAction({
                             actionName: ChonkyActions.OpenFiles.name,
@@ -57,8 +76,31 @@ export const useSpecialActionDispatcher = (
                             files: [data.file],
                         });
                     } else {
-                        if (data.ctrl) toggleSelection(data.file.id);
-                        else selectFiles([data.file.id]);
+                        if (data.ctrlKey) {
+                            toggleSelection(data.file.id);
+                        } else {
+                            selectFiles([data.file.id]);
+                        }
+                        // TODO: Handle range selections.
+                    }
+                },
+                [SpecialAction.KeyboardClickFile]: (
+                    data: SpecialFileKeyboardClickAction
+                ) => {
+                    if (data.enterKey) {
+                        dispatchFileAction({
+                            actionName: ChonkyActions.OpenFiles.name,
+                            target: data.file,
+                            // TODO: Replace with selection
+                            files: [data.file],
+                        });
+                    } else if (data.spaceKey) {
+                        if (data.ctrlKey) {
+                            selectFiles([data.file.id]);
+                        } else {
+                            toggleSelection(data.file.id);
+                        }
+                        // TODO: Handle range selections.
                     }
                 },
                 [SpecialAction.DragNDropFiles]: (data: SpecialDndDropAction) => {

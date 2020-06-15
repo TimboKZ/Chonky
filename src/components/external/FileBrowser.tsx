@@ -6,13 +6,14 @@ import {
     FileAction,
     FileActionHandler,
     FileArray,
-    FileData,
     ThumbnailGenerator,
 } from '../../typedef';
 import {
     ChonkyDisableDragNDropContext,
+    ChonkyDisableSelectionContext,
     ChonkyDispatchFileActionContext,
     ChonkyDispatchSpecialActionContext,
+    ChonkyDoubleClickDelayContext,
     ChonkyFileActionsContext,
     ChonkyFilesContext,
     ChonkyFolderChainContext,
@@ -61,12 +62,6 @@ export interface FileBrowserProps {
     doubleClickDelay?: number;
 
     /**
-     * The function that is called whenever file selection changes.
-     * [See relevant section](#section-managing-file-selection).
-     */
-    onSelectionChange?: (selection: Selection) => void;
-
-    /**
      * The flag that completely disables file selection functionality. If any handlers depend on file selections, their
      * input will look like no files are selected.
      */
@@ -84,63 +79,31 @@ export interface FileBrowserProps {
      * when necessary. When set to `false`, file browser height will be extended to display all files at the same time.
      */
     fillParentContainer?: boolean;
-
-    /**
-     * The initial file view. This should be set using the `FileView` enum. Users can change file view using the
-     * controls in the top bar.
-     * [See relevant section](#section-setting-file-browser-options).
-     */
-    view?: any;
-
-    /**
-     * Initial values for the file view options. Users can toggle all of these using the "Options" dropdown.
-     * [See relevant section](#section-setting-file-browser-options).
-     */
-    options?: any;
-
-    /**
-     * The file object property that files are initially sorted by. This can be a string corresponding to one of the
-     * file properties, or a function that takes in a `FileData` object and returns some value. This should can be set
-     * using the `SortProperty` enum. Users can change the sort property by clicking on column names in detailed view.
-     * [See relevant section](#section-setting-file-browser-options).
-     */
-    sortProperty?: string | ((file: FileData) => any);
-
-    /**
-     * The order in which the files are presented. This should be set using the `SortOrder` enum. Users can change the
-     * sort order by clicking on column names in detailed view.
-     * [See relevant section](#section-setting-file-browser-options).
-     */
-    sortOrder?: any;
-
-    /**
-     * Icon component
-     */
-    Icon?: any;
-
-    /**
-     * Map of default icons
-     */
-    icons?: any;
 }
 
 export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const { files, children } = props;
+
+    // Assign default values
     const folderChain = props.folderChain ? props.folderChain : null;
     const fileActions = props.fileActions ? props.fileActions : [];
     const onFileAction = props.onFileAction ? props.onFileAction : null;
     const thumbnailGenerator = props.thumbnailGenerator
         ? props.thumbnailGenerator
         : null;
-    const disableDragNDrop =
-        typeof props.disableDragNDrop === 'boolean' ? props.disableDragNDrop : false;
+    const doubleClickDelay =
+        typeof props.doubleClickDelay === 'number' ? props.doubleClickDelay : 300;
+    const disableSelection = !!props.disableSelection;
+    const disableDragNDrop = !!props.disableDragNDrop;
 
     const validationResult = useFileBrowserValidation(files, folderChain);
 
     const sortedFiles = validationResult.cleanFiles;
     const cleanFolderChain = validationResult.cleanFolderChain;
 
-    const { selection, selectFiles, toggleSelection, clearSelection } = useSelection();
+    const { selection, selectFiles, toggleSelection, clearSelection } = useSelection(
+        disableSelection
+    );
 
     // TODO: Validate file actions
     // TODO: Remove duplicates if they are default actions, otherwise error on
@@ -191,6 +154,14 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         validateContextType({
             context: ChonkyThumbnailGeneratorContext,
             value: thumbnailGenerator,
+        }),
+        validateContextType({
+            context: ChonkyDoubleClickDelayContext,
+            value: doubleClickDelay,
+        }),
+        validateContextType({
+            context: ChonkyDisableSelectionContext,
+            value: disableSelection,
         }),
         validateContextType({
             context: ChonkyDisableDragNDropContext,

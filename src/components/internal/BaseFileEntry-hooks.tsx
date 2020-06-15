@@ -25,7 +25,7 @@ export const useThumbnailUrl = (
 ) => {
     const thumbnailGenerator = useContext(ChonkyThumbnailGeneratorContext);
 
-    const deps = [file, thumbnailGenerator, setThumbnailUrl];
+    const deps = [file, setThumbnailUrl, setThumbnailLoading, thumbnailGenerator];
     useEffect(() => {
         let loadingCancelled = false;
 

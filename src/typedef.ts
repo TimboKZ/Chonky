@@ -1,7 +1,7 @@
 import { Nilable, Nullable, Undefinable } from 'tsdef';
 
 import { ChonkyIconName } from './components/external/ChonkyIcon';
-import { SpecialActionData } from './util/special-actions';
+import { SpecialAction, SpecialActionData } from './util/special-actions';
 
 // If you make changes to required params in `FileData`, make sure to makes relevant
 // changes `validation.ts` functions.
@@ -64,9 +64,8 @@ export type InternalFileActionDispatcher = (actionData: FileActionData) => void;
 export type InternalSpecialActionDispatcher = (actionData: SpecialActionData) => void;
 
 export interface FileSelection {
-    [fileId: string]: Undefinable<boolean>; // `true` means selected, anything else
-    // - not
-    // selected
+    // `true` means selected, anything else - not selected
+    [fileId: string]: Undefinable<boolean>;
 }
 
 export type ThumbnailGenerator = (

@@ -11,7 +11,7 @@ export interface ToolbarButtonProps {
     onClick?: () => void;
 }
 
-export const ToolbarButton: React.FC<ToolbarButtonProps> = (props) => {
+export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) => {
     const { text, tooltip, icon, iconOnly, onClick } = props;
 
     const className = c({
@@ -29,4 +29,4 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = (props) => {
             )}
         </button>
     );
-};
+});

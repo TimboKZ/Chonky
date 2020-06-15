@@ -26,6 +26,9 @@ export const ChonkyThumbnailGeneratorContext = React.createContext<
     Nullable<ThumbnailGenerator>
 >(null);
 
+export const ChonkyDoubleClickDelayContext = React.createContext<number>(300);
+
+export const ChonkyDisableSelectionContext = React.createContext<boolean>(false);
 export const ChonkyDisableDragNDropContext = React.createContext<boolean>(false);
 
 type ExtractContextType<P> = P extends React.Context<infer T> ? T : never;

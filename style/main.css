@@ -258,19 +258,13 @@ button.chonky-folder-chain-entry:active {
   position: relative;
 }
 .chonky-file-entry-clickable-wrapper:focus .chonky-file-entry-inside:before {
-  box-shadow: inset 0 0 0 2px #000;
-  border-radius: 4px;
-  position: absolute;
-  display: block;
-  z-index: 999;
-  content: "";
-  bottom: 0;
-  right: 0;
-  left: 0;
-  top: 0;
+  box-shadow: inset 0 0 0 2px #000 !important;
 }
 .chonky-file-entry-clickable-wrapper:focus .chonky-file-entry-description {
-  border-top-color: #000;
+  border-top-color: #000 !important;
+}
+.chonky-file-entry-clickable-wrapper:focus .chonky-file-icon-inside {
+  color: #000;
 }
 
 .chonky-file-drag-preview {
@@ -294,6 +288,17 @@ button.chonky-folder-chain-entry:active {
   flex-direction: column;
   display: flex;
   height: 100%;
+}
+.chonky-file-entry-inside:before {
+  border-radius: 4px;
+  position: absolute;
+  display: block;
+  z-index: 999;
+  content: "";
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
 }
 .chonky-file-entry-dnd-indicator {
   box-sizing: border-box;
@@ -327,6 +332,12 @@ button.chonky-folder-chain-entry:active {
   background-color: #fff;
   font-size: 14px;
   padding: 3px 5px 5px 5px;
+}
+.chonky-file-entry-selected .chonky-file-entry-inside:before {
+  box-shadow: inset 0 0 0 2px #33adff !important;
+}
+.chonky-file-entry-selected .chonky-file-entry-description {
+  border-top-color: #33adff !important;
 }
 .chonky-file-entry-selected .chonky-file-selection {
   opacity: 1 !important;

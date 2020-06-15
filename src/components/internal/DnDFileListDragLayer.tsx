@@ -6,8 +6,9 @@
 
 import React, { useContext } from 'react';
 import { useDragLayer } from 'react-dnd';
+
+import { ChonkySelectionContext } from '../../util/context';
 import { DnDFileEntryItem, DnDFileEntryType } from './DnDFileEntry';
-import { ChonkySelectionContext } from 'chonky';
 
 export interface DnDFileListDragLayerProps {}
 

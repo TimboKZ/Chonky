@@ -9,7 +9,7 @@ import { useFileActionButtons, useFolderChainComponent } from './FileToolbar-hoo
 
 export interface FileToolbarProps {}
 
-export const FileToolbar: React.FC<FileToolbarProps> = (props) => {
+export const FileToolbar: React.FC<FileToolbarProps> = React.memo((props) => {
     const folderChain = useContext(ChonkyFolderChainContext);
     const fileActions = useContext(ChonkyFileActionsContext);
 
@@ -29,7 +29,7 @@ export const FileToolbar: React.FC<FileToolbarProps> = (props) => {
             </div>
         </div>
     );
-};
+});
 
 FileToolbar.propTypes = {
     // @ts-ignore

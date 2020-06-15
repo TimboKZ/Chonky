@@ -1,9 +1,9 @@
 import 'chonky/style/main.css';
 
 import { FileAction, FileActionData, FileBrowser, FileList, FileToolbar } from 'chonky';
-import React from 'react';
+import React, { useState } from 'react';
 
-import { createDocsObject, showNotification } from '../story-helpers';
+import { createDocsObject } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './04-Actions.md';
@@ -17,9 +17,19 @@ export default {
 };
 
 export const ActionsExample = () => {
+    const [actionCount, setActionCount] = useState(0);
+    const [lastAction, setLastAction] = useState(
+        'Click on something or drag & drop files...'
+    );
+
     const handleFileAction = (action: FileAction, data: FileActionData) => {
+        // Log action to console
+        // eslint-disable-next-line no-console
+        console.log('\nAction object:', action, '\nAction data:', data);
+
+        // Show pretty action HTML
         const textParts = [];
-        textParts.push(`<b>Action:</b> ${action.name}`);
+        textParts.push(`<b>Action #${actionCount + 1}:</b> ${action.name}`);
         if (data.target) {
             textParts.push(`<b>Target:</b> "${data.target.name}"`);
         }
@@ -27,13 +37,8 @@ export const ActionsExample = () => {
             const fileNames = data.files.map((f) => `"${f.name}"`).join(', ');
             textParts.push(`<b>Files:</b> ${fileNames}`);
         }
-
-        showNotification({
-            text: textParts.join('<br/><br/>'),
-        });
-
-        // eslint-disable-next-line no-console
-        console.log('\nAction object:', action, '\nAction data:', data);
+        setActionCount((count) => count + 1);
+        setLastAction(textParts.join(' '));
     };
 
     const folderChain = [{ id: 'gBt4z3', name: 'My Documents', isDir: true }];
@@ -45,6 +50,11 @@ export const ActionsExample = () => {
 
     return (
         <div className="live-example" style={{ height: 500 }}>
+            <div
+                className="live-example-action"
+                dangerouslySetInnerHTML={{ __html: lastAction }}
+            />
+
             <FileBrowser
                 files={files}
                 folderChain={folderChain}
