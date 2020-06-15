@@ -16,10 +16,12 @@ import {
     ChonkyFileActionsContext,
     ChonkyFilesContext,
     ChonkyFolderChainContext,
+    ChonkySelectionContext,
     ChonkyThumbnailGeneratorContext,
     validateContextType,
 } from '../../util/context';
 import { DefaultActions, useFileActionDispatcher } from '../../util/file-actions';
+import { useSelection } from '../../util/selection';
 import { useSpecialActionDispatcher } from '../../util/special-actions';
 import { useFileBrowserValidation } from '../../util/validation';
 import { ContextComposer, ContextProviderData } from '../internal/ContextComposer';
@@ -138,6 +140,8 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const sortedFiles = validationResult.cleanFiles;
     const cleanFolderChain = validationResult.cleanFolderChain;
 
+    const { selection, selectFiles, toggleSelection, clearSelection } = useSelection();
+
     // TODO: Validate file actions
     // TODO: Remove duplicates if they are default actions, otherwise error on
     //  duplicates.
@@ -147,7 +151,12 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         extendedFileActions,
         onFileAction
     );
-    const dispatchSpecialAction = useSpecialActionDispatcher(dispatchFileAction);
+    const dispatchSpecialAction = useSpecialActionDispatcher(
+        selectFiles,
+        toggleSelection,
+        clearSelection,
+        dispatchFileAction
+    );
 
     type ExtractContextType<P> = P extends React.Context<infer T> ? T : never;
     interface ContextData<ContextType extends React.Context<any>> {
@@ -162,6 +171,10 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         validateContextType({
             context: ChonkyFolderChainContext,
             value: cleanFolderChain,
+        }),
+        validateContextType({
+            context: ChonkySelectionContext,
+            value: selection,
         }),
         validateContextType({
             context: ChonkyFileActionsContext,

@@ -1,4 +1,5 @@
-import { Nilable, Nullable } from 'tsdef';
+import { Nilable, Nullable, Undefinable } from 'tsdef';
+
 import { ChonkyIconName } from './components/external/ChonkyIcon';
 import { SpecialActionData } from './util/special-actions';
 
@@ -61,6 +62,12 @@ export type FileActionHandler = (
 
 export type InternalFileActionDispatcher = (actionData: FileActionData) => void;
 export type InternalSpecialActionDispatcher = (actionData: SpecialActionData) => void;
+
+export interface FileSelection {
+    [fileId: string]: Undefinable<boolean>; // `true` means selected, anything else
+    // - not
+    // selected
+}
 
 export type ThumbnailGenerator = (
     file: FileData

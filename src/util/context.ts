@@ -4,6 +4,7 @@ import { Nullable } from 'tsdef';
 import {
     FileAction,
     FileArray,
+    FileSelection,
     InternalFileActionDispatcher,
     InternalSpecialActionDispatcher,
     ThumbnailGenerator,
@@ -11,6 +12,7 @@ import {
 
 export const ChonkyFilesContext = React.createContext<FileArray>([]);
 export const ChonkyFolderChainContext = React.createContext<Nullable<FileArray>>(null);
+export const ChonkySelectionContext = React.createContext<FileSelection>({});
 
 export const ChonkyFileActionsContext = React.createContext<FileAction[]>([]);
 export const ChonkyDispatchFileActionContext = React.createContext<

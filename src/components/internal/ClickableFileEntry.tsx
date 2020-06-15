@@ -4,7 +4,8 @@ import { Nilable } from 'tsdef';
 import { ChonkyDispatchSpecialActionContext } from '../../util/context';
 import { FileHelper } from '../../util/file-helper';
 import { SpecialAction, SpecialClickFileAction } from '../../util/special-actions';
-import { BaseFileEntry, FileEntryProps } from './BaseFileEntry';
+import { FileEntryProps } from './BaseFileEntry';
+import { SelectableFileEntry } from './SelectableFileEntry';
 
 export const ClickableFileEntry: React.FC<FileEntryProps> = (props) => {
     const { file } = props;
@@ -22,6 +23,9 @@ export const ClickableFileEntry: React.FC<FileEntryProps> = (props) => {
         const actionData: SpecialClickFileAction = {
             actionName: SpecialAction.ClickFile,
             file,
+            alt: event.altKey,
+            ctrl: event.ctrlKey,
+            shift: event.shiftKey,
             clickType: 'single',
         };
 
@@ -49,12 +53,18 @@ export const ClickableFileEntry: React.FC<FileEntryProps> = (props) => {
         }
     };
 
+    const wrapperProps: React.HTMLProps<HTMLDivElement> = {};
+    if (FileHelper.isClickable(file)) {
+        wrapperProps.onClick = onClick;
+        wrapperProps.tabIndex = 0;
+    }
+
     return (
         <div
             className="chonky-file-entry-clickable-wrapper chonky-fill-parent"
-            onClick={onClick}
+            {...wrapperProps}
         >
-            <BaseFileEntry {...props} />
+            <SelectableFileEntry {...props} />
         </div>
     );
 };

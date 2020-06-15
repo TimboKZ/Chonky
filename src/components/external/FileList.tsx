@@ -4,8 +4,8 @@ import { AutoSizer, Grid } from 'react-virtualized';
 import { ChonkyFilesContext } from '../../util/context';
 import { Logger } from '../../util/logger';
 import { isMobileDevice } from '../../util/validation';
-import { ErrorMessage } from '../internal/ErrorMessage';
 import { BaseFileEntry } from '../internal/BaseFileEntry';
+import { ErrorMessage } from '../internal/ErrorMessage';
 import { FileBrowser } from './FileBrowser';
 import {
     SmallThumbsSize,
@@ -17,7 +17,7 @@ import {
 
 export interface FileListProps {}
 
-export const FileList: React.FC<FileListProps> = () => {
+export const FileList: React.FC<FileListProps> = React.memo(() => {
     const files = useContext(ChonkyFilesContext);
 
     const entryRenderer = useEntryRenderer(files);
@@ -50,7 +50,7 @@ export const FileList: React.FC<FileListProps> = () => {
                     let entrySize = SmallThumbsSize;
 
                     const isMobile = isMobileDevice();
-                    const gutter = isMobile ? 5 : 10;
+                    const gutter = isMobile ? 5 : 8;
                     const scrollbar = !fillParentContainer || isMobile ? 0 : 16;
 
                     // TODO: const isLargeThumbs = view === FileView.LargeThumbs;
@@ -111,4 +111,4 @@ export const FileList: React.FC<FileListProps> = () => {
             </AutoSizer>
         </div>
     );
-};
+});

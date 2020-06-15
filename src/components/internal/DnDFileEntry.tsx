@@ -7,7 +7,7 @@ import { FileData } from '../../typedef';
 import { ChonkyDispatchSpecialActionContext } from '../../util/context';
 import { FileHelper } from '../../util/file-helper';
 import { SpecialAction, SpecialDndDropAction } from '../../util/special-actions';
-import { BaseFileEntry, FileEntryProps } from './BaseFileEntry';
+import { FileEntryProps } from './BaseFileEntry';
 import { ClickableFileEntry } from './ClickableFileEntry';
 
 export interface DnDProps {
@@ -16,6 +16,7 @@ export interface DnDProps {
     dndCanDrop?: boolean;
 }
 
+export type DnDFileEntryItem = DragObjectWithType & { file: Nullable<FileData> };
 export const DnDFileEntryType = 'chonky-file-entry';
 
 export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
@@ -23,7 +24,6 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
 
     const dispatchSpecialAction = useContext(ChonkyDispatchSpecialActionContext);
 
-    type ChonkyDnDItem = DragObjectWithType & { file: Nullable<FileData> };
     interface ChonkyDnDDropResult {
         dropTarget: Nilable<FileData>;
         dropEffect: 'move' | 'copy';
@@ -32,7 +32,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
     // For drag source
     const canDrag = FileHelper.isDraggable(file);
     const onDragEnd = useCallback(
-        (item: ChonkyDnDItem, monitor: DragSourceMonitor) => {
+        (item: DnDFileEntryItem, monitor: DragSourceMonitor) => {
             const dropResult = monitor.getDropResult() as ChonkyDnDDropResult;
             if (!file || !dropResult || !dropResult.dropTarget) return;
 
@@ -49,7 +49,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
 
     // For drop target
     const onDrop = useCallback(
-        (item: ChonkyDnDItem, monitor) => {
+        (item: DnDFileEntryItem, monitor) => {
             if (!monitor.canDrop()) return;
             const customDropResult: ExcludeKeys<ChonkyDnDDropResult, 'dropEffect'> = {
                 dropTarget: file,
@@ -59,7 +59,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
         [file]
     );
     const canDrop = useCallback(
-        (item: ChonkyDnDItem) => {
+        (item: DnDFileEntryItem) => {
             const isSameFile = item.file?.id === file?.id;
             return FileHelper.isDroppable(file) && !isSameFile;
         },
@@ -68,7 +68,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
 
     // Create refs for react-dnd hooks
     const [{ isDragging: dndIsDragging }, drag, preview] = useDrag({
-        item: { type: DnDFileEntryType, file } as ChonkyDnDItem,
+        item: { type: DnDFileEntryType, file } as DnDFileEntryItem,
         canDrag,
         end: onDragEnd,
         collect: (monitor) => ({

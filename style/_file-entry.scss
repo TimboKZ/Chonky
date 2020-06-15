@@ -1,9 +1,36 @@
 @import 'util';
 
+.chonky-file-entry-clickable-wrapper {
+    outline: none !important;
+    position: relative;
+
+    &:focus .chonky-file-entry {
+        &-inside:before {
+            box-shadow: inset 0 0 0 $file-entry-focus-border-width
+                $file-entry-focus-border;
+            border-radius: $radius-medium;
+            position: absolute;
+            display: block;
+            z-index: 999;
+            content: '';
+            bottom: 0;
+            right: 0;
+            left: 0;
+            top: 0;
+        }
+
+        &-description {
+            border-top-color: $file-entry-focus-border;
+        }
+    }
+}
+
 .chonky-file-drag-preview {
-    border: solid 1px $border-dark;
-    background-color: $bg-dark;
-    padding: $base-padding;
+    padding: $base-padding * 1.5 $base-padding * 2;
+    box-shadow: 2px 2px 5px $bg-darker;
+    border-radius: $radius-small;
+    border: solid 2px $fg-active;
+    background-color: $bg-light;
     display: inline-block;
 }
 
@@ -11,10 +38,15 @@
     border: solid 1px $file-entry-border;
     border-radius: $radius-small;
     box-sizing: border-box;
-    flex-direction: column;
     overflow: hidden;
-    display: flex;
     height: 100%;
+
+    &-inside {
+        box-sizing: border-box;
+        flex-direction: column;
+        display: flex;
+        height: 100%;
+    }
 
     &-dnd-indicator {
         box-sizing: border-box;
@@ -47,19 +79,39 @@
     }
 
     &-description {
+        border-top: solid $file-entry-focus-border-width transparent;
         background-color: $file-entry-description-bg;
         font-size: $font-size-small;
-        padding: $base-padding;
+
+        padding: $base-padding - $file-entry-focus-border-width $base-padding
+            $base-padding $base-padding;
     }
 
     // ======= Modifiers =======
+    &-selected {
+        .chonky-file-selection {
+            opacity: 1 !important;
+        }
+    }
+
+    &-dragging {
+        .chonky-file-background {
+            opacity: 0.3 !important;
+        }
+    }
+
+    &-drop-hovered {
+        .chonky-file-background {
+            opacity: 1 !important;
+        }
+    }
 }
 
 .chonky-file {
     &-icon,
+    &-selection,
     &-thumbnail,
     &-background {
-        @include default-transition(background);
         position: absolute;
         display: block;
         height: 100%;
@@ -69,18 +121,26 @@
     }
 
     &-icon {
-        z-index: 30;
+        z-index: 40;
 
         &-inside {
             @include transform(translateX(-50%) translateY(-50%));
-            left: 50% !important;
-            top: 50% !important;
             text-align: center;
             position: absolute;
             font-size: 2.2em;
             display: block;
             color: #fff;
+            left: 50%;
+            top: 50%;
         }
+    }
+
+    &-selection {
+        z-index: 30;
+
+        @include striped-background(rgba($bg-active, 0.14), rgba($bg-active, 0.2));
+        background-color: rgba($bg-active, 0.14);
+        opacity: 0;
     }
 
     &-thumbnail {
@@ -100,6 +160,7 @@
     &-background {
         z-index: 10;
 
+        @include default-transition(opacity);
         opacity: 0.5;
     }
 }

@@ -4,9 +4,10 @@
  * @license MIT
  */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDragLayer } from 'react-dnd';
-import { DnDFileEntryType } from './DnDFileEntry';
+import { DnDFileEntryItem, DnDFileEntryType } from './DnDFileEntry';
+import { ChonkySelectionContext } from 'chonky';
 
 export interface DnDFileListDragLayerProps {}
 
@@ -34,9 +35,16 @@ function getItemStyles(initialOffset: any, currentOffset: any) {
 }
 
 export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
+    // TODO: Reset selection if we drag & drop a file outside of the selection.
+    const selection = useContext(ChonkySelectionContext);
+    let selectionSize = 0;
+    for (const fileId in selection) {
+        if (selection[fileId] === true) selectionSize++;
+    }
+
     const { itemType, isDragging, item, initialOffset, currentOffset } = useDragLayer(
         (monitor) => ({
-            item: monitor.getItem(),
+            item: monitor.getItem() as DnDFileEntryItem,
             itemType: monitor.getItemType(),
             initialOffset: monitor.getInitialSourceClientOffset(),
             currentOffset: monitor.getSourceClientOffset(),
@@ -44,9 +52,16 @@ export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
         })
     );
     function renderItem() {
+        if (!item.file) return;
+
         switch (itemType) {
             case DnDFileEntryType:
-                return <div className="chonky-file-drag-preview">Files</div>;
+                return (
+                    <div className="chonky-file-drag-preview">
+                        <b>{item.file.name}</b>
+                        {selectionSize ? ` and ${selectionSize - 1} other files` : null}
+                    </div>
+                );
             default:
                 return null;
         }

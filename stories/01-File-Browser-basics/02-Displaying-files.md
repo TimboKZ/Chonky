@@ -24,3 +24,12 @@ const files = [
     null, // Loading animation will be shown for this file
 ];
 ```
+
+<span style="color: red; font-weight: bold;">
+It is very important that file IDs are unique:
+</span>
+
+If file IDs are not unique, the consequences can be dire - for example, your user can
+accidentally delete the wrong file. Chonky tries to protect you by scanning the files
+array for duplicate IDs, but you should put some extra checks in your code too. You can
+never be too safe.

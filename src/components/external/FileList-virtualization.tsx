@@ -1,11 +1,10 @@
 import c from 'classnames';
 import React, { useCallback, useContext } from 'react';
-import { Nullable } from 'tsdef';
 
 import { FileArray } from '../../typedef';
 import { ChonkyDisableDragNDropContext } from '../../util/context';
-import { DnDFileEntry } from '../internal/DnDFileEntry';
 import { BaseFileEntry, FileEntryProps } from '../internal/BaseFileEntry';
+import { DnDFileEntry } from '../internal/DnDFileEntry';
 import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
 
 export interface EntrySize {
@@ -35,7 +34,7 @@ export const getRowHeight = (
     return entrySize.height + gutterSize;
 };
 
-export const useEntryRenderer = (files: Nullable<FileArray>) => {
+export const useEntryRenderer = (files: FileArray) => {
     const disableDragNDrop = useContext(ChonkyDisableDragNDropContext);
     // All hook parameters should go into `deps` array
     const deps = [files, disableDragNDrop];
@@ -49,16 +48,17 @@ export const useEntryRenderer = (files: Nullable<FileArray>) => {
             lastRow?: boolean,
             lastColumn?: boolean
         ) => {
-            // This check is required to meet the hooks requirements (no conditional
-            // hooks) and context requirements (context can sometimes be null) in the
-            // parent component, `FileList`. During normal execution, `files` will never
-            // be null.
-            if (!files) return <p>123</p>;
-
             if (typeof gutterSize === 'number') {
-                if (lastRow !== true) style.height = style.height - gutterSize;
-                if (lastColumn !== true) style.width = style.width - gutterSize;
+                if (!lastRow) style.height = style.height - gutterSize;
+
+                if (!lastColumn) style.width = style.width - gutterSize;
             }
+
+            // When rendering the file list, some browsers cut off the last pixel of
+            // a file entry, making it look ugly. To get around this rendering bug
+            // we make file entries in the last row/column 1 pixel shorter.
+            if (lastRow) style.height = style.height - 1;
+            if (lastColumn) style.width = style.width - 1;
 
             if (index >= files.length) return null;
             const file = files[index];

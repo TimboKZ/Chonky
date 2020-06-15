@@ -123,6 +123,6 @@ export const showNotification = (params: {
         text,
         type: type ? type : 'success',
         theme: 'relax',
-        timeout: 3000,
+        timeout: 5000,
     }).show();
 };

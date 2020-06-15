@@ -17,6 +17,9 @@ export enum SpecialAction {
 export interface SpecialClickFileAction {
     actionName: SpecialAction.ClickFile;
     file: FileData;
+    alt: boolean;
+    ctrl: boolean;
+    shift: boolean;
     clickType: 'single' | 'double';
 }
 
@@ -35,34 +38,41 @@ export type SpecialActionData = SpecialClickFileAction | SpecialDndDropAction;
  * transforms it into a "file action" that can be handled by the user.
  */
 export const useSpecialActionDispatcher = (
+    selectFiles: (fileIds: string[]) => void,
+    toggleSelection: (fileId: string) => void,
+    clearSelection: () => void,
     dispatchFileAction: InternalFileActionDispatcher
 ): InternalSpecialActionDispatcher => {
     // Define handlers in a map
     const specialActionHandlerMapDeps = [dispatchFileAction];
     const specialActionHandlerMap = useMemo(
-        () => ({
-            [SpecialAction.ClickFile]: (actionData: SpecialClickFileAction) => {
-                if (actionData.clickType === 'double') {
+        () =>
+            ({
+                [SpecialAction.ClickFile]: (data: SpecialClickFileAction) => {
+                    if (data.clickType === 'double') {
+                        dispatchFileAction({
+                            actionName: ChonkyActions.OpenFiles.name,
+                            target: data.file,
+                            // TODO: Replace with selection
+                            files: [data.file],
+                        });
+                    } else {
+                        if (data.ctrl) toggleSelection(data.file.id);
+                        else selectFiles([data.file.id]);
+                    }
+                },
+                [SpecialAction.DragNDropFiles]: (data: SpecialDndDropAction) => {
                     dispatchFileAction({
-                        actionName: ChonkyActions.OpenFiles.name,
-                        target: actionData.file,
+                        actionName:
+                            data.dropEffect === 'copy'
+                                ? ChonkyActions.DuplicateFilesTo.name
+                                : ChonkyActions.MoveFilesTo.name,
+                        target: data.dropTarget,
                         // TODO: Replace with selection
-                        files: [actionData.file],
+                        files: [data.dragSource],
                     });
-                }
-            },
-            [SpecialAction.DragNDropFiles]: (actionData: SpecialDndDropAction) => {
-                dispatchFileAction({
-                    actionName:
-                        actionData.dropEffect === 'copy'
-                            ? ChonkyActions.DuplicateFilesTo.name
-                            : ChonkyActions.MoveFilesTo.name,
-                    target: actionData.dropTarget,
-                    // TODO: Replace with selection
-                    files: [actionData.dragSource],
-                });
-            },
-        }),
+                },
+            } as { [actionName in SpecialAction]: (data: SpecialActionData) => void }),
         specialActionHandlerMapDeps
     );
 
