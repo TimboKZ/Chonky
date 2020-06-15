@@ -15,10 +15,13 @@
   </a>
 </p>
 
-# Introduction
+---
 
-> Chonky is still in development, please [create an issue](https://github.com/TimboKZ/Chonky/issues) if you have a
-> problem or want to request a feature.
+<strong style="color: red">(!!!) You're viewing the README for the legacy 0.x version. [Click here](https://github.com/TimboKZ/Chonky) to view the most recent version.</strong>
+
+---
+
+# Introduction
 
 Chonky is a file browser component for React. It tries to recreate the native file browsing experience in your browser.
 This means your users can make selections, drag & drop files, toggle file view between "large thumbnails" and "detailed
