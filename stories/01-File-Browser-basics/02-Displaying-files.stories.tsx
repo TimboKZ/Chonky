@@ -28,6 +28,13 @@ export const FilesArrayExample = () => {
         null, // Loading animation will be shown for this file
         null,
         {
+            id: 'nTe',
+            name: 'Normal file.yaml',
+            isDir: false,
+            isHidden: true,
+            size: 890,
+        },
+        {
             id: 'zxc',
             name: 'Hidden file.mp4',
             isDir: false,

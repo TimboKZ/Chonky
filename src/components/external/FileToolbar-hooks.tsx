@@ -3,7 +3,10 @@ import React, { useContext, useMemo } from 'react';
 import { Nullable } from 'tsdef';
 
 import { FileAction, FileArray } from '../../typedef';
-import { ChonkyDispatchFileActionContext } from '../../util/context';
+import {
+    ChonkyDispatchFileActionContext,
+    ChonkySelectionSizeContext,
+} from '../../util/context';
 import { ChonkyActions } from '../../util/file-actions';
 import { FileHelper } from '../../util/file-helper';
 import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
@@ -81,17 +84,19 @@ export const useFileActionButtons = (
     openParentFolderButton: Nullable<React.ReactElement>;
     buttonComponents: React.ReactElement[];
 } => {
+    const selectionSize = useContext(ChonkySelectionSizeContext);
     const dispatchChonkyAction = useContext(ChonkyDispatchFileActionContext);
     // All hook params should go into `deps`
-    const deps = [fileActions, dispatchChonkyAction];
+    const deps = [fileActions, selectionSize, dispatchChonkyAction];
     return useMemo(() => {
         let openParentFolderButton = null;
         const buttonComponents: React.ReactElement[] = [];
         for (let i = 0; i < fileActions.length; ++i) {
-            const { name: actionName, toolbarButton } = fileActions[i];
+            const action = fileActions[i];
+            const { toolbarButton } = action;
             if (!toolbarButton) continue;
 
-            const key = `toolbar-button-${actionName}`;
+            const key = `toolbar-button-${action.name}`;
             const component = (
                 <ToolbarButton
                     key={key}
@@ -99,11 +104,12 @@ export const useFileActionButtons = (
                     tooltip={toolbarButton.tooltip}
                     icon={toolbarButton.icon}
                     iconOnly={toolbarButton.iconOnly}
-                    onClick={() => dispatchChonkyAction({ actionName })}
+                    onClick={() => dispatchChonkyAction({ actionName: action.name })}
+                    disabled={action.requiresSelection && selectionSize === 0}
                 />
             );
 
-            if (actionName === ChonkyActions.OpenParentFolder.name) {
+            if (action.name === ChonkyActions.OpenParentFolder.name) {
                 openParentFolderButton = component;
             } else {
                 buttonComponents.push(component);

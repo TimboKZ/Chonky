@@ -18,9 +18,9 @@ const getIconTrie = memoize(() => {
 
     const IconsToExtensions = [
         [ChonkyIconName.license, ['license']],
-        [ChonkyIconName.config, ['sfk', 'ini', 'toml', 'iml']],
+        [ChonkyIconName.config, ['sfk', 'ini', 'yaml', 'toml', 'iml']],
         [ChonkyIconName.model, ['3ds', 'obj', 'ply', 'fbx']],
-        [ChonkyIconName.database, ['json', 'sql']],
+        [ChonkyIconName.database, ['json', 'sql', 'npy', 'npz']],
         [ChonkyIconName.text, ['txt', 'md']],
         [ChonkyIconName.archive, ['zip', 'rar', 'tar', 'tar.gz']],
         [ChonkyIconName.csv, ['csv', 'xls', 'xlsx']],

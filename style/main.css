@@ -2,6 +2,14 @@
   height: 100%;
 }
 
+.chonky-no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .chonky-root {
   border: solid 1px #e4e4e4;
   border-radius: 4px;
@@ -83,6 +91,63 @@
   border-top-color: transparent;
   margin-bottom: 4px;
   content: "";
+}
+
+.chonky-text-placeholder {
+  -webkit-animation: loading-placeholder 1.5s infinite linear;
+  -moz-animation: loading-placeholder 1.5s infinite linear;
+  -o-animation: loading-placeholder 1.5s infinite linear;
+  animation: loading-placeholder 1.5s infinite linear;
+  background-color: #ccc;
+  white-space: nowrap;
+  border-radius: 4px;
+  overflow: hidden;
+  min-width: 20px;
+  max-width: 40%;
+}
+@-webkit-keyframes loading-placeholder {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+@-moz-keyframes loading-placeholder {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+@-ms-keyframes loading-placeholder {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+@keyframes loading-placeholder {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.2;
+  }
 }
 
 .chonky-toolbar {

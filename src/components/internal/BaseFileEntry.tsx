@@ -9,6 +9,7 @@ import { useDndIcon, useThumbnailUrl } from './BaseFileEntry-hooks';
 import { DnDProps } from './DnDFileEntry';
 import { FileThumbnail } from './FileThumbnail';
 import { SelectableProps } from './SelectableFileEntry';
+import { TextPlaceholder } from '../external/TextPlaceholder';
 
 export interface FileEntryProps extends SelectableProps, DnDProps {
     file: Nullable<FileData>;
@@ -66,7 +67,11 @@ export const BaseFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
                     />
                 </div>
                 <div className="chonky-file-entry-description">
-                    {file ? file.name : '---'}
+                    {file ? (
+                        file.name
+                    ) : (
+                        <TextPlaceholder minLength={15} maxLength={20} />
+                    )}
                 </div>
             </div>
         </div>

@@ -1,0 +1,26 @@
+@import 'util';
+
+.chonky-text-placeholder {
+    @include animation(loading-placeholder 1.5s infinite linear);
+
+    background-color: $bg-dark;
+    white-space: nowrap;
+    border-radius: 4px;
+    overflow: hidden;
+    min-width: 20px;
+    max-width: 40%;
+
+    @include keyframes(loading-placeholder) {
+        0% {
+            opacity: 0.2;
+        }
+
+        50% {
+            opacity: 0.4;
+        }
+
+        100% {
+            opacity: 0.2;
+        }
+    }
+}

@@ -4,6 +4,14 @@
     height: 100%;
 }
 
+.chonky-no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .chonky-root {
     border: solid 1px $border-light;
     border-radius: $radius-medium;

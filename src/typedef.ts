@@ -44,6 +44,7 @@ export interface FileAction {
 export interface ToolbarButtonData {
     name: string;
     group?: string;
+    dropdown?: boolean;
     tooltip?: string;
     icon?: ChonkyIconName | string;
     iconOnly?: boolean;

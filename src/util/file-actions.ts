@@ -12,6 +12,7 @@ import { Logger } from './logger';
 import { isFunction } from './validation';
 
 export const ChonkyActions = {
+    // Actions triggered by drag & drop
     MoveFilesTo: {
         name: 'move_files_to',
     },
@@ -32,6 +33,14 @@ export const ChonkyActions = {
     OpenFiles: {
         name: 'open_files',
         requiresSelection: true,
+        toolbarButton: {
+            name: 'Open selection',
+            group: 'Actions',
+            dropdown: true,
+        },
+
+        // We don't specify the 'enter' hotkey here because it is handled inside
+        // `<ClickableFileEntry>` component.
     },
 
     CopyFiles: {
@@ -71,8 +80,6 @@ export const DefaultActions: FileAction[] = [
 
     ChonkyActions.OpenParentFolder,
     ChonkyActions.OpenFiles,
-    ChonkyActions.CreateFolder,
-    ChonkyActions.UploadFiles,
 ];
 
 /**
@@ -115,7 +122,7 @@ export const useFileActionDispatcher = (
             } else {
                 Logger.error(
                     `Internal components dispatched a "${actionName}" file action, ` +
-                    `but such action was not registered.`
+                        `but such action was not registered.`
                 );
             }
         },

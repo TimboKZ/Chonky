@@ -18,6 +18,7 @@ import {
     ChonkySelectionContext,
     ChonkyThumbnailGeneratorContext,
     validateContextType,
+    ChonkySelectionSizeContext,
 } from '../../util/context';
 import { DefaultActions, useFileActionDispatcher } from '../../util/file-actions';
 import { useSelection } from '../../util/selection';
@@ -99,9 +100,19 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const sortedFiles = validationResult.cleanFiles;
     const cleanFolderChain = validationResult.cleanFolderChain;
 
+    // Initial selection
     const { selection, selectFiles, toggleSelection, clearSelection } = useSelection(
         disableSelection
     );
+    const selectionSize = useMemo(() => {
+        let selectionSize = 0;
+        for (const fileId in selection) {
+            if (selection.hasOwnProperty(fileId)) {
+                if (selection[fileId] === true) selectionSize++;
+            }
+        }
+        return selectionSize;
+    }, [selection]);
 
     // TODO: Validate file actions
     // TODO: Remove duplicates if they are default actions, otherwise error on
@@ -138,6 +149,10 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         validateContextType({
             context: ChonkySelectionContext,
             value: selection,
+        }),
+        validateContextType({
+            context: ChonkySelectionSizeContext,
+            value: selectionSize,
         }),
         validateContextType({
             context: ChonkyFileActionsContext,
@@ -180,7 +195,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
 
     return (
         <ContextComposer providers={contextProviders}>
-            <div className="chonky-root">
+            <div className="chonky-root chonky-no-select">
                 {enableDragAndDrop && <DnDFileListDragLayer />}
                 {validationResult.errorMessages.map((data, index) => (
                     <ErrorMessage

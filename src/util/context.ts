@@ -13,6 +13,7 @@ import {
 export const ChonkyFilesContext = React.createContext<FileArray>([]);
 export const ChonkyFolderChainContext = React.createContext<Nullable<FileArray>>(null);
 export const ChonkySelectionContext = React.createContext<FileSelection>({});
+export const ChonkySelectionSizeContext = React.createContext<number>(0);
 
 export const ChonkyFileActionsContext = React.createContext<FileAction[]>([]);
 export const ChonkyDispatchFileActionContext = React.createContext<
