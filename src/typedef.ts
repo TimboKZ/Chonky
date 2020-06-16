@@ -32,6 +32,8 @@ export interface FileData {
 
 export type FileArray = Nullable<FileData>[];
 
+export type FileFilter = (file: Nullable<FileData>) => boolean;
+
 export interface FileAction {
     name: string; // Unique action name
     metadata?: any; // Any user-defined value
@@ -52,8 +54,8 @@ export interface ToolbarButtonData {
 
 export interface FileActionData {
     actionName: string;
-    target?: FileData;
-    files?: FileData[];
+    target?: Readonly<FileData>;
+    files?: ReadonlyArray<Readonly<FileData>>;
 }
 
 export type FileActionHandler = (

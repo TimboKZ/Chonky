@@ -19,6 +19,7 @@ import {
     ChonkyThumbnailGeneratorContext,
     validateContextType,
     ChonkySelectionSizeContext,
+    ChonkySelectionUtilRefContext,
 } from '../../util/context';
 import { DefaultActions, useFileActionDispatcher } from '../../util/file-actions';
 import { useSelection } from '../../util/selection';
@@ -101,9 +102,13 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const cleanFolderChain = validationResult.cleanFolderChain;
 
     // Initial selection
-    const { selection, selectFiles, toggleSelection, clearSelection } = useSelection(
-        disableSelection
-    );
+    const {
+        selection,
+        selectionUtilRef,
+        selectFiles,
+        toggleSelection,
+        clearSelection,
+    } = useSelection(sortedFiles, disableSelection);
     const selectionSize = useMemo(() => {
         let selectionSize = 0;
         for (const fileId in selection) {
@@ -126,6 +131,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const dispatchSpecialAction = useSpecialActionDispatcher(
         sortedFiles,
         selection,
+        selectionUtilRef.current,
         selectFiles,
         toggleSelection,
         clearSelection,
@@ -153,6 +159,10 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         validateContextType({
             context: ChonkySelectionSizeContext,
             value: selectionSize,
+        }),
+        validateContextType({
+            context: ChonkySelectionUtilRefContext,
+            value: selectionUtilRef,
         }),
         validateContextType({
             context: ChonkyFileActionsContext,

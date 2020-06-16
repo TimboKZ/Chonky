@@ -9,11 +9,15 @@ import {
     InternalSpecialActionDispatcher,
     ThumbnailGenerator,
 } from '../typedef';
+import { SelectionUtil } from './selection';
 
 export const ChonkyFilesContext = React.createContext<FileArray>([]);
 export const ChonkyFolderChainContext = React.createContext<Nullable<FileArray>>(null);
 export const ChonkySelectionContext = React.createContext<FileSelection>({});
 export const ChonkySelectionSizeContext = React.createContext<number>(0);
+export const ChonkySelectionUtilRefContext = React.createContext<
+    React.Ref<SelectionUtil>
+    >({ current: new SelectionUtil() });
 
 export const ChonkyFileActionsContext = React.createContext<FileAction[]>([]);
 export const ChonkyDispatchFileActionContext = React.createContext<

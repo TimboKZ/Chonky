@@ -7,12 +7,11 @@ import {
     InternalFileActionDispatcher,
     InternalSpecialActionDispatcher,
 } from '../typedef';
+import { INTENTIONAL_EMPTY_DEPS } from './constants';
 import { ChonkyActions } from './file-actions';
 import { FileHelper } from './file-helper';
 import { Logger } from './logger';
-import { useSelection } from './selection';
-import { INTENTIONAL_EMPTY_DEPS } from './constants';
-import { Nullable } from 'tsdef';
+import { SelectionUtil, useSelection } from './selection';
 
 export enum SpecialAction {
     MouseClickFile = 'mouse_click_file',
@@ -72,6 +71,7 @@ interface SpecialMutableChonkyState {
 export const useSpecialActionDispatcher = (
     files: FileArray,
     selection: FileSelection,
+    selectionUtil: SelectionUtil,
     selectFiles: ReturnType<typeof useSelection>['selectFiles'],
     toggleSelection: ReturnType<typeof useSelection>['toggleSelection'],
     clearSelection: ReturnType<typeof useSelection>['clearSelection'],
@@ -94,7 +94,7 @@ export const useSpecialActionDispatcher = (
 
     // Create the special action handler map
     const specialActionHandlerMap = useSpecialFileActionHandlerMap(
-        specialState,
+        selectionUtil,
         selectFiles,
         toggleSelection,
         clearSelection,
@@ -126,32 +126,12 @@ export const useSpecialActionDispatcher = (
 };
 
 export const useSpecialFileActionHandlerMap = (
-    specialState: SpecialMutableChonkyState,
+    selectionUtil: SelectionUtil,
     selectFiles: ReturnType<typeof useSelection>['selectFiles'],
     toggleSelection: ReturnType<typeof useSelection>['toggleSelection'],
     clearSelection: ReturnType<typeof useSelection>['clearSelection'],
     dispatchFileAction: InternalFileActionDispatcher
 ) => {
-    const getSelectedFiles = useCallback(
-        (...filters: ((file: FileData) => boolean)[]) => {
-            const { files, selection } = specialState;
-
-            const selectedFiles = files.filter(
-                (file) => FileHelper.isSelectable(file) && selection[file.id] === true
-            ) as FileData[];
-
-            return filters.reduce(
-                (prevFiles, filter) => prevFiles.filter(filter),
-                selectedFiles
-            );
-        },
-        INTENTIONAL_EMPTY_DEPS
-    );
-    const isSelected = useCallback((file: Nullable<FileData>) => {
-        const { selection } = specialState;
-        return FileHelper.isSelectable(file) && selection[file.id] === true;
-    }, INTENTIONAL_EMPTY_DEPS);
-
     // Define handlers in a map
     const specialActionHandlerMapDeps = [
         selectFiles,
@@ -181,7 +161,7 @@ export const useSpecialFileActionHandlerMap = (
                             toggleSelection(data.file.id, !data.ctrlKey);
                             // TODO: Handle range selections.
                         } else {
-                            clearSelection();
+                            if (!data.ctrlKey) clearSelection();
                         }
                     }
                 },
@@ -192,7 +172,9 @@ export const useSpecialFileActionHandlerMap = (
                         dispatchFileAction({
                             actionName: ChonkyActions.OpenFiles.name,
                             target: data.file,
-                            files: getSelectedFiles(FileHelper.isOpenable),
+                            files: selectionUtil.getSelectedFiles(
+                                FileHelper.isOpenable
+                            ),
                         });
                     } else if (data.spaceKey && FileHelper.isSelectable(data.file)) {
                         toggleSelection(data.file.id, data.ctrlKey);
@@ -201,7 +183,7 @@ export const useSpecialFileActionHandlerMap = (
                 },
                 [SpecialAction.DragNDropStart]: (data: SpecialDragNDropStartAction) => {
                     const file = data.dragSource;
-                    if (!isSelected(file)) {
+                    if (!selectionUtil.isSelected(file)) {
                         clearSelection();
                         if (FileHelper.isSelectable(file)) {
                             selectFiles([file.id]);
@@ -209,12 +191,14 @@ export const useSpecialFileActionHandlerMap = (
                     }
                 },
                 [SpecialAction.DragNDropEnd]: (data: SpecialDragNDropEndAction) => {
-                    if (isSelected(data.dropTarget)) {
+                    if (selectionUtil.isSelected(data.dropTarget)) {
                         // Can't drop a selection into itself
                         return;
                     }
 
-                    const selectedFiles = getSelectedFiles(FileHelper.isDraggable);
+                    const selectedFiles = selectionUtil.getSelectedFiles(
+                        FileHelper.isDraggable
+                    );
                     const droppedFiles =
                         selectedFiles.length > 0 ? selectedFiles : [data.dragSource];
                     dispatchFileAction({
