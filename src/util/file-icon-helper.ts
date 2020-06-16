@@ -4,13 +4,13 @@
  * @license MIT
  */
 
-import { useMemo } from 'react';
-import { Nullable } from 'tsdef';
 import ExactTrie from 'exact-trie';
 import memoize from 'memoizee';
+import { useMemo } from 'react';
+import { Nullable } from 'tsdef';
 
-import { FileData, FileIconData } from '../typedef';
 import { ChonkyIconName } from '../components/external/ChonkyIcon';
+import { FileData, FileIconData } from '../typedef';
 
 const getIconTrie = memoize(() => {
     let colourIndex = 0;
@@ -57,6 +57,7 @@ const getIconTrie = memoize(() => {
         [ChonkyIconName.adobe, ['psd']],
         [ChonkyIconName.git, ['.gitignore']],
         [ChonkyIconName.linux, ['AppImage']],
+        [ChonkyIconName.windows, ['exe']],
         [ChonkyIconName.nodejs, ['js', 'jsx', 'ts', 'tsx', 'd.ts']],
         [ChonkyIconName.php, ['php']],
         [ChonkyIconName.python, ['py']],

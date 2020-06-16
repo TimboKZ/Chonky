@@ -1,6 +1,13 @@
 import 'chonky/style/main.css';
 
-import { FileAction, FileActionData, FileBrowser, FileList, FileToolbar } from 'chonky';
+import {
+    FileAction,
+    FileActionData,
+    FileArray,
+    FileBrowser,
+    FileList,
+    FileToolbar
+} from 'chonky';
 import React from 'react';
 
 import { createDocsObject, showActionNotification } from '../story-helpers';
@@ -17,7 +24,7 @@ export default {
 };
 
 export const FilesArrayExample = () => {
-    const files = [
+    const files: FileArray = [
         null, // Loading animation will be shown for this file
         null,
         {
@@ -52,6 +59,17 @@ export const FilesArrayExample = () => {
             name: 'Not openable.pem',
             openable: false, // Prevent opening
             size: 100000000,
+        },
+        {
+            id: 'btj',
+            name: 'Not draggable.exe',
+            draggable: false, // Prevent this files from being dragged
+        },
+        {
+            id: 'upq',
+            name: 'Not droppable',
+            isDir: true,
+            droppable: false, // Prevent files from being dropped into this folder
         },
     ];
 

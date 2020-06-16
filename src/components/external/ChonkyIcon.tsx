@@ -5,9 +5,8 @@ import { faNodeJs } from '@fortawesome/free-brands-svg-icons/faNodeJs';
 import { faPhp } from '@fortawesome/free-brands-svg-icons/faPhp';
 import { faPython } from '@fortawesome/free-brands-svg-icons/faPython';
 import { faUbuntu } from '@fortawesome/free-brands-svg-icons/faUbuntu';
+import { faWindows } from '@fortawesome/free-brands-svg-icons/faWindows';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons/faArrowDown';
-import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
-import { faFistRaised } from '@fortawesome/free-solid-svg-icons/faFistRaised';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons/faArrowUp';
 import { faBalanceScale } from '@fortawesome/free-solid-svg-icons/faBalanceScale';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/faCheckCircle';
@@ -31,6 +30,7 @@ import { faFileImage } from '@fortawesome/free-solid-svg-icons/faFileImage';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons/faFilePdf';
 import { faFileWord } from '@fortawesome/free-solid-svg-icons/faFileWord';
 import { faFilm } from '@fortawesome/free-solid-svg-icons/faFilm';
+import { faFistRaised } from '@fortawesome/free-solid-svg-icons/faFistRaised';
 import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons/faFolderPlus';
@@ -44,6 +44,7 @@ import { faRunning } from '@fortawesome/free-solid-svg-icons/faRunning';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons/faTerminal';
 import { faTh } from '@fortawesome/free-solid-svg-icons/faTh';
 import { faThLarge } from '@fortawesome/free-solid-svg-icons/faThLarge';
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { faUpload } from '@fortawesome/free-solid-svg-icons/faUpload';
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
@@ -103,6 +104,7 @@ export enum ChonkyIconName {
     adobe = 'adobe',
     git = 'git',
     linux = 'linux',
+    windows = 'windows',
     nodejs = 'nodejs',
     php = 'php',
     python = 'python',
@@ -162,6 +164,7 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     [ChonkyIconName.adobe]: faAdobe,
     [ChonkyIconName.git]: faGitAlt,
     [ChonkyIconName.linux]: faLinux,
+    [ChonkyIconName.windows]: faWindows,
     [ChonkyIconName.nodejs]: faNodeJs,
     [ChonkyIconName.php]: faPhp,
     [ChonkyIconName.python]: faPython,

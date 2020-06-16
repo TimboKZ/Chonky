@@ -30,7 +30,7 @@ export const FolderChainExample = () => {
         },
         {
             id: 'mTxYeA',
-            name: 'Unity Projects',
+            name: 'Not Openable',
             isDir: true,
             openable: false, // This button will not be clickable
         },

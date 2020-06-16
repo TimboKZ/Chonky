@@ -111,7 +111,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
             className="chonky-file-entry-droppable-wrapper chonky-fill-parent"
         >
             <div
-                ref={drag}
+                ref={FileHelper.isDraggable(file) ? drag : null}
                 className="chonky-file-entry-draggable-wrapper chonky-fill-parent"
             >
                 <ClickableFileEntry

@@ -176,9 +176,13 @@ export const useSpecialFileActionHandlerMap = (
                             // there is a selection.
                             files: [data.file],
                         });
-                    } else if (FileHelper.isSelectable(data.file)) {
-                        toggleSelection(data.file.id, !data.ctrlKey);
-                        // TODO: Handle range selections.
+                    } else {
+                        if (FileHelper.isSelectable(data.file)) {
+                            toggleSelection(data.file.id, !data.ctrlKey);
+                            // TODO: Handle range selections.
+                        } else {
+                            clearSelection();
+                        }
                     }
                 },
                 [SpecialAction.KeyboardClickFile]: (

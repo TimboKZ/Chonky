@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Nullable } from 'tsdef';
 
 import { FileData } from '../../typedef';
-import { ColorsDark, ColorsLight, useIconData } from '../../util/icon-helper';
+import { ColorsDark, ColorsLight, useIconData } from '../../util/file-icon-helper';
 import { ChonkyIconFA, ChonkyIconName } from '../external/ChonkyIcon';
 import { useDndIcon, useThumbnailUrl } from './BaseFileEntry-hooks';
 import { DnDProps } from './DnDFileEntry';
