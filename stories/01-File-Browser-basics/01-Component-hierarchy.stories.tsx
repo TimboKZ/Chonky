@@ -19,7 +19,7 @@ export default {
 export const ComponentHierarchyExample = () => {
     return (
         <div style={{ height: 500 }}>
-            <FileBrowser files={[]}>
+            <FileBrowser files={[]} enableDragAndDrop={true}>
                 <FileToolbar />
                 <FileList />
             </FileBrowser>

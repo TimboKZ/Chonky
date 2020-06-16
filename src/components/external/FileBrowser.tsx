@@ -1,6 +1,4 @@
 import React, { useMemo } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import {
     FileAction,
@@ -9,7 +7,7 @@ import {
     ThumbnailGenerator,
 } from '../../typedef';
 import {
-    ChonkyDisableDragNDropContext,
+    ChonkyEnableDragAndDropContext,
     ChonkyDisableSelectionContext,
     ChonkyDispatchFileActionContext,
     ChonkyDispatchSpecialActionContext,
@@ -71,7 +69,7 @@ export interface FileBrowserProps {
      * The flag that completely disables drag & drop functionality.
      * [See relevant section](#section-managing-file-selection).
      */
-    disableDragNDrop?: boolean;
+    enableDragAndDrop?: boolean;
 
     /**
      * The flag that determines whether Chonky should fill the height parent container. When set to `true`, the maximum
@@ -94,7 +92,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const doubleClickDelay =
         typeof props.doubleClickDelay === 'number' ? props.doubleClickDelay : 300;
     const disableSelection = !!props.disableSelection;
-    const disableDragNDrop = !!props.disableDragNDrop;
+    const enableDragAndDrop = !!props.enableDragAndDrop;
 
     const validationResult = useFileBrowserValidation(files, folderChain);
 
@@ -164,8 +162,8 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
             value: disableSelection,
         }),
         validateContextType({
-            context: ChonkyDisableDragNDropContext,
-            value: disableDragNDrop,
+            context: ChonkyEnableDragAndDropContext,
+            value: enableDragAndDrop,
         }),
     ];
 
@@ -179,20 +177,18 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     );
 
     return (
-        <DndProvider backend={HTML5Backend}>
-            <ContextComposer providers={contextProviders}>
-                <div className="chonky-root">
-                    {!disableDragNDrop && <DnDFileListDragLayer />}
-                    {validationResult.errorMessages.map((data, index) => (
-                        <ErrorMessage
-                            key={`error-message-${index}`}
-                            message={data.message}
-                            bullets={data.bullets}
-                        />
-                    ))}
-                    {children ? children : null}
-                </div>
-            </ContextComposer>
-        </DndProvider>
+        <ContextComposer providers={contextProviders}>
+            <div className="chonky-root">
+                {enableDragAndDrop && <DnDFileListDragLayer />}
+                {validationResult.errorMessages.map((data, index) => (
+                    <ErrorMessage
+                        key={`error-message-${index}`}
+                        message={data.message}
+                        bullets={data.bullets}
+                    />
+                ))}
+                {children ? children : null}
+            </div>
+        </ContextComposer>
     );
 };

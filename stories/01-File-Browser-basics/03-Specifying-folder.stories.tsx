@@ -44,8 +44,8 @@ export const FolderChainExample = () => {
 
     return (
         <div style={{ height: 500 }}>
-            <FileBrowser files={[]} folderChain={folderChain}>
-                <FileToolbar  />
+            <FileBrowser files={[]} folderChain={folderChain} enableDragAndDrop={true}>
+                <FileToolbar />
                 <FileList />
             </FileBrowser>
         </div>

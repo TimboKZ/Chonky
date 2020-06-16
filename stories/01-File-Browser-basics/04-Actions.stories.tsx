@@ -59,6 +59,7 @@ export const ActionsExample = () => {
                 files={files}
                 folderChain={folderChain}
                 onFileAction={handleFileAction}
+                enableDragAndDrop={true}
             >
                 <FileToolbar />
                 <FileList />

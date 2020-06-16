@@ -57,7 +57,7 @@ export const FilesArrayExample = () => {
 
     return (
         <div style={{ height: 500 }}>
-            <FileBrowser files={files}>
+            <FileBrowser files={files} enableDragAndDrop={true}>
                 <FileToolbar />
                 <FileList />
             </FileBrowser>

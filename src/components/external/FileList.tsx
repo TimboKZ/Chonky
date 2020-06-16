@@ -91,6 +91,7 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
                             rowHeight={({ index }) =>
                                 getRowHeight(index, rowCount, entrySize, gutter)
                             }
+                            overscanRowCount={2}
                             width={width}
                             height={typeof height === 'number' ? height : 500}
                             autoHeight={!fillParentContainer}

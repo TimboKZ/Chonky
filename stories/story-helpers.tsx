@@ -12,6 +12,8 @@ import { getDocsStories } from '@storybook/addon-docs/dist/blocks/utils';
 import { Source } from '@storybook/components';
 import Noty from 'noty';
 import React, { useContext } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 // @ts-ignore
 import LiveExampleMd from './Live-examples.md';
@@ -23,10 +25,12 @@ export const createDocsObject = (params: { markdown: string }) => {
         page: () => {
             return (
                 <React.Fragment>
-                    <Title />
-                    {parseMarkdown(markdown)}
-                    <CustomPrimary />
-                    {parseMarkdown(LiveExampleMd)}
+                    <DndProvider backend={HTML5Backend}>
+                        <Title />
+                        {parseMarkdown(markdown)}
+                        <CustomPrimary />
+                        {parseMarkdown(LiveExampleMd)}
+                    </DndProvider>
                 </React.Fragment>
             );
         },

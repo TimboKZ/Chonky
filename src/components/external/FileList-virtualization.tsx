@@ -2,7 +2,7 @@ import c from 'classnames';
 import React, { useCallback, useContext } from 'react';
 
 import { FileArray } from '../../typedef';
-import { ChonkyDisableDragNDropContext } from '../../util/context';
+import { ChonkyEnableDragAndDropContext } from '../../util/context';
 import { BaseFileEntry, FileEntryProps } from '../internal/BaseFileEntry';
 import { DnDFileEntry } from '../internal/DnDFileEntry';
 import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
@@ -35,9 +35,9 @@ export const getRowHeight = (
 };
 
 export const useEntryRenderer = (files: FileArray) => {
-    const disableDragNDrop = useContext(ChonkyDisableDragNDropContext);
+    const enableDragAndDrop = useContext(ChonkyEnableDragAndDropContext);
     // All hook parameters should go into `deps` array
-    const deps = [files, disableDragNDrop];
+    const deps = [files, enableDragAndDrop];
     const entryRenderer = useCallback(
         (
             virtualKey: string,
@@ -70,10 +70,10 @@ export const useEntryRenderer = (files: FileArray) => {
                 displayIndex: index,
             };
 
-            const fileEntryComponent = disableDragNDrop ? (
-                <BaseFileEntry {...entryProps} />
-            ) : (
+            const fileEntryComponent = enableDragAndDrop ? (
                 <DnDFileEntry {...entryProps} />
+            ) : (
+                <BaseFileEntry {...entryProps} />
             );
             return (
                 <div key={key} className="chonky-virtualization-wrapper" style={style}>

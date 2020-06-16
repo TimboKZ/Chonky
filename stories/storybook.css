@@ -1,3 +1,18 @@
+.sbdocs-content .sbdocs-p, .sbdocs-content .sbdocs-p *,
+.sbdocs-content .sbdocs-ul,
+.sbdocs-content .sbdocs-ul *,
+.sbdocs-content .sbdocs-ol,
+.sbdocs-content .sbdocs-ol * {
+  line-height: 25px !important;
+  font-size: 17px !important;
+}
+.sbdocs-content .sbdocs-p code,
+.sbdocs-content .sbdocs-ul code,
+.sbdocs-content .sbdocs-ol code {
+  padding: 0 5px !important;
+  font-size: 14px !important;
+}
+
 .sbdocs-preview {
   border: solid 3px #09f !important;
   margin: 50px 0 40px 0 !important;
