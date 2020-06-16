@@ -19,7 +19,7 @@ export const useFolderChainComponent = (folderChain: FileArray) => {
     const folderChainComponent = useMemo(() => {
         const comps = new Array(Math.max(0, folderChain.length * 2 - 1));
         for (let i = 0; i < folderChain.length; ++i) {
-            const folder = folderChain[i];
+            const file = folderChain[i];
             const isLast = i === folderChain.length - 1;
             const j = i * 2;
 
@@ -27,14 +27,15 @@ export const useFolderChainComponent = (folderChain: FileArray) => {
                 key: `folder-chain-entry-${j}`,
                 className: c({
                     'chonky-folder-chain-entry': true,
-                    'chonky-loading': !folder,
+                    'chonky-loading': !file,
                 }),
             };
-            if (FileHelper.isOpenable(folder) && !isLast) {
+            if (FileHelper.isOpenable(file) && !isLast) {
                 compProps.onClick = () =>
                     dispatchChonkyAction({
                         actionName: ChonkyActions.OpenFiles.name,
-                        file: folder,
+                        target: file,
+                        files: [file],
                     });
             }
             const TagToUse = compProps.onClick ? 'button' : 'div';
@@ -48,7 +49,7 @@ export const useFolderChainComponent = (folderChain: FileArray) => {
                         </span>
                     )}
                     <span className="chonky-folder-chain-entry-name">
-                        {folder ? folder.name : 'Loading...'}
+                        {file ? file.name : 'Loading...'}
                     </span>
                 </TagToUse>
             );

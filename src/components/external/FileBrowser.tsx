@@ -113,6 +113,8 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         onFileAction
     );
     const dispatchSpecialAction = useSpecialActionDispatcher(
+        sortedFiles,
+        selection,
         selectFiles,
         toggleSelection,
         clearSelection,

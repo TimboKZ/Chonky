@@ -1,7 +1,7 @@
 import { Nilable, Nullable, Undefinable } from 'tsdef';
 
 import { ChonkyIconName } from './components/external/ChonkyIcon';
-import { SpecialAction, SpecialActionData } from './util/special-actions';
+import { SpecialActionData } from './util/special-actions';
 
 // If you make changes to required params in `FileData`, make sure to makes relevant
 // changes `validation.ts` functions.

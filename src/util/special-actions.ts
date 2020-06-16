@@ -1,18 +1,25 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import {
+    FileArray,
     FileData,
+    FileSelection,
     InternalFileActionDispatcher,
     InternalSpecialActionDispatcher,
 } from '../typedef';
 import { ChonkyActions } from './file-actions';
+import { FileHelper } from './file-helper';
 import { Logger } from './logger';
+import { useSelection } from './selection';
+import { INTENTIONAL_EMPTY_DEPS } from './constants';
+import { Nullable } from 'tsdef';
 
 export enum SpecialAction {
     MouseClickFile = 'mouse_click_file',
     KeyboardClickFile = 'keyboard_click_file',
 
-    DragNDropFiles = 'drag_n_drop_files',
+    DragNDropStart = 'drag_n_drop_start',
+    DragNDropEnd = 'drag_n_drop_end',
 }
 
 export interface SpecialFileMouseClickAction {
@@ -34,8 +41,13 @@ export interface SpecialFileKeyboardClickAction {
     shiftKey: boolean;
 }
 
-export interface SpecialDndDropAction {
-    actionName: SpecialAction.DragNDropFiles;
+export interface SpecialDragNDropStartAction {
+    actionName: SpecialAction.DragNDropStart;
+    dragSource: FileData;
+}
+
+export interface SpecialDragNDropEndAction {
+    actionName: SpecialAction.DragNDropEnd;
     dragSource: FileData;
     dropTarget: FileData;
     dropEffect: 'move' | 'copy';
@@ -44,7 +56,13 @@ export interface SpecialDndDropAction {
 export type SpecialActionData =
     | SpecialFileMouseClickAction
     | SpecialFileKeyboardClickAction
-    | SpecialDndDropAction;
+    | SpecialDragNDropStartAction
+    | SpecialDragNDropEndAction;
+
+interface SpecialMutableChonkyState {
+    files: FileArray;
+    selection: FileSelection;
+}
 
 /**
  * Returns a dispatch method meant to be used by child components. This dispatch
@@ -52,70 +70,35 @@ export type SpecialActionData =
  * transforms it into a "file action" that can be handled by the user.
  */
 export const useSpecialActionDispatcher = (
-    selectFiles: (fileIds: string[]) => void,
-    toggleSelection: (fileId: string) => void,
-    clearSelection: () => void,
+    files: FileArray,
+    selection: FileSelection,
+    selectFiles: ReturnType<typeof useSelection>['selectFiles'],
+    toggleSelection: ReturnType<typeof useSelection>['toggleSelection'],
+    clearSelection: ReturnType<typeof useSelection>['clearSelection'],
     dispatchFileAction: InternalFileActionDispatcher
 ): InternalSpecialActionDispatcher => {
-    // Define handlers in a map
-    const specialActionHandlerMapDeps = [
+    // Generate mutable Chonky state object so that special action handlers can use
+    // up-to-date state without triggering re-renders
+    const specialStateDeps = [files, selection];
+    const specialState = useMemo<SpecialMutableChonkyState>(
+        () => ({
+            files,
+            selection,
+        }),
+        INTENTIONAL_EMPTY_DEPS
+    );
+    useEffect(() => {
+        specialState.files = files;
+        specialState.selection = selection;
+    }, specialStateDeps);
+
+    // Create the special action handler map
+    const specialActionHandlerMap = useSpecialFileActionHandlerMap(
+        specialState,
         selectFiles,
         toggleSelection,
         clearSelection,
-        dispatchFileAction,
-    ];
-    const specialActionHandlerMap = useMemo(
-        () =>
-            ({
-                [SpecialAction.MouseClickFile]: (data: SpecialFileMouseClickAction) => {
-                    if (data.clickType === 'double') {
-                        dispatchFileAction({
-                            actionName: ChonkyActions.OpenFiles.name,
-                            target: data.file,
-                            // TODO: Replace with selection
-                            files: [data.file],
-                        });
-                    } else {
-                        if (data.ctrlKey) {
-                            toggleSelection(data.file.id);
-                        } else {
-                            selectFiles([data.file.id]);
-                        }
-                        // TODO: Handle range selections.
-                    }
-                },
-                [SpecialAction.KeyboardClickFile]: (
-                    data: SpecialFileKeyboardClickAction
-                ) => {
-                    if (data.enterKey) {
-                        dispatchFileAction({
-                            actionName: ChonkyActions.OpenFiles.name,
-                            target: data.file,
-                            // TODO: Replace with selection
-                            files: [data.file],
-                        });
-                    } else if (data.spaceKey) {
-                        if (data.ctrlKey) {
-                            selectFiles([data.file.id]);
-                        } else {
-                            toggleSelection(data.file.id);
-                        }
-                        // TODO: Handle range selections.
-                    }
-                },
-                [SpecialAction.DragNDropFiles]: (data: SpecialDndDropAction) => {
-                    dispatchFileAction({
-                        actionName:
-                            data.dropEffect === 'copy'
-                                ? ChonkyActions.DuplicateFilesTo.name
-                                : ChonkyActions.MoveFilesTo.name,
-                        target: data.dropTarget,
-                        // TODO: Replace with selection
-                        files: [data.dragSource],
-                    });
-                },
-            } as { [actionName in SpecialAction]: (data: SpecialActionData) => void }),
-        specialActionHandlerMapDeps
+        dispatchFileAction
     );
 
     // Process special actions using the handlers from the map
@@ -140,4 +123,107 @@ export const useSpecialActionDispatcher = (
         }
     }, dispatchSpecialActionDeps);
     return dispatchSpecialAction;
+};
+
+export const useSpecialFileActionHandlerMap = (
+    specialState: SpecialMutableChonkyState,
+    selectFiles: ReturnType<typeof useSelection>['selectFiles'],
+    toggleSelection: ReturnType<typeof useSelection>['toggleSelection'],
+    clearSelection: ReturnType<typeof useSelection>['clearSelection'],
+    dispatchFileAction: InternalFileActionDispatcher
+) => {
+    const getSelectedFiles = useCallback(
+        (...filters: ((file: FileData) => boolean)[]) => {
+            const { files, selection } = specialState;
+
+            const selectedFiles = files.filter(
+                (file) => FileHelper.isSelectable(file) && selection[file.id] === true
+            ) as FileData[];
+
+            return filters.reduce(
+                (prevFiles, filter) => prevFiles.filter(filter),
+                selectedFiles
+            );
+        },
+        INTENTIONAL_EMPTY_DEPS
+    );
+    const isSelected = useCallback((file: Nullable<FileData>) => {
+        const { selection } = specialState;
+        return FileHelper.isSelectable(file) && selection[file.id] === true;
+    }, INTENTIONAL_EMPTY_DEPS);
+
+    // Define handlers in a map
+    const specialActionHandlerMapDeps = [
+        selectFiles,
+        toggleSelection,
+        clearSelection,
+        dispatchFileAction,
+    ];
+    const specialActionHandlerMap = useMemo(
+        () =>
+            ({
+                [SpecialAction.MouseClickFile]: (data: SpecialFileMouseClickAction) => {
+                    if (
+                        data.clickType === 'double' &&
+                        FileHelper.isOpenable(data.file)
+                    ) {
+                        dispatchFileAction({
+                            actionName: ChonkyActions.OpenFiles.name,
+                            target: data.file,
+
+                            // To simulate Windows Explorer and Nautilus behaviour,
+                            // a double click on a file only opens that file even if
+                            // there is a selection.
+                            files: [data.file],
+                        });
+                    } else if (FileHelper.isSelectable(data.file)) {
+                        toggleSelection(data.file.id, !data.ctrlKey);
+                        // TODO: Handle range selections.
+                    }
+                },
+                [SpecialAction.KeyboardClickFile]: (
+                    data: SpecialFileKeyboardClickAction
+                ) => {
+                    if (data.enterKey && FileHelper.isOpenable(data.file)) {
+                        dispatchFileAction({
+                            actionName: ChonkyActions.OpenFiles.name,
+                            target: data.file,
+                            files: getSelectedFiles(FileHelper.isOpenable),
+                        });
+                    } else if (data.spaceKey && FileHelper.isSelectable(data.file)) {
+                        toggleSelection(data.file.id, data.ctrlKey);
+                        // TODO: Handle range selections.
+                    }
+                },
+                [SpecialAction.DragNDropStart]: (data: SpecialDragNDropStartAction) => {
+                    const file = data.dragSource;
+                    if (!isSelected(file)) {
+                        clearSelection();
+                        if (FileHelper.isSelectable(file)) {
+                            selectFiles([file.id]);
+                        }
+                    }
+                },
+                [SpecialAction.DragNDropEnd]: (data: SpecialDragNDropEndAction) => {
+                    if (isSelected(data.dropTarget)) {
+                        // Can't drop a selection into itself
+                        return;
+                    }
+
+                    const selectedFiles = getSelectedFiles(FileHelper.isDraggable);
+                    const droppedFiles =
+                        selectedFiles.length > 0 ? selectedFiles : [data.dragSource];
+                    dispatchFileAction({
+                        actionName:
+                            data.dropEffect === 'copy'
+                                ? ChonkyActions.DuplicateFilesTo.name
+                                : ChonkyActions.MoveFilesTo.name,
+                        target: data.dropTarget,
+                        files: droppedFiles,
+                    });
+                },
+            } as { [actionName in SpecialAction]: (data: SpecialActionData) => void }),
+        specialActionHandlerMapDeps
+    );
+    return specialActionHandlerMap;
 };

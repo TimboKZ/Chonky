@@ -49,6 +49,17 @@
     }
 }
 
+.noty_bar {
+    line-height: 24px;
+    code {
+        background-color: rgba(#fff, 0.7);
+        display: inline-block;
+        border-radius: 4px;
+        line-height: 20px;
+        padding: 0 4px;
+    }
+}
+
 .live-example {
     &-action {
         font-family: sans-serif !important;

@@ -7,12 +7,15 @@ import { Logger } from '../../util/logger';
 import { ChonkyIconName } from '../external/ChonkyIcon';
 
 export const useDndIcon = (
+    selected: Nilable<boolean>,
     isDragging: Nilable<boolean>,
     isOver: Nilable<boolean>,
     canDrop: Nilable<boolean>
 ): Nullable<ChonkyIconName> => {
     if (isOver) {
-        return canDrop ? ChonkyIconName.dndCanDrop : ChonkyIconName.dndCannotDrop;
+        return canDrop && !selected
+            ? ChonkyIconName.dndCanDrop
+            : ChonkyIconName.dndCannotDrop;
     }
 
     return isDragging ? ChonkyIconName.dndDragging : null;

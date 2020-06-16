@@ -43,6 +43,17 @@
   overflow: visible !important;
 }
 
+.noty_bar {
+  line-height: 24px;
+}
+.noty_bar code {
+  background-color: rgba(255, 255, 255, 0.7);
+  display: inline-block;
+  border-radius: 4px;
+  line-height: 20px;
+  padding: 0 4px;
+}
+
 .live-example-action {
   font-family: sans-serif !important;
   font-size: 1.2em !important;

@@ -74,7 +74,8 @@ export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
                     <>
                         {' and '}
                         <strong>
-                            {selectionSize - 1} file{selectionSize - 1 !== 1 ? 's' : ''}
+                            {selectionSize - 1} other file
+                            {selectionSize - 1 !== 1 ? 's' : ''}
                         </strong>
                     </>
                 )}

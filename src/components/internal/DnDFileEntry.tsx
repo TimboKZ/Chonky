@@ -6,7 +6,7 @@ import { ExcludeKeys, Nilable, Nullable } from 'tsdef';
 import { FileData } from '../../typedef';
 import { ChonkyDispatchSpecialActionContext } from '../../util/context';
 import { FileHelper } from '../../util/file-helper';
-import { SpecialAction, SpecialDndDropAction } from '../../util/special-actions';
+import { SpecialAction } from '../../util/special-actions';
 import { FileEntryProps } from './BaseFileEntry';
 import { ClickableFileEntry } from './ClickableFileEntry';
 
@@ -31,18 +31,31 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
 
     // For drag source
     const canDrag = FileHelper.isDraggable(file);
+    const onDragStart = useCallback(() => {
+        if (!FileHelper.isDraggable(file)) return;
+
+        dispatchSpecialAction({
+            actionName: SpecialAction.DragNDropStart,
+            dragSource: file,
+        });
+    }, [dispatchSpecialAction, file]);
     const onDragEnd = useCallback(
         (item: DnDFileEntryItem, monitor: DragSourceMonitor) => {
             const dropResult = monitor.getDropResult() as ChonkyDnDDropResult;
-            if (!file || !dropResult || !dropResult.dropTarget) return;
+            if (
+                !FileHelper.isDraggable(file) ||
+                !dropResult ||
+                !dropResult.dropTarget
+            ) {
+                return;
+            }
 
-            const actionData: SpecialDndDropAction = {
-                actionName: SpecialAction.DragNDropFiles,
+            dispatchSpecialAction({
+                actionName: SpecialAction.DragNDropEnd,
                 dragSource: file,
                 dropTarget: dropResult.dropTarget,
                 dropEffect: dropResult.dropEffect,
-            };
-            dispatchSpecialAction(actionData);
+            });
         },
         [dispatchSpecialAction, file]
     );
@@ -70,6 +83,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
     const [{ isDragging: dndIsDragging }, drag, preview] = useDrag({
         item: { type: DnDFileEntryType, file } as DnDFileEntryItem,
         canDrag,
+        begin: onDragStart,
         end: onDragEnd,
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),

@@ -128,11 +128,12 @@ export const showActionNotification = (params: {
     const textParts = [];
     textParts.push(`<b>Action:</b> ${action.name}`);
     if (data.target) {
-        textParts.push(`<b>Target:</b> "${data.target.name}"`);
+        textParts.push(`<b>Target:</b> <code>${data.target.name}</code>`);
     }
     if (data.files) {
-        const fileNames = data.files.map((f) => `"${f.name}"`).join(', ');
-        textParts.push(`<b>Files:</b> ${fileNames}`);
+        const fileNames = data.files.map((f) => f.name);
+        const filComps = fileNames.map(name => `<code>${name}</code>`)
+        textParts.push(`<b>Files:</b> [${filComps.join(', ')}]`);
     }
     const text = textParts.join('<br/>');
 

@@ -35,7 +35,7 @@ export const BaseFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
     const icon = thumbnailLoading ? ChonkyIconName.loading : iconData.icon;
 
     // Deal with drag & drop
-    const dndIcon = useDndIcon(dndIsDragging, dndIsOver, dndCanDrop);
+    const dndIcon = useDndIcon(selected, dndIsDragging, dndIsOver, dndCanDrop);
 
     // Render the component
     const className = c({
