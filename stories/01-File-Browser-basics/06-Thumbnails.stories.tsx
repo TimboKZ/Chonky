@@ -1,10 +1,17 @@
 import 'chonky/style/main.css';
 
 import Promise from 'bluebird';
-import { FileBrowser, FileData,FileList, FileToolbar } from 'chonky';
+import {
+    FileAction,
+    FileActionData,
+    FileBrowser,
+    FileData,
+    FileList,
+    FileToolbar,
+} from 'chonky';
 import React from 'react';
 
-import { createDocsObject } from '../story-helpers';
+import { createDocsObject, showActionNotification } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './06-Thumbnails.md';
@@ -36,12 +43,18 @@ export const ActionsExample = () => {
         });
     }
 
+    const handleFileAction = (action: FileAction, data: FileActionData) => {
+        showActionNotification({ action, data });
+    };
+
     return (
         <div className="live-example" style={{ height: 500 }}>
             <FileBrowser
                 files={files}
                 folderChain={folderChain}
-                thumbnailGenerator={thumbnailGenerator}
+                thumbnailGenerator={thumbnailGenerator} // <----
+                enableDragAndDrop={true}
+                onFileAction={handleFileAction}
             >
                 <FileToolbar />
                 <FileList />

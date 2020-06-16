@@ -3,7 +3,7 @@ import 'chonky/style/main.css';
 import { FileAction, FileActionData, FileBrowser, FileList, FileToolbar } from 'chonky';
 import React from 'react';
 
-import { createDocsObject, showNotification } from '../story-helpers';
+import { createDocsObject, showActionNotification } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './07-Drag-n-drop.md';
@@ -17,15 +17,6 @@ export default {
 };
 
 export const DragNDropExample = () => {
-    const handleFileAction = (action: FileAction, data: FileActionData) => {
-        showNotification({
-            text: `Action: <strong>${action.name}</strong>`,
-        });
-
-        // eslint-disable-next-line no-console
-        console.log('\nAction object:', action, '\nAction data:', data);
-    };
-
     const folderChain = [
         { id: 'gBt4z3', name: 'My Documents', isDir: true },
         { id: 'gM5tTe', name: 'Other', isDir: true },
@@ -34,6 +25,10 @@ export const DragNDropExample = () => {
         { id: 'mHe4A1', name: 'Meaning of life.txt', size: 31415 },
         { id: 'yt43Ax', name: 'SCP-3930 Photos', isDir: true },
     ];
+
+    const handleFileAction = (action: FileAction, data: FileActionData) => {
+        showActionNotification({ action, data });
+    };
 
     return (
         <div className="live-example" style={{ height: 500 }}>

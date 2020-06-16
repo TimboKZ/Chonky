@@ -1,9 +1,9 @@
 import 'chonky/style/main.css';
 
-import { FileBrowser, FileList, FileToolbar } from 'chonky';
+import { FileAction, FileActionData, FileBrowser, FileList, FileToolbar } from 'chonky';
 import React from 'react';
 
-import { createDocsObject } from '../story-helpers';
+import { createDocsObject, showActionNotification } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './03-Specifying-folder.md';
@@ -42,9 +42,17 @@ export const FolderChainExample = () => {
         },
     ];
 
+    const handleFileAction = (action: FileAction, data: FileActionData) => {
+        showActionNotification({ action, data });
+    };
+
     return (
         <div style={{ height: 500 }}>
-            <FileBrowser files={[]} folderChain={folderChain} enableDragAndDrop={true}>
+            <FileBrowser
+                files={[]}
+                folderChain={folderChain}
+                onFileAction={handleFileAction}
+            >
                 <FileToolbar />
                 <FileList />
             </FileBrowser>

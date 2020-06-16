@@ -17,6 +17,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 // @ts-ignore
 import LiveExampleMd from './Live-examples.md';
+import { FileAction, FileActionData } from '../src';
 
 export const createDocsObject = (params: { markdown: string }) => {
     const { markdown } = params;
@@ -118,14 +119,26 @@ const getIndicesOf = (needle: string, haystack: string) => {
     return indices;
 };
 
-export const showNotification = (params: {
-    text: string;
-    type?: 'success' | 'warning';
+export const showActionNotification = (params: {
+    action: FileAction;
+    data: FileActionData;
 }) => {
-    const { text, type } = params;
+    const { action, data } = params;
+
+    const textParts = [];
+    textParts.push(`<b>Action:</b> ${action.name}`);
+    if (data.target) {
+        textParts.push(`<b>Target:</b> "${data.target.name}"`);
+    }
+    if (data.files) {
+        const fileNames = data.files.map((f) => `"${f.name}"`).join(', ');
+        textParts.push(`<b>Files:</b> ${fileNames}`);
+    }
+    const text = textParts.join('<br/>');
+
     new Noty({
         text,
-        type: type ? type : 'success',
+        type: 'success',
         theme: 'relax',
         timeout: 3000,
     }).show();

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import 'chonky/style/main.css';
-import { FileBrowser, FileList, FileToolbar } from 'chonky';
+import { FileAction, FileActionData, FileBrowser, FileList, FileToolbar } from 'chonky';
 
-import { createDocsObject } from '../story-helpers';
+import { createDocsObject, showActionNotification } from '../story-helpers';
 
 // @ts-ignore
 // eslint-disable-next-line
@@ -27,10 +27,17 @@ export const VirtualizationExample = () => {
         });
     }
 
-    // @ts-ignore
+    const handleFileAction = (action: FileAction, data: FileActionData) => {
+        showActionNotification({ action, data });
+    };
+
     return (
         <div style={{ height: 500 }}>
-            <FileBrowser files={files}>
+            <FileBrowser
+                files={files}
+                onFileAction={handleFileAction}
+                enableDragAndDrop={true}
+            >
                 <FileToolbar />
                 <FileList />
             </FileBrowser>

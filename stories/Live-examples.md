@@ -8,6 +8,7 @@ import 'chonky/style/main.css';
 import { FileBrowser, FileToolbar, FileList, FileData } from 'chonky';
 ```
 
-The only exception is the `showNotification()` function, which calls
+The only exception is the `showActionNotification()` function, which calls
 [the Noty notification library](https://ned.im/noty/) (not packaged with Chonky). To
- run the examples locally, you can replace `showNotification()` with `alert()`.
+run the examples locally, you can replace `showActionNotification()` with
+`console.log()`.

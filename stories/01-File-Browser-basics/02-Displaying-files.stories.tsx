@@ -1,9 +1,9 @@
 import 'chonky/style/main.css';
 
-import { FileBrowser, FileList, FileToolbar } from 'chonky';
+import { FileAction, FileActionData, FileBrowser, FileList, FileToolbar } from 'chonky';
 import React from 'react';
 
-import { createDocsObject } from '../story-helpers';
+import { createDocsObject, showActionNotification } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './02-Displaying-files.md';
@@ -55,9 +55,17 @@ export const FilesArrayExample = () => {
         },
     ];
 
+    const handleFileAction = (action: FileAction, data: FileActionData) => {
+        showActionNotification({ action, data });
+    };
+
     return (
         <div style={{ height: 500 }}>
-            <FileBrowser files={files} enableDragAndDrop={true}>
+            <FileBrowser
+                files={files}
+                onFileAction={handleFileAction}
+                enableDragAndDrop={true}
+            >
                 <FileToolbar />
                 <FileList />
             </FileBrowser>
