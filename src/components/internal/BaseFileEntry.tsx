@@ -9,9 +9,8 @@ import { TextPlaceholder } from '../external/TextPlaceholder';
 import { useDndIcon, useThumbnailUrl } from './BaseFileEntry-hooks';
 import { DnDProps } from './DnDFileEntry';
 import { FileThumbnail } from './FileThumbnail';
-import { SelectableProps } from './SelectableFileEntry';
 
-export interface FileEntryProps extends SelectableProps, DnDProps {
+export interface FileEntryProps extends DnDProps {
     file: Nullable<FileData>;
 
     displayIndex: number; // Index at which this file appears in the file list

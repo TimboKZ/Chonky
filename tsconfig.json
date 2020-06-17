@@ -1,6 +1,11 @@
 {
     "compilerOptions": {
         "outDir": "lib",
+        "baseUrl": ".",
+        "paths": {
+            "chonky": ["src/"]
+        },
+
         "lib": ["es6", "dom"],
         "jsx": "react",
         "target": "es5",
@@ -17,12 +22,7 @@
         "strictNullChecks": true,
         "noImplicitReturns": true,
         "suppressImplicitAnyIndexErrors": true,
-        "forceConsistentCasingInFileNames": true,
-        "baseUrl": ".",
-        "paths": {
-            "chonky": ["src/"]
-        },
-        "types": ["node_modules/react-popper/typings/react-popper.d.ts"]
+        "forceConsistentCasingInFileNames": true
     },
     "include": ["src/**/*"],
     "types": ["typePatches"],

@@ -1,0 +1,21 @@
+[chonky](../README.md) › [Globals](../globals.md) › ["components/external/ToolbarButton"](../modules/_components_external_toolbarbutton_.md) › [SmartToolbarButtonProps](_components_external_toolbarbutton_.smarttoolbarbuttonprops.md)
+
+# Interface: SmartToolbarButtonProps
+
+## Hierarchy
+
+* **SmartToolbarButtonProps**
+
+## Index
+
+### Properties
+
+* [fileAction](_components_external_toolbarbutton_.smarttoolbarbuttonprops.md#fileaction)
+
+## Properties
+
+###  fileAction
+
+• **fileAction**: *[FileAction](_typedef_.fileaction.md)*
+
+*Defined in [src/components/external/ToolbarButton.tsx:43](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ToolbarButton.tsx#L43)*

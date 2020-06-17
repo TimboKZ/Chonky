@@ -34,6 +34,7 @@ import { faFistRaised } from '@fortawesome/free-solid-svg-icons/faFistRaised';
 import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons/faFolderPlus';
+import { faHandPointer } from '@fortawesome/free-solid-svg-icons/faHandPointer';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
 import { faKey } from '@fortawesome/free-solid-svg-icons/faKey';
 import { faLevelUpAlt } from '@fortawesome/free-solid-svg-icons/faLevelUpAlt';
@@ -41,6 +42,7 @@ import { faList } from '@fortawesome/free-solid-svg-icons/faList';
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 import { faMusic } from '@fortawesome/free-solid-svg-icons/faMusic';
 import { faRunning } from '@fortawesome/free-solid-svg-icons/faRunning';
+import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons/faTerminal';
 import { faTh } from '@fortawesome/free-solid-svg-icons/faTh';
 import { faThLarge } from '@fortawesome/free-solid-svg-icons/faThLarge';
@@ -55,11 +57,17 @@ export enum ChonkyIconName {
     // Misc
     loading = 'loading',
 
-    // Drag & drop
+    // File Actions: Drag & drop
     dndDragging = 'dndDragging',
     dndCanDrop = 'dndCanDrop',
     dndCannotDrop = 'dndCannotDrop',
 
+    // File Actions: File operations
+    openFiles = 'openFiles',
+    openParentFolder = 'openParentFolder',
+    search = 'search',
+
+    // File Actions: Unsorted
     checkActive = 'checkActive',
     checkInactive = 'checkInactive',
     desc = 'desc',
@@ -75,7 +83,6 @@ export enum ChonkyIconName {
     download = 'download',
     upload = 'upload',
     trash = 'trash',
-    directoryUp = 'directoryUp',
     fallbackIcon = 'fallbackIcon',
     symlink = 'symlink',
     hidden = 'hidden',
@@ -115,11 +122,17 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     // Misc
     [ChonkyIconName.loading]: faCircleNotch,
 
-    // Drag & drop
+    // File Actions: Drag & drop
     [ChonkyIconName.dndDragging]: faFistRaised,
     [ChonkyIconName.dndCanDrop]: faArrowDown,
     [ChonkyIconName.dndCannotDrop]: faTimes,
 
+    // File Actions: File operations
+    [ChonkyIconName.openFiles]: faHandPointer,
+    [ChonkyIconName.openParentFolder]: faLevelUpAlt,
+    [ChonkyIconName.search]: faSearch,
+
+    // File Actions: Unsorted
     [ChonkyIconName.checkActive]: faCheckCircle,
     [ChonkyIconName.checkInactive]: faCircle,
     [ChonkyIconName.desc]: faArrowDown,
@@ -135,7 +148,6 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     [ChonkyIconName.download]: faDownload,
     [ChonkyIconName.upload]: faUpload,
     [ChonkyIconName.trash]: faTrash,
-    [ChonkyIconName.directoryUp]: faLevelUpAlt,
     [ChonkyIconName.fallbackIcon]: faExclamationTriangle,
     [ChonkyIconName.symlink]: faExternalLinkAlt,
     [ChonkyIconName.hidden]: faEyeSlash,

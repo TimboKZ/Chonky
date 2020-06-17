@@ -15,9 +15,11 @@ import React, { useContext } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
+import { FileAction, FileActionData } from '../src';
+// @ts-ignore
+import UnstableWarningMd from './Unstable-warning.md';
 // @ts-ignore
 import LiveExampleMd from './Live-examples.md';
-import { FileAction, FileActionData } from '../src';
 
 export const createDocsObject = (params: { markdown: string }) => {
     const { markdown } = params;
@@ -27,6 +29,7 @@ export const createDocsObject = (params: { markdown: string }) => {
             return (
                 <React.Fragment>
                     <DndProvider backend={HTML5Backend}>
+                        {parseMarkdown(UnstableWarningMd)}
                         <Title />
                         {parseMarkdown(markdown)}
                         <CustomPrimary />
@@ -132,8 +135,10 @@ export const showActionNotification = (params: {
     }
     if (data.files) {
         const fileNames = data.files.map((f) => f.name);
-        const filComps = fileNames.map(name => `<code>${name}</code>`)
-        textParts.push(`<b>Files:</b> [${filComps.join(', ')}]`);
+        const fileComps = fileNames.map((name) => `<code>${name}</code>`);
+        const fileCount = fileComps.length;
+        const fileTitle = `${fileCount} ${fileCount === 1 ? 'file' : 'files'}:`;
+        textParts.push(`<b>${fileTitle}</b> [${fileComps.join(', ')}]`);
     }
     const text = textParts.join('<br/>');
 

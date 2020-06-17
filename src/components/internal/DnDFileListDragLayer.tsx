@@ -6,10 +6,10 @@
 
 import React, { useContext } from 'react';
 import { useDragLayer } from 'react-dnd';
-
-import { ChonkySelectionContext } from '../../util/context';
-import { DnDFileEntryItem, DnDFileEntryType } from './DnDFileEntry';
 import { Nullable } from 'tsdef';
+
+import { ChonkySelectionSizeContext } from '../../util/context';
+import { DnDFileEntryItem, DnDFileEntryType } from './DnDFileEntry';
 
 export interface DnDFileListDragLayerProps {}
 
@@ -42,12 +42,7 @@ const getItemStyles = (
 };
 
 export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
-    // TODO: Reset selection if we drag & drop a file outside of the selection.
-    const selection = useContext(ChonkySelectionContext);
-    let selectionSize = 0;
-    for (const fileId in selection) {
-        if (selection[fileId] === true) selectionSize++;
-    }
+    const selectionSize = useContext(ChonkySelectionSizeContext);
 
     const {
         itemType,

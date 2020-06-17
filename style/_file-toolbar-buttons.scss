@@ -1,20 +1,44 @@
 @import 'util';
 
+.chonky-toolbar-button-group {
+    .chonky-toolbar-button {
+        border-radius: 0;
+
+        &:first-child {
+            border-bottom-left-radius: $radius-medium;
+            border-top-left-radius: $radius-medium;
+        }
+
+        &:last-child {
+            border-bottom-right-radius: $radius-medium;
+            border-top-right-radius: $radius-medium;
+        }
+
+        &:focus {
+            z-index: 15;
+        }
+
+        &:not(:first-child) {
+            margin-left: -1px;
+        }
+    }
+}
+
 .chonky-toolbar-button {
     @include default-transition(background-color);
     @include reset-button;
 
+    line-height: $toolbar-line-height;
     border: solid 1px $border-light;
     border-radius: $radius-medium;
-    line-height: $base-bar-height;
-    min-width: $base-bar-height;
-    height: $base-bar-height;
+    min-width: $toolbar-height;
+    height: $toolbar-height;
     vertical-align: middle;
     box-sizing: border-box;
+    flex-direction: row;
     text-align: center;
     position: relative;
-    z-index: 91;
-    flex-direction: row;
+    z-index: 10;
 
     &-icon,
     &-text {
@@ -22,7 +46,7 @@
     }
 
     &-icon {
-        min-width: $base-bar-height;
+        min-width: $toolbar-height;
     }
 
     &-text {
@@ -35,9 +59,13 @@
     }
 
     @media screen and (max-width: $mobile-breakpoint) {
-        line-height: $base-bar-height-mobile;
-        min-width: $base-bar-height-mobile;
-        height: $base-bar-height-mobile;
+        line-height: $toolbar-line-height-mobile;
+        min-width: $toolbar-height-mobile;
+        height: $toolbar-height-mobile;
+
+        &-icon {
+            min-width: $toolbar-height-mobile;
+        }
     }
 
     &.chonky-active {

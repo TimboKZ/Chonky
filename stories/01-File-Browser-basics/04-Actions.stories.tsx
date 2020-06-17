@@ -1,6 +1,13 @@
 import 'chonky/style/main.css';
 
-import { FileAction, FileActionData, FileBrowser, FileList, FileToolbar } from 'chonky';
+import {
+    ChonkyActions,
+    FileAction,
+    FileActionData,
+    FileBrowser,
+    FileList,
+    FileToolbar,
+} from 'chonky';
 import React, { useState } from 'react';
 
 import { createDocsObject } from '../story-helpers';
@@ -48,6 +55,13 @@ export const ActionsExample = () => {
         { id: 'bEf24q', name: 'Drag & drop files here', isDir: true },
     ];
 
+    const fileActions = [
+        ChonkyActions.CreateFolder,
+        ChonkyActions.UploadFiles,
+        ChonkyActions.DownloadFiles,
+        ChonkyActions.CopyFiles,
+    ];
+
     return (
         <div className="live-example" style={{ height: 500 }}>
             <div
@@ -58,6 +72,7 @@ export const ActionsExample = () => {
             <FileBrowser
                 files={files}
                 folderChain={folderChain}
+                fileActions={fileActions}
                 onFileAction={handleFileAction}
                 enableDragAndDrop={true}
             >

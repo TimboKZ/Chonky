@@ -8,9 +8,9 @@ import {
     FileActionHandler,
     InternalFileActionDispatcher,
 } from '../typedef';
+import { FileHelper } from './file-helper';
 import { Logger } from './logger';
 import { isFunction } from './validation';
-import { FileHelper } from './file-helper';
 
 export const ChonkyActions = {
     // Actions triggered by drag & drop
@@ -23,15 +23,18 @@ export const ChonkyActions = {
 
     OpenParentFolder: {
         name: 'open_parent_folder',
+        requiresParentFolder: true,
         hotkeys: ['backspace'],
         toolbarButton: {
             name: 'Go up a directory',
             tooltip: 'Go up a directory',
-            icon: ChonkyIconName.directoryUp,
+            icon: ChonkyIconName.openParentFolder,
             iconOnly: true,
         },
     },
     OpenFiles: {
+        // We don't specify the 'enter' hotkey here because it is handled inside
+        // `<ClickableFileEntry>` component.
         name: 'open_files',
         requiresSelection: true,
         fileFilter: FileHelper.isOpenable,
@@ -39,10 +42,17 @@ export const ChonkyActions = {
             name: 'Open selection',
             group: 'Actions',
             dropdown: true,
+            icon: ChonkyIconName.openFiles,
         },
-
-        // We don't specify the 'enter' hotkey here because it is handled inside
-        // `<ClickableFileEntry>` component.
+    },
+    Search: {
+        name: 'search',
+        hotkeys: ['ctrl+f'],
+        toolbarButton: {
+            name: 'Search',
+            icon: ChonkyIconName.search,
+            iconOnly: true,
+        },
     },
 
     CopyFiles: {
@@ -68,8 +78,10 @@ export const ChonkyActions = {
     },
     DownloadFiles: {
         name: 'download_files',
+        requiresSelection: true,
         toolbarButton: {
             name: 'Download files',
+            group: 'Actions',
             tooltip: 'Download files',
             icon: ChonkyIconName.download,
         },
@@ -82,6 +94,7 @@ export const DefaultActions: FileAction[] = [
 
     ChonkyActions.OpenParentFolder,
     ChonkyActions.OpenFiles,
+    ChonkyActions.Search,
 ];
 
 /**

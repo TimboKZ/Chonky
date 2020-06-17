@@ -19,11 +19,6 @@ export default {
 export const FolderChainExample = () => {
     const folderChain = [
         {
-            id: 'gBt4z3',
-            name: 'Root',
-            isDir: true,
-        },
-        {
             id: 'gM5tTe',
             name: 'My Documents',
             isDir: true,
@@ -35,6 +30,11 @@ export const FolderChainExample = () => {
             openable: false, // This button will not be clickable
         },
         null, // Loading animation will be shown for this file
+        {
+            id: 'vxWtA',
+            name: 'Unity Projects',
+            isDir: true,
+        },
         {
             id: 'mT7Et',
             name: 'Good Projects',

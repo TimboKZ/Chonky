@@ -39,6 +39,7 @@ export type FileFilter = (file: Nullable<FileData>) => boolean;
 export interface FileAction {
     name: string; // Unique action name
     metadata?: any; // Any user-defined value
+    requiresParentFolder?: boolean; // Requires parent folder in folder chain
     requiresSelection?: boolean; // Requires selection of 1+ files
     fileFilter?: FileFilter; // Used to filter the files array
 

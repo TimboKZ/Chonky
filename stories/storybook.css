@@ -54,6 +54,13 @@
   padding: 0 4px;
 }
 
+.unstable-warning blockquote {
+  background-color: #fde0e0;
+  border-color: #9e0808;
+  margin-bottom: 40px;
+  padding: 20px 30px;
+}
+
 .live-example-action {
   font-family: sans-serif !important;
   font-size: 1.2em !important;

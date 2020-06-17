@@ -6,7 +6,7 @@ import React from 'react';
 import { createDocsObject, showActionNotification } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
-import markdown from './04-Actions.md';
+import markdown from './05-Custom-actions.md';
 
 // eslint-disable-next-line import/no-default-export
 export default {

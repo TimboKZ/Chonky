@@ -6,13 +6,29 @@
 
 import React from 'react';
 
-interface IconGroupProps {}
+import { FileAction } from '../../typedef';
+import { SmartToolbarButton } from './ToolbarButton';
 
-interface IconGroupState {}
-
-export class ButtonGroup extends React.PureComponent<IconGroupProps, IconGroupState> {
-    public render() {
-        const { children } = this.props;
-        return <div className="chonky-button-group">{children}</div>;
-    }
+export interface ToolbarButtonGroup {
+    name?: string;
+    dropdown?: boolean;
+    fileActions: FileAction[];
 }
+
+export interface ToolbarButtonGroupProps {
+    group: ToolbarButtonGroup;
+}
+
+export const ToolbarButtonGroup: React.FC<ToolbarButtonGroupProps> = React.memo(
+    (props) => {
+        const { group } = props;
+
+        const buttonComponents = group.fileActions.map((action) => (
+            <SmartToolbarButton
+                key={`action-button-${action.name}`}
+                fileAction={action}
+            />
+        ));
+        return <div className="chonky-toolbar-button-group">{buttonComponents}</div>;
+    }
+);

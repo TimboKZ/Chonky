@@ -9,7 +9,7 @@
     }
 
     &-toolbar-side {
-        margin-bottom: $base-padding * 1.5;
+        margin-bottom: $file-browser-padding;
         flex-direction: row;
         padding-bottom: 0;
         display: flex;
@@ -17,10 +17,18 @@
 
         &-left {
             flex-grow: 10000;
+
+            .chonky-toolbar-button-group {
+                margin-right: $file-browser-padding;
+            }
         }
 
         &-right {
             justify-content: space-between;
+
+            .chonky-toolbar-button-group {
+                margin-left: $file-browser-padding;
+            }
         }
 
         &-inside {
@@ -59,14 +67,14 @@
 
             border-radius: $radius-medium;
             border: solid 1px transparent;
-            line-height: $base-bar-height;
+            line-height: $toolbar-height;
             padding: 0 0.3em !important;
-            height: $base-bar-height;
+            height: $toolbar-height;
             box-sizing: border-box;
 
             @media screen and (max-width: $mobile-breakpoint) {
-                line-height: $base-bar-height-mobile;
-                height: $base-bar-height-mobile;
+                line-height: $toolbar-height-mobile;
+                height: $toolbar-height-mobile;
             }
 
             &:last-child &-name {
@@ -94,14 +102,14 @@
         }
 
         &-separator {
-            line-height: $base-bar-height;
-            height: $base-bar-height;
+            line-height: $toolbar-height;
+            height: $toolbar-height;
             color: $fg-subtle;
             padding: 0 0.1em;
 
             @media screen and (max-width: $mobile-breakpoint) {
-                line-height: $base-bar-height-mobile;
-                height: $base-bar-height-mobile;
+                line-height: $toolbar-height-mobile;
+                height: $toolbar-height-mobile;
                 padding: 0 0.1em;
             }
         }

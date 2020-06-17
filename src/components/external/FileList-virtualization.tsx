@@ -1,6 +1,7 @@
 import c from 'classnames';
 import React, { useCallback, useContext } from 'react';
 import { Grid } from 'react-virtualized';
+import { Nilable } from 'tsdef';
 
 import { FileArray } from '../../typedef';
 import {
@@ -12,7 +13,6 @@ import { FileEntryProps } from '../internal/BaseFileEntry';
 import { ClickableFileEntry } from '../internal/ClickableFileEntry';
 import { DnDFileEntry } from '../internal/DnDFileEntry';
 import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
-import { Nilable } from 'tsdef';
 
 export interface EntrySize {
     width: number;

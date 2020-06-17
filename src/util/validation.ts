@@ -1,9 +1,9 @@
-import { Nullable } from 'tsdef';
 import { useMemo } from 'react';
+import { Nullable } from 'tsdef';
 
-import { FileArray } from '../../lib';
+import { FileBrowser } from '../components/external/FileBrowser';
+import { FileArray } from '../typedef';
 import { Logger } from './logger';
-import { FileBrowser } from 'chonky';
 
 export const isPlainObject = (value: any): value is object => {
     return Object.prototype.toString.call(value) === '[object Object]';

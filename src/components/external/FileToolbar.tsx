@@ -1,31 +1,35 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React from 'react';
 
-import {
-    ChonkyFileActionsContext,
-    ChonkyFolderChainContext,
-} from '../../util/context';
-import { useFileActionButtons, useFolderChainComponent } from './FileToolbar-hooks';
+import { useFolderChainComponent, useToolbarButtonGroups } from './FileToolbar-hooks';
+import { ToolbarButtonGroup } from './ToolbarButtonGroup';
 
 export interface FileToolbarProps {}
 
-export const FileToolbar: React.FC<FileToolbarProps> = React.memo((props) => {
-    const folderChain = useContext(ChonkyFolderChainContext);
-    const fileActions = useContext(ChonkyFileActionsContext);
-
-    const folderChainComp = folderChain ? useFolderChainComponent(folderChain) : null;
-    const { openParentFolderButton, buttonComponents } = useFileActionButtons(
-        fileActions
-    );
+export const FileToolbar: React.FC<FileToolbarProps> = React.memo(() => {
+    const folderChainComp = useFolderChainComponent();
+    const {
+        buttonGroups,
+        openParentFolderButtonGroup,
+        searchButtonGroup,
+    } = useToolbarButtonGroups();
 
     return (
         <div className="chonky-toolbar">
             <div className="chonky-toolbar-side chonky-toolbar-side-left">
-                {openParentFolderButton}
+                {openParentFolderButtonGroup && (
+                    <ToolbarButtonGroup group={openParentFolderButtonGroup} />
+                )}
                 {folderChainComp}
             </div>
             <div className="chonky-toolbar-side chonky-toolbar-side-right">
-                {buttonComponents}
+                {buttonGroups.map((group, index) => (
+                    <ToolbarButtonGroup
+                        key={`button-group-${group.name ? group.name : index}`}
+                        group={group}
+                    />
+                ))}
+                {searchButtonGroup && <ToolbarButtonGroup group={searchButtonGroup} />}
             </div>
         </div>
     );
