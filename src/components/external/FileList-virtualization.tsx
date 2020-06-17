@@ -1,11 +1,18 @@
 import c from 'classnames';
 import React, { useCallback, useContext } from 'react';
+import { Grid } from 'react-virtualized';
 
 import { FileArray } from '../../typedef';
-import { ChonkyEnableDragAndDropContext } from '../../util/context';
-import { BaseFileEntry, FileEntryProps } from '../internal/BaseFileEntry';
+import {
+    ChonkyEnableDragAndDropContext,
+    ChonkySelectionContext,
+} from '../../util/context';
+import { isMobileDevice } from '../../util/validation';
+import { FileEntryProps } from '../internal/BaseFileEntry';
+import { ClickableFileEntry } from '../internal/ClickableFileEntry';
 import { DnDFileEntry } from '../internal/DnDFileEntry';
 import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
+import { Nilable } from 'tsdef';
 
 export interface EntrySize {
     width: number;
@@ -35,9 +42,10 @@ export const getRowHeight = (
 };
 
 export const useEntryRenderer = (files: FileArray) => {
+    const selection = useContext(ChonkySelectionContext);
     const enableDragAndDrop = useContext(ChonkyEnableDragAndDropContext);
     // All hook parameters should go into `deps` array
-    const deps = [files, enableDragAndDrop];
+    const deps = [files, selection, enableDragAndDrop];
     const entryRenderer = useCallback(
         (
             virtualKey: string,
@@ -68,12 +76,17 @@ export const useEntryRenderer = (files: FileArray) => {
             const entryProps: FileEntryProps = {
                 file,
                 displayIndex: index,
+
+                // We deliberately don't use `FileHelper.isSelectable` here. We want
+                // the UI to represent the true state of selection. This will help users
+                // see what exactly the selection is before running some code.
+                selected: !!file && selection[file.id] === true,
             };
 
             const fileEntryComponent = enableDragAndDrop ? (
                 <DnDFileEntry {...entryProps} />
             ) : (
-                <BaseFileEntry {...entryProps} />
+                <ClickableFileEntry {...entryProps} />
             );
             return (
                 <div key={key} className="chonky-virtualization-wrapper" style={style}>
@@ -104,4 +117,70 @@ export const noContentRenderer = (height?: number) => {
             </div>
         </div>
     );
+};
+
+export const useGridRenderer = (
+    files: FileArray,
+    entryRenderer: ReturnType<typeof useEntryRenderer>,
+    thumbsGridRef: React.Ref<Nilable<Grid>>,
+    fillParentContainer: boolean
+) => {
+    const deps = [files, entryRenderer, thumbsGridRef, fillParentContainer];
+    return useCallback(({ width, height }) => {
+        let columnCount: number;
+        let entrySize = SmallThumbsSize;
+
+        const isMobile = isMobileDevice();
+        const gutter = isMobile ? 5 : 8;
+        const scrollbar = !fillParentContainer || isMobile ? 0 : 16;
+
+        // TODO: const isLargeThumbs = view === FileView.LargeThumbs;
+        const isLargeThumbs = false;
+        if (isMobile && width < 400) {
+            // Hardcode column count on mobile
+            columnCount = isLargeThumbs ? 2 : 3;
+            entrySize = {
+                width: Math.floor((width - gutter * (columnCount - 1)) / columnCount),
+                height: isLargeThumbs ? 160 : 120,
+            };
+        } else {
+            const columnCountFloat =
+                (width + gutter - scrollbar) / (entrySize.width + gutter);
+            columnCount = Math.max(1, Math.floor(columnCountFloat));
+        }
+        const rowCount = Math.ceil(files.length / columnCount);
+
+        return (
+            <Grid
+                style={{ minHeight: entrySize.height + 10 }}
+                ref={thumbsGridRef as any}
+                cellRenderer={(data) => {
+                    const index = data.rowIndex * columnCount + data.columnIndex;
+                    return entryRenderer(
+                        data.key,
+                        index,
+                        { ...data.style },
+                        data.parent,
+                        gutter,
+                        data.rowIndex === rowCount - 1,
+                        data.columnIndex === columnCount - 1
+                    );
+                }}
+                noContentRenderer={() => noContentRenderer(entrySize.height)}
+                rowCount={rowCount}
+                columnCount={columnCount}
+                columnWidth={({ index }) =>
+                    getColWidth(index, columnCount, entrySize, gutter)
+                }
+                rowHeight={({ index }) =>
+                    getRowHeight(index, rowCount, entrySize, gutter)
+                }
+                overscanRowCount={2}
+                width={width}
+                height={typeof height === 'number' ? height : 500}
+                autoHeight={!fillParentContainer}
+                tabIndex={null}
+            />
+        );
+    }, deps);
 };

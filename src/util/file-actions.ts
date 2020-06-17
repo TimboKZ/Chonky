@@ -10,6 +10,7 @@ import {
 } from '../typedef';
 import { Logger } from './logger';
 import { isFunction } from './validation';
+import { FileHelper } from './file-helper';
 
 export const ChonkyActions = {
     // Actions triggered by drag & drop
@@ -33,6 +34,7 @@ export const ChonkyActions = {
     OpenFiles: {
         name: 'open_files',
         requiresSelection: true,
+        fileFilter: FileHelper.isOpenable,
         toolbarButton: {
             name: 'Open selection',
             group: 'Actions',

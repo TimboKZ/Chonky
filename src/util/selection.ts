@@ -1,13 +1,28 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Nullable } from 'tsdef';
 
-import { FileArray, FileData, FileFilter, FileSelection } from '../typedef';
+import {
+    FileArray,
+    FileData,
+    FileFilter,
+    FileSelection,
+    ReadonlyFileArray,
+} from '../typedef';
 import { FileHelper } from './file-helper';
 
 export const useSelection = (files: FileArray, disableSelection: boolean) => {
     // Create React-managed state for components that need to re-render on state change.
     const [selection, setSelection] = useState<FileSelection>({});
 
+    // Pre-compute selection size for components that are only interested in the
+    // number of selected files but not the actual files
+    const selectionSize = useMemo(
+        () => SelectionHelper.getSelectionSize(files, selection),
+        [files, selection]
+    );
+
+    // Create callbacks for updating selection. These will update the React
+    // state `selection`, causing re-renders. This is intentional.
     const { selectFiles, toggleSelection, clearSelection } = useSelectionModifiers(
         disableSelection,
         setSelection
@@ -23,6 +38,7 @@ export const useSelection = (files: FileArray, disableSelection: boolean) => {
 
     return {
         selection,
+        selectionSize,
         selectionUtilRef,
         selectFiles,
         toggleSelection,
@@ -73,6 +89,46 @@ const useSelectionModifiers = (
     };
 };
 
+/**
+ * This helper relies on the `files` and `selection` objects to be passed from the
+ * outside. It is safe to use in React components because it doesn't have any
+ * internal state, and all methods are static.
+ */
+export class SelectionHelper {
+    public static getSelectedFiles(
+        files: ReadonlyFileArray,
+        selection: Readonly<FileSelection>,
+        ...filters: FileFilter[]
+    ): ReadonlyArray<Readonly<FileData>> {
+        const selectedFiles = files.filter(
+            (file) => FileHelper.isSelectable(file) && selection[file.id] === true
+        ) as FileData[];
+
+        return filters.reduce(
+            (prevFiles, filter) => prevFiles.filter(filter),
+            selectedFiles
+        );
+    }
+    public static getSelectionSize(
+        files: ReadonlyFileArray,
+        selection: Readonly<FileSelection>,
+        ...filters: FileFilter[]
+    ): number {
+        return SelectionHelper.getSelectedFiles(files, selection, ...filters).length;
+    }
+    public static isSelected(
+        selection: Readonly<FileSelection>,
+        file: Nullable<Readonly<FileData>>
+    ): boolean {
+        return FileHelper.isSelectable(file) && selection[file.id] === true;
+    }
+}
+
+/**
+ * This `SelectionUtil` contains an internal reference to `files` and `selection`
+ * objects. It is exposed via a React context, and is meant to be used in functions
+ * that need to access selection WITHOUT triggering re-renders.
+ */
 export class SelectionUtil {
     private files: FileArray;
     private selection: FileSelection;
@@ -92,25 +148,13 @@ export class SelectionUtil {
     public getSelectedFiles(
         ...filters: FileFilter[]
     ): ReadonlyArray<Readonly<FileData>> {
-        const files = this.files;
-        const selection = this.selection;
-
-        const selectedFiles = files.filter(
-            (file) => FileHelper.isSelectable(file) && selection[file.id] === true
-        ) as FileData[];
-
-        return filters.reduce(
-            (prevFiles, filter) => prevFiles.filter(filter),
-            selectedFiles
-        );
+        return SelectionHelper.getSelectedFiles(this.files, this.selection, ...filters);
     }
     public getSelectionSize(...filters: FileFilter[]): number {
-        return this.getSelectedFiles(...filters).length;
+        return SelectionHelper.getSelectionSize(this.files, this.selection, ...filters);
     }
     public isSelected(file: Nullable<FileData>): boolean {
-        const selection = this.selection;
-
-        return FileHelper.isSelectable(file) && selection[file.id] === true;
+        return SelectionHelper.isSelected(this.selection, file);
     }
 }
 

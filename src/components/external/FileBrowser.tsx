@@ -7,19 +7,19 @@ import {
     ThumbnailGenerator,
 } from '../../typedef';
 import {
-    ChonkyEnableDragAndDropContext,
     ChonkyDisableSelectionContext,
     ChonkyDispatchFileActionContext,
     ChonkyDispatchSpecialActionContext,
     ChonkyDoubleClickDelayContext,
+    ChonkyEnableDragAndDropContext,
     ChonkyFileActionsContext,
     ChonkyFilesContext,
     ChonkyFolderChainContext,
     ChonkySelectionContext,
+    ChonkySelectionSizeContext,
+    ChonkySelectionUtilContext,
     ChonkyThumbnailGeneratorContext,
     validateContextType,
-    ChonkySelectionSizeContext,
-    ChonkySelectionUtilRefContext,
 } from '../../util/context';
 import { DefaultActions, useFileActionDispatcher } from '../../util/file-actions';
 import { useSelection } from '../../util/selection';
@@ -104,20 +104,12 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     // Initial selection
     const {
         selection,
+        selectionSize,
         selectionUtilRef,
         selectFiles,
         toggleSelection,
         clearSelection,
     } = useSelection(sortedFiles, disableSelection);
-    const selectionSize = useMemo(() => {
-        let selectionSize = 0;
-        for (const fileId in selection) {
-            if (selection.hasOwnProperty(fileId)) {
-                if (selection[fileId] === true) selectionSize++;
-            }
-        }
-        return selectionSize;
-    }, [selection]);
 
     // TODO: Validate file actions
     // TODO: Remove duplicates if they are default actions, otherwise error on
@@ -161,8 +153,8 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
             value: selectionSize,
         }),
         validateContextType({
-            context: ChonkySelectionUtilRefContext,
-            value: selectionUtilRef,
+            context: ChonkySelectionUtilContext,
+            value: selectionUtilRef.current,
         }),
         validateContextType({
             context: ChonkyFileActionsContext,

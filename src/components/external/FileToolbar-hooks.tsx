@@ -2,13 +2,16 @@ import c from 'classnames';
 import React, { useContext, useMemo } from 'react';
 import { Nullable } from 'tsdef';
 
-import { FileAction, FileArray } from '../../typedef';
+import { FileAction, FileArray, FileData } from '../../typedef';
 import {
     ChonkyDispatchFileActionContext,
-    ChonkySelectionSizeContext,
+    ChonkyFilesContext,
+    ChonkySelectionContext,
+    ChonkySelectionUtilContext,
 } from '../../util/context';
 import { ChonkyActions } from '../../util/file-actions';
 import { FileHelper } from '../../util/file-helper';
+import { SelectionHelper } from '../../util/selection';
 import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
 import { ToolbarButton } from './ToolbarButton';
 
@@ -34,12 +37,13 @@ export const useFolderChainComponent = (folderChain: FileArray) => {
                 }),
             };
             if (FileHelper.isOpenable(file) && !isLast) {
-                compProps.onClick = () =>
+                compProps.onClick = () => {
                     dispatchChonkyAction({
                         actionName: ChonkyActions.OpenFiles.name,
                         target: file,
                         files: [file],
                     });
+                };
             }
             const TagToUse = compProps.onClick ? 'button' : 'div';
             comps[j] = (
@@ -84,10 +88,22 @@ export const useFileActionButtons = (
     openParentFolderButton: Nullable<React.ReactElement>;
     buttonComponents: React.ReactElement[];
 } => {
-    const selectionSize = useContext(ChonkySelectionSizeContext);
+    const files = useContext(ChonkyFilesContext);
+    const selection = useContext(ChonkySelectionContext);
+    const selectionUtil = useContext(ChonkySelectionUtilContext);
     const dispatchChonkyAction = useContext(ChonkyDispatchFileActionContext);
+
+    const selectionSize = SelectionHelper.getSelectionSize(files, selection);
+
     // All hook params should go into `deps`
-    const deps = [fileActions, selectionSize, dispatchChonkyAction];
+    const deps = [
+        fileActions,
+        files,
+        selection,
+        selectionUtil,
+        dispatchChonkyAction,
+        selectionSize,
+    ];
     return useMemo(() => {
         let openParentFolderButton = null;
         const buttonComponents: React.ReactElement[] = [];
@@ -95,6 +111,25 @@ export const useFileActionButtons = (
             const action = fileActions[i];
             const { toolbarButton } = action;
             if (!toolbarButton) continue;
+
+            let actionSelectionSize: number;
+            let actionFiles: ReadonlyArray<FileData>;
+            if (action.fileFilter) {
+                actionSelectionSize = SelectionHelper.getSelectionSize(
+                    files,
+                    selection,
+                    action.fileFilter
+                );
+                actionFiles = SelectionHelper.getSelectedFiles(
+                    files,
+                    selection,
+                    action.fileFilter
+                );
+            } else {
+                actionSelectionSize = selectionSize;
+                actionFiles = SelectionHelper.getSelectedFiles(files, selection);
+            }
+            const disabled = action.requiresSelection && actionSelectionSize === 0;
 
             const key = `toolbar-button-${action.name}`;
             const component = (
@@ -104,8 +139,13 @@ export const useFileActionButtons = (
                     tooltip={toolbarButton.tooltip}
                     icon={toolbarButton.icon}
                     iconOnly={toolbarButton.iconOnly}
-                    onClick={() => dispatchChonkyAction({ actionName: action.name })}
-                    disabled={action.requiresSelection && selectionSize === 0}
+                    onClick={() =>
+                        dispatchChonkyAction({
+                            actionName: action.name,
+                            files: actionFiles,
+                        })
+                    }
+                    disabled={disabled}
                 />
             );
 

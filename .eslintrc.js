@@ -40,7 +40,7 @@ module.exports = {
         'sort-imports': [
             'error',
             {
-                ignoreCase: false,
+                ignoreCase: true,
                 ignoreDeclarationSort: true,
                 ignoreMemberSort: false,
                 memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],

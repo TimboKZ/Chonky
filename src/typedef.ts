@@ -32,12 +32,15 @@ export interface FileData {
 
 export type FileArray = Nullable<FileData>[];
 
+export type ReadonlyFileArray = ReadonlyArray<Nullable<FileData>>;
+
 export type FileFilter = (file: Nullable<FileData>) => boolean;
 
 export interface FileAction {
     name: string; // Unique action name
     metadata?: any; // Any user-defined value
     requiresSelection?: boolean; // Requires selection of 1+ files
+    fileFilter?: FileFilter; // Used to filter the files array
 
     hotkeys?: readonly string[]; // Hotkeys using `hotkey-js` notation
     toolbarButton?: ToolbarButtonData; // Description below

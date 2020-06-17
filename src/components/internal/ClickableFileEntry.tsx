@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { FileHelper } from '../../util/file-helper';
-import { FileEntryProps } from './BaseFileEntry';
+import { BaseFileEntry, FileEntryProps } from './BaseFileEntry';
 import { useFileClickHandlers } from './ClickableFileEntry-hooks';
 import { ClickableWrapper, ClickableWrapperProps } from './ClickableWrapper';
-import { SelectableFileEntry } from './SelectableFileEntry';
 
 export const ClickableFileEntry: React.FC<FileEntryProps> = (props) => {
     const { file } = props;
@@ -21,7 +20,7 @@ export const ClickableFileEntry: React.FC<FileEntryProps> = (props) => {
 
     return (
         <ClickableWrapper {...wrapperProps}>
-            <SelectableFileEntry {...props} />
+            <BaseFileEntry {...props} />
         </ClickableWrapper>
     );
 };

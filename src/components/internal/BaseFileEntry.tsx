@@ -5,22 +5,24 @@ import { Nullable } from 'tsdef';
 import { FileData } from '../../typedef';
 import { ColorsDark, ColorsLight, useIconData } from '../../util/file-icon-helper';
 import { ChonkyIconFA, ChonkyIconName } from '../external/ChonkyIcon';
+import { TextPlaceholder } from '../external/TextPlaceholder';
 import { useDndIcon, useThumbnailUrl } from './BaseFileEntry-hooks';
 import { DnDProps } from './DnDFileEntry';
 import { FileThumbnail } from './FileThumbnail';
 import { SelectableProps } from './SelectableFileEntry';
-import { TextPlaceholder } from '../external/TextPlaceholder';
 
 export interface FileEntryProps extends SelectableProps, DnDProps {
     file: Nullable<FileData>;
 
     displayIndex: number; // Index at which this file appears in the file list
 
+    selected: boolean;
+
     style?: React.CSSProperties;
 }
 
 export const BaseFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
-    const { file, style, selected, dndIsDragging, dndIsOver, dndCanDrop } = props;
+    const { file, selected, style, dndIsDragging, dndIsOver, dndCanDrop } = props;
 
     // Deal with thumbnails
     const [thumbnailUrl, setThumbnailUrl] = useState<Nullable<string>>(null);

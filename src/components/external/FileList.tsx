@@ -3,16 +3,9 @@ import { AutoSizer, Grid } from 'react-virtualized';
 
 import { ChonkyFilesContext } from '../../util/context';
 import { Logger } from '../../util/logger';
-import { isMobileDevice } from '../../util/validation';
 import { ErrorMessage } from '../internal/ErrorMessage';
 import { FileBrowser } from './FileBrowser';
-import {
-    getColWidth,
-    getRowHeight,
-    noContentRenderer,
-    SmallThumbsSize,
-    useEntryRenderer,
-} from './FileList-virtualization';
+import { useEntryRenderer, useGridRenderer } from './FileList-virtualization';
 
 export interface FileListProps {}
 
@@ -20,10 +13,21 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
     const files = useContext(ChonkyFilesContext);
 
     const entryRenderer = useEntryRenderer(files);
+
+    // Thumbs grid ref is not used at the moment but will be necessary later. It is
+    // used to recompute the height of rows in the `List` from `react-virtualized`.
+    // Consult Chonky v0.x implementation for details.
     const thumbsGridRef = useRef<Grid>();
 
     // TODO: Read this value from somewhere.
     const fillParentContainer = true;
+
+    const gridRenderer = useGridRenderer(
+        files,
+        entryRenderer,
+        thumbsGridRef,
+        fillParentContainer
+    );
 
     if (!files) {
         const errorMessage =
@@ -36,70 +40,7 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
 
     return (
         <div className="chonky-file-list">
-            <AutoSizer disableHeight={!fillParentContainer}>
-                {({ width, height }) => {
-                    let columnCount: number;
-                    let entrySize = SmallThumbsSize;
-
-                    const isMobile = isMobileDevice();
-                    const gutter = isMobile ? 5 : 8;
-                    const scrollbar = !fillParentContainer || isMobile ? 0 : 16;
-
-                    // TODO: const isLargeThumbs = view === FileView.LargeThumbs;
-                    const isLargeThumbs = false;
-                    if (isMobile && width < 400) {
-                        // Hardcode column count on mobile
-                        columnCount = isLargeThumbs ? 2 : 3;
-                        entrySize = {
-                            width: Math.floor(
-                                (width - gutter * (columnCount - 1)) / columnCount
-                            ),
-                            height: isLargeThumbs ? 160 : 120,
-                        };
-                    } else {
-                        const columnCountFloat =
-                            (width + gutter - scrollbar) / (entrySize.width + gutter);
-                        columnCount = Math.max(1, Math.floor(columnCountFloat));
-                    }
-                    const rowCount = Math.ceil(files.length / columnCount);
-
-                    return (
-                        <Grid
-                            style={{ minHeight: entrySize.height + 10 }}
-                            ref={thumbsGridRef as any}
-                            cellRenderer={(data) => {
-                                const index =
-                                    data.rowIndex * columnCount + data.columnIndex;
-                                return entryRenderer(
-                                    data.key,
-                                    index,
-                                    { ...data.style },
-                                    data.parent,
-                                    gutter,
-                                    data.rowIndex === rowCount - 1,
-                                    data.columnIndex === columnCount - 1
-                                );
-                            }}
-                            noContentRenderer={() =>
-                                noContentRenderer(entrySize.height)
-                            }
-                            rowCount={rowCount}
-                            columnCount={columnCount}
-                            columnWidth={({ index }) =>
-                                getColWidth(index, columnCount, entrySize, gutter)
-                            }
-                            rowHeight={({ index }) =>
-                                getRowHeight(index, rowCount, entrySize, gutter)
-                            }
-                            overscanRowCount={2}
-                            width={width}
-                            height={typeof height === 'number' ? height : 500}
-                            autoHeight={!fillParentContainer}
-                            tabIndex={null}
-                        />
-                    );
-                }}
-            </AutoSizer>
+            <AutoSizer disableHeight={!fillParentContainer}>{gridRenderer}</AutoSizer>
         </div>
     );
 });
