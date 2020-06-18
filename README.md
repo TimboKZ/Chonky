@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://timbokz.github.io/Chonky/Chonky.jpg" alt="Chonky logo">
+  <img src="https://timbokz.github.io/Chonky/Chonky_clear.png" alt="Chonky logo">
   <br/>
   <a href="https://www.npmjs.com/package/chonky">
     <img alt="NPM package" src="https://img.shields.io/npm/v/chonky.svg">
@@ -32,7 +32,7 @@ list", use keyboard shortcuts, and much more!
 ## Preview
 
 <p align="center">
-  <img src="https://timbokz.github.io/Chonky/Chonky_preview.jpg" alt="Chonky logo">
+  <img src="https://timbokz.github.io/Chonky/0.x/Chonky_preview.jpg" alt="Chonky preview">
 </p>
 
 ## License
