@@ -9,6 +9,7 @@ import {
     InternalSpecialActionDispatcher,
     ThumbnailGenerator,
 } from '../typedef';
+import { NOOP_FUNCTION } from './constants';
 import { SelectionUtil } from './selection';
 
 export const ChonkyFilesContext = React.createContext<FileArray>([]);
@@ -22,10 +23,15 @@ export const ChonkySelectionUtilContext = React.createContext<SelectionUtil>(
 export const ChonkyFileActionsContext = React.createContext<FileAction[]>([]);
 export const ChonkyDispatchFileActionContext = React.createContext<
     InternalFileActionDispatcher
->((...args: any[]) => null);
+>(NOOP_FUNCTION);
 export const ChonkyDispatchSpecialActionContext = React.createContext<
     InternalSpecialActionDispatcher
->((...args: any[]) => null);
+>(NOOP_FUNCTION);
+
+export const ChonkySearchFilterContext = React.createContext<string>('');
+export const ChonkySetSearchFilterContext = React.createContext<
+    (searchFilter: string) => void
+>(NOOP_FUNCTION);
 
 export const ChonkyThumbnailGeneratorContext = React.createContext<
     Nullable<ThumbnailGenerator>

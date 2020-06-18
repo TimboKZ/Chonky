@@ -1,5 +1,6 @@
 export { FileBrowser } from './components/external/FileBrowser';
 export { FileToolbar } from './components/external/FileToolbar';
+export { FileSearch } from './components/external/FileSearch';
 export { FileList } from './components/external/FileList';
 export { ChonkyIconFA, ChonkyIconName } from './components/external/ChonkyIcon';
 

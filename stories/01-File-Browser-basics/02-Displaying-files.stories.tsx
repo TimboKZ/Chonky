@@ -6,7 +6,8 @@ import {
     FileArray,
     FileBrowser,
     FileList,
-    FileToolbar
+    FileSearch,
+    FileToolbar,
 } from 'chonky';
 import React from 'react';
 
@@ -92,6 +93,7 @@ export const FilesArrayExample = () => {
                 enableDragAndDrop={true}
             >
                 <FileToolbar />
+                <FileSearch />
                 <FileList />
             </FileBrowser>
         </div>

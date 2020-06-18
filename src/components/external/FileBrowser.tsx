@@ -1,9 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import FuzzySearch from 'fuzzy-search';
 
 import {
     FileAction,
     FileActionHandler,
     FileArray,
+    FileData,
     ThumbnailGenerator,
 } from '../../typedef';
 import {
@@ -15,9 +17,11 @@ import {
     ChonkyFileActionsContext,
     ChonkyFilesContext,
     ChonkyFolderChainContext,
+    ChonkySearchFilterContext,
     ChonkySelectionContext,
     ChonkySelectionSizeContext,
     ChonkySelectionUtilContext,
+    ChonkySetSearchFilterContext,
     ChonkyThumbnailGeneratorContext,
     validateContextType,
 } from '../../util/context';
@@ -130,6 +134,41 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         dispatchFileAction
     );
 
+    // Deal with file text search
+    const [searchFilter, setSearchFilter] = useState<string>('');
+    const filteredFiles = useMemo(() => {
+        if (!searchFilter) return sortedFiles;
+        const searcher = new FuzzySearch(
+            files.filter((f) => !!f) as FileData[],
+            ['name'],
+            { caseSensitive: false, sort: true }
+        );
+        return searcher.search(searchFilter);
+    }, [sortedFiles, searchFilter]);
+
+    // Deal with clicks outside of Chonky
+    const chonkyRootRef = useRef<HTMLDivElement>();
+    const handleOutsideClick = useCallback(
+        (event: MouseEvent) => {
+            if (
+                !chonkyRootRef.current ||
+                chonkyRootRef.current.contains(event.target as any)
+            ) {
+                // Click originated from inside.
+                return;
+            }
+
+            clearSelection();
+        },
+        [chonkyRootRef, clearSelection]
+    );
+    useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClick, false);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick, false);
+        };
+    }, [handleOutsideClick]);
+
     type ExtractContextType<P> = P extends React.Context<infer T> ? T : never;
     interface ContextData<ContextType extends React.Context<any>> {
         context: ContextType;
@@ -138,7 +177,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const contexts: ContextData<any>[] = [
         validateContextType({
             context: ChonkyFilesContext,
-            value: sortedFiles,
+            value: filteredFiles,
         }),
         validateContextType({
             context: ChonkyFolderChainContext,
@@ -169,6 +208,14 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
             value: dispatchSpecialAction,
         }),
         validateContextType({
+            context: ChonkySearchFilterContext,
+            value: searchFilter,
+        }),
+        validateContextType({
+            context: ChonkySetSearchFilterContext,
+            value: setSearchFilter,
+        }),
+        validateContextType({
             context: ChonkyThumbnailGeneratorContext,
             value: thumbnailGenerator,
         }),
@@ -197,7 +244,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
 
     return (
         <ContextComposer providers={contextProviders}>
-            <div className="chonky-root chonky-no-select">
+            <div ref={chonkyRootRef as any} className="chonky-root chonky-no-select">
                 {enableDragAndDrop && <DnDFileListDragLayer />}
                 {validationResult.errorMessages.map((data, index) => (
                     <ErrorMessage
