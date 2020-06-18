@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://timbokz.github.io/Chonky/Chonky.jpg" alt="Chonky logo">
+  <img src="https://timbokz.github.io/Chonky/Chonky_clear.png" alt="Chonky logo">
   <br/>
   <a href="https://www.npmjs.com/package/chonky">
     <img alt="NPM package" src="https://img.shields.io/npm/v/chonky.svg">
@@ -20,8 +20,8 @@
 
 # Introduction
 
-> Chonky is still in development, please [create an issue](https://github.com/TimboKZ/Chonky/issues) if you have a
-> problem or want to request a feature.
+> Chonky is constantly changing. Please [create an issue](https://github.com/TimboKZ/Chonky/issues)
+> if you have a problem or want to request a feature.
 
 Chonky is a file browser component for React. It tries to recreate the native file browsing experience in your browser.
 This means your users can make selections, drag & drop files, toggle file view between "large thumbnails" and "detailed
@@ -32,7 +32,7 @@ list", use keyboard shortcuts, and much more!
 ## Preview
 
 <p align="center">
-  <img src="https://timbokz.github.io/Chonky/Chonky_preview.jpg" alt="Chonky logo">
+  <img src="https://timbokz.github.io/Chonky/0.x/Chonky_preview.jpg" alt="Ch">
 </p>
 
 ## License
