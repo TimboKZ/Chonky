@@ -37,7 +37,7 @@ that need to access selection WITHOUT triggering re-renders.
 
 \+ **new SelectionUtil**(`files`: [FileArray](../modules/_typedef_.md#filearray), `selection`: [FileSelection](../interfaces/_typedef_.fileselection.md)): *[SelectionUtil](_util_selection_.selectionutil.md)*
 
-*Defined in [src/util/selection.ts:134](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L134)*
+*Defined in [src/util/selection.ts:134](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L134)*
 
 **Parameters:**
 
@@ -54,7 +54,7 @@ Name | Type | Default |
 
 • **files**: *[FileArray](../modules/_typedef_.md#filearray)*
 
-*Defined in [src/util/selection.ts:133](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L133)*
+*Defined in [src/util/selection.ts:133](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L133)*
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 • **selection**: *[FileSelection](../interfaces/_typedef_.fileselection.md)*
 
-*Defined in [src/util/selection.ts:134](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L134)*
+*Defined in [src/util/selection.ts:134](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L134)*
 
 ## Methods
 
@@ -70,7 +70,7 @@ ___
 
 ▸ **getSelectedFiles**(...`filters`: [FileFilter](../modules/_typedef_.md#filefilter)[]): *ReadonlyArray‹Readonly‹[FileData](../interfaces/_typedef_.filedata.md)››*
 
-*Defined in [src/util/selection.ts:148](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L148)*
+*Defined in [src/util/selection.ts:148](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L148)*
 
 **Parameters:**
 
@@ -86,7 +86,7 @@ ___
 
 ▸ **getSelection**(): *Readonly‹[FileSelection](../interfaces/_typedef_.fileselection.md)›*
 
-*Defined in [src/util/selection.ts:145](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L145)*
+*Defined in [src/util/selection.ts:145](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L145)*
 
 **Returns:** *Readonly‹[FileSelection](../interfaces/_typedef_.fileselection.md)›*
 
@@ -96,7 +96,7 @@ ___
 
 ▸ **getSelectionSize**(...`filters`: [FileFilter](../modules/_typedef_.md#filefilter)[]): *number*
 
-*Defined in [src/util/selection.ts:153](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L153)*
+*Defined in [src/util/selection.ts:153](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L153)*
 
 **Parameters:**
 
@@ -112,7 +112,7 @@ ___
 
 ▸ **isSelected**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *boolean*
 
-*Defined in [src/util/selection.ts:156](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L156)*
+*Defined in [src/util/selection.ts:156](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L156)*
 
 **Parameters:**
 
@@ -128,7 +128,7 @@ ___
 
 ▸ **protectedUpdate**(`files`: [FileArray](../modules/_typedef_.md#filearray), `selection`: [FileSelection](../interfaces/_typedef_.fileselection.md)): *void*
 
-*Defined in [src/util/selection.ts:140](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L140)*
+*Defined in [src/util/selection.ts:140](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L140)*
 
 **Parameters:**
 

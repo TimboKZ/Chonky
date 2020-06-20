@@ -26,7 +26,7 @@
 
 • **disableSelection**? : *undefined | false | true*
 
-*Defined in [src/components/external/FileBrowser.tsx:68](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileBrowser.tsx#L68)*
+*Defined in [src/components/external/FileBrowser.tsx:73](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileBrowser.tsx#L73)*
 
 The flag that completely disables file selection functionality. If any handlers depend on file selections, their
 input will look like no files are selected.
@@ -37,7 +37,7 @@ ___
 
 • **doubleClickDelay**? : *undefined | number*
 
-*Defined in [src/components/external/FileBrowser.tsx:62](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileBrowser.tsx#L62)*
+*Defined in [src/components/external/FileBrowser.tsx:67](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileBrowser.tsx#L67)*
 
 Maximum delay between the two clicks in a double click, in milliseconds.
 
@@ -47,7 +47,7 @@ ___
 
 • **enableDragAndDrop**? : *undefined | false | true*
 
-*Defined in [src/components/external/FileBrowser.tsx:74](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileBrowser.tsx#L74)*
+*Defined in [src/components/external/FileBrowser.tsx:79](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileBrowser.tsx#L79)*
 
 The flag that completely disables drag & drop functionality.
 [See relevant section](#section-managing-file-selection).
@@ -58,7 +58,7 @@ ___
 
 • **fileActions**? : *[FileAction](_typedef_.fileaction.md)[]*
 
-*Defined in [src/components/external/FileBrowser.tsx:49](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileBrowser.tsx#L49)*
+*Defined in [src/components/external/FileBrowser.tsx:54](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileBrowser.tsx#L54)*
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 • **files**: *[FileArray](../modules/_typedef_.md#filearray)*
 
-*Defined in [src/components/external/FileBrowser.tsx:39](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileBrowser.tsx#L39)*
+*Defined in [src/components/external/FileBrowser.tsx:44](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileBrowser.tsx#L44)*
 
 List of files that will be displayed in the main container. The provided value
 **must** be an array, where each element is either `null` or an object that
@@ -79,7 +79,7 @@ ___
 
 • **fillParentContainer**? : *undefined | false | true*
 
-*Defined in [src/components/external/FileBrowser.tsx:81](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileBrowser.tsx#L81)*
+*Defined in [src/components/external/FileBrowser.tsx:86](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileBrowser.tsx#L86)*
 
 The flag that determines whether Chonky should fill the height parent container. When set to `true`, the maximum
 height of the file browser will be limited to the height of the parent container, and scrollbar will be shown
@@ -91,7 +91,7 @@ ___
 
 • **folderChain**? : *[FileArray](../modules/_typedef_.md#filearray)*
 
-*Defined in [src/components/external/FileBrowser.tsx:47](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileBrowser.tsx#L47)*
+*Defined in [src/components/external/FileBrowser.tsx:52](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileBrowser.tsx#L52)*
 
 The current folder hierarchy. This should be an array of `files`, every
 element should either be `null` or an object of `FileData` type. The first
@@ -104,7 +104,7 @@ ___
 
 • **onFileAction**? : *[FileActionHandler](../modules/_typedef_.md#fileactionhandler)*
 
-*Defined in [src/components/external/FileBrowser.tsx:50](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileBrowser.tsx#L50)*
+*Defined in [src/components/external/FileBrowser.tsx:55](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileBrowser.tsx#L55)*
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 • **thumbnailGenerator**? : *[ThumbnailGenerator](../modules/_typedef_.md#thumbnailgenerator)*
 
-*Defined in [src/components/external/FileBrowser.tsx:57](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileBrowser.tsx#L57)*
+*Defined in [src/components/external/FileBrowser.tsx:62](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileBrowser.tsx#L62)*
 
 The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
 should return a `string` or `null`. It can also return a promise that resolves into a `string` or `null`.

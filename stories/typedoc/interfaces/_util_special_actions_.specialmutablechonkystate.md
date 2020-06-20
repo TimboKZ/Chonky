@@ -19,7 +19,7 @@
 
 • **files**: *[FileArray](../modules/_typedef_.md#filearray)*
 
-*Defined in [src/util/special-actions.ts:62](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L62)*
+*Defined in [src/util/special-actions.ts:62](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L62)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **selection**: *[FileSelection](_typedef_.fileselection.md)*
 
-*Defined in [src/util/special-actions.ts:63](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L63)*
+*Defined in [src/util/special-actions.ts:63](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L63)*

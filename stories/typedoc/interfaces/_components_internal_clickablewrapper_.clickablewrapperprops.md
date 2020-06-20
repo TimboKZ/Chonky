@@ -22,7 +22,7 @@
 
 • **onDoubleClick**? : *[MouseClickEventHandler](../modules/_components_internal_clickablewrapper_.md#mouseclickeventhandler)*
 
-*Defined in [src/components/internal/ClickableWrapper.tsx:33](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/internal/ClickableWrapper.tsx#L33)*
+*Defined in [src/components/internal/ClickableWrapper.tsx:33](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/internal/ClickableWrapper.tsx#L33)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **onKeyboardClick**? : *[KeyboardClickEventHandler](../modules/_components_internal_clickablewrapper_.md#keyboardclickeventhandler)*
 
-*Defined in [src/components/internal/ClickableWrapper.tsx:34](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/internal/ClickableWrapper.tsx#L34)*
+*Defined in [src/components/internal/ClickableWrapper.tsx:34](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/internal/ClickableWrapper.tsx#L34)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **onSingleClick**? : *[MouseClickEventHandler](../modules/_components_internal_clickablewrapper_.md#mouseclickeventhandler)*
 
-*Defined in [src/components/internal/ClickableWrapper.tsx:32](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/internal/ClickableWrapper.tsx#L32)*
+*Defined in [src/components/internal/ClickableWrapper.tsx:32](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/internal/ClickableWrapper.tsx#L32)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **passthroughProps**? : *any*
 
-*Defined in [src/components/internal/ClickableWrapper.tsx:30](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/internal/ClickableWrapper.tsx#L30)*
+*Defined in [src/components/internal/ClickableWrapper.tsx:30](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/internal/ClickableWrapper.tsx#L30)*
 
 ___
 
@@ -54,4 +54,4 @@ ___
 
 • **wrapperTag**: *any*
 
-*Defined in [src/components/internal/ClickableWrapper.tsx:29](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/internal/ClickableWrapper.tsx#L29)*
+*Defined in [src/components/internal/ClickableWrapper.tsx:29](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/internal/ClickableWrapper.tsx#L29)*

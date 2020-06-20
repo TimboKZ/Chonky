@@ -88,12 +88,13 @@
             name: 'Download files',
             group: 'Actions',
             tooltip: 'Download files',
+            dropdown: true,
             icon: ChonkyIconName.download,
         },
     },
 } as const
 
-*Defined in [src/util/file-actions.ts:15](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-actions.ts#L15)*
+*Defined in [src/util/file-actions.ts:15](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-actions.ts#L15)*
 
 #### Type declaration:
 
@@ -122,6 +123,8 @@
   * **requiresSelection**: *true* = true
 
   * **toolbarButton**: *object*
+
+    * **dropdown**: *true* = true
 
     * **group**: *"Actions"* = "Actions"
 
@@ -214,7 +217,7 @@ ___
     ChonkyActions.Search,
 ]
 
-*Defined in [src/util/file-actions.ts:91](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-actions.ts#L91)*
+*Defined in [src/util/file-actions.ts:92](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-actions.ts#L92)*
 
 ## Functions
 
@@ -222,7 +225,7 @@ ___
 
 ▸ **useFileActionDispatcher**(`fileActions`: [FileAction](../interfaces/_typedef_.fileaction.md)[], `onFileAction`: Nullable‹[FileActionHandler](_typedef_.md#fileactionhandler)›): *[InternalFileActionDispatcher](_typedef_.md#internalfileactiondispatcher)*
 
-*Defined in [src/util/file-actions.ts:106](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-actions.ts#L106)*
+*Defined in [src/util/file-actions.ts:107](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-actions.ts#L107)*
 
 Returns a dispatch method meant to be used by child components. This dispatch method
 is meant for actions that should be handled directly by the user. If you want to

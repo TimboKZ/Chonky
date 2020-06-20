@@ -24,7 +24,7 @@
 
 • **actionName**: *[KeyboardClickFile](../enums/_util_special_actions_.specialaction.md#keyboardclickfile)*
 
-*Defined in [src/util/special-actions.ts:34](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L34)*
+*Defined in [src/util/special-actions.ts:34](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L34)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **altKey**: *boolean*
 
-*Defined in [src/util/special-actions.ts:38](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L38)*
+*Defined in [src/util/special-actions.ts:38](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L38)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **ctrlKey**: *boolean*
 
-*Defined in [src/util/special-actions.ts:39](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L39)*
+*Defined in [src/util/special-actions.ts:39](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L39)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **enterKey**: *boolean*
 
-*Defined in [src/util/special-actions.ts:36](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L36)*
+*Defined in [src/util/special-actions.ts:36](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L36)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • **file**: *[FileData](_typedef_.filedata.md)*
 
-*Defined in [src/util/special-actions.ts:35](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L35)*
+*Defined in [src/util/special-actions.ts:35](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L35)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **shiftKey**: *boolean*
 
-*Defined in [src/util/special-actions.ts:40](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L40)*
+*Defined in [src/util/special-actions.ts:40](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L40)*
 
 ___
 
@@ -72,4 +72,4 @@ ___
 
 • **spaceKey**: *boolean*
 
-*Defined in [src/util/special-actions.ts:37](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L37)*
+*Defined in [src/util/special-actions.ts:37](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L37)*

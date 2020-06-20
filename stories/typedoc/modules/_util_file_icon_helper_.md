@@ -78,7 +78,7 @@
     'xm',
 ]
 
-*Defined in [src/util/file-icon-helper.ts:247](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-icon-helper.ts#L247)*
+*Defined in [src/util/file-icon-helper.ts:247](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-icon-helper.ts#L247)*
 
 ___
 
@@ -160,7 +160,7 @@ ___
     '#8f3d44',
 ]
 
-*Defined in [src/util/file-icon-helper.ts:378](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-icon-helper.ts#L378)*
+*Defined in [src/util/file-icon-helper.ts:378](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-icon-helper.ts#L378)*
 
 ___
 
@@ -242,7 +242,7 @@ ___
     '#d65c66',
 ]
 
-*Defined in [src/util/file-icon-helper.ts:303](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-icon-helper.ts#L303)*
+*Defined in [src/util/file-icon-helper.ts:303](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-icon-helper.ts#L303)*
 
 ___
 
@@ -337,7 +337,7 @@ ___
     'xwd',
 ]
 
-*Defined in [src/util/file-icon-helper.ts:159](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-icon-helper.ts#L159)*
+*Defined in [src/util/file-icon-helper.ts:159](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-icon-helper.ts#L159)*
 
 ___
 
@@ -406,7 +406,7 @@ ___
     'wvx',
 ]
 
-*Defined in [src/util/file-icon-helper.ts:97](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-icon-helper.ts#L97)*
+*Defined in [src/util/file-icon-helper.ts:97](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-icon-helper.ts#L97)*
 
 ___
 
@@ -482,7 +482,7 @@ ___
     return exactTrie;
 })
 
-*Defined in [src/util/file-icon-helper.ts:15](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-icon-helper.ts#L15)*
+*Defined in [src/util/file-icon-helper.ts:15](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-icon-helper.ts#L15)*
 
 ## Functions
 
@@ -490,7 +490,7 @@ ___
 
 ▸ **useIconData**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *[FileIconData](../interfaces/_typedef_.fileicondata.md)*
 
-*Defined in [src/util/file-icon-helper.ts:85](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-icon-helper.ts#L85)*
+*Defined in [src/util/file-icon-helper.ts:85](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-icon-helper.ts#L85)*
 
 **Parameters:**
 

@@ -22,7 +22,7 @@
 
 ▸ **isFunction**(`value`: any): *value is Function*
 
-*Defined in [src/util/validation.ts:11](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/validation.ts#L11)*
+*Defined in [src/util/validation.ts:11](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/validation.ts#L11)*
 
 **Parameters:**
 
@@ -38,7 +38,7 @@ ___
 
 ▸ **isMobileDevice**(): *boolean*
 
-*Defined in [src/util/validation.ts:15](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/validation.ts#L15)*
+*Defined in [src/util/validation.ts:15](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/validation.ts#L15)*
 
 **Returns:** *boolean*
 
@@ -48,7 +48,7 @@ ___
 
 ▸ **isPlainObject**(`value`: any): *value is object*
 
-*Defined in [src/util/validation.ts:8](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/validation.ts#L8)*
+*Defined in [src/util/validation.ts:8](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/validation.ts#L8)*
 
 **Parameters:**
 
@@ -64,7 +64,7 @@ ___
 
 ▸ **useCleanFileArray**‹**AllowNull**›(`fileArray`: AllowNull extends false ? FileArray : Nullable<FileArray>, `allowNull`: AllowNull): *object*
 
-*Defined in [src/util/validation.ts:31](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/validation.ts#L31)*
+*Defined in [src/util/validation.ts:31](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/validation.ts#L31)*
 
 This function validates the user-provided files array. It checks the following
 criteria:
@@ -99,7 +99,7 @@ ___
 
 ▸ **useFileBrowserValidation**(`files`: [FileArray](_typedef_.md#filearray), `folderChain`: Nullable‹[FileArray](_typedef_.md#filearray)›): *object*
 
-*Defined in [src/util/validation.ts:136](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/validation.ts#L136)*
+*Defined in [src/util/validation.ts:136](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/validation.ts#L136)*
 
 **Parameters:**
 

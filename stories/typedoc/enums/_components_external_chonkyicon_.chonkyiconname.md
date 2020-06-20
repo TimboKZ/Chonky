@@ -66,7 +66,7 @@
 
 • **adobe**: = "adobe"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:111](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L111)*
+*Defined in [src/components/external/ChonkyIcon.tsx:111](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L111)*
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 • **archive**: = "archive"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:98](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L98)*
+*Defined in [src/components/external/ChonkyIcon.tsx:98](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L98)*
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 • **asc**: = "asc"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:74](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L74)*
+*Defined in [src/components/external/ChonkyIcon.tsx:75](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L75)*
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 • **authors**: = "authors"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:110](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L110)*
+*Defined in [src/components/external/ChonkyIcon.tsx:110](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L110)*
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 • **checkActive**: = "checkActive"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:71](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L71)*
+*Defined in [src/components/external/ChonkyIcon.tsx:72](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L72)*
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 • **checkInactive**: = "checkInactive"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:72](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L72)*
+*Defined in [src/components/external/ChonkyIcon.tsx:73](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L73)*
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 • **code**: = "code"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:93](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L93)*
+*Defined in [src/components/external/ChonkyIcon.tsx:93](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L93)*
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 • **config**: = "config"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:94](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L94)*
+*Defined in [src/components/external/ChonkyIcon.tsx:94](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L94)*
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 • **csv**: = "csv"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:99](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L99)*
+*Defined in [src/components/external/ChonkyIcon.tsx:99](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L99)*
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 • **database**: = "database"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:96](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L96)*
+*Defined in [src/components/external/ChonkyIcon.tsx:96](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L96)*
 
 ___
 
@@ -146,7 +146,7 @@ ___
 
 • **desc**: = "desc"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:73](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L73)*
+*Defined in [src/components/external/ChonkyIcon.tsx:74](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L74)*
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 • **dndCanDrop**: = "dndCanDrop"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:62](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L62)*
+*Defined in [src/components/external/ChonkyIcon.tsx:63](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L63)*
 
 ___
 
@@ -162,7 +162,7 @@ ___
 
 • **dndCannotDrop**: = "dndCannotDrop"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:63](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L63)*
+*Defined in [src/components/external/ChonkyIcon.tsx:64](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L64)*
 
 ___
 
@@ -170,7 +170,7 @@ ___
 
 • **dndDragging**: = "dndDragging"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:61](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L61)*
+*Defined in [src/components/external/ChonkyIcon.tsx:62](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L62)*
 
 ___
 
@@ -178,7 +178,7 @@ ___
 
 • **download**: = "download"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:83](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L83)*
+*Defined in [src/components/external/ChonkyIcon.tsx:83](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L83)*
 
 ___
 
@@ -186,7 +186,7 @@ ___
 
 • **dropdown**: = "dropdown"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:82](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L82)*
+*Defined in [src/components/external/ChonkyIcon.tsx:59](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L59)*
 
 ___
 
@@ -194,7 +194,7 @@ ___
 
 • **fallbackIcon**: = "fallbackIcon"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:86](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L86)*
+*Defined in [src/components/external/ChonkyIcon.tsx:86](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L86)*
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 • **file**: = "file"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:91](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L91)*
+*Defined in [src/components/external/ChonkyIcon.tsx:91](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L91)*
 
 ___
 
@@ -210,7 +210,7 @@ ___
 
 • **flash**: = "flash"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:108](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L108)*
+*Defined in [src/components/external/ChonkyIcon.tsx:108](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L108)*
 
 ___
 
@@ -218,7 +218,7 @@ ___
 
 • **folder**: = "folder"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:76](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L76)*
+*Defined in [src/components/external/ChonkyIcon.tsx:77](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L77)*
 
 ___
 
@@ -226,7 +226,7 @@ ___
 
 • **folderChainSeparator**: = "folderChainSeparator"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:81](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L81)*
+*Defined in [src/components/external/ChonkyIcon.tsx:82](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L82)*
 
 ___
 
@@ -234,7 +234,7 @@ ___
 
 • **folderCreate**: = "folderCreate"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:77](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L77)*
+*Defined in [src/components/external/ChonkyIcon.tsx:78](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L78)*
 
 ___
 
@@ -242,7 +242,7 @@ ___
 
 • **folderOpen**: = "folderOpen"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:78](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L78)*
+*Defined in [src/components/external/ChonkyIcon.tsx:79](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L79)*
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 • **git**: = "git"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:112](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L112)*
+*Defined in [src/components/external/ChonkyIcon.tsx:112](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L112)*
 
 ___
 
@@ -258,7 +258,7 @@ ___
 
 • **hidden**: = "hidden"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:88](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L88)*
+*Defined in [src/components/external/ChonkyIcon.tsx:88](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L88)*
 
 ___
 
@@ -266,7 +266,7 @@ ___
 
 • **image**: = "image"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:100](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L100)*
+*Defined in [src/components/external/ChonkyIcon.tsx:100](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L100)*
 
 ___
 
@@ -274,7 +274,7 @@ ___
 
 • **info**: = "info"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:104](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L104)*
+*Defined in [src/components/external/ChonkyIcon.tsx:104](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L104)*
 
 ___
 
@@ -282,7 +282,7 @@ ___
 
 • **key**: = "key"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:105](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L105)*
+*Defined in [src/components/external/ChonkyIcon.tsx:105](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L105)*
 
 ___
 
@@ -290,7 +290,7 @@ ___
 
 • **largeThumbnail**: = "largeThumbnail"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:80](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L80)*
+*Defined in [src/components/external/ChonkyIcon.tsx:81](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L81)*
 
 ___
 
@@ -298,7 +298,7 @@ ___
 
 • **license**: = "license"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:92](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L92)*
+*Defined in [src/components/external/ChonkyIcon.tsx:92](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L92)*
 
 ___
 
@@ -306,7 +306,7 @@ ___
 
 • **linux**: = "linux"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:113](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L113)*
+*Defined in [src/components/external/ChonkyIcon.tsx:113](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L113)*
 
 ___
 
@@ -314,7 +314,7 @@ ___
 
 • **list**: = "list"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:75](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L75)*
+*Defined in [src/components/external/ChonkyIcon.tsx:76](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L76)*
 
 ___
 
@@ -322,7 +322,7 @@ ___
 
 • **loading**: = "loading"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:58](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L58)*
+*Defined in [src/components/external/ChonkyIcon.tsx:58](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L58)*
 
 ___
 
@@ -330,7 +330,7 @@ ___
 
 • **lock**: = "lock"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:106](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L106)*
+*Defined in [src/components/external/ChonkyIcon.tsx:106](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L106)*
 
 ___
 
@@ -338,7 +338,7 @@ ___
 
 • **model**: = "model"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:95](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L95)*
+*Defined in [src/components/external/ChonkyIcon.tsx:95](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L95)*
 
 ___
 
@@ -346,7 +346,7 @@ ___
 
 • **music**: = "music"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:107](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L107)*
+*Defined in [src/components/external/ChonkyIcon.tsx:107](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L107)*
 
 ___
 
@@ -354,7 +354,7 @@ ___
 
 • **nodejs**: = "nodejs"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:115](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L115)*
+*Defined in [src/components/external/ChonkyIcon.tsx:115](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L115)*
 
 ___
 
@@ -362,7 +362,7 @@ ___
 
 • **openFiles**: = "openFiles"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:66](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L66)*
+*Defined in [src/components/external/ChonkyIcon.tsx:67](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L67)*
 
 ___
 
@@ -370,7 +370,7 @@ ___
 
 • **openParentFolder**: = "openParentFolder"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:67](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L67)*
+*Defined in [src/components/external/ChonkyIcon.tsx:68](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L68)*
 
 ___
 
@@ -378,7 +378,7 @@ ___
 
 • **pdf**: = "pdf"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:101](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L101)*
+*Defined in [src/components/external/ChonkyIcon.tsx:101](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L101)*
 
 ___
 
@@ -386,7 +386,7 @@ ___
 
 • **php**: = "php"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:116](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L116)*
+*Defined in [src/components/external/ChonkyIcon.tsx:116](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L116)*
 
 ___
 
@@ -394,7 +394,7 @@ ___
 
 • **python**: = "python"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:117](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L117)*
+*Defined in [src/components/external/ChonkyIcon.tsx:117](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L117)*
 
 ___
 
@@ -402,7 +402,7 @@ ___
 
 • **search**: = "search"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:68](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L68)*
+*Defined in [src/components/external/ChonkyIcon.tsx:69](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L69)*
 
 ___
 
@@ -410,7 +410,7 @@ ___
 
 • **smallThumbnail**: = "smallThumbnail"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:79](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L79)*
+*Defined in [src/components/external/ChonkyIcon.tsx:80](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L80)*
 
 ___
 
@@ -418,7 +418,7 @@ ___
 
 • **symlink**: = "symlink"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:87](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L87)*
+*Defined in [src/components/external/ChonkyIcon.tsx:87](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L87)*
 
 ___
 
@@ -426,7 +426,7 @@ ___
 
 • **terminal**: = "terminal"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:109](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L109)*
+*Defined in [src/components/external/ChonkyIcon.tsx:109](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L109)*
 
 ___
 
@@ -434,7 +434,7 @@ ___
 
 • **text**: = "text"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:97](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L97)*
+*Defined in [src/components/external/ChonkyIcon.tsx:97](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L97)*
 
 ___
 
@@ -442,7 +442,7 @@ ___
 
 • **trash**: = "trash"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:85](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L85)*
+*Defined in [src/components/external/ChonkyIcon.tsx:85](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L85)*
 
 ___
 
@@ -450,7 +450,7 @@ ___
 
 • **ubuntu**: = "ubuntu"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:118](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L118)*
+*Defined in [src/components/external/ChonkyIcon.tsx:118](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L118)*
 
 ___
 
@@ -458,7 +458,7 @@ ___
 
 • **upload**: = "upload"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:84](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L84)*
+*Defined in [src/components/external/ChonkyIcon.tsx:84](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L84)*
 
 ___
 
@@ -466,7 +466,7 @@ ___
 
 • **video**: = "video"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:103](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L103)*
+*Defined in [src/components/external/ChonkyIcon.tsx:103](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L103)*
 
 ___
 
@@ -474,7 +474,7 @@ ___
 
 • **windows**: = "windows"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:114](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L114)*
+*Defined in [src/components/external/ChonkyIcon.tsx:114](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L114)*
 
 ___
 
@@ -482,4 +482,4 @@ ___
 
 • **word**: = "word"
 
-*Defined in [src/components/external/ChonkyIcon.tsx:102](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L102)*
+*Defined in [src/components/external/ChonkyIcon.tsx:102](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L102)*

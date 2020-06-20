@@ -19,7 +19,7 @@
 
 • **height**: *number*
 
-*Defined in [src/components/external/FileList-virtualization.tsx:19](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileList-virtualization.tsx#L19)*
+*Defined in [src/components/external/FileList-virtualization.tsx:19](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileList-virtualization.tsx#L19)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **width**: *number*
 
-*Defined in [src/components/external/FileList-virtualization.tsx:18](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileList-virtualization.tsx#L18)*
+*Defined in [src/components/external/FileList-virtualization.tsx:18](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileList-virtualization.tsx#L18)*

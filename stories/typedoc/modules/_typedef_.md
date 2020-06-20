@@ -29,7 +29,7 @@
 
 Ƭ **FileActionHandler**: *function*
 
-*Defined in [src/typedef.ts:65](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L65)*
+*Defined in [src/typedef.ts:65](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L65)*
 
 #### Type declaration:
 
@@ -48,7 +48,7 @@ ___
 
 Ƭ **FileArray**: *Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›[]*
 
-*Defined in [src/typedef.ts:33](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L33)*
+*Defined in [src/typedef.ts:33](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L33)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 Ƭ **FileFilter**: *function*
 
-*Defined in [src/typedef.ts:37](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L37)*
+*Defined in [src/typedef.ts:37](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L37)*
 
 #### Type declaration:
 
@@ -74,7 +74,7 @@ ___
 
 Ƭ **InternalFileActionDispatcher**: *function*
 
-*Defined in [src/typedef.ts:70](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L70)*
+*Defined in [src/typedef.ts:70](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L70)*
 
 #### Type declaration:
 
@@ -92,7 +92,7 @@ ___
 
 Ƭ **InternalSpecialActionDispatcher**: *function*
 
-*Defined in [src/typedef.ts:71](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L71)*
+*Defined in [src/typedef.ts:71](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L71)*
 
 #### Type declaration:
 
@@ -110,7 +110,7 @@ ___
 
 Ƭ **ReadonlyFileArray**: *ReadonlyArray‹Nullable‹[FileData](../interfaces/_typedef_.filedata.md)››*
 
-*Defined in [src/typedef.ts:35](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L35)*
+*Defined in [src/typedef.ts:35](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L35)*
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 Ƭ **ThumbnailGenerator**: *function*
 
-*Defined in [src/typedef.ts:78](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L78)*
+*Defined in [src/typedef.ts:78](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L78)*
 
 #### Type declaration:
 

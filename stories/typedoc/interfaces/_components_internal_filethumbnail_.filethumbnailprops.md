@@ -18,4 +18,4 @@
 
 • **thumbnailUrl**: *Nullable‹string›*
 
-*Defined in [src/components/internal/FileThumbnail.tsx:12](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/internal/FileThumbnail.tsx#L12)*
+*Defined in [src/components/internal/FileThumbnail.tsx:12](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/internal/FileThumbnail.tsx#L12)*

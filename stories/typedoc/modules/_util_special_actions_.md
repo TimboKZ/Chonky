@@ -31,7 +31,7 @@
 
 Ƭ **SpecialActionData**: *[SpecialFileMouseClickAction](../interfaces/_util_special_actions_.specialfilemouseclickaction.md) | [SpecialFileKeyboardClickAction](../interfaces/_util_special_actions_.specialfilekeyboardclickaction.md) | [SpecialDragNDropStartAction](../interfaces/_util_special_actions_.specialdragndropstartaction.md) | [SpecialDragNDropEndAction](../interfaces/_util_special_actions_.specialdragndropendaction.md)*
 
-*Defined in [src/util/special-actions.ts:55](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L55)*
+*Defined in [src/util/special-actions.ts:55](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L55)*
 
 ## Functions
 
@@ -39,7 +39,7 @@
 
 ▸ **useSpecialActionDispatcher**(`files`: [FileArray](_typedef_.md#filearray), `selection`: [FileSelection](../interfaces/_typedef_.fileselection.md), `selectionUtil`: [SelectionUtil](../classes/_util_selection_.selectionutil.md), `selectFiles`: ReturnType<typeof useSelection>["selectFiles"], `toggleSelection`: ReturnType<typeof useSelection>["toggleSelection"], `clearSelection`: ReturnType<typeof useSelection>["clearSelection"], `dispatchFileAction`: [InternalFileActionDispatcher](_typedef_.md#internalfileactiondispatcher)): *[InternalSpecialActionDispatcher](_typedef_.md#internalspecialactiondispatcher)*
 
-*Defined in [src/util/special-actions.ts:71](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L71)*
+*Defined in [src/util/special-actions.ts:71](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L71)*
 
 Returns a dispatch method meant to be used by child components. This dispatch
 method is meant for "special" internal actions. It takes a special action, and
@@ -65,7 +65,7 @@ ___
 
 ▸ **useSpecialFileActionHandlerMap**(`selectionUtil`: [SelectionUtil](../classes/_util_selection_.selectionutil.md), `selectFiles`: ReturnType<typeof useSelection>["selectFiles"], `toggleSelection`: ReturnType<typeof useSelection>["toggleSelection"], `clearSelection`: ReturnType<typeof useSelection>["clearSelection"], `dispatchFileAction`: [InternalFileActionDispatcher](_typedef_.md#internalfileactiondispatcher)): *object*
 
-*Defined in [src/util/special-actions.ts:128](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L128)*
+*Defined in [src/util/special-actions.ts:128](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L128)*
 
 **Parameters:**
 

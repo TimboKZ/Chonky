@@ -16,7 +16,7 @@
 
 ▸ **useFileActionButtons**(): *object*
 
-*Defined in [src/components/external/FileToolbar-hooks.tsx:91](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileToolbar-hooks.tsx#L91)*
+*Defined in [src/components/external/FileToolbar-hooks.tsx:91](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileToolbar-hooks.tsx#L91)*
 
 Converts an array of file actions into button components.
 
@@ -32,7 +32,7 @@ ___
 
 ▸ **useFolderChainComponent**(): *null | Element‹›*
 
-*Defined in [src/components/external/FileToolbar-hooks.tsx:24](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileToolbar-hooks.tsx#L24)*
+*Defined in [src/components/external/FileToolbar-hooks.tsx:24](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileToolbar-hooks.tsx#L24)*
 
 Generates folder chain HTML components for the `FileToolbar` component.
 
@@ -44,7 +44,7 @@ ___
 
 ▸ **useToolbarButtonGroups**(): *object*
 
-*Defined in [src/components/external/FileToolbar-hooks.tsx:181](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/FileToolbar-hooks.tsx#L181)*
+*Defined in [src/components/external/FileToolbar-hooks.tsx:181](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileToolbar-hooks.tsx#L181)*
 
 **Returns:** *object*
 

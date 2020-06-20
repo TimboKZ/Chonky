@@ -21,14 +21,20 @@
     (props) => {
         const { group } = props;
 
-        const buttonComponents = group.fileActions.map((action) => (
-            <SmartToolbarButton
-                key={`action-button-${action.name}`}
-                fileAction={action}
-            />
-        ));
-        return <div className="chonky-toolbar-button-group">{buttonComponents}</div>;
+        let groupContents: React.ReactElement | React.ReactElement[];
+        if (group.dropdown) {
+            groupContents = <Dropdown group={group} />;
+        } else {
+            groupContents = group.fileActions.map((action) => (
+                <SmartToolbarButton
+                    key={`action-button-${action.name}`}
+                    fileAction={action}
+                />
+            ));
+        }
+
+        return <div className="chonky-toolbar-button-group">{groupContents}</div>;
     }
 )
 
-*Defined in [src/components/external/ToolbarButtonGroup.tsx:22](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ToolbarButtonGroup.tsx#L22)*
+*Defined in [src/components/external/ToolbarButtonGroup.tsx:23](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ToolbarButtonGroup.tsx#L23)*

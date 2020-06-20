@@ -1,0 +1,57 @@
+[chonky](../README.md) › [Globals](../globals.md) › ["components/external/DropdownButton"](../modules/_components_external_dropdownbutton_.md) › [DropdownButtonProps](_components_external_dropdownbutton_.dropdownbuttonprops.md)
+
+# Interface: DropdownButtonProps
+
+## Hierarchy
+
+* **DropdownButtonProps**
+
+## Index
+
+### Properties
+
+* [disabled](_components_external_dropdownbutton_.dropdownbuttonprops.md#optional-disabled)
+* [icon](_components_external_dropdownbutton_.dropdownbuttonprops.md#optional-icon)
+* [onClick](_components_external_dropdownbutton_.dropdownbuttonprops.md#optional-onclick)
+* [text](_components_external_dropdownbutton_.dropdownbuttonprops.md#text)
+* [tooltip](_components_external_dropdownbutton_.dropdownbuttonprops.md#optional-tooltip)
+
+## Properties
+
+### `Optional` disabled
+
+• **disabled**? : *undefined | false | true*
+
+*Defined in [src/components/external/DropdownButton.tsx:18](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/DropdownButton.tsx#L18)*
+
+___
+
+### `Optional` icon
+
+• **icon**? : *[ChonkyIconName](../enums/_components_external_chonkyicon_.chonkyiconname.md) | string*
+
+*Defined in [src/components/external/DropdownButton.tsx:16](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/DropdownButton.tsx#L16)*
+
+___
+
+### `Optional` onClick
+
+• **onClick**? : *undefined | function*
+
+*Defined in [src/components/external/DropdownButton.tsx:17](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/DropdownButton.tsx#L17)*
+
+___
+
+###  text
+
+• **text**: *string*
+
+*Defined in [src/components/external/DropdownButton.tsx:14](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/DropdownButton.tsx#L14)*
+
+___
+
+### `Optional` tooltip
+
+• **tooltip**? : *undefined | string*
+
+*Defined in [src/components/external/DropdownButton.tsx:15](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/DropdownButton.tsx#L15)*

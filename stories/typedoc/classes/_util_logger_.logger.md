@@ -19,7 +19,7 @@
 
 ▸ **error**(...`args`: any[]): *void*
 
-*Defined in [src/util/logger.ts:2](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/logger.ts#L2)*
+*Defined in [src/util/logger.ts:2](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/logger.ts#L2)*
 
 **Parameters:**
 
@@ -35,7 +35,7 @@ ___
 
 ▸ **formatBullets**(`bullets`: string[]): *string*
 
-*Defined in [src/util/logger.ts:7](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/logger.ts#L7)*
+*Defined in [src/util/logger.ts:7](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/logger.ts#L7)*
 
 **Parameters:**
 

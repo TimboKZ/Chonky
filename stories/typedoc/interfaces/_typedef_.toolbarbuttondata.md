@@ -23,7 +23,7 @@
 
 • **dropdown**? : *undefined | false | true*
 
-*Defined in [src/typedef.ts:53](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L53)*
+*Defined in [src/typedef.ts:53](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L53)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **group**? : *undefined | string*
 
-*Defined in [src/typedef.ts:52](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L52)*
+*Defined in [src/typedef.ts:52](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L52)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **icon**? : *[ChonkyIconName](../enums/_components_external_chonkyicon_.chonkyiconname.md) | string*
 
-*Defined in [src/typedef.ts:55](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L55)*
+*Defined in [src/typedef.ts:55](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L55)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • **iconOnly**? : *undefined | false | true*
 
-*Defined in [src/typedef.ts:56](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L56)*
+*Defined in [src/typedef.ts:56](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L56)*
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [src/typedef.ts:51](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L51)*
+*Defined in [src/typedef.ts:51](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L51)*
 
 ___
 
@@ -63,4 +63,4 @@ ___
 
 • **tooltip**? : *undefined | string*
 
-*Defined in [src/typedef.ts:54](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L54)*
+*Defined in [src/typedef.ts:54](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L54)*

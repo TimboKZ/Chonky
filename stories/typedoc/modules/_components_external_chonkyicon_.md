@@ -31,7 +31,7 @@
     return <FontAwesomeIcon {...faProps} />;
 })
 
-*Defined in [src/components/external/ChonkyIcon.tsx:196](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L196)*
+*Defined in [src/components/external/ChonkyIcon.tsx:196](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L196)*
 
 ___
 
@@ -40,6 +40,7 @@ ___
 • **IconMap**: *object* = {
     // Misc
     [ChonkyIconName.loading]: faCircleNotch,
+    [ChonkyIconName.dropdown]: faChevronDown,
 
     // File Actions: Drag & drop
     [ChonkyIconName.dndDragging]: faFistRaised,
@@ -47,7 +48,7 @@ ___
     [ChonkyIconName.dndCannotDrop]: faTimes,
 
     // File Actions: File operations
-    [ChonkyIconName.openFiles]: faHandPointer,
+    [ChonkyIconName.openFiles]: faBoxOpen,
     [ChonkyIconName.openParentFolder]: faLevelUpAlt,
     [ChonkyIconName.search]: faSearch,
 
@@ -63,7 +64,6 @@ ___
     [ChonkyIconName.smallThumbnail]: faTh,
     [ChonkyIconName.largeThumbnail]: faThLarge,
     [ChonkyIconName.folderChainSeparator]: faChevronRight,
-    [ChonkyIconName.dropdown]: faChevronDown,
     [ChonkyIconName.download]: faDownload,
     [ChonkyIconName.upload]: faUpload,
     [ChonkyIconName.trash]: faTrash,
@@ -102,6 +102,6 @@ ___
     [ChonkyIconName.ubuntu]: faUbuntu,
 } as const
 
-*Defined in [src/components/external/ChonkyIcon.tsx:121](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ChonkyIcon.tsx#L121)*
+*Defined in [src/components/external/ChonkyIcon.tsx:121](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L121)*
 
 #### Type declaration:

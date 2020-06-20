@@ -14,7 +14,7 @@
 
 ▸ **useSmartToolbarButtonProps**(`action`: [FileAction](../interfaces/_typedef_.fileaction.md)): *object*
 
-Defined in src/components/external/ToolbarButton-hooks.tsx:14
+*Defined in [src/components/external/ToolbarButton-hooks.tsx:14](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ToolbarButton-hooks.tsx#L14)*
 
 **Parameters:**
 

@@ -40,35 +40,39 @@
     }
 )
 
-*Defined in [src/components/external/ToolbarButton.tsx:46](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ToolbarButton.tsx#L46)*
+*Defined in [src/components/external/ToolbarButton.tsx:50](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ToolbarButton.tsx#L50)*
 
 ___
 
 ### `Const` ToolbarButton
 
 • **ToolbarButton**: *React.FC‹[ToolbarButtonProps](../interfaces/_components_external_toolbarbutton_.toolbarbuttonprops.md)›* = React.memo((props) => {
-    const { text, tooltip, icon, iconOnly, onClick, disabled } = props;
+    const { text, tooltip, icon, iconOnly, iconOnRight, onClick, disabled } = props;
 
-    const className = c({
-        'chonky-toolbar-button': true,
-    });
+    const iconComponent =
+        icon || iconOnly ? (
+            <div className="chonky-toolbar-button-icon">
+                <ChonkyIconFA
+                    icon={icon ? icon : ChonkyIconName.fallbackIcon}
+                    fixedWidth={true}
+                />
+            </div>
+        ) : null;
+
     return (
         <button
-            className={className}
+            className="chonky-toolbar-button"
             onClick={onClick}
             title={tooltip ? tooltip : text}
-            disabled={disabled}
+            disabled={!onClick || disabled}
         >
-            {(icon || iconOnly) && (
-                <div className="chonky-toolbar-button-icon">
-                    <ChonkyIconFA icon={icon ? icon : ChonkyIconName.fallbackIcon} />
-                </div>
-            )}
+            {!iconOnRight && iconComponent}
             {text && !iconOnly && (
                 <div className="chonky-toolbar-button-text">{text}</div>
             )}
+            {iconOnRight && iconComponent}
         </button>
     );
 })
 
-*Defined in [src/components/external/ToolbarButton.tsx:17](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ToolbarButton.tsx#L17)*
+*Defined in [src/components/external/ToolbarButton.tsx:17](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ToolbarButton.tsx#L17)*

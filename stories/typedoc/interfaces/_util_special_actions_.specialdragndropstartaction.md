@@ -19,7 +19,7 @@
 
 • **actionName**: *[DragNDropStart](../enums/_util_special_actions_.specialaction.md#dragndropstart)*
 
-*Defined in [src/util/special-actions.ts:44](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L44)*
+*Defined in [src/util/special-actions.ts:44](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L44)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **dragSource**: *[FileData](_typedef_.filedata.md)*
 
-*Defined in [src/util/special-actions.ts:45](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L45)*
+*Defined in [src/util/special-actions.ts:45](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L45)*

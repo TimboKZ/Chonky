@@ -17,7 +17,7 @@
 
 • **DragNDropEnd**: = "drag_n_drop_end"
 
-*Defined in [src/util/special-actions.ts:21](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L21)*
+*Defined in [src/util/special-actions.ts:21](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L21)*
 
 ___
 
@@ -25,7 +25,7 @@ ___
 
 • **DragNDropStart**: = "drag_n_drop_start"
 
-*Defined in [src/util/special-actions.ts:20](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L20)*
+*Defined in [src/util/special-actions.ts:20](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L20)*
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 • **KeyboardClickFile**: = "keyboard_click_file"
 
-*Defined in [src/util/special-actions.ts:18](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L18)*
+*Defined in [src/util/special-actions.ts:18](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L18)*
 
 ___
 
@@ -41,4 +41,4 @@ ___
 
 • **MouseClickFile**: = "mouse_click_file"
 
-*Defined in [src/util/special-actions.ts:17](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L17)*
+*Defined in [src/util/special-actions.ts:17](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L17)*

@@ -7,9 +7,12 @@
 ### Modules
 
 * ["components/external/ChonkyIcon"](modules/_components_external_chonkyicon_.md)
+* ["components/external/Dropdown"](modules/_components_external_dropdown_.md)
+* ["components/external/DropdownButton"](modules/_components_external_dropdownbutton_.md)
 * ["components/external/FileBrowser"](modules/_components_external_filebrowser_.md)
 * ["components/external/FileList"](modules/_components_external_filelist_.md)
 * ["components/external/FileList-virtualization"](modules/_components_external_filelist_virtualization_.md)
+* ["components/external/FileSearch"](modules/_components_external_filesearch_.md)
 * ["components/external/FileToolbar"](modules/_components_external_filetoolbar_.md)
 * ["components/external/FileToolbar-hooks"](modules/_components_external_filetoolbar_hooks_.md)
 * ["components/external/TextPlaceholder"](modules/_components_external_textplaceholder_.md)
@@ -26,7 +29,6 @@
 * ["components/internal/DnDFileEntry"](modules/_components_internal_dndfileentry_.md)
 * ["components/internal/DnDFileListDragLayer"](modules/_components_internal_dndfilelistdraglayer_.md)
 * ["components/internal/ErrorMessage"](modules/_components_internal_errormessage_.md)
-* ["components/internal/FileIcon"](modules/_components_internal_fileicon_.md)
 * ["components/internal/FileThumbnail"](modules/_components_internal_filethumbnail_.md)
 * ["index"](modules/_index_.md)
 * ["typedef"](modules/_typedef_.md)
@@ -35,6 +37,7 @@
 * ["util/file-actions"](modules/_util_file_actions_.md)
 * ["util/file-helper"](modules/_util_file_helper_.md)
 * ["util/file-icon-helper"](modules/_util_file_icon_helper_.md)
+* ["util/hooks-helpers"](modules/_util_hooks_helpers_.md)
 * ["util/logger"](modules/_util_logger_.md)
 * ["util/selection"](modules/_util_selection_.md)
 * ["util/special-actions"](modules/_util_special_actions_.md)

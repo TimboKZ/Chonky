@@ -21,7 +21,7 @@
 
 • **actionName**: *[DragNDropEnd](../enums/_util_special_actions_.specialaction.md#dragndropend)*
 
-*Defined in [src/util/special-actions.ts:49](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L49)*
+*Defined in [src/util/special-actions.ts:49](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L49)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **dragSource**: *[FileData](_typedef_.filedata.md)*
 
-*Defined in [src/util/special-actions.ts:50](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L50)*
+*Defined in [src/util/special-actions.ts:50](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L50)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **dropEffect**: *"move" | "copy"*
 
-*Defined in [src/util/special-actions.ts:52](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L52)*
+*Defined in [src/util/special-actions.ts:52](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L52)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **dropTarget**: *[FileData](_typedef_.filedata.md)*
 
-*Defined in [src/util/special-actions.ts:51](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/special-actions.ts#L51)*
+*Defined in [src/util/special-actions.ts:51](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L51)*

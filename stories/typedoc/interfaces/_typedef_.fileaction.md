@@ -24,7 +24,7 @@
 
 • **fileFilter**? : *[FileFilter](../modules/_typedef_.md#filefilter)*
 
-*Defined in [src/typedef.ts:44](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L44)*
+*Defined in [src/typedef.ts:44](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L44)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **hotkeys**? : *keyof string[]*
 
-*Defined in [src/typedef.ts:46](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L46)*
+*Defined in [src/typedef.ts:46](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L46)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **metadata**? : *any*
 
-*Defined in [src/typedef.ts:41](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L41)*
+*Defined in [src/typedef.ts:41](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L41)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [src/typedef.ts:40](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L40)*
+*Defined in [src/typedef.ts:40](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L40)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • **requiresParentFolder**? : *undefined | false | true*
 
-*Defined in [src/typedef.ts:42](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L42)*
+*Defined in [src/typedef.ts:42](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L42)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **requiresSelection**? : *undefined | false | true*
 
-*Defined in [src/typedef.ts:43](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L43)*
+*Defined in [src/typedef.ts:43](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L43)*
 
 ___
 
@@ -72,4 +72,4 @@ ___
 
 • **toolbarButton**? : *[ToolbarButtonData](_typedef_.toolbarbuttondata.md)*
 
-*Defined in [src/typedef.ts:47](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L47)*
+*Defined in [src/typedef.ts:47](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L47)*

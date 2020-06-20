@@ -22,7 +22,7 @@
 
 ▸ **isClickable**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *file is FileData*
 
-*Defined in [src/util/file-helper.ts:6](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-helper.ts#L6)*
+*Defined in [src/util/file-helper.ts:6](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-helper.ts#L6)*
 
 **Parameters:**
 
@@ -38,7 +38,7 @@ ___
 
 ▸ **isDraggable**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *file is FileData*
 
-*Defined in [src/util/file-helper.ts:22](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-helper.ts#L22)*
+*Defined in [src/util/file-helper.ts:22](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-helper.ts#L22)*
 
 **Parameters:**
 
@@ -54,7 +54,7 @@ ___
 
 ▸ **isDroppable**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *file is FileData*
 
-*Defined in [src/util/file-helper.ts:27](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-helper.ts#L27)*
+*Defined in [src/util/file-helper.ts:27](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-helper.ts#L27)*
 
 **Parameters:**
 
@@ -70,7 +70,7 @@ ___
 
 ▸ **isOpenable**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *file is FileData*
 
-*Defined in [src/util/file-helper.ts:12](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-helper.ts#L12)*
+*Defined in [src/util/file-helper.ts:12](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-helper.ts#L12)*
 
 **Parameters:**
 
@@ -86,7 +86,7 @@ ___
 
 ▸ **isSelectable**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *file is FileData*
 
-*Defined in [src/util/file-helper.ts:17](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/file-helper.ts#L17)*
+*Defined in [src/util/file-helper.ts:17](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-helper.ts#L17)*
 
 **Parameters:**
 

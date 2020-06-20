@@ -36,7 +36,7 @@
 
 • **childrenIds**? : *string[]*
 
-*Defined in [src/typedef.ts:26](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L26)*
+*Defined in [src/typedef.ts:26](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L26)*
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 • **draggable**? : *undefined | false | true*
 
-*Defined in [src/typedef.ts:19](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L19)*
+*Defined in [src/typedef.ts:19](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L19)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 • **droppable**? : *undefined | false | true*
 
-*Defined in [src/typedef.ts:20](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L20)*
+*Defined in [src/typedef.ts:20](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L20)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • **ext**? : *undefined | string*
 
-*Defined in [src/typedef.ts:12](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L12)*
+*Defined in [src/typedef.ts:12](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L12)*
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 • **id**: *string*
 
-*Defined in [src/typedef.ts:9](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L9)*
+*Defined in [src/typedef.ts:9](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L9)*
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 • **isDir**? : *undefined | false | true*
 
-*Defined in [src/typedef.ts:14](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L14)*
+*Defined in [src/typedef.ts:14](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L14)*
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 • **isHidden**? : *undefined | false | true*
 
-*Defined in [src/typedef.ts:15](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L15)*
+*Defined in [src/typedef.ts:15](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L15)*
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 • **isSymlink**? : *undefined | false | true*
 
-*Defined in [src/typedef.ts:16](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L16)*
+*Defined in [src/typedef.ts:16](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L16)*
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 • **modDate**? : *Date*
 
-*Defined in [src/typedef.ts:23](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L23)*
+*Defined in [src/typedef.ts:23](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L23)*
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [src/typedef.ts:11](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L11)*
+*Defined in [src/typedef.ts:11](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L11)*
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 • **openable**? : *undefined | false | true*
 
-*Defined in [src/typedef.ts:17](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L17)*
+*Defined in [src/typedef.ts:17](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L17)*
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 • **parentId**? : *undefined | string*
 
-*Defined in [src/typedef.ts:25](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L25)*
+*Defined in [src/typedef.ts:25](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L25)*
 
 ___
 
@@ -132,7 +132,7 @@ ___
 
 • **selectable**? : *undefined | false | true*
 
-*Defined in [src/typedef.ts:18](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L18)*
+*Defined in [src/typedef.ts:18](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L18)*
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 • **size**? : *undefined | number*
 
-*Defined in [src/typedef.ts:22](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L22)*
+*Defined in [src/typedef.ts:22](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L22)*
 
 ___
 
@@ -148,4 +148,4 @@ ___
 
 • **thumbnailUrl**? : *undefined | string*
 
-*Defined in [src/typedef.ts:28](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L28)*
+*Defined in [src/typedef.ts:28](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L28)*

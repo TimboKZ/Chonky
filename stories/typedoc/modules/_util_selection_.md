@@ -21,7 +21,7 @@
 
 ▸ **useSelection**(`files`: [FileArray](_typedef_.md#filearray), `disableSelection`: boolean): *object*
 
-*Defined in [src/util/selection.ts:13](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L13)*
+*Defined in [src/util/selection.ts:13](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L13)*
 
 **Parameters:**
 
@@ -50,7 +50,7 @@ ___
 
 ▸ **useSelectionModifiers**(`disableSelection`: boolean, `setSelection`: React.Dispatch‹React.SetStateAction‹[FileSelection](../interfaces/_typedef_.fileselection.md)››): *object*
 
-*Defined in [src/util/selection.ts:49](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L49)*
+*Defined in [src/util/selection.ts:49](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L49)*
 
 **Parameters:**
 

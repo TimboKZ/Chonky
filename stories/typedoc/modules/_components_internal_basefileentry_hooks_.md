@@ -15,7 +15,7 @@
 
 ▸ **useDndIcon**(`selected`: Nilable‹boolean›, `isDragging`: Nilable‹boolean›, `isOver`: Nilable‹boolean›, `canDrop`: Nilable‹boolean›): *Nullable‹[ChonkyIconName](../enums/_components_external_chonkyicon_.chonkyiconname.md)›*
 
-*Defined in [src/components/internal/BaseFileEntry-hooks.tsx:9](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/internal/BaseFileEntry-hooks.tsx#L9)*
+*Defined in [src/components/internal/BaseFileEntry-hooks.tsx:9](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/internal/BaseFileEntry-hooks.tsx#L9)*
 
 **Parameters:**
 
@@ -34,7 +34,7 @@ ___
 
 ▸ **useThumbnailUrl**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›, `setThumbnailUrl`: function, `setThumbnailLoading`: function): *void*
 
-*Defined in [src/components/internal/BaseFileEntry-hooks.tsx:24](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/internal/BaseFileEntry-hooks.tsx#L24)*
+*Defined in [src/components/internal/BaseFileEntry-hooks.tsx:24](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/internal/BaseFileEntry-hooks.tsx#L24)*
 
 **Parameters:**
 

@@ -20,7 +20,7 @@
 
 • **dropdown**? : *undefined | false | true*
 
-*Defined in [src/components/external/ToolbarButtonGroup.tsx:14](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ToolbarButtonGroup.tsx#L14)*
+*Defined in [src/components/external/ToolbarButtonGroup.tsx:15](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ToolbarButtonGroup.tsx#L15)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **fileActions**: *[FileAction](_typedef_.fileaction.md)[]*
 
-*Defined in [src/components/external/ToolbarButtonGroup.tsx:15](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ToolbarButtonGroup.tsx#L15)*
+*Defined in [src/components/external/ToolbarButtonGroup.tsx:16](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ToolbarButtonGroup.tsx#L16)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **name**? : *undefined | string*
 
-*Defined in [src/components/external/ToolbarButtonGroup.tsx:13](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/components/external/ToolbarButtonGroup.tsx#L13)*
+*Defined in [src/components/external/ToolbarButtonGroup.tsx:14](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ToolbarButtonGroup.tsx#L14)*

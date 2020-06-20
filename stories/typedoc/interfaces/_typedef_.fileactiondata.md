@@ -20,7 +20,7 @@
 
 • **actionName**: *string*
 
-*Defined in [src/typedef.ts:60](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L60)*
+*Defined in [src/typedef.ts:60](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L60)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **files**? : *ReadonlyArray‹Readonly‹[FileData](_typedef_.filedata.md)››*
 
-*Defined in [src/typedef.ts:62](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L62)*
+*Defined in [src/typedef.ts:62](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L62)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **target**? : *Readonly‹[FileData](_typedef_.filedata.md)›*
 
-*Defined in [src/typedef.ts:61](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/typedef.ts#L61)*
+*Defined in [src/typedef.ts:61](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/typedef.ts#L61)*

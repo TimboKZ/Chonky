@@ -24,7 +24,7 @@ internal state, and all methods are static.
 
 ▸ **getSelectedFiles**(`files`: [ReadonlyFileArray](../modules/_typedef_.md#readonlyfilearray), `selection`: Readonly‹[FileSelection](../interfaces/_typedef_.fileselection.md)›, ...`filters`: [FileFilter](../modules/_typedef_.md#filefilter)[]): *ReadonlyArray‹Readonly‹[FileData](../interfaces/_typedef_.filedata.md)››*
 
-*Defined in [src/util/selection.ts:98](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L98)*
+*Defined in [src/util/selection.ts:98](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L98)*
 
 **Parameters:**
 
@@ -42,7 +42,7 @@ ___
 
 ▸ **getSelectionSize**(`files`: [ReadonlyFileArray](../modules/_typedef_.md#readonlyfilearray), `selection`: Readonly‹[FileSelection](../interfaces/_typedef_.fileselection.md)›, ...`filters`: [FileFilter](../modules/_typedef_.md#filefilter)[]): *number*
 
-*Defined in [src/util/selection.ts:112](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L112)*
+*Defined in [src/util/selection.ts:112](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L112)*
 
 **Parameters:**
 
@@ -60,7 +60,7 @@ ___
 
 ▸ **isSelected**(`selection`: Readonly‹[FileSelection](../interfaces/_typedef_.fileselection.md)›, `file`: Nullable‹Readonly‹[FileData](../interfaces/_typedef_.filedata.md)››): *boolean*
 
-*Defined in [src/util/selection.ts:119](https://github.com/TimboKZ/Chonky/blob/cc6d20b/src/util/selection.ts#L119)*
+*Defined in [src/util/selection.ts:119](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L119)*
 
 **Parameters:**
 
