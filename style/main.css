@@ -313,9 +313,11 @@ button.chonky-folder-chain-entry:active {
   }
 }
 .chonky-toolbar-button.chonky-active {
+  color: #09f;
   z-index: 93;
 }
 .chonky-toolbar-button:hover {
+  background-color: #f5f5f5;
   z-index: 92;
 }
 .chonky-toolbar-button:active {
@@ -329,13 +331,6 @@ button.chonky-folder-chain-entry:active {
 .chonky-toolbar-button[disabled] {
   color: #bbb !important;
   pointer-events: none;
-}
-.chonky-toolbar-button.chonky-active {
-  color: #09f;
-}
-.chonky-toolbar-button:hover {
-  background-color: #f5f5f5;
-  z-index: 92;
 }
 
 .chonky-toolbar-dropdown {

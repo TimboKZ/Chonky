@@ -73,10 +73,12 @@
     }
 
     &.chonky-active {
+        color: $fg-active;
         z-index: 93;
     }
 
     &:hover {
+        background-color: $bg-light;
         z-index: 92;
     }
 
@@ -93,15 +95,6 @@
     &[disabled] {
         color: $fg-subtle !important;
         pointer-events: none;
-    }
-
-    &.chonky-active {
-        color: $fg-active;
-    }
-
-    &:hover {
-        background-color: $bg-light;
-        z-index: 92;
     }
 }
 

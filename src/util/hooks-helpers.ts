@@ -16,8 +16,14 @@ export const useDebounce = <T>(value: T, delay: number): T => {
     return debouncedValue;
 };
 
-export const useOutsideClickListener = <T extends HTMLElement = HTMLDivElement>(
-    onOutsideClick: (event: MouseEvent) => void
+interface UseClickListenerParams {
+    onClick?: (event: MouseEvent) => void;
+    onInsideClick?: (event: MouseEvent) => void;
+    onOutsideClick?: (event: MouseEvent) => void;
+}
+
+export const useClickListener = <T extends HTMLElement = HTMLDivElement>(
+    params: UseClickListenerParams
 ) => {
     const triggerComponentRef = useRef<T>();
 
@@ -28,12 +34,20 @@ export const useOutsideClickListener = <T extends HTMLElement = HTMLDivElement>(
                 triggerComponentRef.current.contains(event.target as any)
             ) {
                 // Click originated from inside.
-                return;
+                if (params.onInsideClick) params.onInsideClick(event);
+            } else {
+                // Click originated from outside inside.
+                if (params.onOutsideClick) params.onOutsideClick(event);
             }
 
-            onOutsideClick(event);
+            if (params.onClick) params.onClick(event);
         },
-        [onOutsideClick, triggerComponentRef]
+        [
+            params.onClick,
+            params.onInsideClick,
+            params.onOutsideClick,
+            triggerComponentRef,
+        ]
     );
 
     useEffect(() => {

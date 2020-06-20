@@ -6,7 +6,7 @@
 
 import React, { useCallback, useState } from 'react';
 
-import { useOutsideClickListener } from '../../util/hooks-helpers';
+import { useClickListener } from '../../util/hooks-helpers';
 import { ChonkyIconName } from './ChonkyIcon';
 import { SmartDropdownButton } from './DropdownButton';
 import { ToolbarButton } from './ToolbarButton';
@@ -22,7 +22,9 @@ export const Dropdown: React.FC<DropdownProps> = React.memo((props) => {
     const [showDropdown, setShowDropdown] = useState(false);
 
     const hideDropdown = useCallback(() => setShowDropdown(false), [setShowDropdown]);
-    const dropdownRef = useOutsideClickListener(hideDropdown);
+    const dropdownRef = useClickListener({
+        onOutsideClick: hideDropdown,
+    });
 
     const triggerClick = useCallback(() => {
         setShowDropdown(true);
@@ -32,6 +34,7 @@ export const Dropdown: React.FC<DropdownProps> = React.memo((props) => {
         <div ref={dropdownRef} className="chonky-toolbar-dropdown">
             <ToolbarButton
                 text={group.name!}
+                active={showDropdown}
                 icon={ChonkyIconName.dropdown}
                 iconOnRight={true}
                 onClick={triggerClick}

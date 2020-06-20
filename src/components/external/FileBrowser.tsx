@@ -26,7 +26,7 @@ import {
     validateContextType,
 } from '../../util/context';
 import { DefaultActions, useFileActionDispatcher } from '../../util/file-actions';
-import { useOutsideClickListener } from '../../util/hooks-helpers';
+import { useClickListener } from '../../util/hooks-helpers';
 import { useSelection } from '../../util/selection';
 import { useSpecialActionDispatcher } from '../../util/special-actions';
 import { useFileBrowserValidation } from '../../util/validation';
@@ -148,7 +148,9 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     }, [sortedFiles, searchFilter]);
 
     // Deal with clicks outside of Chonky
-    const chonkyRootRef = useOutsideClickListener(clearSelection);
+    const chonkyRootRef = useClickListener({
+        onOutsideClick: clearSelection,
+    });
 
     type ExtractContextType<P> = P extends React.Context<infer T> ? T : never;
     interface ContextData<ContextType extends React.Context<any>> {

@@ -1,3 +1,4 @@
+import c from 'classnames';
 import React from 'react';
 
 import { FileAction } from '../../typedef';
@@ -7,6 +8,7 @@ import { useSmartToolbarButtonProps } from './ToolbarButton-hooks';
 export interface ToolbarButtonProps {
     text: string;
     tooltip?: string;
+    active?: boolean;
     icon?: ChonkyIconName | string;
     iconOnly?: boolean;
     iconOnRight?: boolean;
@@ -15,7 +17,16 @@ export interface ToolbarButtonProps {
 }
 
 export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) => {
-    const { text, tooltip, icon, iconOnly, iconOnRight, onClick, disabled } = props;
+    const {
+        text,
+        tooltip,
+        active,
+        icon,
+        iconOnly,
+        iconOnRight,
+        onClick,
+        disabled,
+    } = props;
 
     const iconComponent =
         icon || iconOnly ? (
@@ -27,9 +38,13 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) =>
             </div>
         ) : null;
 
+    const className = c({
+        'chonky-toolbar-button': true,
+        'chonky-active': !!active,
+    });
     return (
         <button
-            className="chonky-toolbar-button"
+            className={className}
             onClick={onClick}
             title={tooltip ? tooltip : text}
             disabled={!onClick || disabled}
