@@ -1,4 +1,3 @@
-import c from 'classnames';
 import React from 'react';
 
 import { FileAction } from '../../typedef';
@@ -10,31 +9,36 @@ export interface ToolbarButtonProps {
     tooltip?: string;
     icon?: ChonkyIconName | string;
     iconOnly?: boolean;
+    iconOnRight?: boolean;
     onClick?: () => void;
     disabled?: boolean;
 }
 
 export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) => {
-    const { text, tooltip, icon, iconOnly, onClick, disabled } = props;
+    const { text, tooltip, icon, iconOnly, iconOnRight, onClick, disabled } = props;
 
-    const className = c({
-        'chonky-toolbar-button': true,
-    });
+    const iconComponent =
+        icon || iconOnly ? (
+            <div className="chonky-toolbar-button-icon">
+                <ChonkyIconFA
+                    icon={icon ? icon : ChonkyIconName.fallbackIcon}
+                    fixedWidth={true}
+                />
+            </div>
+        ) : null;
+
     return (
         <button
-            className={className}
+            className="chonky-toolbar-button"
             onClick={onClick}
             title={tooltip ? tooltip : text}
-            disabled={disabled}
+            disabled={!onClick || disabled}
         >
-            {(icon || iconOnly) && (
-                <div className="chonky-toolbar-button-icon">
-                    <ChonkyIconFA icon={icon ? icon : ChonkyIconName.fallbackIcon} />
-                </div>
-            )}
+            {!iconOnRight && iconComponent}
             {text && !iconOnly && (
                 <div className="chonky-toolbar-button-text">{text}</div>
             )}
+            {iconOnRight && iconComponent}
         </button>
     );
 });

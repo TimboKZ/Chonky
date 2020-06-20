@@ -83,6 +83,7 @@ export const ChonkyActions = {
             name: 'Download files',
             group: 'Actions',
             tooltip: 'Download files',
+            dropdown: true,
             icon: ChonkyIconName.download,
         },
     },

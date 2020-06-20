@@ -11,6 +11,7 @@ import {
     ChonkySetSearchFilterContext,
 } from '../../util/context';
 import { useDebounce } from '../../util/hooks-helpers';
+import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
 
 export interface FileSearchProps {}
 
@@ -36,8 +37,9 @@ export const FileSearch: React.FC<FileSearchProps> = () => {
     // Set global search filter to local search filter with debounce
     const debouncedLocalSearchFilter = useDebounce(localSearchFilter, 500);
     useEffect(() => {
-        if (debouncedLocalSearchFilter === globalSearchFilter) return;
-        setGlobalSearchFilter(debouncedLocalSearchFilter);
+        const trimmedFilter = debouncedLocalSearchFilter.trim();
+        if (trimmedFilter === globalSearchFilter) return;
+        setGlobalSearchFilter(trimmedFilter);
     }, [globalSearchFilter, debouncedLocalSearchFilter]);
 
     const handleInputChange = useCallback(
@@ -49,8 +51,18 @@ export const FileSearch: React.FC<FileSearchProps> = () => {
 
     return (
         <div className="chonky-file-search">
-            Search
-            <input type="text" value={localSearchFilter} onChange={handleInputChange} />
+            <div className="chonky-file-search-input-group">
+                <label htmlFor="chonky-file-search">
+                    <ChonkyIconFA icon={ChonkyIconName.search} fixedWidth={true} />
+                </label>
+                <input
+                    type="text"
+                    id="chonky-file-search"
+                    value={localSearchFilter}
+                    placeholder="Type to search..."
+                    onChange={handleInputChange}
+                />
+            </div>
         </div>
     );
 };

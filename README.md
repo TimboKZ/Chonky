@@ -32,7 +32,7 @@ list", use keyboard shortcuts, and much more!
 ## Preview
 
 <p align="center">
-  <img src="https://timbokz.github.io/Chonky/0.x/Chonky_preview.jpg" alt="Ch">
+  <img src="https://timbokz.github.io/Chonky/0.x/Chonky_preview.jpg" alt="Chonky preview">
 </p>
 
 ## License

@@ -8,9 +8,9 @@ import {
     FileList,
     FileToolbar,
 } from 'chonky';
-import React, { useState } from 'react';
+import React from 'react';
 
-import { createDocsObject } from '../story-helpers';
+import { createDocsObject, showActionNotification } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './04-Actions.md';
@@ -24,28 +24,12 @@ export default {
 };
 
 export const ActionsExample = () => {
-    const [actionCount, setActionCount] = useState(0);
-    const [lastAction, setLastAction] = useState(
-        'Click on something or drag & drop files...'
-    );
-
     const handleFileAction = (action: FileAction, data: FileActionData) => {
         // Log action to console
         // eslint-disable-next-line no-console
         console.log('\nAction object:', action, '\nAction data:', data);
 
-        // Show pretty action HTML
-        const textParts = [];
-        textParts.push(`<b>Action #${actionCount + 1}:</b> ${action.name}`);
-        if (data.target) {
-            textParts.push(`<b>Target:</b> "${data.target.name}"`);
-        }
-        if (data.files) {
-            const fileNames = data.files.map((f) => `"${f.name}"`).join(', ');
-            textParts.push(`<b>Files:</b> ${fileNames}`);
-        }
-        setActionCount((count) => count + 1);
-        setLastAction(textParts.join(' '));
+        showActionNotification({ action, data });
     };
 
     const folderChain = [{ id: 'gBt4z3', name: 'My Documents', isDir: true }];
@@ -64,10 +48,9 @@ export const ActionsExample = () => {
 
     return (
         <div className="live-example" style={{ height: 500 }}>
-            <div
-                className="live-example-action"
-                dangerouslySetInnerHTML={{ __html: lastAction }}
-            />
+            <div className="live-example-action">
+                <strong>Check your browser console for logged actions!</strong>
+            </div>
 
             <FileBrowser
                 files={files}
@@ -76,8 +59,8 @@ export const ActionsExample = () => {
                 onFileAction={handleFileAction}
                 enableDragAndDrop={true}
             >
-                <FileToolbar />
-                <FileList />
+                <FileToolbar/>
+                <FileList/>
             </FileBrowser>
         </div>
     );

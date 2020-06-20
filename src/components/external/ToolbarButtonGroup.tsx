@@ -7,6 +7,7 @@
 import React from 'react';
 
 import { FileAction } from '../../typedef';
+import { Dropdown } from './Dropdown';
 import { SmartToolbarButton } from './ToolbarButton';
 
 export interface ToolbarButtonGroup {
@@ -23,12 +24,18 @@ export const ToolbarButtonGroup: React.FC<ToolbarButtonGroupProps> = React.memo(
     (props) => {
         const { group } = props;
 
-        const buttonComponents = group.fileActions.map((action) => (
-            <SmartToolbarButton
-                key={`action-button-${action.name}`}
-                fileAction={action}
-            />
-        ));
-        return <div className="chonky-toolbar-button-group">{buttonComponents}</div>;
+        let groupContents: React.ReactElement | React.ReactElement[];
+        if (group.dropdown) {
+            groupContents = <Dropdown group={group} />;
+        } else {
+            groupContents = group.fileActions.map((action) => (
+                <SmartToolbarButton
+                    key={`action-button-${action.name}`}
+                    fileAction={action}
+                />
+            ));
+        }
+
+        return <div className="chonky-toolbar-button-group">{groupContents}</div>;
     }
 );

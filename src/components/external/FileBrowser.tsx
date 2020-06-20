@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import FuzzySearch from 'fuzzy-search';
+import React, { useMemo, useState } from 'react';
 
 import {
     FileAction,
@@ -26,6 +26,7 @@ import {
     validateContextType,
 } from '../../util/context';
 import { DefaultActions, useFileActionDispatcher } from '../../util/file-actions';
+import { useOutsideClickListener } from '../../util/hooks-helpers';
 import { useSelection } from '../../util/selection';
 import { useSpecialActionDispatcher } from '../../util/special-actions';
 import { useFileBrowserValidation } from '../../util/validation';
@@ -147,27 +148,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     }, [sortedFiles, searchFilter]);
 
     // Deal with clicks outside of Chonky
-    const chonkyRootRef = useRef<HTMLDivElement>();
-    const handleOutsideClick = useCallback(
-        (event: MouseEvent) => {
-            if (
-                !chonkyRootRef.current ||
-                chonkyRootRef.current.contains(event.target as any)
-            ) {
-                // Click originated from inside.
-                return;
-            }
-
-            clearSelection();
-        },
-        [chonkyRootRef, clearSelection]
-    );
-    useEffect(() => {
-        document.addEventListener('mousedown', handleOutsideClick, false);
-        return () => {
-            document.removeEventListener('mousedown', handleOutsideClick, false);
-        };
-    }, [handleOutsideClick]);
+    const chonkyRootRef = useOutsideClickListener(clearSelection);
 
     type ExtractContextType<P> = P extends React.Context<infer T> ? T : never;
     interface ContextData<ContextType extends React.Context<any>> {
@@ -244,7 +225,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
 
     return (
         <ContextComposer providers={contextProviders}>
-            <div ref={chonkyRootRef as any} className="chonky-root chonky-no-select">
+            <div ref={chonkyRootRef} className="chonky-root chonky-no-select">
                 {enableDragAndDrop && <DnDFileListDragLayer />}
                 {validationResult.errorMessages.map((data, index) => (
                     <ErrorMessage

@@ -1,0 +1,35 @@
+@import 'util';
+
+.chonky-file-search {
+    margin-bottom: $file-browser-padding;
+
+    &-input-group {
+        label,
+        input {
+            line-height: $searchbar-line-height;
+            height: $searchbar-height;
+            box-sizing: border-box;
+            display: inline-block;
+            vertical-align: top;
+            font-size: inherit;
+            padding: 0;
+            margin: 0;
+        }
+
+        label {
+            background-color: transparent;
+            padding: 0 $base-padding;
+            color: $fg-subtle-dark;
+            margin: 1px 0 0 2px;
+            border-right: none;
+            position: absolute;
+        }
+
+        input {
+            padding-left: 20px + $base-padding * 2;
+            border: solid 1px $border-light;
+            border-radius: $radius-medium;
+            padding-right: $base-padding;
+        }
+    }
+}

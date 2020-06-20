@@ -41,6 +41,10 @@ $toolbar-line-height: 26px !default;
 $toolbar-height-mobile: 1.7em !default;
 $toolbar-line-height-mobile: 1.7em !default;
 
+// ======= File search =======
+$searchbar-height: $toolbar-height !default;
+$searchbar-line-height: $toolbar-line-height !default;
+
 // ======= File entry =======
 $file-entry-border: $border-light !default;
 $file-entry-preview-bg: $bg-base !default;

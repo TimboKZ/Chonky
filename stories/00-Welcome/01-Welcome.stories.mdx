@@ -6,22 +6,41 @@ import ChonkyHeader from '../Chonky-header.mdx';
 
 # Introduction
 
-Chonky is a file browser component for React. It tries to recreate the native file browsing experience in your
-browser. This means your users can make selections, drag & drop files, toggle file view between "large thumbnails"
-and "detailed list", use keyboard shortcuts, and much more!
+**Chonky is a file browser component for React.** It tries to recreate the native file
+browsing experience in your browser. Chonky supports drag & drop, file selection,
+image thumbnails, and much more!
 
 [**View on Github**](https://github.com/TimboKZ/Chonky)
 
-### Chonky features:
+<br />
 
--   It's file system agnostic - data can come from an arbitrary source as long as it follows the required format.
--   Supports async file system logic - via thumb lazy-loading and loading placeholders.
--   Users can choose between 3 views: Details, medium thumbnails, large thumbnails. All file views are responsive and
-    mobile-friendly.
--   Developers can pass file action handlers to define custom behaviour for file opening, moving or deleting.
--   Supports file selections and _drag & drop (WIP)_, sorting and _text search (WIP)_.
--   Supports [windowing](https://reactjs.org/docs/optimizing-performance.html#virtualize-long-lists) (a.k.a.
-    virtualization) for long file lists ([see example](#section-virtualization-with-10000-files)).
--   Supports common keyboard shortcuts.
--   Supports file thumbnails (e.g. generated from videos or images).
--   Detects common file types, showing appropriate icons.
+# Philosophy
+
+Please read this section to understand what Chonky is and is not.
+
+<br />
+
+### 1. Chonky is the presentation layer.
+
+Chonky takes a list of files and shows them to the user. It does not and should not
+know where the files came from, nor should it now how file operations are carried out.
+
+<br />
+
+### 2. Chonky is filesystem-agnostic.
+
+Chonky tries to stay **unopinionated** when it comes to interactions with the file
+system (FS).
+
+<br />
+
+### 3. Developing file browsers is hard. Each use case is unique.
+
+At the same time, Chonky tries to cover all possible interactions with the user. This includes support for keyboard
+navigation and common keyboard shortcuts, support for file selections, drag & drop, different file views, and much more.
+
+<br />
+<br />
+<br />
+<br />
+&nbsp;
