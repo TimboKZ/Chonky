@@ -69,7 +69,7 @@ export const SmartToolbarButton: React.FC<SmartToolbarButtonProps> = React.memo(
         const { toolbarButton: button } = action;
         if (!button) return null;
 
-        const { onClick, disabled } = useSmartToolbarButtonProps(action);
+        const { active, onClick, disabled } = useSmartToolbarButtonProps(action);
 
         return (
             <ToolbarButton
@@ -77,6 +77,7 @@ export const SmartToolbarButton: React.FC<SmartToolbarButtonProps> = React.memo(
                 tooltip={button.tooltip}
                 icon={button.icon}
                 iconOnly={button.iconOnly}
+                active={active}
                 onClick={onClick}
                 disabled={disabled}
             />

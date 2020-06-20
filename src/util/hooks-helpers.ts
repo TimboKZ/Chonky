@@ -16,6 +16,13 @@ export const useDebounce = <T>(value: T, delay: number): T => {
     return debouncedValue;
 };
 
+const UNINITIALIZED_SENTINEL = {};
+export const useStaticValue = <T>(factory: () => T): T => {
+    const valueRef = useRef<T>(UNINITIALIZED_SENTINEL as T);
+    if (valueRef.current === UNINITIALIZED_SENTINEL) valueRef.current = factory();
+    return valueRef.current;
+};
+
 interface UseClickListenerParams {
     onClick?: (event: MouseEvent) => void;
     onInsideClick?: (event: MouseEvent) => void;

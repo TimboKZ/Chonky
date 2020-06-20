@@ -1,0 +1,9 @@
+.storybook/
+assets/
+docs/
+src/
+stories/
+.eslintrc.js
+.prettierrc.js
+tsconfig.json
+typedoc.js

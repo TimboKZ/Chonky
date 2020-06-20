@@ -20,7 +20,6 @@
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.10",
-    "@types/fuzzy-search": "^2.1.0",
     "bluebird": "^3.7.2",
     "classnames": "^2.2.6",
     "exact-trie": "^1.0.11",
@@ -30,6 +29,7 @@
     "react-dnd": "^11.1.3",
     "react-dnd-html5-backend": "^11.1.3",
     "react-virtualized": "^9.21.2",
+    "shortid": "^2.2.15",
     "tsdef": "0.0.13"
   },
   "peerDependencies": {
@@ -48,9 +48,12 @@
     "@storybook/theming": "^5.3.19",
     "@types/bluebird": "^3.5.32",
     "@types/classnames": "^2.2.10",
+    "@types/dragselect": "^1.13.1",
+    "@types/fuzzy-search": "^2.1.0",
     "@types/memoizee": "^0.4.4",
     "@types/react": "^16.9.36",
     "@types/react-virtualized": "^9.21.10",
+    "@types/shortid": "0.0.29",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",
     "babel-loader": "^8.1.0",

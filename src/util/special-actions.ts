@@ -17,6 +17,8 @@ export enum SpecialAction {
     MouseClickFile = 'mouse_click_file',
     KeyboardClickFile = 'keyboard_click_file',
 
+    ToggleSearchBar = 'toggle_search_bar',
+
     DragNDropStart = 'drag_n_drop_start',
     DragNDropEnd = 'drag_n_drop_end',
 }
@@ -40,6 +42,10 @@ export interface SpecialFileKeyboardClickAction {
     shiftKey: boolean;
 }
 
+export interface SpecialToggleSearchBarAction {
+    actionName: SpecialAction.KeyboardClickFile;
+}
+
 export interface SpecialDragNDropStartAction {
     actionName: SpecialAction.DragNDropStart;
     dragSource: FileData;
@@ -55,6 +61,7 @@ export interface SpecialDragNDropEndAction {
 export type SpecialActionData =
     | SpecialFileMouseClickAction
     | SpecialFileKeyboardClickAction
+    | SpecialToggleSearchBarAction
     | SpecialDragNDropStartAction
     | SpecialDragNDropEndAction;
 

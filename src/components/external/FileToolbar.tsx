@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { useFolderChainComponent, useToolbarButtonGroups } from './FileToolbar-hooks';
 import { ToolbarButtonGroup } from './ToolbarButtonGroup';
+import { ChonkySearchBarEnabledContext } from '../../util/context';
 
 export interface FileToolbarProps {}
 
 export const FileToolbar: React.FC<FileToolbarProps> = React.memo(() => {
+    const searchBarEnabled = useContext(ChonkySearchBarEnabledContext);
+
     const folderChainComp = useFolderChainComponent();
     const {
         buttonGroups,
@@ -29,7 +32,9 @@ export const FileToolbar: React.FC<FileToolbarProps> = React.memo(() => {
                         group={group}
                     />
                 ))}
-                {searchButtonGroup && <ToolbarButtonGroup group={searchButtonGroup} />}
+                {searchBarEnabled && searchButtonGroup && (
+                    <ToolbarButtonGroup group={searchButtonGroup} />
+                )}
             </div>
         </div>
     );

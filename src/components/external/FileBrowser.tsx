@@ -1,11 +1,10 @@
-import FuzzySearch from 'fuzzy-search';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
+import shortid from 'shortid';
 
 import {
     FileAction,
     FileActionHandler,
     FileArray,
-    FileData,
     ThumbnailGenerator,
 } from '../../typedef';
 import {
@@ -17,16 +16,16 @@ import {
     ChonkyFileActionsContext,
     ChonkyFilesContext,
     ChonkyFolderChainContext,
-    ChonkySearchFilterContext,
+    ChonkyInstanceIdContext,
     ChonkySelectionContext,
     ChonkySelectionSizeContext,
     ChonkySelectionUtilContext,
-    ChonkySetSearchFilterContext,
     ChonkyThumbnailGeneratorContext,
     validateContextType,
 } from '../../util/context';
 import { DefaultActions, useFileActionDispatcher } from '../../util/file-actions';
-import { useClickListener } from '../../util/hooks-helpers';
+import { useClickListener, useStaticValue } from '../../util/hooks-helpers';
+import { useFilteredFiles, useSearch } from '../../util/search';
 import { useSelection } from '../../util/selection';
 import { useSpecialActionDispatcher } from '../../util/special-actions';
 import { useFileBrowserValidation } from '../../util/validation';
@@ -89,6 +88,9 @@ export interface FileBrowserProps {
 export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const { files, children } = props;
 
+    // Instance ID used to distinguish between
+    const chonkyInstanceId = useStaticValue(shortid.generate);
+
     // Assign default values
     const folderChain = props.folderChain ? props.folderChain : null;
     const fileActions = props.fileActions ? props.fileActions : [];
@@ -136,16 +138,8 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     );
 
     // Deal with file text search
-    const [searchFilter, setSearchFilter] = useState<string>('');
-    const filteredFiles = useMemo(() => {
-        if (!searchFilter) return sortedFiles;
-        const searcher = new FuzzySearch(
-            files.filter((f) => !!f) as FileData[],
-            ['name'],
-            { caseSensitive: false, sort: true }
-        );
-        return searcher.search(searchFilter);
-    }, [sortedFiles, searchFilter]);
+    const { searchState, searchContexts } = useSearch();
+    const filteredFiles = useFilteredFiles(sortedFiles, searchState.searchFilter);
 
     // Deal with clicks outside of Chonky
     const chonkyRootRef = useClickListener({
@@ -158,6 +152,11 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         value: ExtractContextType<ContextType>;
     }
     const contexts: ContextData<any>[] = [
+        ...searchContexts,
+        validateContextType({
+            context: ChonkyInstanceIdContext,
+            value: chonkyInstanceId,
+        }),
         validateContextType({
             context: ChonkyFilesContext,
             value: filteredFiles,
@@ -189,14 +188,6 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         validateContextType({
             context: ChonkyDispatchSpecialActionContext,
             value: dispatchSpecialAction,
-        }),
-        validateContextType({
-            context: ChonkySearchFilterContext,
-            value: searchFilter,
-        }),
-        validateContextType({
-            context: ChonkySetSearchFilterContext,
-            value: setSearchFilter,
         }),
         validateContextType({
             context: ChonkyThumbnailGeneratorContext,

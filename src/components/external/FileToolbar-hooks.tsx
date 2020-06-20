@@ -1,21 +1,15 @@
 import c from 'classnames';
 import React, { useContext, useMemo } from 'react';
-import { Nullable, Undefinable } from 'tsdef';
+import { Nullable } from 'tsdef';
 
-import { FileData } from '../../typedef';
 import {
     ChonkyDispatchFileActionContext,
     ChonkyFileActionsContext,
-    ChonkyFilesContext,
     ChonkyFolderChainContext,
-    ChonkySelectionContext,
-    ChonkySelectionUtilContext,
 } from '../../util/context';
 import { ChonkyActions } from '../../util/file-actions';
 import { FileHelper } from '../../util/file-helper';
-import { SelectionHelper } from '../../util/selection';
 import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
-import { ToolbarButton } from './ToolbarButton';
 import { ToolbarButtonGroup } from './ToolbarButtonGroup';
 
 /**
@@ -85,99 +79,6 @@ export const useFolderChainComponent = () => {
     return folderChainComponent;
 };
 
-/**
- * Converts an array of file actions into button components.
- */
-export const useFileActionButtons = (): {
-    openParentFolderButton: Nullable<React.ReactElement>;
-    buttonComponents: React.ReactElement[];
-} => {
-    const files = useContext(ChonkyFilesContext);
-    const folderChain = useContext(ChonkyFolderChainContext);
-    const selection = useContext(ChonkySelectionContext);
-    const selectionUtil = useContext(ChonkySelectionUtilContext);
-    const fileActions = useContext(ChonkyFileActionsContext);
-    const dispatchChonkyAction = useContext(ChonkyDispatchFileActionContext);
-
-    const parentFolder =
-        folderChain && folderChain.length > 1
-            ? folderChain[folderChain?.length - 2]
-            : null;
-    const selectionSize = SelectionHelper.getSelectionSize(files, selection);
-
-    // All hook params should go into `deps`
-    const deps = [
-        files,
-        folderChain,
-        selection,
-        selectionUtil,
-        dispatchChonkyAction,
-        parentFolder,
-        selectionSize,
-    ];
-    return useMemo(() => {
-        let openParentFolderButton = null;
-        const buttonComponents: React.ReactElement[] = [];
-        for (let i = 0; i < fileActions.length; ++i) {
-            const action = fileActions[i];
-            const { toolbarButton } = action;
-            if (!toolbarButton) continue;
-
-            let actionSelectionSize: Undefinable<number> = undefined;
-            let actionFiles: Undefinable<ReadonlyArray<FileData>> = undefined;
-            if (action.requiresSelection) {
-                if (action.fileFilter) {
-                    actionSelectionSize = SelectionHelper.getSelectionSize(
-                        files,
-                        selection,
-                        action.fileFilter
-                    );
-                    actionFiles = SelectionHelper.getSelectedFiles(
-                        files,
-                        selection,
-                        action.fileFilter
-                    );
-                } else {
-                    actionSelectionSize = selectionSize;
-                    actionFiles = SelectionHelper.getSelectedFiles(files, selection);
-                }
-            }
-            const actionTarget =
-                action.requiresParentFolder && parentFolder ? parentFolder : undefined;
-            const disabled =
-                (action.requiresSelection && actionSelectionSize === 0) ||
-                (action.requiresParentFolder && !parentFolder);
-
-            const key = `toolbar-button-${action.name}`;
-            const component = (
-                <ToolbarButton
-                    key={key}
-                    text={toolbarButton.name}
-                    tooltip={toolbarButton.tooltip}
-                    icon={toolbarButton.icon}
-                    iconOnly={toolbarButton.iconOnly}
-                    onClick={() =>
-                        dispatchChonkyAction({
-                            actionName: action.name,
-                            target: actionTarget,
-                            files: actionFiles,
-                        })
-                    }
-                    disabled={disabled}
-                />
-            );
-
-            if (action.name === ChonkyActions.OpenParentFolder.name) {
-                openParentFolderButton = component;
-            } else {
-                buttonComponents.push(component);
-            }
-        }
-
-        return { openParentFolderButton, buttonComponents };
-    }, deps);
-};
-
 export const useToolbarButtonGroups = () => {
     const fileActions = useContext(ChonkyFileActionsContext);
     const deps = [fileActions];
@@ -225,7 +126,7 @@ export const useToolbarButtonGroups = () => {
                 // Only add it to the normal groups array if it's not a special button
                 if (action.name === ChonkyActions.OpenParentFolder.name) {
                     openParentFolderButtonGroup = group;
-                } else if (action.name === ChonkyActions.Search.name) {
+                } else if (action.name === ChonkyActions.ToggleSearch.name) {
                     searchButtonGroup = group;
                 } else {
                     buttonGroups.push(group);

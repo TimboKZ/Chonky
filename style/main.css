@@ -386,6 +386,7 @@ button.chonky-folder-chain-entry:active {
 
 .chonky-file-search {
   margin-bottom: 7.5px;
+  margin-top: -7.5px;
 }
 .chonky-file-search-input-group label,
 .chonky-file-search-input-group input {

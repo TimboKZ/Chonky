@@ -6,16 +6,19 @@ import {
     ChonkyDispatchFileActionContext,
     ChonkyFilesContext,
     ChonkyFolderChainContext,
+    ChonkySearchBarVisibleContext,
     ChonkySelectionContext,
     ChonkySelectionSizeContext,
 } from '../../util/context';
 import { SelectionHelper } from '../../util/selection';
+import { ChonkyActions } from 'chonky';
 
 export const useSmartToolbarButtonProps = (action: FileAction) => {
     const files = useContext(ChonkyFilesContext);
     const folderChain = useContext(ChonkyFolderChainContext);
     const selection = useContext(ChonkySelectionContext);
     const selectionSize = useContext(ChonkySelectionSizeContext);
+    const searchBarVisible = useContext(ChonkySearchBarVisibleContext);
     const dispatchChonkyAction = useContext(ChonkyDispatchFileActionContext);
 
     const parentFolder =
@@ -51,12 +54,16 @@ export const useSmartToolbarButtonProps = (action: FileAction) => {
                 actionFiles = SelectionHelper.getSelectedFiles(files, selection);
             }
         }
-        const actionTarget =
-            action.requiresParentFolder && parentFolder ? parentFolder : undefined;
+
+        const active =
+            action.name === ChonkyActions.ToggleSearch.name && searchBarVisible;
+
         const disabled =
             (action.requiresSelection && actionSelectionSize === 0) ||
             (action.requiresParentFolder && !parentFolder);
 
+        const actionTarget =
+            action.requiresParentFolder && parentFolder ? parentFolder : undefined;
         const onClick = () =>
             dispatchChonkyAction({
                 actionName: action.name,
@@ -64,6 +71,6 @@ export const useSmartToolbarButtonProps = (action: FileAction) => {
                 files: actionFiles,
             });
 
-        return { onClick, disabled };
+        return { active, onClick, disabled };
     }, deps);
 };

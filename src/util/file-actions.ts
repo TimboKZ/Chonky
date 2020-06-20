@@ -11,6 +11,7 @@ import {
 import { FileHelper } from './file-helper';
 import { Logger } from './logger';
 import { isFunction } from './validation';
+import { SpecialAction } from './special-actions';
 
 export const ChonkyActions = {
     // Actions triggered by drag & drop
@@ -45,14 +46,16 @@ export const ChonkyActions = {
             icon: ChonkyIconName.openFiles,
         },
     },
-    Search: {
-        name: 'search',
+    ToggleSearch: {
+        name: 'toggle_search',
         hotkeys: ['ctrl+f'],
         toolbarButton: {
             name: 'Search',
             icon: ChonkyIconName.search,
             iconOnly: true,
         },
+
+        specialActionToDispatch: SpecialAction.ToggleSearchBar,
     },
 
     CopyFiles: {
@@ -95,7 +98,7 @@ export const DefaultActions: FileAction[] = [
 
     ChonkyActions.OpenParentFolder,
     ChonkyActions.OpenFiles,
-    ChonkyActions.Search,
+    ChonkyActions.ToggleSearch,
 ];
 
 /**

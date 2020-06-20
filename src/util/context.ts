@@ -12,8 +12,11 @@ import {
 import { NOOP_FUNCTION } from './constants';
 import { SelectionUtil } from './selection';
 
+export const ChonkyInstanceIdContext = React.createContext<string>('no-instance-id');
 export const ChonkyFilesContext = React.createContext<FileArray>([]);
 export const ChonkyFolderChainContext = React.createContext<Nullable<FileArray>>(null);
+
+// === Selection contexts
 export const ChonkySelectionContext = React.createContext<FileSelection>({});
 export const ChonkySelectionSizeContext = React.createContext<number>(0);
 export const ChonkySelectionUtilContext = React.createContext<SelectionUtil>(
@@ -28,6 +31,15 @@ export const ChonkyDispatchSpecialActionContext = React.createContext<
     InternalSpecialActionDispatcher
 >(NOOP_FUNCTION);
 
+// === Search contexts
+export const ChonkySearchBarEnabledContext = React.createContext<boolean>(false);
+export const ChonkySetSearchBarEnabledContext = React.createContext<
+    (visible: boolean) => void
+>(NOOP_FUNCTION);
+export const ChonkySearchBarVisibleContext = React.createContext<boolean>(false);
+export const ChonkySetSearchBarVisibleContext = React.createContext<
+    (visible: boolean) => void
+>(NOOP_FUNCTION);
 export const ChonkySearchFilterContext = React.createContext<string>('');
 export const ChonkySetSearchFilterContext = React.createContext<
     (searchFilter: string) => void
@@ -43,7 +55,7 @@ export const ChonkyDisableSelectionContext = React.createContext<boolean>(false)
 export const ChonkyEnableDragAndDropContext = React.createContext<boolean>(false);
 
 type ExtractContextType<P> = P extends React.Context<infer T> ? T : never;
-interface ContextData<ContextType extends React.Context<any>> {
+export interface ContextData<ContextType extends React.Context<any>> {
     context: ContextType;
     value: ExtractContextType<ContextType>;
 }

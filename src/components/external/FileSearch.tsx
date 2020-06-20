@@ -6,8 +6,10 @@
 
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 
+import { INTENTIONAL_EMPTY_DEPS } from '../../util/constants';
 import {
     ChonkySearchFilterContext,
+    ChonkySetSearchBarEnabledContext,
     ChonkySetSearchFilterContext,
 } from '../../util/context';
 import { useDebounce } from '../../util/hooks-helpers';
@@ -16,8 +18,15 @@ import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
 export interface FileSearchProps {}
 
 export const FileSearch: React.FC<FileSearchProps> = () => {
+    const setSearchBarEnabled = useContext(ChonkySetSearchBarEnabledContext);
     const globalSearchFilter = useContext(ChonkySearchFilterContext);
     const setGlobalSearchFilter = useContext(ChonkySetSearchFilterContext);
+
+    // Notify all other components that search bar is mounted.
+    useEffect(() => {
+        setSearchBarEnabled(true);
+        return () => setSearchBarEnabled(false);
+    }, INTENTIONAL_EMPTY_DEPS);
 
     // Define a local search filter, and update it when global search filter updates
     const [localSearchFilter, setLocalSearchFilter] = useState<string>(

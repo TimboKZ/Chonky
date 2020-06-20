@@ -1,7 +1,7 @@
 import { Nilable, Nullable, Undefinable } from 'tsdef';
 
 import { ChonkyIconName } from './components/external/ChonkyIcon';
-import { SpecialActionData } from './util/special-actions';
+import { SpecialAction, SpecialActionData } from './util/special-actions';
 
 // If you make changes to required params in `FileData`, make sure to makes relevant
 // changes `validation.ts` functions.
@@ -45,6 +45,11 @@ export interface FileAction {
 
     hotkeys?: readonly string[]; // Hotkeys using `hotkey-js` notation
     toolbarButton?: ToolbarButtonData; // Description below
+
+    // Special action that should be dispatched on activation of this action. This
+    // is used by Chonky internally, keep it `undefined` unless you know what you're
+    // doing.
+    specialActionToDispatch?: SpecialAction;
 }
 
 export interface ToolbarButtonData {
