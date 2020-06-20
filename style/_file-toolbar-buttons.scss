@@ -29,8 +29,8 @@
     @include reset-button;
 
     line-height: $toolbar-line-height;
-    border: solid 1px $border-light;
     border-radius: $radius-medium;
+    border: solid 1px transparent;
     min-width: $toolbar-height;
     height: $toolbar-height;
     vertical-align: middle;

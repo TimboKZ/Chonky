@@ -17,18 +17,10 @@
 
         &-left {
             flex-grow: 10000;
-
-            .chonky-toolbar-button-group {
-                margin-right: $file-browser-padding;
-            }
         }
 
         &-right {
             justify-content: space-between;
-
-            .chonky-toolbar-button-group {
-                margin-left: $file-browser-padding;
-            }
         }
 
         &-inside {

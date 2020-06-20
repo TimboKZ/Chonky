@@ -166,14 +166,8 @@
 .chonky-toolbar-side-left {
   flex-grow: 10000;
 }
-.chonky-toolbar-side-left .chonky-toolbar-button-group {
-  margin-right: 7.5px;
-}
 .chonky-toolbar-side-right {
   justify-content: space-between;
-}
-.chonky-toolbar-side-right .chonky-toolbar-button-group {
-  margin-left: 7.5px;
 }
 .chonky-toolbar-side-inside {
   flex-direction: row;
@@ -281,8 +275,8 @@ button.chonky-folder-chain-entry:active {
   border: none;
   padding: 0;
   line-height: 26px;
-  border: solid 1px #e4e4e4;
   border-radius: 4px;
+  border: solid 1px transparent;
   min-width: 28px;
   height: 28px;
   vertical-align: middle;
