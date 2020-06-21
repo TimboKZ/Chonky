@@ -23,7 +23,7 @@
 
 • **context**: *ContextType*
 
-*Defined in [src/util/context.ts:65](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L65)*
+*Defined in [src/util/context.ts:65](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/context.ts#L65)*
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 • **value**: *[ExtractContextType](../modules/_util_context_.md#extractcontexttype)‹ContextType›*
 
-*Defined in [src/util/context.ts:66](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L66)*
+*Defined in [src/util/context.ts:66](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/context.ts#L66)*

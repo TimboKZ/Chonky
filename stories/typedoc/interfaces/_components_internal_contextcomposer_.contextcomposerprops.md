@@ -18,4 +18,4 @@
 
 • **providers**: *[ContextProviderData](_components_internal_contextcomposer_.contextproviderdata.md)[]*
 
-*Defined in [src/components/internal/ContextComposer.tsx:15](https://github.com/TimboKZ/Chonky/blob/84f690f/src/components/internal/ContextComposer.tsx#L15)*
+*Defined in [src/components/internal/ContextComposer.tsx:15](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/internal/ContextComposer.tsx#L15)*

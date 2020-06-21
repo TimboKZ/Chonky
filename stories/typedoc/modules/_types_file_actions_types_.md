@@ -21,7 +21,7 @@
 
 Ƭ **FileActionHandler**: *function*
 
-*Defined in [src/types/file-actions.types.ts:36](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/file-actions.types.ts#L36)*
+*Defined in [src/types/file-actions.types.ts:36](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/types/file-actions.types.ts#L36)*
 
 #### Type declaration:
 
@@ -40,7 +40,7 @@ ___
 
 Ƭ **InternalFileActionDispatcher**: *function*
 
-*Defined in [src/types/file-actions.types.ts:40](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/file-actions.types.ts#L40)*
+*Defined in [src/types/file-actions.types.ts:40](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/types/file-actions.types.ts#L40)*
 
 #### Type declaration:
 

@@ -36,4 +36,4 @@
     );
 })
 
-*Defined in [src/components/internal/ErrorMessage.tsx:8](https://github.com/TimboKZ/Chonky/blob/84f690f/src/components/internal/ErrorMessage.tsx#L8)*
+*Defined in [src/components/internal/ErrorMessage.tsx:8](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/internal/ErrorMessage.tsx#L8)*

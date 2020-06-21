@@ -4,25 +4,52 @@
 
 ## Index
 
-### Interfaces
-
-* [ErrorMessageData](../interfaces/_util_validation_.errormessagedata.md)
-
 ### Functions
 
+* [cleanupFileActions](_util_validation_.md#const-cleanupfileactions)
 * [cleanupFileArray](_util_validation_.md#const-cleanupfilearray)
 * [isFunction](_util_validation_.md#const-isfunction)
 * [isMobileDevice](_util_validation_.md#const-ismobiledevice)
 * [isPlainObject](_util_validation_.md#const-isplainobject)
+* [useFileActionsValidation](_util_validation_.md#const-usefileactionsvalidation)
 * [useFileArrayValidation](_util_validation_.md#const-usefilearrayvalidation)
 
 ## Functions
+
+### `Const` cleanupFileActions
+
+▸ **cleanupFileActions**(`fileActions`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[]): *object*
+
+*Defined in [src/util/validation.ts:267](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/validation.ts#L267)*
+
+This function validates the user-provided file actions array. It checks the following
+criteria:
+- `files` is not an array
+- there are duplicate file action IDs
+- some file actions are missing `id` field
+- some files have invalid type (they are not objects)
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`fileActions` | [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[] |
+
+**Returns:** *object*
+
+* **cleanFileActions**: *[FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[]*
+
+* **warningBullets**: *string[]*
+
+* **warningMessage**: *Nullable‹string›*
+
+___
 
 ### `Const` cleanupFileArray
 
 ▸ **cleanupFileArray**‹**AllowNull**›(`fileArray`: AllowNull extends false ? FileArray : Nullable<FileArray>, `allowNull`: AllowNull): *object*
 
-*Defined in [src/util/validation.ts:32](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/validation.ts#L32)*
+*Defined in [src/util/validation.ts:34](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/validation.ts#L34)*
 
 This function validates the user-provided files array. It checks the following
 criteria:
@@ -57,7 +84,7 @@ ___
 
 ▸ **isFunction**(`value`: any): *value is Function*
 
-*Defined in [src/util/validation.ts:11](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/validation.ts#L11)*
+*Defined in [src/util/validation.ts:13](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/validation.ts#L13)*
 
 **Parameters:**
 
@@ -73,7 +100,7 @@ ___
 
 ▸ **isMobileDevice**(): *boolean*
 
-*Defined in [src/util/validation.ts:15](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/validation.ts#L15)*
+*Defined in [src/util/validation.ts:17](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/validation.ts#L17)*
 
 **Returns:** *boolean*
 
@@ -83,7 +110,7 @@ ___
 
 ▸ **isPlainObject**(`value`: any): *value is object*
 
-*Defined in [src/util/validation.ts:8](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/validation.ts#L8)*
+*Defined in [src/util/validation.ts:10](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/validation.ts#L10)*
 
 **Parameters:**
 
@@ -95,11 +122,33 @@ Name | Type |
 
 ___
 
+### `Const` useFileActionsValidation
+
+▸ **useFileActionsValidation**(`fileActions`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[], `defaultFileActions`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[], `includeDefaultFileActions`: boolean): *object*
+
+*Defined in [src/util/validation.ts:202](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/validation.ts#L202)*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`fileActions` | [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[] |
+`defaultFileActions` | [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[] |
+`includeDefaultFileActions` | boolean |
+
+**Returns:** *object*
+
+* **cleanFileActions**: *[FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[]*
+
+* **errorMessages**: *[ErrorMessageData](../interfaces/_types_validation_types_.errormessagedata.md)[]*
+
+___
+
 ### `Const` useFileArrayValidation
 
 ▸ **useFileArrayValidation**(`files`: [FileArray](_types_files_types_.md#filearray), `folderChain`: Nullable‹[FileArray](_types_files_types_.md#filearray)›): *object*
 
-*Defined in [src/util/validation.ts:137](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/validation.ts#L137)*
+*Defined in [src/util/validation.ts:134](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/validation.ts#L134)*
 
 **Parameters:**
 
@@ -114,4 +163,4 @@ Name | Type |
 
 * **cleanFolderChain**: *Nullable‹[FileArray](_types_files_types_.md#filearray)›*
 
-* **errorMessages**: *[ErrorMessageData](../interfaces/_util_validation_.errormessagedata.md)[]*
+* **errorMessages**: *[ErrorMessageData](../interfaces/_types_validation_types_.errormessagedata.md)[]*

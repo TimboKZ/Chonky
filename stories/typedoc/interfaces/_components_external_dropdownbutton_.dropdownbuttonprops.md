@@ -22,7 +22,7 @@
 
 • **disabled**? : *undefined | false | true*
 
-*Defined in [src/components/external/DropdownButton.tsx:19](https://github.com/TimboKZ/Chonky/blob/84f690f/src/components/external/DropdownButton.tsx#L19)*
+*Defined in [src/components/external/DropdownButton.tsx:19](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/external/DropdownButton.tsx#L19)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **icon**? : *[ChonkyIconName](../enums/_types_icons_types_.chonkyiconname.md) | string*
 
-*Defined in [src/components/external/DropdownButton.tsx:17](https://github.com/TimboKZ/Chonky/blob/84f690f/src/components/external/DropdownButton.tsx#L17)*
+*Defined in [src/components/external/DropdownButton.tsx:17](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/external/DropdownButton.tsx#L17)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **onClick**? : *undefined | function*
 
-*Defined in [src/components/external/DropdownButton.tsx:18](https://github.com/TimboKZ/Chonky/blob/84f690f/src/components/external/DropdownButton.tsx#L18)*
+*Defined in [src/components/external/DropdownButton.tsx:18](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/external/DropdownButton.tsx#L18)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **text**: *string*
 
-*Defined in [src/components/external/DropdownButton.tsx:15](https://github.com/TimboKZ/Chonky/blob/84f690f/src/components/external/DropdownButton.tsx#L15)*
+*Defined in [src/components/external/DropdownButton.tsx:15](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/external/DropdownButton.tsx#L15)*
 
 ___
 
@@ -54,4 +54,4 @@ ___
 
 • **tooltip**? : *undefined | string*
 
-*Defined in [src/components/external/DropdownButton.tsx:16](https://github.com/TimboKZ/Chonky/blob/84f690f/src/components/external/DropdownButton.tsx#L16)*
+*Defined in [src/components/external/DropdownButton.tsx:16](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/external/DropdownButton.tsx#L16)*

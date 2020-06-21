@@ -24,7 +24,7 @@
 
 • **actionId**: *[KeyboardClickFile](../enums/_types_special_actions_types_.specialaction.md#keyboardclickfile)*
 
-*Defined in [src/types/special-actions.types.ts:23](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/special-actions.types.ts#L23)*
+*Defined in [src/types/special-actions.types.ts:23](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/types/special-actions.types.ts#L23)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **altKey**: *boolean*
 
-*Defined in [src/types/special-actions.types.ts:27](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/special-actions.types.ts#L27)*
+*Defined in [src/types/special-actions.types.ts:27](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/types/special-actions.types.ts#L27)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **ctrlKey**: *boolean*
 
-*Defined in [src/types/special-actions.types.ts:28](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/special-actions.types.ts#L28)*
+*Defined in [src/types/special-actions.types.ts:28](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/types/special-actions.types.ts#L28)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **enterKey**: *boolean*
 
-*Defined in [src/types/special-actions.types.ts:25](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/special-actions.types.ts#L25)*
+*Defined in [src/types/special-actions.types.ts:25](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/types/special-actions.types.ts#L25)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • **file**: *[FileData](_types_files_types_.filedata.md)*
 
-*Defined in [src/types/special-actions.types.ts:24](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/special-actions.types.ts#L24)*
+*Defined in [src/types/special-actions.types.ts:24](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/types/special-actions.types.ts#L24)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **shiftKey**: *boolean*
 
-*Defined in [src/types/special-actions.types.ts:29](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/special-actions.types.ts#L29)*
+*Defined in [src/types/special-actions.types.ts:29](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/types/special-actions.types.ts#L29)*
 
 ___
 
@@ -72,4 +72,4 @@ ___
 
 • **spaceKey**: *boolean*
 
-*Defined in [src/types/special-actions.types.ts:26](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/special-actions.types.ts#L26)*
+*Defined in [src/types/special-actions.types.ts:26](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/types/special-actions.types.ts#L26)*

@@ -7,7 +7,7 @@
 ### Variables
 
 * [ChonkyActions](_util_file_actions_.md#const-chonkyactions)
-* [DefaultActions](_util_file_actions_.md#const-defaultactions)
+* [DefaultFileActions](_util_file_actions_.md#const-defaultfileactions)
 
 ### Functions
 
@@ -98,7 +98,7 @@
     },
 } as const
 
-*Defined in [src/util/file-actions.ts:27](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/file-actions.ts#L27)*
+*Defined in [src/util/file-actions.ts:27](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/file-actions.ts#L27)*
 
 #### Type declaration:
 
@@ -214,9 +214,9 @@
 
 ___
 
-### `Const` DefaultActions
+### `Const` DefaultFileActions
 
-• **DefaultActions**: *[FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[]* = [
+• **DefaultFileActions**: *[FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[]* = [
     ChonkyActions.MoveFilesTo,
     ChonkyActions.DuplicateFilesTo,
 
@@ -225,7 +225,7 @@ ___
     ChonkyActions.ToggleSearch,
 ]
 
-*Defined in [src/util/file-actions.ts:107](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/file-actions.ts#L107)*
+*Defined in [src/util/file-actions.ts:107](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/file-actions.ts#L107)*
 
 ## Functions
 
@@ -233,7 +233,7 @@ ___
 
 ▸ **useFileActionDispatcher**(`fileActions`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[], `onFileAction`: Nullable‹[FileActionHandler](_types_file_actions_types_.md#fileactionhandler)›): *[InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)*
 
-*Defined in [src/util/file-actions.ts:122](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/file-actions.ts#L122)*
+*Defined in [src/util/file-actions.ts:122](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/file-actions.ts#L122)*
 
 Returns a dispatch method meant to be used by child components. This dispatch method
 is meant for actions that should be handled directly by the user. If you want to
@@ -255,7 +255,7 @@ ___
 
 ▸ **useFileActionTrigger**(`action`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)): *object*
 
-*Defined in [src/util/file-actions.ts:164](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/file-actions.ts#L164)*
+*Defined in [src/util/file-actions.ts:164](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/file-actions.ts#L164)*
 
 **Parameters:**
 
