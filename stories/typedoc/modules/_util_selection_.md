@@ -21,7 +21,7 @@
 
 ▸ **useSelection**(`files`: [FileArray](_types_files_types_.md#filearray), `disableSelection`: boolean): *object*
 
-*Defined in [src/util/selection.ts:13](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/selection.ts#L13)*
+*Defined in [src/util/selection.ts:13](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/selection.ts#L13)*
 
 **Parameters:**
 
@@ -32,37 +32,27 @@ Name | Type |
 
 **Returns:** *object*
 
-* **clearSelection**: *(Anonymous function)*
+* **selection**: *[FileSelection](../interfaces/_types_selection_types_.fileselection.md)*
 
-* **selectFiles**: *(Anonymous function)*
-
-* **selection**: *[FileSelection](../interfaces/_types_files_types_.fileselection.md)*
+* **selectionModifiers**: *[SelectionModifiers](../interfaces/_types_selection_types_.selectionmodifiers.md)*
 
 * **selectionSize**: *number*
 
 * **selectionUtilRef**: *MutableRefObject‹[SelectionUtil](../classes/_util_selection_.selectionutil.md)‹››*
 
-* **toggleSelection**: *(Anonymous function)*
-
 ___
 
 ### `Const` useSelectionModifiers
 
-▸ **useSelectionModifiers**(`disableSelection`: boolean, `setSelection`: React.Dispatch‹React.SetStateAction‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)››): *object*
+▸ **useSelectionModifiers**(`disableSelection`: boolean, `setSelection`: React.Dispatch‹React.SetStateAction‹[FileSelection](../interfaces/_types_selection_types_.fileselection.md)››): *[SelectionModifiers](../interfaces/_types_selection_types_.selectionmodifiers.md)*
 
-*Defined in [src/util/selection.ts:49](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/selection.ts#L49)*
+*Defined in [src/util/selection.ts:44](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/selection.ts#L44)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `disableSelection` | boolean |
-`setSelection` | React.Dispatch‹React.SetStateAction‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)›› |
+`setSelection` | React.Dispatch‹React.SetStateAction‹[FileSelection](../interfaces/_types_selection_types_.fileselection.md)›› |
 
-**Returns:** *object*
-
-* **clearSelection**: *(Anonymous function)*
-
-* **selectFiles**: *(Anonymous function)*
-
-* **toggleSelection**: *(Anonymous function)*
+**Returns:** *[SelectionModifiers](../interfaces/_types_selection_types_.selectionmodifiers.md)*

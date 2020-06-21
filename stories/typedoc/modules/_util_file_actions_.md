@@ -12,6 +12,7 @@
 ### Functions
 
 * [useFileActionDispatcher](_util_file_actions_.md#const-usefileactiondispatcher)
+* [useFileActionTrigger](_util_file_actions_.md#const-usefileactiontrigger)
 
 ## Variables
 
@@ -97,7 +98,7 @@
     },
 } as const
 
-*Defined in [src/util/file-actions.ts:17](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/file-actions.ts#L17)*
+*Defined in [src/util/file-actions.ts:27](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/file-actions.ts#L27)*
 
 #### Type declaration:
 
@@ -224,7 +225,7 @@ ___
     ChonkyActions.ToggleSearch,
 ]
 
-*Defined in [src/util/file-actions.ts:97](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/file-actions.ts#L97)*
+*Defined in [src/util/file-actions.ts:107](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/file-actions.ts#L107)*
 
 ## Functions
 
@@ -232,7 +233,7 @@ ___
 
 ▸ **useFileActionDispatcher**(`fileActions`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[], `onFileAction`: Nullable‹[FileActionHandler](_types_file_actions_types_.md#fileactionhandler)›): *[InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)*
 
-*Defined in [src/util/file-actions.ts:112](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/file-actions.ts#L112)*
+*Defined in [src/util/file-actions.ts:122](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/file-actions.ts#L122)*
 
 Returns a dispatch method meant to be used by child components. This dispatch method
 is meant for actions that should be handled directly by the user. If you want to
@@ -247,3 +248,25 @@ Name | Type |
 `onFileAction` | Nullable‹[FileActionHandler](_types_file_actions_types_.md#fileactionhandler)› |
 
 **Returns:** *[InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)*
+
+___
+
+### `Const` useFileActionTrigger
+
+▸ **useFileActionTrigger**(`action`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)): *object*
+
+*Defined in [src/util/file-actions.ts:164](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/file-actions.ts#L164)*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`action` | [FileAction](../interfaces/_types_file_actions_types_.fileaction.md) |
+
+**Returns:** *object*
+
+* **active**: *boolean*
+
+* **disabled**: *undefined | false | true*
+
+* **triggerAction**: *triggerAction*

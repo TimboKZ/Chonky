@@ -27,7 +27,7 @@
     return <FontAwesomeIcon {...faProps} />;
 })
 
-*Defined in [src/components/external/ChonkyIcon.tsx:133](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ChonkyIcon.tsx#L133)*
+*Defined in [src/components/external/ChonkyIcon.tsx:145](https://github.com/TimboKZ/Chonky/blob/84f690f/src/components/external/ChonkyIcon.tsx#L145)*
 
 ___
 
@@ -67,7 +67,7 @@ ___
     [ChonkyIconName.symlink]: faExternalLinkAlt,
     [ChonkyIconName.hidden]: faEyeSlash,
 
-    // file types
+    // Generic file types
     [ChonkyIconName.file]: faFile,
     [ChonkyIconName.license]: faBalanceScale,
     [ChonkyIconName.code]: faFileCode,
@@ -76,28 +76,39 @@ ___
     [ChonkyIconName.database]: faDatabase,
     [ChonkyIconName.text]: faFileAlt,
     [ChonkyIconName.archive]: faFileArchive,
-    [ChonkyIconName.csv]: faFileExcel,
     [ChonkyIconName.image]: faFileImage,
-    [ChonkyIconName.pdf]: faFilePdf,
-    [ChonkyIconName.word]: faFileWord,
     [ChonkyIconName.video]: faFilm,
     [ChonkyIconName.info]: faInfoCircle,
     [ChonkyIconName.key]: faKey,
     [ChonkyIconName.lock]: faLock,
     [ChonkyIconName.music]: faMusic,
-    [ChonkyIconName.flash]: faRunning,
     [ChonkyIconName.terminal]: faTerminal,
-    [ChonkyIconName.authors]: faUsers,
-    [ChonkyIconName.adobe]: faAdobe,
-    [ChonkyIconName.git]: faGitAlt,
+    [ChonkyIconName.users]: faUsers,
+
+    // OS file types
     [ChonkyIconName.linux]: faLinux,
+    [ChonkyIconName.ubuntu]: faUbuntu,
     [ChonkyIconName.windows]: faWindows,
+
+    // Programming language file types
+    [ChonkyIconName.rust]: faRust,
+    [ChonkyIconName.python]: faPython,
     [ChonkyIconName.nodejs]: faNodeJs,
     [ChonkyIconName.php]: faPhp,
-    [ChonkyIconName.python]: faPython,
-    [ChonkyIconName.ubuntu]: faUbuntu,
+
+    // Development tools file types
+    [ChonkyIconName.git]: faGitAlt,
+
+    // Brands file types
+    [ChonkyIconName.adobe]: faAdobe,
+
+    // Other program file types
+    [ChonkyIconName.pdf]: faFilePdf,
+    [ChonkyIconName.excel]: faFileExcel,
+    [ChonkyIconName.word]: faFileWord,
+    [ChonkyIconName.flash]: faRunning,
 } as const
 
-*Defined in [src/components/external/ChonkyIcon.tsx:58](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ChonkyIcon.tsx#L58)*
+*Defined in [src/components/external/ChonkyIcon.tsx:59](https://github.com/TimboKZ/Chonky/blob/84f690f/src/components/external/ChonkyIcon.tsx#L59)*
 
 #### Type declaration:

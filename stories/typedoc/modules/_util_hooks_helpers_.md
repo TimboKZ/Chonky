@@ -24,7 +24,7 @@
 
 • **UNINITIALIZED_SENTINEL**: *object*
 
-*Defined in [src/util/hooks-helpers.ts:19](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/hooks-helpers.ts#L19)*
+*Defined in [src/util/hooks-helpers.ts:22](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/hooks-helpers.ts#L22)*
 
 #### Type declaration:
 
@@ -34,7 +34,7 @@
 
 ▸ **useClickListener**‹**T**›(`params`: [UseClickListenerParams](../interfaces/_util_hooks_helpers_.useclicklistenerparams.md)): *RefObject‹T›*
 
-*Defined in [src/util/hooks-helpers.ts:32](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/hooks-helpers.ts#L32)*
+*Defined in [src/util/hooks-helpers.ts:35](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/hooks-helpers.ts#L35)*
 
 **Type parameters:**
 
@@ -52,9 +52,9 @@ ___
 
 ### `Const` useDebounce
 
-▸ **useDebounce**‹**T**›(`value`: T, `delay`: number): *T*
+▸ **useDebounce**‹**T**›(`value`: T, `delay`: number): *[T, React.Dispatch‹React.SetStateAction‹T››]*
 
-*Defined in [src/util/hooks-helpers.ts:3](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/hooks-helpers.ts#L3)*
+*Defined in [src/util/hooks-helpers.ts:3](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/hooks-helpers.ts#L3)*
 
 **Type parameters:**
 
@@ -67,7 +67,7 @@ Name | Type |
 `value` | T |
 `delay` | number |
 
-**Returns:** *T*
+**Returns:** *[T, React.Dispatch‹React.SetStateAction‹T››]*
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 ▸ **useStaticValue**‹**T**›(`factory`: function): *T*
 
-*Defined in [src/util/hooks-helpers.ts:20](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/hooks-helpers.ts#L20)*
+*Defined in [src/util/hooks-helpers.ts:23](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/hooks-helpers.ts#L23)*
 
 **Type parameters:**
 

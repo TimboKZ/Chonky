@@ -19,7 +19,7 @@
 
 • **bullets**: *string[]*
 
-*Defined in [src/util/validation.ts:133](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/validation.ts#L133)*
+*Defined in [src/util/validation.ts:134](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/validation.ts#L134)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **message**: *string*
 
-*Defined in [src/util/validation.ts:132](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/validation.ts#L132)*
+*Defined in [src/util/validation.ts:133](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/validation.ts#L133)*

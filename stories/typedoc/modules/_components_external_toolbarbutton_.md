@@ -23,9 +23,9 @@
         const { fileAction: action } = props;
 
         const { toolbarButton: button } = action;
-        if (!button) return null;
 
-        const { active, onClick, disabled } = useSmartToolbarButtonProps(action);
+        const { active, triggerAction, disabled } = useFileActionTrigger(action);
+        if (!button) return null;
 
         return (
             <ToolbarButton
@@ -34,14 +34,14 @@
                 icon={button.icon}
                 iconOnly={button.iconOnly}
                 active={active}
-                onClick={onClick}
+                onClick={triggerAction}
                 disabled={disabled}
             />
         );
     }
 )
 
-*Defined in [src/components/external/ToolbarButton.tsx:66](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ToolbarButton.tsx#L66)*
+*Defined in [src/components/external/ToolbarButton.tsx:66](https://github.com/TimboKZ/Chonky/blob/84f690f/src/components/external/ToolbarButton.tsx#L66)*
 
 ___
 
@@ -89,4 +89,4 @@ ___
     );
 })
 
-*Defined in [src/components/external/ToolbarButton.tsx:20](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ToolbarButton.tsx#L20)*
+*Defined in [src/components/external/ToolbarButton.tsx:20](https://github.com/TimboKZ/Chonky/blob/84f690f/src/components/external/ToolbarButton.tsx#L20)*

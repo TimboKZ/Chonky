@@ -19,7 +19,7 @@
 
 • **height**: *number*
 
-*Defined in [src/types/file-list-view.types.ts:4](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/file-list-view.types.ts#L4)*
+*Defined in [src/types/file-list-view.types.ts:4](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/file-list-view.types.ts#L4)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **width**: *number*
 
-*Defined in [src/types/file-list-view.types.ts:3](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/file-list-view.types.ts#L3)*
+*Defined in [src/types/file-list-view.types.ts:3](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/file-list-view.types.ts#L3)*

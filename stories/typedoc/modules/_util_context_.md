@@ -45,7 +45,7 @@
 
 Ƭ **ExtractContextType**: *P extends Context<infer T> ? T : never*
 
-*Defined in [src/util/context.ts:62](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L62)*
+*Defined in [src/util/context.ts:63](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L63)*
 
 ## Variables
 
@@ -53,7 +53,7 @@
 
 • **ChonkyDisableSelectionContext**: *Context‹boolean›* = React.createContext<boolean>(false)
 
-*Defined in [src/util/context.ts:58](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L58)*
+*Defined in [src/util/context.ts:59](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L59)*
 
 ___
 
@@ -63,7 +63,7 @@ ___
     InternalFileActionDispatcher
 >(NOOP_FUNCTION)
 
-*Defined in [src/util/context.ts:25](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L25)*
+*Defined in [src/util/context.ts:26](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L26)*
 
 ___
 
@@ -73,7 +73,7 @@ ___
     InternalSpecialActionDispatcher
 >(NOOP_FUNCTION)
 
-*Defined in [src/util/context.ts:28](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L28)*
+*Defined in [src/util/context.ts:29](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L29)*
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 • **ChonkyDoubleClickDelayContext**: *Context‹number›* = React.createContext<number>(300)
 
-*Defined in [src/util/context.ts:50](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L50)*
+*Defined in [src/util/context.ts:51](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L51)*
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 • **ChonkyEnableDragAndDropContext**: *Context‹boolean›* = React.createContext<boolean>(false)
 
-*Defined in [src/util/context.ts:59](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L59)*
+*Defined in [src/util/context.ts:60](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L60)*
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 • **ChonkyFileActionsContext**: *Context‹[FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[]›* = React.createContext<FileAction[]>([])
 
-*Defined in [src/util/context.ts:24](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L24)*
+*Defined in [src/util/context.ts:25](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L25)*
 
 ___
 
@@ -107,7 +107,7 @@ ___
     DefaultEntrySize
 )
 
-*Defined in [src/util/context.ts:53](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L53)*
+*Defined in [src/util/context.ts:54](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L54)*
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 • **ChonkyFilesContext**: *Context‹null | [FileData](../interfaces/_types_files_types_.filedata.md)[]›* = React.createContext<FileArray>([])
 
-*Defined in [src/util/context.ts:14](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L14)*
+*Defined in [src/util/context.ts:15](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L15)*
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 • **ChonkyFolderChainContext**: *Context‹null | null | [FileData](../interfaces/_types_files_types_.filedata.md)[]›* = React.createContext<Nullable<FileArray>>(null)
 
-*Defined in [src/util/context.ts:15](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L15)*
+*Defined in [src/util/context.ts:16](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L16)*
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 • **ChonkyInstanceIdContext**: *Context‹string›* = React.createContext<string>('no-instance-id')
 
-*Defined in [src/util/context.ts:13](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L13)*
+*Defined in [src/util/context.ts:14](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L14)*
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 • **ChonkySearchBarEnabledContext**: *Context‹boolean›* = React.createContext<boolean>(false)
 
-*Defined in [src/util/context.ts:33](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L33)*
+*Defined in [src/util/context.ts:34](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L34)*
 
 ___
 
@@ -147,7 +147,7 @@ ___
 
 • **ChonkySearchBarVisibleContext**: *Context‹boolean›* = React.createContext<boolean>(false)
 
-*Defined in [src/util/context.ts:37](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L37)*
+*Defined in [src/util/context.ts:38](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L38)*
 
 ___
 
@@ -155,15 +155,15 @@ ___
 
 • **ChonkySearchFilterContext**: *Context‹string›* = React.createContext<string>('')
 
-*Defined in [src/util/context.ts:41](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L41)*
+*Defined in [src/util/context.ts:42](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L42)*
 
 ___
 
 ### `Const` ChonkySelectionContext
 
-• **ChonkySelectionContext**: *Context‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)›* = React.createContext<FileSelection>({})
+• **ChonkySelectionContext**: *Context‹[FileSelection](../interfaces/_types_selection_types_.fileselection.md)›* = React.createContext<FileSelection>({})
 
-*Defined in [src/util/context.ts:18](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L18)*
+*Defined in [src/util/context.ts:19](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L19)*
 
 ___
 
@@ -171,7 +171,7 @@ ___
 
 • **ChonkySelectionSizeContext**: *Context‹number›* = React.createContext<number>(0)
 
-*Defined in [src/util/context.ts:19](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L19)*
+*Defined in [src/util/context.ts:20](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L20)*
 
 ___
 
@@ -181,7 +181,7 @@ ___
     new SelectionUtil()
 )
 
-*Defined in [src/util/context.ts:20](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L20)*
+*Defined in [src/util/context.ts:21](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L21)*
 
 ___
 
@@ -191,7 +191,7 @@ ___
     (visible: boolean) => void
 >(NOOP_FUNCTION)
 
-*Defined in [src/util/context.ts:34](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L34)*
+*Defined in [src/util/context.ts:35](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L35)*
 
 ___
 
@@ -201,7 +201,7 @@ ___
     (visible: boolean) => void
 >(NOOP_FUNCTION)
 
-*Defined in [src/util/context.ts:38](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L38)*
+*Defined in [src/util/context.ts:39](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L39)*
 
 ___
 
@@ -211,7 +211,7 @@ ___
     (searchFilter: string) => void
 >(NOOP_FUNCTION)
 
-*Defined in [src/util/context.ts:42](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L42)*
+*Defined in [src/util/context.ts:43](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L43)*
 
 ___
 
@@ -221,7 +221,7 @@ ___
     Nullable<ThumbnailGenerator>
 >(null)
 
-*Defined in [src/util/context.ts:46](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L46)*
+*Defined in [src/util/context.ts:47](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L47)*
 
 ## Functions
 
@@ -229,7 +229,7 @@ ___
 
 ▸ **validateContextType**‹**T**›(`contextData`: [ContextData](../interfaces/_util_context_.contextdata.md)‹T›): *[ContextData](../interfaces/_util_context_.contextdata.md)‹T›*
 
-*Defined in [src/util/context.ts:72](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/context.ts#L72)*
+*Defined in [src/util/context.ts:73](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/context.ts#L73)*
 
 This function is a no-op, but it's type verifies that the provided `ContextData`
 value matches the type expected by the context.

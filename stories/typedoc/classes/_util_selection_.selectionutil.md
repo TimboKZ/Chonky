@@ -35,16 +35,16 @@ that need to access selection WITHOUT triggering re-renders.
 
 ###  constructor
 
-\+ **new SelectionUtil**(`files`: [FileArray](../modules/_types_files_types_.md#filearray), `selection`: [FileSelection](../interfaces/_types_files_types_.fileselection.md)): *[SelectionUtil](_util_selection_.selectionutil.md)*
+\+ **new SelectionUtil**(`files`: [FileArray](../modules/_types_files_types_.md#filearray), `selection`: [FileSelection](../interfaces/_types_selection_types_.fileselection.md)): *[SelectionUtil](_util_selection_.selectionutil.md)*
 
-*Defined in [src/util/selection.ts:134](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/selection.ts#L134)*
+*Defined in [src/util/selection.ts:136](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/selection.ts#L136)*
 
 **Parameters:**
 
 Name | Type | Default |
 ------ | ------ | ------ |
 `files` | [FileArray](../modules/_types_files_types_.md#filearray) | [] |
-`selection` | [FileSelection](../interfaces/_types_files_types_.fileselection.md) | {} |
+`selection` | [FileSelection](../interfaces/_types_selection_types_.fileselection.md) | {} |
 
 **Returns:** *[SelectionUtil](_util_selection_.selectionutil.md)*
 
@@ -54,15 +54,15 @@ Name | Type | Default |
 
 • **files**: *[FileArray](../modules/_types_files_types_.md#filearray)*
 
-*Defined in [src/util/selection.ts:133](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/selection.ts#L133)*
+*Defined in [src/util/selection.ts:135](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/selection.ts#L135)*
 
 ___
 
 ### `Private` selection
 
-• **selection**: *[FileSelection](../interfaces/_types_files_types_.fileselection.md)*
+• **selection**: *[FileSelection](../interfaces/_types_selection_types_.fileselection.md)*
 
-*Defined in [src/util/selection.ts:134](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/selection.ts#L134)*
+*Defined in [src/util/selection.ts:136](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/selection.ts#L136)*
 
 ## Methods
 
@@ -70,7 +70,7 @@ ___
 
 ▸ **getSelectedFiles**(...`filters`: [FileFilter](../modules/_types_files_types_.md#filefilter)[]): *ReadonlyArray‹Readonly‹[FileData](../interfaces/_types_files_types_.filedata.md)››*
 
-*Defined in [src/util/selection.ts:148](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/selection.ts#L148)*
+*Defined in [src/util/selection.ts:150](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/selection.ts#L150)*
 
 **Parameters:**
 
@@ -84,11 +84,11 @@ ___
 
 ###  getSelection
 
-▸ **getSelection**(): *Readonly‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)›*
+▸ **getSelection**(): *Readonly‹[FileSelection](../interfaces/_types_selection_types_.fileselection.md)›*
 
-*Defined in [src/util/selection.ts:145](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/selection.ts#L145)*
+*Defined in [src/util/selection.ts:147](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/selection.ts#L147)*
 
-**Returns:** *Readonly‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)›*
+**Returns:** *Readonly‹[FileSelection](../interfaces/_types_selection_types_.fileselection.md)›*
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 ▸ **getSelectionSize**(...`filters`: [FileFilter](../modules/_types_files_types_.md#filefilter)[]): *number*
 
-*Defined in [src/util/selection.ts:153](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/selection.ts#L153)*
+*Defined in [src/util/selection.ts:155](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/selection.ts#L155)*
 
 **Parameters:**
 
@@ -112,7 +112,7 @@ ___
 
 ▸ **isSelected**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *boolean*
 
-*Defined in [src/util/selection.ts:156](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/selection.ts#L156)*
+*Defined in [src/util/selection.ts:158](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/selection.ts#L158)*
 
 **Parameters:**
 
@@ -126,15 +126,15 @@ ___
 
 ### `Protected` protectedUpdate
 
-▸ **protectedUpdate**(`files`: [FileArray](../modules/_types_files_types_.md#filearray), `selection`: [FileSelection](../interfaces/_types_files_types_.fileselection.md)): *void*
+▸ **protectedUpdate**(`files`: [FileArray](../modules/_types_files_types_.md#filearray), `selection`: [FileSelection](../interfaces/_types_selection_types_.fileselection.md)): *void*
 
-*Defined in [src/util/selection.ts:140](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/selection.ts#L140)*
+*Defined in [src/util/selection.ts:142](https://github.com/TimboKZ/Chonky/blob/84f690f/src/util/selection.ts#L142)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `files` | [FileArray](../modules/_types_files_types_.md#filearray) |
-`selection` | [FileSelection](../interfaces/_types_files_types_.fileselection.md) |
+`selection` | [FileSelection](../interfaces/_types_selection_types_.fileselection.md) |
 
 **Returns:** *void*

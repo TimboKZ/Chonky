@@ -10,12 +10,12 @@
 
 ### Properties
 
-* [actionName](_types_special_actions_types_.specialtogglesearchbaraction.md#actionname)
+* [actionId](_types_special_actions_types_.specialtogglesearchbaraction.md#actionid)
 
 ## Properties
 
-###  actionName
+###  actionId
 
-• **actionName**: *[KeyboardClickFile](../enums/_types_special_actions_types_.specialaction.md#keyboardclickfile)*
+• **actionId**: *[ToggleSearchBar](../enums/_types_special_actions_types_.specialaction.md#togglesearchbar)*
 
-*Defined in [src/types/special-actions.types.ts:33](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/special-actions.types.ts#L33)*
+*Defined in [src/types/special-actions.types.ts:33](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/special-actions.types.ts#L33)*

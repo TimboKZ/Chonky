@@ -10,16 +10,16 @@
 
 ### Properties
 
-* [actionName](_types_special_actions_types_.specialdragndropstartaction.md#actionname)
+* [actionId](_types_special_actions_types_.specialdragndropstartaction.md#actionid)
 * [dragSource](_types_special_actions_types_.specialdragndropstartaction.md#dragsource)
 
 ## Properties
 
-###  actionName
+###  actionId
 
-• **actionName**: *[DragNDropStart](../enums/_types_special_actions_types_.specialaction.md#dragndropstart)*
+• **actionId**: *[DragNDropStart](../enums/_types_special_actions_types_.specialaction.md#dragndropstart)*
 
-*Defined in [src/types/special-actions.types.ts:37](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/special-actions.types.ts#L37)*
+*Defined in [src/types/special-actions.types.ts:37](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/special-actions.types.ts#L37)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **dragSource**: *[FileData](_types_files_types_.filedata.md)*
 
-*Defined in [src/types/special-actions.types.ts:38](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/special-actions.types.ts#L38)*
+*Defined in [src/types/special-actions.types.ts:38](https://github.com/TimboKZ/Chonky/blob/84f690f/src/types/special-actions.types.ts#L38)*
