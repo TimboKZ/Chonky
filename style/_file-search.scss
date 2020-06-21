@@ -3,6 +3,10 @@
 .chonky-file-search {
     margin-bottom: $file-browser-padding;
     margin-top: -$file-browser-padding;
+    height: $searchbar-height;
+
+    @at-root &-hidden {
+    }
 
     &-input-group {
         label,
@@ -31,6 +35,16 @@
             border: solid 1px $border-light;
             border-radius: $radius-medium;
             padding-right: $base-padding;
+        }
+
+        &-loading {
+            line-height: $searchbar-height * 1.1;
+            height: $searchbar-height;
+            width: $searchbar-height;
+            box-sizing: border-box;
+            display: inline-block;
+            text-align: center;
+            color: $fg-subtle;
         }
     }
 }

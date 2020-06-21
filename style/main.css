@@ -387,6 +387,7 @@ button.chonky-folder-chain-entry:active {
 .chonky-file-search {
   margin-bottom: 7.5px;
   margin-top: -7.5px;
+  height: 28px;
 }
 .chonky-file-search-input-group label,
 .chonky-file-search-input-group input {
@@ -412,6 +413,15 @@ button.chonky-folder-chain-entry:active {
   border: solid 1px #e4e4e4;
   border-radius: 4px;
   padding-right: 5px;
+}
+.chonky-file-search-input-group-loading {
+  line-height: 30.8px;
+  height: 28px;
+  width: 28px;
+  box-sizing: border-box;
+  display: inline-block;
+  text-align: center;
+  color: #bbb;
 }
 
 .chonky-file-list {

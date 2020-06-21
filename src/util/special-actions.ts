@@ -10,6 +10,7 @@ import {
     SpecialDragNDropStartAction,
     SpecialFileKeyboardClickAction,
     SpecialFileMouseClickAction,
+    SpecialToggleSearchBarAction,
 } from '../types/special-actions.types';
 import { INTENTIONAL_EMPTY_DEPS } from './constants';
 import { ChonkyActions } from './file-actions';
@@ -139,6 +140,11 @@ export const useSpecialFileActionHandlerMap = (
                         toggleSelection(data.file.id, data.ctrlKey);
                         // TODO: Handle range selections.
                     }
+                },
+                [SpecialAction.ToggleSearchBar]: (
+                    data: SpecialToggleSearchBarAction
+                ) => {
+                    // TODO: Flip the search bar visibility switch here.
                 },
                 [SpecialAction.DragNDropStart]: (data: SpecialDragNDropStartAction) => {
                     const file = data.dragSource;
