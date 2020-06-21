@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+    - 10
+    - 12
+install:
+    - npm install
+
+jobs:
+    include:
+        - stage: lint-src
+          script: npm run lint:src
+        - stage: typecheck-src
+          script: npm run typecheck:src
+
+stages:
+    - lint-src
+    - typecheck-src

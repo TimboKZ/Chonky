@@ -140,7 +140,7 @@ const getIndicesOf = (needle: string, haystack: string) => {
     }
     let index;
     let startIndex = 0;
-    const indices = [];
+    const indices: number[] = [];
     while ((index = haystack.indexOf(needle, startIndex)) > -1) {
         indices.push(index);
         startIndex = index + searchStrLen;
@@ -154,7 +154,7 @@ export const showActionNotification = (params: {
 }) => {
     const { action, data } = params;
 
-    const textParts = [];
+    const textParts: string[] = [];
     textParts.push(`<b>Action:</b> ${action.id}`);
     if (data.target) {
         textParts.push(`<b>Target:</b> <code>${data.target.name}</code>`);

@@ -1,9 +1,11 @@
 {
     "extends": "../tsconfig.json",
     "compilerOptions": {
+        "noImplicitAny": false,
         "baseUrl": "..",
         "paths": {
             "chonky": ["src/"]
         }
-    }
+    },
+    "include": ["./**/*"]
 }
