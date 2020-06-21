@@ -17,16 +17,28 @@ const getIconTrie = memoize(() => {
     const step = 5;
 
     const IconsToExtensions = [
+        // Generic file types
         [ChonkyIconName.license, ['license']],
         [ChonkyIconName.config, ['sfk', 'ini', 'yaml', 'toml', 'iml']],
         [ChonkyIconName.model, ['3ds', 'obj', 'ply', 'fbx']],
-        [ChonkyIconName.database, ['json', 'sql', 'npy', 'npz']],
+        [
+            ChonkyIconName.database,
+            [
+                'csv',
+                'json',
+                'sql',
+                'sqlite',
+                'sqlite3',
+                'npy',
+                'npz',
+                'rec',
+                'idx',
+                'hdf5',
+            ],
+        ],
         [ChonkyIconName.text, ['txt', 'md']],
         [ChonkyIconName.archive, ['zip', 'rar', 'tar', 'tar.gz']],
-        [ChonkyIconName.csv, ['csv', 'xls', 'xlsx']],
         [ChonkyIconName.image, ImageExtensions],
-        [ChonkyIconName.pdf, ['pdf']],
-        [ChonkyIconName.word, ['doc', 'docx', 'odt']],
         [ChonkyIconName.video, VideoExtensions],
         [
             ChonkyIconName.code,
@@ -42,29 +54,41 @@ const getIconTrie = memoize(() => {
                 'hpp',
                 'c',
                 'xml',
-                'ipynb',
             ],
         ],
         [ChonkyIconName.info, ['bib', 'readme', 'nfo']],
         [ChonkyIconName.key, ['pem', 'pub']],
         [ChonkyIconName.lock, ['lock', 'lock.json', 'shrinkwrap.json']],
         [ChonkyIconName.music, AudioExtensions],
-        [ChonkyIconName.flash, ['swf']],
         [ChonkyIconName.terminal, ['run', 'sh']],
         [ChonkyIconName.trash, ['.Trashes']],
-        [ChonkyIconName.authors, ['authors', 'contributors']],
+        [ChonkyIconName.users, ['authors', 'contributors']],
 
-        [ChonkyIconName.adobe, ['psd']],
-        [ChonkyIconName.git, ['.gitignore']],
+        // OS file types
         [ChonkyIconName.linux, ['AppImage']],
+        [ChonkyIconName.ubuntu, ['deb']],
         [ChonkyIconName.windows, ['exe']],
+
+        // Programming language file types
+        [ChonkyIconName.rust, ['rs', 'rlib']],
+        [ChonkyIconName.python, ['py', 'ipynb']],
         [ChonkyIconName.nodejs, ['js', 'jsx', 'ts', 'tsx', 'd.ts']],
         [ChonkyIconName.php, ['php']],
-        [ChonkyIconName.python, ['py']],
-        [ChonkyIconName.ubuntu, ['deb']],
+
+        // Development tools file types
+        [ChonkyIconName.git, ['.gitignore']],
+
+        // Brands file types
+        [ChonkyIconName.adobe, ['psd']],
+
+        // Other program file types
+        [ChonkyIconName.pdf, ['pdf']],
+        [ChonkyIconName.excel, ['xls', 'xlsx']],
+        [ChonkyIconName.word, ['doc', 'docx', 'odt']],
+        [ChonkyIconName.flash, ['swf']],
     ] as const;
 
-    const exactTrie = new ExactTrie();
+    const exactTrie = new ExactTrie({ ignoreCase: true });
     for (const pair of IconsToExtensions) {
         const [icon, extensions] = pair;
 

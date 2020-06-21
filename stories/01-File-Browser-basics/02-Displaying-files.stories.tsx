@@ -70,7 +70,7 @@ export const FilesArrayExample = () => {
         },
         {
             id: 'btj',
-            name: 'Not draggable.exe',
+            name: 'Not draggable.csv',
             draggable: false, // Prevent this files from being dragged
         },
         {

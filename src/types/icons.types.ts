@@ -32,7 +32,7 @@ export enum ChonkyIconName {
     symlink = 'symlink',
     hidden = 'hidden',
 
-    // File types
+    // Generic file types
     file = 'file',
     license = 'license',
     code = 'code',
@@ -41,26 +41,37 @@ export enum ChonkyIconName {
     database = 'database',
     text = 'text',
     archive = 'archive',
-    csv = 'csv',
     image = 'image',
-    pdf = 'pdf',
-    word = 'word',
     video = 'video',
     info = 'info',
     key = 'key',
     lock = 'lock',
     music = 'music',
-    flash = 'flash',
     terminal = 'terminal',
-    authors = 'authors',
-    adobe = 'adobe',
-    git = 'git',
+    users = 'users',
+
+    // OS file types
     linux = 'linux',
+    ubuntu = 'ubuntu',
     windows = 'windows',
+
+    // Programming language file types
+    rust = 'rust',
+    python = 'python',
     nodejs = 'nodejs',
     php = 'php',
-    python = 'python',
-    ubuntu = 'ubuntu',
+
+    // Development tools file types
+    git = 'git',
+
+    // Brands file types
+    adobe = 'adobe',
+
+    // Other program file types
+    pdf = 'pdf',
+    excel = 'excel',
+    word = 'word',
+    flash = 'flash',
 }
 
 export interface FileIconData {
