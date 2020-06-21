@@ -1,8 +1,9 @@
 import c from 'classnames';
 import React from 'react';
 
-import { FileAction } from '../../typedef';
-import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
+import { FileAction } from '../../types/file-actions.types';
+import { ChonkyIconName } from '../../types/icons.types';
+import { ChonkyIconFA } from './ChonkyIcon';
 import { useSmartToolbarButtonProps } from './ToolbarButton-hooks';
 
 export interface ToolbarButtonProps {

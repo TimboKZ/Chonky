@@ -25,7 +25,7 @@
         const { toolbarButton: button } = action;
         if (!button) return null;
 
-        const { onClick, disabled } = useSmartToolbarButtonProps(action);
+        const { active, onClick, disabled } = useSmartToolbarButtonProps(action);
 
         return (
             <ToolbarButton
@@ -33,6 +33,7 @@
                 tooltip={button.tooltip}
                 icon={button.icon}
                 iconOnly={button.iconOnly}
+                active={active}
                 onClick={onClick}
                 disabled={disabled}
             />
@@ -40,14 +41,23 @@
     }
 )
 
-*Defined in [src/components/external/ToolbarButton.tsx:50](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ToolbarButton.tsx#L50)*
+*Defined in [src/components/external/ToolbarButton.tsx:66](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ToolbarButton.tsx#L66)*
 
 ___
 
 ### `Const` ToolbarButton
 
 • **ToolbarButton**: *React.FC‹[ToolbarButtonProps](../interfaces/_components_external_toolbarbutton_.toolbarbuttonprops.md)›* = React.memo((props) => {
-    const { text, tooltip, icon, iconOnly, iconOnRight, onClick, disabled } = props;
+    const {
+        text,
+        tooltip,
+        active,
+        icon,
+        iconOnly,
+        iconOnRight,
+        onClick,
+        disabled,
+    } = props;
 
     const iconComponent =
         icon || iconOnly ? (
@@ -59,9 +69,13 @@ ___
             </div>
         ) : null;
 
+    const className = c({
+        'chonky-toolbar-button': true,
+        'chonky-active': !!active,
+    });
     return (
         <button
-            className="chonky-toolbar-button"
+            className={className}
             onClick={onClick}
             title={tooltip ? tooltip : text}
             disabled={!onClick || disabled}
@@ -75,4 +89,4 @@ ___
     );
 })
 
-*Defined in [src/components/external/ToolbarButton.tsx:17](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ToolbarButton.tsx#L17)*
+*Defined in [src/components/external/ToolbarButton.tsx:20](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ToolbarButton.tsx#L20)*

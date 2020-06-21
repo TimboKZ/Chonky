@@ -3,10 +3,10 @@ import { DragObjectWithType, DragSourceMonitor, useDrag, useDrop } from 'react-d
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { ExcludeKeys, Nilable, Nullable } from 'tsdef';
 
-import { FileData } from '../../typedef';
+import { FileData } from '../../types/files.types';
+import { SpecialAction } from '../../types/special-actions.types';
 import { ChonkyDispatchSpecialActionContext } from '../../util/context';
 import { FileHelper } from '../../util/file-helper';
-import { SpecialAction } from '../../util/special-actions';
 import { FileEntryProps } from './BaseFileEntry';
 import { ClickableFileEntry } from './ClickableFileEntry';
 

@@ -2,9 +2,10 @@ import c from 'classnames';
 import React, { useState } from 'react';
 import { Nullable } from 'tsdef';
 
-import { FileData } from '../../typedef';
+import { FileData } from '../../types/files.types';
+import { ChonkyIconName } from '../../types/icons.types';
 import { ColorsDark, ColorsLight, useIconData } from '../../util/file-icon-helper';
-import { ChonkyIconFA, ChonkyIconName } from '../external/ChonkyIcon';
+import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { TextPlaceholder } from '../external/TextPlaceholder';
 import { useDndIcon, useThumbnailUrl } from './BaseFileEntry-hooks';
 import { DnDProps } from './DnDFileEntry';

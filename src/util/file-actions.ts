@@ -2,28 +2,28 @@ import Promise from 'bluebird';
 import { useCallback, useMemo } from 'react';
 import { Nullable } from 'tsdef';
 
-import { ChonkyIconName } from '../components/external/ChonkyIcon';
 import {
     FileAction,
     FileActionHandler,
     InternalFileActionDispatcher,
-} from '../typedef';
+} from '../types/file-actions.types';
+import { ChonkyIconName } from '../types/icons.types';
+import { SpecialAction } from '../types/special-actions.types';
 import { FileHelper } from './file-helper';
 import { Logger } from './logger';
 import { isFunction } from './validation';
-import { SpecialAction } from './special-actions';
 
 export const ChonkyActions = {
     // Actions triggered by drag & drop
     MoveFilesTo: {
-        name: 'move_files_to',
+        id: 'move_files_to',
     },
     DuplicateFilesTo: {
-        name: 'duplicate_files_to',
+        id: 'duplicate_files_to',
     },
 
     OpenParentFolder: {
-        name: 'open_parent_folder',
+        id: 'open_parent_folder',
         requiresParentFolder: true,
         hotkeys: ['backspace'],
         toolbarButton: {
@@ -36,7 +36,7 @@ export const ChonkyActions = {
     OpenFiles: {
         // We don't specify the 'enter' hotkey here because it is handled inside
         // `<ClickableFileEntry>` component.
-        name: 'open_files',
+        id: 'open_files',
         requiresSelection: true,
         fileFilter: FileHelper.isOpenable,
         toolbarButton: {
@@ -47,7 +47,7 @@ export const ChonkyActions = {
         },
     },
     ToggleSearch: {
-        name: 'toggle_search',
+        id: 'toggle_search',
         hotkeys: ['ctrl+f'],
         toolbarButton: {
             name: 'Search',
@@ -59,12 +59,12 @@ export const ChonkyActions = {
     },
 
     CopyFiles: {
-        name: 'copy_files',
+        id: 'copy_files',
         requiresSelection: true,
     },
 
     CreateFolder: {
-        name: 'create_folder',
+        id: 'create_folder',
         toolbarButton: {
             name: 'Create folder',
             tooltip: 'Create a folder',
@@ -72,7 +72,7 @@ export const ChonkyActions = {
         },
     },
     UploadFiles: {
-        name: 'upload_files',
+        id: 'upload_files',
         toolbarButton: {
             name: 'Upload files',
             tooltip: 'Upload files',
@@ -80,7 +80,7 @@ export const ChonkyActions = {
         },
     },
     DownloadFiles: {
-        name: 'download_files',
+        id: 'download_files',
         requiresSelection: true,
         toolbarButton: {
             name: 'Download files',
@@ -116,7 +116,7 @@ export const useFileActionDispatcher = (
         const actionMap = {};
         if (Array.isArray(fileActions)) {
             for (const fileAction of fileActions) {
-                actionMap[fileAction.name] = fileAction;
+                actionMap[fileAction.id] = fileAction;
             }
         }
         return actionMap;
@@ -125,9 +125,9 @@ export const useFileActionDispatcher = (
     const dispatchFileActionDeps = [actionMap, onFileAction];
     const dispatchFileAction: InternalFileActionDispatcher = useCallback(
         (actionData) => {
-            const { actionName } = actionData;
+            const { actionId } = actionData;
 
-            const action = actionMap[actionName];
+            const action = actionMap[actionId];
             if (action) {
                 if (isFunction(onFileAction)) {
                     Promise.resolve()
@@ -140,7 +140,7 @@ export const useFileActionDispatcher = (
                 }
             } else {
                 Logger.error(
-                    `Internal components dispatched a "${actionName}" file action, ` +
+                    `Internal components dispatched a "${actionId}" file action, ` +
                         `but such action was not registered.`
                 );
             }

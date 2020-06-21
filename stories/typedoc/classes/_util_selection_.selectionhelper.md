@@ -22,35 +22,35 @@ internal state, and all methods are static.
 
 ### `Static` getSelectedFiles
 
-▸ **getSelectedFiles**(`files`: [ReadonlyFileArray](../modules/_typedef_.md#readonlyfilearray), `selection`: Readonly‹[FileSelection](../interfaces/_typedef_.fileselection.md)›, ...`filters`: [FileFilter](../modules/_typedef_.md#filefilter)[]): *ReadonlyArray‹Readonly‹[FileData](../interfaces/_typedef_.filedata.md)››*
+▸ **getSelectedFiles**(`files`: [ReadonlyFileArray](../modules/_types_files_types_.md#readonlyfilearray), `selection`: Readonly‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)›, ...`filters`: [FileFilter](../modules/_types_files_types_.md#filefilter)[]): *ReadonlyArray‹Readonly‹[FileData](../interfaces/_types_files_types_.filedata.md)››*
 
-*Defined in [src/util/selection.ts:98](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L98)*
+*Defined in [src/util/selection.ts:98](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/selection.ts#L98)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`files` | [ReadonlyFileArray](../modules/_typedef_.md#readonlyfilearray) |
-`selection` | Readonly‹[FileSelection](../interfaces/_typedef_.fileselection.md)› |
-`...filters` | [FileFilter](../modules/_typedef_.md#filefilter)[] |
+`files` | [ReadonlyFileArray](../modules/_types_files_types_.md#readonlyfilearray) |
+`selection` | Readonly‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)› |
+`...filters` | [FileFilter](../modules/_types_files_types_.md#filefilter)[] |
 
-**Returns:** *ReadonlyArray‹Readonly‹[FileData](../interfaces/_typedef_.filedata.md)››*
+**Returns:** *ReadonlyArray‹Readonly‹[FileData](../interfaces/_types_files_types_.filedata.md)››*
 
 ___
 
 ### `Static` getSelectionSize
 
-▸ **getSelectionSize**(`files`: [ReadonlyFileArray](../modules/_typedef_.md#readonlyfilearray), `selection`: Readonly‹[FileSelection](../interfaces/_typedef_.fileselection.md)›, ...`filters`: [FileFilter](../modules/_typedef_.md#filefilter)[]): *number*
+▸ **getSelectionSize**(`files`: [ReadonlyFileArray](../modules/_types_files_types_.md#readonlyfilearray), `selection`: Readonly‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)›, ...`filters`: [FileFilter](../modules/_types_files_types_.md#filefilter)[]): *number*
 
-*Defined in [src/util/selection.ts:112](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L112)*
+*Defined in [src/util/selection.ts:112](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/selection.ts#L112)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`files` | [ReadonlyFileArray](../modules/_typedef_.md#readonlyfilearray) |
-`selection` | Readonly‹[FileSelection](../interfaces/_typedef_.fileselection.md)› |
-`...filters` | [FileFilter](../modules/_typedef_.md#filefilter)[] |
+`files` | [ReadonlyFileArray](../modules/_types_files_types_.md#readonlyfilearray) |
+`selection` | Readonly‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)› |
+`...filters` | [FileFilter](../modules/_types_files_types_.md#filefilter)[] |
 
 **Returns:** *number*
 
@@ -58,15 +58,15 @@ ___
 
 ### `Static` isSelected
 
-▸ **isSelected**(`selection`: Readonly‹[FileSelection](../interfaces/_typedef_.fileselection.md)›, `file`: Nullable‹Readonly‹[FileData](../interfaces/_typedef_.filedata.md)››): *boolean*
+▸ **isSelected**(`selection`: Readonly‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)›, `file`: Nullable‹Readonly‹[FileData](../interfaces/_types_files_types_.filedata.md)››): *boolean*
 
-*Defined in [src/util/selection.ts:119](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L119)*
+*Defined in [src/util/selection.ts:119](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/selection.ts#L119)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`selection` | Readonly‹[FileSelection](../interfaces/_typedef_.fileselection.md)› |
-`file` | Nullable‹Readonly‹[FileData](../interfaces/_typedef_.filedata.md)›› |
+`selection` | Readonly‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)› |
+`file` | Nullable‹Readonly‹[FileData](../interfaces/_types_files_types_.filedata.md)›› |
 
 **Returns:** *boolean*

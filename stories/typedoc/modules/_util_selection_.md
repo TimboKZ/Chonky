@@ -19,15 +19,15 @@
 
 ### `Const` useSelection
 
-▸ **useSelection**(`files`: [FileArray](_typedef_.md#filearray), `disableSelection`: boolean): *object*
+▸ **useSelection**(`files`: [FileArray](_types_files_types_.md#filearray), `disableSelection`: boolean): *object*
 
-*Defined in [src/util/selection.ts:13](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L13)*
+*Defined in [src/util/selection.ts:13](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/selection.ts#L13)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`files` | [FileArray](_typedef_.md#filearray) |
+`files` | [FileArray](_types_files_types_.md#filearray) |
 `disableSelection` | boolean |
 
 **Returns:** *object*
@@ -36,7 +36,7 @@ Name | Type |
 
 * **selectFiles**: *(Anonymous function)*
 
-* **selection**: *[FileSelection](../interfaces/_typedef_.fileselection.md)*
+* **selection**: *[FileSelection](../interfaces/_types_files_types_.fileselection.md)*
 
 * **selectionSize**: *number*
 
@@ -48,16 +48,16 @@ ___
 
 ### `Const` useSelectionModifiers
 
-▸ **useSelectionModifiers**(`disableSelection`: boolean, `setSelection`: React.Dispatch‹React.SetStateAction‹[FileSelection](../interfaces/_typedef_.fileselection.md)››): *object*
+▸ **useSelectionModifiers**(`disableSelection`: boolean, `setSelection`: React.Dispatch‹React.SetStateAction‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)››): *object*
 
-*Defined in [src/util/selection.ts:49](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/selection.ts#L49)*
+*Defined in [src/util/selection.ts:49](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/selection.ts#L49)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `disableSelection` | boolean |
-`setSelection` | React.Dispatch‹React.SetStateAction‹[FileSelection](../interfaces/_typedef_.fileselection.md)›› |
+`setSelection` | React.Dispatch‹React.SetStateAction‹[FileSelection](../interfaces/_types_files_types_.fileselection.md)›› |
 
 **Returns:** *object*
 

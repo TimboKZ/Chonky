@@ -20,14 +20,14 @@
 • **ChonkyActions**: *object* = {
     // Actions triggered by drag & drop
     MoveFilesTo: {
-        name: 'move_files_to',
+        id: 'move_files_to',
     },
     DuplicateFilesTo: {
-        name: 'duplicate_files_to',
+        id: 'duplicate_files_to',
     },
 
     OpenParentFolder: {
-        name: 'open_parent_folder',
+        id: 'open_parent_folder',
         requiresParentFolder: true,
         hotkeys: ['backspace'],
         toolbarButton: {
@@ -40,7 +40,7 @@
     OpenFiles: {
         // We don't specify the 'enter' hotkey here because it is handled inside
         // `<ClickableFileEntry>` component.
-        name: 'open_files',
+        id: 'open_files',
         requiresSelection: true,
         fileFilter: FileHelper.isOpenable,
         toolbarButton: {
@@ -50,23 +50,25 @@
             icon: ChonkyIconName.openFiles,
         },
     },
-    Search: {
-        name: 'search',
+    ToggleSearch: {
+        id: 'toggle_search',
         hotkeys: ['ctrl+f'],
         toolbarButton: {
             name: 'Search',
             icon: ChonkyIconName.search,
             iconOnly: true,
         },
+
+        specialActionToDispatch: SpecialAction.ToggleSearchBar,
     },
 
     CopyFiles: {
-        name: 'copy_files',
+        id: 'copy_files',
         requiresSelection: true,
     },
 
     CreateFolder: {
-        name: 'create_folder',
+        id: 'create_folder',
         toolbarButton: {
             name: 'Create folder',
             tooltip: 'Create a folder',
@@ -74,7 +76,7 @@
         },
     },
     UploadFiles: {
-        name: 'upload_files',
+        id: 'upload_files',
         toolbarButton: {
             name: 'Upload files',
             tooltip: 'Upload files',
@@ -82,7 +84,7 @@
         },
     },
     DownloadFiles: {
-        name: 'download_files',
+        id: 'download_files',
         requiresSelection: true,
         toolbarButton: {
             name: 'Download files',
@@ -94,23 +96,23 @@
     },
 } as const
 
-*Defined in [src/util/file-actions.ts:15](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-actions.ts#L15)*
+*Defined in [src/util/file-actions.ts:16](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/file-actions.ts#L16)*
 
 #### Type declaration:
 
 * ### **CopyFiles**: *object*
 
-  * **name**: *"copy_files"* = "copy_files"
+  * **id**: *"copy_files"* = "copy_files"
 
   * **requiresSelection**: *true* = true
 
 * ### **CreateFolder**: *object*
 
-  * **name**: *"create_folder"* = "create_folder"
+  * **id**: *"create_folder"* = "create_folder"
 
   * **toolbarButton**: *object*
 
-    * **icon**: *[folderCreate](../enums/_components_external_chonkyicon_.chonkyiconname.md#foldercreate)* = ChonkyIconName.folderCreate
+    * **icon**: *[folderCreate](../enums/_types_icons_types_.chonkyiconname.md#foldercreate)* = ChonkyIconName.folderCreate
 
     * **name**: *"Create folder"* = "Create folder"
 
@@ -118,7 +120,7 @@
 
 * ### **DownloadFiles**: *object*
 
-  * **name**: *"download_files"* = "download_files"
+  * **id**: *"download_files"* = "download_files"
 
   * **requiresSelection**: *true* = true
 
@@ -128,7 +130,7 @@
 
     * **group**: *"Actions"* = "Actions"
 
-    * **icon**: *[download](../enums/_components_external_chonkyicon_.chonkyiconname.md#download)* = ChonkyIconName.download
+    * **icon**: *[download](../enums/_types_icons_types_.chonkyiconname.md#download)* = ChonkyIconName.download
 
     * **name**: *"Download files"* = "Download files"
 
@@ -136,17 +138,17 @@
 
 * ### **DuplicateFilesTo**: *object*
 
-  * **name**: *"duplicate_files_to"* = "duplicate_files_to"
+  * **id**: *"duplicate_files_to"* = "duplicate_files_to"
 
 * ### **MoveFilesTo**: *object*
 
-  * **name**: *"move_files_to"* = "move_files_to"
+  * **id**: *"move_files_to"* = "move_files_to"
 
 * ### **OpenFiles**: *object*
 
   * **fileFilter**: *[isOpenable](../classes/_util_file_helper_.filehelper.md#static-isopenable)* = FileHelper.isOpenable
 
-  * **name**: *"open_files"* = "open_files"
+  * **id**: *"open_files"* = "open_files"
 
   * **requiresSelection**: *true* = true
 
@@ -156,7 +158,7 @@
 
     * **group**: *"Actions"* = "Actions"
 
-    * **icon**: *[openFiles](../enums/_components_external_chonkyicon_.chonkyiconname.md#openfiles)* = ChonkyIconName.openFiles
+    * **icon**: *[openFiles](../enums/_types_icons_types_.chonkyiconname.md#openfiles)* = ChonkyIconName.openFiles
 
     * **name**: *"Open selection"* = "Open selection"
 
@@ -164,13 +166,13 @@
 
   * **hotkeys**: *["backspace"]* = ['backspace']
 
-  * **name**: *"open_parent_folder"* = "open_parent_folder"
+  * **id**: *"open_parent_folder"* = "open_parent_folder"
 
   * **requiresParentFolder**: *true* = true
 
   * **toolbarButton**: *object*
 
-    * **icon**: *[openParentFolder](../enums/_components_external_chonkyicon_.chonkyiconname.md#openparentfolder)* = ChonkyIconName.openParentFolder
+    * **icon**: *[openParentFolder](../enums/_types_icons_types_.chonkyiconname.md#openparentfolder)* = ChonkyIconName.openParentFolder
 
     * **iconOnly**: *true* = true
 
@@ -178,15 +180,17 @@
 
     * **tooltip**: *"Go up a directory"* = "Go up a directory"
 
-* ### **Search**: *object*
+* ### **ToggleSearch**: *object*
 
   * **hotkeys**: *["ctrl+f"]* = ['ctrl+f']
 
-  * **name**: *"search"* = "search"
+  * **id**: *"toggle_search"* = "toggle_search"
+
+  * **specialActionToDispatch**: *[ToggleSearchBar](../enums/_types_special_actions_types_.specialaction.md#togglesearchbar)* = SpecialAction.ToggleSearchBar
 
   * **toolbarButton**: *object*
 
-    * **icon**: *[search](../enums/_components_external_chonkyicon_.chonkyiconname.md#search)* = ChonkyIconName.search
+    * **icon**: *[search](../enums/_types_icons_types_.chonkyiconname.md#search)* = ChonkyIconName.search
 
     * **iconOnly**: *true* = true
 
@@ -194,11 +198,11 @@
 
 * ### **UploadFiles**: *object*
 
-  * **name**: *"upload_files"* = "upload_files"
+  * **id**: *"upload_files"* = "upload_files"
 
   * **toolbarButton**: *object*
 
-    * **icon**: *[upload](../enums/_components_external_chonkyicon_.chonkyiconname.md#upload)* = ChonkyIconName.upload
+    * **icon**: *[upload](../enums/_types_icons_types_.chonkyiconname.md#upload)* = ChonkyIconName.upload
 
     * **name**: *"Upload files"* = "Upload files"
 
@@ -208,24 +212,24 @@ ___
 
 ### `Const` DefaultActions
 
-• **DefaultActions**: *[FileAction](../interfaces/_typedef_.fileaction.md)[]* = [
+• **DefaultActions**: *[FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[]* = [
     ChonkyActions.MoveFilesTo,
     ChonkyActions.DuplicateFilesTo,
 
     ChonkyActions.OpenParentFolder,
     ChonkyActions.OpenFiles,
-    ChonkyActions.Search,
+    ChonkyActions.ToggleSearch,
 ]
 
-*Defined in [src/util/file-actions.ts:92](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-actions.ts#L92)*
+*Defined in [src/util/file-actions.ts:95](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/file-actions.ts#L95)*
 
 ## Functions
 
 ### `Const` useFileActionDispatcher
 
-▸ **useFileActionDispatcher**(`fileActions`: [FileAction](../interfaces/_typedef_.fileaction.md)[], `onFileAction`: Nullable‹[FileActionHandler](_typedef_.md#fileactionhandler)›): *[InternalFileActionDispatcher](_typedef_.md#internalfileactiondispatcher)*
+▸ **useFileActionDispatcher**(`fileActions`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[], `onFileAction`: Nullable‹[FileActionHandler](_types_file_actions_types_.md#fileactionhandler)›): *[InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)*
 
-*Defined in [src/util/file-actions.ts:107](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-actions.ts#L107)*
+*Defined in [src/util/file-actions.ts:110](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/file-actions.ts#L110)*
 
 Returns a dispatch method meant to be used by child components. This dispatch method
 is meant for actions that should be handled directly by the user. If you want to
@@ -236,7 +240,7 @@ action dispatcher".
 
 Name | Type |
 ------ | ------ |
-`fileActions` | [FileAction](../interfaces/_typedef_.fileaction.md)[] |
-`onFileAction` | Nullable‹[FileActionHandler](_typedef_.md#fileactionhandler)› |
+`fileActions` | [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[] |
+`onFileAction` | Nullable‹[FileActionHandler](_types_file_actions_types_.md#fileactionhandler)› |
 
-**Returns:** *[InternalFileActionDispatcher](_typedef_.md#internalfileactiondispatcher)*
+**Returns:** *[InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)*

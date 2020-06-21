@@ -27,7 +27,7 @@
         } else {
             groupContents = group.fileActions.map((action) => (
                 <SmartToolbarButton
-                    key={`action-button-${action.name}`}
+                    key={`action-button-${action.id}`}
                     fileAction={action}
                 />
             ));
@@ -37,4 +37,4 @@
     }
 )
 
-*Defined in [src/components/external/ToolbarButtonGroup.tsx:23](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ToolbarButtonGroup.tsx#L23)*
+*Defined in [src/components/external/ToolbarButtonGroup.tsx:23](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ToolbarButtonGroup.tsx#L23)*

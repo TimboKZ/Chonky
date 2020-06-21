@@ -1,7 +1,8 @@
 import { useContext, useMemo } from 'react';
 import { Undefinable } from 'tsdef';
 
-import { FileAction, FileData } from '../../typedef';
+import { FileAction } from '../../types/file-actions.types';
+import { FileData } from '../../types/files.types';
 import {
     ChonkyDispatchFileActionContext,
     ChonkyFilesContext,
@@ -10,8 +11,8 @@ import {
     ChonkySelectionContext,
     ChonkySelectionSizeContext,
 } from '../../util/context';
+import { ChonkyActions } from '../../util/file-actions';
 import { SelectionHelper } from '../../util/selection';
-import { ChonkyActions } from 'chonky';
 
 export const useSmartToolbarButtonProps = (action: FileAction) => {
     const files = useContext(ChonkyFilesContext);
@@ -55,8 +56,7 @@ export const useSmartToolbarButtonProps = (action: FileAction) => {
             }
         }
 
-        const active =
-            action.name === ChonkyActions.ToggleSearch.name && searchBarVisible;
+        const active = action.id === ChonkyActions.ToggleSearch.id && searchBarVisible;
 
         const disabled =
             (action.requiresSelection && actionSelectionSize === 0) ||
@@ -66,7 +66,7 @@ export const useSmartToolbarButtonProps = (action: FileAction) => {
             action.requiresParentFolder && parentFolder ? parentFolder : undefined;
         const onClick = () =>
             dispatchChonkyAction({
-                actionName: action.name,
+                actionId: action.id,
                 target: actionTarget,
                 files: actionFiles,
             });

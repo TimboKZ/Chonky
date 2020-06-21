@@ -17,7 +17,7 @@
   <a href="https://github.com/TimboKZ/Chonky">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/TimboKZ/Chonky">
   </a>
-  <a href="https://discord.gg/HT4ttdQ">
+  <a href="https://discord.gg/4HJaFn9">
     <img alt="Chat on Discord" src="https://img.shields.io/discord/696033621986770957?label=Chat%20on%20Discord" />
   </a>
 </p>

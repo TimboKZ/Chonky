@@ -1,6 +1,15 @@
 import 'chonky/style/main.css';
 
-import { FileAction, FileActionData, FileBrowser, FileList, FileToolbar } from 'chonky';
+import {
+    ChonkyIconName,
+    FileAction,
+    FileActionData,
+    FileBrowser,
+    FileData,
+    FileList,
+    FileSearch,
+    FileToolbar,
+} from 'chonky';
 import React from 'react';
 
 import { createDocsObject, showActionNotification } from '../story-helpers';
@@ -21,10 +30,36 @@ export const CustomActionsExample = () => {
         showActionNotification({ action, data });
     };
 
+    const downloadPsdAction: FileAction = {
+        id: 'download_psd',
+        requiresSelection: true,
+        fileFilter: (file: FileData) => file.name.endsWith('.psd'),
+        hotkeys: ['ctrl+q'],
+        toolbarButton: {
+            name: 'Download Photoshop files',
+            icon: ChonkyIconName.download,
+        },
+    };
+
+    const customFileActions = [downloadPsdAction];
+    const files = [
+        { id: 'xVdE', name: 'Flowers.psd' },
+        { id: 'bTeX', name: 'Mountains.psd' },
+        { id: 'mGeX', name: 'Sky.psd' },
+        { id: 'mFte', name: 'Stars.psd' },
+        { id: 'tLwZ', name: 'Parser.rs' },
+        { id: 'mGrQ', name: 'package.json' },
+    ];
+
     return (
-        <FileBrowser files={[]} onFileAction={handleFileAction}>
-            <FileList />
+        <FileBrowser
+            files={files}
+            onFileAction={handleFileAction}
+            fileActions={customFileActions}
+        >
             <FileToolbar />
+            <FileSearch />
+            <FileList />
         </FileBrowser>
     );
 };

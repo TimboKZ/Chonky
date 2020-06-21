@@ -2,18 +2,19 @@ export { FileBrowser } from './components/external/FileBrowser';
 export { FileToolbar } from './components/external/FileToolbar';
 export { FileSearch } from './components/external/FileSearch';
 export { FileList } from './components/external/FileList';
-export { ChonkyIconFA, ChonkyIconName } from './components/external/ChonkyIcon';
+export { ChonkyIconFA } from './components/external/ChonkyIcon';
 
 export { ChonkyActions } from './util/file-actions';
 
-export {
-    FileData,
-    FileArray,
-    FileSelection,
-    FileAction,
-    FileActionHandler,
-    FileActionData,
-} from './typedef';
+export { SpecialAction } from './types/special-actions.types';
+export { ChonkyIconName } from './types/icons.types';
+export { FileSelection } from './types/files.types';
+export { FileArray } from './types/files.types';
+export { FileData } from './types/files.types';
+export { FileActionHandler } from './types/file-actions.types';
+export { FileActionData } from './types/file-actions.types';
+export { FileAction } from './types/file-actions.types';
+export { FileEntrySize } from './types/file-list-view.types';
 
 // Export interface separately to comply with isolated module requirements
 // @see https://github.com/microsoft/TypeScript/issues/28481

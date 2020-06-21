@@ -17,9 +17,9 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { FileAction, FileActionData } from '../src';
 // @ts-ignore
-import UnstableWarningMd from './Unstable-warning.md';
-// @ts-ignore
 import LiveExampleMd from './Live-examples.md';
+// @ts-ignore
+import UnstableWarningMd from './Unstable-warning.md';
 
 export const createDocsObject = (params: { markdown: string }) => {
     const { markdown } = params;
@@ -63,10 +63,14 @@ const parseMarkdown = (markdown: string): React.ReactElement[] => {
         const lineEnd = markdown.indexOf('\n', index);
         const line = markdown.substring(index, lineEnd).trim();
 
-        if (/^```[a-z-]+$/i.exec(line)) {
+        const opening_matches = /^```([a-z-]+)(\s+{.*?})?$/i.exec(line);
+
+        if (opening_matches) {
+            const [, language, jsonConfig] = opening_matches;
             occurrences.push({
                 type: 'start',
-                language: line.substring(3),
+                language,
+                jsonConfig,
                 markdownEnd: index,
                 codeStart: lineEnd + 1,
             });
@@ -92,11 +96,10 @@ const parseMarkdown = (markdown: string): React.ReactElement[] => {
         const mdKey = `md-${i}`;
         const mdSlice = markdown.substring(markdownStart, start.markdownEnd);
         const codeSlice = markdown.substring(start.codeStart!, end.codeEnd);
-        const codeKey = `code-${i}`;
 
         components.push(<Description key={mdKey} markdown={mdSlice} />);
         components.push(
-            <Source key={codeKey} language={start.language} code={codeSlice} />
+            prepareMarkdownComp(i, start.language, codeSlice, start.jsonConfig)
         );
         markdownStart = end.markdownStart!;
     }
@@ -105,6 +108,26 @@ const parseMarkdown = (markdown: string): React.ReactElement[] => {
     );
 
     return components;
+};
+
+const prepareMarkdownComp = (
+    index: number,
+    language?: string,
+    markdown?: string,
+    jsonConfig?: string
+) => {
+    const key = `code-${2 * index + 1}`;
+
+    let code;
+    if (jsonConfig) {
+        code =
+            `Sorry, JSON config loading is currently not supported. ` +
+            `\nYour config: ${jsonConfig}`;
+    } else {
+        code = markdown;
+    }
+
+    return <Source key={key} language={language} code={code} />;
 };
 
 const getIndicesOf = (needle: string, haystack: string) => {
@@ -129,7 +152,7 @@ export const showActionNotification = (params: {
     const { action, data } = params;
 
     const textParts = [];
-    textParts.push(`<b>Action:</b> ${action.name}`);
+    textParts.push(`<b>Action:</b> ${action.id}`);
     if (data.target) {
         textParts.push(`<b>Target:</b> <code>${data.target.name}</code>`);
     }

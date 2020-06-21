@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Nullable } from 'tsdef';
 
 import { FileBrowser } from '../components/external/FileBrowser';
-import { FileArray } from '../typedef';
+import { FileArray } from '../types/files.types';
 import { Logger } from './logger';
 
 export const isPlainObject = (value: any): value is object => {

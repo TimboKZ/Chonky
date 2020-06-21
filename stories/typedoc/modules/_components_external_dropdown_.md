@@ -22,7 +22,9 @@
     const [showDropdown, setShowDropdown] = useState(false);
 
     const hideDropdown = useCallback(() => setShowDropdown(false), [setShowDropdown]);
-    const dropdownRef = useOutsideClickListener(hideDropdown);
+    const dropdownRef = useClickListener({
+        onOutsideClick: hideDropdown,
+    });
 
     const triggerClick = useCallback(() => {
         setShowDropdown(true);
@@ -32,6 +34,7 @@
         <div ref={dropdownRef} className="chonky-toolbar-dropdown">
             <ToolbarButton
                 text={group.name!}
+                active={showDropdown}
                 icon={ChonkyIconName.dropdown}
                 iconOnRight={true}
                 onClick={triggerClick}
@@ -40,7 +43,7 @@
                 <div className="chonky-toolbar-dropdown-content">
                     {group.fileActions.map((action) => (
                         <SmartDropdownButton
-                            key={`action-button-${action.name}`}
+                            key={`action-button-${action.id}`}
                             fileAction={action}
                         />
                     ))}
@@ -50,4 +53,4 @@
     );
 })
 
-*Defined in [src/components/external/Dropdown.tsx:19](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/Dropdown.tsx#L19)*
+*Defined in [src/components/external/Dropdown.tsx:19](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/Dropdown.tsx#L19)*

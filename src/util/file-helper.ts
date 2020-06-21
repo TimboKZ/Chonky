@@ -1,11 +1,10 @@
 import { Nullable } from 'tsdef';
 
-import { FileData } from '../typedef';
+import { FileData } from '../types/files.types';
 
 export class FileHelper {
     public static isClickable(file: Nullable<FileData>): file is FileData {
         // Clickable by default
-        // TODO: Perhaps add `clickable` to `FileData`... Probably not.
         return !!file;
     }
 

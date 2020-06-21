@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-import { FileAction } from '../../typedef';
+import { FileAction } from '../../types/file-actions.types';
 import { Dropdown } from './Dropdown';
 import { SmartToolbarButton } from './ToolbarButton';
 
@@ -30,7 +30,7 @@ export const ToolbarButtonGroup: React.FC<ToolbarButtonGroupProps> = React.memo(
         } else {
             groupContents = group.fileActions.map((action) => (
                 <SmartToolbarButton
-                    key={`action-button-${action.name}`}
+                    key={`action-button-${action.id}`}
                     fileAction={action}
                 />
             ));

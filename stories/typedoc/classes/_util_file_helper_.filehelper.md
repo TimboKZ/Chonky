@@ -20,15 +20,15 @@
 
 ### `Static` isClickable
 
-▸ **isClickable**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *file is FileData*
+▸ **isClickable**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *file is FileData*
 
-*Defined in [src/util/file-helper.ts:6](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-helper.ts#L6)*
+*Defined in [src/util/file-helper.ts:6](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/file-helper.ts#L6)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`file` | Nullable‹[FileData](../interfaces/_typedef_.filedata.md)› |
+`file` | Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)› |
 
 **Returns:** *file is FileData*
 
@@ -36,15 +36,15 @@ ___
 
 ### `Static` isDraggable
 
-▸ **isDraggable**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *file is FileData*
+▸ **isDraggable**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *file is FileData*
 
-*Defined in [src/util/file-helper.ts:22](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-helper.ts#L22)*
+*Defined in [src/util/file-helper.ts:21](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/file-helper.ts#L21)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`file` | Nullable‹[FileData](../interfaces/_typedef_.filedata.md)› |
+`file` | Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)› |
 
 **Returns:** *file is FileData*
 
@@ -52,15 +52,15 @@ ___
 
 ### `Static` isDroppable
 
-▸ **isDroppable**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *file is FileData*
+▸ **isDroppable**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *file is FileData*
 
-*Defined in [src/util/file-helper.ts:27](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-helper.ts#L27)*
+*Defined in [src/util/file-helper.ts:26](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/file-helper.ts#L26)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`file` | Nullable‹[FileData](../interfaces/_typedef_.filedata.md)› |
+`file` | Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)› |
 
 **Returns:** *file is FileData*
 
@@ -68,15 +68,15 @@ ___
 
 ### `Static` isOpenable
 
-▸ **isOpenable**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *file is FileData*
+▸ **isOpenable**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *file is FileData*
 
-*Defined in [src/util/file-helper.ts:12](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-helper.ts#L12)*
+*Defined in [src/util/file-helper.ts:11](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/file-helper.ts#L11)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`file` | Nullable‹[FileData](../interfaces/_typedef_.filedata.md)› |
+`file` | Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)› |
 
 **Returns:** *file is FileData*
 
@@ -84,14 +84,14 @@ ___
 
 ### `Static` isSelectable
 
-▸ **isSelectable**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *file is FileData*
+▸ **isSelectable**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *file is FileData*
 
-*Defined in [src/util/file-helper.ts:17](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/file-helper.ts#L17)*
+*Defined in [src/util/file-helper.ts:16](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/file-helper.ts#L16)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`file` | Nullable‹[FileData](../interfaces/_typedef_.filedata.md)› |
+`file` | Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)› |
 
 **Returns:** *file is FileData*

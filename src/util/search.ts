@@ -1,7 +1,7 @@
 import FuzzySearch from 'fuzzy-search';
 import { useMemo, useState } from 'react';
 
-import { FileArray, FileData } from '../typedef';
+import { FileArray, FileData } from '../types/files.types';
 import {
     ChonkySearchBarEnabledContext,
     ChonkySearchBarVisibleContext,

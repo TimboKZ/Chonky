@@ -18,7 +18,7 @@
 
 ▸ **FileThumbnail**(`props`: [FileThumbnailProps](../interfaces/_components_internal_filethumbnail_.filethumbnailprops.md) & object): *Element‹›*
 
-*Defined in [src/components/internal/FileThumbnail.tsx:15](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/internal/FileThumbnail.tsx#L15)*
+*Defined in [src/components/internal/FileThumbnail.tsx:15](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/internal/FileThumbnail.tsx#L15)*
 
 **Parameters:**
 

@@ -17,6 +17,8 @@
 ### `Const` FileToolbar
 
 • **FileToolbar**: *React.FC‹[FileToolbarProps](../interfaces/_components_external_filetoolbar_.filetoolbarprops.md)›* = React.memo(() => {
+    const searchBarEnabled = useContext(ChonkySearchBarEnabledContext);
+
     const folderChainComp = useFolderChainComponent();
     const {
         buttonGroups,
@@ -39,10 +41,12 @@
                         group={group}
                     />
                 ))}
-                {searchButtonGroup && <ToolbarButtonGroup group={searchButtonGroup} />}
+                {searchBarEnabled && searchButtonGroup && (
+                    <ToolbarButtonGroup group={searchButtonGroup} />
+                )}
             </div>
         </div>
     );
 })
 
-*Defined in [src/components/external/FileToolbar.tsx:9](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileToolbar.tsx#L9)*
+*Defined in [src/components/external/FileToolbar.tsx:10](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/FileToolbar.tsx#L10)*

@@ -1,10 +1,10 @@
 import { useContext, useEffect } from 'react';
 import { Nilable, Nullable } from 'tsdef';
 
-import { FileData } from '../../typedef';
+import { FileData } from '../../types/files.types';
+import { ChonkyIconName } from '../../types/icons.types';
 import { ChonkyThumbnailGeneratorContext } from '../../util/context';
 import { Logger } from '../../util/logger';
-import { ChonkyIconName } from '../external/ChonkyIcon';
 
 export const useDndIcon = (
     selected: Nilable<boolean>,

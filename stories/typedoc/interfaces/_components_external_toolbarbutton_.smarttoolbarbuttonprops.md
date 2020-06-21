@@ -16,6 +16,6 @@
 
 ###  fileAction
 
-• **fileAction**: *[FileAction](_typedef_.fileaction.md)*
+• **fileAction**: *[FileAction](_types_file_actions_types_.fileaction.md)*
 
-*Defined in [src/components/external/ToolbarButton.tsx:47](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ToolbarButton.tsx#L47)*
+*Defined in [src/components/external/ToolbarButton.tsx:63](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ToolbarButton.tsx#L63)*

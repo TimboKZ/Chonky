@@ -26,7 +26,6 @@ export const MyComponent = () => {
         ChonkyActions.UploadFiles, // Adds a button
         ChonkyActions.DownloadFiles, // Adds a button
         ChonkyActions.CopyFiles, // Adds a button and a shortcut: Ctrl+C
-
     ];
 
     return (

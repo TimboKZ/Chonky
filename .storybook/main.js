@@ -16,6 +16,19 @@ module.exports = {
             chonky: path.resolve(__dirname, '..', 'src'),
         };
 
+        // Used to load TypeScript files as raw text for the docs
+        config.module.rules.push({
+            test: /\.raw$/i,
+            use: [
+                {
+                    loader: 'raw-loader',
+                    options: {
+                        esModule: false,
+                    },
+                },
+            ],
+        });
+
         return config;
     },
 };

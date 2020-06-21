@@ -1,9 +1,12 @@
 import { useCallback, useContext } from 'react';
 import { Nullable } from 'tsdef';
 
-import { FileData } from '../../typedef';
+import { FileData } from '../../types/files.types';
+import {
+    SpecialAction,
+    SpecialFileMouseClickAction,
+} from '../../types/special-actions.types';
 import { ChonkyDispatchSpecialActionContext } from '../../util/context';
-import { SpecialAction, SpecialFileMouseClickAction } from '../../util/special-actions';
 import { KeyboardClickEvent, MouseClickEvent } from './ClickableWrapper';
 
 export const useFileClickHandlers = (file: Nullable<FileData>) => {

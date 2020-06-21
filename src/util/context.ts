@@ -1,14 +1,12 @@
 import React from 'react';
 import { Nullable } from 'tsdef';
 
-import {
-    FileAction,
-    FileArray,
-    FileSelection,
-    InternalFileActionDispatcher,
-    InternalSpecialActionDispatcher,
-    ThumbnailGenerator,
-} from '../typedef';
+import { DefaultEntrySize } from '../components/external/FileList-virtualization';
+import { FileAction, InternalFileActionDispatcher } from '../types/file-actions.types';
+import { FileEntrySize } from '../types/file-list-view.types';
+import { FileArray, FileSelection } from '../types/files.types';
+import { InternalSpecialActionDispatcher } from '../types/special-actions.types';
+import { ThumbnailGenerator } from '../types/thumbnails.types';
 import { NOOP_FUNCTION } from './constants';
 import { SelectionUtil } from './selection';
 
@@ -51,6 +49,12 @@ export const ChonkyThumbnailGeneratorContext = React.createContext<
 
 export const ChonkyDoubleClickDelayContext = React.createContext<number>(300);
 
+// === File List appearance & virtualization contexts
+export const ChonkyFileEntrySizeContext = React.createContext<FileEntrySize>(
+    DefaultEntrySize
+);
+
+// === Misc options contexts
 export const ChonkyDisableSelectionContext = React.createContext<boolean>(false);
 export const ChonkyEnableDragAndDropContext = React.createContext<boolean>(false);
 

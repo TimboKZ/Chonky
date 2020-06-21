@@ -1,12 +1,9 @@
 import React, { useMemo } from 'react';
 import shortid from 'shortid';
 
-import {
-    FileAction,
-    FileActionHandler,
-    FileArray,
-    ThumbnailGenerator,
-} from '../../typedef';
+import { FileActionHandler, FileArray } from '../..';
+import { FileAction } from '../../types/file-actions.types';
+import { ThumbnailGenerator } from '../../types/thumbnails.types';
 import {
     ChonkyDisableSelectionContext,
     ChonkyDispatchFileActionContext,

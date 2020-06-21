@@ -9,8 +9,8 @@ import memoize from 'memoizee';
 import { useMemo } from 'react';
 import { Nullable } from 'tsdef';
 
-import { ChonkyIconName } from '../components/external/ChonkyIcon';
-import { FileData, FileIconData } from '../typedef';
+import { FileData } from '../types/files.types';
+import { ChonkyIconName, FileIconData } from '../types/icons.types';
 
 const getIconTrie = memoize(() => {
     let colourIndex = 0;

@@ -42,7 +42,7 @@
     );
 })
 
-*Defined in [src/components/external/DropdownButton.tsx:21](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/DropdownButton.tsx#L21)*
+*Defined in [src/components/external/DropdownButton.tsx:22](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/DropdownButton.tsx#L22)*
 
 ## Functions
 
@@ -50,7 +50,7 @@
 
 ▸ **SmartDropdownButton**(`props`: [SmartDropdownButtonProps](../interfaces/_components_external_dropdownbutton_.smartdropdownbuttonprops.md) & object): *null | Element‹›*
 
-*Defined in [src/components/external/DropdownButton.tsx:46](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/DropdownButton.tsx#L46)*
+*Defined in [src/components/external/DropdownButton.tsx:47](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/DropdownButton.tsx#L47)*
 
 **Parameters:**
 

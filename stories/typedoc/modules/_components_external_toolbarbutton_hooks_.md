@@ -12,17 +12,19 @@
 
 ### `Const` useSmartToolbarButtonProps
 
-▸ **useSmartToolbarButtonProps**(`action`: [FileAction](../interfaces/_typedef_.fileaction.md)): *object*
+▸ **useSmartToolbarButtonProps**(`action`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)): *object*
 
-*Defined in [src/components/external/ToolbarButton-hooks.tsx:14](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ToolbarButton-hooks.tsx#L14)*
+*Defined in [src/components/external/ToolbarButton-hooks.tsx:17](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ToolbarButton-hooks.tsx#L17)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`action` | [FileAction](../interfaces/_typedef_.fileaction.md) |
+`action` | [FileAction](../interfaces/_types_file_actions_types_.fileaction.md) |
 
 **Returns:** *object*
+
+* **active**: *boolean*
 
 * **disabled**: *undefined | false | true*
 

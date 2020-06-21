@@ -3,7 +3,9 @@ import React, { useCallback, useContext } from 'react';
 import { Grid } from 'react-virtualized';
 import { Nilable } from 'tsdef';
 
-import { FileArray } from '../../typedef';
+import { FileEntrySize } from '../../types/file-list-view.types';
+import { FileArray } from '../../types/files.types';
+import { ChonkyIconName } from '../../types/icons.types';
 import {
     ChonkyEnableDragAndDropContext,
     ChonkySelectionContext,
@@ -12,19 +14,16 @@ import { isMobileDevice } from '../../util/validation';
 import { FileEntryProps } from '../internal/BaseFileEntry';
 import { ClickableFileEntry } from '../internal/ClickableFileEntry';
 import { DnDFileEntry } from '../internal/DnDFileEntry';
-import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
+import { ChonkyIconFA } from './ChonkyIcon';
 
-export interface EntrySize {
-    width: number;
-    height: number;
-}
+export const SmallThumbsSize: FileEntrySize = { width: 160, height: 120 };
 
-export const SmallThumbsSize: EntrySize = { width: 160, height: 120 };
+export const DefaultEntrySize: FileEntrySize = SmallThumbsSize;
 
 export const getColWidth = (
     index: number,
     columnCount: number,
-    entrySize: EntrySize,
+    entrySize: FileEntrySize,
     gutterSize: number
 ) => {
     if (index === columnCount - 1) return entrySize.width;
@@ -34,7 +33,7 @@ export const getColWidth = (
 export const getRowHeight = (
     index: number,
     rowCount: number,
-    entrySize: EntrySize,
+    entrySize: FileEntrySize,
     gutterSize: number
 ) => {
     if (index === rowCount - 1) return entrySize.height;

@@ -6,6 +6,7 @@
 
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 
+import { ChonkyIconName } from '../../types/icons.types';
 import { INTENTIONAL_EMPTY_DEPS } from '../../util/constants';
 import {
     ChonkySearchFilterContext,
@@ -13,7 +14,7 @@ import {
     ChonkySetSearchFilterContext,
 } from '../../util/context';
 import { useDebounce } from '../../util/hooks-helpers';
-import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
+import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface FileSearchProps {}
 

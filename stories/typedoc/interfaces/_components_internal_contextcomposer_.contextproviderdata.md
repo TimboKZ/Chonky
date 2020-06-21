@@ -23,7 +23,7 @@
 
 • **provider**: *React.Provider‹T›*
 
-*Defined in [src/components/internal/ContextComposer.tsx:10](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/internal/ContextComposer.tsx#L10)*
+*Defined in [src/components/internal/ContextComposer.tsx:10](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/internal/ContextComposer.tsx#L10)*
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 • **value**: *T*
 
-*Defined in [src/components/internal/ContextComposer.tsx:11](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/internal/ContextComposer.tsx#L11)*
+*Defined in [src/components/internal/ContextComposer.tsx:11](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/internal/ContextComposer.tsx#L11)*

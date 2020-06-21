@@ -12,15 +12,15 @@
 
 ### `Const` useFileClickHandlers
 
-▸ **useFileClickHandlers**(`file`: Nullable‹[FileData](../interfaces/_typedef_.filedata.md)›): *object*
+▸ **useFileClickHandlers**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *object*
 
-*Defined in [src/components/internal/ClickableFileEntry-hooks.tsx:9](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/internal/ClickableFileEntry-hooks.tsx#L9)*
+*Defined in [src/components/internal/ClickableFileEntry-hooks.tsx:12](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/internal/ClickableFileEntry-hooks.tsx#L12)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`file` | Nullable‹[FileData](../interfaces/_typedef_.filedata.md)› |
+`file` | Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)› |
 
 **Returns:** *object*
 

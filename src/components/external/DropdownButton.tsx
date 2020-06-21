@@ -6,8 +6,9 @@
 
 import React from 'react';
 
-import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
-import { FileAction } from 'chonky';
+import { FileAction } from '../../types/file-actions.types';
+import { ChonkyIconName } from '../../types/icons.types';
+import { ChonkyIconFA } from './ChonkyIcon';
 import { useSmartToolbarButtonProps } from './ToolbarButton-hooks';
 
 export interface DropdownButtonProps {

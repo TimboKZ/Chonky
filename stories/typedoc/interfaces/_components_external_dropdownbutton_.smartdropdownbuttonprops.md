@@ -16,6 +16,6 @@
 
 ###  fileAction
 
-• **fileAction**: *[FileAction](_typedef_.fileaction.md)*
+• **fileAction**: *[FileAction](_types_file_actions_types_.fileaction.md)*
 
-*Defined in [src/components/external/DropdownButton.tsx:43](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/DropdownButton.tsx#L43)*
+*Defined in [src/components/external/DropdownButton.tsx:44](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/DropdownButton.tsx#L44)*

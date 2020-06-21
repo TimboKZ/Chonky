@@ -18,6 +18,6 @@
 
 ▸ **FileSearch**(): *Element‹›*
 
-*Defined in [src/components/external/FileSearch.tsx:18](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/FileSearch.tsx#L18)*
+*Defined in [src/components/external/FileSearch.tsx:21](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/FileSearch.tsx#L21)*
 
 **Returns:** *Element‹›*

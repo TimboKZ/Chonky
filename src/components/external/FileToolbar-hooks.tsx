@@ -2,6 +2,7 @@ import c from 'classnames';
 import React, { useContext, useMemo } from 'react';
 import { Nullable } from 'tsdef';
 
+import { ChonkyIconName } from '../../types/icons.types';
 import {
     ChonkyDispatchFileActionContext,
     ChonkyFileActionsContext,
@@ -9,7 +10,7 @@ import {
 } from '../../util/context';
 import { ChonkyActions } from '../../util/file-actions';
 import { FileHelper } from '../../util/file-helper';
-import { ChonkyIconFA, ChonkyIconName } from './ChonkyIcon';
+import { ChonkyIconFA } from './ChonkyIcon';
 import { ToolbarButtonGroup } from './ToolbarButtonGroup';
 
 /**
@@ -39,7 +40,7 @@ export const useFolderChainComponent = () => {
             if (FileHelper.isOpenable(file) && !isLast) {
                 compProps.onClick = () => {
                     dispatchChonkyAction({
-                        actionName: ChonkyActions.OpenFiles.name,
+                        actionId: ChonkyActions.OpenFiles.id,
                         target: file,
                         files: [file],
                     });
@@ -124,9 +125,9 @@ export const useToolbarButtonGroups = () => {
                 };
 
                 // Only add it to the normal groups array if it's not a special button
-                if (action.name === ChonkyActions.OpenParentFolder.name) {
+                if (action.id === ChonkyActions.OpenParentFolder.id) {
                     openParentFolderButtonGroup = group;
-                } else if (action.name === ChonkyActions.ToggleSearch.name) {
+                } else if (action.id === ChonkyActions.ToggleSearch.id) {
                     searchButtonGroup = group;
                 } else {
                     buttonGroups.push(group);

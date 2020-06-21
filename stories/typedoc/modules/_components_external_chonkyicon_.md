@@ -4,10 +4,6 @@
 
 ## Index
 
-### Enumerations
-
-* [ChonkyIconName](../enums/_components_external_chonkyicon_.chonkyiconname.md)
-
 ### Interfaces
 
 * [ChonkyIconProps](../interfaces/_components_external_chonkyicon_.chonkyiconprops.md)
@@ -31,7 +27,7 @@
     return <FontAwesomeIcon {...faProps} />;
 })
 
-*Defined in [src/components/external/ChonkyIcon.tsx:196](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L196)*
+*Defined in [src/components/external/ChonkyIcon.tsx:133](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ChonkyIcon.tsx#L133)*
 
 ___
 
@@ -102,6 +98,6 @@ ___
     [ChonkyIconName.ubuntu]: faUbuntu,
 } as const
 
-*Defined in [src/components/external/ChonkyIcon.tsx:121](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/components/external/ChonkyIcon.tsx#L121)*
+*Defined in [src/components/external/ChonkyIcon.tsx:58](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ChonkyIcon.tsx#L58)*
 
 #### Type declaration:

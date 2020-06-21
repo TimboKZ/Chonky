@@ -1,69 +1,21 @@
 import { useCallback, useEffect, useMemo } from 'react';
 
+import { InternalFileActionDispatcher } from '../types/file-actions.types';
+import { FileArray, FileSelection } from '../types/files.types';
 import {
-    FileArray,
-    FileData,
-    FileSelection,
-    InternalFileActionDispatcher,
     InternalSpecialActionDispatcher,
-} from '../typedef';
+    SpecialAction,
+    SpecialActionData,
+    SpecialDragNDropEndAction,
+    SpecialDragNDropStartAction,
+    SpecialFileKeyboardClickAction,
+    SpecialFileMouseClickAction,
+} from '../types/special-actions.types';
 import { INTENTIONAL_EMPTY_DEPS } from './constants';
 import { ChonkyActions } from './file-actions';
 import { FileHelper } from './file-helper';
 import { Logger } from './logger';
 import { SelectionUtil, useSelection } from './selection';
-
-export enum SpecialAction {
-    MouseClickFile = 'mouse_click_file',
-    KeyboardClickFile = 'keyboard_click_file',
-
-    ToggleSearchBar = 'toggle_search_bar',
-
-    DragNDropStart = 'drag_n_drop_start',
-    DragNDropEnd = 'drag_n_drop_end',
-}
-
-export interface SpecialFileMouseClickAction {
-    actionName: SpecialAction.MouseClickFile;
-    file: FileData;
-    altKey: boolean;
-    ctrlKey: boolean;
-    shiftKey: boolean;
-    clickType: 'single' | 'double';
-}
-
-export interface SpecialFileKeyboardClickAction {
-    actionName: SpecialAction.KeyboardClickFile;
-    file: FileData;
-    enterKey: boolean;
-    spaceKey: boolean;
-    altKey: boolean;
-    ctrlKey: boolean;
-    shiftKey: boolean;
-}
-
-export interface SpecialToggleSearchBarAction {
-    actionName: SpecialAction.KeyboardClickFile;
-}
-
-export interface SpecialDragNDropStartAction {
-    actionName: SpecialAction.DragNDropStart;
-    dragSource: FileData;
-}
-
-export interface SpecialDragNDropEndAction {
-    actionName: SpecialAction.DragNDropEnd;
-    dragSource: FileData;
-    dropTarget: FileData;
-    dropEffect: 'move' | 'copy';
-}
-
-export type SpecialActionData =
-    | SpecialFileMouseClickAction
-    | SpecialFileKeyboardClickAction
-    | SpecialToggleSearchBarAction
-    | SpecialDragNDropStartAction
-    | SpecialDragNDropEndAction;
 
 interface SpecialMutableChonkyState {
     files: FileArray;
@@ -155,7 +107,7 @@ export const useSpecialFileActionHandlerMap = (
                         FileHelper.isOpenable(data.file)
                     ) {
                         dispatchFileAction({
-                            actionName: ChonkyActions.OpenFiles.name,
+                            actionId: ChonkyActions.OpenFiles.id,
                             target: data.file,
 
                             // To simulate Windows Explorer and Nautilus behaviour,
@@ -177,7 +129,7 @@ export const useSpecialFileActionHandlerMap = (
                 ) => {
                     if (data.enterKey && FileHelper.isOpenable(data.file)) {
                         dispatchFileAction({
-                            actionName: ChonkyActions.OpenFiles.name,
+                            actionId: ChonkyActions.OpenFiles.id,
                             target: data.file,
                             files: selectionUtil.getSelectedFiles(
                                 FileHelper.isOpenable
@@ -209,10 +161,10 @@ export const useSpecialFileActionHandlerMap = (
                     const droppedFiles =
                         selectedFiles.length > 0 ? selectedFiles : [data.dragSource];
                     dispatchFileAction({
-                        actionName:
+                        actionId:
                             data.dropEffect === 'copy'
-                                ? ChonkyActions.DuplicateFilesTo.name
-                                : ChonkyActions.MoveFilesTo.name,
+                                ? ChonkyActions.DuplicateFilesTo.id
+                                : ChonkyActions.MoveFilesTo.id,
                         target: data.dropTarget,
                         files: droppedFiles,
                     });

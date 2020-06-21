@@ -7,7 +7,7 @@ import {
     FileFilter,
     FileSelection,
     ReadonlyFileArray,
-} from '../typedef';
+} from '../types/files.types';
 import { FileHelper } from './file-helper';
 
 export const useSelection = (files: FileArray, disableSelection: boolean) => {

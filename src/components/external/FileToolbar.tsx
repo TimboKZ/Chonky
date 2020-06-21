@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 
+import { ChonkySearchBarEnabledContext } from '../../util/context';
 import { useFolderChainComponent, useToolbarButtonGroups } from './FileToolbar-hooks';
 import { ToolbarButtonGroup } from './ToolbarButtonGroup';
-import { ChonkySearchBarEnabledContext } from '../../util/context';
 
 export interface FileToolbarProps {}
 

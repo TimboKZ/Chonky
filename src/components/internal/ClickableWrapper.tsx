@@ -48,7 +48,7 @@ export const ClickableWrapper: React.FC<ClickableWrapperProps> = (props) => {
     const handleKeyDown = useKeyDownHandler(onKeyboardClick);
 
     const compProps: AnyObjectWithStringKeys = {};
-if (onSingleClick || onDoubleClick || onKeyboardClick) {
+    if (onSingleClick || onDoubleClick || onKeyboardClick) {
         compProps.onClick = handleClick;
         compProps.onKeyDown = handleKeyDown;
         compProps.tabIndex = 0;

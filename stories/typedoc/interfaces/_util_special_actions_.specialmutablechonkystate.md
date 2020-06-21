@@ -17,14 +17,14 @@
 
 ###  files
 
-• **files**: *[FileArray](../modules/_typedef_.md#filearray)*
+• **files**: *[FileArray](../modules/_types_files_types_.md#filearray)*
 
-*Defined in [src/util/special-actions.ts:62](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L62)*
+*Defined in [src/util/special-actions.ts:21](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/special-actions.ts#L21)*
 
 ___
 
 ###  selection
 
-• **selection**: *[FileSelection](_typedef_.fileselection.md)*
+• **selection**: *[FileSelection](_types_files_types_.fileselection.md)*
 
-*Defined in [src/util/special-actions.ts:63](https://github.com/TimboKZ/Chonky/blob/ca45eac/src/util/special-actions.ts#L63)*
+*Defined in [src/util/special-actions.ts:22](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/special-actions.ts#L22)*

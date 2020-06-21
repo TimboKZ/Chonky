@@ -1,3 +1,3 @@
 TODO Explain:
 
-* `FileBrowser` must wrap everything.
+-   `FileBrowser` must wrap everything.
