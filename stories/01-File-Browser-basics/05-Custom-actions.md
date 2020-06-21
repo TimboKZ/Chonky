@@ -53,3 +53,37 @@ const downloadPsdAction: FileAction = {
     },
 };
 ```
+
+Next, we need to pass this custom action to `FileBrowser`, along with some files:
+
+```ts
+export const CustomActionsExample = () => {
+    const customFileActions = [downloadPsdAction]; // <-----
+    const files = [
+        { id: 'xVdE', name: 'Flowers.psd' },
+        { id: 'bTeX', name: 'Mountains.psd' },
+        { id: 'mGeX', name: 'Sky.psd' },
+        { id: 'mFte', name: 'Stars.psd' },
+        { id: 'tLwZ', name: 'Parser.rs' },
+        { id: 'mGrQ', name: 'package.json' },
+    ];
+
+    return (
+        <div style={{ height: 500 }}>
+            <FileBrowser
+                files={files}
+                fileActions={customFileActions} // <-----
+            >
+                <FileToolbar />
+                <FileSearch />
+                <FileList />
+            </FileBrowser>
+        </div>
+    );
+};
+```
+
+You can see the outcome in the live example below. Note how the button only becomes
+enabled when you select some `.psd` files. Also, when you click "Download Photoshop
+files", the action popup only includes `.psd` files. After you make your selection,
+you can also press `Ctrl+Q` to make your selection.

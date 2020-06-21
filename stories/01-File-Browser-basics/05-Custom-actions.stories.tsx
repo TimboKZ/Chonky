@@ -52,14 +52,16 @@ export const CustomActionsExample = () => {
     ];
 
     return (
-        <FileBrowser
-            files={files}
-            onFileAction={handleFileAction}
-            fileActions={customFileActions}
-        >
-            <FileToolbar />
-            <FileSearch />
-            <FileList />
-        </FileBrowser>
+        <div style={{ height: 500 }}>
+            <FileBrowser
+                files={files}
+                onFileAction={handleFileAction}
+                fileActions={customFileActions}
+            >
+                <FileToolbar />
+                <FileSearch />
+                <FileList />
+            </FileBrowser>
+        </div>
     );
 };
