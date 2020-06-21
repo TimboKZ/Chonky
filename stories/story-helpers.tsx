@@ -93,13 +93,12 @@ const parseMarkdown = (markdown: string): React.ReactElement[] => {
         if (start.type !== 'start' || end.type !== 'end') continue;
         else i += 1;
 
-        const mdKey = `md-${i}`;
         const mdSlice = markdown.substring(markdownStart, start.markdownEnd);
         const codeSlice = markdown.substring(start.codeStart!, end.codeEnd);
 
-        components.push(<Description key={mdKey} markdown={mdSlice} />);
+        components.push(prepareMarkdownComp(i, mdSlice));
         components.push(
-            prepareMarkdownComp(i, start.language, codeSlice, start.jsonConfig)
+            prepareCodeComp(i, start.language, codeSlice, start.jsonConfig)
         );
         markdownStart = end.markdownStart!;
     }
@@ -110,24 +109,28 @@ const parseMarkdown = (markdown: string): React.ReactElement[] => {
     return components;
 };
 
-const prepareMarkdownComp = (
+const prepareMarkdownComp = (index: number, markdown: string) => {
+    return <Description key={`md-${index}`} markdown={markdown} />;
+};
+
+const prepareCodeComp = (
     index: number,
     language?: string,
-    markdown?: string,
+    code?: string,
     jsonConfig?: string
 ) => {
     const key = `code-${2 * index + 1}`;
 
-    let code;
+    let displayCode;
     if (jsonConfig) {
-        code =
+        displayCode =
             `Sorry, JSON config loading is currently not supported. ` +
             `\nYour config: ${jsonConfig}`;
     } else {
-        code = markdown;
+        displayCode = code;
     }
 
-    return <Source key={key} language={language} code={code} />;
+    return <Source key={key} language={language} code={displayCode} />;
 };
 
 const getIndicesOf = (needle: string, haystack: string) => {

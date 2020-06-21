@@ -58,12 +58,21 @@ export const useSmartToolbarButtonProps = (action: FileAction) => {
 
         const active = action.id === ChonkyActions.ToggleSearch.id && searchBarVisible;
 
+        // Action target is tailored to the "Go up a directory" button at the moment
+        let actionTarget: Undefinable<FileData> = undefined;
+        if (action.requiresParentFolder && parentFolder) {
+            if (action.fileFilter) {
+                if (action.fileFilter(parentFolder)) actionTarget = parentFolder;
+            } else {
+                actionTarget = parentFolder;
+            }
+        }
+
         const disabled =
             (action.requiresSelection && actionSelectionSize === 0) ||
-            (action.requiresParentFolder && !parentFolder);
+            (action.requiresParentFolder && !actionTarget);
+        // TODO: ^^^ Decouple `actionTarget` and `parentFolder`.
 
-        const actionTarget =
-            action.requiresParentFolder && parentFolder ? parentFolder : undefined;
         const onClick = () =>
             dispatchChonkyAction({
                 actionId: action.id,

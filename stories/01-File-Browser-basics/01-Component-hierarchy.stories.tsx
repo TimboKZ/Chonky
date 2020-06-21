@@ -1,9 +1,16 @@
 import 'chonky/style/main.css';
 
-import { FileBrowser, FileList, FileToolbar } from 'chonky';
+import {
+    FileAction,
+    FileActionData,
+    FileBrowser,
+    FileList,
+    FileSearch,
+    FileToolbar
+} from 'chonky';
 import React from 'react';
 
-import { createDocsObject } from '../story-helpers';
+import { createDocsObject, showActionNotification } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './01-Component-hierarchy.md';
@@ -17,10 +24,23 @@ export default {
 };
 
 export const ComponentHierarchyExample = () => {
+    const folderChain = [{ id: 'xASw', name: 'Chonky Demo Folder', isDir: true }];
+    const files = [{ id: 'bEfX', name: 'Demo.ts' }];
+
+    const handleFileAction = (action: FileAction, data: FileActionData) => {
+        showActionNotification({ action, data });
+    };
+
     return (
         <div style={{ height: 500 }}>
-            <FileBrowser files={[]} enableDragAndDrop={true}>
+            <FileBrowser
+                files={files}
+                folderChain={folderChain}
+                onFileAction={handleFileAction}
+                enableDragAndDrop={true}
+            >
                 <FileToolbar />
+                <FileSearch />
                 <FileList />
             </FileBrowser>
         </div>

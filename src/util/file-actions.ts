@@ -7,6 +7,7 @@ import {
     FileActionHandler,
     InternalFileActionDispatcher,
 } from '../types/file-actions.types';
+import { FileData } from '../types/files.types';
 import { ChonkyIconName } from '../types/icons.types';
 import { SpecialAction } from '../types/special-actions.types';
 import { FileHelper } from './file-helper';
@@ -25,6 +26,7 @@ export const ChonkyActions = {
     OpenParentFolder: {
         id: 'open_parent_folder',
         requiresParentFolder: true,
+        fileFilter: (file: FileData) => FileHelper.isOpenable(file),
         hotkeys: ['backspace'],
         toolbarButton: {
             name: 'Go up a directory',

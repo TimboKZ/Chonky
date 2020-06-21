@@ -24,7 +24,7 @@ export interface FileData {
 
     thumbnailUrl?: string; // Automatically load thumbnail from here
 
-    [property: string]: any;
+    [property: string]: any; // Any other user-defined property
 }
 
 export type FileArray = Nullable<FileData>[];

@@ -1,4 +1,4 @@
-[story: Using file actions] section shows _how_ to use file actions, but it doesn't
+_Passing invalid props_ section shows _how_ to use file actions, but it doesn't
 explain _what_ they are. A file action is a plain JavaScript object that desribes
 what can happen to files.
 
@@ -20,7 +20,7 @@ interface FileAction {
 type FileFilter = (file: Nullable<FileData>) => boolean;
 
 // ...and...
-export interface ToolbarButtonData {
+interface ToolbarButtonData {
     name: string; // Button name
     group?: string; // Group to add the button too
     dropdown?: boolean; // Whether to display group as dropdown
@@ -33,13 +33,13 @@ export interface ToolbarButtonData {
 -   If one of the actions in a group includes `dropdown: true`, all actions in that
     group will be shown as a dropdown.
 
-## Example custom action: Download Photoshop files
+## Example custom action: "Download Photoshop files"
 
 Let's define a custom action that will download the selected Photoshop `.psd` files.
 We will add a button to the toolbar and a shortcut, `Ctrl+Q`. First, we define the
 file action object:
 
-```ts
+```tsx
 import { FileData, FileAction, ChonkyIconName } from 'chonky';
 
 const downloadPsdAction: FileAction = {
@@ -56,7 +56,7 @@ const downloadPsdAction: FileAction = {
 
 Next, we need to pass this custom action to `FileBrowser`, along with some files:
 
-```ts
+```tsx
 export const CustomActionsExample = () => {
     const customFileActions = [downloadPsdAction]; // <-----
     const files = [
@@ -70,10 +70,7 @@ export const CustomActionsExample = () => {
 
     return (
         <div style={{ height: 500 }}>
-            <FileBrowser
-                files={files}
-                fileActions={customFileActions} // <-----
-            >
+            <FileBrowser files={files} fileActions={customFileActions /* <---- */}>
                 <FileToolbar />
                 <FileSearch />
                 <FileList />
