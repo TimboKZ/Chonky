@@ -107,7 +107,6 @@ const getIconTrie = memoize(() => {
 });
 
 export const useIconData = (file: Nullable<FileData>): FileIconData => {
-    const deps = [file];
     return useMemo(() => {
         if (!file) return { icon: ChonkyIconName.loading, colorCode: 0 };
         if (file.isDir === true) return { icon: ChonkyIconName.folder, colorCode: 0 };
@@ -115,7 +114,7 @@ export const useIconData = (file: Nullable<FileData>): FileIconData => {
         const iconTrie = getIconTrie();
         const match = iconTrie.getWithCheckpoints(file.name, '.', true);
         return match ? match : { icon: ChonkyIconName.file, colorCode: 32 };
-    }, deps);
+    }, [file]);
 };
 
 export const VideoExtensions: string[] = [

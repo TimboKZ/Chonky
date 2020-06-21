@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { InternalFileActionDispatcher } from '../types/file-actions.types';
-import { FileArray, FileSelection } from '../types/files.types';
+import { FileArray } from '../types/files.types';
+import { ReactStateSetter } from '../types/react.types';
+import { FileSelection, SelectionModifiers } from '../types/selection.types';
 import {
     InternalSpecialActionDispatcher,
     SpecialAction,
@@ -10,18 +12,11 @@ import {
     SpecialDragNDropStartAction,
     SpecialFileKeyboardClickAction,
     SpecialFileMouseClickAction,
-    SpecialToggleSearchBarAction,
 } from '../types/special-actions.types';
-import { INTENTIONAL_EMPTY_DEPS } from './constants';
 import { ChonkyActions } from './file-actions';
 import { FileHelper } from './file-helper';
 import { Logger } from './logger';
-import { SelectionUtil, useSelection } from './selection';
-
-interface SpecialMutableChonkyState {
-    files: FileArray;
-    selection: FileSelection;
-}
+import { SelectionUtil } from './selection';
 
 /**
  * Returns a dispatch method meant to be used by child components. This dispatch
@@ -32,73 +27,51 @@ export const useSpecialActionDispatcher = (
     files: FileArray,
     selection: FileSelection,
     selectionUtil: SelectionUtil,
-    selectFiles: ReturnType<typeof useSelection>['selectFiles'],
-    toggleSelection: ReturnType<typeof useSelection>['toggleSelection'],
-    clearSelection: ReturnType<typeof useSelection>['clearSelection'],
+    selectionModifiers: SelectionModifiers,
+    setSearchBarVisible: ReactStateSetter<boolean>,
     dispatchFileAction: InternalFileActionDispatcher
 ): InternalSpecialActionDispatcher => {
-    // Generate mutable Chonky state object so that special action handlers can use
-    // up-to-date state without triggering re-renders
-    const specialStateDeps = [files, selection];
-    const specialState = useMemo<SpecialMutableChonkyState>(
-        () => ({
-            files,
-            selection,
-        }),
-        INTENTIONAL_EMPTY_DEPS
-    );
-    useEffect(() => {
-        specialState.files = files;
-        specialState.selection = selection;
-    }, specialStateDeps);
-
     // Create the special action handler map
     const specialActionHandlerMap = useSpecialFileActionHandlerMap(
         selectionUtil,
-        selectFiles,
-        toggleSelection,
-        clearSelection,
+        selectionModifiers,
+        setSearchBarVisible,
         dispatchFileAction
     );
 
     // Process special actions using the handlers from the map
-    const dispatchSpecialActionDeps = [specialActionHandlerMap];
-    const dispatchSpecialAction = useCallback((actionData: SpecialActionData) => {
-        const { actionName } = actionData;
-        const handler = specialActionHandlerMap[actionName];
-        if (handler) {
-            try {
-                handler(actionData);
-            } catch (error) {
+    const dispatchSpecialAction = useCallback(
+        (actionData: SpecialActionData) => {
+            const { actionId } = actionData;
+            const handler = specialActionHandlerMap[actionId];
+            if (handler) {
+                try {
+                    handler(actionData);
+                } catch (error) {
+                    Logger.error(
+                        `Handler for special action "${actionId}" threw an error.`,
+                        error
+                    );
+                }
+            } else {
                 Logger.error(
-                    `Handler for special action "${actionName}" threw an error.`,
-                    error
+                    `Internal components dispatched a "${actionId}" special action, ` +
+                        `but no internal handler is available to process it.`
                 );
             }
-        } else {
-            Logger.error(
-                `Internal components dispatched a "${actionName}" special action, ` +
-                    `but no internal handler is available to process it.`
-            );
-        }
-    }, dispatchSpecialActionDeps);
+        },
+        [specialActionHandlerMap]
+    );
     return dispatchSpecialAction;
 };
 
 export const useSpecialFileActionHandlerMap = (
     selectionUtil: SelectionUtil,
-    selectFiles: ReturnType<typeof useSelection>['selectFiles'],
-    toggleSelection: ReturnType<typeof useSelection>['toggleSelection'],
-    clearSelection: ReturnType<typeof useSelection>['clearSelection'],
+    selectionModifiers: SelectionModifiers,
+    setSearchBarVisible: ReactStateSetter<boolean>,
     dispatchFileAction: InternalFileActionDispatcher
 ) => {
     // Define handlers in a map
-    const specialActionHandlerMapDeps = [
-        selectFiles,
-        toggleSelection,
-        clearSelection,
-        dispatchFileAction,
-    ];
     const specialActionHandlerMap = useMemo(
         () =>
             ({
@@ -118,10 +91,13 @@ export const useSpecialFileActionHandlerMap = (
                         });
                     } else {
                         if (FileHelper.isSelectable(data.file)) {
-                            toggleSelection(data.file.id, !data.ctrlKey);
+                            selectionModifiers.toggleSelection(
+                                data.file.id,
+                                !data.ctrlKey
+                            );
                             // TODO: Handle range selections.
                         } else {
-                            if (!data.ctrlKey) clearSelection();
+                            if (!data.ctrlKey) selectionModifiers.clearSelection();
                         }
                     }
                 },
@@ -137,21 +113,20 @@ export const useSpecialFileActionHandlerMap = (
                             ),
                         });
                     } else if (data.spaceKey && FileHelper.isSelectable(data.file)) {
-                        toggleSelection(data.file.id, data.ctrlKey);
+                        selectionModifiers.toggleSelection(data.file.id, data.ctrlKey);
+
                         // TODO: Handle range selections.
                     }
                 },
-                [SpecialAction.ToggleSearchBar]: (
-                    data: SpecialToggleSearchBarAction
-                ) => {
-                    // TODO: Flip the search bar visibility switch here.
+                [SpecialAction.ToggleSearchBar]: () => {
+                    setSearchBarVisible((visible) => !visible);
                 },
                 [SpecialAction.DragNDropStart]: (data: SpecialDragNDropStartAction) => {
                     const file = data.dragSource;
                     if (!selectionUtil.isSelected(file)) {
-                        clearSelection();
+                        selectionModifiers.clearSelection();
                         if (FileHelper.isSelectable(file)) {
-                            selectFiles([file.id]);
+                            selectionModifiers.selectFiles([file.id]);
                         }
                     }
                 },
@@ -175,8 +150,8 @@ export const useSpecialFileActionHandlerMap = (
                         files: droppedFiles,
                     });
                 },
-            } as { [actionName in SpecialAction]: (data: SpecialActionData) => void }),
-        specialActionHandlerMapDeps
+            } as { [actionId in SpecialAction]: (data: SpecialActionData) => void }),
+        [selectionUtil, selectionModifiers, setSearchBarVisible, dispatchFileAction]
     );
     return specialActionHandlerMap;
 };

@@ -8,7 +8,6 @@ import c from 'classnames';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import { ChonkyIconName } from '../../types/icons.types';
-import { INTENTIONAL_EMPTY_DEPS } from '../../util/constants';
 import {
     ChonkySearchBarVisibleContext,
     ChonkySearchFilterContext,
@@ -30,43 +29,50 @@ export const FileSearch: React.FC<FileSearchProps> = () => {
     useEffect(() => {
         setSearchBarEnabled(true);
         return () => setSearchBarEnabled(false);
-    }, INTENTIONAL_EMPTY_DEPS);
+    }, [setSearchBarEnabled]);
 
     // Show a loading indicator during debounce periods to help user realise that a
     // debounce period is in effect.
     const [showLoadingIndicator, setShowLoadingIndicator] = useState<boolean>(false);
 
-    // Define a local search filter, and update it when global search filter updates
-    const [localSearchFilter, setLocalSearchFilter] = useState<string>(
-        globalSearchFilter
-    );
-    useEffect(
-        () => {
-            setShowLoadingIndicator(false);
-            if (globalSearchFilter === localSearchFilter) return;
-            setLocalSearchFilter(globalSearchFilter);
-        },
+    // Define a local search filter and its debounced version
+    const [localFilter, setLocalFilter] = useState<string>(globalSearchFilter);
+    const [debouncedFilter, setDebouncedFilter] = useDebounce(localFilter, 500);
 
-        // `localSearchFilter` is deliberately not included in the deps below. This
-        // is because we don't want to re-set local search filter to itself.
-        [globalSearchFilter, setShowLoadingIndicator, setLocalSearchFilter]
-    );
-
-    // Set global search filter to local search filter with debounce
-    const debouncedLocalSearchFilter = useDebounce(localSearchFilter, 500);
+    // === Debounced global filter update
     useEffect(() => {
         setShowLoadingIndicator(false);
-        const trimmedFilter = debouncedLocalSearchFilter.trim();
-        if (trimmedFilter === globalSearchFilter) return;
+        const trimmedFilter = debouncedFilter.trim();
         setGlobalSearchFilter(trimmedFilter);
-    }, [globalSearchFilter, setShowLoadingIndicator, debouncedLocalSearchFilter]);
+    }, [debouncedFilter, setShowLoadingIndicator, setGlobalSearchFilter]);
 
+    // === Search bar showing/hiding logic
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    useEffect(() => {
+        if (searchBarVisible) {
+            // When the search bar is shown, focus the input
+            if (inputRef.current) inputRef.current.focus();
+        } else {
+            // When the search bar is hidden, clear out the search filter
+            setShowLoadingIndicator(false);
+            setLocalFilter('');
+            setDebouncedFilter('');
+        }
+    }, [
+        inputRef,
+        searchBarVisible,
+        setShowLoadingIndicator,
+        setLocalFilter,
+        setDebouncedFilter,
+    ]);
+
+    // === Text input handler
     const handleInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             setShowLoadingIndicator(true);
-            setLocalSearchFilter(event.target.value);
+            setLocalFilter(event.target.value);
         },
-        [setShowLoadingIndicator, setLocalSearchFilter]
+        [setShowLoadingIndicator, setLocalFilter]
     );
 
     const className = c({
@@ -80,9 +86,10 @@ export const FileSearch: React.FC<FileSearchProps> = () => {
                     <ChonkyIconFA icon={ChonkyIconName.search} fixedWidth={true} />
                 </label>
                 <input
+                    ref={inputRef}
                     type="text"
                     id="chonky-file-search"
-                    value={localSearchFilter}
+                    value={localFilter}
                     placeholder="Type to search..."
                     onChange={handleInputChange}
                 />

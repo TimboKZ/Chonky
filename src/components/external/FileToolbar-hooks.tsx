@@ -19,8 +19,6 @@ import { ToolbarButtonGroup } from './ToolbarButtonGroup';
 export const useFolderChainComponent = () => {
     const folderChain = useContext(ChonkyFolderChainContext);
     const dispatchChonkyAction = useContext(ChonkyDispatchFileActionContext);
-    // All hook params should go into `deps`
-    const deps = [folderChain, dispatchChonkyAction];
     const folderChainComponent = useMemo(() => {
         if (!folderChain) return folderChain;
 
@@ -76,13 +74,12 @@ export const useFolderChainComponent = () => {
             }
         }
         return <div className="chonky-folder-chain">{comps}</div>;
-    }, deps);
+    }, [folderChain, dispatchChonkyAction]);
     return folderChainComponent;
 };
 
 export const useToolbarButtonGroups = () => {
     const fileActions = useContext(ChonkyFileActionsContext);
-    const deps = [fileActions];
     return useMemo(() => {
         // Create an array for normal toolbar buttons
         const buttonGroups: ToolbarButtonGroup[] = [];
@@ -136,5 +133,5 @@ export const useToolbarButtonGroups = () => {
         }
 
         return { buttonGroups, openParentFolderButtonGroup, searchButtonGroup };
-    }, deps);
+    }, [fileActions]);
 };

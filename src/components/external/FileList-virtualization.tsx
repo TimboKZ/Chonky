@@ -45,7 +45,6 @@ export const useEntryRenderer = (files: FileArray) => {
     const selection = useContext(ChonkySelectionContext);
     const enableDragAndDrop = useContext(ChonkyEnableDragAndDropContext);
     // All hook parameters should go into `deps` array
-    const deps = [files, selection, enableDragAndDrop];
     const entryRenderer = useCallback(
         (
             virtualKey: string,
@@ -96,7 +95,7 @@ export const useEntryRenderer = (files: FileArray) => {
                 </div>
             );
         },
-        deps
+        [files, selection, enableDragAndDrop]
     );
 
     return entryRenderer;
@@ -128,7 +127,6 @@ export const useGridRenderer = (
     thumbsGridRef: React.Ref<Nilable<Grid>>,
     fillParentContainer: boolean
 ) => {
-    const deps = [files, entrySize, entryRenderer, thumbsGridRef, fillParentContainer];
     return useCallback(({ width, height }) => {
         const isMobile = isMobileDevice();
         const gutter = isMobile ? 5 : 8;
@@ -173,5 +171,5 @@ export const useGridRenderer = (
                 tabIndex={null}
             />
         );
-    }, deps);
+    }, [files, entrySize, entryRenderer, thumbsGridRef, fillParentContainer]);
 };

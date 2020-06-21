@@ -63,7 +63,6 @@ const useSearchContexts = (searchState: ReturnType<typeof useSearchState>) => {
 };
 
 export const useFilteredFiles = (files: FileArray, searchFilter: string): FileArray => {
-    const deps = [files, searchFilter];
     return useMemo(() => {
         if (!searchFilter) return files;
         const searcher = new FuzzySearch(
@@ -72,5 +71,5 @@ export const useFilteredFiles = (files: FileArray, searchFilter: string): FileAr
             { caseSensitive: false, sort: true }
         );
         return searcher.search(searchFilter);
-    }, deps);
+    }, [files, searchFilter]);
 };

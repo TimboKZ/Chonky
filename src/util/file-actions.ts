@@ -1,6 +1,6 @@
 import Promise from 'bluebird';
-import { useCallback, useMemo } from 'react';
-import { Nullable } from 'tsdef';
+import { useCallback, useContext, useMemo } from 'react';
+import { Nullable, Undefinable } from 'tsdef';
 
 import {
     FileAction,
@@ -10,8 +10,18 @@ import {
 import { FileData } from '../types/files.types';
 import { ChonkyIconName } from '../types/icons.types';
 import { SpecialAction } from '../types/special-actions.types';
+import {
+    ChonkyDispatchFileActionContext,
+    ChonkyDispatchSpecialActionContext,
+    ChonkyFilesContext,
+    ChonkyFolderChainContext,
+    ChonkySearchBarVisibleContext,
+    ChonkySelectionContext,
+    ChonkySelectionSizeContext,
+} from './context';
 import { FileHelper } from './file-helper';
 import { Logger } from './logger';
+import { SelectionHelper } from './selection';
 import { isFunction } from './validation';
 
 export const ChonkyActions = {
@@ -113,7 +123,6 @@ export const useFileActionDispatcher = (
     fileActions: FileAction[],
     onFileAction: Nullable<FileActionHandler>
 ): InternalFileActionDispatcher => {
-    const actionMapDeps = [fileActions];
     const actionMap = useMemo(() => {
         const actionMap = {};
         if (Array.isArray(fileActions)) {
@@ -122,9 +131,8 @@ export const useFileActionDispatcher = (
             }
         }
         return actionMap;
-    }, actionMapDeps);
+    }, [fileActions]);
 
-    const dispatchFileActionDeps = [actionMap, onFileAction];
     const dispatchFileAction: InternalFileActionDispatcher = useCallback(
         (actionData) => {
             const { actionId } = actionData;
@@ -147,8 +155,98 @@ export const useFileActionDispatcher = (
                 );
             }
         },
-        dispatchFileActionDeps
+        [actionMap, onFileAction]
     );
 
     return dispatchFileAction;
+};
+
+export const useFileActionTrigger = (action: FileAction) => {
+    const files = useContext(ChonkyFilesContext);
+    const folderChain = useContext(ChonkyFolderChainContext);
+    const selection = useContext(ChonkySelectionContext);
+    const selectionSize = useContext(ChonkySelectionSizeContext);
+    const searchBarVisible = useContext(ChonkySearchBarVisibleContext);
+    const dispatchFileAction = useContext(ChonkyDispatchFileActionContext);
+    const dispatchSpecialAction = useContext(ChonkyDispatchSpecialActionContext);
+
+    const parentFolder =
+        folderChain && folderChain.length > 1
+            ? folderChain[folderChain?.length - 2]
+            : null;
+
+    return useMemo(() => {
+        let actionSelectionSize: Undefinable<number> = undefined;
+        let actionFiles: Undefinable<ReadonlyArray<FileData>> = undefined;
+        if (action.requiresSelection) {
+            if (action.fileFilter) {
+                actionSelectionSize = SelectionHelper.getSelectionSize(
+                    files,
+                    selection,
+                    action.fileFilter
+                );
+                actionFiles = SelectionHelper.getSelectedFiles(
+                    files,
+                    selection,
+                    action.fileFilter
+                );
+            } else {
+                actionSelectionSize = selectionSize;
+                actionFiles = SelectionHelper.getSelectedFiles(files, selection);
+            }
+        }
+
+        const active = action.id === ChonkyActions.ToggleSearch.id && searchBarVisible;
+
+        // Action target is tailored to the "Go up a directory" button at the moment
+        let actionTarget: Undefinable<FileData> = undefined;
+        if (action.requiresParentFolder && parentFolder) {
+            if (action.fileFilter) {
+                if (action.fileFilter(parentFolder)) actionTarget = parentFolder;
+            } else {
+                actionTarget = parentFolder;
+            }
+        }
+
+        const disabled =
+            (action.requiresSelection && actionSelectionSize === 0) ||
+            (action.requiresParentFolder && !actionTarget);
+        // TODO: ^^^ Decouple `actionTarget` and `parentFolder`.
+
+        const triggerAction = () => {
+            if (action.specialActionToDispatch) {
+                const specialActionId = action.specialActionToDispatch;
+
+                switch (specialActionId) {
+                    case SpecialAction.ToggleSearchBar:
+                        dispatchSpecialAction({
+                            actionId: specialActionId,
+                        });
+                        break;
+                    default:
+                        Logger.error(
+                            `File action "${action.id}" tried to dispatch the ` +
+                                `special action "${specialActionId}", but no ` +
+                                `transform was defined for this action.`
+                        );
+                }
+            }
+            dispatchFileAction({
+                actionId: action.id,
+                target: actionTarget,
+                files: actionFiles,
+            });
+        };
+
+        return { active, disabled, triggerAction };
+    }, [
+        action,
+        files,
+        selection,
+        selectionSize,
+        searchBarVisible,
+        dispatchFileAction,
+        dispatchSpecialAction,
+        parentFolder,
+    ]);
 };

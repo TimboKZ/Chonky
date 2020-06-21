@@ -6,6 +6,7 @@ module.exports = {
     extends: [
         'eslint:recommended',
         'plugin:react/recommended',
+        'plugin:react-hooks/recommended',
         'plugin:import/errors',
         'plugin:import/warnings',
         'plugin:import/typescript',
@@ -49,6 +50,7 @@ module.exports = {
         'simple-import-sort/sort': 'error',
         'react/prop-types': 'off',
         'react/display-name': 'off',
+        'react-hooks/exhaustive-deps': 'error',
         'import/first': 'error',
         'import/no-unresolved': 'off',
         'import/no-namespace': 'error',
@@ -69,5 +71,8 @@ module.exports = {
     },
     settings: {
         'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
+        react: {
+            version: 'detect',
+        },
     },
 };

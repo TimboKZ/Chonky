@@ -8,8 +8,8 @@ import React from 'react';
 
 import { FileAction } from '../../types/file-actions.types';
 import { ChonkyIconName } from '../../types/icons.types';
+import { useFileActionTrigger } from '../../util/file-actions';
 import { ChonkyIconFA } from './ChonkyIcon';
-import { useSmartToolbarButtonProps } from './ToolbarButton-hooks';
 
 export interface DropdownButtonProps {
     text: string;
@@ -48,16 +48,16 @@ export const SmartDropdownButton: React.FC<SmartDropdownButtonProps> = (props) =
     const { fileAction: action } = props;
 
     const { toolbarButton: button } = action;
-    if (!button) return null;
 
-    const { onClick, disabled } = useSmartToolbarButtonProps(action);
+    const { disabled, triggerAction } = useFileActionTrigger(action);
+    if (!button) return null;
 
     return (
         <DropdownButton
             text={button.name}
             tooltip={button.tooltip}
             icon={button.icon}
-            onClick={onClick}
+            onClick={triggerAction}
             disabled={disabled}
         />
     );

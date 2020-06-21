@@ -35,7 +35,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
         if (!FileHelper.isDraggable(file)) return;
 
         dispatchSpecialAction({
-            actionName: SpecialAction.DragNDropStart,
+            actionId: SpecialAction.DragNDropStart,
             dragSource: file,
         });
     }, [dispatchSpecialAction, file]);
@@ -51,7 +51,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
             }
 
             dispatchSpecialAction({
-                actionName: SpecialAction.DragNDropEnd,
+                actionId: SpecialAction.DragNDropEnd,
                 dragSource: file,
                 dropTarget: dropResult.dropTarget,
                 dropEffect: dropResult.dropEffect,
@@ -73,7 +73,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
     );
     const canDrop = useCallback(
         (item: DnDFileEntryItem) => {
-            const isSameFile = item.file?.id === file?.id;
+            const isSameFile = file && item.file && file.id === item.file.id;
             return FileHelper.isDroppable(file) && !isSameFile;
         },
         [file]
@@ -103,7 +103,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
         // Set drag preview to an empty image because `DnDFileListDragLayer` will
         // provide its own preview.
         preview(getEmptyImage(), { captureDraggingState: true });
-    }, []);
+    }, [preview]);
 
     return (
         <div

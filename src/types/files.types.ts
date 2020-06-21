@@ -1,7 +1,7 @@
+import { Nullable } from 'tsdef';
+
 // If you make changes to required params in `FileData`, make sure to makes relevant
 // changes `validation.ts` functions.
-import { Nullable, Undefinable } from 'tsdef';
-
 export interface FileData {
     id: string; // (Required) String that uniquely identifies the file
 
@@ -30,8 +30,3 @@ export interface FileData {
 export type FileArray = Nullable<FileData>[];
 export type ReadonlyFileArray = ReadonlyArray<Nullable<FileData>>;
 export type FileFilter = (file: Nullable<FileData>) => boolean;
-
-export interface FileSelection {
-    // `true` means selected, anything else - not selected
-    [fileId: string]: Undefinable<boolean>;
-}

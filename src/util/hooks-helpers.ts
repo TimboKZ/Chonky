@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-export const useDebounce = <T>(value: T, delay: number): T => {
+export const useDebounce = <T>(
+    value: T,
+    delay: number
+): [T, React.Dispatch<React.SetStateAction<T>>] => {
     const [debouncedValue, setDebouncedValue] = useState(value);
 
     useEffect(() => {
@@ -13,7 +16,7 @@ export const useDebounce = <T>(value: T, delay: number): T => {
         };
     }, [value, delay]);
 
-    return debouncedValue;
+    return [debouncedValue, setDebouncedValue];
 };
 
 const UNINITIALIZED_SENTINEL = {};
@@ -32,7 +35,8 @@ interface UseClickListenerParams {
 export const useClickListener = <T extends HTMLElement = HTMLDivElement>(
     params: UseClickListenerParams
 ) => {
-    const triggerComponentRef = useRef<T>();
+    const { onClick, onInsideClick, onOutsideClick } = params;
+    const triggerComponentRef = useRef<T>(null);
 
     const clickListener = useCallback(
         (event: MouseEvent) => {
@@ -41,20 +45,15 @@ export const useClickListener = <T extends HTMLElement = HTMLDivElement>(
                 triggerComponentRef.current.contains(event.target as any)
             ) {
                 // Click originated from inside.
-                if (params.onInsideClick) params.onInsideClick(event);
+                if (onInsideClick) onInsideClick(event);
             } else {
                 // Click originated from outside inside.
-                if (params.onOutsideClick) params.onOutsideClick(event);
+                if (onOutsideClick) onOutsideClick(event);
             }
 
-            if (params.onClick) params.onClick(event);
+            if (onClick) onClick(event);
         },
-        [
-            params.onClick,
-            params.onInsideClick,
-            params.onOutsideClick,
-            triggerComponentRef,
-        ]
+        [onClick, onInsideClick, onOutsideClick, triggerComponentRef]
     );
 
     useEffect(() => {
@@ -64,5 +63,5 @@ export const useClickListener = <T extends HTMLElement = HTMLDivElement>(
         };
     }, [clickListener]);
 
-    return triggerComponentRef as React.RefObject<T>;
+    return triggerComponentRef;
 };

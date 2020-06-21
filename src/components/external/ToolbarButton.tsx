@@ -3,8 +3,8 @@ import React from 'react';
 
 import { FileAction } from '../../types/file-actions.types';
 import { ChonkyIconName } from '../../types/icons.types';
+import { useFileActionTrigger } from '../../util/file-actions';
 import { ChonkyIconFA } from './ChonkyIcon';
-import { useSmartToolbarButtonProps } from './ToolbarButton-hooks';
 
 export interface ToolbarButtonProps {
     text: string;
@@ -68,9 +68,9 @@ export const SmartToolbarButton: React.FC<SmartToolbarButtonProps> = React.memo(
         const { fileAction: action } = props;
 
         const { toolbarButton: button } = action;
-        if (!button) return null;
 
-        const { active, onClick, disabled } = useSmartToolbarButtonProps(action);
+        const { active, triggerAction, disabled } = useFileActionTrigger(action);
+        if (!button) return null;
 
         return (
             <ToolbarButton
@@ -79,7 +79,7 @@ export const SmartToolbarButton: React.FC<SmartToolbarButtonProps> = React.memo(
                 icon={button.icon}
                 iconOnly={button.iconOnly}
                 active={active}
-                onClick={onClick}
+                onClick={triggerAction}
                 disabled={disabled}
             />
         );

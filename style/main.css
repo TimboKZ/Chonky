@@ -385,10 +385,20 @@ button.chonky-folder-chain-entry:active {
 }
 
 .chonky-file-search {
+  -webkit-transition: height 100ms ease-in-out;
+  -moz-transition: height 100ms ease-in-out;
+  -o-transition: height 100ms ease-in-out;
+  transition: height 100ms ease-in-out;
   margin-bottom: 7.5px;
   margin-top: -7.5px;
   height: 28px;
+  opacity: 1;
 }
+.chonky-file-search-hidden {
+  height: 0 !important;
+  opacity: 0 !important;
+}
+
 .chonky-file-search-input-group label,
 .chonky-file-search-input-group input {
   line-height: 26px;

@@ -26,7 +26,7 @@ import { useClickListener, useStaticValue } from '../../util/hooks-helpers';
 import { useFilteredFiles, useSearch } from '../../util/search';
 import { useSelection } from '../../util/selection';
 import { useSpecialActionDispatcher } from '../../util/special-actions';
-import { useFileBrowserValidation } from '../../util/validation';
+import { useFileArrayValidation } from '../../util/validation';
 import { ContextComposer, ContextProviderData } from '../internal/ContextComposer';
 import { DnDFileListDragLayer } from '../internal/DnDFileListDragLayer';
 import { ErrorMessage } from '../internal/ErrorMessage';
@@ -102,7 +102,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const disableSelection = !!props.disableSelection;
     const enableDragAndDrop = !!props.enableDragAndDrop;
 
-    const validationResult = useFileBrowserValidation(files, folderChain);
+    const validationResult = useFileArrayValidation(files, folderChain);
 
     const sortedFiles = validationResult.cleanFiles;
     const cleanFolderChain = validationResult.cleanFolderChain;
@@ -112,15 +112,17 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         selection,
         selectionSize,
         selectionUtilRef,
-        selectFiles,
-        toggleSelection,
-        clearSelection,
+        selectionModifiers,
     } = useSelection(sortedFiles, disableSelection);
 
     // TODO: Validate file actions
     // TODO: Remove duplicates if they are default actions, otherwise error on
     //  duplicates.
     const extendedFileActions = [...fileActions, ...DefaultActions];
+
+    // Deal with file text search
+    const { searchState, searchContexts } = useSearch();
+    const filteredFiles = useFilteredFiles(sortedFiles, searchState.searchFilter);
 
     const dispatchFileAction = useFileActionDispatcher(
         extendedFileActions,
@@ -130,19 +132,14 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         sortedFiles,
         selection,
         selectionUtilRef.current,
-        selectFiles,
-        toggleSelection,
-        clearSelection,
+        selectionModifiers,
+        searchState.setSearchBarVisible,
         dispatchFileAction
     );
 
-    // Deal with file text search
-    const { searchState, searchContexts } = useSearch();
-    const filteredFiles = useFilteredFiles(sortedFiles, searchState.searchFilter);
-
     // Deal with clicks outside of Chonky
     const chonkyRootRef = useClickListener({
-        onOutsideClick: clearSelection,
+        onOutsideClick: selectionModifiers.clearSelection,
     });
 
     type ExtractContextType<P> = P extends React.Context<infer T> ? T : never;
@@ -216,6 +213,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
                 provider: data.context.Provider,
                 value: data.value,
             })),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         contexts.map((data) => data.value)
     );
 

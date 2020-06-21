@@ -13,6 +13,7 @@ export const isFunction = (value: any): value is Function => {
 };
 
 export const isMobileDevice = () => {
+    // noinspection JSDeprecatedSymbols
     return (
         typeof window.orientation !== 'undefined' ||
         navigator.userAgent.indexOf('IEMobile') !== -1
@@ -28,7 +29,7 @@ export const isMobileDevice = () => {
  * - some files are missing `name` field
  * - some files have invalid type (they are neither an object nor `null`)
  */
-export const useCleanFileArray = <AllowNull extends boolean>(
+export const cleanupFileArray = <AllowNull extends boolean>(
     fileArray: AllowNull extends false ? FileArray : Nullable<FileArray>,
     allowNull: AllowNull
 ): {
@@ -133,7 +134,7 @@ export interface ErrorMessageData {
     bullets: string[];
 }
 
-export const useFileBrowserValidation = (
+export const useFileArrayValidation = (
     files: FileArray,
     folderChain: Nullable<FileArray>
 ): {
@@ -141,11 +142,10 @@ export const useFileBrowserValidation = (
     cleanFolderChain: Nullable<FileArray>;
     errorMessages: ErrorMessageData[];
 } => {
-    const filesDeps = [files];
     const { cleanFiles, errorMessages: filesErrorMessages } = useMemo(() => {
         const errorMessages: ErrorMessageData[] = [];
 
-        const cleanFilesResult = useCleanFileArray(files, false);
+        const cleanFilesResult = cleanupFileArray(files, false);
         if (cleanFilesResult.warningMessage) {
             const errorMessage =
                 `The "files" prop passed to ${FileBrowser.name} did not pass validation. ` +
@@ -165,36 +165,35 @@ export const useFileBrowserValidation = (
             cleanFiles: cleanFilesResult.cleanFileArray,
             errorMessages,
         };
-    }, filesDeps);
+    }, [files]);
 
-    const folderChainDeps = [folderChain];
-    const { cleanFolderChain, errorMessages: folderChainErrorMessages } = useMemo(
-        () => {
-            const errorMessages: ErrorMessageData[] = [];
+    const {
+        cleanFolderChain,
+        errorMessages: folderChainErrorMessages,
+    } = useMemo(() => {
+        const errorMessages: ErrorMessageData[] = [];
 
-            const cleanFolderChainResult = useCleanFileArray(folderChain, true);
-            if (cleanFolderChainResult.warningMessage) {
-                const errorMessage =
-                    `The "folderChain" prop passed to ${FileBrowser.name} did not pass validation. ` +
-                    `${cleanFolderChainResult.warningMessage} ` +
-                    `The following errors were encountered:`;
-                Logger.error(
-                    errorMessage,
-                    Logger.formatBullets(cleanFolderChainResult.warningBullets)
-                );
-                errorMessages.push({
-                    message: errorMessage,
-                    bullets: cleanFolderChainResult.warningBullets,
-                });
-            }
+        const cleanFolderChainResult = cleanupFileArray(folderChain, true);
+        if (cleanFolderChainResult.warningMessage) {
+            const errorMessage =
+                `The "folderChain" prop passed to ${FileBrowser.name} did not pass validation. ` +
+                `${cleanFolderChainResult.warningMessage} ` +
+                `The following errors were encountered:`;
+            Logger.error(
+                errorMessage,
+                Logger.formatBullets(cleanFolderChainResult.warningBullets)
+            );
+            errorMessages.push({
+                message: errorMessage,
+                bullets: cleanFolderChainResult.warningBullets,
+            });
+        }
 
-            return {
-                cleanFolderChain: cleanFolderChainResult.cleanFileArray,
-                errorMessages,
-            };
-        },
-        folderChainDeps
-    );
+        return {
+            cleanFolderChain: cleanFolderChainResult.cleanFileArray,
+            errorMessages,
+        };
+    }, [folderChain]);
 
     return {
         cleanFiles,

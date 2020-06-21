@@ -5,9 +5,9 @@ import {
     FileArray,
     FileData,
     FileFilter,
-    FileSelection,
     ReadonlyFileArray,
 } from '../types/files.types';
+import { FileSelection, SelectionModifiers } from '../types/selection.types';
 import { FileHelper } from './file-helper';
 
 export const useSelection = (files: FileArray, disableSelection: boolean) => {
@@ -23,10 +23,7 @@ export const useSelection = (files: FileArray, disableSelection: boolean) => {
 
     // Create callbacks for updating selection. These will update the React
     // state `selection`, causing re-renders. This is intentional.
-    const { selectFiles, toggleSelection, clearSelection } = useSelectionModifiers(
-        disableSelection,
-        setSelection
-    );
+    const selectionModifiers = useSelectionModifiers(disableSelection, setSelection);
 
     // Create selection ref for functions that need selection but shouldn't re-render
     const selectionUtilRef = useRef<SelectionUtil>(
@@ -40,26 +37,26 @@ export const useSelection = (files: FileArray, disableSelection: boolean) => {
         selection,
         selectionSize,
         selectionUtilRef,
-        selectFiles,
-        toggleSelection,
-        clearSelection,
+        selectionModifiers,
     };
 };
 
 const useSelectionModifiers = (
     disableSelection: boolean,
     setSelection: React.Dispatch<React.SetStateAction<FileSelection>>
-) => {
-    const deps = [disableSelection, setSelection];
-    const selectFiles = useCallback((fileIds: string[], reset: boolean = true) => {
-        if (disableSelection) return;
+): SelectionModifiers => {
+    const selectFiles = useCallback(
+        (fileIds: string[], reset: boolean = true) => {
+            if (disableSelection) return;
 
-        setSelection((selection) => {
-            const newSelection = reset ? {} : { ...selection };
-            for (const fileId of fileIds) newSelection[fileId] = true;
-            return newSelection;
-        });
-    }, deps);
+            setSelection((selection) => {
+                const newSelection = reset ? {} : { ...selection };
+                for (const fileId of fileIds) newSelection[fileId] = true;
+                return newSelection;
+            });
+        },
+        [disableSelection, setSelection]
+    );
     const toggleSelection = useCallback(
         (fileId: string, exclusive: boolean = false) => {
             if (disableSelection) return;
@@ -74,19 +71,24 @@ const useSelectionModifiers = (
                 return newSelection;
             });
         },
-        deps
+        [disableSelection, setSelection]
     );
     const clearSelection = useCallback(() => {
         if (disableSelection) return;
 
         setSelection({});
-    }, deps);
+    }, [disableSelection, setSelection]);
 
-    return {
-        selectFiles,
-        toggleSelection,
-        clearSelection,
-    };
+    const selectionModifiers = useMemo(
+        () => ({
+            selectFiles,
+            toggleSelection,
+            clearSelection,
+        }),
+        [selectFiles, toggleSelection, clearSelection]
+    );
+
+    return selectionModifiers;
 };
 
 /**

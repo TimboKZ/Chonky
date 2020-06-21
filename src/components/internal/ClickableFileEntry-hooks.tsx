@@ -13,7 +13,6 @@ export const useFileClickHandlers = (file: Nullable<FileData>) => {
     const dispatchSpecialAction = useContext(ChonkyDispatchSpecialActionContext);
 
     // Prepare base handlers
-    const handlerDeps = [file, dispatchSpecialAction];
     const onMouseClick = useCallback(
         (
             event: MouseClickEvent,
@@ -22,7 +21,7 @@ export const useFileClickHandlers = (file: Nullable<FileData>) => {
             if (!file) return;
 
             dispatchSpecialAction({
-                actionName: SpecialAction.MouseClickFile,
+                actionId: SpecialAction.MouseClickFile,
                 clickType,
                 file,
                 altKey: event.altKey,
@@ -30,21 +29,24 @@ export const useFileClickHandlers = (file: Nullable<FileData>) => {
                 shiftKey: event.shiftKey,
             });
         },
-        handlerDeps
+        [file, dispatchSpecialAction]
     );
-    const onKeyboardClick = useCallback((event: KeyboardClickEvent) => {
-        if (!file) return;
+    const onKeyboardClick = useCallback(
+        (event: KeyboardClickEvent) => {
+            if (!file) return;
 
-        dispatchSpecialAction({
-            actionName: SpecialAction.KeyboardClickFile,
-            file,
-            enterKey: event.enterKey,
-            spaceKey: event.spaceKey,
-            altKey: event.altKey,
-            ctrlKey: event.ctrlKey,
-            shiftKey: event.shiftKey,
-        });
-    }, handlerDeps);
+            dispatchSpecialAction({
+                actionId: SpecialAction.KeyboardClickFile,
+                file,
+                enterKey: event.enterKey,
+                spaceKey: event.spaceKey,
+                altKey: event.altKey,
+                ctrlKey: event.ctrlKey,
+                shiftKey: event.shiftKey,
+            });
+        },
+        [file, dispatchSpecialAction]
+    );
 
     // Prepare single/double click handlers
     const onSingleClick = useCallback(

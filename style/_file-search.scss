@@ -1,11 +1,15 @@
 @import 'util';
 
 .chonky-file-search {
+    @include default-transition(height);
     margin-bottom: $file-browser-padding;
     margin-top: -$file-browser-padding;
     height: $searchbar-height;
+    opacity: 1;
 
     @at-root &-hidden {
+        height: 0 !important;
+        opacity: 0 !important;
     }
 
     &-input-group {

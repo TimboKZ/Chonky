@@ -8,13 +8,13 @@ export { ChonkyActions } from './util/file-actions';
 
 export { SpecialAction } from './types/special-actions.types';
 export { ChonkyIconName } from './types/icons.types';
-export { FileSelection } from './types/files.types';
 export { FileArray } from './types/files.types';
 export { FileData } from './types/files.types';
 export { FileActionHandler } from './types/file-actions.types';
 export { FileActionData } from './types/file-actions.types';
 export { FileAction } from './types/file-actions.types';
 export { FileEntrySize } from './types/file-list-view.types';
+export { FileSelection } from './types/selection.types';
 
 // Export interface separately to comply with isolated module requirements
 // @see https://github.com/microsoft/TypeScript/issues/28481

@@ -28,7 +28,6 @@ export const useThumbnailUrl = (
 ) => {
     const thumbnailGenerator = useContext(ChonkyThumbnailGeneratorContext);
 
-    const deps = [file, setThumbnailUrl, setThumbnailLoading, thumbnailGenerator];
     useEffect(() => {
         let loadingCancelled = false;
 
@@ -59,5 +58,5 @@ export const useThumbnailUrl = (
         return () => {
             loadingCancelled = true;
         };
-    }, deps);
+    }, [file, setThumbnailUrl, setThumbnailLoading, thumbnailGenerator]);
 };

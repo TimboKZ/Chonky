@@ -11,7 +11,7 @@ export enum SpecialAction {
 }
 
 export interface SpecialFileMouseClickAction {
-    actionName: SpecialAction.MouseClickFile;
+    actionId: SpecialAction.MouseClickFile;
     file: FileData;
     altKey: boolean;
     ctrlKey: boolean;
@@ -20,7 +20,7 @@ export interface SpecialFileMouseClickAction {
 }
 
 export interface SpecialFileKeyboardClickAction {
-    actionName: SpecialAction.KeyboardClickFile;
+    actionId: SpecialAction.KeyboardClickFile;
     file: FileData;
     enterKey: boolean;
     spaceKey: boolean;
@@ -30,16 +30,16 @@ export interface SpecialFileKeyboardClickAction {
 }
 
 export interface SpecialToggleSearchBarAction {
-    actionName: SpecialAction.KeyboardClickFile;
+    actionId: SpecialAction.ToggleSearchBar;
 }
 
 export interface SpecialDragNDropStartAction {
-    actionName: SpecialAction.DragNDropStart;
+    actionId: SpecialAction.DragNDropStart;
     dragSource: FileData;
 }
 
 export interface SpecialDragNDropEndAction {
-    actionName: SpecialAction.DragNDropEnd;
+    actionId: SpecialAction.DragNDropEnd;
     dragSource: FileData;
     dropTarget: FileData;
     dropEffect: 'move' | 'copy';
@@ -51,4 +51,5 @@ export type SpecialActionData =
     | SpecialToggleSearchBarAction
     | SpecialDragNDropStartAction
     | SpecialDragNDropEndAction;
+
 export type InternalSpecialActionDispatcher = (actionData: SpecialActionData) => void;
