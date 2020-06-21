@@ -11,6 +11,7 @@ import {
     ChonkyDoubleClickDelayContext,
     ChonkyEnableDragAndDropContext,
     ChonkyFileActionsContext,
+    ChonkyFileEntrySizeContext,
     ChonkyFilesContext,
     ChonkyFolderChainContext,
     ChonkyInstanceIdContext,
@@ -29,6 +30,7 @@ import { useFileBrowserValidation } from '../../util/validation';
 import { ContextComposer, ContextProviderData } from '../internal/ContextComposer';
 import { DnDFileListDragLayer } from '../internal/DnDFileListDragLayer';
 import { ErrorMessage } from '../internal/ErrorMessage';
+import { DefaultEntrySize } from './FileList-virtualization';
 
 export interface FileBrowserProps {
     /**
@@ -193,6 +195,10 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         validateContextType({
             context: ChonkyDoubleClickDelayContext,
             value: doubleClickDelay,
+        }),
+        validateContextType({
+            context: ChonkyFileEntrySizeContext,
+            value: DefaultEntrySize,
         }),
         validateContextType({
             context: ChonkyDisableSelectionContext,

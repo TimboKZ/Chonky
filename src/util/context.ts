@@ -58,11 +58,17 @@ export const ChonkyFileEntrySizeContext = React.createContext<FileEntrySize>(
 export const ChonkyDisableSelectionContext = React.createContext<boolean>(false);
 export const ChonkyEnableDragAndDropContext = React.createContext<boolean>(false);
 
+// --- Util types and functions for validation of contexts
 type ExtractContextType<P> = P extends React.Context<infer T> ? T : never;
 export interface ContextData<ContextType extends React.Context<any>> {
     context: ContextType;
     value: ExtractContextType<ContextType>;
 }
+
+/**
+ * This function is a no-op, but it's type verifies that the provided `ContextData`
+ * value matches the type expected by the context.
+ */
 export const validateContextType = <T extends React.Context<any>>(
     contextData: ContextData<T>
 ) => contextData;

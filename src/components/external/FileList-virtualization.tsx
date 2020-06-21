@@ -36,7 +36,8 @@ export const getRowHeight = (
     entrySize: FileEntrySize,
     gutterSize: number
 ) => {
-    if (index === rowCount - 1) return entrySize.height;
+    // We always add `gutterSize` to height because we don't want the last item
+    // sticking to the bottom of the scroll pane.
     return entrySize.height + gutterSize;
 };
 
@@ -56,9 +57,11 @@ export const useEntryRenderer = (files: FileArray) => {
             lastColumn?: boolean
         ) => {
             if (typeof gutterSize === 'number') {
-                if (!lastRow) style.height = style.height - gutterSize;
-
                 if (!lastColumn) style.width = style.width - gutterSize;
+
+                // We always subtract `gutterSize` to height because we don't want the
+                // last item sticking to the bottom of the scroll pane.
+                style.height = style.height - gutterSize;
             }
 
             // When rendering the file list, some browsers cut off the last pixel of
@@ -120,33 +123,21 @@ export const noContentRenderer = (height?: number) => {
 
 export const useGridRenderer = (
     files: FileArray,
+    entrySize: FileEntrySize,
     entryRenderer: ReturnType<typeof useEntryRenderer>,
     thumbsGridRef: React.Ref<Nilable<Grid>>,
     fillParentContainer: boolean
 ) => {
-    const deps = [files, entryRenderer, thumbsGridRef, fillParentContainer];
+    const deps = [files, entrySize, entryRenderer, thumbsGridRef, fillParentContainer];
     return useCallback(({ width, height }) => {
-        let columnCount: number;
-        let entrySize = SmallThumbsSize;
-
         const isMobile = isMobileDevice();
         const gutter = isMobile ? 5 : 8;
         const scrollbar = !fillParentContainer || isMobile ? 0 : 16;
 
         // TODO: const isLargeThumbs = view === FileView.LargeThumbs;
-        const isLargeThumbs = false;
-        if (isMobile && width < 400) {
-            // Hardcode column count on mobile
-            columnCount = isLargeThumbs ? 2 : 3;
-            entrySize = {
-                width: Math.floor((width - gutter * (columnCount - 1)) / columnCount),
-                height: isLargeThumbs ? 160 : 120,
-            };
-        } else {
-            const columnCountFloat =
-                (width + gutter - scrollbar) / (entrySize.width + gutter);
-            columnCount = Math.max(1, Math.floor(columnCountFloat));
-        }
+        const columnCountFloat =
+            (width + gutter - scrollbar) / (entrySize.width + gutter);
+        const columnCount = Math.max(1, Math.floor(columnCountFloat));
         const rowCount = Math.ceil(files.length / columnCount);
 
         return (
@@ -176,6 +167,7 @@ export const useGridRenderer = (
                 }
                 overscanRowCount={2}
                 width={width}
+                containerStyle={{minHeight: 50}}
                 height={typeof height === 'number' ? height : 500}
                 autoHeight={!fillParentContainer}
                 tabIndex={null}

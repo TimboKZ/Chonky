@@ -417,6 +417,24 @@ button.chonky-folder-chain-entry:active {
 .chonky-file-list {
   flex: 1;
 }
+.chonky-file-list-notification {
+  text-align: center;
+  position: relative;
+}
+.chonky-file-list-notification-empty {
+  color: #bbb;
+  font-size: 1.2em;
+}
+.chonky-file-list-notification-content {
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
 
 .chonky-file-entry-clickable-wrapper {
   outline: none !important;

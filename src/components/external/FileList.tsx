@@ -1,16 +1,16 @@
 import React, { useContext, useRef } from 'react';
 import { AutoSizer, Grid } from 'react-virtualized';
 
-import { ChonkyFilesContext } from '../../util/context';
+import { ChonkyFileEntrySizeContext, ChonkyFilesContext } from '../../util/context';
 import { Logger } from '../../util/logger';
 import { ErrorMessage } from '../internal/ErrorMessage';
-import { FileBrowser } from './FileBrowser';
 import { useEntryRenderer, useGridRenderer } from './FileList-virtualization';
 
 export interface FileListProps {}
 
 export const FileList: React.FC<FileListProps> = React.memo(() => {
     const files = useContext(ChonkyFilesContext);
+    const entrySize = useContext(ChonkyFileEntrySizeContext);
 
     const entryRenderer = useEntryRenderer(files);
 
@@ -24,6 +24,7 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
 
     const gridRenderer = useGridRenderer(
         files,
+        entrySize,
         entryRenderer,
         thumbsGridRef,
         fillParentContainer
@@ -32,14 +33,14 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
     if (!files) {
         const errorMessage =
             `${FileList.name} cannot find the "files" array via React context. This ` +
-            `happens when ${FileList.name} is placed outside of ${FileBrowser.name}` +
+            `happens when ${FileList.name} is placed outside of "FileBrowser"` +
             `component.`;
         Logger.error(errorMessage);
         return <ErrorMessage message={errorMessage} />;
     }
 
     return (
-        <div className="chonky-file-list">
+        <div className="chonky-file-list" style={{ minHeight: entrySize.height }}>
             <AutoSizer disableHeight={!fillParentContainer}>{gridRenderer}</AutoSizer>
         </div>
     );
