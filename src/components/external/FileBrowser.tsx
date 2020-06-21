@@ -21,12 +21,15 @@ import {
     ChonkyThumbnailGeneratorContext,
     validateContextType,
 } from '../../util/context';
-import { DefaultActions, useFileActionDispatcher } from '../../util/file-actions';
+import { DefaultFileActions, useFileActionDispatcher } from '../../util/file-actions';
 import { useClickListener, useStaticValue } from '../../util/hooks-helpers';
 import { useFilteredFiles, useSearch } from '../../util/search';
 import { useSelection } from '../../util/selection';
 import { useSpecialActionDispatcher } from '../../util/special-actions';
-import { useFileArrayValidation } from '../../util/validation';
+import {
+    useFileActionsValidation,
+    useFileArrayValidation,
+} from '../../util/validation';
 import { ContextComposer, ContextProviderData } from '../internal/ContextComposer';
 import { DnDFileListDragLayer } from '../internal/DnDFileListDragLayer';
 import { ErrorMessage } from '../internal/ErrorMessage';
@@ -70,6 +73,8 @@ export interface FileBrowserProps {
      */
     disableSelection?: boolean;
 
+    disableDefaultFileActions?: boolean;
+
     /**
      * The flag that completely disables drag & drop functionality.
      * [See relevant section](#section-managing-file-selection).
@@ -90,7 +95,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     // Instance ID used to distinguish between
     const chonkyInstanceId = useStaticValue(shortid.generate);
 
-    // Assign default values
+    // ==== Assign default values
     const folderChain = props.folderChain ? props.folderChain : null;
     const fileActions = props.fileActions ? props.fileActions : [];
     const onFileAction = props.onFileAction ? props.onFileAction : null;
@@ -101,11 +106,25 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         typeof props.doubleClickDelay === 'number' ? props.doubleClickDelay : 300;
     const disableSelection = !!props.disableSelection;
     const enableDragAndDrop = !!props.enableDragAndDrop;
+    const disableDefaultFileActions = !!props.disableDefaultFileActions;
 
-    const validationResult = useFileArrayValidation(files, folderChain);
+    // ==== Input props validation
+    const {
+        cleanFiles,
+        cleanFolderChain,
+        errorMessages: fileArrayErrors,
+    } = useFileArrayValidation(files, folderChain);
+    const {
+        cleanFileActions,
+        errorMessages: fileActionsErrors,
+    } = useFileActionsValidation(
+        fileActions,
+        DefaultFileActions,
+        !disableDefaultFileActions
+    );
+    const validationErrors = [...fileArrayErrors, ...fileActionsErrors];
 
-    const sortedFiles = validationResult.cleanFiles;
-    const cleanFolderChain = validationResult.cleanFolderChain;
+    const sortedFiles = cleanFiles;
 
     // Initial selection
     const {
@@ -115,19 +134,11 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         selectionModifiers,
     } = useSelection(sortedFiles, disableSelection);
 
-    // TODO: Validate file actions
-    // TODO: Remove duplicates if they are default actions, otherwise error on
-    //  duplicates.
-    const extendedFileActions = [...fileActions, ...DefaultActions];
-
     // Deal with file text search
     const { searchState, searchContexts } = useSearch();
     const filteredFiles = useFilteredFiles(sortedFiles, searchState.searchFilter);
 
-    const dispatchFileAction = useFileActionDispatcher(
-        extendedFileActions,
-        onFileAction
-    );
+    const dispatchFileAction = useFileActionDispatcher(cleanFileActions, onFileAction);
     const dispatchSpecialAction = useSpecialActionDispatcher(
         sortedFiles,
         selection,
@@ -175,7 +186,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         }),
         validateContextType({
             context: ChonkyFileActionsContext,
-            value: extendedFileActions,
+            value: cleanFileActions,
         }),
         validateContextType({
             context: ChonkyDispatchFileActionContext,
@@ -221,7 +232,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         <ContextComposer providers={contextProviders}>
             <div ref={chonkyRootRef} className="chonky-root chonky-no-select">
                 {enableDragAndDrop && <DnDFileListDragLayer />}
-                {validationResult.errorMessages.map((data, index) => (
+                {validationErrors.map((data, index) => (
                     <ErrorMessage
                         key={`error-message-${index}`}
                         message={data.message}

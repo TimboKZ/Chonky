@@ -104,7 +104,7 @@ export const ChonkyActions = {
     },
 } as const;
 
-export const DefaultActions: FileAction[] = [
+export const DefaultFileActions: FileAction[] = [
     ChonkyActions.MoveFilesTo,
     ChonkyActions.DuplicateFilesTo,
 

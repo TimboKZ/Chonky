@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
-import { Nullable } from 'tsdef';
+import { AnyObjectWithStringKeys, Nullable } from 'tsdef';
 
 import { FileBrowser } from '../components/external/FileBrowser';
+import { FileAction } from '../types/file-actions.types';
 import { FileArray } from '../types/files.types';
+import { ErrorMessageData } from '../types/validation.types';
 import { Logger } from './logger';
 
 export const isPlainObject = (value: any): value is object => {
@@ -129,11 +131,6 @@ export const cleanupFileArray = <AllowNull extends boolean>(
     return { cleanFileArray, warningMessage, warningBullets };
 };
 
-export interface ErrorMessageData {
-    message: string;
-    bullets: string[];
-}
-
 export const useFileArrayValidation = (
     files: FileArray,
     folderChain: Nullable<FileArray>
@@ -200,4 +197,152 @@ export const useFileArrayValidation = (
         cleanFolderChain,
         errorMessages: [...filesErrorMessages, ...folderChainErrorMessages],
     };
+};
+
+export const useFileActionsValidation = (
+    fileActions: FileAction[],
+    defaultFileActions: FileAction[],
+    includeDefaultFileActions: boolean
+): {
+    cleanFileActions: FileAction[];
+    errorMessages: ErrorMessageData[];
+} => {
+    // === Merge user-provided and default file actions (if default actions are enabled)
+    const extendedFileActions = useMemo(() => {
+        if (!includeDefaultFileActions) return fileActions;
+
+        // Add default file actions if no actions with the same IDs are present
+        const seenFileActionIds: AnyObjectWithStringKeys = {};
+        fileActions.map((action) => {
+            if (action && action.id) seenFileActionIds[action.id] = true;
+        });
+        const extendedFileActions: FileAction[] = [...fileActions];
+        for (const action of defaultFileActions) {
+            if (seenFileActionIds[action.id]) continue;
+            extendedFileActions.push(action);
+        }
+        return extendedFileActions;
+    }, [fileActions, defaultFileActions, includeDefaultFileActions]);
+
+    // === Validate the extended file action array
+    const { cleanFileActions, errorMessages: filesErrorMessages } = useMemo(() => {
+        const errorMessages: ErrorMessageData[] = [];
+
+        const cleanFilesResult = cleanupFileActions(extendedFileActions);
+        if (cleanFilesResult.warningMessage) {
+            const errorMessage =
+                `The "fileActions" prop passed to ${FileBrowser.name} did not pass ` +
+                `validation. ${cleanFilesResult.warningMessage} ` +
+                `The following errors were encountered:`;
+            Logger.error(
+                errorMessage,
+                Logger.formatBullets(cleanFilesResult.warningBullets)
+            );
+            errorMessages.push({
+                message: errorMessage,
+                bullets: cleanFilesResult.warningBullets,
+            });
+        }
+
+        return {
+            cleanFileActions: cleanFilesResult.cleanFileActions,
+            errorMessages,
+        };
+    }, [extendedFileActions]);
+
+    return {
+        cleanFileActions,
+        errorMessages: filesErrorMessages,
+    };
+};
+
+/**
+ * This function validates the user-provided file actions array. It checks the following
+ * criteria:
+ * - `files` is not an array
+ * - there are duplicate file action IDs
+ * - some file actions are missing `id` field
+ * - some files have invalid type (they are not objects)
+ */
+export const cleanupFileActions = (
+    fileActions: FileAction[]
+): {
+    cleanFileActions: FileAction[];
+    warningMessage: Nullable<string>;
+    warningBullets: string[];
+} => {
+    let cleanFileActions: FileAction[];
+    let warningMessage = null;
+    const warningBullets = [];
+
+    if (!Array.isArray(fileActions)) {
+        cleanFileActions = [];
+        warningMessage = `Provided value was replaced ` + `with an empty array.`;
+        warningBullets.push(
+            `Expected "fileActions" to be an array, got type ` +
+                `"${typeof fileActions}" instead (value: ${fileActions}).`
+        );
+    } else {
+        const indicesToBeRemoved = new Set<number>();
+
+        const seenIds = {};
+        const duplicateIdSet = new Set<string>();
+        const missingIdIndices = [];
+        const invalidTypeIndices = [];
+
+        for (let i = 0; i < fileActions.length; ++i) {
+            const fileAction = fileActions[i];
+
+            if (isPlainObject(fileAction)) {
+                if (fileAction.id && seenIds[fileAction.id]) {
+                    duplicateIdSet.add(fileAction.id);
+                    indicesToBeRemoved.add(i);
+                } else {
+                    seenIds[fileAction.id] = true;
+                }
+
+                if (!fileAction.id) {
+                    missingIdIndices.push(i);
+                    indicesToBeRemoved.add(i);
+                }
+            } else {
+                invalidTypeIndices.push(i);
+                indicesToBeRemoved.add(i);
+            }
+        }
+
+        if (duplicateIdSet.size > 0) {
+            warningBullets.push(
+                `Some file actions have duplicate IDs. These IDs appeared multiple ` +
+                    `times: ${Array.from(duplicateIdSet)}`
+            );
+        }
+        if (missingIdIndices.length > 0) {
+            warningBullets.push(
+                `Some file actions are missing the "id" field. ` +
+                    `Relevant file indices: ${missingIdIndices.join(', ')}`
+            );
+        }
+        if (invalidTypeIndices.length > 0) {
+            warningBullets.push(
+                `Some files actions have invalid type (they are not plain object). ` +
+                    `Relevant file indices: ${invalidTypeIndices.join(', ')}`
+            );
+        }
+
+        if (indicesToBeRemoved.size > 0) {
+            // @ts-ignore
+            cleanFileActions = fileActions.filter(
+                (value, index) => !indicesToBeRemoved.has(index)
+            );
+            warningMessage =
+                `${indicesToBeRemoved.size} offending ` +
+                `file action${indicesToBeRemoved.size === 1 ? ' was' : 's were'} ` +
+                ` removed from the array.`;
+        } else {
+            cleanFileActions = fileActions;
+        }
+    }
+
+    return { cleanFileActions, warningMessage, warningBullets };
 };
