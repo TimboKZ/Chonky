@@ -57,6 +57,7 @@ export const CustomActionsExample = () => {
                 files={files}
                 onFileAction={handleFileAction}
                 fileActions={customFileActions}
+                enableDragAndDrop={true}
             >
                 <FileToolbar />
                 <FileSearch />

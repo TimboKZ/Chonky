@@ -1,5 +1,5 @@
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
-const { compilerOptions } = require('./stories/tsconfig.stories.json');
+const { compilerOptions } = require('./stories/tsconfig.json');
 
 module.exports = {
     preset: 'ts-jest',
@@ -8,7 +8,7 @@ module.exports = {
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
     globals: {
         'ts-jest': {
-            tsConfig: 'stories/tsconfig.stories.json',
+            tsConfig: 'stories/tsconfig.json',
         },
     },
 };

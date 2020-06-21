@@ -31,11 +31,16 @@ export const InvalidPropsExample = () => {
         { id: 'bRyH', name: 'Good folder', isDir: true },
         { id: 'bMgR', name: 'Good folder #2', isDir: true },
     ];
+    const badFileActions = [{ id: 'duplicate_files' }, { id: 'duplicate_files' }];
 
     return (
         <div style={{ height: 500 }}>
             {/* @ts-ignore */}
-            <FileBrowser files={badFiles} folderChain={badFolderChain}>
+            <FileBrowser
+                files={badFiles}
+                folderChain={badFolderChain}
+                fileActions={badFileActions}
+            >
                 <FileToolbar />
                 <FileList />
             </FileBrowser>
