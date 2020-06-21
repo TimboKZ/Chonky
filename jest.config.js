@@ -8,7 +8,7 @@ module.exports = {
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
     globals: {
         'ts-jest': {
-            tsConfig: 'tsconfig.stories.json',
+            tsConfig: 'stories/tsconfig.stories.json',
         },
     },
 };
