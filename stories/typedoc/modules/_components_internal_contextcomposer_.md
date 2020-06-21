@@ -19,7 +19,7 @@
 
 ▸ **ContextComposer**(`props`: [ContextComposerProps](../interfaces/_components_internal_contextcomposer_.contextcomposerprops.md) & object): *Element‹›*
 
-*Defined in [src/components/internal/ContextComposer.tsx:30](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/internal/ContextComposer.tsx#L30)*
+*Defined in [src/components/internal/ContextComposer.tsx:30](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/internal/ContextComposer.tsx#L30)*
 
 Takes an array of context providers and composes them into a
 hierarchy:

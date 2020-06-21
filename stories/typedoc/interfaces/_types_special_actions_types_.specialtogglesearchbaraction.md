@@ -18,4 +18,4 @@
 
 • **actionName**: *[KeyboardClickFile](../enums/_types_special_actions_types_.specialaction.md#keyboardclickfile)*
 
-Defined in src/types/special-actions.types.ts:33
+*Defined in [src/types/special-actions.types.ts:33](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/special-actions.types.ts#L33)*

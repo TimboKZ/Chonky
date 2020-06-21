@@ -23,7 +23,7 @@
 
 • **actionName**: *[MouseClickFile](../enums/_types_special_actions_types_.specialaction.md#mouseclickfile)*
 
-Defined in src/types/special-actions.types.ts:14
+*Defined in [src/types/special-actions.types.ts:14](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/special-actions.types.ts#L14)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **altKey**: *boolean*
 
-Defined in src/types/special-actions.types.ts:16
+*Defined in [src/types/special-actions.types.ts:16](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/special-actions.types.ts#L16)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **clickType**: *"single" | "double"*
 
-Defined in src/types/special-actions.types.ts:19
+*Defined in [src/types/special-actions.types.ts:19](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/special-actions.types.ts#L19)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • **ctrlKey**: *boolean*
 
-Defined in src/types/special-actions.types.ts:17
+*Defined in [src/types/special-actions.types.ts:17](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/special-actions.types.ts#L17)*
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 • **file**: *[FileData](_types_files_types_.filedata.md)*
 
-Defined in src/types/special-actions.types.ts:15
+*Defined in [src/types/special-actions.types.ts:15](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/special-actions.types.ts#L15)*
 
 ___
 
@@ -63,4 +63,4 @@ ___
 
 • **shiftKey**: *boolean*
 
-Defined in src/types/special-actions.types.ts:18
+*Defined in [src/types/special-actions.types.ts:18](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/special-actions.types.ts#L18)*

@@ -18,4 +18,4 @@
 
 • **fileAction**: *[FileAction](_types_file_actions_types_.fileaction.md)*
 
-*Defined in [src/components/external/ToolbarButton.tsx:63](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ToolbarButton.tsx#L63)*
+*Defined in [src/components/external/ToolbarButton.tsx:63](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ToolbarButton.tsx#L63)*

@@ -19,7 +19,7 @@
 
 • **files**: *[FileArray](../modules/_types_files_types_.md#filearray)*
 
-*Defined in [src/util/special-actions.ts:21](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/special-actions.ts#L21)*
+*Defined in [src/util/special-actions.ts:21](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/special-actions.ts#L21)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **selection**: *[FileSelection](_types_files_types_.fileselection.md)*
 
-*Defined in [src/util/special-actions.ts:22](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/special-actions.ts#L22)*
+*Defined in [src/util/special-actions.ts:22](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/special-actions.ts#L22)*

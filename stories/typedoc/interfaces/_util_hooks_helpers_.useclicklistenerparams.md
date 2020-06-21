@@ -20,7 +20,7 @@
 
 • **onClick**? : *undefined | function*
 
-*Defined in [src/util/hooks-helpers.ts:27](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/hooks-helpers.ts#L27)*
+*Defined in [src/util/hooks-helpers.ts:27](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/hooks-helpers.ts#L27)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **onInsideClick**? : *undefined | function*
 
-*Defined in [src/util/hooks-helpers.ts:28](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/hooks-helpers.ts#L28)*
+*Defined in [src/util/hooks-helpers.ts:28](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/hooks-helpers.ts#L28)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **onOutsideClick**? : *undefined | function*
 
-*Defined in [src/util/hooks-helpers.ts:29](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/hooks-helpers.ts#L29)*
+*Defined in [src/util/hooks-helpers.ts:29](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/hooks-helpers.ts#L29)*

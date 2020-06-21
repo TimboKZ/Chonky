@@ -18,6 +18,7 @@
 
 • **FileList**: *React.FC‹[FileListProps](../interfaces/_components_external_filelist_.filelistprops.md)›* = React.memo(() => {
     const files = useContext(ChonkyFilesContext);
+    const entrySize = useContext(ChonkyFileEntrySizeContext);
 
     const entryRenderer = useEntryRenderer(files);
 
@@ -31,6 +32,7 @@
 
     const gridRenderer = useGridRenderer(
         files,
+        entrySize,
         entryRenderer,
         thumbsGridRef,
         fillParentContainer
@@ -39,17 +41,17 @@
     if (!files) {
         const errorMessage =
             `${FileList.name} cannot find the "files" array via React context. This ` +
-            `happens when ${FileList.name} is placed outside of ${FileBrowser.name}` +
+            `happens when ${FileList.name} is placed outside of "FileBrowser"` +
             `component.`;
         Logger.error(errorMessage);
         return <ErrorMessage message={errorMessage} />;
     }
 
     return (
-        <div className="chonky-file-list">
+        <div className="chonky-file-list" style={{ minHeight: entrySize.height }}>
             <AutoSizer disableHeight={!fillParentContainer}>{gridRenderer}</AutoSizer>
         </div>
     );
 })
 
-*Defined in [src/components/external/FileList.tsx:12](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/FileList.tsx#L12)*
+*Defined in [src/components/external/FileList.tsx:11](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/FileList.tsx#L11)*

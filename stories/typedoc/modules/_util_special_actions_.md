@@ -19,7 +19,7 @@
 
 ▸ **useSpecialActionDispatcher**(`files`: [FileArray](_types_files_types_.md#filearray), `selection`: [FileSelection](../interfaces/_types_files_types_.fileselection.md), `selectionUtil`: [SelectionUtil](../classes/_util_selection_.selectionutil.md), `selectFiles`: ReturnType<typeof useSelection>["selectFiles"], `toggleSelection`: ReturnType<typeof useSelection>["toggleSelection"], `clearSelection`: ReturnType<typeof useSelection>["clearSelection"], `dispatchFileAction`: [InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)): *[InternalSpecialActionDispatcher](_types_special_actions_types_.md#internalspecialactiondispatcher)*
 
-*Defined in [src/util/special-actions.ts:30](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/special-actions.ts#L30)*
+*Defined in [src/util/special-actions.ts:30](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/special-actions.ts#L30)*
 
 Returns a dispatch method meant to be used by child components. This dispatch
 method is meant for "special" internal actions. It takes a special action, and
@@ -45,7 +45,7 @@ ___
 
 ▸ **useSpecialFileActionHandlerMap**(`selectionUtil`: [SelectionUtil](../classes/_util_selection_.selectionutil.md), `selectFiles`: ReturnType<typeof useSelection>["selectFiles"], `toggleSelection`: ReturnType<typeof useSelection>["toggleSelection"], `clearSelection`: ReturnType<typeof useSelection>["clearSelection"], `dispatchFileAction`: [InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)): *object*
 
-*Defined in [src/util/special-actions.ts:87](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/special-actions.ts#L87)*
+*Defined in [src/util/special-actions.ts:87](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/special-actions.ts#L87)*
 
 **Parameters:**
 

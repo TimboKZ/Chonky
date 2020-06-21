@@ -22,7 +22,7 @@
 
 • **dndCanDrop**? : *undefined | false | true*
 
-*Defined in [src/components/internal/DnDFileEntry.tsx:16](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/internal/DnDFileEntry.tsx#L16)*
+*Defined in [src/components/internal/DnDFileEntry.tsx:16](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/internal/DnDFileEntry.tsx#L16)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **dndIsDragging**? : *undefined | false | true*
 
-*Defined in [src/components/internal/DnDFileEntry.tsx:14](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/internal/DnDFileEntry.tsx#L14)*
+*Defined in [src/components/internal/DnDFileEntry.tsx:14](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/internal/DnDFileEntry.tsx#L14)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 • **dndIsOver**? : *undefined | false | true*
 
-*Defined in [src/components/internal/DnDFileEntry.tsx:15](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/internal/DnDFileEntry.tsx#L15)*
+*Defined in [src/components/internal/DnDFileEntry.tsx:15](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/internal/DnDFileEntry.tsx#L15)*

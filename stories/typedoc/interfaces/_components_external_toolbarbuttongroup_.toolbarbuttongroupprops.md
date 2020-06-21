@@ -18,4 +18,4 @@
 
 • **group**: *[ToolbarButtonGroup](_components_external_toolbarbuttongroup_.toolbarbuttongroup.md)*
 
-*Defined in [src/components/external/ToolbarButtonGroup.tsx:20](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ToolbarButtonGroup.tsx#L20)*
+*Defined in [src/components/external/ToolbarButtonGroup.tsx:20](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ToolbarButtonGroup.tsx#L20)*

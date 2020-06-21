@@ -24,7 +24,7 @@
 
 • **className**? : *undefined | string*
 
-*Defined in [src/components/external/ChonkyIcon.tsx:126](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ChonkyIcon.tsx#L126)*
+*Defined in [src/components/external/ChonkyIcon.tsx:126](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ChonkyIcon.tsx#L126)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **color**? : *undefined | string*
 
-*Defined in [src/components/external/ChonkyIcon.tsx:127](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ChonkyIcon.tsx#L127)*
+*Defined in [src/components/external/ChonkyIcon.tsx:127](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ChonkyIcon.tsx#L127)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **fixedWidth**? : *undefined | false | true*
 
-*Defined in [src/components/external/ChonkyIcon.tsx:128](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ChonkyIcon.tsx#L128)*
+*Defined in [src/components/external/ChonkyIcon.tsx:128](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ChonkyIcon.tsx#L128)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **icon**: *[ChonkyIconName](../enums/_types_icons_types_.chonkyiconname.md) | string*
 
-*Defined in [src/components/external/ChonkyIcon.tsx:124](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ChonkyIcon.tsx#L124)*
+*Defined in [src/components/external/ChonkyIcon.tsx:124](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ChonkyIcon.tsx#L124)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • **size**? : *"xs" | "lg" | "sm"*
 
-*Defined in [src/components/external/ChonkyIcon.tsx:129](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ChonkyIcon.tsx#L129)*
+*Defined in [src/components/external/ChonkyIcon.tsx:129](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ChonkyIcon.tsx#L129)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **spin**? : *undefined | false | true*
 
-*Defined in [src/components/external/ChonkyIcon.tsx:125](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ChonkyIcon.tsx#L125)*
+*Defined in [src/components/external/ChonkyIcon.tsx:125](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ChonkyIcon.tsx#L125)*
 
 ___
 
@@ -72,4 +72,4 @@ ___
 
 • **style**? : *React.CSSProperties*
 
-*Defined in [src/components/external/ChonkyIcon.tsx:130](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/ChonkyIcon.tsx#L130)*
+*Defined in [src/components/external/ChonkyIcon.tsx:130](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/ChonkyIcon.tsx#L130)*

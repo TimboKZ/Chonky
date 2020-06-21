@@ -24,7 +24,7 @@
 
 • **UNINITIALIZED_SENTINEL**: *object*
 
-*Defined in [src/util/hooks-helpers.ts:19](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/hooks-helpers.ts#L19)*
+*Defined in [src/util/hooks-helpers.ts:19](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/hooks-helpers.ts#L19)*
 
 #### Type declaration:
 
@@ -34,7 +34,7 @@
 
 ▸ **useClickListener**‹**T**›(`params`: [UseClickListenerParams](../interfaces/_util_hooks_helpers_.useclicklistenerparams.md)): *RefObject‹T›*
 
-*Defined in [src/util/hooks-helpers.ts:32](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/hooks-helpers.ts#L32)*
+*Defined in [src/util/hooks-helpers.ts:32](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/hooks-helpers.ts#L32)*
 
 **Type parameters:**
 
@@ -54,7 +54,7 @@ ___
 
 ▸ **useDebounce**‹**T**›(`value`: T, `delay`: number): *T*
 
-*Defined in [src/util/hooks-helpers.ts:3](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/hooks-helpers.ts#L3)*
+*Defined in [src/util/hooks-helpers.ts:3](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/hooks-helpers.ts#L3)*
 
 **Type parameters:**
 
@@ -75,7 +75,7 @@ ___
 
 ▸ **useStaticValue**‹**T**›(`factory`: function): *T*
 
-*Defined in [src/util/hooks-helpers.ts:20](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/hooks-helpers.ts#L20)*
+*Defined in [src/util/hooks-helpers.ts:20](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/hooks-helpers.ts#L20)*
 
 **Type parameters:**
 

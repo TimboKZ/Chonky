@@ -17,7 +17,7 @@
 
 ▸ **useFilteredFiles**(`files`: [FileArray](_types_files_types_.md#filearray), `searchFilter`: string): *[FileArray](_types_files_types_.md#filearray)*
 
-*Defined in [src/util/search.ts:65](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/search.ts#L65)*
+*Defined in [src/util/search.ts:65](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/search.ts#L65)*
 
 **Parameters:**
 
@@ -34,7 +34,7 @@ ___
 
 ▸ **useSearch**(): *object*
 
-*Defined in [src/util/search.ts:15](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/search.ts#L15)*
+*Defined in [src/util/search.ts:15](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/search.ts#L15)*
 
 **Returns:** *object*
 
@@ -66,7 +66,7 @@ ___
 
 ▸ **useSearchContexts**(`searchState`: ReturnType‹typeof useSearchState›): *[ContextData](../interfaces/_util_context_.contextdata.md)‹Context‹boolean›› | [ContextData](../interfaces/_util_context_.contextdata.md)‹Context‹function›› | [ContextData](../interfaces/_util_context_.contextdata.md)‹Context‹string›› | [ContextData](../interfaces/_util_context_.contextdata.md)‹Context‹function››[]*
 
-*Defined in [src/util/search.ts:36](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/search.ts#L36)*
+*Defined in [src/util/search.ts:36](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/search.ts#L36)*
 
 **Parameters:**
 
@@ -82,7 +82,7 @@ ___
 
 ▸ **useSearchState**(): *object*
 
-*Defined in [src/util/search.ts:21](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/search.ts#L21)*
+*Defined in [src/util/search.ts:21](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/search.ts#L21)*
 
 **Returns:** *object*
 

@@ -15,7 +15,7 @@
 
 ▸ **useFolderChainComponent**(): *null | Element‹›*
 
-*Defined in [src/components/external/FileToolbar-hooks.tsx:19](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/FileToolbar-hooks.tsx#L19)*
+*Defined in [src/components/external/FileToolbar-hooks.tsx:19](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/FileToolbar-hooks.tsx#L19)*
 
 Generates folder chain HTML components for the `FileToolbar` component.
 
@@ -27,7 +27,7 @@ ___
 
 ▸ **useToolbarButtonGroups**(): *object*
 
-*Defined in [src/components/external/FileToolbar-hooks.tsx:83](https://github.com/TimboKZ/Chonky/blob/faab549/src/components/external/FileToolbar-hooks.tsx#L83)*
+*Defined in [src/components/external/FileToolbar-hooks.tsx:83](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/components/external/FileToolbar-hooks.tsx#L83)*
 
 **Returns:** *object*
 

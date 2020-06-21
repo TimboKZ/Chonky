@@ -25,7 +25,7 @@
 
 • **fileFilter**? : *[FileFilter](../modules/_types_files_types_.md#filefilter)*
 
-Defined in src/types/file-actions.types.ts:10
+*Defined in [src/types/file-actions.types.ts:10](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/file-actions.types.ts#L10)*
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 • **hotkeys**? : *keyof string[]*
 
-Defined in src/types/file-actions.types.ts:12
+*Defined in [src/types/file-actions.types.ts:12](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/file-actions.types.ts#L12)*
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 • **id**: *string*
 
-Defined in src/types/file-actions.types.ts:6
+*Defined in [src/types/file-actions.types.ts:6](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/file-actions.types.ts#L6)*
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 • **metadata**? : *any*
 
-Defined in src/types/file-actions.types.ts:7
+*Defined in [src/types/file-actions.types.ts:7](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/file-actions.types.ts#L7)*
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 • **requiresParentFolder**? : *undefined | false | true*
 
-Defined in src/types/file-actions.types.ts:8
+*Defined in [src/types/file-actions.types.ts:8](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/file-actions.types.ts#L8)*
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 • **requiresSelection**? : *undefined | false | true*
 
-Defined in src/types/file-actions.types.ts:9
+*Defined in [src/types/file-actions.types.ts:9](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/file-actions.types.ts#L9)*
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 • **specialActionToDispatch**? : *[SpecialAction](../enums/_types_special_actions_types_.specialaction.md)*
 
-Defined in src/types/file-actions.types.ts:18
+*Defined in [src/types/file-actions.types.ts:18](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/file-actions.types.ts#L18)*
 
 ___
 
@@ -81,4 +81,4 @@ ___
 
 • **toolbarButton**? : *[ToolbarButtonData](_types_file_actions_types_.toolbarbuttondata.md)*
 
-Defined in src/types/file-actions.types.ts:13
+*Defined in [src/types/file-actions.types.ts:13](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/types/file-actions.types.ts#L13)*

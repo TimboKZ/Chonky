@@ -29,6 +29,7 @@
     OpenParentFolder: {
         id: 'open_parent_folder',
         requiresParentFolder: true,
+        fileFilter: (file: FileData) => FileHelper.isOpenable(file),
         hotkeys: ['backspace'],
         toolbarButton: {
             name: 'Go up a directory',
@@ -96,7 +97,7 @@
     },
 } as const
 
-*Defined in [src/util/file-actions.ts:16](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/file-actions.ts#L16)*
+*Defined in [src/util/file-actions.ts:17](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/file-actions.ts#L17)*
 
 #### Type declaration:
 
@@ -170,6 +171,8 @@
 
   * **requiresParentFolder**: *true* = true
 
+  * **fileFilter**(`file`: [FileData](../interfaces/_types_files_types_.filedata.md)): *boolean*
+
   * **toolbarButton**: *object*
 
     * **icon**: *[openParentFolder](../enums/_types_icons_types_.chonkyiconname.md#openparentfolder)* = ChonkyIconName.openParentFolder
@@ -221,7 +224,7 @@ ___
     ChonkyActions.ToggleSearch,
 ]
 
-*Defined in [src/util/file-actions.ts:95](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/file-actions.ts#L95)*
+*Defined in [src/util/file-actions.ts:97](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/file-actions.ts#L97)*
 
 ## Functions
 
@@ -229,7 +232,7 @@ ___
 
 ▸ **useFileActionDispatcher**(`fileActions`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[], `onFileAction`: Nullable‹[FileActionHandler](_types_file_actions_types_.md#fileactionhandler)›): *[InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)*
 
-*Defined in [src/util/file-actions.ts:110](https://github.com/TimboKZ/Chonky/blob/faab549/src/util/file-actions.ts#L110)*
+*Defined in [src/util/file-actions.ts:112](https://github.com/TimboKZ/Chonky/blob/f29f7b3/src/util/file-actions.ts#L112)*
 
 Returns a dispatch method meant to be used by child components. This dispatch method
 is meant for actions that should be handled directly by the user. If you want to
