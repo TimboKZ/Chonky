@@ -1,10 +1,9 @@
+import 'chonky/style/main.css';
+
+import { FileBrowser, FileList, FileToolbar } from 'chonky';
 import React from 'react';
 
-import 'chonky/style/main.css';
-import { FileBrowser, FileList, FileToolbar } from 'chonky';
-
 import { createDocsObject } from '../story-helpers';
-
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './01-Invalid-props.md';
@@ -35,10 +34,9 @@ export const InvalidPropsExample = () => {
 
     return (
         <div style={{ height: 500 }}>
-            {/* @ts-ignore */}
             <FileBrowser
-                files={badFiles}
-                folderChain={badFolderChain}
+                files={badFiles as any}
+                folderChain={badFolderChain as any}
                 fileActions={badFileActions}
             >
                 <FileToolbar />

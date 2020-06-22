@@ -7,9 +7,9 @@ import { ChonkyIconName } from '../../types/icons.types';
 import { ColorsDark, ColorsLight, useIconData } from '../../util/file-icon-helper';
 import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { TextPlaceholder } from '../external/TextPlaceholder';
+import { FileThumbnail } from '../internal/FileThumbnail';
 import { useDndIcon, useThumbnailUrl } from './BaseFileEntry-hooks';
 import { DnDProps } from './DnDFileEntry';
-import { FileThumbnail } from './FileThumbnail';
 
 export interface FileEntryProps extends DnDProps {
     file: Nullable<FileData>;

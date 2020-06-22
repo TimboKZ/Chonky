@@ -11,7 +11,7 @@ import { enableDragAndDropState } from '../../recoil/drag-and-drop.recoil';
 import { validationErrorsState } from '../../recoil/errors.recoil';
 import { selectionModifiersState } from '../../recoil/selection.recoil';
 import { useClickListener } from '../../util/hooks-helpers';
-import { DnDFileListDragLayer } from './DnDFileListDragLayer';
+import { DnDFileListDragLayer } from '../file-entry/DnDFileListDragLayer';
 import { ErrorMessage } from './ErrorMessage';
 
 export const ChonkyPresentationLayer: React.FC = (props) => {

@@ -20,7 +20,7 @@ export interface DnDProps {
 export type DnDFileEntryItem = DragObjectWithType & { file: Nullable<FileData> };
 export const DnDFileEntryType = 'chonky-file-entry';
 
-export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
+export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
     const { file } = props;
 
     const dispatchSpecialAction = useRecoilValue(dispatchSpecialActionState);
@@ -124,4 +124,4 @@ export const DnDFileEntry: React.FC<FileEntryProps> = (props) => {
             </div>
         </div>
     );
-};
+});

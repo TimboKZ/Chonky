@@ -23,6 +23,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.13.1",
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
     "@fortawesome/react-fontawesome": "^0.1.10",
+    "@welldone-software/why-did-you-render": "^4.2.5",
     "bluebird": "^3.7.2",
     "classnames": "^2.2.6",
     "exact-trie": "^1.0.11",

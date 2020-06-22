@@ -1,18 +1,13 @@
 import c from 'classnames';
 import React, { useCallback } from 'react';
 import { Grid } from 'react-virtualized';
-import { useRecoilValue } from 'recoil';
 import { Nilable } from 'tsdef';
 
-import { enableDragAndDropState } from '../../recoil/drag-and-drop.recoil';
-import { selectionState } from '../../recoil/selection.recoil';
 import { FileEntrySize } from '../../types/file-list-view.types';
 import { FileArray } from '../../types/files.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { isMobileDevice } from '../../util/validation';
-import { FileEntryProps } from '../internal/BaseFileEntry';
-import { ClickableFileEntry } from '../internal/ClickableFileEntry';
-import { DnDFileEntry } from '../internal/DnDFileEntry';
+import { SmartFileEntry } from '../file-entry/SmartFileEntry';
 import { ChonkyIconFA } from './ChonkyIcon';
 
 export const SmallThumbsSize: FileEntrySize = { width: 160, height: 120 };
@@ -41,8 +36,6 @@ export const getRowHeight = (
 };
 
 export const useEntryRenderer = (files: FileArray) => {
-    const selection = useRecoilValue(selectionState);
-    const enableDragAndDrop = useRecoilValue(enableDragAndDropState);
     // All hook parameters should go into `deps` array
     const entryRenderer = useCallback(
         (
@@ -73,28 +66,17 @@ export const useEntryRenderer = (files: FileArray) => {
             if (index >= files.length) return null;
             const file = files[index];
             const key = file ? file.id : `loading-file-${virtualKey}`;
-            const entryProps: FileEntryProps = {
-                file,
-                displayIndex: index,
 
-                // We deliberately don't use `FileHelper.isSelectable` here. We want
-                // the UI to represent the true state of selection. This will help users
-                // see what exactly the selection is before running some code.
-                selected: !!file && selection[file.id] === true,
-            };
-
-            const fileEntryComponent = enableDragAndDrop ? (
-                <DnDFileEntry {...entryProps} />
-            ) : (
-                <ClickableFileEntry {...entryProps} />
-            );
             return (
                 <div key={key} className="chonky-virtualization-wrapper" style={style}>
-                    {fileEntryComponent}
+                    <SmartFileEntry
+                        fileId={file ? file.id : null}
+                        displayIndex={index}
+                    />
                 </div>
             );
         },
-        [files, selection, enableDragAndDrop]
+        [files]
     );
 
     return entryRenderer;

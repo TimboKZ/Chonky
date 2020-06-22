@@ -8,7 +8,7 @@ import {
     SpecialAction,
     SpecialFileMouseClickAction,
 } from '../../types/special-actions.types';
-import { KeyboardClickEvent, MouseClickEvent } from './ClickableWrapper';
+import { KeyboardClickEvent, MouseClickEvent } from '../internal/ClickableWrapper';
 
 export const useFileClickHandlers = (file: Nullable<FileData>) => {
     const dispatchSpecialAction = useRecoilValue(dispatchSpecialActionState);

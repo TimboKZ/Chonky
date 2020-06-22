@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { FileHelper } from '../../util/file-helper';
+import { ClickableWrapper, ClickableWrapperProps } from '../internal/ClickableWrapper';
 import { BaseFileEntry, FileEntryProps } from './BaseFileEntry';
 import { useFileClickHandlers } from './ClickableFileEntry-hooks';
-import { ClickableWrapper, ClickableWrapperProps } from './ClickableWrapper';
 
-export const ClickableFileEntry: React.FC<FileEntryProps> = (props) => {
+export const ClickableFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
     const { file } = props;
 
     const fileClickHandlers = useFileClickHandlers(file);
@@ -23,4 +23,4 @@ export const ClickableFileEntry: React.FC<FileEntryProps> = (props) => {
             <BaseFileEntry {...props} />
         </ClickableWrapper>
     );
-};
+});

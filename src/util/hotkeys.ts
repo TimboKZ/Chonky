@@ -1,3 +1,3 @@
-import { FileAction } from '../types/file-actions.types';
+// import { FileAction } from '../types/file-actions.types';
 
-export const useFileActionHotkeys = (fileAction: FileAction[]) => {};
+// export const useFileActionHotkeys = (fileAction: FileAction[]) => {};

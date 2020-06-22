@@ -7,6 +7,13 @@ import { ThumbnailGenerator } from '../../types/thumbnails.types';
 import { ChonkyBusinessLogic } from '../internal/ChonkyBusinessLogic';
 import { ChonkyPresentationLayer } from '../internal/ChonkyPresentationLayer';
 
+if (process.env.NODE_ENV === 'development') {
+    const whyDidYouRender = require('@welldone-software/why-did-you-render');
+    whyDidYouRender(React, {
+        trackAllPureComponents: true,
+    });
+}
+
 export interface FileBrowserProps {
     /**
      * List of files that will be displayed in the main container. The provided value
