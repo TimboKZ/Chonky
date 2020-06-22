@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { AnyObjectWithStringKeys, Nullable } from 'tsdef';
 
-import { FileBrowser } from '../components/external/FileBrowser';
 import { FileAction } from '../types/file-actions.types';
 import { FileArray } from '../types/files.types';
 import { ErrorMessageData } from '../types/validation.types';
@@ -145,7 +144,7 @@ export const useFileArrayValidation = (
         const cleanFilesResult = cleanupFileArray(files, false);
         if (cleanFilesResult.warningMessage) {
             const errorMessage =
-                `The "files" prop passed to ${FileBrowser.name} did not pass validation. ` +
+                `The "files" prop passed to FileBrowser did not pass validation. ` +
                 `${cleanFilesResult.warningMessage} ` +
                 `The following errors were encountered:`;
             Logger.error(
@@ -173,7 +172,7 @@ export const useFileArrayValidation = (
         const cleanFolderChainResult = cleanupFileArray(folderChain, true);
         if (cleanFolderChainResult.warningMessage) {
             const errorMessage =
-                `The "folderChain" prop passed to ${FileBrowser.name} did not pass validation. ` +
+                `The "folderChain" prop passed to FileBrowser did not pass validation. ` +
                 `${cleanFolderChainResult.warningMessage} ` +
                 `The following errors were encountered:`;
             Logger.error(
@@ -231,7 +230,7 @@ export const useFileActionsValidation = (
         const cleanFilesResult = cleanupFileActions(extendedFileActions);
         if (cleanFilesResult.warningMessage) {
             const errorMessage =
-                `The "fileActions" prop passed to ${FileBrowser.name} did not pass ` +
+                `The "fileActions" prop passed to FileBrowser did not pass ` +
                 `validation. ${cleanFilesResult.warningMessage} ` +
                 `The following errors were encountered:`;
             Logger.error(

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { FileAction } from '../../types/file-actions.types';
 import { ChonkyIconName } from '../../types/icons.types';
-import { useFileActionTrigger } from '../../util/file-actions';
+import { useFileActionTrigger } from '../../util/file-actions-old';
 import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface ToolbarButtonProps {

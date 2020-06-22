@@ -49,7 +49,6 @@ export const DisableExample = () => {
                 folderChain={folderChain}
                 onFileAction={handleFileAction}
                 fileActions={fileActions}
-                enableDragAndDrop={true}
                 disableDefaultFileActions={true}
             >
                 <FileToolbar />

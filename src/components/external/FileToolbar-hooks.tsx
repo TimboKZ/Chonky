@@ -8,7 +8,7 @@ import {
     ChonkyFileActionsContext,
     ChonkyFolderChainContext,
 } from '../../util/context';
-import { ChonkyActions } from '../../util/file-actions';
+import { ChonkyActions } from '../../util/file-actions-old';
 import { FileHelper } from '../../util/file-helper';
 import { ChonkyIconFA } from './ChonkyIcon';
 import { ToolbarButtonGroup } from './ToolbarButtonGroup';

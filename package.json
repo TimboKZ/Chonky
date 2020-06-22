@@ -12,7 +12,6 @@
     "test": "jest",
     "lint:src": "eslint src/",
     "typecheck:src": "tsc -p ./tsconfig.json --noEmit",
-
     "storybook": "start-storybook -s ./assets -p 6006 --docs",
     "build:component": "rm -r ./lib; tsc",
     "build:typedoc": "typedoc",
@@ -33,6 +32,7 @@
     "react-dnd": "^11.1.3",
     "react-dnd-html5-backend": "^11.1.3",
     "react-virtualized": "^9.21.2",
+    "recoil": "0.0.10",
     "shortid": "^2.2.15",
     "tsdef": "0.0.13"
   },
@@ -60,6 +60,7 @@
     "@types/react": "^16.9.36",
     "@types/react-syntax-highlighter": "^11.0.4",
     "@types/react-virtualized": "^9.21.10",
+    "@types/recoil": "0.0.1",
     "@types/shortid": "0.0.29",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",

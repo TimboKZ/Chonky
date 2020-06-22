@@ -17,6 +17,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight
 import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons/faCircleNotch';
 import { faCogs } from '@fortawesome/free-solid-svg-icons/faCogs';
+import { faCopy } from '@fortawesome/free-solid-svg-icons/faCopy';
 import { faCubes } from '@fortawesome/free-solid-svg-icons/faCubes';
 import { faDatabase } from '@fortawesome/free-solid-svg-icons/faDatabase';
 import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload';
@@ -69,6 +70,7 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     // File Actions: File operations
     [ChonkyIconName.openFiles]: faBoxOpen,
     [ChonkyIconName.openParentFolder]: faLevelUpAlt,
+    [ChonkyIconName.copy]: faCopy,
     [ChonkyIconName.search]: faSearch,
 
     // File Actions: Unsorted

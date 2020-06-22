@@ -33,8 +33,15 @@ export interface FileActionData {
     files?: ReadonlyArray<Readonly<FileData>>;
 }
 
-export type FileActionHandler = (
+export type FileActionListener = (
     action: FileAction,
     data: FileActionData
 ) => void | Promise<void>;
+
 export type InternalFileActionDispatcher = (actionData: FileActionData) => void;
+
+
+export interface NewInternalFileActionHandlerMap {
+    [actionId: string]: () => void;
+}
+export type NewInternalFileActionDispatcher = (actionId: string) => void;

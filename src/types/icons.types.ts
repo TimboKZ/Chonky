@@ -11,6 +11,7 @@ export enum ChonkyIconName {
     // File Actions: File operations
     openFiles = 'openFiles',
     openParentFolder = 'openParentFolder',
+    copy = 'copy',
     search = 'search',
 
     // File Actions: Unsorted

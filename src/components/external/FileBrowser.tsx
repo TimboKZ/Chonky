@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import shortid from 'shortid';
 
-import { FileActionHandler, FileArray } from '../..';
+import { FileActionListener, FileArray } from '../..';
 import { FileAction } from '../../types/file-actions.types';
 import { ThumbnailGenerator } from '../../types/thumbnails.types';
 import {
@@ -21,7 +21,10 @@ import {
     ChonkyThumbnailGeneratorContext,
     validateContextType,
 } from '../../util/context';
-import { DefaultFileActions, useFileActionDispatcher } from '../../util/file-actions';
+import {
+    DefaultFileActions,
+    useFileActionDispatcher,
+} from '../../util/file-actions-old';
 import { useClickListener, useStaticValue } from '../../util/hooks-helpers';
 import { useFilteredFiles, useSearch } from '../../util/search';
 import { useSelection } from '../../util/selection';
@@ -53,7 +56,7 @@ export interface FileBrowserProps {
     folderChain?: FileArray;
 
     fileActions?: FileAction[];
-    onFileAction?: FileActionHandler;
+    onFileAction?: FileActionListener;
 
     /**
      * The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
@@ -92,10 +95,12 @@ export interface FileBrowserProps {
 export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const { files, children } = props;
 
-    // Instance ID used to distinguish between
+    // Instance ID used to distinguish between multiple Chonky instances on the same
+    // page
     const chonkyInstanceId = useStaticValue(shortid.generate);
 
-    // ==== Assign default values
+    //
+    // ==== Default values assignment
     const folderChain = props.folderChain ? props.folderChain : null;
     const fileActions = props.fileActions ? props.fileActions : [];
     const onFileAction = props.onFileAction ? props.onFileAction : null;
@@ -108,6 +113,7 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     const enableDragAndDrop = !!props.enableDragAndDrop;
     const disableDefaultFileActions = !!props.disableDefaultFileActions;
 
+    //
     // ==== Input props validation
     const {
         cleanFiles,
@@ -124,9 +130,17 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     );
     const validationErrors = [...fileArrayErrors, ...fileActionsErrors];
 
+    //
+    // ==== File array sorting | TODO: Come up with an API for customizable sorting...
     const sortedFiles = cleanFiles;
 
-    // Initial selection
+    //
+    // ==== File search (aka file array filtering)
+    const { searchState, searchContexts } = useSearch();
+    const filteredFiles = useFilteredFiles(sortedFiles, searchState.searchFilter);
+
+    //
+    // ==== File selections
     const {
         selection,
         selectionSize,
@@ -134,11 +148,13 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         selectionModifiers,
     } = useSelection(sortedFiles, disableSelection);
 
-    // Deal with file text search
-    const { searchState, searchContexts } = useSearch();
-    const filteredFiles = useFilteredFiles(sortedFiles, searchState.searchFilter);
-
+    //
+    // ==== File actions - actions that users can customise as they please
     const dispatchFileAction = useFileActionDispatcher(cleanFileActions, onFileAction);
+
+    //
+    // ==== Special actions - special actions hard-coded into Chonky that users cannot
+    //      customize (easily).
     const dispatchSpecialAction = useSpecialActionDispatcher(
         sortedFiles,
         selection,
@@ -154,10 +170,12 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
     });
 
     type ExtractContextType<P> = P extends React.Context<infer T> ? T : never;
+
     interface ContextData<ContextType extends React.Context<any>> {
         context: ContextType;
         value: ExtractContextType<ContextType>;
     }
+
     const contexts: ContextData<any>[] = [
         ...searchContexts,
         validateContextType({

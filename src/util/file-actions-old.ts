@@ -4,7 +4,7 @@ import { Nullable, Undefinable } from 'tsdef';
 
 import {
     FileAction,
-    FileActionHandler,
+    FileActionListener,
     InternalFileActionDispatcher,
 } from '../types/file-actions.types';
 import { FileData } from '../types/files.types';
@@ -73,6 +73,12 @@ export const ChonkyActions = {
     CopyFiles: {
         id: 'copy_files',
         requiresSelection: true,
+        toolbarButton: {
+            name: 'Copy selection',
+            group: 'Actions',
+            dropdown: true,
+            icon: ChonkyIconName.copy,
+        },
     },
 
     CreateFolder: {
@@ -121,7 +127,7 @@ export const DefaultFileActions: FileAction[] = [
  */
 export const useFileActionDispatcher = (
     fileActions: FileAction[],
-    onFileAction: Nullable<FileActionHandler>
+    onFileAction: Nullable<FileActionListener>
 ): InternalFileActionDispatcher => {
     const actionMap = useMemo(() => {
         const actionMap = {};
@@ -179,7 +185,6 @@ export const useFileActionTrigger = (action: FileAction) => {
         let actionSelectionSize: Undefinable<number> = undefined;
         let actionFiles: Undefinable<ReadonlyArray<FileData>> = undefined;
         if (action.requiresSelection) {
-            if (action.fileFilter) {
                 actionSelectionSize = SelectionHelper.getSelectionSize(
                     files,
                     selection,
@@ -190,10 +195,6 @@ export const useFileActionTrigger = (action: FileAction) => {
                     selection,
                     action.fileFilter
                 );
-            } else {
-                actionSelectionSize = selectionSize;
-                actionFiles = SelectionHelper.getSelectedFiles(files, selection);
-            }
         }
 
         const active = action.id === ChonkyActions.ToggleSearch.id && searchBarVisible;
@@ -250,3 +251,5 @@ export const useFileActionTrigger = (action: FileAction) => {
         parentFolder,
     ]);
 };
+
+

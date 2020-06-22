@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Nullable } from 'tsdef';
+import { Nilable, Nullable } from 'tsdef';
 
 import {
     FileArray,
@@ -100,21 +100,21 @@ export class SelectionHelper {
     public static getSelectedFiles(
         files: ReadonlyFileArray,
         selection: Readonly<FileSelection>,
-        ...filters: FileFilter[]
+        ...filters: Nilable<FileFilter>[]
     ): ReadonlyArray<Readonly<FileData>> {
         const selectedFiles = files.filter(
             (file) => FileHelper.isSelectable(file) && selection[file.id] === true
         ) as FileData[];
 
         return filters.reduce(
-            (prevFiles, filter) => prevFiles.filter(filter),
+            (prevFiles, filter) => (filter ? prevFiles.filter(filter) : prevFiles),
             selectedFiles
         );
     }
     public static getSelectionSize(
         files: ReadonlyFileArray,
         selection: Readonly<FileSelection>,
-        ...filters: FileFilter[]
+        ...filters: Nilable<FileFilter>[]
     ): number {
         return SelectionHelper.getSelectedFiles(files, selection, ...filters).length;
     }
@@ -148,11 +148,11 @@ export class SelectionUtil {
         return this.selection;
     }
     public getSelectedFiles(
-        ...filters: FileFilter[]
+        ...filters: Nilable<FileFilter>[]
     ): ReadonlyArray<Readonly<FileData>> {
         return SelectionHelper.getSelectedFiles(this.files, this.selection, ...filters);
     }
-    public getSelectionSize(...filters: FileFilter[]): number {
+    public getSelectionSize(...filters: Nilable<FileFilter>[]): number {
         return SelectionHelper.getSelectionSize(this.files, this.selection, ...filters);
     }
     public isSelected(file: Nullable<FileData>): boolean {

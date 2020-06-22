@@ -13,7 +13,7 @@ import {
     SpecialFileKeyboardClickAction,
     SpecialFileMouseClickAction,
 } from '../types/special-actions.types';
-import { ChonkyActions } from './file-actions';
+import { ChonkyActions } from './file-actions-old';
 import { FileHelper } from './file-helper';
 import { Logger } from './logger';
 import { SelectionUtil } from './selection';
