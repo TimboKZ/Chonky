@@ -1,7 +1,9 @@
-import React, { useContext, useRef } from 'react';
+import React, { useRef } from 'react';
 import { AutoSizer, Grid } from 'react-virtualized';
+import { useRecoilValue } from 'recoil';
 
-import { ChonkyFileEntrySizeContext, ChonkyFilesContext } from '../../util/context';
+import { fileEntrySizeState } from '../../recoil/file-list.recoil';
+import { filesState } from '../../recoil/files.recoil';
 import { Logger } from '../../util/logger';
 import { ErrorMessage } from '../internal/ErrorMessage';
 import { useEntryRenderer, useGridRenderer } from './FileList-virtualization';
@@ -9,8 +11,8 @@ import { useEntryRenderer, useGridRenderer } from './FileList-virtualization';
 export interface FileListProps {}
 
 export const FileList: React.FC<FileListProps> = React.memo(() => {
-    const files = useContext(ChonkyFilesContext);
-    const entrySize = useContext(ChonkyFileEntrySizeContext);
+    const files = useRecoilValue(filesState);
+    const entrySize = useRecoilValue(fileEntrySizeState);
 
     const entryRenderer = useEntryRenderer(files);
 

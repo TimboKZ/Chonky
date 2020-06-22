@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
 
-import { ChonkySearchBarEnabledContext } from '../../util/context';
+import { searchBarEnabledState } from '../../recoil/search.recoil';
 import { useFolderChainComponent, useToolbarButtonGroups } from './FileToolbar-hooks';
 import { ToolbarButtonGroup } from './ToolbarButtonGroup';
 
 export interface FileToolbarProps {}
 
 export const FileToolbar: React.FC<FileToolbarProps> = React.memo(() => {
-    const searchBarEnabled = useContext(ChonkySearchBarEnabledContext);
+    const searchBarEnabled = useRecoilValue(searchBarEnabledState);
 
     const folderChainComp = useFolderChainComponent();
     const {

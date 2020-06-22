@@ -1,9 +1,10 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Nilable, Nullable } from 'tsdef';
 
+import { thumbnailGeneratorState } from '../../recoil/thumbnails.recoil';
 import { FileData } from '../../types/files.types';
 import { ChonkyIconName } from '../../types/icons.types';
-import { ChonkyThumbnailGeneratorContext } from '../../util/context';
 import { Logger } from '../../util/logger';
 
 export const useDndIcon = (
@@ -26,7 +27,7 @@ export const useThumbnailUrl = (
     setThumbnailUrl: (url: string) => void,
     setThumbnailLoading: (state: boolean) => void
 ) => {
-    const thumbnailGenerator = useContext(ChonkyThumbnailGeneratorContext);
+    const thumbnailGenerator = useRecoilValue(thumbnailGeneratorState);
 
     useEffect(() => {
         let loadingCancelled = false;

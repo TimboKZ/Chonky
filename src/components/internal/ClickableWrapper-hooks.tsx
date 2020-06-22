@@ -4,10 +4,11 @@
  * @license MIT
  */
 
-import React, { useCallback, useContext, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Nilable, Nullable } from 'tsdef';
 
-import { ChonkyDoubleClickDelayContext } from '../../util/context';
+import { doubleClickDelayState } from '../../recoil/file-actions.recoil';
 import {
     KeyboardClickEvent,
     KeyboardClickEventHandler,
@@ -19,7 +20,7 @@ export const useClickHandler = (
     onSingleClick: Nilable<MouseClickEventHandler>,
     onDoubleClick: Nilable<MouseClickEventHandler>
 ) => {
-    const doubleClickDelay = useContext(ChonkyDoubleClickDelayContext);
+    const doubleClickDelay = useRecoilValue(doubleClickDelayState);
 
     const counter = useRef({
         clickCount: 0,

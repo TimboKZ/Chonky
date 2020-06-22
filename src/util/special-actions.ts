@@ -1,8 +1,9 @@
 import { useCallback, useMemo } from 'react';
+import { useSetRecoilState } from 'recoil';
 
+import { searchBarVisibleState } from '../recoil/search.recoil';
 import { InternalFileActionDispatcher } from '../types/file-actions.types';
 import { FileArray } from '../types/files.types';
-import { ReactStateSetter } from '../types/react.types';
 import { FileSelection, SelectionModifiers } from '../types/selection.types';
 import {
     InternalSpecialActionDispatcher,
@@ -28,14 +29,12 @@ export const useSpecialActionDispatcher = (
     selection: FileSelection,
     selectionUtil: SelectionUtil,
     selectionModifiers: SelectionModifiers,
-    setSearchBarVisible: ReactStateSetter<boolean>,
     dispatchFileAction: InternalFileActionDispatcher
 ): InternalSpecialActionDispatcher => {
     // Create the special action handler map
     const specialActionHandlerMap = useSpecialFileActionHandlerMap(
         selectionUtil,
         selectionModifiers,
-        setSearchBarVisible,
         dispatchFileAction
     );
 
@@ -68,9 +67,10 @@ export const useSpecialActionDispatcher = (
 export const useSpecialFileActionHandlerMap = (
     selectionUtil: SelectionUtil,
     selectionModifiers: SelectionModifiers,
-    setSearchBarVisible: ReactStateSetter<boolean>,
     dispatchFileAction: InternalFileActionDispatcher
 ) => {
+    const setSearchBarVisible = useSetRecoilState(searchBarVisibleState);
+
     // Define handlers in a map
     const specialActionHandlerMap = useMemo(
         () =>
@@ -119,7 +119,7 @@ export const useSpecialFileActionHandlerMap = (
                     }
                 },
                 [SpecialAction.ToggleSearchBar]: () => {
-                    setSearchBarVisible((visible) => !visible);
+                    setSearchBarVisible((visible: any) => !visible);
                 },
                 [SpecialAction.DragNDropStart]: (data: SpecialDragNDropStartAction) => {
                     const file = data.dragSource;

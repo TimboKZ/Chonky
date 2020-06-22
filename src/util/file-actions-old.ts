@@ -1,7 +1,13 @@
 import Promise from 'bluebird';
-import { useCallback, useContext, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Nullable, Undefinable } from 'tsdef';
 
+import { dispatchFileActionState } from '../recoil/file-actions.recoil';
+import { filesState, folderChainState } from '../recoil/files.recoil';
+import { searchBarVisibleState } from '../recoil/search.recoil';
+import { selectionState } from '../recoil/selection.recoil';
+import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
 import {
     FileAction,
     FileActionListener,
@@ -10,15 +16,6 @@ import {
 import { FileData } from '../types/files.types';
 import { ChonkyIconName } from '../types/icons.types';
 import { SpecialAction } from '../types/special-actions.types';
-import {
-    ChonkyDispatchFileActionContext,
-    ChonkyDispatchSpecialActionContext,
-    ChonkyFilesContext,
-    ChonkyFolderChainContext,
-    ChonkySearchBarVisibleContext,
-    ChonkySelectionContext,
-    ChonkySelectionSizeContext,
-} from './context';
 import { FileHelper } from './file-helper';
 import { Logger } from './logger';
 import { SelectionHelper } from './selection';
@@ -168,13 +165,12 @@ export const useFileActionDispatcher = (
 };
 
 export const useFileActionTrigger = (action: FileAction) => {
-    const files = useContext(ChonkyFilesContext);
-    const folderChain = useContext(ChonkyFolderChainContext);
-    const selection = useContext(ChonkySelectionContext);
-    const selectionSize = useContext(ChonkySelectionSizeContext);
-    const searchBarVisible = useContext(ChonkySearchBarVisibleContext);
-    const dispatchFileAction = useContext(ChonkyDispatchFileActionContext);
-    const dispatchSpecialAction = useContext(ChonkyDispatchSpecialActionContext);
+    const files = useRecoilValue(filesState);
+    const folderChain = useRecoilValue(folderChainState);
+    const selection = useRecoilValue(selectionState);
+    const searchBarVisible = useRecoilValue(searchBarVisibleState);
+    const dispatchFileAction = useRecoilValue(dispatchFileActionState);
+    const dispatchSpecialAction = useRecoilValue(dispatchSpecialActionState);
 
     const parentFolder =
         folderChain && folderChain.length > 1
@@ -185,16 +181,16 @@ export const useFileActionTrigger = (action: FileAction) => {
         let actionSelectionSize: Undefinable<number> = undefined;
         let actionFiles: Undefinable<ReadonlyArray<FileData>> = undefined;
         if (action.requiresSelection) {
-                actionSelectionSize = SelectionHelper.getSelectionSize(
-                    files,
-                    selection,
-                    action.fileFilter
-                );
-                actionFiles = SelectionHelper.getSelectedFiles(
-                    files,
-                    selection,
-                    action.fileFilter
-                );
+            actionSelectionSize = SelectionHelper.getSelectionSize(
+                files,
+                selection,
+                action.fileFilter
+            );
+            actionFiles = SelectionHelper.getSelectedFiles(
+                files,
+                selection,
+                action.fileFilter
+            );
         }
 
         const active = action.id === ChonkyActions.ToggleSearch.id && searchBarVisible;
@@ -244,12 +240,9 @@ export const useFileActionTrigger = (action: FileAction) => {
         action,
         files,
         selection,
-        selectionSize,
         searchBarVisible,
         dispatchFileAction,
         dispatchSpecialAction,
         parentFolder,
     ]);
 };
-
-

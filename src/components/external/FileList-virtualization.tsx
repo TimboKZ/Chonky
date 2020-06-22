@@ -1,15 +1,14 @@
 import c from 'classnames';
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import { Grid } from 'react-virtualized';
+import { useRecoilValue } from 'recoil';
 import { Nilable } from 'tsdef';
 
+import { enableDragAndDropState } from '../../recoil/drag-and-drop.recoil';
+import { selectionState } from '../../recoil/selection.recoil';
 import { FileEntrySize } from '../../types/file-list-view.types';
 import { FileArray } from '../../types/files.types';
 import { ChonkyIconName } from '../../types/icons.types';
-import {
-    ChonkyEnableDragAndDropContext,
-    ChonkySelectionContext,
-} from '../../util/context';
 import { isMobileDevice } from '../../util/validation';
 import { FileEntryProps } from '../internal/BaseFileEntry';
 import { ClickableFileEntry } from '../internal/ClickableFileEntry';
@@ -42,8 +41,8 @@ export const getRowHeight = (
 };
 
 export const useEntryRenderer = (files: FileArray) => {
-    const selection = useContext(ChonkySelectionContext);
-    const enableDragAndDrop = useContext(ChonkyEnableDragAndDropContext);
+    const selection = useRecoilValue(selectionState);
+    const enableDragAndDrop = useRecoilValue(enableDragAndDropState);
     // All hook parameters should go into `deps` array
     const entryRenderer = useCallback(
         (
@@ -127,49 +126,52 @@ export const useGridRenderer = (
     thumbsGridRef: React.Ref<Nilable<Grid>>,
     fillParentContainer: boolean
 ) => {
-    return useCallback(({ width, height }) => {
-        const isMobile = isMobileDevice();
-        const gutter = isMobile ? 5 : 8;
-        const scrollbar = !fillParentContainer || isMobile ? 0 : 16;
+    return useCallback(
+        ({ width, height }) => {
+            const isMobile = isMobileDevice();
+            const gutter = isMobile ? 5 : 8;
+            const scrollbar = !fillParentContainer || isMobile ? 0 : 16;
 
-        // TODO: const isLargeThumbs = view === FileView.LargeThumbs;
-        const columnCountFloat =
-            (width + gutter - scrollbar) / (entrySize.width + gutter);
-        const columnCount = Math.max(1, Math.floor(columnCountFloat));
-        const rowCount = Math.ceil(files.length / columnCount);
+            // TODO: const isLargeThumbs = view === FileView.LargeThumbs;
+            const columnCountFloat =
+                (width + gutter - scrollbar) / (entrySize.width + gutter);
+            const columnCount = Math.max(1, Math.floor(columnCountFloat));
+            const rowCount = Math.ceil(files.length / columnCount);
 
-        return (
-            <Grid
-                style={{ minHeight: entrySize.height + 10 }}
-                ref={thumbsGridRef as any}
-                cellRenderer={(data) => {
-                    const index = data.rowIndex * columnCount + data.columnIndex;
-                    return entryRenderer(
-                        data.key,
-                        index,
-                        { ...data.style },
-                        data.parent,
-                        gutter,
-                        data.rowIndex === rowCount - 1,
-                        data.columnIndex === columnCount - 1
-                    );
-                }}
-                noContentRenderer={() => noContentRenderer(entrySize.height)}
-                rowCount={rowCount}
-                columnCount={columnCount}
-                columnWidth={({ index }) =>
-                    getColWidth(index, columnCount, entrySize, gutter)
-                }
-                rowHeight={({ index }) =>
-                    getRowHeight(index, rowCount, entrySize, gutter)
-                }
-                overscanRowCount={2}
-                width={width}
-                containerStyle={{minHeight: 50}}
-                height={typeof height === 'number' ? height : 500}
-                autoHeight={!fillParentContainer}
-                tabIndex={null}
-            />
-        );
-    }, [files, entrySize, entryRenderer, thumbsGridRef, fillParentContainer]);
+            return (
+                <Grid
+                    style={{ minHeight: entrySize.height + 10 }}
+                    ref={thumbsGridRef as any}
+                    cellRenderer={(data) => {
+                        const index = data.rowIndex * columnCount + data.columnIndex;
+                        return entryRenderer(
+                            data.key,
+                            index,
+                            { ...data.style },
+                            data.parent,
+                            gutter,
+                            data.rowIndex === rowCount - 1,
+                            data.columnIndex === columnCount - 1
+                        );
+                    }}
+                    noContentRenderer={() => noContentRenderer(entrySize.height)}
+                    rowCount={rowCount}
+                    columnCount={columnCount}
+                    columnWidth={({ index }) =>
+                        getColWidth(index, columnCount, entrySize, gutter)
+                    }
+                    rowHeight={({ index }) =>
+                        getRowHeight(index, rowCount, entrySize, gutter)
+                    }
+                    overscanRowCount={2}
+                    width={width}
+                    containerStyle={{ minHeight: 50 }}
+                    height={typeof height === 'number' ? height : 500}
+                    autoHeight={!fillParentContainer}
+                    tabIndex={null}
+                />
+            );
+        },
+        [files, entrySize, entryRenderer, thumbsGridRef, fillParentContainer]
+    );
 };

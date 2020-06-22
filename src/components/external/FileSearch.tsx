@@ -5,25 +5,26 @@
  */
 
 import c from 'classnames';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { ChonkyIconName } from '../../types/icons.types';
 import {
-    ChonkySearchBarVisibleContext,
-    ChonkySearchFilterContext,
-    ChonkySetSearchBarEnabledContext,
-    ChonkySetSearchFilterContext,
-} from '../../util/context';
+    searchBarEnabledState,
+    searchBarVisibleState,
+    searchFilterState,
+} from '../../recoil/search.recoil';
+import { ChonkyIconName } from '../../types/icons.types';
 import { useDebounce } from '../../util/hooks-helpers';
 import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface FileSearchProps {}
 
 export const FileSearch: React.FC<FileSearchProps> = () => {
-    const setSearchBarEnabled = useContext(ChonkySetSearchBarEnabledContext);
-    const searchBarVisible = useContext(ChonkySearchBarVisibleContext);
-    const globalSearchFilter = useContext(ChonkySearchFilterContext);
-    const setGlobalSearchFilter = useContext(ChonkySetSearchFilterContext);
+    const setSearchBarEnabled = useSetRecoilState(searchBarEnabledState);
+    const searchBarVisible = useRecoilValue(searchBarVisibleState);
+    const [globalSearchFilter, setGlobalSearchFilter] = useRecoilState(
+        searchFilterState
+    );
 
     // Notify all other components that search bar is mounted.
     useEffect(() => {

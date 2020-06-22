@@ -1,16 +1,17 @@
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Nullable } from 'tsdef';
 
+import { dispatchSpecialActionState } from '../../recoil/special-actions.recoil';
 import { FileData } from '../../types/files.types';
 import {
     SpecialAction,
     SpecialFileMouseClickAction,
 } from '../../types/special-actions.types';
-import { ChonkyDispatchSpecialActionContext } from '../../util/context';
 import { KeyboardClickEvent, MouseClickEvent } from './ClickableWrapper';
 
 export const useFileClickHandlers = (file: Nullable<FileData>) => {
-    const dispatchSpecialAction = useContext(ChonkyDispatchSpecialActionContext);
+    const dispatchSpecialAction = useRecoilValue(dispatchSpecialActionState);
 
     // Prepare base handlers
     const onMouseClick = useCallback(

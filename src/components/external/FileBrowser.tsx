@@ -1,42 +1,11 @@
-import React, { useMemo } from 'react';
-import shortid from 'shortid';
+import React from 'react';
+import { RecoilRoot } from 'recoil';
 
 import { FileActionListener, FileArray } from '../..';
 import { FileAction } from '../../types/file-actions.types';
 import { ThumbnailGenerator } from '../../types/thumbnails.types';
-import {
-    ChonkyDisableSelectionContext,
-    ChonkyDispatchFileActionContext,
-    ChonkyDispatchSpecialActionContext,
-    ChonkyDoubleClickDelayContext,
-    ChonkyEnableDragAndDropContext,
-    ChonkyFileActionsContext,
-    ChonkyFileEntrySizeContext,
-    ChonkyFilesContext,
-    ChonkyFolderChainContext,
-    ChonkyInstanceIdContext,
-    ChonkySelectionContext,
-    ChonkySelectionSizeContext,
-    ChonkySelectionUtilContext,
-    ChonkyThumbnailGeneratorContext,
-    validateContextType,
-} from '../../util/context';
-import {
-    DefaultFileActions,
-    useFileActionDispatcher,
-} from '../../util/file-actions-old';
-import { useClickListener, useStaticValue } from '../../util/hooks-helpers';
-import { useFilteredFiles, useSearch } from '../../util/search';
-import { useSelection } from '../../util/selection';
-import { useSpecialActionDispatcher } from '../../util/special-actions';
-import {
-    useFileActionsValidation,
-    useFileArrayValidation,
-} from '../../util/validation';
-import { ContextComposer, ContextProviderData } from '../internal/ContextComposer';
-import { DnDFileListDragLayer } from '../internal/DnDFileListDragLayer';
-import { ErrorMessage } from '../internal/ErrorMessage';
-import { DefaultEntrySize } from './FileList-virtualization';
+import { ChonkyBusinessLogic } from '../internal/ChonkyBusinessLogic';
+import { ChonkyPresentationLayer } from '../internal/ChonkyPresentationLayer';
 
 export interface FileBrowserProps {
     /**
@@ -93,172 +62,12 @@ export interface FileBrowserProps {
 }
 
 export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
-    const { files, children } = props;
-
-    // Instance ID used to distinguish between multiple Chonky instances on the same
-    // page
-    const chonkyInstanceId = useStaticValue(shortid.generate);
-
-    //
-    // ==== Default values assignment
-    const folderChain = props.folderChain ? props.folderChain : null;
-    const fileActions = props.fileActions ? props.fileActions : [];
-    const onFileAction = props.onFileAction ? props.onFileAction : null;
-    const thumbnailGenerator = props.thumbnailGenerator
-        ? props.thumbnailGenerator
-        : null;
-    const doubleClickDelay =
-        typeof props.doubleClickDelay === 'number' ? props.doubleClickDelay : 300;
-    const disableSelection = !!props.disableSelection;
-    const enableDragAndDrop = !!props.enableDragAndDrop;
-    const disableDefaultFileActions = !!props.disableDefaultFileActions;
-
-    //
-    // ==== Input props validation
-    const {
-        cleanFiles,
-        cleanFolderChain,
-        errorMessages: fileArrayErrors,
-    } = useFileArrayValidation(files, folderChain);
-    const {
-        cleanFileActions,
-        errorMessages: fileActionsErrors,
-    } = useFileActionsValidation(
-        fileActions,
-        DefaultFileActions,
-        !disableDefaultFileActions
-    );
-    const validationErrors = [...fileArrayErrors, ...fileActionsErrors];
-
-    //
-    // ==== File array sorting | TODO: Come up with an API for customizable sorting...
-    const sortedFiles = cleanFiles;
-
-    //
-    // ==== File search (aka file array filtering)
-    const { searchState, searchContexts } = useSearch();
-    const filteredFiles = useFilteredFiles(sortedFiles, searchState.searchFilter);
-
-    //
-    // ==== File selections
-    const {
-        selection,
-        selectionSize,
-        selectionUtilRef,
-        selectionModifiers,
-    } = useSelection(sortedFiles, disableSelection);
-
-    //
-    // ==== File actions - actions that users can customise as they please
-    const dispatchFileAction = useFileActionDispatcher(cleanFileActions, onFileAction);
-
-    //
-    // ==== Special actions - special actions hard-coded into Chonky that users cannot
-    //      customize (easily).
-    const dispatchSpecialAction = useSpecialActionDispatcher(
-        sortedFiles,
-        selection,
-        selectionUtilRef.current,
-        selectionModifiers,
-        searchState.setSearchBarVisible,
-        dispatchFileAction
-    );
-
-    // Deal with clicks outside of Chonky
-    const chonkyRootRef = useClickListener({
-        onOutsideClick: selectionModifiers.clearSelection,
-    });
-
-    type ExtractContextType<P> = P extends React.Context<infer T> ? T : never;
-
-    interface ContextData<ContextType extends React.Context<any>> {
-        context: ContextType;
-        value: ExtractContextType<ContextType>;
-    }
-
-    const contexts: ContextData<any>[] = [
-        ...searchContexts,
-        validateContextType({
-            context: ChonkyInstanceIdContext,
-            value: chonkyInstanceId,
-        }),
-        validateContextType({
-            context: ChonkyFilesContext,
-            value: filteredFiles,
-        }),
-        validateContextType({
-            context: ChonkyFolderChainContext,
-            value: cleanFolderChain,
-        }),
-        validateContextType({
-            context: ChonkySelectionContext,
-            value: selection,
-        }),
-        validateContextType({
-            context: ChonkySelectionSizeContext,
-            value: selectionSize,
-        }),
-        validateContextType({
-            context: ChonkySelectionUtilContext,
-            value: selectionUtilRef.current,
-        }),
-        validateContextType({
-            context: ChonkyFileActionsContext,
-            value: cleanFileActions,
-        }),
-        validateContextType({
-            context: ChonkyDispatchFileActionContext,
-            value: dispatchFileAction,
-        }),
-        validateContextType({
-            context: ChonkyDispatchSpecialActionContext,
-            value: dispatchSpecialAction,
-        }),
-        validateContextType({
-            context: ChonkyThumbnailGeneratorContext,
-            value: thumbnailGenerator,
-        }),
-        validateContextType({
-            context: ChonkyDoubleClickDelayContext,
-            value: doubleClickDelay,
-        }),
-        validateContextType({
-            context: ChonkyFileEntrySizeContext,
-            value: DefaultEntrySize,
-        }),
-        validateContextType({
-            context: ChonkyDisableSelectionContext,
-            value: disableSelection,
-        }),
-        validateContextType({
-            context: ChonkyEnableDragAndDropContext,
-            value: enableDragAndDrop,
-        }),
-    ];
-
-    const contextProviders = useMemo<ContextProviderData[]>(
-        () =>
-            contexts.map((data) => ({
-                provider: data.context.Provider,
-                value: data.value,
-            })),
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        contexts.map((data) => data.value)
-    );
+    const { children } = props;
 
     return (
-        <ContextComposer providers={contextProviders}>
-            <div ref={chonkyRootRef} className="chonky-root chonky-no-select">
-                {enableDragAndDrop && <DnDFileListDragLayer />}
-                {validationErrors.map((data, index) => (
-                    <ErrorMessage
-                        key={`error-message-${index}`}
-                        message={data.message}
-                        bullets={data.bullets}
-                    />
-                ))}
-                {children ? children : null}
-            </div>
-        </ContextComposer>
+        <RecoilRoot>
+            <ChonkyBusinessLogic {...props} />
+            <ChonkyPresentationLayer>{children}</ChonkyPresentationLayer>
+        </RecoilRoot>
     );
 };

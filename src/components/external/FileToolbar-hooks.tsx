@@ -1,13 +1,14 @@
 import c from 'classnames';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Nullable } from 'tsdef';
 
-import { ChonkyIconName } from '../../types/icons.types';
 import {
-    ChonkyDispatchFileActionContext,
-    ChonkyFileActionsContext,
-    ChonkyFolderChainContext,
-} from '../../util/context';
+    dispatchFileActionState,
+    fileActionsState,
+} from '../../recoil/file-actions.recoil';
+import { folderChainState } from '../../recoil/files.recoil';
+import { ChonkyIconName } from '../../types/icons.types';
 import { ChonkyActions } from '../../util/file-actions-old';
 import { FileHelper } from '../../util/file-helper';
 import { ChonkyIconFA } from './ChonkyIcon';
@@ -17,8 +18,8 @@ import { ToolbarButtonGroup } from './ToolbarButtonGroup';
  * Generates folder chain HTML components for the `FileToolbar` component.
  */
 export const useFolderChainComponent = () => {
-    const folderChain = useContext(ChonkyFolderChainContext);
-    const dispatchChonkyAction = useContext(ChonkyDispatchFileActionContext);
+    const folderChain = useRecoilValue(folderChainState);
+    const dispatchChonkyAction = useRecoilValue(dispatchFileActionState);
     const folderChainComponent = useMemo(() => {
         if (!folderChain) return folderChain;
 
@@ -79,7 +80,7 @@ export const useFolderChainComponent = () => {
 };
 
 export const useToolbarButtonGroups = () => {
-    const fileActions = useContext(ChonkyFileActionsContext);
+    const fileActions = useRecoilValue(fileActionsState);
     return useMemo(() => {
         // Create an array for normal toolbar buttons
         const buttonGroups: ToolbarButtonGroup[] = [];
