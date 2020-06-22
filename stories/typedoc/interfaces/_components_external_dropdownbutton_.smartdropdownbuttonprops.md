@@ -18,4 +18,4 @@
 
 • **fileAction**: *[FileAction](_types_file_actions_types_.fileaction.md)*
 
-*Defined in [src/components/external/DropdownButton.tsx:44](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/external/DropdownButton.tsx#L44)*
+*Defined in [src/components/external/DropdownButton.tsx:44](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/DropdownButton.tsx#L44)*

@@ -37,7 +37,7 @@ that need to access selection WITHOUT triggering re-renders.
 
 \+ **new SelectionUtil**(`files`: [FileArray](../modules/_types_files_types_.md#filearray), `selection`: [FileSelection](../interfaces/_types_selection_types_.fileselection.md)): *[SelectionUtil](_util_selection_.selectionutil.md)*
 
-*Defined in [src/util/selection.ts:136](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/selection.ts#L136)*
+*Defined in [src/util/selection.ts:136](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/selection.ts#L136)*
 
 **Parameters:**
 
@@ -54,7 +54,7 @@ Name | Type | Default |
 
 • **files**: *[FileArray](../modules/_types_files_types_.md#filearray)*
 
-*Defined in [src/util/selection.ts:135](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/selection.ts#L135)*
+*Defined in [src/util/selection.ts:135](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/selection.ts#L135)*
 
 ___
 
@@ -62,21 +62,21 @@ ___
 
 • **selection**: *[FileSelection](../interfaces/_types_selection_types_.fileselection.md)*
 
-*Defined in [src/util/selection.ts:136](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/selection.ts#L136)*
+*Defined in [src/util/selection.ts:136](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/selection.ts#L136)*
 
 ## Methods
 
 ###  getSelectedFiles
 
-▸ **getSelectedFiles**(...`filters`: [FileFilter](../modules/_types_files_types_.md#filefilter)[]): *ReadonlyArray‹Readonly‹[FileData](../interfaces/_types_files_types_.filedata.md)››*
+▸ **getSelectedFiles**(...`filters`: Nilable‹[FileFilter](../modules/_types_files_types_.md#filefilter)›[]): *ReadonlyArray‹Readonly‹[FileData](../interfaces/_types_files_types_.filedata.md)››*
 
-*Defined in [src/util/selection.ts:150](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/selection.ts#L150)*
+*Defined in [src/util/selection.ts:150](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/selection.ts#L150)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`...filters` | [FileFilter](../modules/_types_files_types_.md#filefilter)[] |
+`...filters` | Nilable‹[FileFilter](../modules/_types_files_types_.md#filefilter)›[] |
 
 **Returns:** *ReadonlyArray‹Readonly‹[FileData](../interfaces/_types_files_types_.filedata.md)››*
 
@@ -86,7 +86,7 @@ ___
 
 ▸ **getSelection**(): *Readonly‹[FileSelection](../interfaces/_types_selection_types_.fileselection.md)›*
 
-*Defined in [src/util/selection.ts:147](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/selection.ts#L147)*
+*Defined in [src/util/selection.ts:147](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/selection.ts#L147)*
 
 **Returns:** *Readonly‹[FileSelection](../interfaces/_types_selection_types_.fileselection.md)›*
 
@@ -94,15 +94,15 @@ ___
 
 ###  getSelectionSize
 
-▸ **getSelectionSize**(...`filters`: [FileFilter](../modules/_types_files_types_.md#filefilter)[]): *number*
+▸ **getSelectionSize**(...`filters`: Nilable‹[FileFilter](../modules/_types_files_types_.md#filefilter)›[]): *number*
 
-*Defined in [src/util/selection.ts:155](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/selection.ts#L155)*
+*Defined in [src/util/selection.ts:155](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/selection.ts#L155)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`...filters` | [FileFilter](../modules/_types_files_types_.md#filefilter)[] |
+`...filters` | Nilable‹[FileFilter](../modules/_types_files_types_.md#filefilter)›[] |
 
 **Returns:** *number*
 
@@ -112,7 +112,7 @@ ___
 
 ▸ **isSelected**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *boolean*
 
-*Defined in [src/util/selection.ts:158](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/selection.ts#L158)*
+*Defined in [src/util/selection.ts:158](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/selection.ts#L158)*
 
 **Parameters:**
 
@@ -128,7 +128,7 @@ ___
 
 ▸ **protectedUpdate**(`files`: [FileArray](../modules/_types_files_types_.md#filearray), `selection`: [FileSelection](../interfaces/_types_selection_types_.fileselection.md)): *void*
 
-*Defined in [src/util/selection.ts:142](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/util/selection.ts#L142)*
+*Defined in [src/util/selection.ts:142](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/selection.ts#L142)*
 
 **Parameters:**
 

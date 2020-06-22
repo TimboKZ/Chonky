@@ -26,7 +26,7 @@
 
 Ƭ **DnDFileEntryItem**: *DragObjectWithType & object*
 
-*Defined in [src/components/internal/DnDFileEntry.tsx:19](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/internal/DnDFileEntry.tsx#L19)*
+*Defined in [src/components/internal/DnDFileEntry.tsx:20](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/internal/DnDFileEntry.tsx#L20)*
 
 ## Variables
 
@@ -34,7 +34,7 @@
 
 • **DnDFileEntryType**: *"chonky-file-entry"* = "chonky-file-entry"
 
-*Defined in [src/components/internal/DnDFileEntry.tsx:20](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/internal/DnDFileEntry.tsx#L20)*
+*Defined in [src/components/internal/DnDFileEntry.tsx:21](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/internal/DnDFileEntry.tsx#L21)*
 
 ## Functions
 
@@ -42,7 +42,7 @@
 
 ▸ **DnDFileEntry**(`props`: [FileEntryProps](../interfaces/_components_internal_basefileentry_.fileentryprops.md) & object): *Element‹›*
 
-*Defined in [src/components/internal/DnDFileEntry.tsx:22](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/internal/DnDFileEntry.tsx#L22)*
+*Defined in [src/components/internal/DnDFileEntry.tsx:23](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/internal/DnDFileEntry.tsx#L23)*
 
 **Parameters:**
 

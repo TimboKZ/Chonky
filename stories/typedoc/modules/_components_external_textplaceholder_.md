@@ -34,7 +34,7 @@
     );
 })
 
-*Defined in [src/components/external/TextPlaceholder.tsx:17](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/external/TextPlaceholder.tsx#L17)*
+*Defined in [src/components/external/TextPlaceholder.tsx:17](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/TextPlaceholder.tsx#L17)*
 
 ## Functions
 
@@ -42,7 +42,7 @@
 
 ▸ **getRandomInt**(`min`: number, `max`: number): *number*
 
-*Defined in [src/components/external/TextPlaceholder.tsx:14](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/external/TextPlaceholder.tsx#L14)*
+*Defined in [src/components/external/TextPlaceholder.tsx:14](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/TextPlaceholder.tsx#L14)*
 
 **Parameters:**
 

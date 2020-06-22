@@ -17,7 +17,7 @@
 ### `Const` FileToolbar
 
 • **FileToolbar**: *React.FC‹[FileToolbarProps](../interfaces/_components_external_filetoolbar_.filetoolbarprops.md)›* = React.memo(() => {
-    const searchBarEnabled = useContext(ChonkySearchBarEnabledContext);
+    const searchBarEnabled = useRecoilValue(searchBarEnabledState);
 
     const folderChainComp = useFolderChainComponent();
     const {
@@ -49,4 +49,4 @@
     );
 })
 
-*Defined in [src/components/external/FileToolbar.tsx:10](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/external/FileToolbar.tsx#L10)*
+*Defined in [src/components/external/FileToolbar.tsx:11](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/FileToolbar.tsx#L11)*

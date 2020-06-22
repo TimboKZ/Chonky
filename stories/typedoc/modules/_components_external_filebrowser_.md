@@ -18,7 +18,7 @@
 
 ▸ **FileBrowser**(`props`: [FileBrowserProps](../interfaces/_components_external_filebrowser_.filebrowserprops.md) & object): *Element‹›*
 
-*Defined in [src/components/external/FileBrowser.tsx:92](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/external/FileBrowser.tsx#L92)*
+*Defined in [src/components/external/FileBrowser.tsx:64](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/FileBrowser.tsx#L64)*
 
 **Parameters:**
 

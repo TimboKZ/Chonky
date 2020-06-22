@@ -6,7 +6,8 @@ import {
     FileBrowser,
     FileData,
     FileList,
-    FileToolbar
+    FileSearch,
+    FileToolbar,
 } from 'chonky';
 import React from 'react';
 
@@ -45,6 +46,7 @@ export const VirtualizationExample = () => {
                 enableDragAndDrop={true}
             >
                 <FileToolbar />
+                <FileSearch />
                 <FileList />
             </FileBrowser>
         </div>

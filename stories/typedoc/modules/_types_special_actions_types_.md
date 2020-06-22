@@ -27,7 +27,7 @@
 
 Ƭ **InternalSpecialActionDispatcher**: *function*
 
-*Defined in [src/types/special-actions.types.ts:55](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/types/special-actions.types.ts#L55)*
+*Defined in [src/types/special-actions.types.ts:55](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/types/special-actions.types.ts#L55)*
 
 #### Type declaration:
 
@@ -45,4 +45,4 @@ ___
 
 Ƭ **SpecialActionData**: *[SpecialFileMouseClickAction](../interfaces/_types_special_actions_types_.specialfilemouseclickaction.md) | [SpecialFileKeyboardClickAction](../interfaces/_types_special_actions_types_.specialfilekeyboardclickaction.md) | [SpecialToggleSearchBarAction](../interfaces/_types_special_actions_types_.specialtogglesearchbaraction.md) | [SpecialDragNDropStartAction](../interfaces/_types_special_actions_types_.specialdragndropstartaction.md) | [SpecialDragNDropEndAction](../interfaces/_types_special_actions_types_.specialdragndropendaction.md)*
 
-*Defined in [src/types/special-actions.types.ts:48](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/types/special-actions.types.ts#L48)*
+*Defined in [src/types/special-actions.types.ts:48](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/types/special-actions.types.ts#L48)*

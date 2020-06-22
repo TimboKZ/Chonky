@@ -14,7 +14,7 @@
 
 ▸ **ClickableFileEntry**(`props`: [FileEntryProps](../interfaces/_components_internal_basefileentry_.fileentryprops.md) & object): *Element‹›*
 
-*Defined in [src/components/internal/ClickableFileEntry.tsx:8](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/internal/ClickableFileEntry.tsx#L8)*
+*Defined in [src/components/internal/ClickableFileEntry.tsx:8](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/internal/ClickableFileEntry.tsx#L8)*
 
 **Parameters:**
 

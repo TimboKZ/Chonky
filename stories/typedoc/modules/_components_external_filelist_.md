@@ -17,8 +17,8 @@
 ### `Const` FileList
 
 • **FileList**: *React.FC‹[FileListProps](../interfaces/_components_external_filelist_.filelistprops.md)›* = React.memo(() => {
-    const files = useContext(ChonkyFilesContext);
-    const entrySize = useContext(ChonkyFileEntrySizeContext);
+    const files = useRecoilValue(filesState);
+    const entrySize = useRecoilValue(fileEntrySizeState);
 
     const entryRenderer = useEntryRenderer(files);
 
@@ -54,4 +54,4 @@
     );
 })
 
-*Defined in [src/components/external/FileList.tsx:11](https://github.com/TimboKZ/Chonky/blob/eb6f214/src/components/external/FileList.tsx#L11)*
+*Defined in [src/components/external/FileList.tsx:13](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/FileList.tsx#L13)*
