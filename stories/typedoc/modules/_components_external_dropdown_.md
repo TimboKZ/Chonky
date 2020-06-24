@@ -41,10 +41,10 @@
             />
             {showDropdown && (
                 <div className="chonky-toolbar-dropdown-content">
-                    {group.fileActions.map((action) => (
+                    {group.fileActionIds.map((actionId) => (
                         <SmartDropdownButton
-                            key={`action-button-${action.id}`}
-                            fileAction={action}
+                            key={`action-button-${actionId}`}
+                            fileActionId={actionId}
                         />
                     ))}
                 </div>
@@ -53,4 +53,4 @@
     );
 })
 
-*Defined in [src/components/external/Dropdown.tsx:19](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/Dropdown.tsx#L19)*
+*Defined in [src/components/external/Dropdown.tsx:19](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/Dropdown.tsx#L19)*

@@ -14,12 +14,15 @@
 * [SpecialDragNDropStartAction](../interfaces/_types_special_actions_types_.specialdragndropstartaction.md)
 * [SpecialFileKeyboardClickAction](../interfaces/_types_special_actions_types_.specialfilekeyboardclickaction.md)
 * [SpecialFileMouseClickAction](../interfaces/_types_special_actions_types_.specialfilemouseclickaction.md)
+* [SpecialOpenFolderChainFolderAction](../interfaces/_types_special_actions_types_.specialopenfolderchainfolderaction.md)
+* [SpecialOpenParentFolderAction](../interfaces/_types_special_actions_types_.specialopenparentfolderaction.md)
 * [SpecialToggleSearchBarAction](../interfaces/_types_special_actions_types_.specialtogglesearchbaraction.md)
 
 ### Type aliases
 
 * [InternalSpecialActionDispatcher](_types_special_actions_types_.md#internalspecialactiondispatcher)
 * [SpecialActionData](_types_special_actions_types_.md#specialactiondata)
+* [SpecialActionHandlerMap](_types_special_actions_types_.md#specialactionhandlermap)
 
 ## Type aliases
 
@@ -27,7 +30,7 @@
 
 Ƭ **InternalSpecialActionDispatcher**: *function*
 
-*Defined in [src/types/special-actions.types.ts:55](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/types/special-actions.types.ts#L55)*
+*Defined in [src/types/special-actions.types.ts:68](https://github.com/TimboKZ/Chonky/blob/bceb265/src/types/special-actions.types.ts#L68)*
 
 #### Type declaration:
 
@@ -43,6 +46,16 @@ ___
 
 ###  SpecialActionData
 
-Ƭ **SpecialActionData**: *[SpecialFileMouseClickAction](../interfaces/_types_special_actions_types_.specialfilemouseclickaction.md) | [SpecialFileKeyboardClickAction](../interfaces/_types_special_actions_types_.specialfilekeyboardclickaction.md) | [SpecialToggleSearchBarAction](../interfaces/_types_special_actions_types_.specialtogglesearchbaraction.md) | [SpecialDragNDropStartAction](../interfaces/_types_special_actions_types_.specialdragndropstartaction.md) | [SpecialDragNDropEndAction](../interfaces/_types_special_actions_types_.specialdragndropendaction.md)*
+Ƭ **SpecialActionData**: *[SpecialFileMouseClickAction](../interfaces/_types_special_actions_types_.specialfilemouseclickaction.md) | [SpecialFileKeyboardClickAction](../interfaces/_types_special_actions_types_.specialfilekeyboardclickaction.md) | [SpecialOpenParentFolderAction](../interfaces/_types_special_actions_types_.specialopenparentfolderaction.md) | [SpecialOpenFolderChainFolderAction](../interfaces/_types_special_actions_types_.specialopenfolderchainfolderaction.md) | [SpecialToggleSearchBarAction](../interfaces/_types_special_actions_types_.specialtogglesearchbaraction.md) | [SpecialDragNDropStartAction](../interfaces/_types_special_actions_types_.specialdragndropstartaction.md) | [SpecialDragNDropEndAction](../interfaces/_types_special_actions_types_.specialdragndropendaction.md)*
 
-*Defined in [src/types/special-actions.types.ts:48](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/types/special-actions.types.ts#L48)*
+*Defined in [src/types/special-actions.types.ts:59](https://github.com/TimboKZ/Chonky/blob/bceb265/src/types/special-actions.types.ts#L59)*
+
+___
+
+###  SpecialActionHandlerMap
+
+Ƭ **SpecialActionHandlerMap**: *object*
+
+*Defined in [src/types/special-actions.types.ts:70](https://github.com/TimboKZ/Chonky/blob/bceb265/src/types/special-actions.types.ts#L70)*
+
+#### Type declaration:

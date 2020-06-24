@@ -54,4 +54,4 @@
     );
 })
 
-*Defined in [src/components/external/FileList.tsx:13](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/FileList.tsx#L13)*
+*Defined in [src/components/external/FileList.tsx:13](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/FileList.tsx#L13)*

@@ -14,7 +14,7 @@
 
 Ƭ **ThumbnailGenerator**: *function*
 
-*Defined in [src/types/thumbnails.types.ts:5](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/types/thumbnails.types.ts#L5)*
+*Defined in [src/types/thumbnails.types.ts:5](https://github.com/TimboKZ/Chonky/blob/bceb265/src/types/thumbnails.types.ts#L5)*
 
 #### Type declaration:
 

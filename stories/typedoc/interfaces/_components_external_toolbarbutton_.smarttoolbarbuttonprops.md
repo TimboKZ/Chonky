@@ -10,12 +10,12 @@
 
 ### Properties
 
-* [fileAction](_components_external_toolbarbutton_.smarttoolbarbuttonprops.md#fileaction)
+* [fileActionId](_components_external_toolbarbutton_.smarttoolbarbuttonprops.md#fileactionid)
 
 ## Properties
 
-###  fileAction
+###  fileActionId
 
-• **fileAction**: *[FileAction](_types_file_actions_types_.fileaction.md)*
+• **fileActionId**: *string*
 
-*Defined in [src/components/external/ToolbarButton.tsx:63](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/ToolbarButton.tsx#L63)*
+*Defined in [src/components/external/ToolbarButton.tsx:64](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/ToolbarButton.tsx#L64)*

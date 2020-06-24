@@ -11,7 +11,7 @@
 * [ChonkyIconName](_index_.md#chonkyiconname)
 * [FileAction](_index_.md#fileaction)
 * [FileActionData](_index_.md#fileactiondata)
-* [FileActionListener](_index_.md#fileactionlistener)
+* [FileActionHandler](_index_.md#fileactionhandler)
 * [FileArray](_index_.md#filearray)
 * [FileBrowser](_index_.md#filebrowser)
 * [FileData](_index_.md#filedata)
@@ -61,9 +61,9 @@ ___
 
 ___
 
-###  FileActionListener
+###  FileActionHandler
 
-• **FileActionListener**:
+• **FileActionHandler**:
 
 ___
 
@@ -125,15 +125,15 @@ ___
 
 Ƭ **ChonkyIconProps**: *[ChonkyIconProps](../interfaces/_components_external_chonkyicon_.chonkyiconprops.md)*
 
-*Defined in [src/index.ts:24](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/index.ts#L24)*
+*Defined in [src/index.ts:26](https://github.com/TimboKZ/Chonky/blob/bceb265/src/index.ts#L26)*
 
 ___
 
 ###  FileBrowserProps
 
-Ƭ **FileBrowserProps**: *[FileBrowserProps](../interfaces/_components_external_filebrowser_.filebrowserprops.md)*
+Ƭ **FileBrowserProps**: *FileBrowserProps1*
 
-*Defined in [src/index.ts:21](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/index.ts#L21)*
+*Defined in [src/index.ts:23](https://github.com/TimboKZ/Chonky/blob/bceb265/src/index.ts#L23)*
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 Ƭ **FileListProps**: *[FileListProps](../interfaces/_components_external_filelist_.filelistprops.md)*
 
-*Defined in [src/index.ts:23](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/index.ts#L23)*
+*Defined in [src/index.ts:25](https://github.com/TimboKZ/Chonky/blob/bceb265/src/index.ts#L25)*
 
 ___
 
@@ -149,4 +149,4 @@ ___
 
 Ƭ **FileToolbarProps**: *[FileToolbarProps](../interfaces/_components_external_filetoolbar_.filetoolbarprops.md)*
 
-*Defined in [src/index.ts:22](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/index.ts#L22)*
+*Defined in [src/index.ts:24](https://github.com/TimboKZ/Chonky/blob/bceb265/src/index.ts#L24)*

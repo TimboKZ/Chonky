@@ -13,9 +13,9 @@
 
 ### `Const` useSpecialActionDispatcher
 
-▸ **useSpecialActionDispatcher**(`files`: [FileArray](_types_files_types_.md#filearray), `selection`: [FileSelection](../interfaces/_types_selection_types_.fileselection.md), `selectionUtil`: [SelectionUtil](../classes/_util_selection_.selectionutil.md), `selectionModifiers`: [SelectionModifiers](../interfaces/_types_selection_types_.selectionmodifiers.md), `dispatchFileAction`: [InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)): *[InternalSpecialActionDispatcher](_types_special_actions_types_.md#internalspecialactiondispatcher)*
+▸ **useSpecialActionDispatcher**(`files`: [FileArray](_types_files_types_.md#filearray), `selection`: [FileSelection](../interfaces/_types_selection_types_.fileselection.md), `selectionUtil`: [SelectionUtil](../classes/_util_selection_.selectionutil.md), `selectionModifiers`: [SelectionModifiers](../interfaces/_types_selection_types_.selectionmodifiers.md)): *void*
 
-*Defined in [src/util/special-actions.ts:27](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/special-actions.ts#L27)*
+*Defined in [src/util/special-actions.ts:34](https://github.com/TimboKZ/Chonky/blob/bceb265/src/util/special-actions.ts#L34)*
 
 Returns a dispatch method meant to be used by child components. This dispatch
 method is meant for "special" internal actions. It takes a special action, and
@@ -29,17 +29,16 @@ Name | Type |
 `selection` | [FileSelection](../interfaces/_types_selection_types_.fileselection.md) |
 `selectionUtil` | [SelectionUtil](../classes/_util_selection_.selectionutil.md) |
 `selectionModifiers` | [SelectionModifiers](../interfaces/_types_selection_types_.selectionmodifiers.md) |
-`dispatchFileAction` | [InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher) |
 
-**Returns:** *[InternalSpecialActionDispatcher](_types_special_actions_types_.md#internalspecialactiondispatcher)*
+**Returns:** *void*
 
 ___
 
 ### `Const` useSpecialFileActionHandlerMap
 
-▸ **useSpecialFileActionHandlerMap**(`selectionUtil`: [SelectionUtil](../classes/_util_selection_.selectionutil.md), `selectionModifiers`: [SelectionModifiers](../interfaces/_types_selection_types_.selectionmodifiers.md), `dispatchFileAction`: [InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)): *object*
+▸ **useSpecialFileActionHandlerMap**(`selectionUtil`: [SelectionUtil](../classes/_util_selection_.selectionutil.md), `selectionModifiers`: [SelectionModifiers](../interfaces/_types_selection_types_.selectionmodifiers.md)): *object*
 
-*Defined in [src/util/special-actions.ts:67](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/special-actions.ts#L67)*
+*Defined in [src/util/special-actions.ts:79](https://github.com/TimboKZ/Chonky/blob/bceb265/src/util/special-actions.ts#L79)*
 
 **Parameters:**
 
@@ -47,6 +46,5 @@ Name | Type |
 ------ | ------ |
 `selectionUtil` | [SelectionUtil](../classes/_util_selection_.selectionutil.md) |
 `selectionModifiers` | [SelectionModifiers](../interfaces/_types_selection_types_.selectionmodifiers.md) |
-`dispatchFileAction` | [InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher) |
 
 **Returns:** *object*

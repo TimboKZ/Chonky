@@ -6,24 +6,24 @@
 
 ### Interfaces
 
+* [ActionGroupData](../interfaces/_types_file_actions_types_.actiongroupdata.md)
 * [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)
 * [FileActionData](../interfaces/_types_file_actions_types_.fileactiondata.md)
-* [NewInternalFileActionHandlerMap](../interfaces/_types_file_actions_types_.newinternalfileactionhandlermap.md)
 * [ToolbarButtonData](../interfaces/_types_file_actions_types_.toolbarbuttondata.md)
 
 ### Type aliases
 
-* [FileActionListener](_types_file_actions_types_.md#fileactionlistener)
+* [FileActionHandler](_types_file_actions_types_.md#fileactionhandler)
 * [InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)
-* [NewInternalFileActionDispatcher](_types_file_actions_types_.md#newinternalfileactiondispatcher)
+* [InternalFileActionRequester](_types_file_actions_types_.md#internalfileactionrequester)
 
 ## Type aliases
 
-###  FileActionListener
+###  FileActionHandler
 
-Ƭ **FileActionListener**: *function*
+Ƭ **FileActionHandler**: *function*
 
-*Defined in [src/types/file-actions.types.ts:36](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/types/file-actions.types.ts#L36)*
+*Defined in [src/types/file-actions.types.ts:26](https://github.com/TimboKZ/Chonky/blob/bceb265/src/types/file-actions.types.ts#L26)*
 
 #### Type declaration:
 
@@ -42,7 +42,7 @@ ___
 
 Ƭ **InternalFileActionDispatcher**: *function*
 
-*Defined in [src/types/file-actions.types.ts:41](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/types/file-actions.types.ts#L41)*
+*Defined in [src/types/file-actions.types.ts:31](https://github.com/TimboKZ/Chonky/blob/bceb265/src/types/file-actions.types.ts#L31)*
 
 #### Type declaration:
 
@@ -56,11 +56,11 @@ Name | Type |
 
 ___
 
-###  NewInternalFileActionDispatcher
+###  InternalFileActionRequester
 
-Ƭ **NewInternalFileActionDispatcher**: *function*
+Ƭ **InternalFileActionRequester**: *function*
 
-*Defined in [src/types/file-actions.types.ts:47](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/types/file-actions.types.ts#L47)*
+*Defined in [src/types/file-actions.types.ts:32](https://github.com/TimboKZ/Chonky/blob/bceb265/src/types/file-actions.types.ts#L32)*
 
 #### Type declaration:
 

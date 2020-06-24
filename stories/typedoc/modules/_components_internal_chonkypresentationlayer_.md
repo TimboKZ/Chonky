@@ -4,6 +4,10 @@
 
 ## Index
 
+### Interfaces
+
+* [ChonkyPresentationLayerProps](../interfaces/_components_internal_chonkypresentationlayer_.chonkypresentationlayerprops.md)
+
 ### Functions
 
 * [ChonkyPresentationLayer](_components_internal_chonkypresentationlayer_.md#const-chonkypresentationlayer)
@@ -12,16 +16,14 @@
 
 ### `Const` ChonkyPresentationLayer
 
-▸ **ChonkyPresentationLayer**(`props`: object): *Element‹›*
+▸ **ChonkyPresentationLayer**(`props`: [ChonkyPresentationLayerProps](../interfaces/_components_internal_chonkypresentationlayer_.chonkypresentationlayerprops.md) & object): *Element‹›*
 
-*Defined in [src/components/internal/ChonkyPresentationLayer.tsx:17](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/internal/ChonkyPresentationLayer.tsx#L17)*
+*Defined in [src/components/internal/ChonkyPresentationLayer.tsx:21](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/internal/ChonkyPresentationLayer.tsx#L21)*
 
 **Parameters:**
 
-▪ **props**: *object*
-
 Name | Type |
 ------ | ------ |
-`children?` | ReactNode |
+`props` | [ChonkyPresentationLayerProps](../interfaces/_components_internal_chonkypresentationlayer_.chonkypresentationlayerprops.md) & object |
 
 **Returns:** *Element‹›*

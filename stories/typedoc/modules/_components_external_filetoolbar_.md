@@ -24,7 +24,7 @@
         buttonGroups,
         openParentFolderButtonGroup,
         searchButtonGroup,
-    } = useToolbarButtonGroups();
+    } = useActionGroups();
 
     return (
         <div className="chonky-toolbar">
@@ -49,4 +49,4 @@
     );
 })
 
-*Defined in [src/components/external/FileToolbar.tsx:11](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/FileToolbar.tsx#L11)*
+*Defined in [src/components/external/FileToolbar.tsx:11](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/FileToolbar.tsx#L11)*

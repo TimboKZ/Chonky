@@ -4,10 +4,6 @@
 
 ## Index
 
-### Interfaces
-
-* [FileBrowserProps](../interfaces/_components_external_filebrowser_.filebrowserprops.md)
-
 ### Functions
 
 * [FileBrowser](_components_external_filebrowser_.md#const-filebrowser)
@@ -16,14 +12,14 @@
 
 ### `Const` FileBrowser
 
-▸ **FileBrowser**(`props`: [FileBrowserProps](../interfaces/_components_external_filebrowser_.filebrowserprops.md) & object): *Element‹›*
+▸ **FileBrowser**(`props`: [FileBrowserProps](../interfaces/_types_file_browser_types_.filebrowserprops.md) & object): *Element‹›*
 
-*Defined in [src/components/external/FileBrowser.tsx:64](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/FileBrowser.tsx#L64)*
+*Defined in [src/components/external/FileBrowser.tsx:20](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/FileBrowser.tsx#L20)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`props` | [FileBrowserProps](../interfaces/_components_external_filebrowser_.filebrowserprops.md) & object |
+`props` | [FileBrowserProps](../interfaces/_types_file_browser_types_.filebrowserprops.md) & object |
 
 **Returns:** *Element‹›*

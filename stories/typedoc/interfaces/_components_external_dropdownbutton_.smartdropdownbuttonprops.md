@@ -10,12 +10,12 @@
 
 ### Properties
 
-* [fileAction](_components_external_dropdownbutton_.smartdropdownbuttonprops.md#fileaction)
+* [fileActionId](_components_external_dropdownbutton_.smartdropdownbuttonprops.md#fileactionid)
 
 ## Properties
 
-###  fileAction
+###  fileActionId
 
-• **fileAction**: *[FileAction](_types_file_actions_types_.fileaction.md)*
+• **fileActionId**: *string*
 
-*Defined in [src/components/external/DropdownButton.tsx:44](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/DropdownButton.tsx#L44)*
+*Defined in [src/components/external/DropdownButton.tsx:45](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/DropdownButton.tsx#L45)*

@@ -6,15 +6,15 @@
 
 ### Functions
 
-* [useFilteredFiles](_util_search_.md#const-usefilteredfiles)
+* [useFileSearch](_util_search_.md#const-usefilesearch)
 
 ## Functions
 
-### `Const` useFilteredFiles
+### `Const` useFileSearch
 
-▸ **useFilteredFiles**(`files`: [FileArray](_types_files_types_.md#filearray)): *[FileArray](_types_files_types_.md#filearray)*
+▸ **useFileSearch**(`files`: [FileArray](_types_files_types_.md#filearray)): *[FileArray](_types_files_types_.md#filearray)*
 
-*Defined in [src/util/search.ts:8](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/search.ts#L8)*
+*Defined in [src/util/search.ts:8](https://github.com/TimboKZ/Chonky/blob/bceb265/src/util/search.ts#L8)*
 
 **Parameters:**
 

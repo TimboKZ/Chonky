@@ -17,4 +17,4 @@
     default: null,
 })
 
-*Defined in [src/recoil/thumbnails.recoil.ts:8](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/recoil/thumbnails.recoil.ts#L8)*
+*Defined in [src/recoil/thumbnails.recoil.ts:8](https://github.com/TimboKZ/Chonky/blob/bceb265/src/recoil/thumbnails.recoil.ts#L8)*

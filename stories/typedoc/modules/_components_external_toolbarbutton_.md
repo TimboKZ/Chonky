@@ -20,11 +20,14 @@
 
 • **SmartToolbarButton**: *React.FC‹[SmartToolbarButtonProps](../interfaces/_components_external_toolbarbutton_.smarttoolbarbuttonprops.md)›* = React.memo(
     (props) => {
-        const { fileAction: action } = props;
+        const { fileActionId } = props;
 
+        const action = useRecoilValue(fileActionDataState(fileActionId));
+        const triggerAction = useFileActionTrigger(fileActionId);
+        const { active, disabled } = useFileActionModifiers(fileActionId);
+
+        if (!action) return null;
         const { toolbarButton: button } = action;
-
-        const { active, triggerAction, disabled } = useFileActionTrigger(action);
         if (!button) return null;
 
         return (
@@ -41,7 +44,7 @@
     }
 )
 
-*Defined in [src/components/external/ToolbarButton.tsx:66](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/ToolbarButton.tsx#L66)*
+*Defined in [src/components/external/ToolbarButton.tsx:67](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/ToolbarButton.tsx#L67)*
 
 ___
 
@@ -89,4 +92,4 @@ ___
     );
 })
 
-*Defined in [src/components/external/ToolbarButton.tsx:20](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/ToolbarButton.tsx#L20)*
+*Defined in [src/components/external/ToolbarButton.tsx:21](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/ToolbarButton.tsx#L21)*

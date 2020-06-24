@@ -6,33 +6,33 @@
 
 ### Functions
 
+* [useActionGroups](_components_external_filetoolbar_hooks_.md#const-useactiongroups)
 * [useFolderChainComponent](_components_external_filetoolbar_hooks_.md#const-usefolderchaincomponent)
-* [useToolbarButtonGroups](_components_external_filetoolbar_hooks_.md#const-usetoolbarbuttongroups)
 
 ## Functions
+
+### `Const` useActionGroups
+
+▸ **useActionGroups**(): *object*
+
+*Defined in [src/components/external/FileToolbar-hooks.tsx:80](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/FileToolbar-hooks.tsx#L80)*
+
+**Returns:** *object*
+
+* **buttonGroups**: *[ActionGroupData](../interfaces/_types_file_actions_types_.actiongroupdata.md)[]*
+
+* **openParentFolderButtonGroup**: *null | [ActionGroupData](../interfaces/_types_file_actions_types_.actiongroupdata.md)*
+
+* **searchButtonGroup**: *null | [ActionGroupData](../interfaces/_types_file_actions_types_.actiongroupdata.md)*
+
+___
 
 ### `Const` useFolderChainComponent
 
 ▸ **useFolderChainComponent**(): *null | Element‹›*
 
-*Defined in [src/components/external/FileToolbar-hooks.tsx:20](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/FileToolbar-hooks.tsx#L20)*
+*Defined in [src/components/external/FileToolbar-hooks.tsx:19](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/FileToolbar-hooks.tsx#L19)*
 
 Generates folder chain HTML components for the `FileToolbar` component.
 
 **Returns:** *null | Element‹›*
-
-___
-
-### `Const` useToolbarButtonGroups
-
-▸ **useToolbarButtonGroups**(): *object*
-
-*Defined in [src/components/external/FileToolbar-hooks.tsx:82](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/FileToolbar-hooks.tsx#L82)*
-
-**Returns:** *object*
-
-* **buttonGroups**: *[ToolbarButtonGroup](../interfaces/_components_external_toolbarbuttongroup_.toolbarbuttongroup.md)[]*
-
-* **openParentFolderButtonGroup**: *null | [ToolbarButtonGroup](../interfaces/_components_external_toolbarbuttongroup_.toolbarbuttongroup.md)*
-
-* **searchButtonGroup**: *null | [ToolbarButtonGroup](../interfaces/_components_external_toolbarbuttongroup_.toolbarbuttongroup.md)*

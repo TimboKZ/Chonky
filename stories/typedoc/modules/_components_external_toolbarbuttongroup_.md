@@ -6,7 +6,6 @@
 
 ### Interfaces
 
-* [ToolbarButtonGroup](../interfaces/_components_external_toolbarbuttongroup_.toolbarbuttongroup.md)
 * [ToolbarButtonGroupProps](../interfaces/_components_external_toolbarbuttongroup_.toolbarbuttongroupprops.md)
 
 ### Variables
@@ -25,10 +24,10 @@
         if (group.dropdown) {
             groupContents = <Dropdown group={group} />;
         } else {
-            groupContents = group.fileActions.map((action) => (
+            groupContents = group.fileActionIds.map((actionId) => (
                 <SmartToolbarButton
-                    key={`action-button-${action.id}`}
-                    fileAction={action}
+                    key={`action-button-${actionId}`}
+                    fileActionId={actionId}
                 />
             ));
         }
@@ -37,4 +36,4 @@
     }
 )
 
-*Defined in [src/components/external/ToolbarButtonGroup.tsx:23](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/ToolbarButtonGroup.tsx#L23)*
+*Defined in [src/components/external/ToolbarButtonGroup.tsx:17](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/ToolbarButtonGroup.tsx#L17)*

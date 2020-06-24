@@ -16,6 +16,6 @@
 
 ###  group
 
-• **group**: *[ToolbarButtonGroup](_components_external_toolbarbuttongroup_.toolbarbuttongroup.md)*
+• **group**: *[ActionGroupData](_types_file_actions_types_.actiongroupdata.md)*
 
-*Defined in [src/components/external/Dropdown.tsx:16](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/components/external/Dropdown.tsx#L16)*
+*Defined in [src/components/external/Dropdown.tsx:16](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/Dropdown.tsx#L16)*
