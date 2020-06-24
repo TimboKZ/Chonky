@@ -3,7 +3,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { searchBarEnabledState } from '../../recoil/search.recoil';
-import { useFolderChainComponent, useToolbarButtonGroups } from './FileToolbar-hooks';
+import { useActionGroups, useFolderChainComponent } from './FileToolbar-hooks';
 import { ToolbarButtonGroup } from './ToolbarButtonGroup';
 
 export interface FileToolbarProps {}
@@ -16,7 +16,7 @@ export const FileToolbar: React.FC<FileToolbarProps> = React.memo(() => {
         buttonGroups,
         openParentFolderButtonGroup,
         searchButtonGroup,
-    } = useToolbarButtonGroups();
+    } = useActionGroups();
 
     return (
         <div className="chonky-toolbar">

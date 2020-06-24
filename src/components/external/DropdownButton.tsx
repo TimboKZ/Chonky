@@ -5,10 +5,11 @@
  */
 
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 
-import { FileAction } from '../../types/file-actions.types';
+import { fileActionDataState } from '../../recoil/file-actions.recoil';
 import { ChonkyIconName } from '../../types/icons.types';
-import { useFileActionTrigger } from '../../util/file-actions-old';
+import { useFileActionModifiers, useFileActionTrigger } from '../../util/file-actions';
 import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface DropdownButtonProps {
@@ -41,15 +42,18 @@ export const DropdownButton: React.FC<DropdownButtonProps> = React.memo((props) 
 });
 
 export interface SmartDropdownButtonProps {
-    fileAction: FileAction;
+    fileActionId: string;
 }
 
 export const SmartDropdownButton: React.FC<SmartDropdownButtonProps> = (props) => {
-    const { fileAction: action } = props;
+    const { fileActionId } = props;
 
+    const action = useRecoilValue(fileActionDataState(fileActionId));
+    const triggerAction = useFileActionTrigger(fileActionId);
+    const { disabled } = useFileActionModifiers(fileActionId);
+
+    if (!action) return null;
     const { toolbarButton: button } = action;
-
-    const { disabled, triggerAction } = useFileActionTrigger(action);
     if (!button) return null;
 
     return (

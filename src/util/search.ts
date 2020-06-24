@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { searchFilterState } from '../recoil/search.recoil';
 import { FileArray, FileData } from '../types/files.types';
 
-export const useFilteredFiles = (files: FileArray): FileArray => {
+export const useFileSearch = (files: FileArray): FileArray => {
     const searchFilter = useRecoilValue(searchFilterState);
 
     return useMemo(() => {

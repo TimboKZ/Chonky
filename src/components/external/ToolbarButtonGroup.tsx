@@ -6,18 +6,12 @@
 
 import React from 'react';
 
-import { FileAction } from '../../types/file-actions.types';
+import { ActionGroupData } from '../../types/file-actions.types';
 import { Dropdown } from './Dropdown';
 import { SmartToolbarButton } from './ToolbarButton';
 
-export interface ToolbarButtonGroup {
-    name?: string;
-    dropdown?: boolean;
-    fileActions: FileAction[];
-}
-
 export interface ToolbarButtonGroupProps {
-    group: ToolbarButtonGroup;
+    group: ActionGroupData;
 }
 
 export const ToolbarButtonGroup: React.FC<ToolbarButtonGroupProps> = React.memo(
@@ -28,10 +22,10 @@ export const ToolbarButtonGroup: React.FC<ToolbarButtonGroupProps> = React.memo(
         if (group.dropdown) {
             groupContents = <Dropdown group={group} />;
         } else {
-            groupContents = group.fileActions.map((action) => (
+            groupContents = group.fileActionIds.map((actionId) => (
                 <SmartToolbarButton
-                    key={`action-button-${action.id}`}
-                    fileAction={action}
+                    key={`action-button-${actionId}`}
+                    fileActionId={actionId}
                 />
             ));
         }

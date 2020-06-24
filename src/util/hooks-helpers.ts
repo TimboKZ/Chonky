@@ -1,4 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { AnyFunction } from 'tsdef';
+
+import { Logger } from './logger';
 
 export const useDebounce = <T>(
     value: T,
@@ -24,6 +27,14 @@ export const useStaticValue = <T>(factory: () => T): T => {
     const valueRef = useRef<T>(UNINITIALIZED_SENTINEL as T);
     if (valueRef.current === UNINITIALIZED_SENTINEL) valueRef.current = factory();
     return valueRef.current;
+};
+
+export const useInstanceVariable = <T>(value: T) => {
+    const ref = useRef(value);
+    useEffect(() => {
+        ref.current = value;
+    }, [ref, value]);
+    return ref;
 };
 
 interface UseClickListenerParams {
@@ -64,4 +75,21 @@ export const useClickListener = <T extends HTMLElement = HTMLDivElement>(
     }, [clickListener]);
 
     return triggerComponentRef;
+};
+
+export const useRefCallbackWithErrorHandling = <FuncType extends AnyFunction>(
+    callbackFunc: FuncType,
+    displayName: string
+) => {
+    const callbackFuncRef = useInstanceVariable(callbackFunc);
+    return useCallback(
+        (...args: Parameters<FuncType>) => {
+            try {
+                callbackFuncRef.current(...args);
+            } catch (error) {
+                Logger.error(`An error occurred inside ${displayName}:`, error);
+            }
+        },
+        [callbackFuncRef, displayName]
+    );
 };

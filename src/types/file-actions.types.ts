@@ -5,7 +5,6 @@ import { SpecialAction } from './special-actions.types';
 export interface FileAction {
     id: string; // Unique action ID
     metadata?: any; // Any user-defined value
-    requiresParentFolder?: boolean; // Requires parent folder in folder chain
     requiresSelection?: boolean; // Requires selection of 1+ files
     fileFilter?: FileFilter; // Used to filter the files array
 
@@ -18,6 +17,26 @@ export interface FileAction {
     specialActionToDispatch?: SpecialAction;
 }
 
+export interface FileActionData {
+    actionId: string;
+    target?: Readonly<FileData>;
+    files?: ReadonlyArray<Readonly<FileData>>;
+}
+
+export type FileActionHandler = (
+    action: FileAction,
+    data: FileActionData
+) => void | Promise<void>;
+
+export type InternalFileActionDispatcher = (actionData: FileActionData) => void;
+export type InternalFileActionRequester = (actionId: string) => void;
+
+export interface ActionGroupData {
+    name?: string;
+    dropdown?: boolean;
+    fileActionIds: string[];
+}
+
 export interface ToolbarButtonData {
     name: string; // Button name
     group?: string; // Group to add the button too
@@ -26,22 +45,3 @@ export interface ToolbarButtonData {
     icon?: ChonkyIconName | string; // Icon name
     iconOnly?: boolean; // Whether to only display the icon
 }
-
-export interface FileActionData {
-    actionId: string;
-    target?: Readonly<FileData>;
-    files?: ReadonlyArray<Readonly<FileData>>;
-}
-
-export type FileActionListener = (
-    action: FileAction,
-    data: FileActionData
-) => void | Promise<void>;
-
-export type InternalFileActionDispatcher = (actionData: FileActionData) => void;
-
-
-export interface NewInternalFileActionHandlerMap {
-    [actionId: string]: () => void;
-}
-export type NewInternalFileActionDispatcher = (actionId: string) => void;

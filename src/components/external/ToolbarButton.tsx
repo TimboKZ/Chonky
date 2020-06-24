@@ -1,9 +1,10 @@
 import c from 'classnames';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 
-import { FileAction } from '../../types/file-actions.types';
+import { fileActionDataState } from '../../recoil/file-actions.recoil';
 import { ChonkyIconName } from '../../types/icons.types';
-import { useFileActionTrigger } from '../../util/file-actions-old';
+import { useFileActionModifiers, useFileActionTrigger } from '../../util/file-actions';
 import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface ToolbarButtonProps {
@@ -60,16 +61,19 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) =>
 });
 
 export interface SmartToolbarButtonProps {
-    fileAction: FileAction;
+    fileActionId: string;
 }
 
 export const SmartToolbarButton: React.FC<SmartToolbarButtonProps> = React.memo(
     (props) => {
-        const { fileAction: action } = props;
+        const { fileActionId } = props;
 
+        const action = useRecoilValue(fileActionDataState(fileActionId));
+        const triggerAction = useFileActionTrigger(fileActionId);
+        const { active, disabled } = useFileActionModifiers(fileActionId);
+
+        if (!action) return null;
         const { toolbarButton: button } = action;
-
-        const { active, triggerAction, disabled } = useFileActionTrigger(action);
         if (!button) return null;
 
         return (

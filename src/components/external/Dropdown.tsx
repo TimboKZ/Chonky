@@ -6,14 +6,14 @@
 
 import React, { useCallback, useState } from 'react';
 
+import { ActionGroupData } from '../../types/file-actions.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useClickListener } from '../../util/hooks-helpers';
 import { SmartDropdownButton } from './DropdownButton';
 import { ToolbarButton } from './ToolbarButton';
-import { ToolbarButtonGroup } from './ToolbarButtonGroup';
 
 export interface DropdownProps {
-    group: ToolbarButtonGroup;
+    group: ActionGroupData;
 }
 
 export const Dropdown: React.FC<DropdownProps> = React.memo((props) => {
@@ -41,10 +41,10 @@ export const Dropdown: React.FC<DropdownProps> = React.memo((props) => {
             />
             {showDropdown && (
                 <div className="chonky-toolbar-dropdown-content">
-                    {group.fileActions.map((action) => (
+                    {group.fileActionIds.map((actionId) => (
                         <SmartDropdownButton
-                            key={`action-button-${action.id}`}
-                            fileAction={action}
+                            key={`action-button-${actionId}`}
+                            fileActionId={actionId}
                         />
                     ))}
                 </div>

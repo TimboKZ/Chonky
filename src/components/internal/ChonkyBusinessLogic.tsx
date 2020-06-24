@@ -8,31 +8,22 @@ import React, { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { enableDragAndDropState } from '../../recoil/drag-and-drop.recoil';
-import { validationErrorsState } from '../../recoil/errors.recoil';
-import {
-    dispatchFileActionState,
-    doubleClickDelayState,
-    fileActionsState,
-} from '../../recoil/file-actions.recoil';
+import { doubleClickDelayState } from '../../recoil/file-actions.recoil';
 import { fileEntrySizeState } from '../../recoil/file-list.recoil';
-import { filesState, folderChainState } from '../../recoil/files.recoil';
-import { selectionModifiersState, selectionState } from '../../recoil/selection.recoil';
-import { dispatchSpecialActionState } from '../../recoil/special-actions.recoil';
-import { thumbnailGeneratorState } from '../../recoil/thumbnails.recoil';
 import {
-    DefaultFileActions,
-    useFileActionDispatcher,
-} from '../../util/file-actions-old';
-import { useFilteredFiles } from '../../util/search';
+    filesState,
+    folderChainState,
+    parentFolderState,
+} from '../../recoil/files.recoil';
+import { selectionModifiersState, selectionState } from '../../recoil/selection.recoil';
+import { thumbnailGeneratorState } from '../../recoil/thumbnails.recoil';
+import { FileBrowserProps } from '../../types/file-browser.types';
+import { useFileActions } from '../../util/file-actions';
+import { useFileSearch } from '../../util/search';
 import { useSelection } from '../../util/selection';
 import { useSpecialActionDispatcher } from '../../util/special-actions';
-import {
-    useFileActionsValidation,
-    useFileArrayValidation,
-} from '../../util/validation';
-import { FileBrowserProps } from '../external/FileBrowser';
 
-export const ChonkyBusinessLogic: React.FC<FileBrowserProps> = (props) => {
+export const ChonkyBusinessLogic: React.FC<FileBrowserProps> = React.memo((props) => {
     const { files } = props;
 
     // Instance ID used to distinguish between multiple Chonky instances on the same
@@ -51,38 +42,14 @@ export const ChonkyBusinessLogic: React.FC<FileBrowserProps> = (props) => {
         typeof props.doubleClickDelay === 'number' ? props.doubleClickDelay : 300;
     const disableSelection = !!props.disableSelection;
     const enableDragAndDrop = !!props.enableDragAndDrop;
-    const disableDefaultFileActions = !!props.disableDefaultFileActions;
-
-    //
-    // ==== Input props validation
-    const {
-        cleanFiles,
-        cleanFolderChain,
-        errorMessages: fileArrayErrors,
-    } = useFileArrayValidation(files, folderChain);
-    const {
-        cleanFileActions,
-        errorMessages: fileActionsErrors,
-    } = useFileActionsValidation(
-        fileActions,
-        DefaultFileActions,
-        !disableDefaultFileActions
-    );
-    const validationErrors = [...fileArrayErrors, ...fileActionsErrors];
-
-    const setRecoilValidationErrors = useSetRecoilState(validationErrorsState);
-    useEffect(() => {
-        setRecoilValidationErrors(validationErrors);
-    }, [validationErrors, setRecoilValidationErrors]);
 
     //
     // ==== File array sorting | TODO: Come up with an API for customizable sorting...
-    const sortedFiles = cleanFiles;
+    const sortedFiles = files;
 
     //
     // ==== File search (aka file array filtering)
-    // const { searchState, searchContexts } = useSearch();
-    const filteredFiles = useFilteredFiles(sortedFiles);
+    const filteredFiles = useFileSearch(sortedFiles);
 
     //
     // ==== File selections
@@ -98,17 +65,16 @@ export const ChonkyBusinessLogic: React.FC<FileBrowserProps> = (props) => {
 
     //
     // ==== File actions - actions that users can customise as they please
-    const dispatchFileAction = useFileActionDispatcher(cleanFileActions, onFileAction);
+    useFileActions(fileActions, onFileAction);
 
     //
     // ==== Special actions - special actions hard-coded into Chonky that users cannot
     //      customize (easily).
-    const dispatchSpecialAction = useSpecialActionDispatcher(
+    useSpecialActionDispatcher(
         sortedFiles,
         selection,
         selectionUtilRef.current,
-        selectionModifiers,
-        dispatchFileAction
+        selectionModifiers
     );
 
     const setRecoilFiles = useSetRecoilState(filesState);
@@ -116,32 +82,22 @@ export const ChonkyBusinessLogic: React.FC<FileBrowserProps> = (props) => {
         setRecoilFiles(filteredFiles);
     }, [filteredFiles, setRecoilFiles]);
 
-    const setRecoilFolderChain = useSetRecoilState(folderChainState);
+    const setFolderChain = useSetRecoilState(folderChainState);
+    const setParentFolder = useSetRecoilState(parentFolderState);
     useEffect(() => {
-        setRecoilFolderChain(cleanFolderChain);
-    }, [cleanFolderChain, setRecoilFolderChain]);
+        const parentFolder =
+            folderChain && folderChain.length > 1
+                ? folderChain[folderChain?.length - 2]
+                : null;
+
+        setFolderChain(folderChain);
+        setParentFolder(parentFolder);
+    }, [folderChain, setFolderChain, setParentFolder]);
 
     const setRecoilSelection = useSetRecoilState(selectionState);
     useEffect(() => {
         setRecoilSelection(selection);
     }, [selection, setRecoilSelection]);
-
-    const setRecoilFileActions = useSetRecoilState(fileActionsState);
-    useEffect(() => {
-        setRecoilFileActions(cleanFileActions);
-    }, [cleanFileActions, setRecoilFileActions]);
-
-    const setRecoilDispatchFileAction = useSetRecoilState(dispatchFileActionState);
-    useEffect(() => {
-        setRecoilDispatchFileAction(() => dispatchFileAction);
-    }, [dispatchFileAction, setRecoilDispatchFileAction]);
-
-    const setRecoilDispatchSpecialAction = useSetRecoilState(
-        dispatchSpecialActionState
-    );
-    useEffect(() => {
-        setRecoilDispatchSpecialAction(() => dispatchSpecialAction);
-    }, [dispatchSpecialAction, setRecoilDispatchSpecialAction]);
 
     const setRecoilThumbnailGenerator = useSetRecoilState(thumbnailGeneratorState);
     useEffect(() => {
@@ -161,4 +117,4 @@ export const ChonkyBusinessLogic: React.FC<FileBrowserProps> = (props) => {
     }, [enableDragAndDrop, setRecoilEnableDragAndDrop]);
 
     return null;
-};
+});

@@ -8,18 +8,23 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { enableDragAndDropState } from '../../recoil/drag-and-drop.recoil';
-import { validationErrorsState } from '../../recoil/errors.recoil';
 import { selectionModifiersState } from '../../recoil/selection.recoil';
+import { ErrorMessageData } from '../../types/validation.types';
 import { useClickListener } from '../../util/hooks-helpers';
 import { DnDFileListDragLayer } from '../file-entry/DnDFileListDragLayer';
 import { ErrorMessage } from './ErrorMessage';
 
-export const ChonkyPresentationLayer: React.FC = (props) => {
-    const { children } = props;
+export interface ChonkyPresentationLayerProps {
+    validationErrors: ErrorMessageData[];
+}
+
+export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
+    props
+) => {
+    const { validationErrors, children } = props;
 
     const selectionModifiers = useRecoilValue(selectionModifiersState);
     const enableDragAndDrop = useRecoilValue(enableDragAndDropState);
-    const validationErrors = useRecoilValue(validationErrorsState);
 
     // Deal with clicks outside of Chonky
     const chonkyRootRef = useClickListener({

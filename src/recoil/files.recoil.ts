@@ -15,9 +15,14 @@ export const folderChainState = atom<Nullable<FileArray>>({
     default: null,
 });
 
+export const parentFolderState = atom<Nullable<FileData>>({
+    key: 'parentFolderState',
+    default: null,
+});
+
 //
 // ==== Selectors
-export const fileMapState = selector<{ [fileId: string]: Nullable<FileData> }>({
+export const fileMapState = selector<{ [fileId: string]: FileData }>({
     key: 'fileMapState',
     get: ({ get }) => {
         const files = get(filesState);

@@ -104,7 +104,7 @@
     },
 } as const
 
-*Defined in [src/util/file-actions-old.ts:24](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/file-actions-old.ts#L24)*
+*Defined in [src/util/file-actions-definitions.ts:24](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/file-actions-old.ts#L24)*
 
 #### Type declaration:
 
@@ -241,7 +241,7 @@ ___
     ChonkyActions.ToggleSearch,
 ]
 
-*Defined in [src/util/file-actions-old.ts:110](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/file-actions-old.ts#L110)*
+*Defined in [src/util/file-actions-definitions.ts:110](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/file-actions-old.ts#L110)*
 
 ## Functions
 
@@ -249,7 +249,7 @@ ___
 
 ▸ **useFileActionDispatcher**(`fileActions`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[], `onFileAction`: Nullable‹[FileActionListener](_types_file_actions_types_.md#fileactionlistener)›): *[InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)*
 
-*Defined in [src/util/file-actions-old.ts:125](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/file-actions-old.ts#L125)*
+*Defined in [src/util/file-actions-definitions.ts:125](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/file-actions-old.ts#L125)*
 
 Returns a dispatch method meant to be used by child components. This dispatch method
 is meant for actions that should be handled directly by the user. If you want to
@@ -271,7 +271,7 @@ ___
 
 ▸ **useFileActionTrigger**(`action`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)): *object*
 
-*Defined in [src/util/file-actions-old.ts:167](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/file-actions-old.ts#L167)*
+*Defined in [src/util/file-actions-definitions.ts:167](https://github.com/TimboKZ/Chonky/blob/ce1f2d4/src/util/file-actions-old.ts#L167)*
 
 **Parameters:**
 

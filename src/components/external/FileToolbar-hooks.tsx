@@ -3,23 +3,22 @@ import React, { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Nullable } from 'tsdef';
 
-import {
-    dispatchFileActionState,
-    fileActionsState,
-} from '../../recoil/file-actions.recoil';
+import { fileActionsState } from '../../recoil/file-actions.recoil';
 import { folderChainState } from '../../recoil/files.recoil';
+import { dispatchSpecialActionState } from '../../recoil/special-actions.recoil';
+import { ActionGroupData } from '../../types/file-actions.types';
 import { ChonkyIconName } from '../../types/icons.types';
-import { ChonkyActions } from '../../util/file-actions-old';
+import { SpecialAction } from '../../types/special-actions.types';
+import { ChonkyActions } from '../../util/file-actions-definitions';
 import { FileHelper } from '../../util/file-helper';
 import { ChonkyIconFA } from './ChonkyIcon';
-import { ToolbarButtonGroup } from './ToolbarButtonGroup';
 
 /**
  * Generates folder chain HTML components for the `FileToolbar` component.
  */
 export const useFolderChainComponent = () => {
     const folderChain = useRecoilValue(folderChainState);
-    const dispatchChonkyAction = useRecoilValue(dispatchFileActionState);
+    const dispatchSpecialAction = useRecoilValue(dispatchSpecialActionState);
     const folderChainComponent = useMemo(() => {
         if (!folderChain) return folderChain;
 
@@ -38,10 +37,9 @@ export const useFolderChainComponent = () => {
             };
             if (FileHelper.isOpenable(file) && !isLast) {
                 compProps.onClick = () => {
-                    dispatchChonkyAction({
-                        actionId: ChonkyActions.OpenFiles.id,
-                        target: file,
-                        files: [file],
+                    dispatchSpecialAction({
+                        actionId: SpecialAction.OpenFolderChainFolder,
+                        file: file,
                     });
                 };
             }
@@ -75,41 +73,41 @@ export const useFolderChainComponent = () => {
             }
         }
         return <div className="chonky-folder-chain">{comps}</div>;
-    }, [folderChain, dispatchChonkyAction]);
+    }, [folderChain, dispatchSpecialAction]);
     return folderChainComponent;
 };
 
-export const useToolbarButtonGroups = () => {
+export const useActionGroups = () => {
     const fileActions = useRecoilValue(fileActionsState);
     return useMemo(() => {
         // Create an array for normal toolbar buttons
-        const buttonGroups: ToolbarButtonGroup[] = [];
+        const buttonGroups: ActionGroupData[] = [];
 
         // Create a map used for merging buttons into groups
-        const buttonGroupMap: { [groupName: string]: ToolbarButtonGroup } = {};
+        const buttonGroupMap: { [groupName: string]: ActionGroupData } = {};
 
         // Create separate variables for buttons that get special treatment:
-        let openParentFolderButtonGroup: Nullable<ToolbarButtonGroup> = null;
-        let searchButtonGroup: Nullable<ToolbarButtonGroup> = null;
+        let openParentFolderButtonGroup: Nullable<ActionGroupData> = null;
+        let searchButtonGroup: Nullable<ActionGroupData> = null;
 
         for (const action of fileActions) {
             if (!action.toolbarButton) continue;
 
             const button = action.toolbarButton;
-            let group: ToolbarButtonGroup;
+            let group: ActionGroupData;
 
             if (button.group) {
                 if (buttonGroupMap[button.group]) {
                     // If group exists, append action to it.
                     group = buttonGroupMap[button.group];
                     group.dropdown = group.dropdown || button.dropdown;
-                    group.fileActions.push(action);
+                    group.fileActionIds.push(action.id);
                 } else {
                     // Otherwise, create a new group.
                     group = {
                         name: button.group,
                         dropdown: button.dropdown,
-                        fileActions: [action],
+                        fileActionIds: [action.id],
                     };
                     buttonGroups.push(group);
                     buttonGroupMap[group.name!] = group;
@@ -119,7 +117,7 @@ export const useToolbarButtonGroups = () => {
                 group = {
                     name: button.group,
                     dropdown: button.dropdown,
-                    fileActions: [action],
+                    fileActionIds: [action.id],
                 };
 
                 // Only add it to the normal groups array if it's not a special button

@@ -76,7 +76,10 @@ const useSelectionModifiers = (
     const clearSelection = useCallback(() => {
         if (disableSelection) return;
 
-        setSelection({});
+        setSelection((oldSelection) => {
+            if (Object.keys(oldSelection).length === 0) return oldSelection;
+            return {};
+        });
     }, [disableSelection, setSelection]);
 
     const selectionModifiers = useMemo(

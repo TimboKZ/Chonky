@@ -3,6 +3,8 @@ import { Nullable } from 'tsdef';
 
 import { FileSelection, SelectionModifiers } from '../types/selection.types';
 import { NOOP_FUNCTION } from '../util/constants';
+import { SelectionHelper } from '../util/selection';
+import { filesState } from './files.recoil';
 
 //
 // ==== Atoms
@@ -22,6 +24,16 @@ export const selectionModifiersState = atom<SelectionModifiers>({
 
 //
 // ==== Selectors
+export const selectedFilesState = selector({
+    key: 'selectedFilesState',
+    get: ({ get }) => {
+        const files = get(filesState);
+        const selection = get(selectionState);
+
+        return SelectionHelper.getSelectedFiles(files, selection);
+    },
+});
+
 export const selectionSizeState = selector({
     key: 'selectionSizeState',
     get: ({ get }) => {
