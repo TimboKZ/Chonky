@@ -27,7 +27,8 @@ need to the toolbar, you could use the following hierarchy:
 ```
 
 Or, if you're a power user, and you want to use a custom implementation of the file
-list by consuming Chonky's React contexts directly, you could use something like:
+list by consuming Chonky's [Recoil atoms](https://recoiljs.org/) directly, you could
+use something like:
 
 ```tsx
 <FileBrowser files={[]}>

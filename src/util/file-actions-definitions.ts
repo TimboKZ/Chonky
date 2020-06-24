@@ -52,6 +52,7 @@ export const ChonkyActions = {
     CopyFiles: {
         id: 'copy_files',
         requiresSelection: true,
+        hotkeys: ['ctrl+c'],
         toolbarButton: {
             name: 'Copy selection',
             group: 'Actions',

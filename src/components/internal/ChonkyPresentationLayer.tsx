@@ -4,15 +4,17 @@
  * @license MIT
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { enableDragAndDropState } from '../../recoil/drag-and-drop.recoil';
+import { fileActionsState } from '../../recoil/file-actions.recoil';
 import { selectionModifiersState } from '../../recoil/selection.recoil';
 import { ErrorMessageData } from '../../types/validation.types';
 import { useClickListener } from '../../util/hooks-helpers';
 import { DnDFileListDragLayer } from '../file-entry/DnDFileListDragLayer';
 import { ErrorMessage } from './ErrorMessage';
+import { HotkeyListener } from './HotkeyListener';
 
 export interface ChonkyPresentationLayerProps {
     validationErrors: ErrorMessageData[];
@@ -23,6 +25,7 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
 ) => {
     const { validationErrors, children } = props;
 
+    const fileActions = useRecoilValue(fileActionsState);
     const selectionModifiers = useRecoilValue(selectionModifiersState);
     const enableDragAndDrop = useRecoilValue(enableDragAndDropState);
 
@@ -31,16 +34,34 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
         onOutsideClick: selectionModifiers.clearSelection,
     });
 
-    return (
-        <div ref={chonkyRootRef} className="chonky-root chonky-no-select">
-            {enableDragAndDrop && <DnDFileListDragLayer />}
-            {validationErrors.map((data, index) => (
+    // Generate necessary components
+    const hotkeyListenerComponents = useMemo(
+        () =>
+            fileActions.map((action) => (
+                <HotkeyListener
+                    key={`file-action-listener-${action.id}`}
+                    fileActionId={action.id}
+                />
+            )),
+        [fileActions]
+    );
+    const validationErrorComponents = useMemo(
+        () =>
+            validationErrors.map((data, index) => (
                 <ErrorMessage
                     key={`error-message-${index}`}
                     message={data.message}
                     bullets={data.bullets}
                 />
-            ))}
+            )),
+        [validationErrors]
+    );
+
+    return (
+        <div ref={chonkyRootRef} className="chonky-root chonky-no-select">
+            {enableDragAndDrop && <DnDFileListDragLayer />}
+            {hotkeyListenerComponents}
+            {validationErrorComponents}
             {children ? children : null}
         </div>
     );

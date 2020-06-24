@@ -12,7 +12,7 @@ export interface FileThumbnailProps {
     thumbnailUrl: Nullable<string>;
 }
 
-export const FileThumbnail: React.FC<FileThumbnailProps> = (props) => {
+export const FileThumbnail: React.FC<FileThumbnailProps> = React.memo((props) => {
     const { thumbnailUrl } = props;
 
     const thumbnailStyle: React.CSSProperties = thumbnailUrl
@@ -24,4 +24,4 @@ export const FileThumbnail: React.FC<FileThumbnailProps> = (props) => {
         'chonky-file-thumbnail-hidden': !thumbnailUrl,
     });
     return <div className={className} style={thumbnailStyle} />;
-};
+});
