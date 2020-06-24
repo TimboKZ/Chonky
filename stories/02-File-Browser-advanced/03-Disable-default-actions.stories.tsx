@@ -38,7 +38,8 @@ export const DisableExample = () => {
 
     const fileActions: FileAction[] = [
         {
-            id: ChonkyActions.OpenFiles.id,
+            ...ChonkyActions.OpenFiles,
+            toolbarButton: undefined,
         },
     ];
 

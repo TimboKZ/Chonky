@@ -26,27 +26,23 @@ export const useInternalFileActionDispatcher = (
     externalFileActonHandler: Nullable<FileActionHandler>
 ): InternalFileActionDispatcher => {
     const externalFileActonHandlerRef = useInstanceVariable(externalFileActonHandler);
-
-    const fileActionMap = useRecoilValue(fileActionMapState);
-    const fileActionMapRef = useInstanceVariable(fileActionMap);
+    const fileActionMapRef = useInstanceVariable(useRecoilValue(fileActionMapState));
 
     const dispatchFileAction: InternalFileActionDispatcher = useCallback(
         (actionData) => {
             Logger.debug(`FILE ACTION DISPATCH:`, actionData);
-            const { current: onFileAction } = externalFileActonHandlerRef;
-            const { current: fileActionMap } = fileActionMapRef;
             const { actionId } = actionData;
 
-            const action = fileActionMap[actionId];
+            const action = fileActionMapRef.current[actionId];
             if (action) {
-                if (isFunction(onFileAction)) {
-                    Promise.resolve()
-                        .then(() => onFileAction(action, actionData))
-                        .catch((error) =>
-                            Logger.error(
-                                `User-defined "onAction" handler threw an error: ${error.message}`
-                            )
-                        );
+                if (isFunction(externalFileActonHandlerRef.current)) {
+                    Promise.resolve(
+                        externalFileActonHandlerRef.current(action, actionData)
+                    ).catch((error) =>
+                        Logger.error(
+                            `User-defined "onAction" handler threw an error: ${error.message}`
+                        )
+                    );
                 }
             } else {
                 Logger.error(
@@ -96,8 +92,6 @@ export const useInternalFileActionRequester = () => {
                       action.fileFilter
                   )
                 : undefined;
-
-            console.log('ACTION', action.id, selectedFilesForAction, action.fileFilter);
 
             if (
                 action.requiresSelection &&
