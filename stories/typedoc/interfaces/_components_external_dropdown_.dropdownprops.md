@@ -18,4 +18,4 @@
 
 • **group**: *[ActionGroupData](_types_file_actions_types_.actiongroupdata.md)*
 
-*Defined in [src/components/external/Dropdown.tsx:16](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/external/Dropdown.tsx#L16)*
+*Defined in [src/components/external/Dropdown.tsx:16](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/external/Dropdown.tsx#L16)*

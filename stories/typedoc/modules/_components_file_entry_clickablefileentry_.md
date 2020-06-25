@@ -32,4 +32,4 @@
     );
 })
 
-*Defined in [src/components/file-entry/ClickableFileEntry.tsx:8](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/file-entry/ClickableFileEntry.tsx#L8)*
+*Defined in [src/components/file-entry/ClickableFileEntry.tsx:8](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/ClickableFileEntry.tsx#L8)*

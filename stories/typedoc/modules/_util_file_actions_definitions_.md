@@ -62,6 +62,7 @@
     CopyFiles: {
         id: 'copy_files',
         requiresSelection: true,
+        hotkeys: ['ctrl+c'],
         toolbarButton: {
             name: 'Copy selection',
             group: 'Actions',
@@ -99,11 +100,13 @@
     },
 } as const
 
-*Defined in [src/util/file-actions-definitions.ts:6](https://github.com/TimboKZ/Chonky/blob/bceb265/src/util/file-actions-definitions.ts#L6)*
+*Defined in [src/util/file-actions-definitions.ts:6](https://github.com/TimboKZ/Chonky/blob/8056a68/src/util/file-actions-definitions.ts#L6)*
 
 #### Type declaration:
 
 * ### **CopyFiles**: *object*
+
+  * **hotkeys**: *["ctrl+c"]* = ['ctrl+c']
 
   * **id**: *"copy_files"* = "copy_files"
 
@@ -234,4 +237,4 @@ ___
     ChonkyActions.ToggleSearch,
 ]
 
-*Defined in [src/util/file-actions-definitions.ts:92](https://github.com/TimboKZ/Chonky/blob/bceb265/src/util/file-actions-definitions.ts#L92)*
+*Defined in [src/util/file-actions-definitions.ts:93](https://github.com/TimboKZ/Chonky/blob/8056a68/src/util/file-actions-definitions.ts#L93)*

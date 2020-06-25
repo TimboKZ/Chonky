@@ -20,7 +20,7 @@
 
 • **clearSelection**: *function*
 
-*Defined in [src/types/selection.types.ts:11](https://github.com/TimboKZ/Chonky/blob/bceb265/src/types/selection.types.ts#L11)*
+*Defined in [src/types/selection.types.ts:11](https://github.com/TimboKZ/Chonky/blob/8056a68/src/types/selection.types.ts#L11)*
 
 #### Type declaration:
 
@@ -32,7 +32,7 @@ ___
 
 • **selectFiles**: *function*
 
-*Defined in [src/types/selection.types.ts:9](https://github.com/TimboKZ/Chonky/blob/bceb265/src/types/selection.types.ts#L9)*
+*Defined in [src/types/selection.types.ts:9](https://github.com/TimboKZ/Chonky/blob/8056a68/src/types/selection.types.ts#L9)*
 
 #### Type declaration:
 
@@ -51,7 +51,7 @@ ___
 
 • **toggleSelection**: *function*
 
-*Defined in [src/types/selection.types.ts:10](https://github.com/TimboKZ/Chonky/blob/bceb265/src/types/selection.types.ts#L10)*
+*Defined in [src/types/selection.types.ts:10](https://github.com/TimboKZ/Chonky/blob/8056a68/src/types/selection.types.ts#L10)*
 
 #### Type declaration:
 

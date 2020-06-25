@@ -75,4 +75,4 @@
     );
 })
 
-*Defined in [src/components/file-entry/BaseFileEntry.tsx:24](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/file-entry/BaseFileEntry.tsx#L24)*
+*Defined in [src/components/file-entry/BaseFileEntry.tsx:24](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/BaseFileEntry.tsx#L24)*

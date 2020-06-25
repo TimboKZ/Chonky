@@ -8,22 +8,26 @@
 
 * [FileThumbnailProps](../interfaces/_components_internal_filethumbnail_.filethumbnailprops.md)
 
-### Functions
+### Variables
 
 * [FileThumbnail](_components_internal_filethumbnail_.md#const-filethumbnail)
 
-## Functions
+## Variables
 
 ### `Const` FileThumbnail
 
-▸ **FileThumbnail**(`props`: [FileThumbnailProps](../interfaces/_components_internal_filethumbnail_.filethumbnailprops.md) & object): *Element‹›*
+• **FileThumbnail**: *React.FC‹[FileThumbnailProps](../interfaces/_components_internal_filethumbnail_.filethumbnailprops.md)›* = React.memo((props) => {
+    const { thumbnailUrl } = props;
 
-*Defined in [src/components/internal/FileThumbnail.tsx:15](https://github.com/TimboKZ/Chonky/blob/bceb265/src/components/internal/FileThumbnail.tsx#L15)*
+    const thumbnailStyle: React.CSSProperties = thumbnailUrl
+        ? { backgroundImage: `url('${thumbnailUrl}')` }
+        : {};
 
-**Parameters:**
+    const className = c({
+        'chonky-file-thumbnail': true,
+        'chonky-file-thumbnail-hidden': !thumbnailUrl,
+    });
+    return <div className={className} style={thumbnailStyle} />;
+})
 
-Name | Type |
------- | ------ |
-`props` | [FileThumbnailProps](../interfaces/_components_internal_filethumbnail_.filethumbnailprops.md) & object |
-
-**Returns:** *Element‹›*
+*Defined in [src/components/internal/FileThumbnail.tsx:15](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/internal/FileThumbnail.tsx#L15)*

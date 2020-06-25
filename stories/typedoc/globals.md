@@ -31,6 +31,7 @@
 * ["components/internal/ClickableWrapper-hooks"](modules/_components_internal_clickablewrapper_hooks_.md)
 * ["components/internal/ErrorMessage"](modules/_components_internal_errormessage_.md)
 * ["components/internal/FileThumbnail"](modules/_components_internal_filethumbnail_.md)
+* ["components/internal/HotkeyListener"](modules/_components_internal_hotkeylistener_.md)
 * ["index"](modules/_index_.md)
 * ["recoil/drag-and-drop.recoil"](modules/_recoil_drag_and_drop_recoil_.md)
 * ["recoil/errors.recoil"](modules/_recoil_errors_recoil_.md)

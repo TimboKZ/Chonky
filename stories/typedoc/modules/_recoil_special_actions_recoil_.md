@@ -17,4 +17,4 @@
     default: NOOP_FUNCTION,
 })
 
-*Defined in [src/recoil/special-actions.recoil.ts:8](https://github.com/TimboKZ/Chonky/blob/bceb265/src/recoil/special-actions.recoil.ts#L8)*
+*Defined in [src/recoil/special-actions.recoil.ts:8](https://github.com/TimboKZ/Chonky/blob/8056a68/src/recoil/special-actions.recoil.ts#L8)*
