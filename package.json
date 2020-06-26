@@ -1,6 +1,6 @@
 {
   "name": "chonky",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React file browser component",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

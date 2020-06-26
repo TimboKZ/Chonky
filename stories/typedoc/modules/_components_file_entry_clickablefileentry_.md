@@ -13,9 +13,9 @@
 ### `Const` ClickableFileEntry
 
 • **ClickableFileEntry**: *React.FC‹[FileEntryProps](../interfaces/_components_file_entry_basefileentry_.fileentryprops.md)›* = React.memo((props) => {
-    const { file } = props;
+    const { file, displayIndex } = props;
 
-    const fileClickHandlers = useFileClickHandlers(file);
+    const fileClickHandlers = useFileClickHandlers(file, displayIndex);
 
     const wrapperProps: ClickableWrapperProps = {
         wrapperTag: 'div',
@@ -32,4 +32,4 @@
     );
 })
 
-*Defined in [src/components/file-entry/ClickableFileEntry.tsx:8](https://github.com/TimboKZ/Chonky/blob/01ce777/src/components/file-entry/ClickableFileEntry.tsx#L8)*
+*Defined in [src/components/file-entry/ClickableFileEntry.tsx:8](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/file-entry/ClickableFileEntry.tsx#L8)*

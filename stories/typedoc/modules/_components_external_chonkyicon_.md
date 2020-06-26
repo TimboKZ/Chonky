@@ -27,7 +27,7 @@
     return <FontAwesomeIcon {...faProps} />;
 })
 
-*Defined in [src/components/external/ChonkyIcon.tsx:149](https://github.com/TimboKZ/Chonky/blob/01ce777/src/components/external/ChonkyIcon.tsx#L149)*
+*Defined in [src/components/external/ChonkyIcon.tsx:153](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/ChonkyIcon.tsx#L153)*
 
 ___
 
@@ -48,6 +48,8 @@ ___
     [ChonkyIconName.openParentFolder]: faLevelUpAlt,
     [ChonkyIconName.copy]: faCopy,
     [ChonkyIconName.search]: faSearch,
+    [ChonkyIconName.selectAllFiles]: faObjectGroup,
+    [ChonkyIconName.clearSelection]: faEraser,
 
     // File Actions: Unsorted
     [ChonkyIconName.checkActive]: faCheckCircle,
@@ -112,6 +114,6 @@ ___
     [ChonkyIconName.flash]: faRunning,
 } as const
 
-*Defined in [src/components/external/ChonkyIcon.tsx:60](https://github.com/TimboKZ/Chonky/blob/01ce777/src/components/external/ChonkyIcon.tsx#L60)*
+*Defined in [src/components/external/ChonkyIcon.tsx:62](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/ChonkyIcon.tsx#L62)*
 
 #### Type declaration:

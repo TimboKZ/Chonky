@@ -6,21 +6,31 @@
 
 ### Enumeration members
 
+* [ClearSelection](_types_special_actions_types_.specialaction.md#clearselection)
 * [DragNDropEnd](_types_special_actions_types_.specialaction.md#dragndropend)
 * [DragNDropStart](_types_special_actions_types_.specialaction.md#dragndropstart)
 * [KeyboardClickFile](_types_special_actions_types_.specialaction.md#keyboardclickfile)
 * [MouseClickFile](_types_special_actions_types_.specialaction.md#mouseclickfile)
 * [OpenFolderChainFolder](_types_special_actions_types_.specialaction.md#openfolderchainfolder)
 * [OpenParentFolder](_types_special_actions_types_.specialaction.md#openparentfolder)
+* [SelectAllFiles](_types_special_actions_types_.specialaction.md#selectallfiles)
 * [ToggleSearchBar](_types_special_actions_types_.specialaction.md#togglesearchbar)
 
 ## Enumeration members
+
+###  ClearSelection
+
+• **ClearSelection**: = "clear_selection"
+
+*Defined in [src/types/special-actions.types.ts:12](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/special-actions.types.ts#L12)*
+
+___
 
 ###  DragNDropEnd
 
 • **DragNDropEnd**: = "drag_n_drop_end"
 
-*Defined in [src/types/special-actions.types.ts:12](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/special-actions.types.ts#L12)*
+*Defined in [src/types/special-actions.types.ts:15](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/special-actions.types.ts#L15)*
 
 ___
 
@@ -28,7 +38,7 @@ ___
 
 • **DragNDropStart**: = "drag_n_drop_start"
 
-*Defined in [src/types/special-actions.types.ts:11](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/special-actions.types.ts#L11)*
+*Defined in [src/types/special-actions.types.ts:14](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/special-actions.types.ts#L14)*
 
 ___
 
@@ -36,7 +46,7 @@ ___
 
 • **KeyboardClickFile**: = "keyboard_click_file"
 
-*Defined in [src/types/special-actions.types.ts:5](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/special-actions.types.ts#L5)*
+*Defined in [src/types/special-actions.types.ts:5](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/special-actions.types.ts#L5)*
 
 ___
 
@@ -44,7 +54,7 @@ ___
 
 • **MouseClickFile**: = "mouse_click_file"
 
-*Defined in [src/types/special-actions.types.ts:4](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/special-actions.types.ts#L4)*
+*Defined in [src/types/special-actions.types.ts:4](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/special-actions.types.ts#L4)*
 
 ___
 
@@ -52,7 +62,7 @@ ___
 
 • **OpenFolderChainFolder**: = "open_folder_chain_folder"
 
-*Defined in [src/types/special-actions.types.ts:8](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/special-actions.types.ts#L8)*
+*Defined in [src/types/special-actions.types.ts:8](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/special-actions.types.ts#L8)*
 
 ___
 
@@ -60,7 +70,15 @@ ___
 
 • **OpenParentFolder**: = "open_parent_folder"
 
-*Defined in [src/types/special-actions.types.ts:7](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/special-actions.types.ts#L7)*
+*Defined in [src/types/special-actions.types.ts:7](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/special-actions.types.ts#L7)*
+
+___
+
+###  SelectAllFiles
+
+• **SelectAllFiles**: = "select_all_files"
+
+*Defined in [src/types/special-actions.types.ts:11](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/special-actions.types.ts#L11)*
 
 ___
 
@@ -68,4 +86,4 @@ ___
 
 • **ToggleSearchBar**: = "toggle_search_bar"
 
-*Defined in [src/types/special-actions.types.ts:9](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/special-actions.types.ts#L9)*
+*Defined in [src/types/special-actions.types.ts:9](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/special-actions.types.ts#L9)*

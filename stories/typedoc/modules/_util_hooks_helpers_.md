@@ -26,7 +26,7 @@
 
 • **UNINITIALIZED_SENTINEL**: *object*
 
-*Defined in [src/util/hooks-helpers.ts:25](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/hooks-helpers.ts#L25)*
+*Defined in [src/util/hooks-helpers.ts:25](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/util/hooks-helpers.ts#L25)*
 
 #### Type declaration:
 
@@ -36,7 +36,7 @@
 
 ▸ **useClickListener**‹**T**›(`params`: [UseClickListenerParams](../interfaces/_util_hooks_helpers_.useclicklistenerparams.md)): *RefObject‹T›*
 
-*Defined in [src/util/hooks-helpers.ts:46](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/hooks-helpers.ts#L46)*
+*Defined in [src/util/hooks-helpers.ts:46](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/util/hooks-helpers.ts#L46)*
 
 **Type parameters:**
 
@@ -56,7 +56,7 @@ ___
 
 ▸ **useDebounce**‹**T**›(`value`: T, `delay`: number): *[T, React.Dispatch‹React.SetStateAction‹T››]*
 
-*Defined in [src/util/hooks-helpers.ts:6](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/hooks-helpers.ts#L6)*
+*Defined in [src/util/hooks-helpers.ts:6](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/util/hooks-helpers.ts#L6)*
 
 **Type parameters:**
 
@@ -77,7 +77,7 @@ ___
 
 ▸ **useInstanceVariable**‹**T**›(`value`: T): *MutableRefObject‹T›*
 
-*Defined in [src/util/hooks-helpers.ts:32](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/hooks-helpers.ts#L32)*
+*Defined in [src/util/hooks-helpers.ts:32](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/util/hooks-helpers.ts#L32)*
 
 **Type parameters:**
 
@@ -97,7 +97,7 @@ ___
 
 ▸ **useRefCallbackWithErrorHandling**‹**FuncType**›(`callbackFunc`: FuncType, `displayName`: string): *(Anonymous function)*
 
-*Defined in [src/util/hooks-helpers.ts:80](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/hooks-helpers.ts#L80)*
+*Defined in [src/util/hooks-helpers.ts:80](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/util/hooks-helpers.ts#L80)*
 
 **Type parameters:**
 
@@ -118,7 +118,7 @@ ___
 
 ▸ **useStaticValue**‹**T**›(`factory`: function): *T*
 
-*Defined in [src/util/hooks-helpers.ts:26](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/hooks-helpers.ts#L26)*
+*Defined in [src/util/hooks-helpers.ts:26](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/util/hooks-helpers.ts#L26)*
 
 **Type parameters:**
 

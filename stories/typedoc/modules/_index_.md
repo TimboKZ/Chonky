@@ -16,6 +16,7 @@
 * [FileBrowser](_index_.md#filebrowser)
 * [FileData](_index_.md#filedata)
 * [FileEntrySize](_index_.md#fileentrysize)
+* [FileHelper](_index_.md#filehelper)
 * [FileList](_index_.md#filelist)
 * [FileSearch](_index_.md#filesearch)
 * [FileSelection](_index_.md#fileselection)
@@ -91,6 +92,12 @@ ___
 
 ___
 
+###  FileHelper
+
+• **FileHelper**:
+
+___
+
 ###  FileList
 
 • **FileList**:
@@ -125,15 +132,15 @@ ___
 
 Ƭ **ChonkyIconProps**: *[ChonkyIconProps](../interfaces/_components_external_chonkyicon_.chonkyiconprops.md)*
 
-*Defined in [src/index.ts:26](https://github.com/TimboKZ/Chonky/blob/01ce777/src/index.ts#L26)*
+*Defined in [src/index.ts:25](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/index.ts#L25)*
 
 ___
 
 ###  FileBrowserProps
 
-Ƭ **FileBrowserProps**: *FileBrowserProps1*
+Ƭ **FileBrowserProps**: *[FileBrowserProps](../interfaces/_types_file_browser_types_.filebrowserprops.md)*
 
-*Defined in [src/index.ts:23](https://github.com/TimboKZ/Chonky/blob/01ce777/src/index.ts#L23)*
+*Defined in [src/index.ts:22](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/index.ts#L22)*
 
 ___
 
@@ -141,7 +148,7 @@ ___
 
 Ƭ **FileListProps**: *[FileListProps](../interfaces/_components_external_filelist_.filelistprops.md)*
 
-*Defined in [src/index.ts:25](https://github.com/TimboKZ/Chonky/blob/01ce777/src/index.ts#L25)*
+*Defined in [src/index.ts:24](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/index.ts#L24)*
 
 ___
 
@@ -149,4 +156,4 @@ ___
 
 Ƭ **FileToolbarProps**: *[FileToolbarProps](../interfaces/_components_external_filetoolbar_.filetoolbarprops.md)*
 
-*Defined in [src/index.ts:24](https://github.com/TimboKZ/Chonky/blob/01ce777/src/index.ts#L24)*
+*Defined in [src/index.ts:23](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/index.ts#L23)*

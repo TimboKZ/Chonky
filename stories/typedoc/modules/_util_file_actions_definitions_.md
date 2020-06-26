@@ -22,23 +22,11 @@
         id: 'duplicate_files_to',
     },
 
-    OpenParentFolder: {
-        id: 'open_parent_folder',
-        hotkeys: ['backspace'],
-        toolbarButton: {
-            name: 'Go up a directory',
-            tooltip: 'Go up a directory',
-            icon: ChonkyIconName.openParentFolder,
-            iconOnly: true,
-        },
-
-        specialActionToDispatch: SpecialAction.OpenParentFolder,
-    },
+    // Most important action of all - opening files!
     OpenFiles: {
-        // We don't specify the 'enter' hotkey here because it is handled inside
-        // `<ClickableFileEntry>` component.
         id: 'open_files',
         requiresSelection: true,
+        hotkeys: ['enter'],
         fileFilter: FileHelper.isOpenable,
         toolbarButton: {
             name: 'Open selection',
@@ -46,6 +34,19 @@
             dropdown: true,
             icon: ChonkyIconName.openFiles,
         },
+    },
+
+    // Toolbar related action
+    OpenParentFolder: {
+        id: 'open_parent_folder',
+        hotkeys: ['backspace'],
+        toolbarButton: {
+            name: 'Go up a directory',
+            icon: ChonkyIconName.openParentFolder,
+            iconOnly: true,
+        },
+
+        specialActionToDispatch: SpecialAction.OpenParentFolder,
     },
     ToggleSearch: {
         id: 'toggle_search',
@@ -59,6 +60,33 @@
         specialActionToDispatch: SpecialAction.ToggleSearchBar,
     },
 
+    // Actions related to selection
+    SelectAllFiles: {
+        id: 'select_all_files',
+        hotkeys: ['ctrl+a'],
+        toolbarButton: {
+            name: 'Select all files',
+            group: 'Actions',
+            icon: ChonkyIconName.selectAllFiles,
+            iconOnly: true,
+        },
+
+        specialActionToDispatch: SpecialAction.SelectAllFiles,
+    },
+    ClearSelection: {
+        id: 'clear_selection',
+        hotkeys: ['escape'],
+        toolbarButton: {
+            name: 'Clear selection',
+            group: 'Actions',
+            icon: ChonkyIconName.clearSelection,
+            iconOnly: true,
+        },
+
+        specialActionToDispatch: SpecialAction.ClearSelection,
+    },
+
+    // Optional actions
     CopyFiles: {
         id: 'copy_files',
         requiresSelection: true,
@@ -70,7 +98,6 @@
             icon: ChonkyIconName.copy,
         },
     },
-
     CreateFolder: {
         id: 'create_folder',
         toolbarButton: {
@@ -98,11 +125,41 @@
             icon: ChonkyIconName.download,
         },
     },
+    DeleteFiles: {
+        id: 'delete_files',
+        requiresSelection: true,
+        hotkeys: ['delete'],
+        toolbarButton: {
+            name: 'Delete files',
+            group: 'Actions',
+            tooltip: 'Delete files',
+            dropdown: true,
+            icon: ChonkyIconName.trash,
+        },
+    },
 } as const
 
-*Defined in [src/util/file-actions-definitions.ts:6](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/file-actions-definitions.ts#L6)*
+*Defined in [src/util/file-actions-definitions.ts:6](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/util/file-actions-definitions.ts#L6)*
 
 #### Type declaration:
+
+* ### **ClearSelection**: *object*
+
+  * **hotkeys**: *["escape"]* = ['escape']
+
+  * **id**: *"clear_selection"* = "clear_selection"
+
+  * **specialActionToDispatch**: *[ClearSelection](../enums/_types_special_actions_types_.specialaction.md#clearselection)* = SpecialAction.ClearSelection
+
+  * **toolbarButton**: *object*
+
+    * **group**: *"Actions"* = "Actions"
+
+    * **icon**: *[clearSelection](../enums/_types_icons_types_.chonkyiconname.md#clearselection)* = ChonkyIconName.clearSelection
+
+    * **iconOnly**: *true* = true
+
+    * **name**: *"Clear selection"* = "Clear selection"
 
 * ### **CopyFiles**: *object*
 
@@ -134,6 +191,26 @@
 
     * **tooltip**: *"Create a folder"* = "Create a folder"
 
+* ### **DeleteFiles**: *object*
+
+  * **hotkeys**: *["delete"]* = ['delete']
+
+  * **id**: *"delete_files"* = "delete_files"
+
+  * **requiresSelection**: *true* = true
+
+  * **toolbarButton**: *object*
+
+    * **dropdown**: *true* = true
+
+    * **group**: *"Actions"* = "Actions"
+
+    * **icon**: *[trash](../enums/_types_icons_types_.chonkyiconname.md#trash)* = ChonkyIconName.trash
+
+    * **name**: *"Delete files"* = "Delete files"
+
+    * **tooltip**: *"Delete files"* = "Delete files"
+
 * ### **DownloadFiles**: *object*
 
   * **id**: *"download_files"* = "download_files"
@@ -163,6 +240,8 @@
 * ### **OpenFiles**: *object*
 
   * **fileFilter**: *[isOpenable](../classes/_util_file_helper_.filehelper.md#static-isopenable)* = FileHelper.isOpenable
+
+  * **hotkeys**: *["enter"]* = ['enter']
 
   * **id**: *"open_files"* = "open_files"
 
@@ -194,7 +273,23 @@
 
     * **name**: *"Go up a directory"* = "Go up a directory"
 
-    * **tooltip**: *"Go up a directory"* = "Go up a directory"
+* ### **SelectAllFiles**: *object*
+
+  * **hotkeys**: *["ctrl+a"]* = ['ctrl+a']
+
+  * **id**: *"select_all_files"* = "select_all_files"
+
+  * **specialActionToDispatch**: *[SelectAllFiles](../enums/_types_special_actions_types_.specialaction.md#selectallfiles)* = SpecialAction.SelectAllFiles
+
+  * **toolbarButton**: *object*
+
+    * **group**: *"Actions"* = "Actions"
+
+    * **icon**: *[selectAllFiles](../enums/_types_icons_types_.chonkyiconname.md#selectallfiles)* = ChonkyIconName.selectAllFiles
+
+    * **iconOnly**: *true* = true
+
+    * **name**: *"Select all files"* = "Select all files"
 
 * ### **ToggleSearch**: *object*
 
@@ -233,8 +328,11 @@ ___
     ChonkyActions.DuplicateFilesTo,
 
     ChonkyActions.OpenParentFolder,
-    ChonkyActions.OpenFiles,
     ChonkyActions.ToggleSearch,
+
+    ChonkyActions.OpenFiles,
+    ChonkyActions.SelectAllFiles,
+    ChonkyActions.ClearSelection,
 ]
 
-*Defined in [src/util/file-actions-definitions.ts:93](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/file-actions-definitions.ts#L93)*
+*Defined in [src/util/file-actions-definitions.ts:132](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/util/file-actions-definitions.ts#L132)*

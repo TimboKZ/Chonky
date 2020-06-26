@@ -60,7 +60,6 @@
 * ["util/file-helper"](modules/_util_file_helper_.md)
 * ["util/file-icon-helper"](modules/_util_file_icon_helper_.md)
 * ["util/hooks-helpers"](modules/_util_hooks_helpers_.md)
-* ["util/hotkeys"](modules/_util_hotkeys_.md)
 * ["util/logger"](modules/_util_logger_.md)
 * ["util/search"](modules/_util_search_.md)
 * ["util/selection"](modules/_util_selection_.md)

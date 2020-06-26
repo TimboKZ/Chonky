@@ -14,4 +14,4 @@
 
 Ƭ **ReactStateSetter**: *React.Dispatch‹React.SetStateAction‹T››*
 
-*Defined in [src/types/react.types.ts:3](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/react.types.ts#L3)*
+*Defined in [src/types/react.types.ts:3](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/react.types.ts#L3)*

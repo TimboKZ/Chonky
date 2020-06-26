@@ -62,10 +62,10 @@
                     <div className="chonky-file-details">
                         <div className="chonky-file-details-inside">
                             <div className="chonky-file-details-item">
-                                {FileHelper.getReadableFileSize(file)}
+                                {FileHelper.getReadableDate(file)}
                             </div>
                             <div className="chonky-file-details-item">
-                                {FileHelper.getReadableDate(file)}
+                                {FileHelper.getReadableFileSize(file)}
                             </div>
                         </div>
                     </div>
@@ -92,7 +92,10 @@
                 </div>
 
                 <div className="chonky-file-entry-description">
-                    <div className="chonky-file-entry-description-title">
+                    <div
+                        className="chonky-file-entry-description-title"
+                        title={file ? file.name : undefined}
+                    >
                         {modifierIconComponents.length > 0 && (
                             <span className="chonky-file-entry-description-title-modifiers">
                                 {modifierIconComponents}
@@ -106,4 +109,4 @@
     );
 })
 
-*Defined in [src/components/file-entry/BaseFileEntry.tsx:29](https://github.com/TimboKZ/Chonky/blob/01ce777/src/components/file-entry/BaseFileEntry.tsx#L29)*
+*Defined in [src/components/file-entry/BaseFileEntry.tsx:29](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/file-entry/BaseFileEntry.tsx#L29)*

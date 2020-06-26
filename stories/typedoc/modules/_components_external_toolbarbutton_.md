@@ -44,7 +44,7 @@
     }
 )
 
-*Defined in [src/components/external/ToolbarButton.tsx:67](https://github.com/TimboKZ/Chonky/blob/01ce777/src/components/external/ToolbarButton.tsx#L67)*
+*Defined in [src/components/external/ToolbarButton.tsx:67](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/ToolbarButton.tsx#L67)*
 
 ___
 
@@ -92,4 +92,4 @@ ___
     );
 })
 
-*Defined in [src/components/external/ToolbarButton.tsx:21](https://github.com/TimboKZ/Chonky/blob/01ce777/src/components/external/ToolbarButton.tsx#L21)*
+*Defined in [src/components/external/ToolbarButton.tsx:21](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/ToolbarButton.tsx#L21)*

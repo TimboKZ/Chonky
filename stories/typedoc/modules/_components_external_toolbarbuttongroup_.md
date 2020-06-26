@@ -36,4 +36,4 @@
     }
 )
 
-*Defined in [src/components/external/ToolbarButtonGroup.tsx:17](https://github.com/TimboKZ/Chonky/blob/01ce777/src/components/external/ToolbarButtonGroup.tsx#L17)*
+*Defined in [src/components/external/ToolbarButtonGroup.tsx:17](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/ToolbarButtonGroup.tsx#L17)*
