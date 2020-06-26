@@ -11,14 +11,21 @@ import {
 } from 'chonky';
 import React from 'react';
 
-import { createDocsObject, showActionNotification } from '../story-helpers';
+import {
+    createDocsObject,
+    showActionNotification,
+    StoryCategories
+} from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './06-Thumbnails.md';
 
+const category = StoryCategories.FileBrowserBasics;
+const title = 'File thumbnails';
+
 // eslint-disable-next-line import/no-default-export
 export default {
-    title: '1 File Browser basics|File thumbnails',
+    title: `${category}|${title}`,
     parameters: {
         docs: createDocsObject({ markdown }),
     },

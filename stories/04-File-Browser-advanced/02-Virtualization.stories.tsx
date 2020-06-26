@@ -4,28 +4,42 @@ import {
     FileAction,
     FileActionData,
     FileBrowser,
+    FileData,
     FileList,
     FileSearch,
-    FileToolbar
+    FileToolbar,
 } from 'chonky';
 import React from 'react';
 
-import { createDocsObject, showActionNotification } from '../story-helpers';
+import {
+    createDocsObject,
+    showActionNotification,
+    StoryCategories
+} from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
-import markdown from './01-Component-hierarchy.md';
+import markdown from './02-Virtualization.md';
+
+const category = StoryCategories.FileBrowserExamples;
+const title = 'Virtualization with 10,000 files';
 
 // eslint-disable-next-line import/no-default-export
 export default {
-    title: '1 File Browser basics|Component hierarchy',
+    title: `${category}|${title}`,
     parameters: {
         docs: createDocsObject({ markdown }),
     },
 };
 
-export const ComponentHierarchyExample = () => {
-    const folderChain = [{ id: 'xASw', name: 'Chonky Demo Folder', isDir: true }];
-    const files = [{ id: 'bEfX', name: 'Demo.ts' }];
+export const VirtualizationExample = () => {
+    const files: FileData[] = [];
+
+    for (let i = 0; i < 10000; ++i) {
+        files.push({
+            id: `file-${i}`,
+            name: i ? `Chrome (${i}).exe` : 'Chrome.exe',
+        });
+    }
 
     const handleFileAction = (action: FileAction, data: FileActionData) => {
         showActionNotification({ action, data });
@@ -35,7 +49,6 @@ export const ComponentHierarchyExample = () => {
         <div style={{ height: 500 }}>
             <FileBrowser
                 files={files}
-                folderChain={folderChain}
                 onFileAction={handleFileAction}
                 enableDragAndDrop={true}
             >

@@ -3,14 +3,17 @@ import 'chonky/style/main.css';
 import { FileBrowser, FileList, FileToolbar } from 'chonky';
 import React from 'react';
 
-import { createDocsObject } from '../story-helpers';
+import { createDocsObject, StoryCategories } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './01-Invalid-props.md';
 
+const category = StoryCategories.FileBrowserExamples;
+const title = 'Passing invalid props';
+
 // eslint-disable-next-line import/no-default-export
 export default {
-    title: '2 File Browser examples|Passing invalid props',
+    title: `${category}|${title}`,
     parameters: {
         docs: createDocsObject({ markdown }),
     },

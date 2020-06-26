@@ -3,14 +3,21 @@ import 'chonky/style/main.css';
 import { FileAction, FileActionData, FileBrowser, FileList, FileToolbar } from 'chonky';
 import React from 'react';
 
-import { createDocsObject, showActionNotification } from '../story-helpers';
+import {
+    createDocsObject,
+    showActionNotification,
+    StoryCategories,
+} from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './03-Specifying-folder.md';
 
+const category = StoryCategories.FileBrowserBasics;
+const title = 'Specifying current folder';
+
 // eslint-disable-next-line import/no-default-export
 export default {
-    title: '1 File Browser basics|Specifying current folder',
+    title: `${category}|${title}`,
     parameters: {
         docs: createDocsObject({ markdown }),
     },

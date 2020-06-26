@@ -12,14 +12,21 @@ import {
 } from 'chonky';
 import React from 'react';
 
-import { createDocsObject, showActionNotification } from '../story-helpers';
+import {
+    createDocsObject,
+    showActionNotification,
+    StoryCategories
+} from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './05-Custom-actions.md';
 
+const category = StoryCategories.FileBrowserBasics;
+const title = 'Custom file actions';
+
 // eslint-disable-next-line import/no-default-export
 export default {
-    title: '1 File Browser basics|Custom file actions',
+    title: `${category}|${title}`,
     parameters: {
         docs: createDocsObject({ markdown }),
     },

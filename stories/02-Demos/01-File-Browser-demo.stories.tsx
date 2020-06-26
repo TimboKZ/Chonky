@@ -1,8 +1,4 @@
-/**
- * @author Timur Kuzhagaliyev <tim.kuzh@gmail.com>
- * @copyright 2020
- * @license MIT
- */
+import 'chonky/style/main.css';
 
 import {
     ChonkyActions,
@@ -18,10 +14,28 @@ import {
 import React, { useCallback, useMemo, useState } from 'react';
 import { Nullable } from 'tsdef';
 
-import { showActionNotification } from '../story-helpers';
+import {
+    createDocsObject,
+    showActionNotification,
+    StoryCategories,
+} from '../story-helpers';
+// @ts-ignore
+// eslint-disable-next-line
+import markdown from './01-File-Browser-demo.md';
 import ChonkySourceCodeFsMap from './chonky_source.fs_map.json';
 
-export const Demo: React.FC = () => {
+const category = StoryCategories.Demos;
+const title = 'File Browser demo';
+
+// eslint-disable-next-line import/no-default-export
+export default {
+    title: `${category}|${title}`,
+    parameters: {
+        docs: createDocsObject({ markdown }),
+    },
+};
+
+export const FileBrowserDemo: React.FC = () => {
     const [currentFolderId, setCurrentFolderId] = useState(rootDemoFolder.id);
 
     const files = useFiles(currentFolderId);

@@ -21,6 +21,14 @@ import LiveExampleMd from './Live-examples.md';
 // @ts-ignore
 import UnstableWarningMd from './Unstable-warning.md';
 
+export enum StoryCategories {
+    Welcome = '1) Welcome',
+    Demos = '2) Demos',
+    FileBrowserBasics = '3) File Browser basics',
+    FileBrowserExamples = '4) File Browser examples',
+    ApiReference = '5) API Reference',
+}
+
 export const createDocsObject = (params: { markdown: string }) => {
     const { markdown } = params;
 

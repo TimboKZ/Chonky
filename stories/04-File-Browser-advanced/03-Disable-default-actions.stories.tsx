@@ -11,14 +11,21 @@ import {
 } from 'chonky';
 import React from 'react';
 
-import { createDocsObject, showActionNotification } from '../story-helpers';
+import {
+    createDocsObject,
+    showActionNotification,
+    StoryCategories
+} from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './03-Disable-default-actions.md';
 
+const category = StoryCategories.FileBrowserExamples;
+const title = 'Disabling default file actions';
+
 // eslint-disable-next-line import/no-default-export
 export default {
-    title: '2 File Browser examples|Disabling default file actions',
+    title: `${category}|${title}`,
     parameters: {
         docs: createDocsObject({ markdown }),
     },
