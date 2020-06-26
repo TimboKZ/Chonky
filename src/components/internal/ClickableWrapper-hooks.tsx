@@ -78,6 +78,7 @@ export const useKeyDownHandler = (onKeyboardClick?: KeyboardClickEventHandler) =
 
             if (keyboardClickEvent.spaceKey || keyboardClickEvent.enterKey) {
                 event.preventDefault();
+                event.stopPropagation();
                 onKeyboardClick(keyboardClickEvent);
             }
         },

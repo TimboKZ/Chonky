@@ -178,9 +178,14 @@
         }
 
         &-item {
+            @include default-transition(opacity);
             padding: $base-padding;
             color: $fg-base;
-            opacity: 0.35;
+            opacity: 0.2;
+        }
+
+        @at-root .chonky-file-entry:hover .chonky-file-details-item {
+            opacity: 0.75;
         }
     }
 
@@ -237,5 +242,9 @@
 
         @include default-transition(opacity);
         opacity: 0.5;
+
+        @at-root .chonky-file-entry:hover .chonky-file-background {
+            opacity: 0.6;
+        }
     }
 }

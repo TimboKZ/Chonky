@@ -8,6 +8,7 @@ import {
 } from '../recoil/file-actions.recoil';
 import { filesState, parentFolderState } from '../recoil/files.recoil';
 import { searchBarVisibleState } from '../recoil/search.recoil';
+import { selectedFilesState } from '../recoil/selection.recoil';
 import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
 import { FileArray } from '../types/files.types';
 import { FileSelection, SelectionModifiers } from '../types/selection.types';
@@ -85,6 +86,7 @@ export const useSpecialFileActionHandlerMap = (
     const _recoilFiles = useRecoilValue(filesState);
     const filesRef = useInstanceVariable(_recoilFiles);
     const parentFolderRef = useInstanceVariable(useRecoilValue(parentFolderState));
+    const selectedFilesRef = useInstanceVariable(useRecoilValue(selectedFilesState));
     const dispatchFileActionRef = useInstanceVariable(
         useRecoilValue(dispatchFileActionState)
     );
@@ -161,11 +163,18 @@ export const useSpecialFileActionHandlerMap = (
             ) => {
                 lastClickDisplayIndexRef.current = data.fileDisplayIndex;
                 if (data.enterKey) {
-                    requestFileActionRef.current(ChonkyActions.OpenFiles.id);
+                    // We only dispatch the Open Files action here when the selection is
+                    // empty. Otherwise, `Enter` key presses are handled by the
+                    // hotkey manager for the Open Files action.
+                    if (selectedFilesRef.current.length === 0) {
+                        dispatchFileActionRef.current({
+                            actionId: ChonkyActions.OpenFiles.id,
+                            target: data.file,
+                            files: [data.file],
+                        });
+                    }
                 } else if (data.spaceKey && FileHelper.isSelectable(data.file)) {
                     selectionModifiers.toggleSelection(data.file.id, data.ctrlKey);
-
-                    // TODO: Handle range selections.
                 }
             },
             [SpecialAction.OpenParentFolder]: () => {
@@ -237,7 +246,9 @@ export const useSpecialFileActionHandlerMap = (
     }, [
         selectionUtil,
         selectionModifiers,
+        filesRef,
         parentFolderRef,
+        selectedFilesRef,
         dispatchFileActionRef,
         requestFileActionRef,
         setSearchBarVisible,

@@ -19,7 +19,7 @@ const getIconTrie = memoize(() => {
     const IconsToExtensions = [
         // Generic file types
         [ChonkyIconName.license, ['license']],
-        [ChonkyIconName.config, ['sfk', 'ini', 'yaml', 'toml', 'iml']],
+        [ChonkyIconName.config, ['sfk', 'ini', 'yml', 'toml', 'iml']],
         [ChonkyIconName.model, ['3ds', 'obj', 'ply', 'fbx']],
         [
             ChonkyIconName.database,

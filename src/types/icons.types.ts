@@ -13,6 +13,8 @@ export enum ChonkyIconName {
     openParentFolder = 'openParentFolder',
     copy = 'copy',
     search = 'search',
+    selectAllFiles = 'selectAllFiles',
+    clearSelection = 'clearSelection',
 
     // File Actions: Unsorted
     checkActive = 'checkActive',

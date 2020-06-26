@@ -17,7 +17,7 @@ export interface FileData {
     droppable?: boolean; // Can have files dropped into it, default: true
 
     size?: number; // File size in bytes
-    modDate?: Date; // Last change date
+    modDate?: Date | string; // Last change date (or its string representation)
     childrenCount?: number; // Number of files inside of a folder (only for folders)
 
     thumbnailUrl?: string; // Automatically load thumbnail from here

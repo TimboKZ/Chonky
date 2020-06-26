@@ -14,10 +14,9 @@ export const ChonkyActions = {
 
     // Most important action of all - opening files!
     OpenFiles: {
-        // We don't specify the 'enter' hotkey here because it is handled inside
-        // `<ClickableFileEntry>` component.
         id: 'open_files',
         requiresSelection: true,
+        hotkeys: ['enter'],
         fileFilter: FileHelper.isOpenable,
         toolbarButton: {
             name: 'Open selection',
@@ -58,7 +57,7 @@ export const ChonkyActions = {
         toolbarButton: {
             name: 'Select all files',
             group: 'Actions',
-            icon: ChonkyIconName.openParentFolder,
+            icon: ChonkyIconName.selectAllFiles,
             iconOnly: true,
         },
 
@@ -70,7 +69,7 @@ export const ChonkyActions = {
         toolbarButton: {
             name: 'Clear selection',
             group: 'Actions',
-            icon: ChonkyIconName.openParentFolder,
+            icon: ChonkyIconName.clearSelection,
             iconOnly: true,
         },
 

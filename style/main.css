@@ -591,10 +591,18 @@ button.chonky-folder-chain-entry:active {
   bottom: 0;
 }
 .chonky-file-details-item {
+  -webkit-transition: opacity 100ms ease-in-out;
+  -moz-transition: opacity 100ms ease-in-out;
+  -o-transition: opacity 100ms ease-in-out;
+  transition: opacity 100ms ease-in-out;
   padding: 5px;
   color: #000;
-  opacity: 0.35;
+  opacity: 0.2;
 }
+.chonky-file-entry:hover .chonky-file-details-item {
+  opacity: 0.75;
+}
+
 .chonky-file-icon {
   z-index: 40;
 }
@@ -647,6 +655,9 @@ button.chonky-folder-chain-entry:active {
   -o-transition: opacity 100ms ease-in-out;
   transition: opacity 100ms ease-in-out;
   opacity: 0.5;
+}
+.chonky-file-entry:hover .chonky-file-background {
+  opacity: 0.6;
 }
 
 /*# sourceMappingURL=main.css.map */

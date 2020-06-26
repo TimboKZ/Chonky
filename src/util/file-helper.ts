@@ -61,9 +61,22 @@ export class FileHelper {
     }
 
     public static getReadableDate(file: Nullable<FileData>): Nullable<string> {
-        if (!file || !(file.modDate instanceof Date)) return null;
+        if (
+            !file ||
+            !(file.modDate instanceof Date || typeof file.modDate === 'string')
+        ) {
+            return null;
+        }
 
-        const date = file.modDate;
+        // Convert string date into a date object
+        let date = file.modDate;
+        if (typeof date === 'string') {
+            date = new Date(date);
+        }
+
+        // Confirm that we have a valid date
+        if (isNaN(date.getTime())) return null;
+
         const currentYear = date.getFullYear() === new Date().getFullYear();
         if (currentYear) return dateFormat(date, 'd mmmm, HH:MM');
         return dateFormat(date, 'd mmm yyyy, HH:MM');

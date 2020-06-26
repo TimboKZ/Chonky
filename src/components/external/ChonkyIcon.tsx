@@ -21,6 +21,7 @@ import { faCopy } from '@fortawesome/free-solid-svg-icons/faCopy';
 import { faCubes } from '@fortawesome/free-solid-svg-icons/faCubes';
 import { faDatabase } from '@fortawesome/free-solid-svg-icons/faDatabase';
 import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload';
+import { faEraser } from '@fortawesome/free-solid-svg-icons/faEraser';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons/faExclamationTriangle';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons/faExternalLinkAlt';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash';
@@ -43,6 +44,7 @@ import { faLevelUpAlt } from '@fortawesome/free-solid-svg-icons/faLevelUpAlt';
 import { faList } from '@fortawesome/free-solid-svg-icons/faList';
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 import { faMusic } from '@fortawesome/free-solid-svg-icons/faMusic';
+import { faObjectGroup } from '@fortawesome/free-solid-svg-icons/faObjectGroup';
 import { faRunning } from '@fortawesome/free-solid-svg-icons/faRunning';
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons/faTerminal';
@@ -72,6 +74,8 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     [ChonkyIconName.openParentFolder]: faLevelUpAlt,
     [ChonkyIconName.copy]: faCopy,
     [ChonkyIconName.search]: faSearch,
+    [ChonkyIconName.selectAllFiles]: faObjectGroup,
+    [ChonkyIconName.clearSelection]: faEraser,
 
     // File Actions: Unsorted
     [ChonkyIconName.checkActive]: faCheckCircle,

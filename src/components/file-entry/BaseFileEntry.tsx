@@ -72,10 +72,10 @@ export const BaseFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
                     <div className="chonky-file-details">
                         <div className="chonky-file-details-inside">
                             <div className="chonky-file-details-item">
-                                {FileHelper.getReadableFileSize(file)}
+                                {FileHelper.getReadableDate(file)}
                             </div>
                             <div className="chonky-file-details-item">
-                                {FileHelper.getReadableDate(file)}
+                                {FileHelper.getReadableFileSize(file)}
                             </div>
                         </div>
                     </div>
@@ -102,7 +102,10 @@ export const BaseFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
                 </div>
 
                 <div className="chonky-file-entry-description">
-                    <div className="chonky-file-entry-description-title">
+                    <div
+                        className="chonky-file-entry-description-title"
+                        title={file ? file.name : undefined}
+                    >
                         {modifierIconComponents.length > 0 && (
                             <span className="chonky-file-entry-description-title-modifiers">
                                 {modifierIconComponents}
