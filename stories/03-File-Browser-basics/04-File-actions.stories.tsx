@@ -17,7 +17,7 @@ import {
 } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
-import markdown from './04-Actions.md';
+import markdown from './04-File-actions.md';
 
 const category = StoryCategories.FileBrowserBasics;
 const title = 'Using file actions';
@@ -47,10 +47,11 @@ export const ActionsExample = () => {
     ];
 
     const fileActions = [
-        ChonkyActions.CreateFolder,
-        ChonkyActions.UploadFiles,
-        ChonkyActions.DownloadFiles,
-        ChonkyActions.CopyFiles,
+        ChonkyActions.CreateFolder, // Adds a button to the toolbar
+        ChonkyActions.UploadFiles, // Adds a button
+        ChonkyActions.DownloadFiles, // Adds a button
+        ChonkyActions.CopyFiles, // Adds a button and a shortcut: Ctrl+C
+        ChonkyActions.DeleteFiles, // Adds a button and a shortcut: Delete
     ];
 
     return (

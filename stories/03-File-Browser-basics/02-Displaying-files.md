@@ -19,7 +19,7 @@ const FilesExample = () => {
 ```
 
 This array describes the files that Chonky should show to the user. It can contain
-file descriptions (as plain JavaScript objects) or `null` values. `null` values
+file descriptions (as plain JavaScript objects) and `null` values. `null` values
 indicate "loading" files - a loading placeholder animation will be shown in their place.
 
 ## The `FileData` type
@@ -36,7 +36,7 @@ The `FileData` type is shown below. It might look intimidating, but please note 
 are there to give you more control over how Chonky displays your files.
 
 ```ts
-interface FileData {
+export interface FileData {
     id: string; // (Required) String that uniquely identifies the file
 
     name: string; // (Required) Full name, e.g. `MyImage.jpg`
@@ -51,10 +51,8 @@ interface FileData {
     droppable?: boolean; // Can have files dropped into it, default: true
 
     size?: number; // File size in bytes
-    modDate?: Date; // Last change date
-
-    parentId?: string; // ID of the parent folder
-    childrenIds?: string[]; // An array of IDs of children (only for folders)
+    modDate?: Date | string; // Last change date (or its string representation)
+    childrenCount?: number; // Number of files inside of a folder (only for folders)
 
     thumbnailUrl?: string; // Automatically load thumbnail from here
 

@@ -2,10 +2,7 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Nullable } from 'tsdef';
 
-import {
-    dispatchFileActionState,
-    requestFileActionState,
-} from '../recoil/file-actions.recoil';
+import { dispatchFileActionState } from '../recoil/file-actions.recoil';
 import { filesState, parentFolderState } from '../recoil/files.recoil';
 import { searchBarVisibleState } from '../recoil/search.recoil';
 import { selectedFilesState } from '../recoil/selection.recoil';
@@ -89,9 +86,6 @@ export const useSpecialFileActionHandlerMap = (
     const selectedFilesRef = useInstanceVariable(useRecoilValue(selectedFilesState));
     const dispatchFileActionRef = useInstanceVariable(
         useRecoilValue(dispatchFileActionState)
-    );
-    const requestFileActionRef = useInstanceVariable(
-        useRecoilValue(requestFileActionState)
     );
     const setSearchBarVisible = useSetRecoilState(searchBarVisibleState);
 
@@ -250,7 +244,6 @@ export const useSpecialFileActionHandlerMap = (
         parentFolderRef,
         selectedFilesRef,
         dispatchFileActionRef,
-        requestFileActionRef,
         setSearchBarVisible,
     ]);
     return specialActionHandlerMap;

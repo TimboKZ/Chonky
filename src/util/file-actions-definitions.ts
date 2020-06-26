@@ -115,6 +115,18 @@ export const ChonkyActions = {
             icon: ChonkyIconName.download,
         },
     },
+    DeleteFiles: {
+        id: 'delete_files',
+        requiresSelection: true,
+        hotkeys: ['delete'],
+        toolbarButton: {
+            name: 'Delete files',
+            group: 'Actions',
+            tooltip: 'Delete files',
+            dropdown: true,
+            icon: ChonkyIconName.trash,
+        },
+    },
 } as const;
 
 export const DefaultFileActions: FileAction[] = [

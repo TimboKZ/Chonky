@@ -10,7 +10,7 @@ import {
 } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
-import markdown from './07-Drag-n-drop.md';
+import markdown from './08-Drag-n-drop.md';
 
 const category = StoryCategories.FileBrowserBasics;
 const title = 'Enabling drag & drop';

@@ -19,7 +19,7 @@ import {
 } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
-import markdown from './05-Custom-actions.md';
+import markdown from './06-Custom-actions.md';
 
 const category = StoryCategories.FileBrowserBasics;
 const title = 'Custom file actions';

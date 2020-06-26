@@ -1,19 +1,25 @@
-_Passing invalid props_ section shows _how_ to use file actions, but it doesn't
-explain _what_ they are. A file action is a plain JavaScript object that desribes
-what can happen to files.
+This section describes how you can define your own action. After you read the
+documentation on this page, it is strongly recommended that you also study
+[the predefined Chonky file actions](https://github.com/TimboKZ/Chonky/blob/1.x/src/util/file-actions-definitions.ts)
+to understand how they work.
 
-The interface of a file action object is defined as follows:
+The definition of a file action is a plain JavaScript object that satisfies the
+interface below.
 
 ```ts
-interface FileAction {
-    name: string; // Unique action name
+export interface FileAction {
+    id: string; // Unique action ID
     metadata?: any; // Any user-defined value
-    requiresParentFolder?: boolean; // Requires parent folder in folder chain
     requiresSelection?: boolean; // Requires selection of 1+ files
     fileFilter?: FileFilter; // Used to filter the files array
 
-    hotkeys?: string[]; // Hotkeys using `hotkey-js` notation
+    hotkeys?: readonly string[]; // Hotkeys using `hotkey-js` notation
     toolbarButton?: ToolbarButtonData; // Description below
+
+    // Special action that should be dispatched on activation of this action. This
+    // is used by Chonky internally, keep it `undefined` unless you know what you're
+    // doing.
+    specialActionToDispatch?: SpecialAction;
 }
 
 // Where...
@@ -22,7 +28,7 @@ type FileFilter = (file: Nullable<FileData>) => boolean;
 // ...and...
 interface ToolbarButtonData {
     name: string; // Button name
-    group?: string; // Group to add the button too
+    group?: string; // Group to add the button to
     dropdown?: boolean; // Whether to display group as dropdown
     tooltip?: string; // Help tooltip text
     icon?: ChonkyIconName | string; // Icon name
@@ -30,6 +36,17 @@ interface ToolbarButtonData {
 }
 ```
 
+-   All action IDs should be unique.
+-   Enabling `requiresSelection` flag means the action will only be triggered when
+    one or more files are selected. Setting the `fileFilter` will apply the filter to
+    the list of selected files to check if the action can be applied.
+-   The `hotkeys` field should be an array of hotkeys following the
+    [hotkeys-js](https://github.com/TimboKZ/Chonky/blob/1.x/src/util/file-actions-definitions.ts)
+    notation.
+-   `toolbarButton` field determines whether the action should appear in the toolbar,
+    and how the button will look.
+-   To combine several action buttons into a toolbar, specify the same `group` for
+    them and set `dropdown` to true.
 -   If one of the actions in a group includes `dropdown: true`, all actions in that
     group will be shown as a dropdown.
 

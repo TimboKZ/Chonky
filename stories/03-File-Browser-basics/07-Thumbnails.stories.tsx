@@ -18,7 +18,7 @@ import {
 } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
-import markdown from './06-Thumbnails.md';
+import markdown from './07-Thumbnails.md';
 
 const category = StoryCategories.FileBrowserBasics;
 const title = 'File thumbnails';
