@@ -18,9 +18,7 @@ export interface FileData {
 
     size?: number; // File size in bytes
     modDate?: Date; // Last change date
-
-    parentId?: string; // ID of the parent folder
-    childrenIds?: string[]; // An array of IDs of children (only for folders)
+    childrenCount?: number; // Number of files inside of a folder (only for folders)
 
     thumbnailUrl?: string; // Automatically load thumbnail from here
 

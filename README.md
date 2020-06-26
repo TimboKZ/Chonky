@@ -29,6 +29,44 @@ list", use keyboard shortcuts, and much more!
 
 ### [View documentation and examples](https://timbokz.github.io/Chonky/)
 
+## Quick usage
+
+Add Chonky to your project:
+
+```shell
+npm install chonky@beta
+```
+
+Use it in your React app:
+
+```tsx
+import 'chonky/style/main.css';
+import { FileBrowser, FileList, FileSearch, FileToolbar } from 'chonky';
+
+export const ChonkyDemo = () => {
+    const folderChain = [
+        { id: 'xmFe', name: 'My Documents' },
+        { id: 'BtrE', name: 'Websites' },
+    ];
+
+    const files = [
+        { id: '1eBr', name: 'index.html' },
+        { id: 'xmFe', name: 'styles.css' },
+        { id: 'vEgS', name: 'scripts.js' },
+        { id: 'BVwA', name: 'favicon.ico' },
+        { id: 'VsdE', name: 'robots.txt' },
+    ];
+
+    return (
+        <FileBrowser files={files} folderChain={folderChain}>
+            <FileToolbar />
+            <FileSearch />
+            <FileList />
+        </FileBrowser>
+    );
+};
+```
+
 ## Preview
 
 <p align="center">

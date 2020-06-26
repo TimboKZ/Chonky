@@ -31,14 +31,12 @@ export const FilesArrayExample = () => {
         {
             id: 'nTe',
             name: 'Normal file.yaml',
-            isDir: false,
-            isHidden: true,
             size: 890,
+            modDate: new Date('2012-01-01'),
         },
         {
             id: 'zxc',
             name: 'Hidden file.mp4',
-            isDir: false,
             isHidden: true,
             size: 890,
         },
@@ -46,13 +44,14 @@ export const FilesArrayExample = () => {
             id: 'bnm',
             name: 'Normal folder',
             isDir: true,
-            childrenIds: ['random-id-1', 'random-id-2'],
+            childrenCount: 12,
         },
         {
             id: 'vfr',
             name: 'Symlink folder',
             isDir: true,
             isSymlink: true,
+            childrenCount: 0,
         },
         {
             id: 'qwe',

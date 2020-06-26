@@ -89,6 +89,8 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     [ChonkyIconName.upload]: faUpload,
     [ChonkyIconName.trash]: faTrash,
     [ChonkyIconName.fallbackIcon]: faExclamationTriangle,
+
+    // File modifiers
     [ChonkyIconName.symlink]: faExternalLinkAlt,
     [ChonkyIconName.hidden]: faEyeSlash,
 
