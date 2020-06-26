@@ -31,7 +31,7 @@
 
 *Inherited from [SelectionUtil](_util_selection_.selectionutil.md).[constructor](_util_selection_.selectionutil.md#constructor)*
 
-*Defined in [src/util/selection.ts:139](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/selection.ts#L139)*
+*Defined in [src/util/selection.ts:139](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/selection.ts#L139)*
 
 **Parameters:**
 
@@ -50,7 +50,7 @@ Name | Type | Default |
 
 *Inherited from [SelectionUtil](_util_selection_.selectionutil.md).[getSelectedFiles](_util_selection_.selectionutil.md#getselectedfiles)*
 
-*Defined in [src/util/selection.ts:153](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/selection.ts#L153)*
+*Defined in [src/util/selection.ts:153](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/selection.ts#L153)*
 
 **Parameters:**
 
@@ -68,7 +68,7 @@ ___
 
 *Inherited from [SelectionUtil](_util_selection_.selectionutil.md).[getSelection](_util_selection_.selectionutil.md#getselection)*
 
-*Defined in [src/util/selection.ts:150](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/selection.ts#L150)*
+*Defined in [src/util/selection.ts:150](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/selection.ts#L150)*
 
 **Returns:** *Readonly‹[FileSelection](../interfaces/_types_selection_types_.fileselection.md)›*
 
@@ -80,7 +80,7 @@ ___
 
 *Inherited from [SelectionUtil](_util_selection_.selectionutil.md).[getSelectionSize](_util_selection_.selectionutil.md#getselectionsize)*
 
-*Defined in [src/util/selection.ts:158](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/selection.ts#L158)*
+*Defined in [src/util/selection.ts:158](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/selection.ts#L158)*
 
 **Parameters:**
 
@@ -98,7 +98,7 @@ ___
 
 *Inherited from [SelectionUtil](_util_selection_.selectionutil.md).[isSelected](_util_selection_.selectionutil.md#isselected)*
 
-*Defined in [src/util/selection.ts:161](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/selection.ts#L161)*
+*Defined in [src/util/selection.ts:161](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/selection.ts#L161)*
 
 **Parameters:**
 
@@ -116,7 +116,7 @@ ___
 
 *Inherited from [SelectionUtil](_util_selection_.selectionutil.md).[protectedUpdate](_util_selection_.selectionutil.md#protected-protectedupdate)*
 
-*Defined in [src/util/selection.ts:145](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/selection.ts#L145)*
+*Defined in [src/util/selection.ts:145](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/selection.ts#L145)*
 
 **Parameters:**
 
@@ -133,7 +133,7 @@ ___
 
 ▸ **update**(...`args`: Parameters‹SelectionUtil["protectedUpdate"]›): *void*
 
-*Defined in [src/util/selection.ts:167](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/selection.ts#L167)*
+*Defined in [src/util/selection.ts:167](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/selection.ts#L167)*
 
 **Parameters:**
 

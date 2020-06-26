@@ -35,9 +35,16 @@
     // Deal with drag & drop
     const dndIcon = useDndIcon(selected, dndIsDragging, dndIsOver, dndCanDrop);
 
+    // Determine modifier icons
+    const modifierIconComponents = useModifierIconComponents(file);
+
+    // Determine file name
+    const fileNameComponent = useFileNameComponent(file);
+
     // Render the component
     const className = c({
         'chonky-file-entry': true,
+        'chonky-file-entry-directory': FileHelper.isDirectory(file),
         'chonky-file-entry-selected': selected,
         'chonky-file-entry-dragging': dndIsDragging,
         'chonky-file-entry-drop-hovered': dndIsOver && dndCanDrop,
@@ -50,29 +57,53 @@
                         <ChonkyIconFA icon={dndIcon} />
                     </div>
                 )}
+
                 <div className="chonky-file-entry-preview">
+                    <div className="chonky-file-details">
+                        <div className="chonky-file-details-inside">
+                            <div className="chonky-file-details-item">
+                                {FileHelper.getReadableFileSize(file)}
+                            </div>
+                            <div className="chonky-file-details-item">
+                                {FileHelper.getReadableDate(file)}
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="chonky-file-icon">
+                        {FileHelper.isDirectory(file) && (
+                            <div className="chonky-file-icon-children-count">
+                                {FileHelper.getChildrenCount(file)}
+                            </div>
+                        )}
                         <div className="chonky-file-icon-inside">
                             <ChonkyIconFA icon={icon} spin={iconSpin} />
                         </div>
                     </div>
+
                     <div className="chonky-file-selection" />
+
                     <FileThumbnail thumbnailUrl={thumbnailUrl} />
+
                     <div
                         className="chonky-file-background"
                         style={{ backgroundColor }}
                     />
                 </div>
+
                 <div className="chonky-file-entry-description">
-                    {file ? (
-                        file.name
-                    ) : (
-                        <TextPlaceholder minLength={15} maxLength={20} />
-                    )}
+                    <div className="chonky-file-entry-description-title">
+                        {modifierIconComponents.length > 0 && (
+                            <span className="chonky-file-entry-description-title-modifiers">
+                                {modifierIconComponents}
+                            </span>
+                        )}
+                        {fileNameComponent}
+                    </div>
                 </div>
             </div>
         </div>
     );
 })
 
-*Defined in [src/components/file-entry/BaseFileEntry.tsx:24](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/file-entry/BaseFileEntry.tsx#L24)*
+*Defined in [src/components/file-entry/BaseFileEntry.tsx:29](https://github.com/TimboKZ/Chonky/blob/01ce777/src/components/file-entry/BaseFileEntry.tsx#L29)*

@@ -21,7 +21,7 @@
 
 • **actionId**: *[DragNDropEnd](../enums/_types_special_actions_types_.specialaction.md#dragndropend)*
 
-*Defined in [src/types/special-actions.types.ts:53](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/special-actions.types.ts#L53)*
+*Defined in [src/types/special-actions.types.ts:53](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/special-actions.types.ts#L53)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **dragSource**: *[FileData](_types_files_types_.filedata.md)*
 
-*Defined in [src/types/special-actions.types.ts:54](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/special-actions.types.ts#L54)*
+*Defined in [src/types/special-actions.types.ts:54](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/special-actions.types.ts#L54)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **dropEffect**: *"move" | "copy"*
 
-*Defined in [src/types/special-actions.types.ts:56](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/special-actions.types.ts#L56)*
+*Defined in [src/types/special-actions.types.ts:56](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/special-actions.types.ts#L56)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **dropTarget**: *[FileData](_types_files_types_.filedata.md)*
 
-*Defined in [src/types/special-actions.types.ts:55](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/special-actions.types.ts#L55)*
+*Defined in [src/types/special-actions.types.ts:55](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/special-actions.types.ts#L55)*

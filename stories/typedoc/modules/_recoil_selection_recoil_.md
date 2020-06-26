@@ -26,7 +26,7 @@
     },
 })
 
-*Defined in [src/recoil/selection.recoil.ts:53](https://github.com/TimboKZ/Chonky/blob/4792a84/src/recoil/selection.recoil.ts#L53)*
+*Defined in [src/recoil/selection.recoil.ts:53](https://github.com/TimboKZ/Chonky/blob/01ce777/src/recoil/selection.recoil.ts#L53)*
 
 #### Type declaration:
 
@@ -52,7 +52,7 @@ ___
     },
 })
 
-*Defined in [src/recoil/selection.recoil.ts:27](https://github.com/TimboKZ/Chonky/blob/4792a84/src/recoil/selection.recoil.ts#L27)*
+*Defined in [src/recoil/selection.recoil.ts:27](https://github.com/TimboKZ/Chonky/blob/01ce777/src/recoil/selection.recoil.ts#L27)*
 
 ___
 
@@ -67,7 +67,7 @@ ___
     },
 })
 
-*Defined in [src/recoil/selection.recoil.ts:16](https://github.com/TimboKZ/Chonky/blob/4792a84/src/recoil/selection.recoil.ts#L16)*
+*Defined in [src/recoil/selection.recoil.ts:16](https://github.com/TimboKZ/Chonky/blob/01ce777/src/recoil/selection.recoil.ts#L16)*
 
 ___
 
@@ -89,7 +89,7 @@ ___
     },
 })
 
-*Defined in [src/recoil/selection.recoil.ts:37](https://github.com/TimboKZ/Chonky/blob/4792a84/src/recoil/selection.recoil.ts#L37)*
+*Defined in [src/recoil/selection.recoil.ts:37](https://github.com/TimboKZ/Chonky/blob/01ce777/src/recoil/selection.recoil.ts#L37)*
 
 ___
 
@@ -100,4 +100,4 @@ ___
     default: {},
 })
 
-*Defined in [src/recoil/selection.recoil.ts:11](https://github.com/TimboKZ/Chonky/blob/4792a84/src/recoil/selection.recoil.ts#L11)*
+*Defined in [src/recoil/selection.recoil.ts:11](https://github.com/TimboKZ/Chonky/blob/01ce777/src/recoil/selection.recoil.ts#L11)*

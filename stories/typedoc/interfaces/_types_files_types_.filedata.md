@@ -14,7 +14,7 @@
 
 ### Properties
 
-* [childrenIds](_types_files_types_.filedata.md#optional-childrenids)
+* [childrenCount](_types_files_types_.filedata.md#optional-childrencount)
 * [draggable](_types_files_types_.filedata.md#optional-draggable)
 * [droppable](_types_files_types_.filedata.md#optional-droppable)
 * [ext](_types_files_types_.filedata.md#optional-ext)
@@ -25,18 +25,17 @@
 * [modDate](_types_files_types_.filedata.md#optional-moddate)
 * [name](_types_files_types_.filedata.md#name)
 * [openable](_types_files_types_.filedata.md#optional-openable)
-* [parentId](_types_files_types_.filedata.md#optional-parentid)
 * [selectable](_types_files_types_.filedata.md#optional-selectable)
 * [size](_types_files_types_.filedata.md#optional-size)
 * [thumbnailUrl](_types_files_types_.filedata.md#optional-thumbnailurl)
 
 ## Properties
 
-### `Optional` childrenIds
+### `Optional` childrenCount
 
-• **childrenIds**? : *string[]*
+• **childrenCount**? : *undefined | number*
 
-*Defined in [src/types/files.types.ts:23](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L23)*
+*Defined in [src/types/files.types.ts:21](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L21)*
 
 ___
 
@@ -44,7 +43,7 @@ ___
 
 • **draggable**? : *undefined | false | true*
 
-*Defined in [src/types/files.types.ts:16](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L16)*
+*Defined in [src/types/files.types.ts:16](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L16)*
 
 ___
 
@@ -52,7 +51,7 @@ ___
 
 • **droppable**? : *undefined | false | true*
 
-*Defined in [src/types/files.types.ts:17](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L17)*
+*Defined in [src/types/files.types.ts:17](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L17)*
 
 ___
 
@@ -60,7 +59,7 @@ ___
 
 • **ext**? : *undefined | string*
 
-*Defined in [src/types/files.types.ts:9](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L9)*
+*Defined in [src/types/files.types.ts:9](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L9)*
 
 ___
 
@@ -68,7 +67,7 @@ ___
 
 • **id**: *string*
 
-*Defined in [src/types/files.types.ts:6](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L6)*
+*Defined in [src/types/files.types.ts:6](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L6)*
 
 ___
 
@@ -76,7 +75,7 @@ ___
 
 • **isDir**? : *undefined | false | true*
 
-*Defined in [src/types/files.types.ts:11](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L11)*
+*Defined in [src/types/files.types.ts:11](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L11)*
 
 ___
 
@@ -84,7 +83,7 @@ ___
 
 • **isHidden**? : *undefined | false | true*
 
-*Defined in [src/types/files.types.ts:12](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L12)*
+*Defined in [src/types/files.types.ts:12](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L12)*
 
 ___
 
@@ -92,7 +91,7 @@ ___
 
 • **isSymlink**? : *undefined | false | true*
 
-*Defined in [src/types/files.types.ts:13](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L13)*
+*Defined in [src/types/files.types.ts:13](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L13)*
 
 ___
 
@@ -100,7 +99,7 @@ ___
 
 • **modDate**? : *Date*
 
-*Defined in [src/types/files.types.ts:20](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L20)*
+*Defined in [src/types/files.types.ts:20](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L20)*
 
 ___
 
@@ -108,7 +107,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [src/types/files.types.ts:8](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L8)*
+*Defined in [src/types/files.types.ts:8](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L8)*
 
 ___
 
@@ -116,15 +115,7 @@ ___
 
 • **openable**? : *undefined | false | true*
 
-*Defined in [src/types/files.types.ts:14](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L14)*
-
-___
-
-### `Optional` parentId
-
-• **parentId**? : *undefined | string*
-
-*Defined in [src/types/files.types.ts:22](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L22)*
+*Defined in [src/types/files.types.ts:14](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L14)*
 
 ___
 
@@ -132,7 +123,7 @@ ___
 
 • **selectable**? : *undefined | false | true*
 
-*Defined in [src/types/files.types.ts:15](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L15)*
+*Defined in [src/types/files.types.ts:15](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L15)*
 
 ___
 
@@ -140,7 +131,7 @@ ___
 
 • **size**? : *undefined | number*
 
-*Defined in [src/types/files.types.ts:19](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L19)*
+*Defined in [src/types/files.types.ts:19](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L19)*
 
 ___
 
@@ -148,4 +139,4 @@ ___
 
 • **thumbnailUrl**? : *undefined | string*
 
-*Defined in [src/types/files.types.ts:25](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/files.types.ts#L25)*
+*Defined in [src/types/files.types.ts:23](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/files.types.ts#L23)*

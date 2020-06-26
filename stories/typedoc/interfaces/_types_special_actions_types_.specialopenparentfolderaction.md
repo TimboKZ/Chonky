@@ -18,4 +18,4 @@
 
 • **actionId**: *[OpenParentFolder](../enums/_types_special_actions_types_.specialaction.md#openparentfolder)*
 
-*Defined in [src/types/special-actions.types.ts:35](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/special-actions.types.ts#L35)*
+*Defined in [src/types/special-actions.types.ts:35](https://github.com/TimboKZ/Chonky/blob/01ce777/src/types/special-actions.types.ts#L35)*

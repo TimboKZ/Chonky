@@ -100,7 +100,7 @@
     },
 } as const
 
-*Defined in [src/util/file-actions-definitions.ts:6](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/file-actions-definitions.ts#L6)*
+*Defined in [src/util/file-actions-definitions.ts:6](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/file-actions-definitions.ts#L6)*
 
 #### Type declaration:
 
@@ -237,4 +237,4 @@ ___
     ChonkyActions.ToggleSearch,
 ]
 
-*Defined in [src/util/file-actions-definitions.ts:93](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/file-actions-definitions.ts#L93)*
+*Defined in [src/util/file-actions-definitions.ts:93](https://github.com/TimboKZ/Chonky/blob/01ce777/src/util/file-actions-definitions.ts#L93)*
