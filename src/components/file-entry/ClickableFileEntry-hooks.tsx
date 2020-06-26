@@ -10,7 +10,10 @@ import {
 } from '../../types/special-actions.types';
 import { KeyboardClickEvent, MouseClickEvent } from '../internal/ClickableWrapper';
 
-export const useFileClickHandlers = (file: Nullable<FileData>) => {
+export const useFileClickHandlers = (
+    file: Nullable<FileData>,
+    displayIndex: number
+) => {
     const dispatchSpecialAction = useRecoilValue(dispatchSpecialActionState);
 
     // Prepare base handlers
@@ -25,12 +28,13 @@ export const useFileClickHandlers = (file: Nullable<FileData>) => {
                 actionId: SpecialAction.MouseClickFile,
                 clickType,
                 file,
+                fileDisplayIndex: displayIndex,
                 altKey: event.altKey,
                 ctrlKey: event.ctrlKey,
                 shiftKey: event.shiftKey,
             });
         },
-        [file, dispatchSpecialAction]
+        [file, displayIndex, dispatchSpecialAction]
     );
     const onKeyboardClick = useCallback(
         (event: KeyboardClickEvent) => {
@@ -39,6 +43,7 @@ export const useFileClickHandlers = (file: Nullable<FileData>) => {
             dispatchSpecialAction({
                 actionId: SpecialAction.KeyboardClickFile,
                 file,
+                fileDisplayIndex: displayIndex,
                 enterKey: event.enterKey,
                 spaceKey: event.spaceKey,
                 altKey: event.altKey,
@@ -46,7 +51,7 @@ export const useFileClickHandlers = (file: Nullable<FileData>) => {
                 shiftKey: event.shiftKey,
             });
         },
-        [file, dispatchSpecialAction]
+        [file, displayIndex, dispatchSpecialAction]
     );
 
     // Prepare single/double click handlers

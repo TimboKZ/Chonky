@@ -1,7 +1,5 @@
 <div class="unstable-warning">
 
-> **Stop right there!**
->
 > You are reading the documentation for the beta 1.x version of Chonky. The API
 > described here can change - it will not be frozen until the official 1.x release.
 >

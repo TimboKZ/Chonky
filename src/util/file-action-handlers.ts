@@ -120,6 +120,8 @@ export const useInternalFileActionRequester = () => {
                 switch (specialActionId) {
                     case SpecialAction.OpenParentFolder:
                     case SpecialAction.ToggleSearchBar:
+                    case SpecialAction.SelectAllFiles:
+                    case SpecialAction.ClearSelection:
                         dispatchSpecialActionRef.current({
                             actionId: specialActionId,
                         });

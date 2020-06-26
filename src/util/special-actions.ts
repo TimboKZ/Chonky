@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Nullable } from 'tsdef';
 
 import {
     dispatchFileActionState,
     requestFileActionState,
 } from '../recoil/file-actions.recoil';
-import { parentFolderState } from '../recoil/files.recoil';
+import { filesState, parentFolderState } from '../recoil/files.recoil';
 import { searchBarVisibleState } from '../recoil/search.recoil';
 import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
 import { FileArray } from '../types/files.types';
@@ -80,6 +81,9 @@ export const useSpecialFileActionHandlerMap = (
     selectionUtil: SelectionUtil,
     selectionModifiers: SelectionModifiers
 ) => {
+    // Instance variables based on Recoil state
+    const _recoilFiles = useRecoilValue(filesState);
+    const filesRef = useInstanceVariable(_recoilFiles);
     const parentFolderRef = useInstanceVariable(useRecoilValue(parentFolderState));
     const dispatchFileActionRef = useInstanceVariable(
         useRecoilValue(dispatchFileActionState)
@@ -89,32 +93,73 @@ export const useSpecialFileActionHandlerMap = (
     );
     const setSearchBarVisible = useSetRecoilState(searchBarVisibleState);
 
+    // Internal instance variables used by special actions
+    const lastClickDisplayIndexRef = useRef<Nullable<number>>(null);
+    useEffect(() => {
+        // We zero out the last click whenever files update
+        lastClickDisplayIndexRef.current = null;
+    }, [_recoilFiles]);
+
     // Define handlers in a map
     const specialActionHandlerMap = useMemo<SpecialActionHandlerMap>(() => {
         return {
             [SpecialAction.MouseClickFile]: (data: SpecialFileMouseClickAction) => {
-                if (data.clickType === 'double' && FileHelper.isOpenable(data.file)) {
-                    dispatchFileActionRef.current({
-                        actionId: ChonkyActions.OpenFiles.id,
-                        target: data.file,
+                if (data.clickType === 'double') {
+                    if (FileHelper.isOpenable(data.file)) {
+                        dispatchFileActionRef.current({
+                            actionId: ChonkyActions.OpenFiles.id,
+                            target: data.file,
 
-                        // To simulate Windows Explorer and Nautilus behaviour,
-                        // a double click on a file only opens that file even if
-                        // there is a selection.
-                        files: [data.file],
-                    });
+                            // To simulate Windows Explorer and Nautilus behaviour,
+                            // a double click on a file only opens that file even if
+                            // there is a selection.
+                            files: [data.file],
+                        });
+                    }
                 } else {
+                    // We're dealing with a single click
                     if (FileHelper.isSelectable(data.file)) {
-                        selectionModifiers.toggleSelection(data.file.id, !data.ctrlKey);
-                        // TODO: Handle range selections.
+                        if (data.ctrlKey) {
+                            // Multiple selection
+                            selectionModifiers.toggleSelection(data.file.id, false);
+                            lastClickDisplayIndexRef.current = data.fileDisplayIndex;
+                        } else if (data.shiftKey) {
+                            // Range selection
+                            if (typeof lastClickDisplayIndexRef.current === 'number') {
+                                // We have the index of the previous click
+                                let rangeStart = lastClickDisplayIndexRef.current;
+                                let rangeEnd = data.fileDisplayIndex;
+                                if (rangeStart > rangeEnd) {
+                                    [rangeStart, rangeEnd] = [rangeEnd, rangeStart];
+                                }
+
+                                const fileIds = filesRef.current
+                                    .slice(rangeStart, rangeEnd + 1)
+                                    .filter((file) => FileHelper.isSelectable(file))
+                                    .map((file) => file!.id);
+                                selectionModifiers.selectFiles(fileIds, true);
+                            } else {
+                                // Since we can't do a range selection, do a
+                                // multiple selection
+                                selectionModifiers.toggleSelection(data.file.id, false);
+                                lastClickDisplayIndexRef.current =
+                                    data.fileDisplayIndex;
+                            }
+                        } else {
+                            // Exclusive selection
+                            selectionModifiers.toggleSelection(data.file.id, true);
+                            lastClickDisplayIndexRef.current = data.fileDisplayIndex;
+                        }
                     } else {
                         if (!data.ctrlKey) selectionModifiers.clearSelection();
+                        lastClickDisplayIndexRef.current = data.fileDisplayIndex;
                     }
                 }
             },
             [SpecialAction.KeyboardClickFile]: (
                 data: SpecialFileKeyboardClickAction
             ) => {
+                lastClickDisplayIndexRef.current = data.fileDisplayIndex;
                 if (data.enterKey) {
                     requestFileActionRef.current(ChonkyActions.OpenFiles.id);
                 } else if (data.spaceKey && FileHelper.isSelectable(data.file)) {
@@ -149,6 +194,15 @@ export const useSpecialFileActionHandlerMap = (
             },
             [SpecialAction.ToggleSearchBar]: () => {
                 setSearchBarVisible((visible: any) => !visible);
+            },
+            [SpecialAction.SelectAllFiles]: () => {
+                const fileIds = filesRef.current
+                    .filter((file) => FileHelper.isSelectable(file))
+                    .map((file) => file!.id);
+                selectionModifiers.selectFiles(fileIds, true);
+            },
+            [SpecialAction.ClearSelection]: () => {
+                selectionModifiers.clearSelection();
             },
             [SpecialAction.DragNDropStart]: (data: SpecialDragNDropStartAction) => {
                 const file = data.dragSource;

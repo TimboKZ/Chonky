@@ -12,18 +12,7 @@ export const ChonkyActions = {
         id: 'duplicate_files_to',
     },
 
-    OpenParentFolder: {
-        id: 'open_parent_folder',
-        hotkeys: ['backspace'],
-        toolbarButton: {
-            name: 'Go up a directory',
-            tooltip: 'Go up a directory',
-            icon: ChonkyIconName.openParentFolder,
-            iconOnly: true,
-        },
-
-        specialActionToDispatch: SpecialAction.OpenParentFolder,
-    },
+    // Most important action of all - opening files!
     OpenFiles: {
         // We don't specify the 'enter' hotkey here because it is handled inside
         // `<ClickableFileEntry>` component.
@@ -37,6 +26,19 @@ export const ChonkyActions = {
             icon: ChonkyIconName.openFiles,
         },
     },
+
+    // Toolbar related action
+    OpenParentFolder: {
+        id: 'open_parent_folder',
+        hotkeys: ['backspace'],
+        toolbarButton: {
+            name: 'Go up a directory',
+            icon: ChonkyIconName.openParentFolder,
+            iconOnly: true,
+        },
+
+        specialActionToDispatch: SpecialAction.OpenParentFolder,
+    },
     ToggleSearch: {
         id: 'toggle_search',
         hotkeys: ['ctrl+f'],
@@ -49,6 +51,33 @@ export const ChonkyActions = {
         specialActionToDispatch: SpecialAction.ToggleSearchBar,
     },
 
+    // Actions related to selection
+    SelectAllFiles: {
+        id: 'select_all_files',
+        hotkeys: ['ctrl+a'],
+        toolbarButton: {
+            name: 'Select all files',
+            group: 'Actions',
+            icon: ChonkyIconName.openParentFolder,
+            iconOnly: true,
+        },
+
+        specialActionToDispatch: SpecialAction.SelectAllFiles,
+    },
+    ClearSelection: {
+        id: 'clear_selection',
+        hotkeys: ['escape'],
+        toolbarButton: {
+            name: 'Clear selection',
+            group: 'Actions',
+            icon: ChonkyIconName.openParentFolder,
+            iconOnly: true,
+        },
+
+        specialActionToDispatch: SpecialAction.ClearSelection,
+    },
+
+    // Optional actions
     CopyFiles: {
         id: 'copy_files',
         requiresSelection: true,
@@ -60,7 +89,6 @@ export const ChonkyActions = {
             icon: ChonkyIconName.copy,
         },
     },
-
     CreateFolder: {
         id: 'create_folder',
         toolbarButton: {
@@ -95,6 +123,9 @@ export const DefaultFileActions: FileAction[] = [
     ChonkyActions.DuplicateFilesTo,
 
     ChonkyActions.OpenParentFolder,
-    ChonkyActions.OpenFiles,
     ChonkyActions.ToggleSearch,
+
+    ChonkyActions.OpenFiles,
+    ChonkyActions.SelectAllFiles,
+    ChonkyActions.ClearSelection,
 ];

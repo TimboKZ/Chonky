@@ -1,6 +1,6 @@
-import { Nullable } from 'tsdef';
-import filesize from 'filesize';
 import dateFormat from 'dateformat';
+import filesize from 'filesize';
+import { Nullable } from 'tsdef';
 
 import { FileData } from '../types/files.types';
 

@@ -6,9 +6,9 @@ import { BaseFileEntry, FileEntryProps } from './BaseFileEntry';
 import { useFileClickHandlers } from './ClickableFileEntry-hooks';
 
 export const ClickableFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
-    const { file } = props;
+    const { file, displayIndex } = props;
 
-    const fileClickHandlers = useFileClickHandlers(file);
+    const fileClickHandlers = useFileClickHandlers(file, displayIndex);
 
     const wrapperProps: ClickableWrapperProps = {
         wrapperTag: 'div',

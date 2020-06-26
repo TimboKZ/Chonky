@@ -86,4 +86,4 @@ Apart from the above, there are a few other details you should know about:
 
 The _Live Example_ below tries to show case all different file configurations. Try
 performing different actions (selections, drag & drop) and see how each file reacts.
-Click on `View Code` at the bottom to see the file array definition.
+Click on `Show code` at the bottom to see the file array definition.

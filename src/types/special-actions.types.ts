@@ -8,6 +8,9 @@ export enum SpecialAction {
     OpenFolderChainFolder = 'open_folder_chain_folder',
     ToggleSearchBar = 'toggle_search_bar',
 
+    SelectAllFiles = 'select_all_files',
+    ClearSelection = 'clear_selection',
+
     DragNDropStart = 'drag_n_drop_start',
     DragNDropEnd = 'drag_n_drop_end',
 }
@@ -15,6 +18,7 @@ export enum SpecialAction {
 export interface SpecialFileMouseClickAction {
     actionId: SpecialAction.MouseClickFile;
     file: FileData;
+    fileDisplayIndex: number;
     altKey: boolean;
     ctrlKey: boolean;
     shiftKey: boolean;
@@ -24,6 +28,7 @@ export interface SpecialFileMouseClickAction {
 export interface SpecialFileKeyboardClickAction {
     actionId: SpecialAction.KeyboardClickFile;
     file: FileData;
+    fileDisplayIndex: number;
     enterKey: boolean;
     spaceKey: boolean;
     altKey: boolean;
@@ -31,17 +36,9 @@ export interface SpecialFileKeyboardClickAction {
     shiftKey: boolean;
 }
 
-export interface SpecialOpenParentFolderAction {
-    actionId: SpecialAction.OpenParentFolder;
-}
-
 export interface SpecialOpenFolderChainFolderAction {
     actionId: SpecialAction.OpenFolderChainFolder;
     file: FileData;
-}
-
-export interface SpecialToggleSearchBarAction {
-    actionId: SpecialAction.ToggleSearchBar;
 }
 
 export interface SpecialDragNDropStartAction {
@@ -56,14 +53,21 @@ export interface SpecialDragNDropEndAction {
     dropEffect: 'move' | 'copy';
 }
 
+export interface SpecialSimpleAction {
+    actionId:
+        | SpecialAction.OpenParentFolder
+        | SpecialAction.ToggleSearchBar
+        | SpecialAction.SelectAllFiles
+        | SpecialAction.ClearSelection;
+}
+
 export type SpecialActionData =
     | SpecialFileMouseClickAction
     | SpecialFileKeyboardClickAction
-    | SpecialOpenParentFolderAction
     | SpecialOpenFolderChainFolderAction
-    | SpecialToggleSearchBarAction
     | SpecialDragNDropStartAction
-    | SpecialDragNDropEndAction;
+    | SpecialDragNDropEndAction
+    | SpecialSimpleAction;
 
 export type InternalSpecialActionDispatcher = (actionData: SpecialActionData) => void;
 
