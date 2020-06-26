@@ -68,6 +68,7 @@ export const FileBrowserDemo: React.FC = () => {
                 files={files}
                 folderChain={folderChain}
                 onFileAction={handleFileAction}
+                enableDragAndDrop={true}
             >
                 <FileToolbar />
                 <FileSearch />

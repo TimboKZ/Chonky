@@ -10,7 +10,7 @@ import { isMobileDevice } from '../../util/validation';
 import { SmartFileEntry } from '../file-entry/SmartFileEntry';
 import { ChonkyIconFA } from './ChonkyIcon';
 
-export const SmallThumbsSize: FileEntrySize = { width: 160, height: 120 };
+export const SmallThumbsSize: FileEntrySize = { width: 165, height: 130 };
 
 export const DefaultEntrySize: FileEntrySize = SmallThumbsSize;
 
