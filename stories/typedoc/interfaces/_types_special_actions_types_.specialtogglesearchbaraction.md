@@ -18,4 +18,4 @@
 
 • **actionId**: *[ToggleSearchBar](../enums/_types_special_actions_types_.specialaction.md#togglesearchbar)*
 
-*Defined in [src/types/special-actions.types.ts:44](https://github.com/TimboKZ/Chonky/blob/8056a68/src/types/special-actions.types.ts#L44)*
+*Defined in [src/types/special-actions.types.ts:44](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/special-actions.types.ts#L44)*

@@ -21,7 +21,7 @@
 
 ▸ **debug**(...`args`: any[]): *void*
 
-*Defined in [src/util/logger.ts:12](https://github.com/TimboKZ/Chonky/blob/8056a68/src/util/logger.ts#L12)*
+*Defined in [src/util/logger.ts:12](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/logger.ts#L12)*
 
 **Parameters:**
 
@@ -37,7 +37,7 @@ ___
 
 ▸ **error**(...`args`: any[]): *void*
 
-*Defined in [src/util/logger.ts:2](https://github.com/TimboKZ/Chonky/blob/8056a68/src/util/logger.ts#L2)*
+*Defined in [src/util/logger.ts:2](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/logger.ts#L2)*
 
 **Parameters:**
 
@@ -53,7 +53,7 @@ ___
 
 ▸ **formatBullets**(`bullets`: string[]): *string*
 
-*Defined in [src/util/logger.ts:17](https://github.com/TimboKZ/Chonky/blob/8056a68/src/util/logger.ts#L17)*
+*Defined in [src/util/logger.ts:17](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/logger.ts#L17)*
 
 **Parameters:**
 
@@ -69,7 +69,7 @@ ___
 
 ▸ **warn**(...`args`: any[]): *void*
 
-*Defined in [src/util/logger.ts:7](https://github.com/TimboKZ/Chonky/blob/8056a68/src/util/logger.ts#L7)*
+*Defined in [src/util/logger.ts:7](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/logger.ts#L7)*
 
 **Parameters:**
 

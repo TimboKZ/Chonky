@@ -23,7 +23,7 @@
 
 ▸ **DnDFileListDragLayer**(): *null | Element‹›*
 
-*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:45](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/DnDFileListDragLayer.tsx#L45)*
+*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:45](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/file-entry/DnDFileListDragLayer.tsx#L45)*
 
 **Returns:** *null | Element‹›*
 
@@ -33,7 +33,7 @@ ___
 
 ▸ **getItemStyles**(`initialCursorOffset`: Nullable‹object›, `initialFileOffset`: Nullable‹object›, `currentFileOffset`: Nullable‹object›): *object | object*
 
-*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:26](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/DnDFileListDragLayer.tsx#L26)*
+*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:26](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/file-entry/DnDFileListDragLayer.tsx#L26)*
 
 **Parameters:**
 
@@ -51,46 +51,46 @@ Name | Type |
 
 ### ▪ **layerStyles**: *object*
 
-*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:17](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/DnDFileListDragLayer.tsx#L17)*
+*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:17](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/file-entry/DnDFileListDragLayer.tsx#L17)*
 
 ###  height
 
 • **height**: *string* = "100%"
 
-*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:24](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/DnDFileListDragLayer.tsx#L24)*
+*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:24](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/file-entry/DnDFileListDragLayer.tsx#L24)*
 
 ###  left
 
 • **left**: *number* = 0
 
-*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:21](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/DnDFileListDragLayer.tsx#L21)*
+*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:21](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/file-entry/DnDFileListDragLayer.tsx#L21)*
 
 ###  pointerEvents
 
 • **pointerEvents**: *"none"* = "none"
 
-*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:19](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/DnDFileListDragLayer.tsx#L19)*
+*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:19](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/file-entry/DnDFileListDragLayer.tsx#L19)*
 
 ###  position
 
 • **position**: *"fixed"* = "fixed"
 
-*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:18](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/DnDFileListDragLayer.tsx#L18)*
+*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:18](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/file-entry/DnDFileListDragLayer.tsx#L18)*
 
 ###  top
 
 • **top**: *number* = 0
 
-*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:22](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/DnDFileListDragLayer.tsx#L22)*
+*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:22](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/file-entry/DnDFileListDragLayer.tsx#L22)*
 
 ###  width
 
 • **width**: *string* = "100%"
 
-*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:23](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/DnDFileListDragLayer.tsx#L23)*
+*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:23](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/file-entry/DnDFileListDragLayer.tsx#L23)*
 
 ###  zIndex
 
 • **zIndex**: *number* = 100
 
-*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:20](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/DnDFileListDragLayer.tsx#L20)*
+*Defined in [src/components/file-entry/DnDFileListDragLayer.tsx:20](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/file-entry/DnDFileListDragLayer.tsx#L20)*

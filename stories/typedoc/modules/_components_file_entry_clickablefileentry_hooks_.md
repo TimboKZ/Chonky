@@ -14,7 +14,7 @@
 
 ▸ **useFileClickHandlers**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *object*
 
-*Defined in [src/components/file-entry/ClickableFileEntry-hooks.tsx:13](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/file-entry/ClickableFileEntry-hooks.tsx#L13)*
+*Defined in [src/components/file-entry/ClickableFileEntry-hooks.tsx:13](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/file-entry/ClickableFileEntry-hooks.tsx#L13)*
 
 **Parameters:**
 

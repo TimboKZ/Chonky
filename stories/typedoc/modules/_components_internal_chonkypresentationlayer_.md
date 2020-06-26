@@ -18,7 +18,7 @@
 
 ▸ **ChonkyPresentationLayer**(`props`: [ChonkyPresentationLayerProps](../interfaces/_components_internal_chonkypresentationlayer_.chonkypresentationlayerprops.md) & object): *Element‹›*
 
-*Defined in [src/components/internal/ChonkyPresentationLayer.tsx:23](https://github.com/TimboKZ/Chonky/blob/8056a68/src/components/internal/ChonkyPresentationLayer.tsx#L23)*
+*Defined in [src/components/internal/ChonkyPresentationLayer.tsx:23](https://github.com/TimboKZ/Chonky/blob/4792a84/src/components/internal/ChonkyPresentationLayer.tsx#L23)*
 
 **Parameters:**
 

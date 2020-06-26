@@ -19,7 +19,7 @@
 
 • **actionId**: *[OpenFolderChainFolder](../enums/_types_special_actions_types_.specialaction.md#openfolderchainfolder)*
 
-*Defined in [src/types/special-actions.types.ts:39](https://github.com/TimboKZ/Chonky/blob/8056a68/src/types/special-actions.types.ts#L39)*
+*Defined in [src/types/special-actions.types.ts:39](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/special-actions.types.ts#L39)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **file**: *[FileData](_types_files_types_.filedata.md)*
 
-*Defined in [src/types/special-actions.types.ts:40](https://github.com/TimboKZ/Chonky/blob/8056a68/src/types/special-actions.types.ts#L40)*
+*Defined in [src/types/special-actions.types.ts:40](https://github.com/TimboKZ/Chonky/blob/4792a84/src/types/special-actions.types.ts#L40)*

@@ -15,7 +15,7 @@
 
 ▸ **useSpecialActionDispatcher**(`files`: [FileArray](_types_files_types_.md#filearray), `selection`: [FileSelection](../interfaces/_types_selection_types_.fileselection.md), `selectionUtil`: [SelectionUtil](../classes/_util_selection_.selectionutil.md), `selectionModifiers`: [SelectionModifiers](../interfaces/_types_selection_types_.selectionmodifiers.md)): *void*
 
-*Defined in [src/util/special-actions.ts:34](https://github.com/TimboKZ/Chonky/blob/8056a68/src/util/special-actions.ts#L34)*
+*Defined in [src/util/special-actions.ts:34](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/special-actions.ts#L34)*
 
 Returns a dispatch method meant to be used by child components. This dispatch
 method is meant for "special" internal actions. It takes a special action, and
@@ -38,7 +38,7 @@ ___
 
 ▸ **useSpecialFileActionHandlerMap**(`selectionUtil`: [SelectionUtil](../classes/_util_selection_.selectionutil.md), `selectionModifiers`: [SelectionModifiers](../interfaces/_types_selection_types_.selectionmodifiers.md)): *object*
 
-*Defined in [src/util/special-actions.ts:79](https://github.com/TimboKZ/Chonky/blob/8056a68/src/util/special-actions.ts#L79)*
+*Defined in [src/util/special-actions.ts:79](https://github.com/TimboKZ/Chonky/blob/4792a84/src/util/special-actions.ts#L79)*
 
 **Parameters:**
 
