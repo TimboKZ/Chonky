@@ -12,7 +12,10 @@ import {
 } from '../recoil/file-actions.recoil';
 import { parentFolderState } from '../recoil/files.recoil';
 import { searchBarVisibleState } from '../recoil/search.recoil';
+import { sortConfigState } from '../recoil/sort.recoil';
 import { FileAction, FileActionHandler } from '../types/file-actions.types';
+import { ChonkyIconName } from '../types/icons.types';
+import { SortOrder } from '../types/sort.types';
 import {
     useInternalFileActionDispatcher,
     useInternalFileActionRequester,
@@ -78,10 +81,11 @@ export const useFileActionTrigger = (fileActionId: string) => {
     ]);
 };
 
-export const useFileActionModifiers = (
+export const useFileActionProps = (
     fileActionId: string
-): { active: boolean; disabled: boolean } => {
+): { icon: Nullable<ChonkyIconName | string>; active: boolean; disabled: boolean } => {
     const parentFolder = useRecoilValue(parentFolderState);
+    const sortConfig = useRecoilValue(sortConfigState);
     const searchBarVisible = useRecoilValue(searchBarVisibleState);
     const action = useRecoilValue(fileActionDataState(fileActionId));
     const actionSelectionSize = useRecoilValue(
@@ -91,9 +95,26 @@ export const useFileActionModifiers = (
     const actionSelectionEmpty = actionSelectionSize === 0;
 
     return useMemo(() => {
-        if (!action) return { active: false, disabled: true };
+        if (!action) return { icon: null, active: false, disabled: true };
 
-        const active = action.id === ChonkyActions.ToggleSearch.id && searchBarVisible;
+        let icon = action.toolbarButton?.icon ?? null;
+        if (action.sortKeySelector) {
+            if (sortConfig.fileActionId === action.id) {
+                if (sortConfig.order === SortOrder.Asc) {
+                    icon = ChonkyIconName.sortAsc;
+                } else {
+                    icon = ChonkyIconName.sortDesc;
+                }
+            } else {
+                icon = ChonkyIconName.circle;
+            }
+        }
+
+        const isSearchButtonAndSearchVisible =
+            action.id === ChonkyActions.ToggleSearch.id && searchBarVisible;
+        const isSortButtonAndCurrentSort = action.id === sortConfig.fileActionId;
+
+        const active = isSearchButtonAndSearchVisible || isSortButtonAndCurrentSort;
         let disabled: boolean = !!action.requiresSelection && actionSelectionEmpty;
 
         if (action.id === ChonkyActions.OpenParentFolder.id) {
@@ -102,6 +123,6 @@ export const useFileActionModifiers = (
             disabled = disabled || !FileHelper.isOpenable(parentFolder);
         }
 
-        return { active, disabled };
-    }, [action, searchBarVisible, parentFolder, actionSelectionEmpty]);
+        return { icon, active, disabled };
+    }, [action, sortConfig, searchBarVisible, parentFolder, actionSelectionEmpty]);
 };

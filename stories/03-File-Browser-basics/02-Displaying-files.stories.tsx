@@ -37,7 +37,7 @@ export const FilesArrayExample = () => {
         null,
         {
             id: 'nTe',
-            name: 'Normal file.yaml',
+            name: 'Normal file.yml',
             size: 890,
             modDate: new Date('2012-01-01'),
         },
@@ -84,6 +84,10 @@ export const FilesArrayExample = () => {
             name: 'Not droppable',
             isDir: true,
             droppable: false, // Prevent files from being dropped into this folder
+        },
+        {
+            id: 'mRw',
+            name: 'Unknown file name',
         },
     ];
 

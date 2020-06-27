@@ -4,35 +4,42 @@
  * @license MIT
  */
 
+import c from 'classnames';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import { Nullable } from 'tsdef';
 
 import { fileActionDataState } from '../../recoil/file-actions.recoil';
 import { ChonkyIconName } from '../../types/icons.types';
-import { useFileActionModifiers, useFileActionTrigger } from '../../util/file-actions';
+import { useFileActionProps, useFileActionTrigger } from '../../util/file-actions';
 import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface DropdownButtonProps {
     text: string;
     tooltip?: string;
-    icon?: ChonkyIconName | string;
+    active?: boolean;
+    icon?: Nullable<ChonkyIconName | string>;
     onClick?: () => void;
     disabled?: boolean;
 }
 
 export const DropdownButton: React.FC<DropdownButtonProps> = React.memo((props) => {
-    const { text, tooltip, icon, onClick, disabled } = props;
+    const { text, tooltip, active, icon, onClick, disabled } = props;
 
+    const className = c({
+        'chonky-toolbar-dropdown-button': true,
+        'chonky-active': !!active,
+    });
     return (
         <button
-            className="chonky-toolbar-dropdown-button"
+            className={className}
             onClick={onClick}
             title={tooltip ? tooltip : text}
             disabled={!onClick || disabled}
         >
             <div className="chonky-toolbar-dropdown-button-icon">
                 <ChonkyIconFA
-                    icon={icon ? icon : ChonkyIconName.fallbackIcon}
+                    icon={icon ? icon : ChonkyIconName.circle}
                     fixedWidth={true}
                 />
             </div>
@@ -50,7 +57,7 @@ export const SmartDropdownButton: React.FC<SmartDropdownButtonProps> = (props) =
 
     const action = useRecoilValue(fileActionDataState(fileActionId));
     const triggerAction = useFileActionTrigger(fileActionId);
-    const { disabled } = useFileActionModifiers(fileActionId);
+    const { icon, active, disabled } = useFileActionProps(fileActionId);
 
     if (!action) return null;
     const { toolbarButton: button } = action;
@@ -60,8 +67,9 @@ export const SmartDropdownButton: React.FC<SmartDropdownButtonProps> = (props) =
         <DropdownButton
             text={button.name}
             tooltip={button.tooltip}
-            icon={button.icon}
+            icon={icon}
             onClick={triggerAction}
+            active={active}
             disabled={disabled}
         />
     );

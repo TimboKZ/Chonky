@@ -26,6 +26,7 @@
     "classnames": "^2.2.6",
     "dateformat": "^3.0.3",
     "exact-trie": "^1.0.11",
+    "fast-sort": "^2.2.0",
     "filesize": "^6.1.0",
     "fuzzy-search": "^3.2.1",
     "hotkeys-js": "^3.8.1",

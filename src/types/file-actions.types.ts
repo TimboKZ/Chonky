@@ -1,5 +1,6 @@
 import { FileData, FileFilter } from './files.types';
 import { ChonkyIconName } from './icons.types';
+import { FileSortKeySelector } from './sort.types';
 import { SpecialAction } from './special-actions.types';
 
 export interface FileAction {
@@ -10,6 +11,11 @@ export interface FileAction {
 
     hotkeys?: readonly string[]; // Hotkeys using `hotkey-js` notation
     toolbarButton?: ToolbarButtonData; // Description below
+
+    // When `sortKeySelector` is specified, the action becomes a sorting toggle.
+    // When this action is activated, it will sort files using the key selector,
+    // toggling between Ascending and Descending orders.
+    sortKeySelector?: FileSortKeySelector;
 
     // Special action that should be dispatched on activation of this action. This
     // is used by Chonky internally, keep it `undefined` unless you know what you're

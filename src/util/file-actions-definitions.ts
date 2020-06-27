@@ -1,4 +1,6 @@
+import { Nullable } from 'tsdef';
 import { FileAction } from '../types/file-actions.types';
+import { FileData } from '../types/files.types';
 import { ChonkyIconName } from '../types/icons.types';
 import { SpecialAction } from '../types/special-actions.types';
 import { FileHelper } from './file-helper';
@@ -57,6 +59,7 @@ export const ChonkyActions = {
         toolbarButton: {
             name: 'Select all files',
             group: 'Actions',
+            dropdown: true,
             icon: ChonkyIconName.selectAllFiles,
             iconOnly: true,
         },
@@ -69,11 +72,41 @@ export const ChonkyActions = {
         toolbarButton: {
             name: 'Clear selection',
             group: 'Actions',
+            dropdown: true,
             icon: ChonkyIconName.clearSelection,
             iconOnly: true,
         },
 
         specialActionToDispatch: SpecialAction.ClearSelection,
+    },
+
+    // Sorting actions
+    SortFilesByName: {
+        id: 'sort_files_by_name',
+        sortKeySelector: (file: Nullable<FileData>) => file ? file.name : undefined,
+        toolbarButton: {
+            name: 'Sort by name',
+            group: 'Sort',
+            dropdown: true,
+        },
+    },
+    SortFilesBySize: {
+        id: 'sort_files_by_size',
+        sortKeySelector: (file: Nullable<FileData>) => file ? file.size : undefined,
+        toolbarButton: {
+            name: 'Sort by size',
+            group: 'Sort',
+            dropdown: true,
+        },
+    },
+    SortFilesByDate: {
+        id: 'sort_files_by_date',
+        sortKeySelector: (file: Nullable<FileData>) => file ? file.modDate : undefined,
+        toolbarButton: {
+            name: 'Sort by date',
+            group: 'Sort',
+            dropdown: true,
+        },
     },
 
     // Optional actions
@@ -139,4 +172,8 @@ export const DefaultFileActions: FileAction[] = [
     ChonkyActions.OpenFiles,
     ChonkyActions.SelectAllFiles,
     ChonkyActions.ClearSelection,
+
+    ChonkyActions.SortFilesByName,
+    ChonkyActions.SortFilesBySize,
+    ChonkyActions.SortFilesByDate,
 ];

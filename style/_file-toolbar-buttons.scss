@@ -77,7 +77,7 @@
         z-index: 93;
     }
 
-    &:hover {
+    &:hover, &:focus {
         background-color: $bg-light;
         z-index: 92;
     }
@@ -145,8 +145,14 @@
             pointer-events: none;
         }
 
-        &:hover {
+        &:hover, &:focus {
             background-color: $bg-light;
+            z-index: 93;
+        }
+
+        &.chonky-active {
+            color: $fg-active;
+            z-index: 93;
         }
     }
 }

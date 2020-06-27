@@ -8,7 +8,6 @@ import { faRust } from '@fortawesome/free-brands-svg-icons/faRust';
 import { faUbuntu } from '@fortawesome/free-brands-svg-icons/faUbuntu';
 import { faWindows } from '@fortawesome/free-brands-svg-icons/faWindows';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons/faArrowDown';
-import { faArrowUp } from '@fortawesome/free-solid-svg-icons/faArrowUp';
 import { faBalanceScale } from '@fortawesome/free-solid-svg-icons/faBalanceScale';
 import { faBoxOpen } from '@fortawesome/free-solid-svg-icons/faBoxOpen';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/faCheckCircle';
@@ -38,6 +37,7 @@ import { faFistRaised } from '@fortawesome/free-solid-svg-icons/faFistRaised';
 import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons/faFolderPlus';
+import { faGenderless } from '@fortawesome/free-solid-svg-icons/faGenderless';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
 import { faKey } from '@fortawesome/free-solid-svg-icons/faKey';
 import { faLevelUpAlt } from '@fortawesome/free-solid-svg-icons/faLevelUpAlt';
@@ -47,6 +47,8 @@ import { faMusic } from '@fortawesome/free-solid-svg-icons/faMusic';
 import { faObjectGroup } from '@fortawesome/free-solid-svg-icons/faObjectGroup';
 import { faRunning } from '@fortawesome/free-solid-svg-icons/faRunning';
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
+import { faSortAmountDownAlt } from '@fortawesome/free-solid-svg-icons/faSortAmountDownAlt';
+import { faSortAmountUpAlt } from '@fortawesome/free-solid-svg-icons/faSortAmountUpAlt';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons/faTerminal';
 import { faTh } from '@fortawesome/free-solid-svg-icons/faTh';
 import { faThLarge } from '@fortawesome/free-solid-svg-icons/faThLarge';
@@ -63,6 +65,7 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     // Misc
     [ChonkyIconName.loading]: faCircleNotch,
     [ChonkyIconName.dropdown]: faChevronDown,
+    [ChonkyIconName.circle]: faGenderless,
 
     // File Actions: Drag & drop
     [ChonkyIconName.dndDragging]: faFistRaised,
@@ -76,12 +79,12 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     [ChonkyIconName.search]: faSearch,
     [ChonkyIconName.selectAllFiles]: faObjectGroup,
     [ChonkyIconName.clearSelection]: faEraser,
+    [ChonkyIconName.sortAsc]: faSortAmountDownAlt,
+    [ChonkyIconName.sortDesc]: faSortAmountUpAlt,
 
     // File Actions: Unsorted
     [ChonkyIconName.checkActive]: faCheckCircle,
     [ChonkyIconName.checkInactive]: faCircle,
-    [ChonkyIconName.desc]: faArrowDown,
-    [ChonkyIconName.asc]: faArrowUp,
     [ChonkyIconName.list]: faList,
     [ChonkyIconName.folder]: faFolder,
     [ChonkyIconName.folderCreate]: faFolderPlus,

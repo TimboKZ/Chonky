@@ -21,6 +21,7 @@ import { FileBrowserProps } from '../../types/file-browser.types';
 import { useFileActions } from '../../util/file-actions';
 import { useFileSearch } from '../../util/search';
 import { useSelection } from '../../util/selection';
+import { useFileSorting } from '../../util/sort';
 import { useSpecialActionDispatcher } from '../../util/special-actions';
 
 export const ChonkyBusinessLogic: React.FC<FileBrowserProps> = React.memo((props) => {
@@ -44,8 +45,8 @@ export const ChonkyBusinessLogic: React.FC<FileBrowserProps> = React.memo((props
     const enableDragAndDrop = !!props.enableDragAndDrop;
 
     //
-    // ==== File array sorting | TODO: Come up with an API for customizable sorting...
-    const sortedFiles = files;
+    // ==== File array sorting
+    const sortedFiles = useFileSorting(files);
 
     //
     // ==== File search (aka file array filtering)

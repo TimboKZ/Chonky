@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Nullable, Undefinable } from 'tsdef';
 
 import {
@@ -8,6 +8,7 @@ import {
 } from '../recoil/file-actions.recoil';
 import { filesState } from '../recoil/files.recoil';
 import { selectionState } from '../recoil/selection.recoil';
+import { sortConfigState } from '../recoil/sort.recoil';
 import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
 import {
     FileAction,
@@ -15,6 +16,7 @@ import {
     FileActionHandler,
     InternalFileActionDispatcher,
 } from '../types/file-actions.types';
+import { SortOrder } from '../types/sort.types';
 import { SpecialAction } from '../types/special-actions.types';
 import { useInstanceVariable } from './hooks-helpers';
 import { Logger } from './logger';
@@ -60,6 +62,8 @@ export const useInternalFileActionRequester = () => {
     // Write Recoil state to instance variables so we can access these values from
     // the callback below without re-creating the callback function
     const fileActionMapRef = useInstanceVariable(useRecoilValue(fileActionMapState));
+    const sortConfigRef = useInstanceVariable(useRecoilValue(sortConfigState));
+    const setSortConfigRef = useInstanceVariable(useSetRecoilState(sortConfigState));
     const dispatchFileActionRef = useInstanceVariable(
         useRecoilValue(dispatchFileActionState)
     );
@@ -110,8 +114,31 @@ export const useInternalFileActionRequester = () => {
                 files: selectedFilesForAction,
             };
 
+            //
+            // === Dispatch a normal action, as usual
             dispatchFileActionRef.current(actionData);
 
+            //
+            // === Updating sort state if necessary
+            const sortKeySelector = action.sortKeySelector;
+            if (sortKeySelector) {
+                let order: SortOrder = SortOrder.Asc;
+                if (sortConfigRef.current.fileActionId === action.id) {
+                    order =
+                        sortConfigRef.current.order === SortOrder.Asc
+                            ? SortOrder.Desc
+                            : SortOrder.Asc;
+                }
+
+                setSortConfigRef.current({
+                    fileActionId: action.id,
+                    sortKeySelector,
+                    order,
+                });
+            }
+
+            //
+            // === Dispatch a special action if file action defines it
             const specialActionId = action.specialActionToDispatch;
             if (specialActionId) {
                 // We can only dispatch "simple" special actions, i.e. special
@@ -137,6 +164,8 @@ export const useInternalFileActionRequester = () => {
         },
         [
             fileActionMapRef,
+            sortConfigRef,
+            setSortConfigRef,
             dispatchFileActionRef,
             dispatchSpecialActionRef,
             filesRef,

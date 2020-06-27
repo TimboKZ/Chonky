@@ -1,17 +1,18 @@
 import c from 'classnames';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import { Nullable } from 'tsdef';
 
 import { fileActionDataState } from '../../recoil/file-actions.recoil';
 import { ChonkyIconName } from '../../types/icons.types';
-import { useFileActionModifiers, useFileActionTrigger } from '../../util/file-actions';
+import { useFileActionProps, useFileActionTrigger } from '../../util/file-actions';
 import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface ToolbarButtonProps {
     text: string;
     tooltip?: string;
     active?: boolean;
-    icon?: ChonkyIconName | string;
+    icon?: Nullable<ChonkyIconName | string>;
     iconOnly?: boolean;
     iconOnRight?: boolean;
     onClick?: () => void;
@@ -70,7 +71,7 @@ export const SmartToolbarButton: React.FC<SmartToolbarButtonProps> = React.memo(
 
         const action = useRecoilValue(fileActionDataState(fileActionId));
         const triggerAction = useFileActionTrigger(fileActionId);
-        const { active, disabled } = useFileActionModifiers(fileActionId);
+        const { icon, active, disabled } = useFileActionProps(fileActionId);
 
         if (!action) return null;
         const { toolbarButton: button } = action;
@@ -80,7 +81,7 @@ export const SmartToolbarButton: React.FC<SmartToolbarButtonProps> = React.memo(
             <ToolbarButton
                 text={button.name}
                 tooltip={button.tooltip}
-                icon={button.icon}
+                icon={icon}
                 iconOnly={button.iconOnly}
                 active={active}
                 onClick={triggerAction}
