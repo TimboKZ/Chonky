@@ -71,7 +71,7 @@
 
 • **adobe**: = "adobe"
 
-*Defined in [src/types/icons.types.ts:76](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L76)*
+*Defined in [src/types/icons.types.ts:76](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L76)*
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 • **archive**: = "archive"
 
-*Defined in [src/types/icons.types.ts:51](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L51)*
+*Defined in [src/types/icons.types.ts:51](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L51)*
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 • **checkActive**: = "checkActive"
 
-*Defined in [src/types/icons.types.ts:23](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L23)*
+*Defined in [src/types/icons.types.ts:23](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L23)*
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 • **checkInactive**: = "checkInactive"
 
-*Defined in [src/types/icons.types.ts:24](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L24)*
+*Defined in [src/types/icons.types.ts:24](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L24)*
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 • **circle**: = "circle"
 
-*Defined in [src/types/icons.types.ts:5](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L5)*
+*Defined in [src/types/icons.types.ts:5](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L5)*
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 • **clearSelection**: = "clearSelection"
 
-*Defined in [src/types/icons.types.ts:18](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L18)*
+*Defined in [src/types/icons.types.ts:18](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L18)*
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 • **code**: = "code"
 
-*Defined in [src/types/icons.types.ts:46](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L46)*
+*Defined in [src/types/icons.types.ts:46](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L46)*
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 • **config**: = "config"
 
-*Defined in [src/types/icons.types.ts:47](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L47)*
+*Defined in [src/types/icons.types.ts:47](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L47)*
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 • **copy**: = "copy"
 
-*Defined in [src/types/icons.types.ts:15](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L15)*
+*Defined in [src/types/icons.types.ts:15](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L15)*
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 • **database**: = "database"
 
-*Defined in [src/types/icons.types.ts:49](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L49)*
+*Defined in [src/types/icons.types.ts:49](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L49)*
 
 ___
 
@@ -151,7 +151,7 @@ ___
 
 • **dndCanDrop**: = "dndCanDrop"
 
-*Defined in [src/types/icons.types.ts:9](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L9)*
+*Defined in [src/types/icons.types.ts:9](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L9)*
 
 ___
 
@@ -159,7 +159,7 @@ ___
 
 • **dndCannotDrop**: = "dndCannotDrop"
 
-*Defined in [src/types/icons.types.ts:10](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L10)*
+*Defined in [src/types/icons.types.ts:10](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L10)*
 
 ___
 
@@ -167,7 +167,7 @@ ___
 
 • **dndDragging**: = "dndDragging"
 
-*Defined in [src/types/icons.types.ts:8](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L8)*
+*Defined in [src/types/icons.types.ts:8](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L8)*
 
 ___
 
@@ -175,7 +175,7 @@ ___
 
 • **download**: = "download"
 
-*Defined in [src/types/icons.types.ts:34](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L34)*
+*Defined in [src/types/icons.types.ts:34](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L34)*
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 • **dropdown**: = "dropdown"
 
-*Defined in [src/types/icons.types.ts:4](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L4)*
+*Defined in [src/types/icons.types.ts:4](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L4)*
 
 ___
 
@@ -191,7 +191,7 @@ ___
 
 • **excel**: = "excel"
 
-*Defined in [src/types/icons.types.ts:80](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L80)*
+*Defined in [src/types/icons.types.ts:80](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L80)*
 
 ___
 
@@ -199,7 +199,7 @@ ___
 
 • **fallbackIcon**: = "fallbackIcon"
 
-*Defined in [src/types/icons.types.ts:37](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L37)*
+*Defined in [src/types/icons.types.ts:37](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L37)*
 
 ___
 
@@ -207,7 +207,7 @@ ___
 
 • **file**: = "file"
 
-*Defined in [src/types/icons.types.ts:44](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L44)*
+*Defined in [src/types/icons.types.ts:44](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L44)*
 
 ___
 
@@ -215,7 +215,7 @@ ___
 
 • **flash**: = "flash"
 
-*Defined in [src/types/icons.types.ts:82](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L82)*
+*Defined in [src/types/icons.types.ts:82](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L82)*
 
 ___
 
@@ -223,7 +223,7 @@ ___
 
 • **folder**: = "folder"
 
-*Defined in [src/types/icons.types.ts:28](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L28)*
+*Defined in [src/types/icons.types.ts:28](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L28)*
 
 ___
 
@@ -231,7 +231,7 @@ ___
 
 • **folderChainSeparator**: = "folderChainSeparator"
 
-*Defined in [src/types/icons.types.ts:33](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L33)*
+*Defined in [src/types/icons.types.ts:33](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L33)*
 
 ___
 
@@ -239,7 +239,7 @@ ___
 
 • **folderCreate**: = "folderCreate"
 
-*Defined in [src/types/icons.types.ts:29](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L29)*
+*Defined in [src/types/icons.types.ts:29](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L29)*
 
 ___
 
@@ -247,7 +247,7 @@ ___
 
 • **folderOpen**: = "folderOpen"
 
-*Defined in [src/types/icons.types.ts:30](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L30)*
+*Defined in [src/types/icons.types.ts:30](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L30)*
 
 ___
 
@@ -255,7 +255,7 @@ ___
 
 • **git**: = "git"
 
-*Defined in [src/types/icons.types.ts:73](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L73)*
+*Defined in [src/types/icons.types.ts:73](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L73)*
 
 ___
 
@@ -263,7 +263,7 @@ ___
 
 • **hidden**: = "hidden"
 
-*Defined in [src/types/icons.types.ts:41](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L41)*
+*Defined in [src/types/icons.types.ts:41](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L41)*
 
 ___
 
@@ -271,7 +271,7 @@ ___
 
 • **image**: = "image"
 
-*Defined in [src/types/icons.types.ts:52](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L52)*
+*Defined in [src/types/icons.types.ts:52](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L52)*
 
 ___
 
@@ -279,7 +279,7 @@ ___
 
 • **info**: = "info"
 
-*Defined in [src/types/icons.types.ts:54](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L54)*
+*Defined in [src/types/icons.types.ts:54](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L54)*
 
 ___
 
@@ -287,7 +287,7 @@ ___
 
 • **key**: = "key"
 
-*Defined in [src/types/icons.types.ts:55](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L55)*
+*Defined in [src/types/icons.types.ts:55](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L55)*
 
 ___
 
@@ -295,7 +295,7 @@ ___
 
 • **largeThumbnail**: = "largeThumbnail"
 
-*Defined in [src/types/icons.types.ts:32](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L32)*
+*Defined in [src/types/icons.types.ts:32](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L32)*
 
 ___
 
@@ -303,7 +303,7 @@ ___
 
 • **license**: = "license"
 
-*Defined in [src/types/icons.types.ts:45](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L45)*
+*Defined in [src/types/icons.types.ts:45](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L45)*
 
 ___
 
@@ -311,7 +311,7 @@ ___
 
 • **linux**: = "linux"
 
-*Defined in [src/types/icons.types.ts:62](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L62)*
+*Defined in [src/types/icons.types.ts:62](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L62)*
 
 ___
 
@@ -319,7 +319,7 @@ ___
 
 • **list**: = "list"
 
-*Defined in [src/types/icons.types.ts:27](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L27)*
+*Defined in [src/types/icons.types.ts:27](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L27)*
 
 ___
 
@@ -327,7 +327,7 @@ ___
 
 • **loading**: = "loading"
 
-*Defined in [src/types/icons.types.ts:3](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L3)*
+*Defined in [src/types/icons.types.ts:3](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L3)*
 
 ___
 
@@ -335,7 +335,7 @@ ___
 
 • **lock**: = "lock"
 
-*Defined in [src/types/icons.types.ts:56](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L56)*
+*Defined in [src/types/icons.types.ts:56](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L56)*
 
 ___
 
@@ -343,7 +343,7 @@ ___
 
 • **model**: = "model"
 
-*Defined in [src/types/icons.types.ts:48](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L48)*
+*Defined in [src/types/icons.types.ts:48](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L48)*
 
 ___
 
@@ -351,7 +351,7 @@ ___
 
 • **music**: = "music"
 
-*Defined in [src/types/icons.types.ts:57](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L57)*
+*Defined in [src/types/icons.types.ts:57](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L57)*
 
 ___
 
@@ -359,7 +359,7 @@ ___
 
 • **nodejs**: = "nodejs"
 
-*Defined in [src/types/icons.types.ts:69](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L69)*
+*Defined in [src/types/icons.types.ts:69](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L69)*
 
 ___
 
@@ -367,7 +367,7 @@ ___
 
 • **openFiles**: = "openFiles"
 
-*Defined in [src/types/icons.types.ts:13](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L13)*
+*Defined in [src/types/icons.types.ts:13](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L13)*
 
 ___
 
@@ -375,7 +375,7 @@ ___
 
 • **openParentFolder**: = "openParentFolder"
 
-*Defined in [src/types/icons.types.ts:14](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L14)*
+*Defined in [src/types/icons.types.ts:14](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L14)*
 
 ___
 
@@ -383,7 +383,7 @@ ___
 
 • **pdf**: = "pdf"
 
-*Defined in [src/types/icons.types.ts:79](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L79)*
+*Defined in [src/types/icons.types.ts:79](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L79)*
 
 ___
 
@@ -391,7 +391,7 @@ ___
 
 • **php**: = "php"
 
-*Defined in [src/types/icons.types.ts:70](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L70)*
+*Defined in [src/types/icons.types.ts:70](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L70)*
 
 ___
 
@@ -399,7 +399,7 @@ ___
 
 • **python**: = "python"
 
-*Defined in [src/types/icons.types.ts:68](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L68)*
+*Defined in [src/types/icons.types.ts:68](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L68)*
 
 ___
 
@@ -407,7 +407,7 @@ ___
 
 • **rust**: = "rust"
 
-*Defined in [src/types/icons.types.ts:67](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L67)*
+*Defined in [src/types/icons.types.ts:67](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L67)*
 
 ___
 
@@ -415,7 +415,7 @@ ___
 
 • **search**: = "search"
 
-*Defined in [src/types/icons.types.ts:16](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L16)*
+*Defined in [src/types/icons.types.ts:16](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L16)*
 
 ___
 
@@ -423,7 +423,7 @@ ___
 
 • **selectAllFiles**: = "selectAllFiles"
 
-*Defined in [src/types/icons.types.ts:17](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L17)*
+*Defined in [src/types/icons.types.ts:17](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L17)*
 
 ___
 
@@ -431,7 +431,7 @@ ___
 
 • **smallThumbnail**: = "smallThumbnail"
 
-*Defined in [src/types/icons.types.ts:31](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L31)*
+*Defined in [src/types/icons.types.ts:31](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L31)*
 
 ___
 
@@ -439,7 +439,7 @@ ___
 
 • **sortAsc**: = "sortAsc"
 
-*Defined in [src/types/icons.types.ts:21](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L21)*
+*Defined in [src/types/icons.types.ts:21](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L21)*
 
 ___
 
@@ -447,7 +447,7 @@ ___
 
 • **sortDesc**: = "sortDesc"
 
-*Defined in [src/types/icons.types.ts:22](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L22)*
+*Defined in [src/types/icons.types.ts:22](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L22)*
 
 ___
 
@@ -455,7 +455,7 @@ ___
 
 • **symlink**: = "symlink"
 
-*Defined in [src/types/icons.types.ts:40](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L40)*
+*Defined in [src/types/icons.types.ts:40](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L40)*
 
 ___
 
@@ -463,7 +463,7 @@ ___
 
 • **terminal**: = "terminal"
 
-*Defined in [src/types/icons.types.ts:58](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L58)*
+*Defined in [src/types/icons.types.ts:58](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L58)*
 
 ___
 
@@ -471,7 +471,7 @@ ___
 
 • **text**: = "text"
 
-*Defined in [src/types/icons.types.ts:50](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L50)*
+*Defined in [src/types/icons.types.ts:50](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L50)*
 
 ___
 
@@ -479,7 +479,7 @@ ___
 
 • **trash**: = "trash"
 
-*Defined in [src/types/icons.types.ts:36](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L36)*
+*Defined in [src/types/icons.types.ts:36](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L36)*
 
 ___
 
@@ -487,7 +487,7 @@ ___
 
 • **ubuntu**: = "ubuntu"
 
-*Defined in [src/types/icons.types.ts:63](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L63)*
+*Defined in [src/types/icons.types.ts:63](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L63)*
 
 ___
 
@@ -495,7 +495,7 @@ ___
 
 • **upload**: = "upload"
 
-*Defined in [src/types/icons.types.ts:35](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L35)*
+*Defined in [src/types/icons.types.ts:35](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L35)*
 
 ___
 
@@ -503,7 +503,7 @@ ___
 
 • **users**: = "users"
 
-*Defined in [src/types/icons.types.ts:59](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L59)*
+*Defined in [src/types/icons.types.ts:59](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L59)*
 
 ___
 
@@ -511,7 +511,7 @@ ___
 
 • **video**: = "video"
 
-*Defined in [src/types/icons.types.ts:53](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L53)*
+*Defined in [src/types/icons.types.ts:53](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L53)*
 
 ___
 
@@ -519,7 +519,7 @@ ___
 
 • **windows**: = "windows"
 
-*Defined in [src/types/icons.types.ts:64](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L64)*
+*Defined in [src/types/icons.types.ts:64](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L64)*
 
 ___
 
@@ -527,4 +527,4 @@ ___
 
 • **word**: = "word"
 
-*Defined in [src/types/icons.types.ts:81](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L81)*
+*Defined in [src/types/icons.types.ts:81](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L81)*

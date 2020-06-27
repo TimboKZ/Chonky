@@ -23,7 +23,7 @@
 
 Ƭ **DnDFileEntryItem**: *DragObjectWithType & object*
 
-*Defined in [src/components/file-entry/DnDFileEntry.tsx:20](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/file-entry/DnDFileEntry.tsx#L20)*
+*Defined in [src/components/file-entry/DnDFileEntry.tsx:20](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/components/file-entry/DnDFileEntry.tsx#L20)*
 
 ## Variables
 
@@ -135,7 +135,7 @@
     );
 })
 
-*Defined in [src/components/file-entry/DnDFileEntry.tsx:23](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/file-entry/DnDFileEntry.tsx#L23)*
+*Defined in [src/components/file-entry/DnDFileEntry.tsx:23](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/components/file-entry/DnDFileEntry.tsx#L23)*
 
 ___
 
@@ -143,4 +143,4 @@ ___
 
 • **DnDFileEntryType**: *"chonky-file-entry"* = "chonky-file-entry"
 
-*Defined in [src/components/file-entry/DnDFileEntry.tsx:21](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/file-entry/DnDFileEntry.tsx#L21)*
+*Defined in [src/components/file-entry/DnDFileEntry.tsx:21](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/components/file-entry/DnDFileEntry.tsx#L21)*

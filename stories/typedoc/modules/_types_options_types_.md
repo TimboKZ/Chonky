@@ -14,7 +14,7 @@
 
 Ƭ **OptionMap**: *object*
 
-*Defined in [src/types/options.types.ts:3](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/options.types.ts#L3)*
+*Defined in [src/types/options.types.ts:3](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/options.types.ts#L3)*
 
 #### Type declaration:
 

@@ -38,10 +38,10 @@ list", use keyboard shortcuts, and much more!
 ## Features
 
 -   [x] Backend-agnostic - files can come from any source (remote server, S3, virtual FS).
--   [ ] Supports file sorting.
+-   [x] Supports file sorting.
 -   [x] Supports text search.
 -   [x] Supports drag & drop.
--   [ ] Mobile-friendly design.
+-   [x] Mobile-friendly design.
 -   [x] Supports image thumbnails.
 -   [x] Supports keyboard shortcuts.
 -   [x] Supports common and custom file actions.

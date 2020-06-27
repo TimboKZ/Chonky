@@ -17,4 +17,4 @@
     default: DefaultEntrySize,
 })
 
-*Defined in [src/recoil/file-list.recoil.ts:8](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/recoil/file-list.recoil.ts#L8)*
+*Defined in [src/recoil/file-list.recoil.ts:8](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/recoil/file-list.recoil.ts#L8)*

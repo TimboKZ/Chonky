@@ -39,4 +39,4 @@
     return null;
 })
 
-*Defined in [src/components/internal/HotkeyListener.tsx:20](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/internal/HotkeyListener.tsx#L20)*
+*Defined in [src/components/internal/HotkeyListener.tsx:20](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/components/internal/HotkeyListener.tsx#L20)*

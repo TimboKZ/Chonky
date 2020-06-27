@@ -19,7 +19,7 @@
 
 • **colorCode**: *number*
 
-*Defined in [src/types/icons.types.ts:87](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L87)*
+*Defined in [src/types/icons.types.ts:87](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L87)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **icon**: *[ChonkyIconName](../enums/_types_icons_types_.chonkyiconname.md) | string*
 
-*Defined in [src/types/icons.types.ts:86](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/icons.types.ts#L86)*
+*Defined in [src/types/icons.types.ts:86](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/types/icons.types.ts#L86)*

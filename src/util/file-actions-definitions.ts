@@ -114,6 +114,7 @@ export const ChonkyActions = {
     // Toggleable options
     ToggleHiddenFiles: {
         id: 'toggle_hidden_files',
+        hotkeys: ['ctrl+h'],
         option: {
             id: 'show_hidden_files',
             defaultValue: true,

@@ -121,6 +121,7 @@
     // Toggleable options
     ToggleHiddenFiles: {
         id: 'toggle_hidden_files',
+        hotkeys: ['ctrl+h'],
         option: {
             id: 'show_hidden_files',
             defaultValue: true,
@@ -197,7 +198,7 @@
     },
 } as const
 
-*Defined in [src/util/file-actions-definitions.ts:9](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/util/file-actions-definitions.ts#L9)*
+*Defined in [src/util/file-actions-definitions.ts:9](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/util/file-actions-definitions.ts#L9)*
 
 #### Type declaration:
 
@@ -397,6 +398,8 @@
 
 * ### **ToggleHiddenFiles**: *object*
 
+  * **hotkeys**: *["ctrl+h"]* = ['ctrl+h']
+
   * **id**: *"toggle_hidden_files"* = "toggle_hidden_files"
 
   * **option**: *object*
@@ -482,4 +485,4 @@ ___
     ChonkyActions.ToggleShowFoldersFirst,
 ]
 
-*Defined in [src/util/file-actions-definitions.ts:193](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/util/file-actions-definitions.ts#L193)*
+*Defined in [src/util/file-actions-definitions.ts:194](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/util/file-actions-definitions.ts#L194)*

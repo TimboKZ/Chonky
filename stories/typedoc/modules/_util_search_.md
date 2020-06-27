@@ -14,7 +14,7 @@
 
 ▸ **useFileSearch**(`files`: [FileArray](_types_files_types_.md#filearray)): *[FileArray](_types_files_types_.md#filearray)*
 
-*Defined in [src/util/search.ts:8](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/util/search.ts#L8)*
+*Defined in [src/util/search.ts:8](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/util/search.ts#L8)*
 
 **Parameters:**
 

@@ -49,4 +49,4 @@
     );
 })
 
-*Defined in [src/components/external/FileToolbar.tsx:11](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/external/FileToolbar.tsx#L11)*
+*Defined in [src/components/external/FileToolbar.tsx:11](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/components/external/FileToolbar.tsx#L11)*

@@ -17,7 +17,7 @@
 
 ▸ **useDndIcon**(`selected`: Nilable‹boolean›, `isDragging`: Nilable‹boolean›, `isOver`: Nilable‹boolean›, `canDrop`: Nilable‹boolean›): *Nullable‹[ChonkyIconName](../enums/_types_icons_types_.chonkyiconname.md)›*
 
-*Defined in [src/components/file-entry/BaseFileEntry-hooks.tsx:14](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/file-entry/BaseFileEntry-hooks.tsx#L14)*
+*Defined in [src/components/file-entry/BaseFileEntry-hooks.tsx:14](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/components/file-entry/BaseFileEntry-hooks.tsx#L14)*
 
 **Parameters:**
 
@@ -36,7 +36,7 @@ ___
 
 ▸ **useFileNameComponent**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *Element‹›*
 
-*Defined in [src/components/file-entry/BaseFileEntry-hooks.tsx:86](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/file-entry/BaseFileEntry-hooks.tsx#L86)*
+*Defined in [src/components/file-entry/BaseFileEntry-hooks.tsx:86](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/components/file-entry/BaseFileEntry-hooks.tsx#L86)*
 
 **Parameters:**
 
@@ -52,7 +52,7 @@ ___
 
 ▸ **useModifierIconComponents**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *Element‹›[]*
 
-*Defined in [src/components/file-entry/BaseFileEntry-hooks.tsx:69](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/file-entry/BaseFileEntry-hooks.tsx#L69)*
+*Defined in [src/components/file-entry/BaseFileEntry-hooks.tsx:69](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/components/file-entry/BaseFileEntry-hooks.tsx#L69)*
 
 **Parameters:**
 
@@ -68,7 +68,7 @@ ___
 
 ▸ **useThumbnailUrl**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›, `setThumbnailUrl`: function, `setThumbnailLoading`: function): *void*
 
-*Defined in [src/components/file-entry/BaseFileEntry-hooks.tsx:29](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/file-entry/BaseFileEntry-hooks.tsx#L29)*
+*Defined in [src/components/file-entry/BaseFileEntry-hooks.tsx:29](https://github.com/TimboKZ/Chonky/blob/b63f6c0/src/components/file-entry/BaseFileEntry-hooks.tsx#L29)*
 
 **Parameters:**
 
