@@ -18,4 +18,4 @@
 
 • **fileActionId**: *string*
 
-*Defined in [src/components/external/ToolbarButton.tsx:64](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/ToolbarButton.tsx#L64)*
+*Defined in [src/components/external/ToolbarButton.tsx:64](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/external/ToolbarButton.tsx#L64)*

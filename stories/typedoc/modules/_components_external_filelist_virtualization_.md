@@ -26,7 +26,7 @@
 
 • **DefaultEntrySize**: *[FileEntrySize](../interfaces/_types_file_list_view_types_.fileentrysize.md)* = SmallThumbsSize
 
-*Defined in [src/components/external/FileList-virtualization.tsx:15](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/FileList-virtualization.tsx#L15)*
+*Defined in [src/components/external/FileList-virtualization.tsx:15](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/external/FileList-virtualization.tsx#L15)*
 
 ## Functions
 
@@ -34,7 +34,7 @@
 
 ▸ **getColWidth**(`index`: number, `columnCount`: number, `entrySize`: [FileEntrySize](../interfaces/_types_file_list_view_types_.fileentrysize.md), `gutterSize`: number): *number*
 
-*Defined in [src/components/external/FileList-virtualization.tsx:17](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/FileList-virtualization.tsx#L17)*
+*Defined in [src/components/external/FileList-virtualization.tsx:17](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/external/FileList-virtualization.tsx#L17)*
 
 **Parameters:**
 
@@ -53,7 +53,7 @@ ___
 
 ▸ **getRowHeight**(`index`: number, `rowCount`: number, `entrySize`: [FileEntrySize](../interfaces/_types_file_list_view_types_.fileentrysize.md), `gutterSize`: number): *number*
 
-*Defined in [src/components/external/FileList-virtualization.tsx:27](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/FileList-virtualization.tsx#L27)*
+*Defined in [src/components/external/FileList-virtualization.tsx:27](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/external/FileList-virtualization.tsx#L27)*
 
 **Parameters:**
 
@@ -72,7 +72,7 @@ ___
 
 ▸ **noContentRenderer**(`height?`: undefined | number): *Element‹›*
 
-*Defined in [src/components/external/FileList-virtualization.tsx:85](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/FileList-virtualization.tsx#L85)*
+*Defined in [src/components/external/FileList-virtualization.tsx:85](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/external/FileList-virtualization.tsx#L85)*
 
 **Parameters:**
 
@@ -88,7 +88,7 @@ ___
 
 ▸ **useEntryRenderer**(`files`: [FileArray](_types_files_types_.md#filearray)): *(Anonymous function)*
 
-*Defined in [src/components/external/FileList-virtualization.tsx:38](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/FileList-virtualization.tsx#L38)*
+*Defined in [src/components/external/FileList-virtualization.tsx:38](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/external/FileList-virtualization.tsx#L38)*
 
 **Parameters:**
 
@@ -104,7 +104,7 @@ ___
 
 ▸ **useGridRenderer**(`files`: [FileArray](_types_files_types_.md#filearray), `entrySize`: [FileEntrySize](../interfaces/_types_file_list_view_types_.fileentrysize.md), `entryRenderer`: ReturnType‹typeof useEntryRenderer›, `thumbsGridRef`: React.Ref‹Nilable‹Grid››, `fillParentContainer`: boolean): *(Anonymous function)*
 
-*Defined in [src/components/external/FileList-virtualization.tsx:104](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/FileList-virtualization.tsx#L104)*
+*Defined in [src/components/external/FileList-virtualization.tsx:104](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/external/FileList-virtualization.tsx#L104)*
 
 **Parameters:**
 
@@ -124,16 +124,16 @@ Name | Type |
 
 ### ▪ **SmallThumbsSize**: *object*
 
-*Defined in [src/components/external/FileList-virtualization.tsx:13](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/FileList-virtualization.tsx#L13)*
+*Defined in [src/components/external/FileList-virtualization.tsx:13](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/external/FileList-virtualization.tsx#L13)*
 
 ###  height
 
 • **height**: *number* = 130
 
-*Defined in [src/components/external/FileList-virtualization.tsx:13](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/FileList-virtualization.tsx#L13)*
+*Defined in [src/components/external/FileList-virtualization.tsx:13](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/external/FileList-virtualization.tsx#L13)*
 
 ###  width
 
 • **width**: *number* = 165
 
-*Defined in [src/components/external/FileList-virtualization.tsx:13](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/components/external/FileList-virtualization.tsx#L13)*
+*Defined in [src/components/external/FileList-virtualization.tsx:13](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/external/FileList-virtualization.tsx#L13)*

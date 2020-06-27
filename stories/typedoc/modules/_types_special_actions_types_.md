@@ -29,7 +29,7 @@
 
 Ƭ **InternalSpecialActionDispatcher**: *function*
 
-*Defined in [src/types/special-actions.types.ts:72](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/special-actions.types.ts#L72)*
+*Defined in [src/types/special-actions.types.ts:72](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/special-actions.types.ts#L72)*
 
 #### Type declaration:
 
@@ -47,7 +47,7 @@ ___
 
 Ƭ **SpecialActionData**: *[SpecialFileMouseClickAction](../interfaces/_types_special_actions_types_.specialfilemouseclickaction.md) | [SpecialFileKeyboardClickAction](../interfaces/_types_special_actions_types_.specialfilekeyboardclickaction.md) | [SpecialOpenFolderChainFolderAction](../interfaces/_types_special_actions_types_.specialopenfolderchainfolderaction.md) | [SpecialDragNDropStartAction](../interfaces/_types_special_actions_types_.specialdragndropstartaction.md) | [SpecialDragNDropEndAction](../interfaces/_types_special_actions_types_.specialdragndropendaction.md) | [SpecialSimpleAction](../interfaces/_types_special_actions_types_.specialsimpleaction.md)*
 
-*Defined in [src/types/special-actions.types.ts:64](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/special-actions.types.ts#L64)*
+*Defined in [src/types/special-actions.types.ts:64](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/special-actions.types.ts#L64)*
 
 ___
 
@@ -55,6 +55,6 @@ ___
 
 Ƭ **SpecialActionHandlerMap**: *object*
 
-*Defined in [src/types/special-actions.types.ts:74](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/special-actions.types.ts#L74)*
+*Defined in [src/types/special-actions.types.ts:74](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/special-actions.types.ts#L74)*
 
 #### Type declaration:

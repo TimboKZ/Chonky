@@ -24,7 +24,7 @@
     default: NOOP_FUNCTION,
 })
 
-*Defined in [src/recoil/file-actions.recoil.ts:25](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/recoil/file-actions.recoil.ts#L25)*
+*Defined in [src/recoil/file-actions.recoil.ts:25](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/recoil/file-actions.recoil.ts#L25)*
 
 ___
 
@@ -35,7 +35,7 @@ ___
     default: 300,
 })
 
-*Defined in [src/recoil/file-actions.recoil.ts:35](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/recoil/file-actions.recoil.ts#L35)*
+*Defined in [src/recoil/file-actions.recoil.ts:35](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/recoil/file-actions.recoil.ts#L35)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
     },
 })
 
-*Defined in [src/recoil/file-actions.recoil.ts:42](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/recoil/file-actions.recoil.ts#L42)*
+*Defined in [src/recoil/file-actions.recoil.ts:42](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/recoil/file-actions.recoil.ts#L42)*
 
 #### Type declaration:
 
@@ -73,7 +73,7 @@ ___
     default: {},
 })
 
-*Defined in [src/recoil/file-actions.recoil.ts:20](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/recoil/file-actions.recoil.ts#L20)*
+*Defined in [src/recoil/file-actions.recoil.ts:20](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/recoil/file-actions.recoil.ts#L20)*
 
 ___
 
@@ -87,7 +87,7 @@ ___
     },
 })
 
-*Defined in [src/recoil/file-actions.recoil.ts:77](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/recoil/file-actions.recoil.ts#L77)*
+*Defined in [src/recoil/file-actions.recoil.ts:77](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/recoil/file-actions.recoil.ts#L77)*
 
 #### Type declaration:
 
@@ -123,7 +123,7 @@ ___
     }
 )
 
-*Defined in [src/recoil/file-actions.recoil.ts:57](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/recoil/file-actions.recoil.ts#L57)*
+*Defined in [src/recoil/file-actions.recoil.ts:57](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/recoil/file-actions.recoil.ts#L57)*
 
 This Recoil selector family returns a subset of the global file selection that
 satisfies filter of the provided file action.
@@ -147,7 +147,7 @@ ___
     default: [],
 })
 
-*Defined in [src/recoil/file-actions.recoil.ts:15](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/recoil/file-actions.recoil.ts#L15)*
+*Defined in [src/recoil/file-actions.recoil.ts:15](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/recoil/file-actions.recoil.ts#L15)*
 
 ___
 
@@ -158,4 +158,4 @@ ___
     default: NOOP_FUNCTION,
 })
 
-*Defined in [src/recoil/file-actions.recoil.ts:30](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/recoil/file-actions.recoil.ts#L30)*
+*Defined in [src/recoil/file-actions.recoil.ts:30](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/recoil/file-actions.recoil.ts#L30)*

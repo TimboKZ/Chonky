@@ -24,7 +24,7 @@
 
 • **fileFilter**? : *[FileFilter](../modules/_types_files_types_.md#filefilter)*
 
-*Defined in [src/types/file-actions.types.ts:9](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/file-actions.types.ts#L9)*
+*Defined in [src/types/file-actions.types.ts:9](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-actions.types.ts#L9)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **hotkeys**? : *keyof string[]*
 
-*Defined in [src/types/file-actions.types.ts:11](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/file-actions.types.ts#L11)*
+*Defined in [src/types/file-actions.types.ts:11](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-actions.types.ts#L11)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **id**: *string*
 
-*Defined in [src/types/file-actions.types.ts:6](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/file-actions.types.ts#L6)*
+*Defined in [src/types/file-actions.types.ts:6](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-actions.types.ts#L6)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **metadata**? : *any*
 
-*Defined in [src/types/file-actions.types.ts:7](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/file-actions.types.ts#L7)*
+*Defined in [src/types/file-actions.types.ts:7](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-actions.types.ts#L7)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • **requiresSelection**? : *undefined | false | true*
 
-*Defined in [src/types/file-actions.types.ts:8](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/file-actions.types.ts#L8)*
+*Defined in [src/types/file-actions.types.ts:8](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-actions.types.ts#L8)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **specialActionToDispatch**? : *[SpecialAction](../enums/_types_special_actions_types_.specialaction.md)*
 
-*Defined in [src/types/file-actions.types.ts:17](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/file-actions.types.ts#L17)*
+*Defined in [src/types/file-actions.types.ts:17](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-actions.types.ts#L17)*
 
 ___
 
@@ -72,4 +72,4 @@ ___
 
 • **toolbarButton**? : *[ToolbarButtonData](_types_file_actions_types_.toolbarbuttondata.md)*
 
-*Defined in [src/types/file-actions.types.ts:12](https://github.com/TimboKZ/Chonky/blob/cb533b8/src/types/file-actions.types.ts#L12)*
+*Defined in [src/types/file-actions.types.ts:12](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-actions.types.ts#L12)*
