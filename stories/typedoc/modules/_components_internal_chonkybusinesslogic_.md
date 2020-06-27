@@ -33,12 +33,8 @@
     const enableDragAndDrop = !!props.enableDragAndDrop;
 
     //
-    // ==== File array sorting | TODO: Come up with an API for customizable sorting...
-    const sortedFiles = files;
-
-    //
-    // ==== File search (aka file array filtering)
-    const filteredFiles = useFileSearch(sortedFiles);
+    // ==== File array sorting
+    const sortedFiles = useFileSorting(files);
 
     //
     // ==== File selections
@@ -57,6 +53,14 @@
     useFileActions(fileActions, onFileAction);
 
     //
+    // ==== File options - toggleable options based on file actions
+    const optionFilteredFiles = useOptions(sortedFiles);
+
+    //
+    // ==== File search (aka file array filtering)
+    const searchFilteredFiles = useFileSearch(optionFilteredFiles);
+
+    //
     // ==== Special actions - special actions hard-coded into Chonky that users cannot
     //      customize (easily).
     useSpecialActionDispatcher(
@@ -68,8 +72,8 @@
 
     const setRecoilFiles = useSetRecoilState(filesState);
     useEffect(() => {
-        setRecoilFiles(filteredFiles);
-    }, [filteredFiles, setRecoilFiles]);
+        setRecoilFiles(searchFilteredFiles);
+    }, [searchFilteredFiles, setRecoilFiles]);
 
     const setFolderChain = useSetRecoilState(folderChainState);
     const setParentFolder = useSetRecoilState(parentFolderState);
@@ -108,4 +112,4 @@
     return null;
 })
 
-*Defined in [src/components/internal/ChonkyBusinessLogic.tsx:26](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/internal/ChonkyBusinessLogic.tsx#L26)*
+*Defined in [src/components/internal/ChonkyBusinessLogic.tsx:28](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/internal/ChonkyBusinessLogic.tsx#L28)*

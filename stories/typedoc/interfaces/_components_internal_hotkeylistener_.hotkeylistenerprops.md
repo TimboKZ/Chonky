@@ -18,4 +18,4 @@
 
 • **fileActionId**: *string*
 
-*Defined in [src/components/internal/HotkeyListener.tsx:17](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/internal/HotkeyListener.tsx#L17)*
+*Defined in [src/components/internal/HotkeyListener.tsx:17](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/internal/HotkeyListener.tsx#L17)*

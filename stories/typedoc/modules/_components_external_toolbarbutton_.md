@@ -24,7 +24,7 @@
 
         const action = useRecoilValue(fileActionDataState(fileActionId));
         const triggerAction = useFileActionTrigger(fileActionId);
-        const { active, disabled } = useFileActionModifiers(fileActionId);
+        const { icon, active, disabled } = useFileActionProps(fileActionId);
 
         if (!action) return null;
         const { toolbarButton: button } = action;
@@ -34,7 +34,7 @@
             <ToolbarButton
                 text={button.name}
                 tooltip={button.tooltip}
-                icon={button.icon}
+                icon={icon}
                 iconOnly={button.iconOnly}
                 active={active}
                 onClick={triggerAction}
@@ -44,7 +44,7 @@
     }
 )
 
-*Defined in [src/components/external/ToolbarButton.tsx:67](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/external/ToolbarButton.tsx#L67)*
+*Defined in [src/components/external/ToolbarButton.tsx:68](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/ToolbarButton.tsx#L68)*
 
 ___
 
@@ -92,4 +92,4 @@ ___
     );
 })
 
-*Defined in [src/components/external/ToolbarButton.tsx:21](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/external/ToolbarButton.tsx#L21)*
+*Defined in [src/components/external/ToolbarButton.tsx:22](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/ToolbarButton.tsx#L22)*

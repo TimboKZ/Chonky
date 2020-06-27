@@ -22,18 +22,22 @@
 ### `Const` DropdownButton
 
 • **DropdownButton**: *React.FC‹[DropdownButtonProps](../interfaces/_components_external_dropdownbutton_.dropdownbuttonprops.md)›* = React.memo((props) => {
-    const { text, tooltip, icon, onClick, disabled } = props;
+    const { text, tooltip, active, icon, onClick, disabled } = props;
 
+    const className = c({
+        'chonky-toolbar-dropdown-button': true,
+        'chonky-active': !!active,
+    });
     return (
         <button
-            className="chonky-toolbar-dropdown-button"
+            className={className}
             onClick={onClick}
             title={tooltip ? tooltip : text}
             disabled={!onClick || disabled}
         >
             <div className="chonky-toolbar-dropdown-button-icon">
                 <ChonkyIconFA
-                    icon={icon ? icon : ChonkyIconName.fallbackIcon}
+                    icon={icon ? icon : ChonkyIconName.circle}
                     fixedWidth={true}
                 />
             </div>
@@ -42,7 +46,7 @@
     );
 })
 
-*Defined in [src/components/external/DropdownButton.tsx:23](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/external/DropdownButton.tsx#L23)*
+*Defined in [src/components/external/DropdownButton.tsx:26](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/DropdownButton.tsx#L26)*
 
 ## Functions
 
@@ -50,7 +54,7 @@
 
 ▸ **SmartDropdownButton**(`props`: [SmartDropdownButtonProps](../interfaces/_components_external_dropdownbutton_.smartdropdownbuttonprops.md) & object): *null | Element‹›*
 
-*Defined in [src/components/external/DropdownButton.tsx:48](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/external/DropdownButton.tsx#L48)*
+*Defined in [src/components/external/DropdownButton.tsx:55](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/DropdownButton.tsx#L55)*
 
 **Parameters:**
 

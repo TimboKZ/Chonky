@@ -18,7 +18,7 @@
 
 • **INTENTIONAL_EMPTY_DEPS**: *ReadonlyArray‹never›* = []
 
-*Defined in [src/util/constants.ts:4](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/constants.ts#L4)*
+*Defined in [src/util/constants.ts:4](https://github.com/TimboKZ/Chonky/blob/603fef8/src/util/constants.ts#L4)*
 
 ## Functions
 
@@ -26,7 +26,7 @@
 
 ▸ **NOOP_FUNCTION**(...`args`: any[]): *void*
 
-*Defined in [src/util/constants.ts:8](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/constants.ts#L8)*
+*Defined in [src/util/constants.ts:8](https://github.com/TimboKZ/Chonky/blob/603fef8/src/util/constants.ts#L8)*
 
 **Parameters:**
 

@@ -15,7 +15,7 @@
 
 ▸ **useInternalFileActionDispatcher**(`externalFileActonHandler`: Nullable‹[FileActionHandler](_types_file_actions_types_.md#fileactionhandler)›): *[InternalFileActionDispatcher](_types_file_actions_types_.md#internalfileactiondispatcher)*
 
-*Defined in [src/util/file-action-handlers.ts:25](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-action-handlers.ts#L25)*
+*Defined in [src/util/file-action-handlers.ts:27](https://github.com/TimboKZ/Chonky/blob/603fef8/src/util/file-action-handlers.ts#L27)*
 
 **Parameters:**
 
@@ -31,6 +31,6 @@ ___
 
 ▸ **useInternalFileActionRequester**(): *(Anonymous function)*
 
-*Defined in [src/util/file-action-handlers.ts:60](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-action-handlers.ts#L60)*
+*Defined in [src/util/file-action-handlers.ts:62](https://github.com/TimboKZ/Chonky/blob/603fef8/src/util/file-action-handlers.ts#L62)*
 
 **Returns:** *(Anonymous function)*

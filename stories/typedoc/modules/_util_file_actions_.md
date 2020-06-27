@@ -6,17 +6,17 @@
 
 ### Functions
 
-* [useFileActionModifiers](_util_file_actions_.md#const-usefileactionmodifiers)
+* [useFileActionProps](_util_file_actions_.md#const-usefileactionprops)
 * [useFileActionTrigger](_util_file_actions_.md#const-usefileactiontrigger)
 * [useFileActions](_util_file_actions_.md#const-usefileactions)
 
 ## Functions
 
-### `Const` useFileActionModifiers
+### `Const` useFileActionProps
 
-▸ **useFileActionModifiers**(`fileActionId`: string): *object*
+▸ **useFileActionProps**(`fileActionId`: string): *object*
 
-*Defined in [src/util/file-actions.ts:81](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-actions.ts#L81)*
+*Defined in [src/util/file-actions.ts:85](https://github.com/TimboKZ/Chonky/blob/603fef8/src/util/file-actions.ts#L85)*
 
 **Parameters:**
 
@@ -30,13 +30,15 @@ Name | Type |
 
 * **disabled**: *boolean*
 
+* **icon**: *Nullable‹[ChonkyIconName](../enums/_types_icons_types_.chonkyiconname.md) | string›*
+
 ___
 
 ### `Const` useFileActionTrigger
 
 ▸ **useFileActionTrigger**(`fileActionId`: string): *(Anonymous function)*
 
-*Defined in [src/util/file-actions.ts:73](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-actions.ts#L73)*
+*Defined in [src/util/file-actions.ts:77](https://github.com/TimboKZ/Chonky/blob/603fef8/src/util/file-actions.ts#L77)*
 
 **Parameters:**
 
@@ -52,7 +54,7 @@ ___
 
 ▸ **useFileActions**(`fileActions`: [FileAction](../interfaces/_types_file_actions_types_.fileaction.md)[], `externalFileActonHandler`: Nullable‹[FileActionHandler](_types_file_actions_types_.md#fileactionhandler)›): *object*
 
-*Defined in [src/util/file-actions.ts:24](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-actions.ts#L24)*
+*Defined in [src/util/file-actions.ts:28](https://github.com/TimboKZ/Chonky/blob/603fef8/src/util/file-actions.ts#L28)*
 
 **Parameters:**
 

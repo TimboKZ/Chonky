@@ -18,4 +18,4 @@
 
 • **actionId**: *[OpenParentFolder](../enums/_types_special_actions_types_.specialaction.md#openparentfolder) | [ToggleSearchBar](../enums/_types_special_actions_types_.specialaction.md#togglesearchbar) | [SelectAllFiles](../enums/_types_special_actions_types_.specialaction.md#selectallfiles) | [ClearSelection](../enums/_types_special_actions_types_.specialaction.md#clearselection)*
 
-*Defined in [src/types/special-actions.types.ts:57](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/special-actions.types.ts#L57)*
+*Defined in [src/types/special-actions.types.ts:57](https://github.com/TimboKZ/Chonky/blob/603fef8/src/types/special-actions.types.ts#L57)*

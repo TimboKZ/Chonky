@@ -19,7 +19,7 @@
     default: false,
 })
 
-*Defined in [src/recoil/search.recoil.ts:5](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/recoil/search.recoil.ts#L5)*
+*Defined in [src/recoil/search.recoil.ts:5](https://github.com/TimboKZ/Chonky/blob/603fef8/src/recoil/search.recoil.ts#L5)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
     default: false,
 })
 
-*Defined in [src/recoil/search.recoil.ts:10](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/recoil/search.recoil.ts#L10)*
+*Defined in [src/recoil/search.recoil.ts:10](https://github.com/TimboKZ/Chonky/blob/603fef8/src/recoil/search.recoil.ts#L10)*
 
 ___
 
@@ -41,4 +41,4 @@ ___
     default: '',
 })
 
-*Defined in [src/recoil/search.recoil.ts:15](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/recoil/search.recoil.ts#L15)*
+*Defined in [src/recoil/search.recoil.ts:15](https://github.com/TimboKZ/Chonky/blob/603fef8/src/recoil/search.recoil.ts#L15)*

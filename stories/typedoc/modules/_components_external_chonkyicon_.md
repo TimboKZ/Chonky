@@ -27,7 +27,7 @@
     return <FontAwesomeIcon {...faProps} />;
 })
 
-*Defined in [src/components/external/ChonkyIcon.tsx:153](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/external/ChonkyIcon.tsx#L153)*
+*Defined in [src/components/external/ChonkyIcon.tsx:158](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/ChonkyIcon.tsx#L158)*
 
 ___
 
@@ -37,6 +37,7 @@ ___
     // Misc
     [ChonkyIconName.loading]: faCircleNotch,
     [ChonkyIconName.dropdown]: faChevronDown,
+    [ChonkyIconName.circle]: faGenderless,
 
     // File Actions: Drag & drop
     [ChonkyIconName.dndDragging]: faFistRaised,
@@ -51,11 +52,13 @@ ___
     [ChonkyIconName.selectAllFiles]: faObjectGroup,
     [ChonkyIconName.clearSelection]: faEraser,
 
-    // File Actions: Unsorted
+    // File Actions: Sorting & options
+    [ChonkyIconName.sortAsc]: faSortAmountDownAlt,
+    [ChonkyIconName.sortDesc]: faSortAmountUpAlt,
     [ChonkyIconName.checkActive]: faCheckCircle,
     [ChonkyIconName.checkInactive]: faCircle,
-    [ChonkyIconName.desc]: faArrowDown,
-    [ChonkyIconName.asc]: faArrowUp,
+
+    // File Actions: Unsorted
     [ChonkyIconName.list]: faList,
     [ChonkyIconName.folder]: faFolder,
     [ChonkyIconName.folderCreate]: faFolderPlus,
@@ -114,6 +117,6 @@ ___
     [ChonkyIconName.flash]: faRunning,
 } as const
 
-*Defined in [src/components/external/ChonkyIcon.tsx:62](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/external/ChonkyIcon.tsx#L62)*
+*Defined in [src/components/external/ChonkyIcon.tsx:64](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/ChonkyIcon.tsx#L64)*
 
 #### Type declaration:

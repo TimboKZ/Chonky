@@ -67,6 +67,7 @@
         toolbarButton: {
             name: 'Select all files',
             group: 'Actions',
+            dropdown: true,
             icon: ChonkyIconName.selectAllFiles,
             iconOnly: true,
         },
@@ -79,11 +80,68 @@
         toolbarButton: {
             name: 'Clear selection',
             group: 'Actions',
+            dropdown: true,
             icon: ChonkyIconName.clearSelection,
             iconOnly: true,
         },
 
         specialActionToDispatch: SpecialAction.ClearSelection,
+    },
+
+    // Sorting actions
+    SortFilesByName: {
+        id: 'sort_files_by_name',
+        sortKeySelector: (file: Nullable<FileData>) => (file ? file.name : undefined),
+        toolbarButton: {
+            name: 'Sort by name',
+            group: 'Sort',
+            dropdown: true,
+        },
+    },
+    SortFilesBySize: {
+        id: 'sort_files_by_size',
+        sortKeySelector: (file: Nullable<FileData>) => (file ? file.size : undefined),
+        toolbarButton: {
+            name: 'Sort by size',
+            group: 'Sort',
+            dropdown: true,
+        },
+    },
+    SortFilesByDate: {
+        id: 'sort_files_by_date',
+        sortKeySelector: (file: Nullable<FileData>) =>
+            file ? file.modDate : undefined,
+        toolbarButton: {
+            name: 'Sort by date',
+            group: 'Sort',
+            dropdown: true,
+        },
+    },
+
+    // Toggleable options
+    ToggleHiddenFiles: {
+        id: 'toggle_hidden_files',
+        option: {
+            id: 'show_hidden_files',
+            defaultValue: true,
+        },
+        toolbarButton: {
+            name: 'Show hidden files',
+            group: 'Options',
+            dropdown: true,
+        },
+    },
+    ToggleShowFoldersFirst: {
+        id: 'toggle_show_folders_first',
+        option: {
+            id: 'show_folders_first',
+            defaultValue: true,
+        },
+        toolbarButton: {
+            name: 'Show folders first',
+            group: 'Options',
+            dropdown: true,
+        },
     },
 
     // Optional actions
@@ -139,7 +197,7 @@
     },
 } as const
 
-*Defined in [src/util/file-actions-definitions.ts:6](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-actions-definitions.ts#L6)*
+*Defined in [src/util/file-actions-definitions.ts:9](https://github.com/TimboKZ/Chonky/blob/603fef8/src/util/file-actions-definitions.ts#L9)*
 
 #### Type declaration:
 
@@ -152,6 +210,8 @@
   * **specialActionToDispatch**: *[ClearSelection](../enums/_types_special_actions_types_.specialaction.md#clearselection)* = SpecialAction.ClearSelection
 
   * **toolbarButton**: *object*
+
+    * **dropdown**: *true* = true
 
     * **group**: *"Actions"* = "Actions"
 
@@ -283,6 +343,8 @@
 
   * **toolbarButton**: *object*
 
+    * **dropdown**: *true* = true
+
     * **group**: *"Actions"* = "Actions"
 
     * **icon**: *[selectAllFiles](../enums/_types_icons_types_.chonkyiconname.md#selectallfiles)* = ChonkyIconName.selectAllFiles
@@ -290,6 +352,66 @@
     * **iconOnly**: *true* = true
 
     * **name**: *"Select all files"* = "Select all files"
+
+* ### **SortFilesByDate**: *object*
+
+  * **id**: *"sort_files_by_date"* = "sort_files_by_date"
+
+  * **sortKeySelector**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *undefined | string | Date*
+
+  * **toolbarButton**: *object*
+
+    * **dropdown**: *true* = true
+
+    * **group**: *"Sort"* = "Sort"
+
+    * **name**: *"Sort by date"* = "Sort by date"
+
+* ### **SortFilesByName**: *object*
+
+  * **id**: *"sort_files_by_name"* = "sort_files_by_name"
+
+  * **sortKeySelector**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *undefined | string*
+
+  * **toolbarButton**: *object*
+
+    * **dropdown**: *true* = true
+
+    * **group**: *"Sort"* = "Sort"
+
+    * **name**: *"Sort by name"* = "Sort by name"
+
+* ### **SortFilesBySize**: *object*
+
+  * **id**: *"sort_files_by_size"* = "sort_files_by_size"
+
+  * **sortKeySelector**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *undefined | number*
+
+  * **toolbarButton**: *object*
+
+    * **dropdown**: *true* = true
+
+    * **group**: *"Sort"* = "Sort"
+
+    * **name**: *"Sort by size"* = "Sort by size"
+
+* ### **ToggleHiddenFiles**: *object*
+
+  * **id**: *"toggle_hidden_files"* = "toggle_hidden_files"
+
+  * **option**: *object*
+
+    * **defaultValue**: *true* = true
+
+    * **id**: *"show_hidden_files"* = "show_hidden_files"
+
+  * **toolbarButton**: *object*
+
+    * **dropdown**: *true* = true
+
+    * **group**: *"Options"* = "Options"
+
+    * **name**: *"Show hidden files"* = "Show hidden files"
 
 * ### **ToggleSearch**: *object*
 
@@ -306,6 +428,24 @@
     * **iconOnly**: *true* = true
 
     * **name**: *"Search"* = "Search"
+
+* ### **ToggleShowFoldersFirst**: *object*
+
+  * **id**: *"toggle_show_folders_first"* = "toggle_show_folders_first"
+
+  * **option**: *object*
+
+    * **defaultValue**: *true* = true
+
+    * **id**: *"show_folders_first"* = "show_folders_first"
+
+  * **toolbarButton**: *object*
+
+    * **dropdown**: *true* = true
+
+    * **group**: *"Options"* = "Options"
+
+    * **name**: *"Show folders first"* = "Show folders first"
 
 * ### **UploadFiles**: *object*
 
@@ -333,6 +473,13 @@ ___
     ChonkyActions.OpenFiles,
     ChonkyActions.SelectAllFiles,
     ChonkyActions.ClearSelection,
+
+    ChonkyActions.SortFilesByName,
+    ChonkyActions.SortFilesBySize,
+    ChonkyActions.SortFilesByDate,
+
+    ChonkyActions.ToggleHiddenFiles,
+    ChonkyActions.ToggleShowFoldersFirst,
 ]
 
-*Defined in [src/util/file-actions-definitions.ts:132](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-actions-definitions.ts#L132)*
+*Defined in [src/util/file-actions-definitions.ts:193](https://github.com/TimboKZ/Chonky/blob/603fef8/src/util/file-actions-definitions.ts#L193)*
