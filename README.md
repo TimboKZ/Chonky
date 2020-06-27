@@ -64,7 +64,7 @@ import { FileBrowser, FileList, FileSearch, FileToolbar } from 'chonky';
 
 export const ChonkyDemo = () => {
     const folderChain = [
-        { id: 'xmFe', name: 'My Documents' },
+        { id: 'xXre', name: 'My Documents' },
         { id: 'BtrE', name: 'Websites' },
     ];
 
