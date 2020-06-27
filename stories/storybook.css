@@ -17,6 +17,10 @@
   }
 }
 
+.sbdocs-wrapper {
+  padding: 20px !important;
+}
+
 .sbdocs-content .sbdocs-p, .sbdocs-content .sbdocs-p *,
 .sbdocs-content .sbdocs-ul,
 .sbdocs-content .sbdocs-ul *,
@@ -52,12 +56,17 @@
   margin-top: 40px !important;
 }
 @media screen and (max-width: 400px) {
+  .sbdocs-content .docblock-source {
+    margin: 10px 0 !important;
+  }
+}
+@media screen and (max-width: 400px) {
   .sbdocs-content .os-content {
     line-height: 12px !important;
-    font-size: 9px !important;
+    font-size: 8px !important;
   }
   .sbdocs-content .os-content pre {
-    padding: 5px !important;
+    padding: 5px 10px !important;
   }
 }
 

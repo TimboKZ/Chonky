@@ -19,7 +19,7 @@ const title = 'Specifying current folder';
 export default {
     title: `${category}|${title}`,
     parameters: {
-        docs: createDocsObject({ markdown }),
+        docs: createDocsObject({ category, title, markdown }),
     },
 };
 

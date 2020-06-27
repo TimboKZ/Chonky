@@ -12,7 +12,7 @@ const title = 'Custom styling';
 export default {
     title: `${category}|${title}`,
     parameters: {
-        docs: createDocsObject({ markdown, hideStory: true }),
+        docs: createDocsObject({ category, title, markdown, hideStory: true }),
     },
 };
 

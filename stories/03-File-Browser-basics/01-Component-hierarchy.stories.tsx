@@ -25,7 +25,7 @@ const title = 'Component hierarchy';
 export default {
     title: `${category}|${title}`,
     parameters: {
-        docs: createDocsObject({ markdown }),
+        docs: createDocsObject({ category, title, markdown }),
     },
 };
 

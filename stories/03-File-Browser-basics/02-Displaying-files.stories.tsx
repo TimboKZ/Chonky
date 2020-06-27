@@ -27,7 +27,7 @@ const title = 'Displaying files';
 export default {
     title: `${category}|${title}`,
     parameters: {
-        docs: createDocsObject({ markdown }),
+        docs: createDocsObject({ category, title, markdown }),
     },
 };
 

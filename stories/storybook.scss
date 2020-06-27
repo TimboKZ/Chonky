@@ -18,6 +18,10 @@
     }
 }
 
+.sbdocs-wrapper {
+    padding: 20px !important;
+}
+
 .sbdocs-content {
     .sbdocs-p,
     .sbdocs-ul,
@@ -47,13 +51,19 @@
         margin-top: 40px !important;
     }
 
+    .docblock-source {
+        @media screen and (max-width: $mobile-breakpoint) {
+            margin: 10px 0 !important;
+        }
+    }
+
     .os-content {
         @media screen and (max-width: $mobile-breakpoint) {
             line-height: 12px !important;
-            font-size: 9px !important;
+            font-size: 8px !important;
 
             pre {
-                padding: 5px !important;
+                padding: 5px 10px !important;
             }
         }
     }

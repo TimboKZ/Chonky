@@ -3,6 +3,7 @@ import 'noty/lib/themes/relax.css';
 import './storybook.css';
 
 import {
+    Anchor,
     Description,
     DocsContext,
     DocsStory,
@@ -29,28 +30,46 @@ export enum StoryCategories {
     ApiReference = '5) API Reference',
 }
 
-export const createDocsObject = (params: { markdown: string; hideStory?: boolean }) => {
-    const { markdown, hideStory } = params;
-
+export const createDocsObject = (params: {
+    category: string;
+    title: string;
+    markdown: string;
+    hideStory?: boolean;
+}) => {
     return {
         page: () => {
-            return (
-                <React.Fragment>
-                    <DndProvider backend={HTML5Backend}>
-                        {parseMarkdown(UnstableWarningMd)}
-                        <Title />
-                        {parseMarkdown(markdown)}
-                        {!hideStory && (
-                            <>
-                                <CustomPrimary />
-                                {parseMarkdown(LiveExampleMd)}
-                            </>
-                        )}
-                    </DndProvider>
-                </React.Fragment>
-            );
+            return <CustomDocsComponent {...params} />;
         },
     };
+};
+
+export const CustomDocsComponent = (props: {
+    markdown: string;
+    hideStory?: boolean;
+}) => {
+    const { markdown, hideStory } = props;
+
+    const context = useContext(DocsContext);
+    const componentStories = getDocsStories(context);
+
+    const storyId = componentStories.length > 0 ? componentStories[0].id : null;
+
+    return (
+        <React.Fragment>
+            <DndProvider backend={HTML5Backend}>
+                {storyId && <Anchor storyId={storyId} />}
+                {parseMarkdown(UnstableWarningMd)}
+                <Title />
+                {parseMarkdown(markdown)}
+                {!hideStory && (
+                    <>
+                        <CustomPrimary />
+                        {parseMarkdown(LiveExampleMd)}
+                    </>
+                )}
+            </DndProvider>
+        </React.Fragment>
+    );
 };
 
 export const CustomPrimary: React.FC<any> = ({ name }) => {

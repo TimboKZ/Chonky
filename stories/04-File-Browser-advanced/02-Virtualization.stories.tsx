@@ -14,7 +14,7 @@ import React from 'react';
 import {
     createDocsObject,
     showActionNotification,
-    StoryCategories
+    StoryCategories,
 } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
@@ -27,7 +27,7 @@ const title = 'Virtualization with 10,000 files';
 export default {
     title: `${category}|${title}`,
     parameters: {
-        docs: createDocsObject({ markdown }),
+        docs: createDocsObject({ category, title, markdown }),
     },
 };
 

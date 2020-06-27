@@ -15,7 +15,7 @@ import React from 'react';
 import {
     createDocsObject,
     showActionNotification,
-    StoryCategories
+    StoryCategories,
 } from '../story-helpers';
 // @ts-ignore
 // eslint-disable-next-line
@@ -28,7 +28,7 @@ const title = 'Custom file actions';
 export default {
     title: `${category}|${title}`,
     parameters: {
-        docs: createDocsObject({ markdown }),
+        docs: createDocsObject({ category, title, markdown }),
     },
 };
 
