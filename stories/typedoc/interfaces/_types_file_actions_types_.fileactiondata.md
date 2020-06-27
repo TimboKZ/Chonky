@@ -20,7 +20,7 @@
 
 • **actionId**: *string*
 
-*Defined in [src/types/file-actions.types.ts:34](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/file-actions.types.ts#L34)*
+*Defined in [src/types/file-actions.types.ts:34](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/file-actions.types.ts#L34)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **files**? : *ReadonlyArray‹Readonly‹[FileData](_types_files_types_.filedata.md)››*
 
-*Defined in [src/types/file-actions.types.ts:36](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/file-actions.types.ts#L36)*
+*Defined in [src/types/file-actions.types.ts:36](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/file-actions.types.ts#L36)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **target**? : *Readonly‹[FileData](_types_files_types_.filedata.md)›*
 
-*Defined in [src/types/file-actions.types.ts:35](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/file-actions.types.ts#L35)*
+*Defined in [src/types/file-actions.types.ts:35](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/file-actions.types.ts#L35)*

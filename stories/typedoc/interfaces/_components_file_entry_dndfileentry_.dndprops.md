@@ -22,7 +22,7 @@
 
 • **dndCanDrop**? : *undefined | false | true*
 
-*Defined in [src/components/file-entry/DnDFileEntry.tsx:17](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/file-entry/DnDFileEntry.tsx#L17)*
+*Defined in [src/components/file-entry/DnDFileEntry.tsx:17](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/file-entry/DnDFileEntry.tsx#L17)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **dndIsDragging**? : *undefined | false | true*
 
-*Defined in [src/components/file-entry/DnDFileEntry.tsx:15](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/file-entry/DnDFileEntry.tsx#L15)*
+*Defined in [src/components/file-entry/DnDFileEntry.tsx:15](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/file-entry/DnDFileEntry.tsx#L15)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 • **dndIsOver**? : *undefined | false | true*
 
-*Defined in [src/components/file-entry/DnDFileEntry.tsx:16](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/file-entry/DnDFileEntry.tsx#L16)*
+*Defined in [src/components/file-entry/DnDFileEntry.tsx:16](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/file-entry/DnDFileEntry.tsx#L16)*

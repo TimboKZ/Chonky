@@ -36,4 +36,4 @@
     );
 })
 
-*Defined in [src/components/file-entry/SmartFileEntry.tsx:23](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/file-entry/SmartFileEntry.tsx#L23)*
+*Defined in [src/components/file-entry/SmartFileEntry.tsx:23](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/file-entry/SmartFileEntry.tsx#L23)*

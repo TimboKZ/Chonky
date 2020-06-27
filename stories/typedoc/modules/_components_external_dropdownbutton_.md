@@ -46,7 +46,7 @@
     );
 })
 
-*Defined in [src/components/external/DropdownButton.tsx:26](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/DropdownButton.tsx#L26)*
+*Defined in [src/components/external/DropdownButton.tsx:26](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/external/DropdownButton.tsx#L26)*
 
 ## Functions
 
@@ -54,7 +54,7 @@
 
 ▸ **SmartDropdownButton**(`props`: [SmartDropdownButtonProps](../interfaces/_components_external_dropdownbutton_.smartdropdownbuttonprops.md) & object): *null | Element‹›*
 
-*Defined in [src/components/external/DropdownButton.tsx:55](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/DropdownButton.tsx#L55)*
+*Defined in [src/components/external/DropdownButton.tsx:55](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/external/DropdownButton.tsx#L55)*
 
 **Parameters:**
 

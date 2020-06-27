@@ -24,7 +24,7 @@
 
 • **actionId**: *[MouseClickFile](../enums/_types_special_actions_types_.specialaction.md#mouseclickfile)*
 
-*Defined in [src/types/special-actions.types.ts:19](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/special-actions.types.ts#L19)*
+*Defined in [src/types/special-actions.types.ts:19](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/special-actions.types.ts#L19)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **altKey**: *boolean*
 
-*Defined in [src/types/special-actions.types.ts:22](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/special-actions.types.ts#L22)*
+*Defined in [src/types/special-actions.types.ts:22](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/special-actions.types.ts#L22)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **clickType**: *"single" | "double"*
 
-*Defined in [src/types/special-actions.types.ts:25](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/special-actions.types.ts#L25)*
+*Defined in [src/types/special-actions.types.ts:25](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/special-actions.types.ts#L25)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **ctrlKey**: *boolean*
 
-*Defined in [src/types/special-actions.types.ts:23](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/special-actions.types.ts#L23)*
+*Defined in [src/types/special-actions.types.ts:23](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/special-actions.types.ts#L23)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • **file**: *[FileData](_types_files_types_.filedata.md)*
 
-*Defined in [src/types/special-actions.types.ts:20](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/special-actions.types.ts#L20)*
+*Defined in [src/types/special-actions.types.ts:20](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/special-actions.types.ts#L20)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **fileDisplayIndex**: *number*
 
-*Defined in [src/types/special-actions.types.ts:21](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/special-actions.types.ts#L21)*
+*Defined in [src/types/special-actions.types.ts:21](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/special-actions.types.ts#L21)*
 
 ___
 
@@ -72,4 +72,4 @@ ___
 
 • **shiftKey**: *boolean*
 
-*Defined in [src/types/special-actions.types.ts:24](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/special-actions.types.ts#L24)*
+*Defined in [src/types/special-actions.types.ts:24](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/special-actions.types.ts#L24)*

@@ -31,7 +31,7 @@
 
 Ƭ **ExtractContextType**: *P extends Context<infer T> ? T : never*
 
-*Defined in [src/util/context.ts:20](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/util/context.ts#L20)*
+*Defined in [src/util/context.ts:20](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/util/context.ts#L20)*
 
 ## Variables
 
@@ -39,7 +39,7 @@
 
 • **ChonkySearchBarEnabledContext**: *Context‹boolean›* = React.createContext<boolean>(false)
 
-*Defined in [src/util/context.ts:6](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/util/context.ts#L6)*
+*Defined in [src/util/context.ts:6](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/util/context.ts#L6)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • **ChonkySearchBarVisibleContext**: *Context‹boolean›* = React.createContext<boolean>(false)
 
-*Defined in [src/util/context.ts:10](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/util/context.ts#L10)*
+*Defined in [src/util/context.ts:10](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/util/context.ts#L10)*
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 • **ChonkySearchFilterContext**: *Context‹string›* = React.createContext<string>('')
 
-*Defined in [src/util/context.ts:14](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/util/context.ts#L14)*
+*Defined in [src/util/context.ts:14](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/util/context.ts#L14)*
 
 ___
 
@@ -65,7 +65,7 @@ ___
     (visible: boolean) => void
 >(NOOP_FUNCTION)
 
-*Defined in [src/util/context.ts:7](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/util/context.ts#L7)*
+*Defined in [src/util/context.ts:7](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/util/context.ts#L7)*
 
 ___
 
@@ -75,7 +75,7 @@ ___
     (visible: boolean) => void
 >(NOOP_FUNCTION)
 
-*Defined in [src/util/context.ts:11](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/util/context.ts#L11)*
+*Defined in [src/util/context.ts:11](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/util/context.ts#L11)*
 
 ___
 
@@ -85,7 +85,7 @@ ___
     (searchFilter: string) => void
 >(NOOP_FUNCTION)
 
-*Defined in [src/util/context.ts:15](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/util/context.ts#L15)*
+*Defined in [src/util/context.ts:15](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/util/context.ts#L15)*
 
 ## Functions
 
@@ -93,7 +93,7 @@ ___
 
 ▸ **validateContextType**‹**T**›(`contextData`: [ContextData](../interfaces/_util_context_.contextdata.md)‹T›): *[ContextData](../interfaces/_util_context_.contextdata.md)‹T›*
 
-*Defined in [src/util/context.ts:30](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/util/context.ts#L30)*
+*Defined in [src/util/context.ts:30](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/util/context.ts#L30)*
 
 This function is a no-op, but it's type verifies that the provided `ContextData`
 value matches the type expected by the context.

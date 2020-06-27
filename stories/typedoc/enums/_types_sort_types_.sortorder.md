@@ -15,7 +15,7 @@
 
 • **Asc**: = "asc"
 
-*Defined in [src/types/sort.types.ts:8](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/sort.types.ts#L8)*
+*Defined in [src/types/sort.types.ts:8](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/sort.types.ts#L8)*
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • **Desc**: = "desc"
 
-*Defined in [src/types/sort.types.ts:9](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/sort.types.ts#L9)*
+*Defined in [src/types/sort.types.ts:9](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/types/sort.types.ts#L9)*

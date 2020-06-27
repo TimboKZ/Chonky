@@ -17,4 +17,4 @@
     default: [],
 })
 
-*Defined in [src/recoil/errors.recoil.ts:7](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/recoil/errors.recoil.ts#L7)*
+*Defined in [src/recoil/errors.recoil.ts:7](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/recoil/errors.recoil.ts#L7)*

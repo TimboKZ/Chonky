@@ -19,7 +19,7 @@
 
 • **maxLength**: *number*
 
-*Defined in [src/components/external/TextPlaceholder.tsx:11](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/TextPlaceholder.tsx#L11)*
+*Defined in [src/components/external/TextPlaceholder.tsx:11](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/external/TextPlaceholder.tsx#L11)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **minLength**: *number*
 
-*Defined in [src/components/external/TextPlaceholder.tsx:10](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/TextPlaceholder.tsx#L10)*
+*Defined in [src/components/external/TextPlaceholder.tsx:10](https://github.com/TimboKZ/Chonky/blob/5b9fbdf/src/components/external/TextPlaceholder.tsx#L10)*
