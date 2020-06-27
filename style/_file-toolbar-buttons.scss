@@ -36,6 +36,7 @@
     vertical-align: middle;
     box-sizing: border-box;
     flex-direction: row;
+    white-space: nowrap;
     text-align: center;
     position: relative;
     z-index: 10;
@@ -77,7 +78,8 @@
         z-index: 93;
     }
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
         background-color: $bg-light;
         z-index: 92;
     }
@@ -146,7 +148,8 @@
             pointer-events: none;
         }
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             background-color: $bg-light;
             z-index: 93;
         }

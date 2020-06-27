@@ -12,15 +12,12 @@
         margin-bottom: $file-browser-padding;
         flex-direction: row;
         padding-bottom: 0;
+        flex-flow: wrap;
         display: flex;
         flex-grow: 1;
 
         &-left {
-            flex-grow: 10000;
-        }
-
-        &-right {
-            justify-content: space-between;
+            flex-grow: 100000;
         }
 
         &-inside {

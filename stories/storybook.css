@@ -1,3 +1,22 @@
+.github-ribbon {
+  position: fixed;
+  z-index: 999;
+  right: 0;
+  top: 0;
+}
+@media screen and (max-width: 400px) {
+  .github-ribbon {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sb-show-main {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+}
+
 .sbdocs-content .sbdocs-p, .sbdocs-content .sbdocs-p *,
 .sbdocs-content .sbdocs-ul,
 .sbdocs-content .sbdocs-ul *,
@@ -6,14 +25,40 @@
   line-height: 25px !important;
   font-size: 17px !important;
 }
+@media screen and (max-width: 400px) {
+  .sbdocs-content .sbdocs-p, .sbdocs-content .sbdocs-p *,
+.sbdocs-content .sbdocs-ul,
+.sbdocs-content .sbdocs-ul *,
+.sbdocs-content .sbdocs-ol,
+.sbdocs-content .sbdocs-ol * {
+    line-height: 20px !important;
+    font-size: 14px !important;
+  }
+}
 .sbdocs-content .sbdocs-p code,
 .sbdocs-content .sbdocs-ul code,
 .sbdocs-content .sbdocs-ol code {
   padding: 0 5px !important;
   font-size: 14px !important;
 }
+@media screen and (max-width: 400px) {
+  .sbdocs-content .sbdocs-p code,
+.sbdocs-content .sbdocs-ul code,
+.sbdocs-content .sbdocs-ol code {
+    font-size: 11px !important;
+  }
+}
 .sbdocs-content .sbdocs-h2 {
   margin-top: 40px !important;
+}
+@media screen and (max-width: 400px) {
+  .sbdocs-content .os-content {
+    line-height: 12px !important;
+    font-size: 9px !important;
+  }
+  .sbdocs-content .os-content pre {
+    padding: 5px !important;
+  }
 }
 
 .sbdocs-preview {
@@ -22,6 +67,15 @@
   border-radius: 3px !important;
   position: relative !important;
   overflow: visible !important;
+}
+@media screen and (max-width: 400px) {
+  .sbdocs-preview {
+    margin-right: -20px !important;
+    border-right: none !important;
+    margin-left: -20px !important;
+    border-left: none !important;
+    border-radius: 0 !important;
+  }
 }
 .sbdocs-preview:before {
   border-top-right-radius: 3px;
@@ -44,6 +98,12 @@
   padding: 10px 10px 30px 10px !important;
   margin: 0 !important;
   overflow: visible !important;
+}
+@media screen and (max-width: 400px) {
+  .sbdocs-preview > div:first-child > div:first-child {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
 }
 
 .noty_bar {

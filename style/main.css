@@ -161,14 +161,12 @@
   margin-bottom: 7.5px;
   flex-direction: row;
   padding-bottom: 0;
+  flex-flow: wrap;
   display: flex;
   flex-grow: 1;
 }
 .chonky-toolbar-side-left {
-  flex-grow: 10000;
-}
-.chonky-toolbar-side-right {
-  justify-content: space-between;
+  flex-grow: 100000;
 }
 .chonky-toolbar-side-inside {
   flex-direction: row;
@@ -283,6 +281,7 @@ button.chonky-folder-chain-entry:active {
   vertical-align: middle;
   box-sizing: border-box;
   flex-direction: row;
+  white-space: nowrap;
   text-align: center;
   position: relative;
   z-index: 10;

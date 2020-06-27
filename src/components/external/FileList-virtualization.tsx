@@ -115,9 +115,15 @@ export const useGridRenderer = (
             const scrollbar = !fillParentContainer || isMobile ? 0 : 16;
 
             // TODO: const isLargeThumbs = view === FileView.LargeThumbs;
-            const columnCountFloat =
-                (width + gutter - scrollbar) / (entrySize.width + gutter);
-            const columnCount = Math.max(1, Math.floor(columnCountFloat));
+            let columnCount: number;
+            if (isMobile) {
+                // On mobile device, we hardcode column count to 2
+                columnCount = 2;
+            } else {
+                const columnCountFloat =
+                    (width + gutter - scrollbar) / (entrySize.width + gutter);
+                columnCount = Math.max(1, Math.floor(columnCountFloat));
+            }
             const rowCount = Math.ceil(files.length / columnCount);
 
             return (
