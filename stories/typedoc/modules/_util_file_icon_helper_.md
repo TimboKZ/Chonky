@@ -78,7 +78,7 @@
     'xm',
 ]
 
-*Defined in [src/util/file-icon-helper.ts:270](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/util/file-icon-helper.ts#L270)*
+*Defined in [src/util/file-icon-helper.ts:270](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-icon-helper.ts#L270)*
 
 ___
 
@@ -160,7 +160,7 @@ ___
     '#8f3d44',
 ]
 
-*Defined in [src/util/file-icon-helper.ts:401](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/util/file-icon-helper.ts#L401)*
+*Defined in [src/util/file-icon-helper.ts:401](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-icon-helper.ts#L401)*
 
 ___
 
@@ -242,7 +242,7 @@ ___
     '#d65c66',
 ]
 
-*Defined in [src/util/file-icon-helper.ts:326](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/util/file-icon-helper.ts#L326)*
+*Defined in [src/util/file-icon-helper.ts:326](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-icon-helper.ts#L326)*
 
 ___
 
@@ -337,7 +337,7 @@ ___
     'xwd',
 ]
 
-*Defined in [src/util/file-icon-helper.ts:182](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/util/file-icon-helper.ts#L182)*
+*Defined in [src/util/file-icon-helper.ts:182](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-icon-helper.ts#L182)*
 
 ___
 
@@ -406,7 +406,7 @@ ___
     'wvx',
 ]
 
-*Defined in [src/util/file-icon-helper.ts:120](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/util/file-icon-helper.ts#L120)*
+*Defined in [src/util/file-icon-helper.ts:120](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-icon-helper.ts#L120)*
 
 ___
 
@@ -506,7 +506,7 @@ ___
     return exactTrie;
 })
 
-*Defined in [src/util/file-icon-helper.ts:15](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/util/file-icon-helper.ts#L15)*
+*Defined in [src/util/file-icon-helper.ts:15](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-icon-helper.ts#L15)*
 
 ## Functions
 
@@ -514,7 +514,7 @@ ___
 
 ▸ **useIconData**(`file`: Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›): *[FileIconData](../interfaces/_types_icons_types_.fileicondata.md)*
 
-*Defined in [src/util/file-icon-helper.ts:109](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/util/file-icon-helper.ts#L109)*
+*Defined in [src/util/file-icon-helper.ts:109](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-icon-helper.ts#L109)*
 
 **Parameters:**
 

@@ -25,7 +25,7 @@
 
 Ƭ **KeyboardClickEventHandler**: *function*
 
-*Defined in [src/components/internal/ClickableWrapper.tsx:26](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/internal/ClickableWrapper.tsx#L26)*
+*Defined in [src/components/internal/ClickableWrapper.tsx:26](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/internal/ClickableWrapper.tsx#L26)*
 
 #### Type declaration:
 
@@ -43,7 +43,7 @@ ___
 
 Ƭ **MouseClickEventHandler**: *function*
 
-*Defined in [src/components/internal/ClickableWrapper.tsx:17](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/internal/ClickableWrapper.tsx#L17)*
+*Defined in [src/components/internal/ClickableWrapper.tsx:17](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/internal/ClickableWrapper.tsx#L17)*
 
 #### Type declaration:
 
@@ -61,7 +61,7 @@ Name | Type |
 
 ▸ **ClickableWrapper**(`props`: [ClickableWrapperProps](../interfaces/_components_internal_clickablewrapper_.clickablewrapperprops.md) & object): *Element‹›*
 
-*Defined in [src/components/internal/ClickableWrapper.tsx:37](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/internal/ClickableWrapper.tsx#L37)*
+*Defined in [src/components/internal/ClickableWrapper.tsx:37](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/internal/ClickableWrapper.tsx#L37)*
 
 **Parameters:**
 

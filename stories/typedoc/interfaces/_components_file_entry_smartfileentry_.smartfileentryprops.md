@@ -19,7 +19,7 @@
 
 • **displayIndex**: *number*
 
-*Defined in [src/components/file-entry/SmartFileEntry.tsx:20](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/file-entry/SmartFileEntry.tsx#L20)*
+*Defined in [src/components/file-entry/SmartFileEntry.tsx:20](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/file-entry/SmartFileEntry.tsx#L20)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **fileId**: *Nullable‹string›*
 
-*Defined in [src/components/file-entry/SmartFileEntry.tsx:19](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/file-entry/SmartFileEntry.tsx#L19)*
+*Defined in [src/components/file-entry/SmartFileEntry.tsx:19](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/file-entry/SmartFileEntry.tsx#L19)*

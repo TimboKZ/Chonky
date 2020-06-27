@@ -20,7 +20,7 @@
 
 • **altKey**: *boolean*
 
-*Defined in [src/components/internal/ClickableWrapper.tsx:13](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/internal/ClickableWrapper.tsx#L13)*
+*Defined in [src/components/internal/ClickableWrapper.tsx:13](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/internal/ClickableWrapper.tsx#L13)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **ctrlKey**: *boolean*
 
-*Defined in [src/components/internal/ClickableWrapper.tsx:14](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/internal/ClickableWrapper.tsx#L14)*
+*Defined in [src/components/internal/ClickableWrapper.tsx:14](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/internal/ClickableWrapper.tsx#L14)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **shiftKey**: *boolean*
 
-*Defined in [src/components/internal/ClickableWrapper.tsx:15](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/internal/ClickableWrapper.tsx#L15)*
+*Defined in [src/components/internal/ClickableWrapper.tsx:15](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/internal/ClickableWrapper.tsx#L15)*

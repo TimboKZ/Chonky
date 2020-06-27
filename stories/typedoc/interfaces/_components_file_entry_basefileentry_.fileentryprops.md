@@ -26,7 +26,7 @@
 
 • **displayIndex**: *number*
 
-*Defined in [src/components/file-entry/BaseFileEntry.tsx:22](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/file-entry/BaseFileEntry.tsx#L22)*
+*Defined in [src/components/file-entry/BaseFileEntry.tsx:22](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/file-entry/BaseFileEntry.tsx#L22)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 *Inherited from [DnDProps](_components_file_entry_dndfileentry_.dndprops.md).[dndCanDrop](_components_file_entry_dndfileentry_.dndprops.md#optional-dndcandrop)*
 
-*Defined in [src/components/file-entry/DnDFileEntry.tsx:17](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/file-entry/DnDFileEntry.tsx#L17)*
+*Defined in [src/components/file-entry/DnDFileEntry.tsx:17](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/file-entry/DnDFileEntry.tsx#L17)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 *Inherited from [DnDProps](_components_file_entry_dndfileentry_.dndprops.md).[dndIsDragging](_components_file_entry_dndfileentry_.dndprops.md#optional-dndisdragging)*
 
-*Defined in [src/components/file-entry/DnDFileEntry.tsx:15](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/file-entry/DnDFileEntry.tsx#L15)*
+*Defined in [src/components/file-entry/DnDFileEntry.tsx:15](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/file-entry/DnDFileEntry.tsx#L15)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 *Inherited from [DnDProps](_components_file_entry_dndfileentry_.dndprops.md).[dndIsOver](_components_file_entry_dndfileentry_.dndprops.md#optional-dndisover)*
 
-*Defined in [src/components/file-entry/DnDFileEntry.tsx:16](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/file-entry/DnDFileEntry.tsx#L16)*
+*Defined in [src/components/file-entry/DnDFileEntry.tsx:16](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/file-entry/DnDFileEntry.tsx#L16)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **file**: *Nullable‹[FileData](_types_files_types_.filedata.md)›*
 
-*Defined in [src/components/file-entry/BaseFileEntry.tsx:20](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/file-entry/BaseFileEntry.tsx#L20)*
+*Defined in [src/components/file-entry/BaseFileEntry.tsx:20](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/file-entry/BaseFileEntry.tsx#L20)*
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 • **selected**: *boolean*
 
-*Defined in [src/components/file-entry/BaseFileEntry.tsx:24](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/file-entry/BaseFileEntry.tsx#L24)*
+*Defined in [src/components/file-entry/BaseFileEntry.tsx:24](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/file-entry/BaseFileEntry.tsx#L24)*
 
 ___
 
@@ -80,4 +80,4 @@ ___
 
 • **style**? : *React.CSSProperties*
 
-*Defined in [src/components/file-entry/BaseFileEntry.tsx:26](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/components/file-entry/BaseFileEntry.tsx#L26)*
+*Defined in [src/components/file-entry/BaseFileEntry.tsx:26](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/components/file-entry/BaseFileEntry.tsx#L26)*

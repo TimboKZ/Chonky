@@ -27,7 +27,7 @@
 
 • **disableDefaultFileActions**? : *undefined | false | true*
 
-*Defined in [src/types/file-browser.types.ts:45](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-browser.types.ts#L45)*
+*Defined in [src/types/file-browser.types.ts:45](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-browser.types.ts#L45)*
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 • **disableSelection**? : *undefined | false | true*
 
-*Defined in [src/types/file-browser.types.ts:43](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-browser.types.ts#L43)*
+*Defined in [src/types/file-browser.types.ts:43](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-browser.types.ts#L43)*
 
 The flag that completely disables file selection functionality. If any handlers depend on file selections, their
 input will look like no files are selected.
@@ -46,7 +46,7 @@ ___
 
 • **doubleClickDelay**? : *undefined | number*
 
-*Defined in [src/types/file-browser.types.ts:37](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-browser.types.ts#L37)*
+*Defined in [src/types/file-browser.types.ts:37](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-browser.types.ts#L37)*
 
 Maximum delay between the two clicks in a double click, in milliseconds.
 
@@ -56,7 +56,7 @@ ___
 
 • **enableDragAndDrop**? : *undefined | false | true*
 
-*Defined in [src/types/file-browser.types.ts:51](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-browser.types.ts#L51)*
+*Defined in [src/types/file-browser.types.ts:51](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-browser.types.ts#L51)*
 
 The flag that completely disables drag & drop functionality.
 [See relevant section](#section-managing-file-selection).
@@ -67,7 +67,7 @@ ___
 
 • **fileActions**? : *[FileAction](_types_file_actions_types_.fileaction.md)[]*
 
-*Defined in [src/types/file-browser.types.ts:24](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-browser.types.ts#L24)*
+*Defined in [src/types/file-browser.types.ts:24](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-browser.types.ts#L24)*
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 • **files**: *[FileArray](../modules/_types_files_types_.md#filearray)*
 
-*Defined in [src/types/file-browser.types.ts:14](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-browser.types.ts#L14)*
+*Defined in [src/types/file-browser.types.ts:14](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-browser.types.ts#L14)*
 
 List of files that will be displayed in the main container. The provided value
 **must** be an array, where each element is either `null` or an object that
@@ -88,7 +88,7 @@ ___
 
 • **fillParentContainer**? : *undefined | false | true*
 
-*Defined in [src/types/file-browser.types.ts:58](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-browser.types.ts#L58)*
+*Defined in [src/types/file-browser.types.ts:58](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-browser.types.ts#L58)*
 
 The flag that determines whether Chonky should fill the height parent container. When set to `true`, the maximum
 height of the file browser will be limited to the height of the parent container, and scrollbar will be shown
@@ -100,7 +100,7 @@ ___
 
 • **folderChain**? : *Nullable‹[FileArray](../modules/_types_files_types_.md#filearray)›*
 
-*Defined in [src/types/file-browser.types.ts:22](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-browser.types.ts#L22)*
+*Defined in [src/types/file-browser.types.ts:22](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-browser.types.ts#L22)*
 
 The current folder hierarchy. This should be an array of `files`, every
 element should either be `null` or an object of `FileData` type. The first
@@ -113,7 +113,7 @@ ___
 
 • **onFileAction**? : *[FileActionHandler](../modules/_types_file_actions_types_.md#fileactionhandler)*
 
-*Defined in [src/types/file-browser.types.ts:25](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-browser.types.ts#L25)*
+*Defined in [src/types/file-browser.types.ts:25](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-browser.types.ts#L25)*
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 • **thumbnailGenerator**? : *[ThumbnailGenerator](../modules/_types_thumbnails_types_.md#thumbnailgenerator)*
 
-*Defined in [src/types/file-browser.types.ts:32](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-browser.types.ts#L32)*
+*Defined in [src/types/file-browser.types.ts:32](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-browser.types.ts#L32)*
 
 The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
 should return a `string` or `null`. It can also return a promise that resolves into a `string` or `null`.

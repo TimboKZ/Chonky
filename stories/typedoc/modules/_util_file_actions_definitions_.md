@@ -139,7 +139,7 @@
     },
 } as const
 
-*Defined in [src/util/file-actions-definitions.ts:6](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/util/file-actions-definitions.ts#L6)*
+*Defined in [src/util/file-actions-definitions.ts:6](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-actions-definitions.ts#L6)*
 
 #### Type declaration:
 
@@ -335,4 +335,4 @@ ___
     ChonkyActions.ClearSelection,
 ]
 
-*Defined in [src/util/file-actions-definitions.ts:132](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/util/file-actions-definitions.ts#L132)*
+*Defined in [src/util/file-actions-definitions.ts:132](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/util/file-actions-definitions.ts#L132)*

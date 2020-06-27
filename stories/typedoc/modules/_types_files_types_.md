@@ -20,7 +20,7 @@
 
 Ƭ **FileArray**: *Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)›[]*
 
-*Defined in [src/types/files.types.ts:28](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/files.types.ts#L28)*
+*Defined in [src/types/files.types.ts:28](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/files.types.ts#L28)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 Ƭ **FileFilter**: *function*
 
-*Defined in [src/types/files.types.ts:30](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/files.types.ts#L30)*
+*Defined in [src/types/files.types.ts:30](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/files.types.ts#L30)*
 
 #### Type declaration:
 
@@ -46,4 +46,4 @@ ___
 
 Ƭ **ReadonlyFileArray**: *ReadonlyArray‹Nullable‹[FileData](../interfaces/_types_files_types_.filedata.md)››*
 
-*Defined in [src/types/files.types.ts:29](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/files.types.ts#L29)*
+*Defined in [src/types/files.types.ts:29](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/files.types.ts#L29)*

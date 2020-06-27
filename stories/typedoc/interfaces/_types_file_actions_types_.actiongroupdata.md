@@ -20,7 +20,7 @@
 
 • **dropdown**? : *undefined | false | true*
 
-*Defined in [src/types/file-actions.types.ts:36](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-actions.types.ts#L36)*
+*Defined in [src/types/file-actions.types.ts:36](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-actions.types.ts#L36)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **fileActionIds**: *string[]*
 
-*Defined in [src/types/file-actions.types.ts:37](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-actions.types.ts#L37)*
+*Defined in [src/types/file-actions.types.ts:37](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-actions.types.ts#L37)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **name**? : *undefined | string*
 
-*Defined in [src/types/file-actions.types.ts:35](https://github.com/TimboKZ/Chonky/blob/d1a0325/src/types/file-actions.types.ts#L35)*
+*Defined in [src/types/file-actions.types.ts:35](https://github.com/TimboKZ/Chonky/blob/2de2c80/src/types/file-actions.types.ts#L35)*
