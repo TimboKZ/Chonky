@@ -6,7 +6,7 @@
 
 import c from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import {
     searchBarEnabledState,
@@ -21,7 +21,9 @@ export interface FileSearchProps {}
 
 export const FileSearch: React.FC<FileSearchProps> = () => {
     const setSearchBarEnabled = useSetRecoilState(searchBarEnabledState);
-    const searchBarVisible = useRecoilValue(searchBarVisibleState);
+    const [searchBarVisible, setSearchBarVisible] = useRecoilState(
+        searchBarVisibleState
+    );
     const [globalSearchFilter, setGlobalSearchFilter] = useRecoilState(
         searchFilterState
     );
@@ -76,6 +78,16 @@ export const FileSearch: React.FC<FileSearchProps> = () => {
         [setShowLoadingIndicator, setLocalFilter]
     );
 
+    // === Callback to hide the search when Escape key is pressed inside the search
+    const onInputKeyDown = useCallback(
+        (event: React.KeyboardEvent) => {
+            if (event.nativeEvent.code === 'Escape') {
+                setSearchBarVisible(false);
+            }
+        },
+        [setSearchBarVisible]
+    );
+
     const className = c({
         'chonky-file-search': true,
         'chonky-file-search-hidden': !searchBarVisible,
@@ -93,6 +105,7 @@ export const FileSearch: React.FC<FileSearchProps> = () => {
                     value={localFilter}
                     placeholder="Type to search..."
                     onChange={handleInputChange}
+                    onKeyDown={onInputKeyDown}
                 />
                 <div className="chonky-file-search-input-group-loading">
                     {showLoadingIndicator && (
