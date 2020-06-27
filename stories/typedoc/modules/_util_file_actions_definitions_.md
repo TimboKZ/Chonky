@@ -197,7 +197,7 @@
     },
 } as const
 
-*Defined in [src/util/file-actions-definitions.ts:9](https://github.com/TimboKZ/Chonky/blob/603fef8/src/util/file-actions-definitions.ts#L9)*
+*Defined in [src/util/file-actions-definitions.ts:9](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/util/file-actions-definitions.ts#L9)*
 
 #### Type declaration:
 
@@ -482,4 +482,4 @@ ___
     ChonkyActions.ToggleShowFoldersFirst,
 ]
 
-*Defined in [src/util/file-actions-definitions.ts:193](https://github.com/TimboKZ/Chonky/blob/603fef8/src/util/file-actions-definitions.ts#L193)*
+*Defined in [src/util/file-actions-definitions.ts:193](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/util/file-actions-definitions.ts#L193)*

@@ -23,7 +23,7 @@
 
 • **dropdown**? : *undefined | false | true*
 
-*Defined in [src/types/file-actions.types.ts:56](https://github.com/TimboKZ/Chonky/blob/603fef8/src/types/file-actions.types.ts#L56)*
+*Defined in [src/types/file-actions.types.ts:56](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/file-actions.types.ts#L56)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **group**? : *undefined | string*
 
-*Defined in [src/types/file-actions.types.ts:55](https://github.com/TimboKZ/Chonky/blob/603fef8/src/types/file-actions.types.ts#L55)*
+*Defined in [src/types/file-actions.types.ts:55](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/file-actions.types.ts#L55)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **icon**? : *[ChonkyIconName](../enums/_types_icons_types_.chonkyiconname.md) | string*
 
-*Defined in [src/types/file-actions.types.ts:58](https://github.com/TimboKZ/Chonky/blob/603fef8/src/types/file-actions.types.ts#L58)*
+*Defined in [src/types/file-actions.types.ts:58](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/file-actions.types.ts#L58)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • **iconOnly**? : *undefined | false | true*
 
-*Defined in [src/types/file-actions.types.ts:59](https://github.com/TimboKZ/Chonky/blob/603fef8/src/types/file-actions.types.ts#L59)*
+*Defined in [src/types/file-actions.types.ts:59](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/file-actions.types.ts#L59)*
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [src/types/file-actions.types.ts:54](https://github.com/TimboKZ/Chonky/blob/603fef8/src/types/file-actions.types.ts#L54)*
+*Defined in [src/types/file-actions.types.ts:54](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/file-actions.types.ts#L54)*
 
 ___
 
@@ -63,4 +63,4 @@ ___
 
 • **tooltip**? : *undefined | string*
 
-*Defined in [src/types/file-actions.types.ts:57](https://github.com/TimboKZ/Chonky/blob/603fef8/src/types/file-actions.types.ts#L57)*
+*Defined in [src/types/file-actions.types.ts:57](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/file-actions.types.ts#L57)*

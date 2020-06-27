@@ -18,4 +18,4 @@
 
 • **group**: *[ActionGroupData](_types_file_actions_types_.actiongroupdata.md)*
 
-*Defined in [src/components/external/ToolbarButtonGroup.tsx:14](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/ToolbarButtonGroup.tsx#L14)*
+*Defined in [src/components/external/ToolbarButtonGroup.tsx:14](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/ToolbarButtonGroup.tsx#L14)*

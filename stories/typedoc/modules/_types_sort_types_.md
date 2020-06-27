@@ -22,7 +22,7 @@
 
 Ƭ **FileSortKeySelector**: *function*
 
-*Defined in [src/types/sort.types.ts:5](https://github.com/TimboKZ/Chonky/blob/603fef8/src/types/sort.types.ts#L5)*
+*Defined in [src/types/sort.types.ts:5](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/types/sort.types.ts#L5)*
 
 #### Type declaration:
 

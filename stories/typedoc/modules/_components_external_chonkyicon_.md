@@ -27,7 +27,7 @@
     return <FontAwesomeIcon {...faProps} />;
 })
 
-*Defined in [src/components/external/ChonkyIcon.tsx:158](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/ChonkyIcon.tsx#L158)*
+*Defined in [src/components/external/ChonkyIcon.tsx:158](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/ChonkyIcon.tsx#L158)*
 
 ___
 
@@ -117,6 +117,6 @@ ___
     [ChonkyIconName.flash]: faRunning,
 } as const
 
-*Defined in [src/components/external/ChonkyIcon.tsx:64](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/ChonkyIcon.tsx#L64)*
+*Defined in [src/components/external/ChonkyIcon.tsx:64](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/ChonkyIcon.tsx#L64)*
 
 #### Type declaration:

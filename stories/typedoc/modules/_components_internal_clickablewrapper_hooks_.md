@@ -15,7 +15,7 @@
 
 ▸ **useClickHandler**(`onSingleClick`: Nilable‹[MouseClickEventHandler](_components_internal_clickablewrapper_.md#mouseclickeventhandler)›, `onDoubleClick`: Nilable‹[MouseClickEventHandler](_components_internal_clickablewrapper_.md#mouseclickeventhandler)›): *(Anonymous function)*
 
-*Defined in [src/components/internal/ClickableWrapper-hooks.tsx:19](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/internal/ClickableWrapper-hooks.tsx#L19)*
+*Defined in [src/components/internal/ClickableWrapper-hooks.tsx:19](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/internal/ClickableWrapper-hooks.tsx#L19)*
 
 **Parameters:**
 
@@ -32,7 +32,7 @@ ___
 
 ▸ **useKeyDownHandler**(`onKeyboardClick?`: [KeyboardClickEventHandler](_components_internal_clickablewrapper_.md#keyboardclickeventhandler)): *(Anonymous function)*
 
-*Defined in [src/components/internal/ClickableWrapper-hooks.tsx:66](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/internal/ClickableWrapper-hooks.tsx#L66)*
+*Defined in [src/components/internal/ClickableWrapper-hooks.tsx:66](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/internal/ClickableWrapper-hooks.tsx#L66)*
 
 **Parameters:**
 

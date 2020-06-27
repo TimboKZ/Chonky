@@ -23,7 +23,7 @@
 
 • **active**? : *undefined | false | true*
 
-*Defined in [src/components/external/DropdownButton.tsx:20](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/DropdownButton.tsx#L20)*
+*Defined in [src/components/external/DropdownButton.tsx:20](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/DropdownButton.tsx#L20)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **disabled**? : *undefined | false | true*
 
-*Defined in [src/components/external/DropdownButton.tsx:23](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/DropdownButton.tsx#L23)*
+*Defined in [src/components/external/DropdownButton.tsx:23](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/DropdownButton.tsx#L23)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **icon**? : *Nullable‹[ChonkyIconName](../enums/_types_icons_types_.chonkyiconname.md) | string›*
 
-*Defined in [src/components/external/DropdownButton.tsx:21](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/DropdownButton.tsx#L21)*
+*Defined in [src/components/external/DropdownButton.tsx:21](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/DropdownButton.tsx#L21)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • **onClick**? : *undefined | function*
 
-*Defined in [src/components/external/DropdownButton.tsx:22](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/DropdownButton.tsx#L22)*
+*Defined in [src/components/external/DropdownButton.tsx:22](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/DropdownButton.tsx#L22)*
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 • **text**: *string*
 
-*Defined in [src/components/external/DropdownButton.tsx:18](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/DropdownButton.tsx#L18)*
+*Defined in [src/components/external/DropdownButton.tsx:18](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/DropdownButton.tsx#L18)*
 
 ___
 
@@ -63,4 +63,4 @@ ___
 
 • **tooltip**? : *undefined | string*
 
-*Defined in [src/components/external/DropdownButton.tsx:19](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/external/DropdownButton.tsx#L19)*
+*Defined in [src/components/external/DropdownButton.tsx:19](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/external/DropdownButton.tsx#L19)*

@@ -30,4 +30,4 @@
     return <div className={className} style={thumbnailStyle} />;
 })
 
-*Defined in [src/components/internal/FileThumbnail.tsx:15](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/internal/FileThumbnail.tsx#L15)*
+*Defined in [src/components/internal/FileThumbnail.tsx:15](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/internal/FileThumbnail.tsx#L15)*

@@ -19,7 +19,7 @@
 
 • **bullets**? : *string[]*
 
-*Defined in [src/components/internal/ErrorMessage.tsx:5](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/internal/ErrorMessage.tsx#L5)*
+*Defined in [src/components/internal/ErrorMessage.tsx:5](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/internal/ErrorMessage.tsx#L5)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **message**: *string*
 
-*Defined in [src/components/internal/ErrorMessage.tsx:4](https://github.com/TimboKZ/Chonky/blob/603fef8/src/components/internal/ErrorMessage.tsx#L4)*
+*Defined in [src/components/internal/ErrorMessage.tsx:4](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/components/internal/ErrorMessage.tsx#L4)*

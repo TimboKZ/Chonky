@@ -14,7 +14,7 @@
 
 ▸ **useFileSorting**(`files`: [FileArray](_types_files_types_.md#filearray)): *null | [FileData](../interfaces/_types_files_types_.filedata.md)[]*
 
-*Defined in [src/util/sort.ts:12](https://github.com/TimboKZ/Chonky/blob/603fef8/src/util/sort.ts#L12)*
+*Defined in [src/util/sort.ts:12](https://github.com/TimboKZ/Chonky/blob/3d6eae9/src/util/sort.ts#L12)*
 
 **Parameters:**
 
