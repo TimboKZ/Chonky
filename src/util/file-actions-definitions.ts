@@ -83,7 +83,7 @@ export const ChonkyActions = {
     // Sorting actions
     SortFilesByName: {
         id: 'sort_files_by_name',
-        sortKeySelector: (file: Nullable<FileData>) => file ? file.name : undefined,
+        sortKeySelector: (file: Nullable<FileData>) => (file ? file.name : undefined),
         toolbarButton: {
             name: 'Sort by name',
             group: 'Sort',
@@ -92,7 +92,7 @@ export const ChonkyActions = {
     },
     SortFilesBySize: {
         id: 'sort_files_by_size',
-        sortKeySelector: (file: Nullable<FileData>) => file ? file.size : undefined,
+        sortKeySelector: (file: Nullable<FileData>) => (file ? file.size : undefined),
         toolbarButton: {
             name: 'Sort by size',
             group: 'Sort',
@@ -101,10 +101,37 @@ export const ChonkyActions = {
     },
     SortFilesByDate: {
         id: 'sort_files_by_date',
-        sortKeySelector: (file: Nullable<FileData>) => file ? file.modDate : undefined,
+        sortKeySelector: (file: Nullable<FileData>) =>
+            file ? file.modDate : undefined,
         toolbarButton: {
             name: 'Sort by date',
             group: 'Sort',
+            dropdown: true,
+        },
+    },
+
+    // Toggleable options
+    ToggleHiddenFiles: {
+        id: 'toggle_hidden_files',
+        option: {
+            id: 'show_hidden_files',
+            defaultValue: true,
+        },
+        toolbarButton: {
+            name: 'Show hidden files',
+            group: 'Options',
+            dropdown: true,
+        },
+    },
+    ToggleShowFoldersFirst: {
+        id: 'toggle_show_folders_first',
+        option: {
+            id: 'show_folders_first',
+            defaultValue: true,
+        },
+        toolbarButton: {
+            name: 'Show folders first',
+            group: 'Options',
             dropdown: true,
         },
     },
@@ -176,4 +203,7 @@ export const DefaultFileActions: FileAction[] = [
     ChonkyActions.SortFilesByName,
     ChonkyActions.SortFilesBySize,
     ChonkyActions.SortFilesByDate,
+
+    ChonkyActions.ToggleHiddenFiles,
+    ChonkyActions.ToggleShowFoldersFirst,
 ];

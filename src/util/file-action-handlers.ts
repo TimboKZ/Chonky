@@ -7,6 +7,7 @@ import {
     fileActionMapState,
 } from '../recoil/file-actions.recoil';
 import { filesState } from '../recoil/files.recoil';
+import { optionMapState } from '../recoil/options.recoil';
 import { selectionState } from '../recoil/selection.recoil';
 import { sortConfigState } from '../recoil/sort.recoil';
 import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
@@ -62,8 +63,8 @@ export const useInternalFileActionRequester = () => {
     // Write Recoil state to instance variables so we can access these values from
     // the callback below without re-creating the callback function
     const fileActionMapRef = useInstanceVariable(useRecoilValue(fileActionMapState));
-    const sortConfigRef = useInstanceVariable(useRecoilValue(sortConfigState));
     const setSortConfigRef = useInstanceVariable(useSetRecoilState(sortConfigState));
+    const setOptionMapRef = useInstanceVariable(useSetRecoilState(optionMapState));
     const dispatchFileActionRef = useInstanceVariable(
         useRecoilValue(dispatchFileActionState)
     );
@@ -119,21 +120,34 @@ export const useInternalFileActionRequester = () => {
             dispatchFileActionRef.current(actionData);
 
             //
-            // === Updating sort state if necessary
+            // === Update sort state if necessary
             const sortKeySelector = action.sortKeySelector;
             if (sortKeySelector) {
-                let order: SortOrder = SortOrder.Asc;
-                if (sortConfigRef.current.fileActionId === action.id) {
-                    order =
-                        sortConfigRef.current.order === SortOrder.Asc
-                            ? SortOrder.Desc
-                            : SortOrder.Asc;
-                }
+                setSortConfigRef.current((sortConfig) => {
+                    let order: SortOrder = SortOrder.Asc;
+                    if (sortConfig.fileActionId === action.id) {
+                        order =
+                            sortConfig.order === SortOrder.Asc
+                                ? SortOrder.Desc
+                                : SortOrder.Asc;
+                    }
 
-                setSortConfigRef.current({
-                    fileActionId: action.id,
-                    sortKeySelector,
-                    order,
+                    return {
+                        fileActionId: action.id,
+                        sortKeySelector,
+                        order,
+                    };
+                });
+            }
+
+            //
+            // === Update option state if necessary
+            const option = action.option;
+            if (option) {
+                setOptionMapRef.current((optionMap) => {
+                    const newOptionMap = { ...optionMap };
+                    newOptionMap[option.id] = !optionMap[option.id];
+                    return newOptionMap;
                 });
             }
 
@@ -164,8 +178,8 @@ export const useInternalFileActionRequester = () => {
         },
         [
             fileActionMapRef,
-            sortConfigRef,
             setSortConfigRef,
+            setOptionMapRef,
             dispatchFileActionRef,
             dispatchSpecialActionRef,
             filesRef,

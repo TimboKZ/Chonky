@@ -16,12 +16,14 @@ export enum ChonkyIconName {
     search = 'search',
     selectAllFiles = 'selectAllFiles',
     clearSelection = 'clearSelection',
+
+    // File Actions: Sorting & options
     sortAsc = 'sortAsc',
     sortDesc = 'sortDesc',
-
-    // File Actions: Unsorted
     checkActive = 'checkActive',
     checkInactive = 'checkInactive',
+
+    // File Actions: Unsorted
     list = 'list',
     folder = 'folder',
     folderCreate = 'folderCreate',

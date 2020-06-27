@@ -37,6 +37,7 @@ interface ToolbarButtonData {
 ```
 
 -   All action IDs should be unique.
+-   You can overwrite default file actions by creating custom actions with the same ID.
 -   Enabling `requiresSelection` flag means the action will only be triggered when
     one or more files are selected. Setting the `fileFilter` will apply the filter to
     the list of selected files to check if the action can be applied.

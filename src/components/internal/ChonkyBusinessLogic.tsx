@@ -19,6 +19,7 @@ import { selectionModifiersState, selectionState } from '../../recoil/selection.
 import { thumbnailGeneratorState } from '../../recoil/thumbnails.recoil';
 import { FileBrowserProps } from '../../types/file-browser.types';
 import { useFileActions } from '../../util/file-actions';
+import { useOptions } from '../../util/options';
 import { useFileSearch } from '../../util/search';
 import { useSelection } from '../../util/selection';
 import { useFileSorting } from '../../util/sort';
@@ -49,10 +50,6 @@ export const ChonkyBusinessLogic: React.FC<FileBrowserProps> = React.memo((props
     const sortedFiles = useFileSorting(files);
 
     //
-    // ==== File search (aka file array filtering)
-    const filteredFiles = useFileSearch(sortedFiles);
-
-    //
     // ==== File selections
     const { selection, selectionUtilRef, selectionModifiers } = useSelection(
         sortedFiles,
@@ -69,6 +66,14 @@ export const ChonkyBusinessLogic: React.FC<FileBrowserProps> = React.memo((props
     useFileActions(fileActions, onFileAction);
 
     //
+    // ==== File options - toggleable options based on file actions
+    const optionFilteredFiles = useOptions(sortedFiles);
+
+    //
+    // ==== File search (aka file array filtering)
+    const searchFilteredFiles = useFileSearch(optionFilteredFiles);
+
+    //
     // ==== Special actions - special actions hard-coded into Chonky that users cannot
     //      customize (easily).
     useSpecialActionDispatcher(
@@ -80,8 +85,8 @@ export const ChonkyBusinessLogic: React.FC<FileBrowserProps> = React.memo((props
 
     const setRecoilFiles = useSetRecoilState(filesState);
     useEffect(() => {
-        setRecoilFiles(filteredFiles);
-    }, [filteredFiles, setRecoilFiles]);
+        setRecoilFiles(searchFilteredFiles);
+    }, [searchFilteredFiles, setRecoilFiles]);
 
     const setFolderChain = useSetRecoilState(folderChainState);
     const setParentFolder = useSetRecoilState(parentFolderState);

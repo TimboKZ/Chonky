@@ -11,6 +11,7 @@ import {
     requestFileActionState,
 } from '../recoil/file-actions.recoil';
 import { parentFolderState } from '../recoil/files.recoil';
+import { optionMapState } from '../recoil/options.recoil';
 import { searchBarVisibleState } from '../recoil/search.recoil';
 import { sortConfigState } from '../recoil/sort.recoil';
 import { FileAction, FileActionHandler } from '../types/file-actions.types';
@@ -86,6 +87,7 @@ export const useFileActionProps = (
 ): { icon: Nullable<ChonkyIconName | string>; active: boolean; disabled: boolean } => {
     const parentFolder = useRecoilValue(parentFolderState);
     const sortConfig = useRecoilValue(sortConfigState);
+    const optionMap = useRecoilValue(optionMapState);
     const searchBarVisible = useRecoilValue(searchBarVisibleState);
     const action = useRecoilValue(fileActionDataState(fileActionId));
     const actionSelectionSize = useRecoilValue(
@@ -108,13 +110,25 @@ export const useFileActionProps = (
             } else {
                 icon = ChonkyIconName.circle;
             }
+        } else if (action.option) {
+            if (optionMap[action.option.id]) {
+                icon = ChonkyIconName.checkActive;
+            } else {
+                icon = ChonkyIconName.checkInactive;
+            }
         }
 
         const isSearchButtonAndSearchVisible =
             action.id === ChonkyActions.ToggleSearch.id && searchBarVisible;
         const isSortButtonAndCurrentSort = action.id === sortConfig.fileActionId;
+        const isOptionAndEnabled = action.option
+            ? !!optionMap[action.option.id]
+            : false;
 
-        const active = isSearchButtonAndSearchVisible || isSortButtonAndCurrentSort;
+        const active =
+            isSearchButtonAndSearchVisible ||
+            isSortButtonAndCurrentSort ||
+            isOptionAndEnabled;
         let disabled: boolean = !!action.requiresSelection && actionSelectionEmpty;
 
         if (action.id === ChonkyActions.OpenParentFolder.id) {
@@ -124,5 +138,12 @@ export const useFileActionProps = (
         }
 
         return { icon, active, disabled };
-    }, [action, sortConfig, searchBarVisible, parentFolder, actionSelectionEmpty]);
+    }, [
+        action,
+        sortConfig,
+        optionMap,
+        searchBarVisible,
+        parentFolder,
+        actionSelectionEmpty,
+    ]);
 };

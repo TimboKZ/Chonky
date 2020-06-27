@@ -17,6 +17,13 @@ export interface FileAction {
     // toggling between Ascending and Descending orders.
     sortKeySelector?: FileSortKeySelector;
 
+    // When `option` is specified, the action becomes an option toggle. When the action
+    // is activated, the boolean value of the option will be toggled.
+    option?: {
+        id: string; // Unique option ID
+        defaultValue: boolean; // Whether the option is enabled by default (required)
+    }
+
     // Special action that should be dispatched on activation of this action. This
     // is used by Chonky internally, keep it `undefined` unless you know what you're
     // doing.

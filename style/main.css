@@ -371,6 +371,7 @@ button.chonky-folder-chain-entry:active {
 }
 .chonky-toolbar-dropdown-button-icon {
   padding-left: 7.5px;
+  margin-top: 2px;
   opacity: 0.5;
 }
 .chonky-toolbar-dropdown-button-text {

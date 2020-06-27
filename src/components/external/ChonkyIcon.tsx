@@ -79,12 +79,14 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     [ChonkyIconName.search]: faSearch,
     [ChonkyIconName.selectAllFiles]: faObjectGroup,
     [ChonkyIconName.clearSelection]: faEraser,
+
+    // File Actions: Sorting & options
     [ChonkyIconName.sortAsc]: faSortAmountDownAlt,
     [ChonkyIconName.sortDesc]: faSortAmountUpAlt,
-
-    // File Actions: Unsorted
     [ChonkyIconName.checkActive]: faCheckCircle,
     [ChonkyIconName.checkInactive]: faCircle,
+
+    // File Actions: Unsorted
     [ChonkyIconName.list]: faList,
     [ChonkyIconName.folder]: faFolder,
     [ChonkyIconName.folderCreate]: faFolderPlus,
