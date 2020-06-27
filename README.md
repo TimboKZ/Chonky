@@ -63,18 +63,24 @@ import 'chonky/style/main.css';
 import { FileBrowser, FileList, FileSearch, FileToolbar } from 'chonky';
 
 export const ChonkyDemo = () => {
-    const folderChain = [
-        { id: 'xXre', name: 'My Documents' },
-        { id: 'BtrE', name: 'Websites' },
-    ];
+    const folderChain = React.useMemo(
+        () => [
+            { id: 'xXre', name: 'My Documents' },
+            { id: 'BtrE', name: 'Websites' },
+        ],
+        []
+    );
 
-    const files = [
-        { id: '1eBr', name: 'index.html' },
-        { id: 'xmFe', name: 'styles.css' },
-        { id: 'vEgS', name: 'scripts.js' },
-        { id: 'BVwA', name: 'favicon.ico' },
-        { id: 'VsdE', name: 'robots.txt' },
-    ];
+    const files = React.useMemo(
+        () => [
+            { id: '1eBr', name: 'index.html' },
+            { id: 'xmFe', name: 'styles.css' },
+            { id: 'vEgS', name: 'scripts.js' },
+            { id: 'BVwA', name: 'favicon.ico' },
+            { id: 'VsdE', name: 'robots.txt' },
+        ],
+        []
+    );
 
     return (
         <FileBrowser files={files} folderChain={folderChain}>

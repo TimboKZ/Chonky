@@ -58,6 +58,12 @@ type MaybeThumbnail = Nullable<string>;
 type ThumbnailGenerator = (file: FileData) => MaybeThumbnail | Promise<MaybeThumbnail>;
 ```
 
+You'll be happy to find out your thumbnail generator will always be called in a
+lazy-loading fashion. That is, the thumbnail will only be requested when your file
+actually appears on your user's screen. This feature comes very handy when you need
+to display many files (>10,000), but don't want to generate 10,000 thumbnails at the
+same time.
+
 ## Example with arbitrary loading delay
 
 The _Live Example_ below demonstrates how thumbnail loading can be carried out in

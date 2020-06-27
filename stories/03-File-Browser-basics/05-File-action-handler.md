@@ -3,10 +3,13 @@ dispatched. You can pass your handler to `FileBrowser` via the `onFileAction` pr
 
 ```tsx
 export const ActionsExample = () => {
-    const handleFileAction = (action: FileAction, data: FileActionData) => {
-        console.log('Action definition:', action);
-        console.log('Action data:', data);
-    };
+    const handleFileAction = React.useCallback(
+        (action: FileAction, data: FileActionData) => {
+            console.log('Action definition:', action);
+            console.log('Action data:', data);
+        },
+        []
+    );
 
     return (
         <div className="live-example" style={{ height: 500 }}>

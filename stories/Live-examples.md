@@ -12,3 +12,9 @@ The only exception is the `showActionNotification()` function, which calls
 [the Noty notification library](https://ned.im/noty/) (not packaged with Chonky). To
 run the examples locally, you can replace `showActionNotification()` with
 `console.log()`.
+
+**Important:** To keep examples simple, the React code snippets on this website
+sometimes leave out the use of optimization hooks such as
+[React.useMemo](https://reactjs.org/docs/hooks-reference.html#usememo) or
+[React.useCallback](https://reactjs.org/docs/hooks-reference.html#usecallback).
+Please make sure you use these hooks in your production code where appropriate.

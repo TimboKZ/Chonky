@@ -39,13 +39,16 @@ predefined file actions.
 import { FileBrowser, FileList, FileToolbar, ChonkyActions } from 'chonky';
 
 export const MyComponent = () => {
-    const fileActions = [
-        ChonkyActions.CreateFolder, // Adds a button to the toolbar
-        ChonkyActions.UploadFiles, // Adds a button
-        ChonkyActions.DownloadFiles, // Adds a button
-        ChonkyActions.CopyFiles, // Adds a button and a shortcut: Ctrl+C
-        ChonkyActions.DeleteFiles, // Adds a button and a shortcut: Delete
-    ];
+    const fileActions = React.useMemo(
+        () => [
+            ChonkyActions.CreateFolder, // Adds a button to the toolbar
+            ChonkyActions.UploadFiles, // Adds a button
+            ChonkyActions.DownloadFiles, // Adds a button
+            ChonkyActions.CopyFiles, // Adds a button and a shortcut: Ctrl+C
+            ChonkyActions.DeleteFiles, // Adds a button and a shortcut: Delete
+        ],
+        []
+    );
 
     return (
         <FileBrowser files={[]} fileActions={fileActions}>
