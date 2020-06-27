@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import { useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Nullable, Undefinable } from 'tsdef';
