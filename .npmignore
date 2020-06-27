@@ -6,4 +6,3 @@ stories/
 .eslintrc.js
 .prettierrc.js
 tsconfig.json
-typedoc.js

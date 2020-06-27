@@ -14,7 +14,6 @@
     "typecheck:src": "tsc -p ./tsconfig.json --noEmit",
     "storybook": "start-storybook -s ./assets -p 6006 --docs",
     "build:component": "rm -r ./lib; tsc",
-    "build:typedoc": "typedoc",
     "build:storybook": "build-storybook -s ./assets -o ./docs/1.x --docs",
     "build:all": "npm run build:component; npm run build:typedoc; npm run build:storybook"
   },
@@ -85,8 +84,6 @@
     "react-test-renderer": "^16.13.1",
     "style-loader": "^1.2.1",
     "ts-jest": "^26.1.0",
-    "typedoc": "^0.17.7",
-    "typedoc-plugin-markdown": "^2.3.1",
     "typescript": "^3.9.5"
   },
   "homepage": "https://github.com/TimboKZ/Chonky#readme",
