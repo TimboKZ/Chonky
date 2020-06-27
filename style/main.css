@@ -548,6 +548,7 @@ button.chonky-folder-chain-entry:active {
   padding: 3px 5px 5px 5px;
 }
 .chonky-file-entry-description-title {
+  word-break: break-word;
   position: relative;
 }
 .chonky-file-entry-description-title-modifiers {
