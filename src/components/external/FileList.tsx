@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-import { AutoSizer, Grid } from 'react-virtualized';
+import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
+import { Grid } from 'react-virtualized/dist/commonjs/Grid';
 import { useRecoilValue } from 'recoil';
 
 import { fileEntrySizeState } from '../../recoil/file-list.recoil';

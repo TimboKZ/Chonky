@@ -15,14 +15,15 @@ import { StoryCategories } from '../story-helpers';
 <br />
 
 -   [x] Backend-agnostic - files can come from any source (remote server, S3, virtual FS).
+-   [ ] Supports file sorting.
 -   [x] Supports text search.
 -   [x] Supports drag & drop.
 -   [ ] Mobile-friendly design.
 -   [x] Supports image thumbnails.
 -   [x] Supports keyboard shortcuts.
 -   [x] Supports common and custom file actions.
--   [ ] Supports _detailed list_ and _thumbnails_ views.
 -   [x] Provides unique icons for each file extension.
+-   [ ] **(WIP)** Supports _detailed list_ and _thumbnails_ views.
 -   [x] Supports file selections (excluding drag selection, _for now_).
 -   [x] Supports loading animations and async thumbnail generation.
 -   [x] Performs well with large file collections thanks to
@@ -32,3 +33,7 @@ import { StoryCategories } from '../story-helpers';
 
 -   Chonky `1.x` is a complete rewrite of `0.x`, now using hooks under the hood!
 -   Internal state management is done using [Recoil](https://recoiljs.org/).
+-   Keyboard shortcuts are implemented using [HotKeys.js](https://wangchujiang.com/hotkeys/).
+-   File sorting functionality uses [fast-sort](https://www.npmjs.com/package/fast-sort).
+-   Text search is implemented using [fuzzy-search](https://www.npmjs.com/package/fuzzy-search).
+-   Drag & drop uses [react-dnd](https://github.com/react-dnd/react-dnd).

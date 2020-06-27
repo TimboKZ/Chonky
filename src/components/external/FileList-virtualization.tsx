@@ -1,6 +1,6 @@
 import c from 'classnames';
 import React, { useCallback } from 'react';
-import { Grid } from 'react-virtualized';
+import { Grid } from 'react-virtualized/dist/commonjs/Grid';
 import { Nilable } from 'tsdef';
 
 import { FileEntrySize } from '../../types/file-list-view.types';
