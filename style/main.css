@@ -396,8 +396,12 @@ button.chonky-folder-chain-entry:active {
   opacity: 1;
 }
 .chonky-file-search-hidden {
-  height: 0 !important;
   opacity: 0 !important;
+  height: 0 !important;
+}
+
+.chonky-file-search-hidden .chonky-file-search-input-group {
+  display: none !important;
 }
 
 .chonky-file-search-input-group label,

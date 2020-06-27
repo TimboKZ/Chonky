@@ -93,7 +93,7 @@ export const useFileNameComponent = (file: Nullable<FileData>) => {
         const isDir = FileHelper.isDirectory(file);
         if (isDir) {
             name = file.name;
-            extension = ' /';
+            extension = '/';
         } else {
             extension = file.ext ?? path.extname(file.name);
             name = file.name.substr(0, file.name.length - extension.length);

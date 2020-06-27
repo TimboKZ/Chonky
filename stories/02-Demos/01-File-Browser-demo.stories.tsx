@@ -22,7 +22,7 @@ import {
 // @ts-ignore
 // eslint-disable-next-line
 import markdown from './01-File-Browser-demo.md';
-import ChonkySourceCodeFsMap from './chonky_source.fs_map.json';
+import DemoFsMap from './demo.fs_map.json';
 
 const category = StoryCategories.Demos;
 const title = 'File Browser demo';
@@ -36,7 +36,7 @@ export default {
 };
 
 export const FileBrowserDemo: React.FC = () => {
-    const [currentFolderId, setCurrentFolderId] = useState(rootDemoFolder.id);
+    const [currentFolderId, setCurrentFolderId] = useState(DemoFsMap.rootFolderId);
 
     const files = useFiles(currentFolderId);
     const folderChain = useFolderChain(currentFolderId);
@@ -78,25 +78,13 @@ export const FileBrowserDemo: React.FC = () => {
     );
 };
 
-const rootDemoFolder = {
-    id: 'qwerty123456',
-    name: 'Chonky Demo',
-    isDir: true,
-    childrenIds: [ChonkySourceCodeFsMap.rootFolderId],
-};
-const demoFileMap = {
-    [rootDemoFolder.id]: rootDemoFolder,
-    ...ChonkySourceCodeFsMap.fileMap,
-};
-demoFileMap[ChonkySourceCodeFsMap.rootFolderId].parentId = rootDemoFolder.id;
-
 const useFiles = (currentFolderId: string): FileArray => {
     return useMemo(() => {
-        const currentFolder = demoFileMap[currentFolderId];
+        const currentFolder = DemoFsMap.fileMap[currentFolderId];
         const files = !currentFolder.childrenIds
             ? []
             : currentFolder.childrenIds.map((fileId) => {
-                  const file = demoFileMap[fileId];
+                  const file = DemoFsMap.fileMap[fileId];
                   return file ? file : null;
               });
         return files;
@@ -105,13 +93,13 @@ const useFiles = (currentFolderId: string): FileArray => {
 
 const useFolderChain = (currentFolderId: string): FileArray => {
     return useMemo(() => {
-        const currentFolder = demoFileMap[currentFolderId];
+        const currentFolder = DemoFsMap.fileMap[currentFolderId];
 
         const folderChain = [currentFolder];
 
         let parentId = currentFolder.parentId;
         while (parentId) {
-            const parentFile = demoFileMap[parentId];
+            const parentFile = DemoFsMap.fileMap[parentId];
             if (parentFile) {
                 folderChain.unshift(parentFile);
                 parentId = parentFile.parentId;

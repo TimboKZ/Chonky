@@ -8,8 +8,12 @@
     opacity: 1;
 
     @at-root &-hidden {
-        height: 0 !important;
         opacity: 0 !important;
+        height: 0 !important;
+    }
+
+    @at-root &-hidden &-input-group {
+        display: none !important;
     }
 
     &-input-group {
