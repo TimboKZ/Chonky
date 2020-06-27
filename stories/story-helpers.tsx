@@ -29,8 +29,8 @@ export enum StoryCategories {
     ApiReference = '5) API Reference',
 }
 
-export const createDocsObject = (params: { markdown: string }) => {
-    const { markdown } = params;
+export const createDocsObject = (params: { markdown: string; hideStory?: boolean }) => {
+    const { markdown, hideStory } = params;
 
     return {
         page: () => {
@@ -40,8 +40,12 @@ export const createDocsObject = (params: { markdown: string }) => {
                         {parseMarkdown(UnstableWarningMd)}
                         <Title />
                         {parseMarkdown(markdown)}
-                        <CustomPrimary />
-                        {parseMarkdown(LiveExampleMd)}
+                        {!hideStory && (
+                            <>
+                                <CustomPrimary />
+                                {parseMarkdown(LiveExampleMd)}
+                            </>
+                        )}
                     </DndProvider>
                 </React.Fragment>
             );

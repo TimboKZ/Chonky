@@ -17,7 +17,6 @@ image thumbnails, and much more!
 
 <br />
 
-
 # Philosophy
 
 Please read this section to understand what Chonky is and is not.
@@ -27,21 +26,34 @@ Please read this section to understand what Chonky is and is not.
 ### 1. Chonky is the presentation layer.
 
 Chonky takes a list of files and shows them to the user. It does not and should not
-know where the files came from, nor should it now how file operations are carried out.
+know where the files come from, nor should it know how file operations are carried out.
+
+That said, when it comes to file browser UI, **Chonky tries to cover as many _UI_
+features as possible.**
 
 <br />
 
-### 2. Chonky is filesystem-agnostic.
+### 2. Chonky is just the tip of the FS iceberg. You will need to implement many things yourself.
 
-Chonky tries to stay **unopinionated** when it comes to interactions with the file
-system (FS).
+Chonky saves you **a lot** of time by providing a pretty file browser UI for your
+users. However, apart from a pretty UI, working with the file system requires a lot of
+custom business logic. **You will have to implement this business logic yourself.**
+
+In the future, Chonky might provide extensions like S3 or FTP adapters, but this is
+not the case today.
 
 <br />
 
 ### 3. Developing file browsers is hard. Each use case is unique.
 
-At the same time, Chonky tries to cover all possible interactions with the user. This includes support for keyboard
-navigation and common keyboard shortcuts, support for file selections, drag & drop, different file views, and much more.
+It is not possible for Chonky to address _all_ use cases explicitly. To solve this
+problem, Chonky was written to be very flexible, and _all_ internal interfaces and
+contexts are exported in some way. **Feel free to dive into the source code of Chonky
+and customise logic as necessary**.
+
+However, before you start making adjustments to Chonky's source code, please
+[create an issue](https://github.com/TimboKZ/Chonky/issues) on GitHub describing your
+use case. There's a good chance your use case is supported, just not documented.
 
 <br />
 <br />

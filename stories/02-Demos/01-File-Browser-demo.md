@@ -1,7 +1,7 @@
 Check out the demo below to see what Chonky can do. Things to try:
 
 -   Try opening files and entering folders.
--   Try keyboard navigation - use `Tab`, `Space` and `Enter` keys.
+-   Try keyboard navigation - use `Tab`, `Space`, `Enter` and `Backspace` keys.
 -   Try selecting files by clicking on them or pressing `Ctrl+A`.
 -   Try dragging & dropping files.
 -   Try using search, by pressing the search button or `Ctrl+F`.

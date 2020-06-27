@@ -1,8 +1,8 @@
 import sort from 'fast-sort';
 import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
-import { optionState } from '../recoil/options.recoil';
 
+import { optionState } from '../recoil/options.recoil';
 import { sortConfigState } from '../recoil/sort.recoil';
 import { FileArray } from '../types/files.types';
 import { FileSortKeySelector, SortOrder } from '../types/sort.types';

@@ -7,8 +7,64 @@ import { StoryCategories } from '../story-helpers';
 
 # Immutability in Chonky
 
-TODO explain:
+Chonky assumes that the objects and arrays you provide through `FileBrowser` props (or
+any other props) are **immutable**. It is very important for your application to
+guarantee immutability, otherwise Chonky components will not update correctly.
 
--   Chonky assumes data is immutable to be performant.
--   Link to Redux docs.
--   Examples of common beginner problems?
+## What is immutability?
+
+Immutability is a crucial concept in React performance optimizations, and is used in
+many React libraries, such as Redux. If you're a seasoned React developer, you
+already know what immutability is. If you're new to React, you should learn this
+concept as soon as possible.
+
+I will not go into the details of data immutability here. Instead, I'll point you to
+some useful resources which you can study yourself:
+
+-   [Dave Ceddia - Immutability in React and Redux: The Complete Guide](https://daveceddia.com/react-redux-immutability-guide/)
+-   [Redux FAX - Immutable Data](https://redux.js.org/faq/immutable-data)
+-   [StackOverflow - Why should objects in Redux be immutable?](https://stackoverflow.com/questions/34958775/why-should-objects-in-redux-be-immutable/34962065#34962065)
+
+## Example of a mutable data mistake
+
+A common mistake for new Chonky users is mutating the `files` array directly. For
+example, we pass Chonky some initial file array:
+
+```tsx
+const [files, setFiles] = React.useState([]);
+
+<FileBrowser files={files}>
+    <FileList />
+</FileBrowser>;
+```
+
+And later, we try to add a new file by _mutating_ (changing without creating a new
+copy) the array:
+
+```tsx
+setFiles((files) => {
+    // vvv This is bad, don't do this!
+    files.push({ id: 'vdSw', name: 'passwords.txt' });
+    // Newer React versions will actually throw an error if you try to extend the array.
+    return files;
+});
+```
+
+If this update goes through without React throwing an error, you will notice that
+your new file will not appear in the file browser. This is because the array
+reference did not change (we reused the same array), and Chonky thinks it doesn't
+need to re-render.
+
+The correct way to add a new file is to create a new copy of the array and populate
+it using the ES6 spread operator:
+
+```tsx
+setFiles((oldFiles) => {
+    const newFiles = [...oldFiles, { id: 'VsE', name: 'robots.txt' }];
+    return newFiles;
+});
+```
+
+With the code above, the array reference will change after the update, and Chonky
+will show your new file in the file browser. The same rules apply to `folderChain`,
+`fileActions` and any other object or array you pass to Chonky.
