@@ -89,7 +89,7 @@ export const ChonkyDemo = () => {
 ## Preview
 
 <p align="center">
-  <img src="https://timbokz.github.io/Chonky/0.x/Chonky_preview.jpg" alt="Chonky preview">
+  <img src="https://timbokz.github.io/Chonky/1.x/Chonky_preview.gif" alt="Chonky preview">
 </p>
 
 ## License
