@@ -15,7 +15,7 @@
     "storybook": "start-storybook -s ./assets -p 6006 --docs",
     "build:component": "rm -r ./lib; tsc",
     "build:storybook": "build-storybook -s ./assets -o ./docs/1.x --docs",
-    "build:all": "npm run build:component; npm run build:typedoc; npm run build:storybook"
+    "build:all": "npm run build:component; npm run build:storybook"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.29",
