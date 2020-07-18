@@ -35,29 +35,8 @@ The `FileData` type is shown below. It might look intimidating, but please note 
 `id` and `name` are the only 2 required fields. All other fields are optional, and
 are there to give you more control over how Chonky displays your files.
 
-```ts
-export interface FileData {
-    id: string; // (Required) String that uniquely identifies the file
-
-    name: string; // (Required) Full name, e.g. `MyImage.jpg`
-    ext?: string; // File extension, e.g. `.jpg`
-
-    isDir?: boolean; // Is a directory, default: false
-    isHidden?: boolean; // Is a hidden file, default: false
-    isSymlink?: boolean; // Is a symlink, default: false
-    openable?: boolean; // Can be opened, default: true
-    selectable?: boolean; // Can be selected, default: true
-    draggable?: boolean; // Can be dragged, default: true
-    droppable?: boolean; // Can have files dropped into it, default: true
-
-    size?: number; // File size in bytes
-    modDate?: Date | string; // Last change date (or its string representation)
-    childrenCount?: number; // Number of files inside of a folder (only for folders)
-
-    thumbnailUrl?: string; // Automatically load thumbnail from here
-
-    [property: string]: any; // Any other user-defined property
-}
+```ts { "file": "<src>/types/files.types.ts", "symbol": "FileData" }
+"If you see this text, there was an error loading the code snippet";
 ```
 
 <span style="color: red; font-weight: bold;">

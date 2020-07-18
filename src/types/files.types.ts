@@ -20,7 +20,7 @@ export interface FileData {
     modDate?: Date | string; // Last change date (or its string representation)
     childrenCount?: number; // Number of files inside of a folder (only for folders)
 
-    thumbnailUrl?: string; // Automatically load thumbnail from here
+    thumbnailUrl?: string; // Automatically load thumbnail from this URL
 
     [property: string]: any; // Any other user-defined property
 }

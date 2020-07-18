@@ -28,6 +28,20 @@ module.exports = {
             ],
         });
 
+        config.module.rules.push({
+            test: /\.mdx?$/i,
+            use: [
+                {
+                    loader: 'markdown-dynamic-codeblock-loader',
+                    options: {
+                        mappings: {
+                            src: path.resolve(__dirname, '..', 'src'),
+                        },
+                    },
+                },
+            ],
+        });
+
         return config;
     },
 };

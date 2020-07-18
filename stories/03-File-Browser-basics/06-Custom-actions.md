@@ -1,39 +1,28 @@
-This section describes how you can define your own action. After you read the
+This section describes how you can define your own file actions. After you read the
 documentation on this page, it is strongly recommended that you also study
-[the predefined Chonky file actions](https://github.com/TimboKZ/Chonky/blob/1.x/src/util/file-actions-definitions.ts)
-to understand how they work.
+[how the defailt `ChonkyActions` are defined.](https://github.com/TimboKZ/Chonky/blob/1.x/src/util/file-actions-definitions.ts)
+Hopefully, that will clarify any questions you have. If it's not enough, please
+post your questions in [GitHub issues](https://github.com/TimboKZ/Chonky/issues).
 
 The definition of a file action is a plain JavaScript object that satisfies the
 interface below.
 
-```ts
-export interface FileAction {
-    id: string; // Unique action ID
-    metadata?: any; // Any user-defined value
-    requiresSelection?: boolean; // Requires selection of 1+ files
-    fileFilter?: FileFilter; // Used to filter the files array
+```ts { "file": "<src>/types/file-actions.types.ts", "symbol": "FileAction" }
+'If you see this text, there was an error loading the code snippet';
+```
 
-    hotkeys?: readonly string[]; // Hotkeys using `hotkey-js` notation
-    toolbarButton?: ToolbarButtonData; // Description below
+Some misc types that are used by the `FileAction` interface:
 
-    // Special action that should be dispatched on activation of this action. This
-    // is used by Chonky internally, keep it `undefined` unless you know what you're
-    // doing.
-    specialActionToDispatch?: SpecialAction;
-}
+```ts { "file": "<src>/types/files.types.ts", "symbol": "FileFilter" }
+'If you see this text, there was an error loading the code snippet';
+```
 
-// Where...
-type FileFilter = (file: Nullable<FileData>) => boolean;
+```ts { "file": "<src>/types/sort.types.ts", "symbol": "FileSortKeySelector" }
+'If you see this text, there was an error loading the code snippet';
+```
 
-// ...and...
-interface ToolbarButtonData {
-    name: string; // Button name
-    group?: string; // Group to add the button to
-    dropdown?: boolean; // Whether to display group as dropdown
-    tooltip?: string; // Help tooltip text
-    icon?: ChonkyIconName | string; // Icon name
-    iconOnly?: boolean; // Whether to only display the icon
-}
+```ts { "file": "<src>/types/file-actions.types.ts", "symbol": "ToolbarButtonData" }
+'If you see this text, there was an error loading the code snippet';
 ```
 
 -   All action IDs should be unique.
