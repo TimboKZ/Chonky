@@ -81,6 +81,11 @@ export const FileSearch: React.FC<FileSearchProps> = () => {
     // === Callback to hide the search when Escape key is pressed inside the search
     const onInputKeyDown = useCallback(
         (event: React.KeyboardEvent) => {
+            if (event.nativeEvent.code === 'Enter') {
+                // Prevent submitting the form if Chonky is used inside of a form.
+                event.preventDefault();
+            }
+
             if (event.nativeEvent.code === 'Escape') {
                 setSearchBarVisible(false);
             }

@@ -32,6 +32,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = React.memo((props) 
     });
     return (
         <button
+            type="button"
             className={className}
             onClick={onClick}
             title={tooltip ? tooltip : text}

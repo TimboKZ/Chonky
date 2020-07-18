@@ -44,6 +44,7 @@ export const useFolderChainComponent = () => {
                 };
             }
             const TagToUse = compProps.onClick ? 'button' : 'div';
+            if (TagToUse === 'button') compProps.type = 'button';
             comps[j] = (
                 <TagToUse {...compProps}>
                     {/* eslint-disable-next-line */}
