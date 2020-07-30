@@ -24,7 +24,7 @@ const title = 'Defining an action handler';
 
 // eslint-disable-next-line import/no-default-export
 export default {
-    title: `${category}|${title}`,
+    title: `${category}/${title}`,
     parameters: {
         docs: createDocsObject({ category, title, markdown }),
     },
