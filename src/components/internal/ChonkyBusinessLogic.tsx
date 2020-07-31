@@ -17,110 +17,116 @@ import {
 } from '../../recoil/files.recoil';
 import { selectionModifiersState, selectionState } from '../../recoil/selection.recoil';
 import { thumbnailGeneratorState } from '../../recoil/thumbnails.recoil';
-import { FileBrowserProps } from '../../types/file-browser.types';
+import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
 import { useFileActions } from '../../util/file-actions';
+import { useFileBrowserHandle } from '../../util/file-browser-handle';
 import { useOptions } from '../../util/options';
 import { useFileSearch } from '../../util/search';
 import { useSelection } from '../../util/selection';
 import { useFileSorting } from '../../util/sort';
 import { useSpecialActionDispatcher } from '../../util/special-actions';
 
-export const ChonkyBusinessLogic: React.FC<FileBrowserProps> = React.memo((props) => {
-    const { files } = props;
+export const ChonkyBusinessLogic = React.memo(
+    React.forwardRef<FileBrowserHandle, FileBrowserProps>((props, ref) => {
+        const { files } = props;
 
-    // Instance ID used to distinguish between multiple Chonky instances on the same
-    // page
-    // const chonkyInstanceId = useStaticValue(shortid.generate);
+        // Instance ID used to distinguish between multiple Chonky instances on the
+        // same page const chonkyInstanceId = useStaticValue(shortid.generate);
 
-    //
-    // ==== Default values assignment
-    const folderChain = props.folderChain ? props.folderChain : null;
-    const fileActions = props.fileActions ? props.fileActions : [];
-    const onFileAction = props.onFileAction ? props.onFileAction : null;
-    const thumbnailGenerator = props.thumbnailGenerator
-        ? props.thumbnailGenerator
-        : null;
-    const doubleClickDelay =
-        typeof props.doubleClickDelay === 'number' ? props.doubleClickDelay : 300;
-    const disableSelection = !!props.disableSelection;
-    const enableDragAndDrop = !!props.enableDragAndDrop;
+        //
+        // ==== Default values assignment
+        const folderChain = props.folderChain ? props.folderChain : null;
+        const fileActions = props.fileActions ? props.fileActions : [];
+        const onFileAction = props.onFileAction ? props.onFileAction : null;
+        const thumbnailGenerator = props.thumbnailGenerator
+            ? props.thumbnailGenerator
+            : null;
+        const doubleClickDelay =
+            typeof props.doubleClickDelay === 'number' ? props.doubleClickDelay : 300;
+        const disableSelection = !!props.disableSelection;
+        const enableDragAndDrop = !!props.enableDragAndDrop;
 
-    //
-    // ==== File array sorting
-    const sortedFiles = useFileSorting(files);
+        //
+        // ==== File array sorting
+        const sortedFiles = useFileSorting(files);
 
-    //
-    // ==== File selections
-    const { selection, selectionUtilRef, selectionModifiers } = useSelection(
-        sortedFiles,
-        disableSelection
-    );
+        //
+        // ==== File selections
+        const { selection, selectionUtilRef, selectionModifiers } = useSelection(
+            sortedFiles,
+            disableSelection
+        );
 
-    const setRecoilSelectionModifiers = useSetRecoilState(selectionModifiersState);
-    useEffect(() => {
-        setRecoilSelectionModifiers(selectionModifiers);
-    }, [selectionModifiers, setRecoilSelectionModifiers]);
+        const setRecoilSelectionModifiers = useSetRecoilState(selectionModifiersState);
+        useEffect(() => {
+            setRecoilSelectionModifiers(selectionModifiers);
+        }, [selectionModifiers, setRecoilSelectionModifiers]);
 
-    //
-    // ==== File actions - actions that users can customise as they please
-    useFileActions(fileActions, onFileAction);
+        //
+        // ==== File actions - actions that users can customise as they please
+        useFileActions(fileActions, onFileAction);
 
-    //
-    // ==== File options - toggleable options based on file actions
-    const optionFilteredFiles = useOptions(sortedFiles);
+        //
+        // ==== File options - toggleable options based on file actions
+        const optionFilteredFiles = useOptions(sortedFiles);
 
-    //
-    // ==== File search (aka file array filtering)
-    const searchFilteredFiles = useFileSearch(optionFilteredFiles);
+        //
+        // ==== File search (aka file array filtering)
+        const searchFilteredFiles = useFileSearch(optionFilteredFiles);
 
-    //
-    // ==== Special actions - special actions hard-coded into Chonky that users cannot
-    //      customize (easily).
-    useSpecialActionDispatcher(
-        sortedFiles,
-        selection,
-        selectionUtilRef.current,
-        selectionModifiers
-    );
+        //
+        // ==== Special actions - special actions hard-coded into Chonky that users
+        //      cannot customize (easily).
+        useSpecialActionDispatcher(
+            sortedFiles,
+            selection,
+            selectionUtilRef.current,
+            selectionModifiers
+        );
 
-    const setRecoilFiles = useSetRecoilState(filesState);
-    useEffect(() => {
-        setRecoilFiles(searchFilteredFiles);
-    }, [searchFilteredFiles, setRecoilFiles]);
+        //
+        // ==== Setup the imperative handle for external use
+        useFileBrowserHandle(ref, selectionModifiers);
 
-    const setFolderChain = useSetRecoilState(folderChainState);
-    const setParentFolder = useSetRecoilState(parentFolderState);
-    useEffect(() => {
-        const parentFolder =
-            folderChain && folderChain.length > 1
-                ? folderChain[folderChain?.length - 2]
-                : null;
+        const setRecoilFiles = useSetRecoilState(filesState);
+        useEffect(() => {
+            setRecoilFiles(searchFilteredFiles);
+        }, [searchFilteredFiles, setRecoilFiles]);
 
-        setFolderChain(folderChain);
-        setParentFolder(parentFolder);
-    }, [folderChain, setFolderChain, setParentFolder]);
+        const setFolderChain = useSetRecoilState(folderChainState);
+        const setParentFolder = useSetRecoilState(parentFolderState);
+        useEffect(() => {
+            const parentFolder =
+                folderChain && folderChain.length > 1
+                    ? folderChain[folderChain?.length - 2]
+                    : null;
 
-    const setRecoilSelection = useSetRecoilState(selectionState);
-    useEffect(() => {
-        setRecoilSelection(selection);
-    }, [selection, setRecoilSelection]);
+            setFolderChain(folderChain);
+            setParentFolder(parentFolder);
+        }, [folderChain, setFolderChain, setParentFolder]);
 
-    const setRecoilThumbnailGenerator = useSetRecoilState(thumbnailGeneratorState);
-    useEffect(() => {
-        setRecoilThumbnailGenerator(() => thumbnailGenerator);
-    }, [thumbnailGenerator, setRecoilThumbnailGenerator]);
+        const setRecoilSelection = useSetRecoilState(selectionState);
+        useEffect(() => {
+            setRecoilSelection(selection);
+        }, [selection, setRecoilSelection]);
 
-    const setRecoilDoubleClickDelay = useSetRecoilState(doubleClickDelayState);
-    useEffect(() => {
-        setRecoilDoubleClickDelay(doubleClickDelay);
-    }, [doubleClickDelay, setRecoilDoubleClickDelay]);
+        const setRecoilThumbnailGenerator = useSetRecoilState(thumbnailGeneratorState);
+        useEffect(() => {
+            setRecoilThumbnailGenerator(() => thumbnailGenerator);
+        }, [thumbnailGenerator, setRecoilThumbnailGenerator]);
 
-    const [,] = useRecoilState(fileEntrySizeState);
+        const setRecoilDoubleClickDelay = useSetRecoilState(doubleClickDelayState);
+        useEffect(() => {
+            setRecoilDoubleClickDelay(doubleClickDelay);
+        }, [doubleClickDelay, setRecoilDoubleClickDelay]);
 
-    const setRecoilEnableDragAndDrop = useSetRecoilState(enableDragAndDropState);
-    useEffect(() => {
-        setRecoilEnableDragAndDrop(enableDragAndDrop);
-    }, [enableDragAndDrop, setRecoilEnableDragAndDrop]);
+        const [,] = useRecoilState(fileEntrySizeState);
 
-    return null;
-});
+        const setRecoilEnableDragAndDrop = useSetRecoilState(enableDragAndDropState);
+        useEffect(() => {
+            setRecoilEnableDragAndDrop(enableDragAndDrop);
+        }, [enableDragAndDrop, setRecoilEnableDragAndDrop]);
+
+        return null;
+    })
+);

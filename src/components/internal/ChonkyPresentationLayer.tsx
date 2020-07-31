@@ -31,7 +31,12 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
 
     // Deal with clicks outside of Chonky
     const chonkyRootRef = useClickListener({
-        onOutsideClick: selectionModifiers.clearSelection,
+        // We only clear out the selection on outside click if the click target was
+        // not a button. We don't want to clear out the selection when a button is
+        // clicked because Chonky users might want to trigger some
+        // selection-related action on that button click.
+        onOutsideClick: (event, targetIsAButton) =>
+            targetIsAButton ? null : selectionModifiers.clearSelection(),
     });
 
     // Generate necessary components

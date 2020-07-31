@@ -17,7 +17,7 @@ export const useSelection = (files: FileArray, disableSelection: boolean) => {
     const dispatchFileAction = useRecoilValue(dispatchFileActionState);
 
     // Create React-managed state for components that need to re-render on state change.
-    const [selection, setSelection] = useState<FileSelection>({});
+    const [selection, setSelection] = useState<FileSelection>(new Set<string>());
 
     // Dispatch an action every time selection changes.
     const lastSelectionSizeForAction = useRef(0);
@@ -79,8 +79,10 @@ const useSelectionModifiers = (
             if (disableSelection) return;
 
             setSelection((selection) => {
-                const newSelection = reset ? {} : { ...selection };
-                for (const fileId of fileIds) newSelection[fileId] = true;
+                const newSelection = reset
+                    ? new Set<string>()
+                    : new Set<string>(selection);
+                for (const fileId of fileIds) newSelection.add(fileId);
                 return newSelection;
             });
         },
@@ -91,11 +93,13 @@ const useSelectionModifiers = (
             if (disableSelection) return;
 
             setSelection((selection) => {
-                const newSelection = exclusive ? {} : { ...selection };
-                if (selection[fileId] === true) {
-                    delete newSelection[fileId];
+                const newSelection = exclusive
+                    ? new Set<string>()
+                    : new Set<string>(selection);
+                if (selection.has(fileId)) {
+                    newSelection.delete(fileId);
                 } else {
-                    newSelection[fileId] = true;
+                    newSelection.add(fileId);
                 }
                 return newSelection;
             });
@@ -106,8 +110,8 @@ const useSelectionModifiers = (
         if (disableSelection) return;
 
         setSelection((oldSelection) => {
-            if (Object.keys(oldSelection).length === 0) return {};
-            return {};
+            if (oldSelection.size === 0) return oldSelection;
+            return new Set<string>();
         });
     }, [disableSelection, setSelection]);
 
@@ -135,7 +139,7 @@ export class SelectionHelper {
         ...filters: Nilable<FileFilter>[]
     ): FileData[] {
         const selectedFiles = files.filter(
-            (file) => FileHelper.isSelectable(file) && selection[file.id] === true
+            (file) => FileHelper.isSelectable(file) && selection.has(file.id)
         ) as FileData[];
 
         return filters.reduce(
@@ -156,7 +160,7 @@ export class SelectionHelper {
         selection: Readonly<FileSelection>,
         file: Nullable<Readonly<FileData>>
     ): boolean {
-        return FileHelper.isSelectable(file) && selection[file.id] === true;
+        return FileHelper.isSelectable(file) && selection.has(file.id);
     }
 }
 
@@ -169,7 +173,7 @@ export class SelectionUtil {
     private files: FileArray;
     private selection: FileSelection;
 
-    public constructor(files: FileArray = [], selection: FileSelection = {}) {
+    public constructor(files: FileArray = [], selection: FileSelection = new Set()) {
         this.protectedUpdate(files, selection);
     }
 
@@ -182,9 +186,7 @@ export class SelectionUtil {
         return this.selection;
     }
 
-    public getSelectedFiles(
-        ...filters: Nilable<FileFilter>[]
-    ): FileData[] {
+    public getSelectedFiles(...filters: Nilable<FileFilter>[]): FileData[] {
         return SelectionHelper.getSelectedFiles(this.files, this.selection, ...filters);
     }
 

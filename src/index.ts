@@ -20,6 +20,7 @@ export { FileSelection } from './types/selection.types';
 // Export interface separately to comply with isolated module requirements
 // @see https://github.com/microsoft/TypeScript/issues/28481
 export type FileBrowserProps = import('./types/file-browser.types').FileBrowserProps;
+export type FileBrowserHandle = import('./types/file-browser.types').FileBrowserHandle;
 export type FileToolbarProps = import('./components/external/FileToolbar').FileToolbarProps;
 export type FileListProps = import('./components/external/FileList').FileListProps;
 export type ChonkyIconProps = import('./components/external/ChonkyIcon').ChonkyIconProps;

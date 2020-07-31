@@ -10,7 +10,7 @@ import { filesState } from './files.recoil';
 // ==== Atoms
 export const selectionState = atom<FileSelection>({
     key: 'selectionState',
-    default: {},
+    default: new Set(),
 });
 
 export const selectionModifiersState = atom<SelectionModifiers>({
@@ -38,15 +38,7 @@ export const selectionSizeState = selector({
     key: 'selectionSizeState',
     get: ({ get }) => {
         const selection = get(selectionState);
-
-        let selectionSize = 0;
-        for (const fileId in selection) {
-            if (selection.hasOwnProperty(fileId)) {
-                if (selection[fileId] === true) selectionSize++;
-            }
-        }
-
-        return selectionSize;
+        return selection.size;
     },
 });
 
@@ -56,6 +48,6 @@ export const fileSelectedState = selectorFamily<boolean, Nullable<string>>({
         // We deliberately don't use `FileHelper.isSelectable` here. We want
         // the UI to represent the true state of selection. This will help users
         // see what exactly the selection is before running some code.
-        return !!fileId && get(selectionState)[fileId] === true;
+        return !!fileId && get(selectionState).has(fileId);
     },
 });

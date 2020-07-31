@@ -40,7 +40,7 @@ export const useInstanceVariable = <T>(value: T) => {
 interface UseClickListenerParams {
     onClick?: (event: MouseEvent) => void;
     onInsideClick?: (event: MouseEvent) => void;
-    onOutsideClick?: (event: MouseEvent) => void;
+    onOutsideClick?: (event: MouseEvent, targetIsAButton: boolean) => void;
 }
 
 export const useClickListener = <T extends HTMLElement = HTMLDivElement>(
@@ -51,15 +51,21 @@ export const useClickListener = <T extends HTMLElement = HTMLDivElement>(
 
     const clickListener = useCallback(
         (event: MouseEvent) => {
+            const anyTarget: any = event.target;
             if (
                 !triggerComponentRef.current ||
-                triggerComponentRef.current.contains(event.target as any)
+                triggerComponentRef.current.contains(anyTarget)
             ) {
                 // Click originated from inside.
                 if (onInsideClick) onInsideClick(event);
             } else {
                 // Click originated from outside inside.
-                if (onOutsideClick) onOutsideClick(event);
+                const targetIsAButton =
+                    anyTarget &&
+                    typeof anyTarget.tagName === 'string' &&
+                    anyTarget.tagName.toLowerCase() === 'button';
+
+                if (onOutsideClick) onOutsideClick(event, targetIsAButton);
             }
 
             if (onClick) onClick(event);

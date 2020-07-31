@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { RecoilRoot } from 'recoil';
 
-import { FileBrowserProps } from '../../types/file-browser.types';
+import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
 import { DefaultFileActions } from '../../util/file-actions-definitions';
 import {
     useFileActionsValidation,
@@ -17,8 +17,11 @@ import { ChonkyPresentationLayer } from '../internal/ChonkyPresentationLayer';
 //     });
 // }
 
-export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
-    const {files, children } = props;
+export const FileBrowser = React.forwardRef<
+    FileBrowserHandle,
+    FileBrowserProps & { children?: ReactNode }
+>((props, ref) => {
+    const { files, children } = props;
 
     // ==== Default values assignment
     const folderChain = props.folderChain ? props.folderChain : null;
@@ -46,14 +49,14 @@ export const FileBrowser: React.FC<FileBrowserProps> = (props) => {
         files: cleanFiles,
         folderChain: cleanFolderChain,
         fileActions: cleanFileActions,
-    }
+    };
 
     return (
         <RecoilRoot>
-            <ChonkyBusinessLogic {...businessLogicProps} />
+            <ChonkyBusinessLogic ref={ref} {...businessLogicProps} />
             <ChonkyPresentationLayer validationErrors={validationErrors}>
                 {children}
             </ChonkyPresentationLayer>
         </RecoilRoot>
     );
-};
+});

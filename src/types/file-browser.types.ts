@@ -2,8 +2,31 @@ import { Nullable } from 'tsdef';
 
 import { FileAction, FileActionHandler } from './file-actions.types';
 import { FileArray } from './files.types';
+import { FileSelection } from './selection.types';
 import { ThumbnailGenerator } from './thumbnails.types';
 
+/**
+ * File browser methods exposed to developers via the `FileBrowser` ref.
+ */
+export interface FileBrowserHandle {
+    /**
+     * @returns An ES6 Set containing the IDs of the selected files.
+     */
+    getFileSelection: () => FileSelection;
+
+    /**
+     * @param selection An ES6 Set containing the IDs of files that should be selected.
+     * IDs of files that are not present in the `files` array will be ignored.
+     * @param [reset=true] Whether to clear the current selection before applying
+     * the new selection. When set to `false`, the new selection will be merged with
+     * the current selection. Set to `true` by default.
+     */
+    setFileSelection: (selection: FileSelection, reset?: boolean) => void;
+}
+
+/**
+ * Props for the `FileBrowser` component that is exposed to library users.
+ */
 export interface FileBrowserProps {
     /**
      * List of files that will be displayed in the main container. The provided value
