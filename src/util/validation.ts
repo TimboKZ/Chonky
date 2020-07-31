@@ -39,8 +39,8 @@ export const cleanupFileArray = <AllowNull extends boolean>(
     warningBullets: string[];
 } => {
     let cleanFileArray: AllowNull extends false ? FileArray : Nullable<FileArray>;
-    let warningMessage = null;
-    const warningBullets = [];
+    let warningMessage: Nullable<string> = null;
+    const warningBullets: string[] = [];
 
     if (!Array.isArray(fileArray)) {
         // @ts-ignore
@@ -57,21 +57,21 @@ export const cleanupFileArray = <AllowNull extends boolean>(
     } else {
         const indicesToBeRemoved = new Set<number>();
 
-        const seenIds = {};
+        const seenIds = new Set<string>();
         const duplicateIdSet = new Set<string>();
-        const missingIdIndices = [];
-        const missingNameIndices = [];
-        const invalidTypeIndices = [];
+        const missingIdIndices: number[] = [];
+        const missingNameIndices: number[] = [];
+        const invalidTypeIndices: number[] = [];
 
         for (let i = 0; i < fileArray.length; ++i) {
             const file = fileArray[i];
 
             if (isPlainObject(file)) {
-                if (file.id && seenIds[file.id]) {
+                if (file.id && seenIds.has(file.id)) {
                     duplicateIdSet.add(file.id);
                     indicesToBeRemoved.add(i);
                 } else {
-                    seenIds[file.id] = true;
+                    seenIds.add(file.id);
                 }
 
                 if (!file.name) {
@@ -271,8 +271,8 @@ export const cleanupFileActions = (
     warningBullets: string[];
 } => {
     let cleanFileActions: FileAction[];
-    let warningMessage = null;
-    const warningBullets = [];
+    let warningMessage: Nullable<string> = null;
+    const warningBullets: string[] = [];
 
     if (!Array.isArray(fileActions)) {
         cleanFileActions = [];
@@ -284,20 +284,20 @@ export const cleanupFileActions = (
     } else {
         const indicesToBeRemoved = new Set<number>();
 
-        const seenIds = {};
+        const seenIds = new Set<string>();
         const duplicateIdSet = new Set<string>();
-        const missingIdIndices = [];
-        const invalidTypeIndices = [];
+        const missingIdIndices: number[] = [];
+        const invalidTypeIndices: number[] = [];
 
         for (let i = 0; i < fileActions.length; ++i) {
             const fileAction = fileActions[i];
 
             if (isPlainObject(fileAction)) {
-                if (fileAction.id && seenIds[fileAction.id]) {
+                if (fileAction.id && seenIds.has(fileAction.id)) {
                     duplicateIdSet.add(fileAction.id);
                     indicesToBeRemoved.add(i);
                 } else {
-                    seenIds[fileAction.id] = true;
+                    seenIds.add(fileAction.id);
                 }
 
                 if (!fileAction.id) {

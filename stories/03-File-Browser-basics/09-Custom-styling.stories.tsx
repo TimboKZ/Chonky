@@ -16,4 +16,4 @@ export default {
     },
 };
 
-export const DragNDropExample = () => null;
+export const CustomStyling = () => null;

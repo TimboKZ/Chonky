@@ -32,8 +32,8 @@ export interface FileAction {
 
 export interface FileActionData {
     actionId: string;
-    target?: Readonly<FileData>;
-    files?: ReadonlyArray<Readonly<FileData>>;
+    target?: FileData;
+    files?: FileData[];
 }
 
 export type FileActionHandler = (

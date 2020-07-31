@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Nilable, Nullable } from 'tsdef';
 
+import { dispatchFileActionState } from '../recoil/file-actions.recoil';
 import {
     FileArray,
     FileData,
@@ -8,11 +10,38 @@ import {
     ReadonlyFileArray,
 } from '../types/files.types';
 import { FileSelection, SelectionModifiers } from '../types/selection.types';
+import { ChonkyActions } from './file-actions-definitions';
 import { FileHelper } from './file-helper';
 
 export const useSelection = (files: FileArray, disableSelection: boolean) => {
+    const dispatchFileAction = useRecoilValue(dispatchFileActionState);
+
     // Create React-managed state for components that need to re-render on state change.
     const [selection, setSelection] = useState<FileSelection>({});
+
+    // Dispatch an action every time selection changes.
+    const lastSelectionSizeForAction = useRef(0);
+    useEffect(() => {
+        const selectedFiles = SelectionHelper.getSelectedFiles(files, selection);
+
+        // We want to solve two problems here - first, we don't want to dispatch a
+        // selection action when Chonky is first initialized. We also don't want to
+        // dispatch an action if the current selection and the previous selection
+        // are empty (this can happen because Recoil can sometimes trigger updates
+        // even if object reference did not change).
+        if (
+            lastSelectionSizeForAction.current === selectedFiles.length &&
+            selectedFiles.length === 0
+        ) {
+            return;
+        }
+        lastSelectionSizeForAction.current = selectedFiles.length;
+
+        dispatchFileAction({
+            actionId: ChonkyActions.ChangeSelection.id,
+            files: selectedFiles,
+        });
+    }, [files, dispatchFileAction, selection]);
 
     // Pre-compute selection size for components that are only interested in the
     // number of selected files but not the actual files
@@ -77,7 +106,7 @@ const useSelectionModifiers = (
         if (disableSelection) return;
 
         setSelection((oldSelection) => {
-            if (Object.keys(oldSelection).length === 0) return oldSelection;
+            if (Object.keys(oldSelection).length === 0) return {};
             return {};
         });
     }, [disableSelection, setSelection]);
@@ -104,7 +133,7 @@ export class SelectionHelper {
         files: ReadonlyFileArray,
         selection: Readonly<FileSelection>,
         ...filters: Nilable<FileFilter>[]
-    ): ReadonlyArray<Readonly<FileData>> {
+    ): FileData[] {
         const selectedFiles = files.filter(
             (file) => FileHelper.isSelectable(file) && selection[file.id] === true
         ) as FileData[];
@@ -114,6 +143,7 @@ export class SelectionHelper {
             selectedFiles
         );
     }
+
     public static getSelectionSize(
         files: ReadonlyFileArray,
         selection: Readonly<FileSelection>,
@@ -121,6 +151,7 @@ export class SelectionHelper {
     ): number {
         return SelectionHelper.getSelectedFiles(files, selection, ...filters).length;
     }
+
     public static isSelected(
         selection: Readonly<FileSelection>,
         file: Nullable<Readonly<FileData>>
@@ -147,17 +178,20 @@ export class SelectionUtil {
         this.selection = selection;
     }
 
-    public getSelection(): Readonly<FileSelection> {
+    public getSelection(): FileSelection {
         return this.selection;
     }
+
     public getSelectedFiles(
         ...filters: Nilable<FileFilter>[]
-    ): ReadonlyArray<Readonly<FileData>> {
+    ): FileData[] {
         return SelectionHelper.getSelectedFiles(this.files, this.selection, ...filters);
     }
+
     public getSelectionSize(...filters: Nilable<FileFilter>[]): number {
         return SelectionHelper.getSelectionSize(this.files, this.selection, ...filters);
     }
+
     public isSelected(file: Nullable<FileData>): boolean {
         return SelectionHelper.isSelected(this.selection, file);
     }

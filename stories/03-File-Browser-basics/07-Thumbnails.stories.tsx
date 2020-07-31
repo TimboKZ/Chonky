@@ -31,7 +31,7 @@ export default {
     },
 };
 
-export const ActionsExample = () => {
+export const ThumbnailsExample = () => {
     const thumbnailGenerator = (file: FileData & { delay: number }) => {
         return new Promise((resolve) => {
             // Delay loading by `file.delay` seconds to simulate thumb generation.

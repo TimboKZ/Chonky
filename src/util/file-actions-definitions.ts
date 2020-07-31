@@ -15,6 +15,11 @@ export const ChonkyActions = {
         id: 'duplicate_files_to',
     },
 
+    // Actions triggered by file selections
+    ChangeSelection: {
+        id: 'change_selection',
+    },
+
     // Most important action of all - opening files!
     OpenFiles: {
         id: 'open_files',
@@ -194,6 +199,8 @@ export const ChonkyActions = {
 export const DefaultFileActions: FileAction[] = [
     ChonkyActions.MoveFilesTo,
     ChonkyActions.DuplicateFilesTo,
+
+    ChonkyActions.ChangeSelection,
 
     ChonkyActions.OpenParentFolder,
     ChonkyActions.ToggleSearch,

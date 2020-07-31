@@ -16,7 +16,7 @@ import React, { useContext } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import { FileAction, FileActionData } from '../src';
+import { ChonkyActions, FileAction, FileActionData } from '../src';
 // @ts-ignore
 import LiveExampleMd from './Live-examples.md';
 // @ts-ignore
@@ -89,7 +89,7 @@ const parseMarkdown = (markdown: string): React.ReactElement[] => {
     const indices = getIndicesOf('```', markdown);
 
     // Match indices to start/end location
-    const occurrences = [];
+    const occurrences: any[] = [];
     for (const index of indices) {
         const lineEnd = markdown.indexOf('\n', index);
         const line = markdown.substring(index, lineEnd).trim();
@@ -167,6 +167,12 @@ export const showActionNotification = (params: {
     data: FileActionData;
 }) => {
     const { action, data } = params;
+
+    if (action.id === ChonkyActions.ChangeSelection.id) {
+        // Don't show notifications for "change_selection" action as it creates too
+        // much noise.
+        return;
+    }
 
     const textParts: string[] = [];
     textParts.push(`<b>Action:</b> ${action.id}`);

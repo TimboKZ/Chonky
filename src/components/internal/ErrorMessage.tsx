@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
+import { Nullable } from 'tsdef';
 
 export interface ErrorMessageProps {
     message: string;
@@ -8,9 +9,9 @@ export interface ErrorMessageProps {
 export const ErrorMessage = React.memo<ErrorMessageProps>((props) => {
     const { message, bullets } = props;
 
-    let bulletList = null;
+    let bulletList: Nullable<ReactElement> = null;
     if (bullets && bullets.length > 0) {
-        const items = [];
+        const items: React.ReactElement[] = [];
         for (let i = 0; i < bullets.length; ++i) {
             items.push(<li key={`error-bullet-${i}`}>{bullets[i]}</li>);
         }
