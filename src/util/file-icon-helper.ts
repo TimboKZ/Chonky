@@ -37,7 +37,7 @@ const getIconTrie = memoize(() => {
             ],
         ],
         [ChonkyIconName.text, ['txt', 'md']],
-        [ChonkyIconName.archive, ['zip', 'rar', 'tar', 'tar.gz']],
+        [ChonkyIconName.archive, ['zip', 'rar', 'tar', 'tar.gz', '7z']],
         [ChonkyIconName.image, ImageExtensions],
         [ChonkyIconName.video, VideoExtensions],
         [

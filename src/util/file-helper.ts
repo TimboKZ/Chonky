@@ -20,6 +20,11 @@ export class FileHelper {
         return !!file && file.isSymlink === true;
     }
 
+    public static isEncrypted(file: Nullable<FileData>): file is FileData {
+        // Not encrypted by default
+        return !!file && file.isEncrypted === true;
+    }
+
     public static isClickable(file: Nullable<FileData>): file is FileData {
         // Clickable by default
         return !!file;

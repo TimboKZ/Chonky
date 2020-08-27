@@ -61,6 +61,11 @@ export const FilesArrayExample = () => {
             childrenCount: 0,
         },
         {
+            id: '7zp',
+            name: 'Encrypted file.7z',
+            isEncrypted: true,
+        },
+        {
             id: 'qwe',
             name: 'Not selectable.tar.gz',
             ext: '.tar.gz', // Custom extension

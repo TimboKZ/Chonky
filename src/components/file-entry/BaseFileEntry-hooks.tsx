@@ -71,6 +71,7 @@ export const useModifierIconComponents = (file: Nullable<FileData>) => {
         const modifierIcons: ChonkyIconName[] = [];
         if (FileHelper.isHidden(file)) modifierIcons.push(ChonkyIconName.hidden);
         if (FileHelper.isSymlink(file)) modifierIcons.push(ChonkyIconName.symlink);
+        if (FileHelper.isEncrypted(file)) modifierIcons.push(ChonkyIconName.lock);
         return modifierIcons;
     }, [file]);
     const modifierIconComponents = useMemo(
