@@ -10,10 +10,8 @@ import { faWindows } from '@fortawesome/free-brands-svg-icons/faWindows';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons/faArrowDown';
 import { faBalanceScale } from '@fortawesome/free-solid-svg-icons/faBalanceScale';
 import { faBoxOpen } from '@fortawesome/free-solid-svg-icons/faBoxOpen';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/faCheckCircle';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
-import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons/faCircleNotch';
 import { faCogs } from '@fortawesome/free-solid-svg-icons/faCogs';
 import { faCopy } from '@fortawesome/free-solid-svg-icons/faCopy';
@@ -37,12 +35,12 @@ import { faFistRaised } from '@fortawesome/free-solid-svg-icons/faFistRaised';
 import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons/faFolderPlus';
-import { faGenderless } from '@fortawesome/free-solid-svg-icons/faGenderless';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
 import { faKey } from '@fortawesome/free-solid-svg-icons/faKey';
 import { faLevelUpAlt } from '@fortawesome/free-solid-svg-icons/faLevelUpAlt';
 import { faList } from '@fortawesome/free-solid-svg-icons/faList';
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
+import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
 import { faMusic } from '@fortawesome/free-solid-svg-icons/faMusic';
 import { faObjectGroup } from '@fortawesome/free-solid-svg-icons/faObjectGroup';
 import { faRunning } from '@fortawesome/free-solid-svg-icons/faRunning';
@@ -53,6 +51,8 @@ import { faTerminal } from '@fortawesome/free-solid-svg-icons/faTerminal';
 import { faTh } from '@fortawesome/free-solid-svg-icons/faTh';
 import { faThLarge } from '@fortawesome/free-solid-svg-icons/faThLarge';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
+import { faToggleOff } from '@fortawesome/free-solid-svg-icons/faToggleOff';
+import { faToggleOn } from '@fortawesome/free-solid-svg-icons/faToggleOn';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { faUpload } from '@fortawesome/free-solid-svg-icons/faUpload';
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
@@ -65,7 +65,7 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     // Misc
     [ChonkyIconName.loading]: faCircleNotch,
     [ChonkyIconName.dropdown]: faChevronDown,
-    [ChonkyIconName.circle]: faGenderless,
+    [ChonkyIconName.placeholder]: faMinus,
 
     // File Actions: Drag & drop
     [ChonkyIconName.dndDragging]: faFistRaised,
@@ -83,16 +83,18 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     // File Actions: Sorting & options
     [ChonkyIconName.sortAsc]: faSortAmountDownAlt,
     [ChonkyIconName.sortDesc]: faSortAmountUpAlt,
-    [ChonkyIconName.checkActive]: faCheckCircle,
-    [ChonkyIconName.checkInactive]: faCircle,
+    [ChonkyIconName.toggleOn]: faToggleOn,
+    [ChonkyIconName.toggleOff]: faToggleOff,
+
+    // File Actions: File Views
+    [ChonkyIconName.list]: faList,
+    [ChonkyIconName.smallThumbnail]: faTh,
+    [ChonkyIconName.largeThumbnail]: faThLarge,
 
     // File Actions: Unsorted
-    [ChonkyIconName.list]: faList,
     [ChonkyIconName.folder]: faFolder,
     [ChonkyIconName.folderCreate]: faFolderPlus,
     [ChonkyIconName.folderOpen]: faFolderOpen,
-    [ChonkyIconName.smallThumbnail]: faTh,
-    [ChonkyIconName.largeThumbnail]: faThLarge,
     [ChonkyIconName.folderChainSeparator]: faChevronRight,
     [ChonkyIconName.download]: faDownload,
     [ChonkyIconName.upload]: faUpload,

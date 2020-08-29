@@ -67,7 +67,6 @@ export const ChonkyActions = {
             group: 'Actions',
             dropdown: true,
             icon: ChonkyIconName.selectAllFiles,
-            iconOnly: true,
         },
 
         specialActionToDispatch: SpecialAction.SelectAllFiles,
@@ -80,10 +79,29 @@ export const ChonkyActions = {
             group: 'Actions',
             dropdown: true,
             icon: ChonkyIconName.clearSelection,
-            iconOnly: true,
         },
 
         specialActionToDispatch: SpecialAction.ClearSelection,
+    },
+
+    // File views
+    EnableListView: {
+        id: 'enable_list_view',
+        fileViewConfig: { entryHeight: 30 },
+        toolbarButton: {
+            name: 'Switch to List view',
+            icon: ChonkyIconName.list,
+            iconOnly: true,
+        },
+    },
+    EnableGridView: {
+        id: 'enable_grid_view',
+        fileViewConfig: { entryWidth: 165, entryHeight: 130 },
+        toolbarButton: {
+            name: 'Switch to Grid view',
+            icon: ChonkyIconName.smallThumbnail,
+            iconOnly: true,
+        },
     },
 
     // Sorting actions
@@ -204,6 +222,9 @@ export const DefaultFileActions: FileAction[] = [
 
     ChonkyActions.OpenParentFolder,
     ChonkyActions.ToggleSearch,
+
+    ChonkyActions.EnableListView,
+    ChonkyActions.EnableGridView,
 
     ChonkyActions.OpenFiles,
     ChonkyActions.SelectAllFiles,

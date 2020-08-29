@@ -111,7 +111,7 @@
 
     &-content {
         margin-top: $base-padding * 0.5;
-        border: solid 1px $border-dark;
+        border: solid 1px $border-light;
         border-radius: $radius-medium;
         background-color: $bg-base;
         flex-direction: column;
@@ -125,17 +125,18 @@
         @include default-transition(background-color);
         @include reset-button();
 
+        border-bottom: solid 1px $border-lighter;
         line-height: $toolbar-line-height * 1.15;
-        border-bottom: solid 1px $border-dark;
         height: $toolbar-height * 1.15;
         white-space: nowrap;
         text-align: left;
         display: flex;
 
         &-icon {
+            margin-right: -$base-padding * 0.25;
             padding-left: $base-padding * 1.5;
+            font-size: 0.9em;
             margin-top: 2px;
-            opacity: 0.5;
         }
 
         &-text {

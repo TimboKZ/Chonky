@@ -23,9 +23,10 @@
 > Chonky is constantly changing. Please [create an issue](https://github.com/TimboKZ/Chonky/issues)
 > if you have a problem or want to request a feature.
 
-Chonky is a file browser component for React. It tries to recreate the native file browsing experience in your browser.
-This means your users can make selections, drag & drop files, toggle file view between "large thumbnails" and "detailed
-list", use keyboard shortcuts, and much more!
+Chonky is a file browser component for React. It tries to recreate the native file
+browsing experience in your browser. This means your users can make selections, drag
+& drop files, toggle between _List_ and _Grid_ file views, use keyboard shortcuts, and
+much more!
 
 ### [Click here for documentation and examples.](https://timbokz.github.io/Chonky/)
 
@@ -40,9 +41,9 @@ list", use keyboard shortcuts, and much more!
 -   [x] Mobile-friendly design.
 -   [x] Supports image thumbnails.
 -   [x] Supports keyboard shortcuts.
+-   [x] Supports _List_ and _Grid_ file views.
 -   [x] Supports common and custom file actions.
 -   [x] Provides unique icons for each file extension.
--   [ ] **(WIP)** Supports _detailed list_ and _thumbnails_ views.
 -   [x] Supports file selections (excluding drag selection, _for now_).
 -   [x] Supports loading animations and async thumbnail generation.
 -   [x] Performs well with large file collections thanks to

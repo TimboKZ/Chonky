@@ -40,7 +40,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = React.memo((props) 
         >
             <div className="chonky-toolbar-dropdown-button-icon">
                 <ChonkyIconFA
-                    icon={icon ? icon : ChonkyIconName.circle}
+                    icon={icon ? icon : ChonkyIconName.placeholder}
                     fixedWidth={true}
                 />
             </div>

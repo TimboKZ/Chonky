@@ -8,8 +8,8 @@ import { dispatchSpecialActionState } from '../../recoil/special-actions.recoil'
 import { FileData } from '../../types/files.types';
 import { SpecialAction } from '../../types/special-actions.types';
 import { FileHelper } from '../../util/file-helper';
-import { FileEntryProps } from './BaseFileEntry';
 import { ClickableFileEntry } from './ClickableFileEntry';
+import { FileEntryProps } from './FileEntry';
 
 export interface DnDProps {
     dndIsDragging?: boolean;

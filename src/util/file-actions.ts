@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Nullable } from 'tsdef';
+import { Nilable, Nullable } from 'tsdef';
 
 import {
     dispatchFileActionState,
@@ -10,6 +10,7 @@ import {
     fileActionsState,
     requestFileActionState,
 } from '../recoil/file-actions.recoil';
+import { fileViewConfigState } from '../recoil/file-view.recoil';
 import { parentFolderState } from '../recoil/files.recoil';
 import { optionMapState } from '../recoil/options.recoil';
 import { searchBarVisibleState } from '../recoil/search.recoil';
@@ -23,22 +24,38 @@ import {
 } from './file-action-handlers';
 import { ChonkyActions } from './file-actions-definitions';
 import { FileHelper } from './file-helper';
-import { useRefCallbackWithErrorHandling } from './hooks-helpers';
+import { useInstanceVariable, useRefCallbackWithErrorHandling } from './hooks-helpers';
 
 export const useFileActions = (
     fileActions: FileAction[],
-    externalFileActonHandler: Nullable<FileActionHandler>
+    externalFileActonHandler: Nullable<FileActionHandler>,
+    defaultFileViewActionId: Nilable<string>
 ) => {
     // Recoil state: Put file actions and file action map into state
     const setFileActions = useSetRecoilState(fileActionsState);
     const setFileActionMap = useSetRecoilState(fileActionMapState);
-    useEffect(() => {
-        const fileActionMap = {};
-        for (const action of fileActions) fileActionMap[action.id] = action;
+    const setFileViewConfig = useSetRecoilState(fileViewConfigState);
+    const isFirstLoad = useInstanceVariable(true);
+    useEffect(
+        () => {
+            const fileActionMap: { [actionId: string]: FileAction } = {};
+            for (const action of fileActions) fileActionMap[action.id] = action;
 
-        setFileActions(fileActions);
-        setFileActionMap(fileActionMap);
-    }, [fileActions, setFileActions, setFileActionMap]);
+            setFileActions(fileActions);
+            setFileActionMap(fileActionMap);
+
+            if (isFirstLoad.current && defaultFileViewActionId) {
+                const action = fileActionMap[defaultFileViewActionId];
+                if (action && action.fileViewConfig) {
+                    setFileViewConfig(action.fileViewConfig);
+                }
+            }
+            isFirstLoad.current = false;
+        },
+        // XXX: We deliberately don't add `defaultFileViewActionId` to deps below.
+        // eslint-disable-next-line
+        [fileActions, setFileActions, setFileActionMap, isFirstLoad]
+    );
 
     // Prepare file action dispatcher (used to dispatch actions to users)
     const internalFileActionDispatcher = useInternalFileActionDispatcher(
@@ -86,6 +103,7 @@ export const useFileActionProps = (
     fileActionId: string
 ): { icon: Nullable<ChonkyIconName | string>; active: boolean; disabled: boolean } => {
     const parentFolder = useRecoilValue(parentFolderState);
+    const fileViewConfig = useRecoilValue(fileViewConfigState);
     const sortConfig = useRecoilValue(sortConfigState);
     const optionMap = useRecoilValue(optionMapState);
     const searchBarVisible = useRecoilValue(searchBarVisibleState);
@@ -108,19 +126,20 @@ export const useFileActionProps = (
                     icon = ChonkyIconName.sortDesc;
                 }
             } else {
-                icon = ChonkyIconName.circle;
+                icon = ChonkyIconName.placeholder;
             }
         } else if (action.option) {
             if (optionMap[action.option.id]) {
-                icon = ChonkyIconName.checkActive;
+                icon = ChonkyIconName.toggleOn;
             } else {
-                icon = ChonkyIconName.checkInactive;
+                icon = ChonkyIconName.toggleOff;
             }
         }
 
         const isSearchButtonAndSearchVisible =
             action.id === ChonkyActions.ToggleSearch.id && searchBarVisible;
         const isSortButtonAndCurrentSort = action.id === sortConfig.fileActionId;
+        const isFileViewButtonAndCurrentView = action.fileViewConfig === fileViewConfig;
         const isOptionAndEnabled = action.option
             ? !!optionMap[action.option.id]
             : false;
@@ -128,6 +147,7 @@ export const useFileActionProps = (
         const active =
             isSearchButtonAndSearchVisible ||
             isSortButtonAndCurrentSort ||
+            isFileViewButtonAndCurrentView ||
             isOptionAndEnabled;
         let disabled: boolean = !!action.requiresSelection && actionSelectionEmpty;
 
@@ -141,6 +161,7 @@ export const useFileActionProps = (
     }, [
         action,
         sortConfig,
+        fileViewConfig,
         optionMap,
         searchBarVisible,
         parentFolder,

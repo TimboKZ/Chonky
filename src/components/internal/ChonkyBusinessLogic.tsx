@@ -5,11 +5,10 @@
  */
 
 import React, { useEffect } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 import { enableDragAndDropState } from '../../recoil/drag-and-drop.recoil';
 import { doubleClickDelayState } from '../../recoil/file-actions.recoil';
-import { fileEntrySizeState } from '../../recoil/file-list.recoil';
 import {
     filesState,
     folderChainState,
@@ -28,7 +27,7 @@ import { useSpecialActionDispatcher } from '../../util/special-actions';
 
 export const ChonkyBusinessLogic = React.memo(
     React.forwardRef<FileBrowserHandle, FileBrowserProps>((props, ref) => {
-        const { files } = props;
+        const { files, defaultFileViewActionId } = props;
 
         // Instance ID used to distinguish between multiple Chonky instances on the
         // same page const chonkyInstanceId = useStaticValue(shortid.generate);
@@ -64,7 +63,7 @@ export const ChonkyBusinessLogic = React.memo(
 
         //
         // ==== File actions - actions that users can customise as they please
-        useFileActions(fileActions, onFileAction);
+        useFileActions(fileActions, onFileAction, defaultFileViewActionId);
 
         //
         // ==== File options - toggleable options based on file actions
@@ -119,8 +118,6 @@ export const ChonkyBusinessLogic = React.memo(
         useEffect(() => {
             setRecoilDoubleClickDelay(doubleClickDelay);
         }, [doubleClickDelay, setRecoilDoubleClickDelay]);
-
-        const [,] = useRecoilState(fileEntrySizeState);
 
         const setRecoilEnableDragAndDrop = useSetRecoilState(enableDragAndDropState);
         useEffect(() => {

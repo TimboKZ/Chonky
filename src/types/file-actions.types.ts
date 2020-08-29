@@ -1,3 +1,4 @@
+import { FileViewConfig } from './file-view.types';
 import { FileData, FileFilter } from './files.types';
 import { ChonkyIconName } from './icons.types';
 import { FileSortKeySelector } from './sort.types';
@@ -17,12 +18,16 @@ export interface FileAction {
     // toggling between Ascending and Descending orders.
     sortKeySelector?: FileSortKeySelector;
 
+    // When `fileViewConfig` is specified, triggering this action will apply the
+    // provided config to Chonky's file view.
+    fileViewConfig?: FileViewConfig;
+
     // When `option` is specified, the action becomes an option toggle. When the action
     // is activated, the boolean value of the option will be toggled.
     option?: {
         id: string; // Unique option ID
         defaultValue: boolean; // Whether the option is enabled by default (required)
-    }
+    };
 
     // Special action that should be dispatched on activation of this action. This
     // is used by Chonky internally, keep it `undefined` unless you know what you're

@@ -11,17 +11,18 @@ import { Nullable } from 'tsdef';
 import { enableDragAndDropState } from '../../recoil/drag-and-drop.recoil';
 import { fileDataState } from '../../recoil/files.recoil';
 import { fileSelectedState } from '../../recoil/selection.recoil';
-import { FileEntryProps } from './BaseFileEntry';
 import { ClickableFileEntry } from './ClickableFileEntry';
 import { DnDFileEntry } from './DnDFileEntry';
+import { FileEntryProps } from './FileEntry';
 
 export interface SmartFileEntryProps {
     fileId: Nullable<string>;
     displayIndex: number;
+    isGridView: boolean;
 }
 
 export const SmartFileEntry: React.FC<SmartFileEntryProps> = React.memo((props) => {
-    const { fileId, displayIndex } = props;
+    const { fileId, displayIndex, isGridView } = props;
 
     const file = useRecoilValue(fileDataState(fileId));
     const selected = useRecoilValue(fileSelectedState(fileId));
@@ -31,6 +32,7 @@ export const SmartFileEntry: React.FC<SmartFileEntryProps> = React.memo((props) 
         file,
         displayIndex,
         selected,
+        isGridView,
     };
 
     return enableDragAndDrop ? (

@@ -6,6 +6,7 @@ import {
     dispatchFileActionState,
     fileActionMapState,
 } from '../recoil/file-actions.recoil';
+import { fileViewConfigState } from '../recoil/file-view.recoil';
 import { filesState } from '../recoil/files.recoil';
 import { optionMapState } from '../recoil/options.recoil';
 import { selectionState } from '../recoil/selection.recoil';
@@ -65,6 +66,9 @@ export const useInternalFileActionRequester = () => {
     const fileActionMapRef = useInstanceVariable(useRecoilValue(fileActionMapState));
     const setSortConfigRef = useInstanceVariable(useSetRecoilState(sortConfigState));
     const setOptionMapRef = useInstanceVariable(useSetRecoilState(optionMapState));
+    const setFileViewConfigRef = useInstanceVariable(
+        useSetRecoilState(fileViewConfigState)
+    );
     const dispatchFileActionRef = useInstanceVariable(
         useRecoilValue(dispatchFileActionState)
     );
@@ -152,6 +156,12 @@ export const useInternalFileActionRequester = () => {
             }
 
             //
+            // === Update file view state if necessary
+            if (action.fileViewConfig) {
+                setFileViewConfigRef.current(action.fileViewConfig);
+            }
+
+            //
             // === Dispatch a special action if file action defines it
             const specialActionId = action.specialActionToDispatch;
             if (specialActionId) {
@@ -180,6 +190,7 @@ export const useInternalFileActionRequester = () => {
             fileActionMapRef,
             setSortConfigRef,
             setOptionMapRef,
+            setFileViewConfigRef,
             dispatchFileActionRef,
             dispatchSpecialActionRef,
             filesRef,

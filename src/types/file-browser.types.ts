@@ -44,13 +44,22 @@ export interface FileBrowserProps {
      */
     folderChain?: Nullable<FileArray>;
 
+    /**
+     * An array of file actions that will be available to your users at runtime.
+     * These actions will be activated in addition to default actions. If you don't
+     * want default file actions to be enabled, see `disableDefaultFileActions` prop.
+     */
     fileActions?: FileAction[];
+
+    /**
+     * An action handler that will be called every time a file action is dispatched.
+     */
     onFileAction?: FileActionHandler;
 
     /**
-     * The function that determines the thumbnail image URL for a file. It gets a file object as the input, and
-     * should return a `string` or `null`. It can also return a promise that resolves into a `string` or `null`.
-     * [See relevant section](#section-displaying-file-thumbnails).
+     * The function that determines the thumbnail image URL for a file. It gets a file
+     * object as the input, and should return a `string` or `null`. It can also
+     * return a promise that resolves into a `string` or `null`.
      */
     thumbnailGenerator?: ThumbnailGenerator;
 
@@ -60,23 +69,27 @@ export interface FileBrowserProps {
     doubleClickDelay?: number;
 
     /**
-     * The flag that completely disables file selection functionality. If any handlers depend on file selections, their
-     * input will look like no files are selected.
+     * The flag that completely disables file selection functionality. If any handlers
+     * depend on file selections, their input will always have empty file selections.
      */
     disableSelection?: boolean;
 
+    /**
+     * The flag that determines whether Chonky's built-in actions are enabled by
+     * default. When this is set to `true`, only the actions you provide in
+     * `fileActions` prop will be enabled. Note that this significantly changes the
+     * runtime behaviour of Chonky.
+     */
     disableDefaultFileActions?: boolean;
 
     /**
      * The flag that completely disables drag & drop functionality.
-     * [See relevant section](#section-managing-file-selection).
      */
     enableDragAndDrop?: boolean;
 
     /**
-     * The flag that determines whether Chonky should fill the height parent container. When set to `true`, the maximum
-     * height of the file browser will be limited to the height of the parent container, and scrollbar will be shown
-     * when necessary. When set to `false`, file browser height will be extended to display all files at the same time.
+     * The ID of the file view-setting action to activate by default. This field can
+     * be used to specify the default file view in Chonky.
      */
-    fillParentContainer?: boolean;
+    defaultFileViewActionId?: string;
 }

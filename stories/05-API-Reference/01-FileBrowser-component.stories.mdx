@@ -1,0 +1,56 @@
+import ChonkyHeader from '../Chonky-header.mdx';
+import { StoryCategories } from '../story-helpers';
+
+<Meta title={`${StoryCategories.ApiReference}/FileBrowser component`} />
+
+# `FileBrowser` component
+
+## `FileBrowser` ref methods
+
+This section describes the methods available on the imperative handle (a.k.a. ref) of
+the `FileBrowser` component. In your React code, you can acquire handle as follows:
+
+```tsx
+import { FileBrowser, FileBrowserHandle, FileList } from 'chonky';
+
+const MyComponent = () => {
+    const fileBrowserRef = React.useRef<FileBrowserHandle>(null);
+
+    return (
+        <FileBrowser ref={fileBrowserRef} files={[]}>
+            <FileList />
+        </FileBrowser>
+    );
+};
+```
+
+Available ref methods:
+
+```ts { "file": "<src>/types/file-browser.types.ts", "symbol": "FileBrowserHandle" }
+'If you see this text, there was an error loading the code snippet';
+```
+
+## `FileBrowser` props
+
+This section describes the props that can be passed to the `FileBrowser` component,
+like so:
+
+```tsx
+import { FileBrowser, FileList } from 'chonky';
+
+const MyComponent = () => {
+    const files = [];
+
+    return (
+        <FileBrowser files={files}>
+            <FileList />
+        </FileBrowser>
+    );
+};
+```
+
+Available props:
+
+```ts { "file": "<src>/types/file-browser.types.ts", "symbol": "FileBrowserProps" }
+'If you see this text, there was an error loading the code snippet';
+```

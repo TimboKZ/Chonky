@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { AnyObjectWithStringKeys } from 'tsdef';
 
 import { useClickHandler, useKeyDownHandler } from './ClickableWrapper-hooks';
@@ -32,6 +32,7 @@ export interface ClickableWrapperProps {
     onSingleClick?: MouseClickEventHandler;
     onDoubleClick?: MouseClickEventHandler;
     onKeyboardClick?: KeyboardClickEventHandler;
+    setFocused?: (focused: boolean) => void;
 }
 
 export const ClickableWrapper: React.FC<ClickableWrapperProps> = (props) => {
@@ -42,12 +43,17 @@ export const ClickableWrapper: React.FC<ClickableWrapperProps> = (props) => {
         onSingleClick,
         onDoubleClick,
         onKeyboardClick,
+        setFocused,
     } = props;
 
     const handleClick = useClickHandler(onSingleClick, onDoubleClick);
     const handleKeyDown = useKeyDownHandler(onKeyboardClick);
 
-    const compProps: AnyObjectWithStringKeys = {};
+    const compProps: AnyObjectWithStringKeys = {
+        onFocus: useCallback(() => setFocused && setFocused(true), [setFocused]),
+        onBlur: useCallback(() => setFocused && setFocused(false), [setFocused]),
+    };
+
     if (onSingleClick || onDoubleClick || onKeyboardClick) {
         compProps.onClick = handleClick;
         compProps.onKeyDown = handleKeyDown;
