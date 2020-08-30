@@ -51,8 +51,8 @@ const fileListItemRenderer = (
     if (gutter) {
         styleWithGutter = {
             ...style,
+            top: (style.top as number) + gutter,
             left: (style.left as number) + gutter,
-            right: (style.right as number) + gutter,
             width: (style.width as number) - gutter,
             height: (style.height as number) - gutter,
         };
@@ -118,6 +118,7 @@ export const useFileListRenderer = (viewConfig: FileViewConfig) => {
                     <FixedSizeGrid
                         className="chonky-file-list-grid-view"
                         style={{
+                            marginTop: -gutter,
                             marginLeft: -gutter,
                             marginRight: -gutter,
                             marginBottom: -gutter,
