@@ -43,6 +43,26 @@ interface UseClickListenerParams {
     onOutsideClick?: (event: MouseEvent, targetIsAButton: boolean) => void;
 }
 
+const isButton = (buttonCandidate: any) : boolean => {
+    if (!buttonCandidate) {
+        return false;
+    }
+
+    // Current element is a button
+    if (buttonCandidate.tagName.toLowerCase() === 'button') {
+        return true;
+    }
+
+    // Current element is not a button: Check the parent element
+    const parentElement = buttonCandidate.parentElement;
+    if (parentElement) {
+        return isButton(parentElement);
+    }
+
+    // No parent element found -> No button
+    return false;
+};
+
 export const useClickListener = <T extends HTMLElement = HTMLDivElement>(
     params: UseClickListenerParams
 ) => {
@@ -60,10 +80,7 @@ export const useClickListener = <T extends HTMLElement = HTMLDivElement>(
                 if (onInsideClick) onInsideClick(event);
             } else {
                 // Click originated from outside inside.
-                const targetIsAButton =
-                    anyTarget &&
-                    typeof anyTarget.tagName === 'string' &&
-                    anyTarget.tagName.toLowerCase() === 'button';
+                const targetIsAButton = isButton(anyTarget);
 
                 if (onOutsideClick) onOutsideClick(event, targetIsAButton);
             }
