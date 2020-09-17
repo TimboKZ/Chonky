@@ -5,6 +5,11 @@ import { OptionMap } from '../types/options.types';
 
 //
 // ==== Atoms
+export const clearSelectionOnOutsideClickState = atom<boolean>({
+    key: 'clearSelectionOnOutsideClickState',
+    default: true,
+});
+
 export const optionMapState = atom<OptionMap>({
     key: 'optionMapState',
     default: {},

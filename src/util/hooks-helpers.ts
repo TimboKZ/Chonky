@@ -43,13 +43,13 @@ interface UseClickListenerParams {
     onOutsideClick?: (event: MouseEvent, targetIsAButton: boolean) => void;
 }
 
-const elementIsInsideButton = (buttonCandidate: any) : boolean => {
+const elementIsInsideButton = (buttonCandidate: any): boolean => {
     if (!buttonCandidate) {
         return false;
     }
 
     // Current element is a button
-    if (buttonCandidate.tagName.toLowerCase() === 'button') {
+    if (buttonCandidate.tagName && buttonCandidate.tagName.toLowerCase() === 'button') {
         return true;
     }
 

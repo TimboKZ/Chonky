@@ -92,4 +92,11 @@ export interface FileBrowserProps {
      * be used to specify the default file view in Chonky.
      */
     defaultFileViewActionId?: string;
+
+    /**
+     * Determines whether the file selection should be cleared when user clicks
+     * anywhere outside of Chonky. By default, selection is cleared on outside click
+     * unless the click target is a button.
+     */
+    clearSelectionOnOutsideClick?: boolean;
 }

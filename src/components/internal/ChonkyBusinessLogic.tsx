@@ -14,6 +14,7 @@ import {
     folderChainState,
     parentFolderState,
 } from '../../recoil/files.recoil';
+import { clearSelectionOnOutsideClickState } from '../../recoil/options.recoil';
 import { selectionModifiersState, selectionState } from '../../recoil/selection.recoil';
 import { thumbnailGeneratorState } from '../../recoil/thumbnails.recoil';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
@@ -44,6 +45,8 @@ export const ChonkyBusinessLogic = React.memo(
             typeof props.doubleClickDelay === 'number' ? props.doubleClickDelay : 300;
         const disableSelection = !!props.disableSelection;
         const enableDragAndDrop = !!props.enableDragAndDrop;
+        const clearSelectionOnOutsideClick =
+            props.clearSelectionOnOutsideClick !== false;
 
         //
         // ==== File array sorting
@@ -123,6 +126,13 @@ export const ChonkyBusinessLogic = React.memo(
         useEffect(() => {
             setRecoilEnableDragAndDrop(enableDragAndDrop);
         }, [enableDragAndDrop, setRecoilEnableDragAndDrop]);
+
+        const setRecoilClearSelectionOnOutsideClick = useSetRecoilState(
+            clearSelectionOnOutsideClickState
+        );
+        useEffect(() => {
+            setRecoilClearSelectionOnOutsideClick(clearSelectionOnOutsideClick);
+        }, [clearSelectionOnOutsideClick, setRecoilClearSelectionOnOutsideClick]);
 
         return null;
     })
