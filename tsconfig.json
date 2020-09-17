@@ -5,7 +5,7 @@
         "jsx": "react",
         "target": "es5",
         "allowJs": false,
-        "sourceMap": true,
+        "sourceMap": false,
         "declaration": true,
         "module": "commonjs",
         "esModuleInterop": true,
