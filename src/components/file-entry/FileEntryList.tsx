@@ -20,7 +20,7 @@ export const FileEntryList: React.FC<FileEntryProps> = React.memo((props) => {
         fileSizeString,
         modifierIconComponents,
         fileNameComponent,
-    } = useCommonFileEntryComponents(props, true, false);
+    } = useCommonFileEntryComponents(props, false, true, false, null);
 
     return (
         <div className={entryClassName} style={{ ...style, color: dndIconColor }}>

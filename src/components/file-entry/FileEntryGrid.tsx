@@ -24,7 +24,7 @@ export const FileEntryGrid: React.FC<FileEntryProps> = React.memo((props) => {
         fileSizeString,
         modifierIconComponents,
         fileNameComponent,
-    } = useCommonFileEntryComponents(props, !!thumbnailUrl, thumbnailLoading);
+    } = useCommonFileEntryComponents(props, true, !!thumbnailUrl, thumbnailLoading, thumbnailUrl);
 
     return (
         <div className={entryClassName} style={style}>

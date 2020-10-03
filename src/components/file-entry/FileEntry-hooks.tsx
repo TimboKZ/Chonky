@@ -78,17 +78,22 @@ export const useFileNameComponent = (file: Nullable<FileData>) => {
 
 export const useCommonFileEntryComponents = (
     props: FileEntryProps,
+    isGridView: boolean,
     useDarkColor: boolean,
-    thumbnailLoading: boolean
+    thumbnailLoading: boolean,
+    thumbnailUrl: Nullable<string>,
 ) => {
     // Determine file entry class
     const entryClassName = c({
         'chonky-file-entry': true,
+        'chonky-file-entry-grid': isGridView,
+        'chonky-file-entry-list': !isGridView,
         'chonky-file-entry-directory': FileHelper.isDirectory(props.file),
         'chonky-file-entry-selected': props.selected,
         'chonky-file-entry-focused': props.focused,
         'chonky-file-entry-dragging': props.dndIsDragging,
         'chonky-file-entry-drop-hovered': props.dndIsOver && props.dndCanDrop,
+        'chonky-file-entry-has-thumbnail': !!thumbnailUrl,
     });
 
     // Determine file color and icon properties
