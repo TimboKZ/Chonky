@@ -20,6 +20,13 @@
   <br/>
 </div>
 
+> **(!!!)** Chonky v0.x is deprecated. You should only use the `v0.x` version
+> if your project does not support React Hooks. If your project does support
+> Hooks (i.e. it uses React v16.8+), please use a newer version of Chonky from
+> here: https://github.com/TimboKZ/Chonky
+
+&nbsp;
+
 > Chonky is a file browser component for React. It tries to recreate the native file browsing experience in your
 > browser. This means your users can make selections, drag & drop files, toggle file view between "large thumbnails"
 > and "detailed list", use keyboard shortcuts, and much more!
