@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+    - 10
+install:
+    - npm ci
+
+jobs:
+    include:
+        - script: echo "npm test temporarily disabled"
+        - stage: lint
+          script: npm run lint
+        - stage: typecheck
+          script: npm run typecheck
+
+stages:
+    - lint-src
+    - typecheck-src

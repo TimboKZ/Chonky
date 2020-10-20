@@ -1,0 +1,163 @@
+@import 'util';
+
+.chonky-toolbar-button-group {
+    .chonky-toolbar-button {
+        border-radius: 0;
+
+        &:first-of-type {
+            border-bottom-left-radius: $radius-medium;
+            border-top-left-radius: $radius-medium;
+        }
+
+        &:last-of-type {
+            border-bottom-right-radius: $radius-medium;
+            border-top-right-radius: $radius-medium;
+        }
+
+        &:focus {
+            z-index: 15;
+        }
+
+        &:not(:first-child) {
+            margin-left: -1px;
+        }
+    }
+}
+
+.chonky-toolbar-button {
+    @include default-transition(background-color);
+    @include reset-button;
+
+    line-height: $toolbar-line-height;
+    border-radius: $radius-medium;
+    border: solid 1px transparent;
+    min-width: $toolbar-height;
+    height: $toolbar-height;
+    vertical-align: middle;
+    box-sizing: border-box;
+    flex-direction: row;
+    white-space: nowrap;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+
+    &-icon,
+    &-text {
+        display: inline-block;
+    }
+
+    &-icon {
+        min-width: $toolbar-height;
+    }
+
+    &-text {
+        padding-right: $base-padding * 2;
+        padding-left: $base-padding * 2;
+    }
+
+    &-icon + &-text {
+        padding-left: 0 !important;
+    }
+
+    &-text + &-icon {
+        margin-left: -$base-padding * 2 !important;
+    }
+
+    @media screen and (max-width: $mobile-breakpoint) {
+        line-height: $toolbar-line-height-mobile;
+        min-width: $toolbar-height-mobile;
+        height: $toolbar-height-mobile;
+
+        &-icon {
+            min-width: $toolbar-height-mobile;
+        }
+    }
+
+    &.chonky-active {
+        color: $fg-active;
+        z-index: 93;
+    }
+
+    &:hover,
+    &:focus {
+        background-color: $bg-light;
+        z-index: 92;
+    }
+
+    &:active {
+        border-color: $border-dark;
+    }
+
+    & > span {
+        padding: $base-padding * 1.2;
+        border-color: $border-dark;
+        white-space: nowrap;
+    }
+
+    &[disabled] {
+        color: $fg-subtle !important;
+        pointer-events: none;
+    }
+}
+
+.chonky-toolbar-dropdown {
+    position: relative;
+
+    .chonky-toolbar-button {
+        &-icon {
+            font-size: 0.8em;
+        }
+    }
+
+    &-content {
+        margin-top: $base-padding * 0.5;
+        border: solid 1px $border-light;
+        border-radius: $radius-medium;
+        background-color: $bg-base;
+        flex-direction: column;
+        position: absolute;
+        display: flex;
+        z-index: 70;
+        right: 0;
+    }
+
+    &-button {
+        @include default-transition(background-color);
+        @include reset-button();
+
+        border-bottom: solid 1px $border-lighter;
+        line-height: $toolbar-line-height * 1.15;
+        height: $toolbar-height * 1.15;
+        white-space: nowrap;
+        text-align: left;
+        display: flex;
+
+        &-icon {
+            margin-right: -$base-padding * 0.25;
+            padding-left: $base-padding * 1.5;
+            font-size: 0.9em;
+            margin-top: 2px;
+        }
+
+        &-text {
+            padding-right: $base-padding * 1.5;
+            padding-left: $base-padding * 1.5;
+        }
+
+        &[disabled] {
+            color: $fg-subtle !important;
+            pointer-events: none;
+        }
+
+        &:hover,
+        &:focus {
+            background-color: $bg-light;
+            z-index: 93;
+        }
+
+        &.chonky-active {
+            color: $fg-active;
+            z-index: 93;
+        }
+    }
+}

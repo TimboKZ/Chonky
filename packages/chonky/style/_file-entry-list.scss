@@ -1,0 +1,106 @@
+@import 'util';
+
+.chonky-file-list-list-view {
+    // The CSS path below on `react-window` component hierarchy
+    & > div > div {
+        &:first-child {
+            border-top: solid 1px $border-light;
+        }
+    }
+
+    .chonky-file-entry {
+        border-bottom: solid 1px $border-light;
+        font-size: $font-size-small;
+        flex-direction: row;
+        position: relative;
+        display: flex;
+        height: 100%;
+
+        &-selection,
+        &-outline {
+            box-sizing: border-box;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+        }
+
+        &-selection {
+            z-index: 10;
+
+            @include striped-background(rgba($bg-active, 0.14), rgba($bg-active, 0.2));
+            background-color: rgba($bg-active, 0.14);
+            opacity: 0;
+        }
+
+        &-selected .chonky-file-entry-selection {
+            opacity: 1;
+        }
+
+        &-outline {
+            z-index: 20;
+
+            border: solid 2px #000;
+            opacity: 0;
+        }
+
+        &-focused .chonky-file-entry-outline {
+            opacity: 1;
+        }
+
+        &-column {
+            border-left: solid 1px $border-light;
+            position: relative;
+
+            &:first-child {
+                border-left: none;
+            }
+
+            &-inside {
+                @include transform(translateY(-50%));
+                box-sizing: border-box;
+                position: absolute;
+                padding: 5px 8px;
+                z-index: 30;
+                width: 100%;
+                top: 50%;
+
+                span {
+                    color: $fg-subtle;
+                }
+            }
+
+            &-icon {
+                text-align: center;
+                width: 32px;
+            }
+            &-name {
+                flex-grow: 1;
+
+                &-modifiers {
+                    margin-right: $base-padding;
+                    position: relative;
+                    color: $fg-subtle;
+                    font-size: 0.75em;
+                }
+                .chonky-file-entry-description-title-extension {
+                    color: $fg-subtle-dark;
+                }
+                .chonky-file-entry-column-inside {
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+            }
+            &-size {
+                font-size: $font-size-smaller;
+                width: 80px;
+            }
+            &-date {
+                font-size: $font-size-smaller;
+                width: 120px;
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+@import 'util';
+
+.chonky-file-search {
+    @include default-transition(height);
+    margin-bottom: $file-browser-padding;
+    margin-top: -$file-browser-padding;
+    height: $searchbar-height;
+    opacity: 1;
+
+    @at-root &-hidden {
+        opacity: 0 !important;
+        height: 0 !important;
+    }
+
+    @at-root &-hidden &-input-group {
+        display: none !important;
+    }
+
+    &-input-group {
+        label,
+        input {
+            line-height: $searchbar-line-height;
+            height: $searchbar-height;
+            box-sizing: border-box;
+            display: inline-block;
+            vertical-align: top;
+            font-size: inherit;
+            padding: 0;
+            margin: 0;
+        }
+
+        label {
+            background-color: transparent;
+            padding: 0 $base-padding;
+            color: $fg-subtle-dark;
+            margin: 1px 0 0 2px;
+            border-right: none;
+            position: absolute;
+        }
+
+        input {
+            padding-left: 20px + $base-padding * 2;
+            border: solid 1px $border-light;
+            border-radius: $radius-medium;
+            padding-right: $base-padding;
+        }
+
+        &-loading {
+            line-height: $searchbar-height * 1.1;
+            height: $searchbar-height;
+            width: $searchbar-height;
+            box-sizing: border-box;
+            display: inline-block;
+            text-align: center;
+            color: $fg-subtle;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+@import 'util';
+
+.chonky-file-list {
+    flex: 1;
+
+    &-notification {
+        text-align: center;
+        position: relative;
+
+        &-empty {
+            color: $fg-subtle;
+            font-size: 1.2em;
+        }
+
+        &-content {
+            @include transform(translateX(-50%) translateY(-50%));
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+    }
+}

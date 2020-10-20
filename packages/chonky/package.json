@@ -1,0 +1,66 @@
+{
+  "name": "chonky",
+  "version": "2.0.0-alpha.0",
+  "description": "A File Browser component for React",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "dist",
+    "style"
+  ],
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src/",
+    "typecheck": "tsc -p ./tsconfig.json --noEmit",
+    "build": "rm -r ./lib; tsc",
+    "watch": "rm -r ./lib; tsc -w"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.29",
+    "@fortawesome/free-brands-svg-icons": "5.13.1",
+    "@fortawesome/free-solid-svg-icons": "^5.13.1",
+    "@fortawesome/react-fontawesome": "^0.1.10",
+    "@material-ui/core": "^4.11.0",
+    "@types/react-virtualized-auto-sizer": "^1.0.0",
+    "classnames": "^2.2.6",
+    "dateformat": "^3.0.3",
+    "exact-trie": "^1.0.11",
+    "fast-sort": "^2.2.0",
+    "filesize": "^6.1.0",
+    "fuzzy-search": "^3.2.1",
+    "hotkeys-js": "^3.8.1",
+    "memoizee": "^0.4.14",
+    "react-dnd": "^11.1.3",
+    "react-dnd-html5-backend": "^11.1.3",
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.8.5",
+    "recoil": "0.0.13",
+    "shortid": "^2.2.15",
+    "tsdef": "0.0.13"
+  },
+  "peerDependencies": {
+    "react": "^16.13",
+    "react-dom": "^16.13"
+  },
+  "homepage": "https://github.com/TimboKZ/Chonky#readme",
+  "author": {
+    "name": "Timur Kuzhagaliyev",
+    "email": "tim.kuzh@gmail.com",
+    "url": "https://foxypanda.me/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimboKZ/Chonky.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TimboKZ/Chonky/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "file",
+    "chonky",
+    "file-dialog",
+    "file-browser",
+    "react-component"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "outDir": "lib",
+        "lib": ["es6", "dom"],
+        "jsx": "react",
+        "target": "es5",
+        "allowJs": false,
+        "sourceMap": false,
+        "declaration": true,
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "noImplicitReturns": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "include": ["src/**/*"],
+    "types": ["typePatches"]
+}

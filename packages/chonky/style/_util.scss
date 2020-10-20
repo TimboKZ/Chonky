@@ -1,0 +1,150 @@
+// Global variables
+$font-size-base: 15px !default;
+$font-size-small: 14px !default;
+$font-size-smaller: 12px !default;
+$font-size-tiny: 10px !default;
+
+$mobile-breakpoint: 400px !default;
+$base-padding: 5px !default;
+$radius-small: 2px !default;
+$radius-medium: 4px !default;
+
+// ======= Colors =======
+$border-lighter: #f6f6f6 !default;
+$border-light: #e4e4e4 !default;
+$border-dark: #ccc !default;
+$border-darker: #aaa !default;
+
+$active: #09f !default;
+
+$fg-base: #000 !default;
+$fg-subtle: #bbb !default;
+$fg-subtle-light: #ddd !default;
+$fg-subtle-dark: #666 !default;
+$fg-active: $active !default;
+
+$bg-base: #fff !default;
+$bg-light: #f5f5f5 !default;
+$bg-dark: #ccc !default;
+$bg-darker: #888 !default;
+$bg-darkest: #333 !default;
+$bg-active: $active !default;
+
+$tooltip-bg: rgba(0, 0, 0, 0.8) !default;
+$tooltip-fg: #fff !default;
+
+// ======= File Browser (shared) =======
+$file-browser-padding: $base-padding * 1.5 !default;
+
+// ======= File toolbar =======
+$toolbar-height: 28px !default;
+$toolbar-line-height: 26px !default;
+
+$toolbar-height-mobile: 1.7em !default;
+$toolbar-line-height-mobile: 1.7em !default;
+
+// ======= File search =======
+$searchbar-height: $toolbar-height !default;
+$searchbar-line-height: $toolbar-line-height !default;
+
+// ======= File entry =======
+$file-entry-border: $border-light !default;
+$file-entry-preview-bg: $bg-base !default;
+$file-entry-description-bg: $bg-base !default;
+
+$file-entry-highlight-border-width: 2px !default;
+$file-entry-focus-border: #000 !default;
+$file-entry-selected-border: lighten($active, 10) !default;
+
+$file-entry-dnd-shadow-dragging: red !default;
+$file-entry-dnd-shadow-can-drop: $active !default;
+
+// ======= Mixins =======
+
+@mixin reset-button {
+    background: none;
+
+    //outline: inherit
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    border: none;
+    padding: 0;
+}
+
+@mixin transition($args...) {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -o-transition: $args;
+    transition: $args;
+}
+
+@mixin default-transition($property) {
+    @include transition($property 100ms ease-in-out);
+}
+
+@mixin transform($args...) {
+    -webkit-transform: $args;
+    -moz-transform: $args;
+    -ms-transform: $args;
+    -o-transform: $args;
+    transform: $args;
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+@mixin animation($args...) {
+    -webkit-animation: $args;
+    -moz-animation: $args;
+    -o-animation: $args;
+    animation: $args;
+}
+
+@mixin outline($outline-width, $outline-color, $outline-style, $outline-offset) {
+    outline: $outline-width $outline-color $outline-style;
+    outline-offset: -1 * ($outline-width + $outline-offset);
+}
+
+@mixin default-outline {
+    @include outline(1px, rgba($fg-active, 0.4), dashed, 1px);
+}
+
+@mixin striped-background($color1, $color2, $angle: 45deg, $size: 10px) {
+    background: repeating-linear-gradient(
+        $angle,
+        $color1,
+        $color1 $size,
+        $color2 $size,
+        $color2 ($size * 2)
+    );
+}
+
+@mixin chessboard-background($color1, $color2) {
+    background: conic-gradient(
+            $color2 0deg,
+            $color1 90deg,
+            $color2 90deg,
+            $color2 180deg,
+            $color1 180deg,
+            $color1 270deg,
+            $color2 270deg,
+            $color2 360deg
+        )
+        0 0 / 20px 20px round;
+}

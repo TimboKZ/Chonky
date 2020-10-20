@@ -1,0 +1,106 @@
+@import 'util';
+
+.chonky {
+    &-toolbar {
+        justify-content: space-between;
+        flex-wrap: wrap-reverse;
+        flex-direction: row;
+        display: flex;
+    }
+
+    &-toolbar-side {
+        margin-bottom: $file-browser-padding;
+        flex-direction: row;
+        padding-bottom: 0;
+        flex-flow: wrap;
+        display: flex;
+        flex-grow: 1;
+
+        &-left {
+            flex-grow: 100000;
+        }
+
+        &-inside {
+            flex-direction: row;
+            display: flex;
+
+            & > * {
+                vertical-align: middle;
+                display: inline-block;
+            }
+        }
+    }
+
+    @media screen and (max-width: $mobile-breakpoint) {
+        &-toolbar {
+            flex-direction: column-reverse;
+        }
+
+        &-side {
+            &-right {
+                justify-content: space-between;
+            }
+        }
+    }
+
+    &-folder-chain {
+        &-entry,
+        &-separator {
+            vertical-align: middle;
+            display: inline-block;
+        }
+
+        &-entry {
+            @include reset-button;
+            @include default-transition(background-color);
+
+            border-radius: $radius-medium;
+            border: solid 1px transparent;
+            line-height: $toolbar-height;
+            padding: 0 0.3em !important;
+            height: $toolbar-height;
+            box-sizing: border-box;
+
+            @media screen and (max-width: $mobile-breakpoint) {
+                line-height: $toolbar-height-mobile;
+                height: $toolbar-height-mobile;
+            }
+
+            &:last-child &-name {
+                text-decoration: underline $fg-subtle;
+            }
+
+            &.chonky-loading {
+                font-style: italic;
+                color: $fg-subtle;
+            }
+
+            @at-root div#{&} {
+                cursor: default;
+            }
+
+            @at-root button#{&} {
+                &:hover {
+                    background-color: $bg-light;
+                }
+
+                &:active {
+                    border-color: $border-dark;
+                }
+            }
+        }
+
+        &-separator {
+            line-height: $toolbar-height;
+            height: $toolbar-height;
+            color: $fg-subtle;
+            padding: 0 0.1em;
+
+            @media screen and (max-width: $mobile-breakpoint) {
+                line-height: $toolbar-height-mobile;
+                height: $toolbar-height-mobile;
+                padding: 0 0.1em;
+            }
+        }
+    }
+}

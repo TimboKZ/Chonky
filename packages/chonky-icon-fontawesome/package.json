@@ -1,0 +1,34 @@
+{
+  "name": "chonky-icon-fontawesome",
+  "version": "2.0.0-alpha.0",
+  "description": "FontAwesome icon component for Chonky file browser",
+  "keywords": [
+    "chonky",
+    "file-browser",
+    "icon"
+  ],
+  "author": "Tim Kuzhagaliyev <tim.kuzh@gmail.com>",
+  "homepage": "https://github.com/TimboKZ/Chonky#readme",
+  "license": "MIT",
+  "main": "lib/chonky-icon-fontawesome.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimboKZ/Chonky.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/TimboKZ/Chonky/issues"
+  },
+  "dependencies": {
+    "chonky": "^1.1.5"
+  }
+}
