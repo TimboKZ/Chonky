@@ -1,14 +1,16 @@
 import React, { ReactNode } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { ThemeProvider } from 'react-jss';
 import { Provider } from 'react-redux';
 import { RecoilRoot } from 'recoil';
 import shortid from 'shortid';
-import { useChonkyStore } from '../../redux/store';
 
+import { useChonkyStore } from '../../redux/store';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
 import { DefaultFileActions } from '../../util/file-actions-definitions';
 import { useStaticValue } from '../../util/hooks-helpers';
+import { lightTheme } from '../../util/styles';
 import {
     useFileActionsValidation,
     useFileArrayValidation,
@@ -71,13 +73,15 @@ export const FileBrowser = React.forwardRef<
 
     return (
         <Provider store={store}>
-            <RecoilRoot>
-                {disableDragAndDropProvider ? (
-                    chonkyComps
-                ) : (
-                    <DndProvider backend={HTML5Backend}>{chonkyComps}</DndProvider>
-                )}
-            </RecoilRoot>
+            <ThemeProvider theme={lightTheme}>
+                <RecoilRoot>
+                    {disableDragAndDropProvider ? (
+                        chonkyComps
+                    ) : (
+                        <DndProvider backend={HTML5Backend}>{chonkyComps}</DndProvider>
+                    )}
+                </RecoilRoot>
+            </ThemeProvider>
         </Provider>
     );
 });

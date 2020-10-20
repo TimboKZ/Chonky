@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import Box from '@material-ui/core/Box';
 import React, { useCallback, useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -13,6 +14,7 @@ import { clearSelectionOnOutsideClickState } from '../../recoil/options.recoil';
 import { selectionModifiersState } from '../../recoil/selection.recoil';
 import { ErrorMessageData } from '../../types/validation.types';
 import { useClickListener } from '../../util/hooks-helpers';
+import { makeChonkyStyles } from '../../util/styles';
 import { DnDFileListDragLayer } from '../file-entry/DnDFileListDragLayer';
 import { ErrorMessage } from './ErrorMessage';
 import { HotkeyListener } from './HotkeyListener';
@@ -70,12 +72,45 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
         [validationErrors]
     );
 
+    const customProps = {
+        // We specify `ref` prop outside due to Material UI bug:
+        // @see https://github.com/mui-org/material-ui/pull/22925
+        ref: chonkyRootRef,
+    };
+
+    const classes = useStyles();
+
     return (
-        <div ref={chonkyRootRef} className="chonky-root chonky-no-select">
+        <Box className={classes.chonkyRoot} {...customProps}>
             {enableDragAndDrop && <DnDFileListDragLayer />}
             {hotkeyListenerComponents}
             {validationErrorComponents}
             {children ? children : null}
-        </div>
+        </Box>
     );
 };
+
+const useStyles = makeChonkyStyles((theme) => ({
+    chonkyRoot: {
+        backgroundColor: theme.colors.bgPrimary,
+        padding: theme.margins.rootLayoutMargin,
+        fontSize: theme.fontSizes.rootPrimary,
+        color: theme.colors.textPrimary,
+        touchAction: 'manipulation', // Disabling zoom on double tap
+        fontFamily: 'sans-serif',
+        border: theme.rootBorder,
+        flexDirection: 'column',
+        boxSizing: 'border-box',
+        textAlign: 'left',
+        borderRadius: 4,
+        display: 'flex',
+        height: '100%',
+
+        // Disabling select
+        webkitTouchCallout: 'none',
+        webkitUserSelect: 'none',
+        mozUserSelect: 'none',
+        msUserSelect: 'none',
+        userSelect: 'none',
+    },
+}));

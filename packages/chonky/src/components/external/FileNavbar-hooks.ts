@@ -6,9 +6,11 @@ import { folderChainState } from '../../recoil/files.recoil';
 import { dispatchSpecialActionState } from '../../recoil/special-actions.recoil';
 import { FileData } from '../../types/files.types';
 import { SpecialAction } from '../../types/special-actions.types';
+import { FileHelper } from '../../util/file-helper';
 
 export interface FolderChainItem {
     file: Nullable<FileData>;
+    disabled: boolean;
     onClick?: () => void;
 }
 
@@ -23,7 +25,8 @@ export const useFolderChainItems = (): FolderChainItem[] => {
         for (const file of folderChain) {
             items.push({
                 file,
-                onClick: !file
+                disabled: !file,
+                onClick: !FileHelper.isOpenable(file)
                     ? undefined
                     : () => {
                           dispatchSpecialAction({

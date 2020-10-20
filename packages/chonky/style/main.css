@@ -185,65 +185,6 @@
     justify-content: space-between;
   }
 }
-.chonky-folder-chain-entry, .chonky-folder-chain-separator {
-  vertical-align: middle;
-  display: inline-block;
-}
-.chonky-folder-chain-entry {
-  background: none;
-  cursor: pointer;
-  color: inherit;
-  font: inherit;
-  border: none;
-  padding: 0;
-  -webkit-transition: background-color 100ms ease-in-out;
-  -moz-transition: background-color 100ms ease-in-out;
-  -o-transition: background-color 100ms ease-in-out;
-  transition: background-color 100ms ease-in-out;
-  border-radius: 4px;
-  border: solid 1px transparent;
-  line-height: 28px;
-  padding: 0 0.3em !important;
-  height: 28px;
-  box-sizing: border-box;
-}
-@media screen and (max-width: 400px) {
-  .chonky-folder-chain-entry {
-    line-height: 1.7em;
-    height: 1.7em;
-  }
-}
-.chonky-folder-chain-entry:last-child .chonky-folder-chain-entry-name {
-  text-decoration: underline #bbb;
-}
-.chonky-folder-chain-entry.chonky-loading {
-  font-style: italic;
-  color: #bbb;
-}
-div.chonky-folder-chain-entry {
-  cursor: default;
-}
-
-button.chonky-folder-chain-entry:hover {
-  background-color: #f5f5f5;
-}
-button.chonky-folder-chain-entry:active {
-  border-color: #ccc;
-}
-
-.chonky-folder-chain-separator {
-  line-height: 28px;
-  height: 28px;
-  color: #bbb;
-  padding: 0 0.1em;
-}
-@media screen and (max-width: 400px) {
-  .chonky-folder-chain-separator {
-    line-height: 1.7em;
-    height: 1.7em;
-    padding: 0 0.1em;
-  }
-}
 
 .chonky-toolbar-button-group .chonky-toolbar-button {
   border-radius: 0;
