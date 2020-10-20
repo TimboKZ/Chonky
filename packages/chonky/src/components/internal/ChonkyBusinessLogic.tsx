@@ -44,7 +44,7 @@ export const ChonkyBusinessLogic = React.memo(
         const doubleClickDelay =
             typeof props.doubleClickDelay === 'number' ? props.doubleClickDelay : 300;
         const disableSelection = !!props.disableSelection;
-        const enableDragAndDrop = !!props.enableDragAndDrop;
+        const enableDragAndDrop = !props.disableDragAndDrop;
         const clearSelectionOnOutsideClick =
             props.clearSelectionOnOutsideClick !== false;
 
