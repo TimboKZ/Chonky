@@ -13,7 +13,8 @@
     "lint": "eslint src/",
     "typecheck": "tsc -p ./tsconfig.json --noEmit",
     "build": "rm -r ./lib; tsc",
-    "watch": "rm -r ./lib; tsc -w"
+    "watch": "rm -r ./lib; tsc -w",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.29",

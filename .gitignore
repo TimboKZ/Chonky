@@ -17,6 +17,7 @@ lerna-*.log
 /coverage
 
 # Production
+lib/
 dist/
 build/
 
