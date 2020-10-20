@@ -83,9 +83,17 @@ export interface FileBrowserProps {
     disableDefaultFileActions?: boolean;
 
     /**
-     * The flag that completely disables drag & drop functionality.
+     * The flag that completely disables drag & drop functionality for this instance
+     * of Chonky.
      */
-    enableDragAndDrop?: boolean;
+    disableDragAndDrop?: boolean;
+
+    /**
+     * The flag that is used to disable `react-dnd` context provider inside of this
+     * instance of Chonky, while keeping other drag & drop functionality in tact.
+     * Useful when you want to provide your own `react-dnd` context.
+     */
+    disableDragAndDropProvider?: boolean;
 
     /**
      * The ID of the file view-setting action to activate by default. This field can

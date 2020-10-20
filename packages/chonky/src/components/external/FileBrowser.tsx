@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
 import { RecoilRoot } from 'recoil';
 
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
 import { DefaultFileActions } from '../../util/file-actions-definitions';
 import {
@@ -21,7 +23,7 @@ export const FileBrowser = React.forwardRef<
     FileBrowserHandle,
     FileBrowserProps & { children?: ReactNode }
 >((props, ref) => {
-    const { files, children } = props;
+    const { files, disableDragAndDropProvider, children } = props;
 
     // ==== Default values assignment
     const folderChain = props.folderChain ? props.folderChain : null;
@@ -51,12 +53,22 @@ export const FileBrowser = React.forwardRef<
         fileActions: cleanFileActions,
     };
 
-    return (
-        <RecoilRoot>
+    const chonkyComps = (
+        <>
             <ChonkyBusinessLogic ref={ref} {...businessLogicProps} />
             <ChonkyPresentationLayer validationErrors={validationErrors}>
                 {children}
             </ChonkyPresentationLayer>
+        </>
+    );
+
+    return (
+        <RecoilRoot>
+            {disableDragAndDropProvider ? (
+                chonkyComps
+            ) : (
+                <DndProvider backend={HTML5Backend}>{chonkyComps}</DndProvider>
+            )}
         </RecoilRoot>
     );
 });
