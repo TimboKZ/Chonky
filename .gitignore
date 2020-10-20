@@ -10,6 +10,9 @@ node_modules/
 /.pnp
 .pnp.js
 
+# Lerna
+lerna-*.log
+
 # Testing
 /coverage
 
