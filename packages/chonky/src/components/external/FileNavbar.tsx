@@ -12,11 +12,11 @@ import { ChonkyIconName } from '../../types/icons.types';
 import { ChonkyActions } from '../../util/file-actions-definitions';
 import { c, important, makeChonkyStyles } from '../../util/styles';
 import { useFolderChainItems } from './FileNavbar-hooks';
-import { NewSmartToolbarButton, NewToolbarButton } from './NewToolbarButton';
+import { SmartToolbarButton, ToolbarButton } from './ToolbarButton';
 
 export interface FileNavbarProps {}
 
-export const FileNavbar: React.FC<FileNavbarProps> = (props) => {
+export const FileNavbar: React.FC<FileNavbarProps> = () => {
     const classes = useStyles();
     const folderChainItems = useFolderChainItems();
 
@@ -32,7 +32,7 @@ export const FileNavbar: React.FC<FileNavbarProps> = (props) => {
             });
             const text = file ? file.name : 'Loading...';
             const component = (
-                <NewToolbarButton
+                <ToolbarButton
                     icon={i === 0 ? ChonkyIconName.folder : null}
                     className={className}
                     key={key}
@@ -49,7 +49,7 @@ export const FileNavbar: React.FC<FileNavbarProps> = (props) => {
     return (
         <Box className={classes.navbarWrapper}>
             <Box className={classes.navbarContainer}>
-                <NewSmartToolbarButton
+                <SmartToolbarButton
                     fileActionId={ChonkyActions.OpenParentFolder.id}
                 />
                 <Breadcrumbs
@@ -68,7 +68,6 @@ const useStyles = makeChonkyStyles((theme) => ({
         paddingBottom: theme.margins.rootLayoutMargin,
     },
     navbarContainer: {
-        backgroundColor: theme.colors.debugGreen,
         display: 'flex',
     },
     upDirectoryButton: {

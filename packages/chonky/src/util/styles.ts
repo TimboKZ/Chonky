@@ -14,6 +14,7 @@ export const lightTheme = {
 
         textPrimary: '#000',
         textSubtle: '#bbb',
+        textActive: '#09f',
     },
 
     fontSizes: {

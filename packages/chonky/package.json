@@ -1,6 +1,6 @@
 {
   "name": "chonky",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.7+5b0522c",
   "description": "A File Browser component for React",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -12,8 +12,8 @@
     "test": "jest",
     "lint": "eslint src/",
     "typecheck": "tsc -p ./tsconfig.json --noEmit",
-    "build": "rm -r ./lib; tsc",
-    "watch": "rm -r ./lib; tsc -w",
+    "build": "rm -rf ./lib; tsc",
+    "watch": "rm -rf ./lib; tsc -w",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
@@ -73,5 +73,6 @@
     "file-dialog",
     "file-browser",
     "react-component"
-  ]
+  ],
+  "gitHead": "5b0522c16715e46c62cde3d2692aeba407aab969"
 }

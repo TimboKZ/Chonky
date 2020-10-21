@@ -1,3 +1,10 @@
+/**
+ * @author Timur Kuzhagaliyev <tim.kuzh@gmail.com>
+ * @copyright 2020
+ * @license MIT
+ */
+
+import Button from '@material-ui/core/Button';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Nullable } from 'tsdef';
@@ -5,35 +12,38 @@ import { Nullable } from 'tsdef';
 import { fileActionDataState } from '../../recoil/file-actions.recoil';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useFileActionProps, useFileActionTrigger } from '../../util/file-actions';
-import { c } from '../../util/styles';
+import { c, important, makeChonkyStyles } from '../../util/styles';
 import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface ToolbarButtonProps {
+    className?: string;
     text: string;
     tooltip?: string;
     active?: boolean;
     icon?: Nullable<ChonkyIconName | string>;
     iconOnly?: boolean;
-    iconOnRight?: boolean;
-    onClick?: () => void;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     disabled?: boolean;
+    dropdown?: boolean;
 }
 
 export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) => {
     const {
+        className: externalClassName,
         text,
         tooltip,
         active,
         icon,
         iconOnly,
-        iconOnRight,
         onClick,
         disabled,
+        dropdown,
     } = props;
+    const classes = useStyles();
 
     const iconComponent =
         icon || iconOnly ? (
-            <div className="chonky-toolbar-button-icon">
+            <div className={iconOnly ? '' : classes.iconWithText}>
                 <ChonkyIconFA
                     icon={icon ? icon : ChonkyIconName.fallbackIcon}
                     fixedWidth={true}
@@ -42,25 +52,58 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) =>
         ) : null;
 
     const className = c({
-        'chonky-toolbar-button': true,
-        'chonky-active': !!active,
+        [externalClassName ?? '']: true,
+        [classes.baseButton]: true,
+        [classes.iconOnlyButton]: iconOnly,
+        [classes.activeButton]: !!active,
     });
     return (
-        <button
-            type="button"
+        <Button
             className={className}
             onClick={onClick}
             title={tooltip ? tooltip : text}
-            disabled={!onClick || disabled}
+            disabled={disabled || !onClick}
         >
-            {!iconOnRight && iconComponent}
-            {text && !iconOnly && (
-                <div className="chonky-toolbar-button-text">{text}</div>
+            {iconComponent}
+            {text && !iconOnly && <span>{text}</span>}
+            {dropdown && (
+                <div className={classes.iconDropdown}>
+                    <ChonkyIconFA
+                        icon={icon ? icon : ChonkyIconName.dropdown}
+                        fixedWidth={true}
+                    />
+                </div>
             )}
-            {iconOnRight && iconComponent}
-        </button>
+        </Button>
     );
 });
+
+const useStyles = makeChonkyStyles((theme) => ({
+    baseButton: {
+        fontSize: important(theme.toolbar.fontSize),
+        textTransform: important('none'),
+        letterSpacing: important(0),
+        minWidth: important('auto'),
+        lineHeight: theme.toolbar.size,
+        padding: important(0),
+        height: theme.toolbar.size,
+    },
+    iconWithText: {
+        marginRight: 8,
+    },
+    iconOnlyButton: {
+        width: theme.toolbar.size,
+        textAlign: 'center',
+    },
+    iconDropdown: {
+        fontSize: '0.7em',
+        marginLeft: 2,
+        marginTop: 1,
+    },
+    activeButton: {
+        color: important(theme.colors.textActive),
+    },
+}));
 
 export interface SmartToolbarButtonProps {
     fileActionId: string;

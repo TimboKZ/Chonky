@@ -1,65 +1,50 @@
 import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Nullable } from 'tsdef';
 
 import { fileActionsState } from '../../recoil/file-actions.recoil';
-import { ActionGroupData } from '../../types/file-actions.types';
+import { FileAction } from '../../types/file-actions.types';
 import { ChonkyActions } from '../../util/file-actions-definitions';
+import { ToolbarDropdownProps } from './ToolbarDropdown';
 
-export const useActionGroups = () => {
+export const isToolbarDropdownData = (
+    value: FileAction | ToolbarDropdownProps
+): value is ToolbarDropdownProps => !!(value as any).fileActionIds;
+
+/**
+ * Hook that returns an array of single file actions or file actions grouped into
+ * dropdowns. Note that we should not make any assumptions about toolbar presentation
+ * here.
+ */
+export const useToolbarItems = (): (FileAction | ToolbarDropdownProps)[] => {
     const fileActions = useRecoilValue(fileActionsState);
+
     return useMemo(() => {
-        // Create an array for normal toolbar buttons
-        const buttonGroups: ActionGroupData[] = [];
+        const excludedActionIds = new Set<string>([
+            // TODO: Move decision to exclude actions somewhere else, as users' custom
+            //  components might not give these actions special treatment like Chonky
+            //  does.
+            ChonkyActions.OpenParentFolder.id,
+        ]);
 
-        // Create a map used for merging buttons into groups
-        const buttonGroupMap: { [groupName: string]: ActionGroupData } = {};
-
-        // Create separate variables for buttons that get special treatment:
-        let openParentFolderButtonGroup: Nullable<ActionGroupData> = null;
-        let searchButtonGroup: Nullable<ActionGroupData> = null;
-
+        const toolbarItems: (FileAction | ToolbarDropdownProps)[] = [];
+        const seenGroups: { [groupName: string]: ToolbarDropdownProps } = {};
         for (const action of fileActions) {
-            if (!action.toolbarButton) continue;
-
-            const button = action.toolbarButton;
-            let group: ActionGroupData;
-
-            if (button.group) {
-                if (buttonGroupMap[button.group]) {
-                    // If group exists, append action to it.
-                    group = buttonGroupMap[button.group];
-                    group.dropdown = group.dropdown || button.dropdown;
-                    group.fileActionIds.push(action.id);
-                } else {
-                    // Otherwise, create a new group.
+            if (!action.toolbarButton || excludedActionIds.has(action.id)) continue;
+            if (action.toolbarButton.group && action.toolbarButton.dropdown) {
+                let group: ToolbarDropdownProps = seenGroups[action.toolbarButton.group];
+                if (!group) {
                     group = {
-                        name: button.group,
-                        dropdown: button.dropdown,
-                        fileActionIds: [action.id],
+                        name: action.toolbarButton.group,
+                        fileActionIds: []
                     };
-                    buttonGroups.push(group);
-                    buttonGroupMap[group.name!] = group;
+                    toolbarItems.push(group);
+                    seenGroups[action.toolbarButton.group] = group;
                 }
+                group.fileActionIds.push(action.id);
             } else {
-                // If button has no group specified, we put it in a standalone group
-                group = {
-                    name: button.group,
-                    dropdown: button.dropdown,
-                    fileActionIds: [action.id],
-                };
-
-                // Only add it to the normal groups array if it's not a special button
-                if (action.id === ChonkyActions.OpenParentFolder.id) {
-                    openParentFolderButtonGroup = group;
-                } else if (action.id === ChonkyActions.ToggleSearch.id) {
-                    searchButtonGroup = group;
-                } else {
-                    buttonGroups.push(group);
-                }
+                toolbarItems.push(action);
             }
         }
-
-        return { buttonGroups, openParentFolderButtonGroup, searchButtonGroup };
+        return toolbarItems;
     }, [fileActions]);
 };

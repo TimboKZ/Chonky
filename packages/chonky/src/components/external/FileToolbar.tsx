@@ -1,10 +1,9 @@
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { ReactElement, useMemo } from 'react';
 
-import { searchBarEnabledState } from '../../recoil/search.recoil';
 import { makeChonkyStyles } from '../../util/styles';
-import { useActionGroups } from './FileToolbar-hooks';
-import { ToolbarButtonGroup } from './ToolbarButtonGroup';
+import { isToolbarDropdownData, useToolbarItems } from './FileToolbar-hooks';
+import { SmartToolbarButton } from './ToolbarButton';
+import { ToolbarDropdown } from './ToolbarDropdown';
 import { ToolbarInfo } from './ToolbarInfo';
 import { ToolbarSearch } from './ToolbarSearch';
 
@@ -12,9 +11,29 @@ export interface FileToolbarProps {}
 
 export const FileToolbar: React.FC<FileToolbarProps> = React.memo(() => {
     const classes = useStyles();
-    const searchBarEnabled = useRecoilValue(searchBarEnabledState);
+    const toolbarItems = useToolbarItems();
 
-    const { buttonGroups, searchButtonGroup } = useActionGroups();
+    const toolbarItemComponents = useMemo(() => {
+        const components: ReactElement[] = [];
+        for (let i = 0; i < toolbarItems.length; ++i) {
+            const item = toolbarItems[i];
+
+            const key = `toolbar-item-${
+                isToolbarDropdownData(item) ? item.name : item.id
+            }`;
+            const component = isToolbarDropdownData(item) ? (
+                <ToolbarDropdown
+                    key={key}
+                    name={item.name}
+                    fileActionIds={item.fileActionIds}
+                />
+            ) : (
+                <SmartToolbarButton key={key} fileActionId={item.id} />
+            );
+            components.push(component);
+        }
+        return components;
+    }, [toolbarItems]);
 
     return (
         <div className={classes.toolbarWrapper}>
@@ -23,17 +42,7 @@ export const FileToolbar: React.FC<FileToolbarProps> = React.memo(() => {
                     <ToolbarSearch />
                     <ToolbarInfo />
                 </div>
-                <div className={classes.toolbarRight}>
-                    {buttonGroups.map((group, index) => (
-                        <ToolbarButtonGroup
-                            key={`button-group-${group.name ? group.name : index}`}
-                            group={group}
-                        />
-                    ))}
-                    {searchBarEnabled && searchButtonGroup && (
-                        <ToolbarButtonGroup group={searchButtonGroup} />
-                    )}
-                </div>
+                <div className={classes.toolbarRight}>{toolbarItemComponents}</div>
             </div>
         </div>
     );
@@ -44,7 +53,6 @@ const useStyles = makeChonkyStyles((theme) => ({
         paddingBottom: theme.margins.rootLayoutMargin,
     },
     toolbarContainer: {
-        backgroundColor: theme.colors.debugRed,
         display: 'flex',
     },
     toolbarLeft: {

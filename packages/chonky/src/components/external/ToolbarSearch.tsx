@@ -14,7 +14,7 @@ import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface ToolbarSearchProps {}
 
-export const ToolbarSearch: React.FC<ToolbarSearchProps> = (props) => {
+export const ToolbarSearch: React.FC<ToolbarSearchProps> = () => {
     const classes = useStyles();
 
     return (

@@ -11,7 +11,7 @@ import { important, makeChonkyStyles } from '../../util/styles';
 
 export interface ToolbarInfoProps {}
 
-export const ToolbarInfo: React.FC<ToolbarInfoProps> = (props) => {
+export const ToolbarInfo: React.FC<ToolbarInfoProps> = () => {
     const classes = useStyles();
 
     return (
