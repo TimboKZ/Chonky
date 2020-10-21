@@ -6,7 +6,10 @@
 
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 
+import { filesState } from '../../recoil/files.recoil';
+import { selectionSizeState } from '../../recoil/selection.recoil';
 import { important, makeChonkyStyles } from '../../util/styles';
 
 export interface ToolbarInfoProps {}
@@ -14,14 +17,19 @@ export interface ToolbarInfoProps {}
 export const ToolbarInfo: React.FC<ToolbarInfoProps> = () => {
     const classes = useStyles();
 
+    const files = useRecoilValue(filesState);
+    const selectionSize = useRecoilValue(selectionSizeState);
+
     return (
         <div className={classes.infoContainer}>
             <Typography className={classes.infoTypography} variant="body1">
-                20 files
+                {files.length} files
             </Typography>
-            <Typography className={classes.infoTypography} variant="body1">
-                10 selected
-            </Typography>
+            {!!selectionSize && (
+                <Typography className={classes.infoTypography} variant="body1">
+                    {selectionSize} selected
+                </Typography>
+            )}
         </div>
     );
 };
@@ -34,10 +42,10 @@ const useStyles = makeChonkyStyles((theme) => ({
     infoTypography: {
         fontSize: important(theme.toolbar.fontSize),
         lineHeight: important(theme.toolbar.size),
-        paddingRight: theme.margins.rootLayoutMargin,
+        marginRight: important(12),
         height: theme.toolbar.size,
         '&:first-child': {
-            paddingLeft: theme.margins.rootLayoutMargin,
+            marginLeft: 12,
         },
     },
 }));

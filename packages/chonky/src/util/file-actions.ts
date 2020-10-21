@@ -13,7 +13,6 @@ import {
 import { fileViewConfigState } from '../recoil/file-view.recoil';
 import { parentFolderState } from '../recoil/files.recoil';
 import { optionMapState } from '../recoil/options.recoil';
-import { searchBarVisibleState } from '../recoil/search.recoil';
 import { sortConfigState } from '../recoil/sort.recoil';
 import { FileAction, FileActionHandler } from '../types/file-actions.types';
 import { ChonkyIconName } from '../types/icons.types';
@@ -106,7 +105,6 @@ export const useFileActionProps = (
     const fileViewConfig = useRecoilValue(fileViewConfigState);
     const sortConfig = useRecoilValue(sortConfigState);
     const optionMap = useRecoilValue(optionMapState);
-    const searchBarVisible = useRecoilValue(searchBarVisibleState);
     const action = useRecoilValue(fileActionDataState(fileActionId));
     const actionSelectionSize = useRecoilValue(
         fileActionSelectedFilesCountState(fileActionId)
@@ -136,8 +134,6 @@ export const useFileActionProps = (
             }
         }
 
-        const isSearchButtonAndSearchVisible =
-            action.id === ChonkyActions.ToggleSearch.id && searchBarVisible;
         const isSortButtonAndCurrentSort = action.id === sortConfig.fileActionId;
         const isFileViewButtonAndCurrentView = action.fileViewConfig === fileViewConfig;
         const isOptionAndEnabled = action.option
@@ -145,7 +141,6 @@ export const useFileActionProps = (
             : false;
 
         const active =
-            isSearchButtonAndSearchVisible ||
             isSortButtonAndCurrentSort ||
             isFileViewButtonAndCurrentView ||
             isOptionAndEnabled;
@@ -163,7 +158,6 @@ export const useFileActionProps = (
         sortConfig,
         fileViewConfig,
         optionMap,
-        searchBarVisible,
         parentFolder,
         actionSelectionEmpty,
     ]);

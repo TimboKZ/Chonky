@@ -46,17 +46,6 @@ export const ChonkyActions = {
 
         specialActionToDispatch: SpecialAction.OpenParentFolder,
     },
-    ToggleSearch: {
-        id: 'toggle_search',
-        hotkeys: ['ctrl+f'],
-        toolbarButton: {
-            name: 'Search',
-            icon: ChonkyIconName.search,
-            iconOnly: true,
-        },
-
-        specialActionToDispatch: SpecialAction.ToggleSearchBar,
-    },
 
     // Actions related to selection
     SelectAllFiles: {
@@ -110,7 +99,7 @@ export const ChonkyActions = {
         sortKeySelector: (file: Nullable<FileData>) => (file ? file.name : undefined),
         toolbarButton: {
             name: 'Sort by name',
-            group: 'Sort',
+            group: 'Options',
             dropdown: true,
         },
     },
@@ -119,7 +108,7 @@ export const ChonkyActions = {
         sortKeySelector: (file: Nullable<FileData>) => (file ? file.size : undefined),
         toolbarButton: {
             name: 'Sort by size',
-            group: 'Sort',
+            group: 'Options',
             dropdown: true,
         },
     },
@@ -129,7 +118,7 @@ export const ChonkyActions = {
             file ? file.modDate : undefined,
         toolbarButton: {
             name: 'Sort by date',
-            group: 'Sort',
+            group: 'Options',
             dropdown: true,
         },
     },
@@ -221,7 +210,6 @@ export const DefaultFileActions: FileAction[] = [
     ChonkyActions.ChangeSelection,
 
     ChonkyActions.OpenParentFolder,
-    ChonkyActions.ToggleSearch,
 
     ChonkyActions.EnableListView,
     ChonkyActions.EnableGridView,

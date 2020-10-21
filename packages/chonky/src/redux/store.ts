@@ -5,13 +5,12 @@ import { useStaticValue } from '../util/hooks-helpers';
 import { rootReducer, RootState } from './reducer';
 
 export const useChonkyStore = (chonkyId: string) => {
-    const preloadedState: DeepPartial<RootState> = {};
-
-    return useStaticValue(() =>
-        configureStore({
-            preloadedState,
+    return useStaticValue(() => {
+        const preloadedState: DeepPartial<RootState> = {};
+        return configureStore({
+            preloadedState: preloadedState as any,
             reducer: rootReducer,
             devTools: { name: chonkyId },
-        })
-    );
+        });
+    });
 };

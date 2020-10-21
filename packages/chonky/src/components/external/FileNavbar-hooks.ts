@@ -22,18 +22,20 @@ export const useFolderChainItems = (): FolderChainItem[] => {
         const items: FolderChainItem[] = [];
         if (!folderChain) return items;
 
-        for (const file of folderChain) {
+        for (let i = 0; i < folderChain.length; ++i) {
+            const file = folderChain[i];
             items.push({
                 file,
                 disabled: !file,
-                onClick: !FileHelper.isOpenable(file)
-                    ? undefined
-                    : () => {
-                          dispatchSpecialAction({
-                              actionId: SpecialAction.OpenFolderChainFolder,
-                              file,
-                          });
-                      },
+                onClick:
+                    !FileHelper.isOpenable(file) || i === folderChain.length - 1
+                        ? undefined
+                        : () => {
+                              dispatchSpecialAction({
+                                  actionId: SpecialAction.OpenFolderChainFolder,
+                                  file,
+                              });
+                          },
             });
         }
         return items;
