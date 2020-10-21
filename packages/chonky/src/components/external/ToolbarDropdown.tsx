@@ -7,14 +7,12 @@
 import Menu from '@material-ui/core/Menu';
 import React, { useMemo } from 'react';
 
+import { ToolbarItemGroup } from '../../types/file-actions.types';
 import { important, makeChonkyStyles } from '../../util/styles';
 import { ToolbarButton } from './ToolbarButton';
 import { SmartToolbarDropdownButton } from './ToolbarDropdownButton';
 
-export interface ToolbarDropdownProps {
-    name: string;
-    fileActionIds: string[];
-}
+export type ToolbarDropdownProps = ToolbarItemGroup;
 
 export const ToolbarDropdown: React.FC<ToolbarDropdownProps> = (props) => {
     const { name, fileActionIds } = props;

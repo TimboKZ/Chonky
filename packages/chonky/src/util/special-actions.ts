@@ -5,7 +5,6 @@ import { Nullable } from 'tsdef';
 
 import { dispatchFileActionState } from '../recoil/file-actions.recoil';
 import { filesState } from '../recoil/files.recoil';
-import { searchBarVisibleState } from '../recoil/search.recoil';
 import { selectedFilesState } from '../recoil/selection.recoil';
 import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
 import { selectParentFolder } from '../redux/selectors';
@@ -89,7 +88,6 @@ export const useSpecialFileActionHandlerMap = (
     const dispatchFileActionRef = useInstanceVariable(
         useRecoilValue(dispatchFileActionState)
     );
-    const setSearchBarVisible = useSetRecoilState(searchBarVisibleState);
 
     // Internal instance variables used by special actions
     const lastClickDisplayIndexRef = useRef<Nullable<number>>(null);
@@ -197,9 +195,6 @@ export const useSpecialFileActionHandlerMap = (
                     files: [data.file],
                 });
             },
-            [SpecialAction.ToggleSearchBar]: () => {
-                setSearchBarVisible((visible: any) => !visible);
-            },
             [SpecialAction.SelectAllFiles]: () => {
                 const fileIds = filesRef.current
                     .filter((file) => FileHelper.isSelectable(file))
@@ -246,7 +241,6 @@ export const useSpecialFileActionHandlerMap = (
         parentFolderRef,
         selectedFilesRef,
         dispatchFileActionRef,
-        setSearchBarVisible,
     ]);
     return specialActionHandlerMap;
 };

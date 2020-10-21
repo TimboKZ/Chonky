@@ -34,11 +34,12 @@ export const selectParentFolder = (state: RootState) => {
 };
 
 export const selectFileMap = (state: RootState) => state.fileMap;
-export const selectFileIds = (state: RootState) => state.fileIds;
 export const selectFileData = (fileId: Nullable<string>) => (state: RootState) =>
     fileId ? selectFileMap(state)[fileId] : null;
 
 export const selectDisplayFileIds = (state: RootState) => state.displayFileIds;
+
+export const selectFileViewConfig = (state: RootState) => state.fileViewConfig;
 
 export const selectSortActionId = (state: RootState) => state.sortActionId;
 export const selectSortOrder = (state: RootState) => state.sortOrder;

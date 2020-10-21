@@ -1,13 +1,12 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { Nullable, Undefinable } from 'tsdef';
 
 import {
     dispatchFileActionState,
     fileActionMapState,
 } from '../recoil/file-actions.recoil';
-import { fileViewConfigState } from '../recoil/file-view.recoil';
 import { filesState } from '../recoil/files.recoil';
 import { selectionState } from '../recoil/selection.recoil';
 import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
@@ -15,6 +14,7 @@ import {
     thunkActivateSortAction,
     thunkToggleOption,
 } from '../redux/file-actions.thunks';
+import { reduxActions } from '../redux/reducers';
 import {
     FileAction,
     FileActionData,
@@ -67,9 +67,6 @@ export const useInternalFileActionRequester = () => {
     // the callback below without re-creating the callback function
     const dispatch = useDispatch();
     const fileActionMapRef = useInstanceVariable(useRecoilValue(fileActionMapState));
-    const setFileViewConfigRef = useInstanceVariable(
-        useSetRecoilState(fileViewConfigState)
-    );
     const dispatchFileActionRef = useInstanceVariable(
         useRecoilValue(dispatchFileActionState)
     );
@@ -120,25 +117,21 @@ export const useInternalFileActionRequester = () => {
                 files: selectedFilesForAction,
             };
 
-            //
             // === Dispatch a normal action, as usual
             dispatchFileActionRef.current(actionData);
 
-            //
             // === Update sort state if necessary
             const sortKeySelector = action.sortKeySelector;
             if (sortKeySelector) dispatch(thunkActivateSortAction(action.id));
 
-            //
             // === Update option state if necessary
             const option = action.option;
             if (option) dispatch(thunkToggleOption(option.id));
 
-            //
             // === Update file view state if necessary
-            if (action.fileViewConfig) {
-                setFileViewConfigRef.current(action.fileViewConfig);
-            }
+            const fileViewConfig = action.fileViewConfig;
+            if (fileViewConfig)
+                dispatch(reduxActions.setFileViewConfig(fileViewConfig));
 
             //
             // === Dispatch a special action if file action defines it
@@ -148,7 +141,6 @@ export const useInternalFileActionRequester = () => {
                 // actions that do not require additional parameters.
                 switch (specialActionId) {
                     case SpecialAction.OpenParentFolder:
-                    case SpecialAction.ToggleSearchBar:
                     case SpecialAction.SelectAllFiles:
                     case SpecialAction.ClearSelection:
                         dispatchSpecialActionRef.current({
@@ -168,7 +160,6 @@ export const useInternalFileActionRequester = () => {
         [
             dispatch,
             fileActionMapRef,
-            setFileViewConfigRef,
             dispatchFileActionRef,
             dispatchSpecialActionRef,
             filesRef,

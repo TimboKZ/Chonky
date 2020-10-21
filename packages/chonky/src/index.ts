@@ -1,7 +1,6 @@
 export { FileBrowser } from './components/external/FileBrowser';
 export { FileNavbar } from './components/external/FileNavbar';
 export { FileToolbar } from './components/external/FileToolbar';
-export { FileSearch } from './components/external/FileSearch';
 export { FileList } from './components/external/FileList';
 export { ChonkyIconFA } from './components/external/ChonkyIcon';
 
@@ -15,7 +14,6 @@ export { FileData } from './types/files.types';
 export { FileActionHandler } from './types/file-actions.types';
 export { FileActionData } from './types/file-actions.types';
 export { FileAction } from './types/file-actions.types';
-export { ChonkyView } from './types/file-view.types';
 export { FileSelection } from './types/selection.types';
 
 // Export interface separately to comply with isolated module requirements

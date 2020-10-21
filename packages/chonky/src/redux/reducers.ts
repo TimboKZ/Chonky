@@ -2,8 +2,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Nullable } from 'tsdef';
 
 import { ToolbarDropdownProps } from '../components/external/ToolbarDropdown';
-import { FileAction } from '../types/file-actions.types';
-import { FileArray, FileData } from '../types/files.types';
+import { FileAction, FileActionMap } from '../types/file-actions.types';
+import { FileViewConfig } from '../types/file-view.types';
+import { FileArray, FileIdMap, FileMap } from '../types/files.types';
+import { OptionMap } from '../types/options.types';
 import { SortOrder } from '../types/sort.types';
 import { ChonkyActions } from '../util/file-actions-definitions';
 
@@ -32,6 +34,9 @@ export interface RootState {
     hiddenFileIdMap: FileIdMap;
     displayFileIds: Nullable<string>[]; // Files that should be shown to the user
 
+    // File views
+    fileViewConfig: FileViewConfig;
+
     // Sorting
     sortActionId: string;
     sortOrder: SortOrder;
@@ -39,10 +44,6 @@ export interface RootState {
     // Options
     optionMap: OptionMap;
 }
-export type FileActionMap = { [actonId: string]: FileAction };
-export type FileMap = { [fileId: string]: FileData };
-export type FileIdMap = { [fileId: string]: boolean };
-export type OptionMap = { [optionId: string]: any };
 
 export const initialState: RootState = {
     rawFileActions: [],
@@ -64,6 +65,8 @@ export const initialState: RootState = {
     sortedFileIds: [],
     hiddenFileIdMap: {},
     displayFileIds: [],
+
+    fileViewConfig: ChonkyActions.EnableGridView.fileViewConfig,
 
     sortActionId: ChonkyActions.SortFilesByName.id,
     sortOrder: SortOrder.ASC,
@@ -128,6 +131,9 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         },
         setDisplayFileIds(state, action: PayloadAction<Nullable<string>[]>) {
             state.displayFileIds = action.payload;
+        },
+        setFileViewConfig(state, action: PayloadAction<FileViewConfig>) {
+            state.fileViewConfig = action.payload;
         },
         setSort(state, action: PayloadAction<{ actionId: string; order: SortOrder }>) {
             state.sortActionId = action.payload.actionId;

@@ -14,7 +14,10 @@ import { filesState } from '../../recoil/files.recoil';
 import { clearSelectionOnOutsideClickState } from '../../recoil/options.recoil';
 import { selectionModifiersState, selectionState } from '../../recoil/selection.recoil';
 import { thumbnailGeneratorState } from '../../recoil/thumbnails.recoil';
-import { thunkUpdateRawFileActions } from '../../redux/file-actions.thunks';
+import {
+    thunkUpdateDefaultFileViewActionId,
+    thunkUpdateRawFileActions,
+} from '../../redux/file-actions.thunks';
 import { thunkUpdateRawFiles, thunkUpdateRawFolderChain } from '../../redux/thunks';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
 import { useFileActions } from '../../util/file-actions';
@@ -24,13 +27,14 @@ import { useSpecialActionDispatcher } from '../../util/special-actions';
 
 export const ChonkyBusinessLogic = React.memo(
     React.forwardRef<FileBrowserHandle, FileBrowserProps>((props, ref) => {
-        const { files, defaultFileViewActionId } = props;
+        const { files } = props;
 
         const {
             files: rawFiles,
             folderChain: rawFolderChain,
             fileActions: rawFileActions,
             disableDefaultFileActions,
+            defaultFileViewActionId,
         } = props;
 
         // Instance ID used to distinguish between multiple Chonky instances on the
@@ -63,6 +67,9 @@ export const ChonkyBusinessLogic = React.memo(
         useEffect(() => {
             dispatch(thunkUpdateRawFolderChain(rawFolderChain));
         }, [dispatch, rawFolderChain]);
+        useEffect(() => {
+            dispatch(thunkUpdateDefaultFileViewActionId(defaultFileViewActionId));
+        }, [dispatch, defaultFileViewActionId]);
 
         //
         // ==== File selections

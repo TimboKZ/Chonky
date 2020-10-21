@@ -35,6 +35,15 @@ export interface FileAction {
     specialActionToDispatch?: SpecialAction;
 }
 
+export interface ToolbarButtonData {
+    name: string; // Button name
+    group?: string; // Group to add the button too
+    dropdown?: boolean; // Whether to display group as dropdown
+    tooltip?: string; // Help tooltip text
+    icon?: ChonkyIconName | string; // Icon name
+    iconOnly?: boolean; // Whether to only display the icon
+}
+
 export interface FileActionData {
     actionId: string;
     target?: FileData;
@@ -49,11 +58,9 @@ export type FileActionHandler = (
 export type InternalFileActionDispatcher = (actionData: FileActionData) => void;
 export type InternalFileActionRequester = (actionId: string) => void;
 
-export interface ToolbarButtonData {
-    name: string; // Button name
-    group?: string; // Group to add the button too
-    dropdown?: boolean; // Whether to display group as dropdown
-    tooltip?: string; // Help tooltip text
-    icon?: ChonkyIconName | string; // Icon name
-    iconOnly?: boolean; // Whether to only display the icon
+export type FileActionMap = { [actonId: string]: FileAction };
+
+export interface ToolbarItemGroup {
+    name: string;
+    fileActionIds: string[];
 }

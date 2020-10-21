@@ -6,7 +6,6 @@ export enum SpecialAction {
 
     OpenParentFolder = 'open_parent_folder',
     OpenFolderChainFolder = 'open_folder_chain_folder',
-    ToggleSearchBar = 'toggle_search_bar',
 
     SelectAllFiles = 'select_all_files',
     ClearSelection = 'clear_selection',
@@ -56,7 +55,6 @@ export interface SpecialDragNDropEndAction {
 export interface SpecialSimpleAction {
     actionId:
         | SpecialAction.OpenParentFolder
-        | SpecialAction.ToggleSearchBar
         | SpecialAction.SelectAllFiles
         | SpecialAction.ClearSelection;
 }

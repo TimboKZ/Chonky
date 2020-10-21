@@ -1,14 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { useRecoilValue } from 'recoil';
 
-import { fileViewConfigState } from '../../recoil/file-view.recoil';
+import { selectFileViewConfig } from '../../redux/selectors';
 import { useFileListRenderer } from './FileList-virtualization';
 
 export interface FileListProps {}
 
 export const FileList: React.FC<FileListProps> = React.memo(() => {
-    const viewConfig = useRecoilValue(fileViewConfigState);
+    const viewConfig = useSelector(selectFileViewConfig);
 
     // In Chonky v0.x, this field was user-configurable. In Chonky v1.x+, we hardcode
     // this to `true` to simplify configuration. Users can just wrap Chonky in their

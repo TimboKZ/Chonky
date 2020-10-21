@@ -1,3 +1,5 @@
+import { Nilable } from 'tsdef';
+
 import { ToolbarDropdownProps } from '../components/external/ToolbarDropdown';
 import { FileAction } from '../types/file-actions.types';
 import { SortOrder } from '../types/sort.types';
@@ -76,6 +78,16 @@ export const thunkUpdateToolbarItems = (fileActions: FileAction[]): AppThunk => 
     }
 
     dispatch(reduxActions.setToolbarItems(toolbarItems));
+};
+
+export const thunkUpdateDefaultFileViewActionId = (
+    fileActionId: Nilable<string>
+): AppThunk => (dispatch, getState) => {
+    const { fileActionMap } = getState();
+    const action = fileActionId ? fileActionMap[fileActionId] : null;
+    if (action && action.fileViewConfig) {
+        dispatch(reduxActions.setFileViewConfig(action.fileViewConfig));
+    }
 };
 
 export const thunkActivateSortAction = (fileActionId: string): AppThunk => (

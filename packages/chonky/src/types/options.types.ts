@@ -1,5 +1,1 @@
-import { Undefinable } from 'tsdef';
-
-export type OptionMap = {
-    [optionId: string]: Undefinable<boolean>;
-};
+export type OptionMap = { [optionId: string]: any };

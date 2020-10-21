@@ -10,9 +10,9 @@ import {
     fileActionsState,
     requestFileActionState,
 } from '../recoil/file-actions.recoil';
-import { fileViewConfigState } from '../recoil/file-view.recoil';
 import {
     selectFileActionData,
+    selectFileViewConfig,
     selectOptionValue,
     selectParentFolder,
     selectSortActionId,
@@ -28,7 +28,7 @@ import {
 } from './file-action-handlers';
 import { ChonkyActions } from './file-actions-definitions';
 import { FileHelper } from './file-helper';
-import { useInstanceVariable, useRefCallbackWithErrorHandling } from './hooks-helpers';
+import { useRefCallbackWithErrorHandling } from './hooks-helpers';
 
 export const useFileActions = (
     fileActions: FileAction[],
@@ -38,8 +38,6 @@ export const useFileActions = (
     // Recoil state: Put file actions and file action map into state
     const setFileActions = useSetRecoilState(fileActionsState);
     const setFileActionMap = useSetRecoilState(fileActionMapState);
-    const setFileViewConfig = useSetRecoilState(fileViewConfigState);
-    const isFirstLoad = useInstanceVariable(true);
     useEffect(
         () => {
             const fileActionMap: { [actionId: string]: FileAction } = {};
@@ -47,18 +45,10 @@ export const useFileActions = (
 
             setFileActions(fileActions);
             setFileActionMap(fileActionMap);
-
-            if (isFirstLoad.current && defaultFileViewActionId) {
-                const action = fileActionMap[defaultFileViewActionId];
-                if (action && action.fileViewConfig) {
-                    setFileViewConfig(action.fileViewConfig);
-                }
-            }
-            isFirstLoad.current = false;
         },
         // XXX: We deliberately don't add `defaultFileViewActionId` to deps below.
         // eslint-disable-next-line
-        [fileActions, setFileActions, setFileActionMap, isFirstLoad]
+        [fileActions, setFileActions, setFileActionMap]
     );
 
     // Prepare file action dispatcher (used to dispatch actions to users)
@@ -107,7 +97,7 @@ export const useFileActionProps = (
     fileActionId: string
 ): { icon: Nullable<ChonkyIconName | string>; active: boolean; disabled: boolean } => {
     const parentFolder = useSelector(selectParentFolder);
-    const fileViewConfig = useRecoilValue(fileViewConfigState);
+    const fileViewConfig = useSelector(selectFileViewConfig);
 
     const sortActionId = useSelector(selectSortActionId);
     const sortOrder = useSelector(selectSortOrder);

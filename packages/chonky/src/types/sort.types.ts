@@ -8,9 +8,3 @@ export enum SortOrder {
     ASC = 'asc',
     DESC = 'desc',
 }
-
-export interface SortConfig {
-    fileActionId: string;
-    sortKeySelector: FileSortKeySelector;
-    order: SortOrder;
-}
