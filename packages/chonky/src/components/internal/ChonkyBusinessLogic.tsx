@@ -5,6 +5,7 @@
  */
 
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSetRecoilState } from 'recoil';
 
 import { enableDragAndDropState } from '../../recoil/drag-and-drop.recoil';
@@ -17,6 +18,7 @@ import {
 import { clearSelectionOnOutsideClickState } from '../../recoil/options.recoil';
 import { selectionModifiersState, selectionState } from '../../recoil/selection.recoil';
 import { thumbnailGeneratorState } from '../../recoil/thumbnails.recoil';
+import { thunkUpdateRawFiles, thunkUpdateRawFolderChain } from '../../redux/thunks';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
 import { useFileActions } from '../../util/file-actions';
 import { useFileBrowserHandle } from '../../util/file-browser-handle';
@@ -29,6 +31,8 @@ import { useSpecialActionDispatcher } from '../../util/special-actions';
 export const ChonkyBusinessLogic = React.memo(
     React.forwardRef<FileBrowserHandle, FileBrowserProps>((props, ref) => {
         const { files, defaultFileViewActionId } = props;
+        const rawFiles = props.files;
+        const rawFolderChain = props.folderChain;
 
         // Instance ID used to distinguish between multiple Chonky instances on the
         // same page const chonkyInstanceId = useStaticValue(shortid.generate);
@@ -47,6 +51,15 @@ export const ChonkyBusinessLogic = React.memo(
         const enableDragAndDrop = !props.disableDragAndDrop;
         const clearSelectionOnOutsideClick =
             props.clearSelectionOnOutsideClick !== false;
+
+        // ==== Update Redux state
+        const dispatch = useDispatch();
+        useEffect(() => {
+            dispatch(thunkUpdateRawFiles(rawFiles));
+        }, [dispatch, rawFiles]);
+        useEffect(() => {
+            dispatch(thunkUpdateRawFolderChain(rawFolderChain));
+        }, [dispatch, rawFolderChain]);
 
         //
         // ==== File array sorting

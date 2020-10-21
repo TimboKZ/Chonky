@@ -10,7 +10,7 @@ export interface FileAction {
     requiresSelection?: boolean; // Requires selection of 1+ files
     fileFilter?: FileFilter; // Used to filter the files array
 
-    hotkeys?: readonly string[]; // Hotkeys using `hotkey-js` notation
+    hotkeys?: string[]; // Hotkeys using `hotkey-js` notation
     toolbarButton?: ToolbarButtonData; // Description below
 
     // When `sortKeySelector` is specified, the action becomes a sorting toggle.
@@ -48,12 +48,6 @@ export type FileActionHandler = (
 
 export type InternalFileActionDispatcher = (actionData: FileActionData) => void;
 export type InternalFileActionRequester = (actionId: string) => void;
-
-export interface ActionGroupData {
-    name?: string;
-    dropdown?: boolean;
-    fileActionIds: string[];
-}
 
 export interface ToolbarButtonData {
     name: string; // Button name

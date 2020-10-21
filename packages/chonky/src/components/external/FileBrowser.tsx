@@ -29,9 +29,9 @@ export const FileBrowser = React.forwardRef<
     FileBrowserHandle,
     FileBrowserProps & { children?: ReactNode }
 >((props, ref) => {
-    const { files, disableDragAndDropProvider, children } = props;
+    const { instanceId, files, disableDragAndDropProvider, children } = props;
 
-    const chonkyInstanceId = useStaticValue(() => shortid.generate());
+    const chonkyInstanceId = useStaticValue(() => instanceId ?? shortid.generate());
     const store = useChonkyStore(chonkyInstanceId);
 
     // ==== Default values assignment

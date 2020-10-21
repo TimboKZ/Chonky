@@ -6,7 +6,11 @@ import { ChonkyIconName } from '../types/icons.types';
 import { SpecialAction } from '../types/special-actions.types';
 import { FileHelper } from './file-helper';
 
-export const ChonkyActions = {
+const validateActionTypes = <T extends { [action: string]: FileAction }>(
+    actionMap: T
+): T => actionMap;
+
+export const ChonkyActions = validateActionTypes({
     // Actions triggered by drag & drop
     MoveFilesTo: {
         id: 'move_files_to',
@@ -201,7 +205,7 @@ export const ChonkyActions = {
             icon: ChonkyIconName.trash,
         },
     },
-} as const;
+});
 
 export const DefaultFileActions: FileAction[] = [
     ChonkyActions.MoveFilesTo,

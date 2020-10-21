@@ -29,6 +29,15 @@ export interface FileBrowserHandle {
  */
 export interface FileBrowserProps {
     /**
+     * An ID used to identify this particular Chonky instance. Useful when there are
+     * multiple Chonky instances on the same page, and they need to interact with
+     * each other. When no instance ID is provided, a random hash is used in its place.
+     * Note that instance ID should remain static. Any changes to "instanceId" after
+     * initial FileBrowser mount will be ignored.
+     */
+    instanceId?: string;
+
+    /**
      * List of files that will be displayed in the main container. The provided value
      * **must** be an array, where each element is either `null` or an object that
      * satisfies the `FileData` type. If an element is `null`, a loading placeholder
