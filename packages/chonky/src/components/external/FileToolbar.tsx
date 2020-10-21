@@ -1,17 +1,23 @@
 import React, { ReactElement, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
+import { selectToolbarItems } from '../../redux/selectors';
+import { FileAction } from '../../types/file-actions.types';
 import { makeChonkyStyles } from '../../util/styles';
-import { isToolbarDropdownData, useToolbarItems } from './FileToolbar-hooks';
 import { SmartToolbarButton } from './ToolbarButton';
-import { ToolbarDropdown } from './ToolbarDropdown';
+import { ToolbarDropdown, ToolbarDropdownProps } from './ToolbarDropdown';
 import { ToolbarInfo } from './ToolbarInfo';
 import { ToolbarSearch } from './ToolbarSearch';
+
+export const isToolbarDropdownData = (
+    value: FileAction | ToolbarDropdownProps
+): value is ToolbarDropdownProps => !!(value as any).fileActionIds;
 
 export interface FileToolbarProps {}
 
 export const FileToolbar: React.FC<FileToolbarProps> = React.memo(() => {
     const classes = useStyles();
-    const toolbarItems = useToolbarItems();
+    const toolbarItems = useSelector(selectToolbarItems);
 
     const toolbarItemComponents = useMemo(() => {
         const components: ReactElement[] = [];

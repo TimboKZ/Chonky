@@ -1,12 +1,11 @@
 import c from 'classnames';
 import React, { CSSProperties, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { FixedSizeGrid, FixedSizeList } from 'react-window';
-import { useRecoilValue } from 'recoil';
 import { Nilable } from 'tsdef';
 
-import { filesState } from '../../recoil/files.recoil';
+import { selectDisplayFileIds } from '../../redux/selectors';
 import { FileViewConfig } from '../../types/file-view.types';
-import { FileData } from '../../types/files.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { isMobileDevice } from '../../util/validation';
 import { SmartFileEntry } from '../file-entry/SmartFileEntry';
@@ -40,12 +39,12 @@ const NoContentNotification: React.FC<NoContentNotificationProps> = (props) => {
 
 const fileListItemRenderer = (
     index: number,
-    file: Nilable<FileData>,
+    fileId: Nilable<string>,
     isGridView: boolean,
     style: CSSProperties,
     gutter: number = 0
 ) => {
-    if (file === undefined) return null;
+    if (fileId === undefined) return null;
 
     let styleWithGutter: CSSProperties = style;
     if (gutter) {
@@ -61,7 +60,7 @@ const fileListItemRenderer = (
     return (
         <div style={styleWithGutter}>
             <SmartFileEntry
-                fileId={file ? file.id : null}
+                fileId={fileId ?? null}
                 displayIndex={index}
                 isGridView={isGridView}
             />
@@ -70,13 +69,13 @@ const fileListItemRenderer = (
 };
 
 export const useFileListRenderer = (viewConfig: FileViewConfig) => {
-    const files = useRecoilValue(filesState);
+    const displayFileIds = useSelector(selectDisplayFileIds);
 
     return useCallback(
         ({ width, height }: { width: number; height: number }) => {
-            const fileCount = files.length;
+            const fileCount = displayFileIds.length;
             const getItemKey = (index: number) =>
-                files[index]?.id ?? `loading-file-${index}`;
+                displayFileIds[index] ?? `loading-file-${index}`;
 
             if (fileCount === 0) {
                 return (
@@ -107,7 +106,7 @@ export const useFileListRenderer = (viewConfig: FileViewConfig) => {
                     const index = data.rowIndex * columnCount + data.columnIndex;
                     return fileListItemRenderer(
                         index,
-                        files[index],
+                        displayFileIds[index],
                         true,
                         data.style,
                         gutter
@@ -141,7 +140,7 @@ export const useFileListRenderer = (viewConfig: FileViewConfig) => {
                 const rowRenderer = (data: { index: number; style: CSSProperties }) => {
                     return fileListItemRenderer(
                         data.index,
-                        files[data.index],
+                        displayFileIds[data.index],
                         false,
                         data.style
                     );
@@ -161,6 +160,6 @@ export const useFileListRenderer = (viewConfig: FileViewConfig) => {
                 );
             }
         },
-        [viewConfig, files]
+        [viewConfig, displayFileIds]
     );
 };

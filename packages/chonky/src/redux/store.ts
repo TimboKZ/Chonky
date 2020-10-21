@@ -12,6 +12,8 @@ export const useChonkyStore = (chonkyId: string) => {
         return configureStore({
             preloadedState: preloadedState as any,
             reducer: rootReducer,
+            middleware: (getDefaultMiddleware) =>
+                getDefaultMiddleware({ serializableCheck: false }),
             devTools: { name: chonkyId },
         });
     });

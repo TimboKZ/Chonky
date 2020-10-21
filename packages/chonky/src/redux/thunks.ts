@@ -2,13 +2,12 @@ import { Action, ThunkAction } from '@reduxjs/toolkit';
 import sort from 'fast-sort';
 import { Nullable } from 'tsdef';
 
-import { FileAction } from '../types/file-actions.types';
 import { FileArray } from '../types/files.types';
-import { FileSortKeySelector } from '../types/sort.types';
+import { FileSortKeySelector, SortOrder } from '../types/sort.types';
 import { ChonkyActions } from '../util/file-actions-definitions';
 import { FileHelper } from '../util/file-helper';
 import { sanitizeInputArray } from './files-transforms';
-import { reduxActions, RootState, SortOrder } from './reducers';
+import { reduxActions, RootState } from './reducers';
 
 export type AppThunk<ReturnType = void> = ThunkAction<
     ReturnType,
@@ -16,20 +15,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
     unknown,
     Action<string>
 >;
-
-export const thunkUpdateRawFileActions = (
-    rawFileActions: FileAction[] | any
-): AppThunk => (dispatch, getState) => {
-    if (getState().rawFileActions === rawFileActions) return;
-    const { sanitizedArray, errorMessages } = sanitizeInputArray(
-        'fileActions',
-        rawFileActions
-    );
-    dispatch(reduxActions.setRawFileActions(rawFileActions));
-    dispatch(reduxActions.setFileActionsErrorMessages(errorMessages));
-    dispatch(reduxActions.setFileActions(sanitizedArray));
-    dispatch(thunkSortFiles());
-};
 
 export const thunkUpdateRawFolderChain = (
     rawFolderChain: Nullable<FileArray> | any
@@ -54,6 +39,8 @@ export const thunkUpdateRawFiles = (rawFiles: FileArray | any): AppThunk => (
     dispatch(reduxActions.setFilesErrorMessages(errorMessages));
     dispatch(reduxActions.setFiles(sanitizedArray));
     dispatch(thunkSortFiles());
+    dispatch(thunkUpdateHiddenFiles());
+    dispatch(thunkUpdateDisplayFiles());
 };
 
 export const thunkSortFiles = (): AppThunk => (dispatch, getState) => {
@@ -109,13 +96,15 @@ export const thunkUpdateHiddenFiles = (): AppThunk => (dispatch, getState) => {
         // If option is undefined (relevant actions is not enabled), we show hidden
         // files.
         dispatch(reduxActions.setHiddenFileIds({}));
-    } else if (!showHiddenFiles) {
+    } else {
         const hiddenFileIdMap = {};
-        fileIds.map((id) => {
-            const file = id ? fileMap[id] : null;
-            if (!file) return;
-            if (FileHelper.isHidden(file)) hiddenFileIdMap[file.id] = true;
-        });
+        if (!showHiddenFiles) {
+            fileIds.map((id) => {
+                const file = id ? fileMap[id] : null;
+                if (!file) return;
+                if (FileHelper.isHidden(file)) hiddenFileIdMap[file.id] = true;
+            });
+        }
         dispatch(reduxActions.setHiddenFileIds(hiddenFileIdMap));
     }
 };

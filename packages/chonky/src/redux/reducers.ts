@@ -1,16 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Nullable } from 'tsdef';
 
+import { ToolbarDropdownProps } from '../components/external/ToolbarDropdown';
 import { FileAction } from '../types/file-actions.types';
 import { FileArray, FileData } from '../types/files.types';
+import { SortOrder } from '../types/sort.types';
 import { ChonkyActions } from '../util/file-actions-definitions';
 
 export interface RootState {
-    // Raw and sanitized actions
+    // Raw and sanitized file actions
     rawFileActions: FileAction[] | any;
     fileActionsErrorMessages: string[];
     fileActionMap: FileActionMap;
     fileActionIds: string[];
+    toolbarItems: (FileAction | ToolbarDropdownProps)[];
 
     // Raw and sanitized folder chain
     rawFolderChain: Nullable<FileArray> | any;
@@ -38,11 +41,7 @@ export interface RootState {
 }
 export type FileActionMap = { [actonId: string]: FileAction };
 export type FileMap = { [fileId: string]: FileData };
-export enum SortOrder {
-    ASC = 'asc',
-    DESC = 'desc',
-}
-export type FileIdMap = {[fileId: string]: boolean}
+export type FileIdMap = { [fileId: string]: boolean };
 export type OptionMap = { [optionId: string]: any };
 
 export const initialState: RootState = {
@@ -50,6 +49,7 @@ export const initialState: RootState = {
     fileActionsErrorMessages: [],
     fileActionMap: {},
     fileActionIds: [],
+    toolbarItems: [],
 
     rawFolderChain: null,
     folderChainErrorMessages: [],
@@ -89,6 +89,12 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
             state.fileActionMap = fileActionMap;
             state.fileActionIds = fileIds;
         },
+        setToolbarItems(
+            state,
+            action: PayloadAction<(FileAction | ToolbarDropdownProps)[]>
+        ) {
+            state.toolbarItems = action.payload;
+        },
         setRawFolderChain(state, action: PayloadAction<FileArray | any>) {
             state.rawFolderChain = action.payload;
         },
@@ -126,6 +132,15 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         setSort(state, action: PayloadAction<{ actionId: string; order: SortOrder }>) {
             state.sortActionId = action.payload.actionId;
             state.sortOrder = action.payload.order;
+        },
+        setOptionDefaults(state, action: PayloadAction<OptionMap>) {
+            for (const optionId of Object.keys(action.payload)) {
+                if (optionId in state.optionMap) continue;
+                state.optionMap[optionId] = action.payload[optionId];
+            }
+        },
+        toggleOption(state, action: PayloadAction<string>) {
+            state.optionMap[action.payload] = !state.optionMap[action.payload];
         },
     },
 });

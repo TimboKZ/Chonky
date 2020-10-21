@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Nullable, Undefinable } from 'tsdef';
 
@@ -8,17 +9,18 @@ import {
 } from '../recoil/file-actions.recoil';
 import { fileViewConfigState } from '../recoil/file-view.recoil';
 import { filesState } from '../recoil/files.recoil';
-import { optionMapState } from '../recoil/options.recoil';
 import { selectionState } from '../recoil/selection.recoil';
-import { sortConfigState } from '../recoil/sort.recoil';
 import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
+import {
+    thunkActivateSortAction,
+    thunkToggleOption,
+} from '../redux/file-actions.thunks';
 import {
     FileAction,
     FileActionData,
     FileActionHandler,
     InternalFileActionDispatcher,
 } from '../types/file-actions.types';
-import { SortOrder } from '../types/sort.types';
 import { SpecialAction } from '../types/special-actions.types';
 import { useInstanceVariable } from './hooks-helpers';
 import { Logger } from './logger';
@@ -63,9 +65,8 @@ export const useInternalFileActionDispatcher = (
 export const useInternalFileActionRequester = () => {
     // Write Recoil state to instance variables so we can access these values from
     // the callback below without re-creating the callback function
+    const dispatch = useDispatch();
     const fileActionMapRef = useInstanceVariable(useRecoilValue(fileActionMapState));
-    const setSortConfigRef = useInstanceVariable(useSetRecoilState(sortConfigState));
-    const setOptionMapRef = useInstanceVariable(useSetRecoilState(optionMapState));
     const setFileViewConfigRef = useInstanceVariable(
         useSetRecoilState(fileViewConfigState)
     );
@@ -126,34 +127,12 @@ export const useInternalFileActionRequester = () => {
             //
             // === Update sort state if necessary
             const sortKeySelector = action.sortKeySelector;
-            if (sortKeySelector) {
-                setSortConfigRef.current((sortConfig) => {
-                    let order: SortOrder = SortOrder.Asc;
-                    if (sortConfig.fileActionId === action.id) {
-                        order =
-                            sortConfig.order === SortOrder.Asc
-                                ? SortOrder.Desc
-                                : SortOrder.Asc;
-                    }
-
-                    return {
-                        fileActionId: action.id,
-                        sortKeySelector,
-                        order,
-                    };
-                });
-            }
+            if (sortKeySelector) dispatch(thunkActivateSortAction(action.id));
 
             //
             // === Update option state if necessary
             const option = action.option;
-            if (option) {
-                setOptionMapRef.current((optionMap) => {
-                    const newOptionMap = { ...optionMap };
-                    newOptionMap[option.id] = !optionMap[option.id];
-                    return newOptionMap;
-                });
-            }
+            if (option) dispatch(thunkToggleOption(option.id));
 
             //
             // === Update file view state if necessary
@@ -187,9 +166,8 @@ export const useInternalFileActionRequester = () => {
             }
         },
         [
+            dispatch,
             fileActionMapRef,
-            setSortConfigRef,
-            setOptionMapRef,
             setFileViewConfigRef,
             dispatchFileActionRef,
             dispatchSpecialActionRef,

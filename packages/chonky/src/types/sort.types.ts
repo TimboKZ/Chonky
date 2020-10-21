@@ -5,8 +5,8 @@ import { FileData } from './files.types';
 export type FileSortKeySelector = (file: Nullable<FileData>) => any;
 
 export enum SortOrder {
-    Asc = 'asc',
-    Desc = 'desc',
+    ASC = 'asc',
+    DESC = 'desc',
 }
 
 export interface SortConfig {

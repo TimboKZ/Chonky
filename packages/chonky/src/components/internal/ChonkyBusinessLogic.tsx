@@ -10,36 +10,34 @@ import { useSetRecoilState } from 'recoil';
 
 import { enableDragAndDropState } from '../../recoil/drag-and-drop.recoil';
 import { doubleClickDelayState } from '../../recoil/file-actions.recoil';
-import {
-    filesState,
-    folderChainState,
-    parentFolderState,
-} from '../../recoil/files.recoil';
+import { filesState } from '../../recoil/files.recoil';
 import { clearSelectionOnOutsideClickState } from '../../recoil/options.recoil';
 import { selectionModifiersState, selectionState } from '../../recoil/selection.recoil';
 import { thumbnailGeneratorState } from '../../recoil/thumbnails.recoil';
+import { thunkUpdateRawFileActions } from '../../redux/file-actions.thunks';
 import { thunkUpdateRawFiles, thunkUpdateRawFolderChain } from '../../redux/thunks';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
 import { useFileActions } from '../../util/file-actions';
 import { useFileBrowserHandle } from '../../util/file-browser-handle';
-import { useOptions } from '../../util/options';
-import { useFileSearch } from '../../util/search';
 import { useSelection } from '../../util/selection';
-import { useFileSorting } from '../../util/sort';
 import { useSpecialActionDispatcher } from '../../util/special-actions';
 
 export const ChonkyBusinessLogic = React.memo(
     React.forwardRef<FileBrowserHandle, FileBrowserProps>((props, ref) => {
         const { files, defaultFileViewActionId } = props;
-        const rawFiles = props.files;
-        const rawFolderChain = props.folderChain;
+
+        const {
+            files: rawFiles,
+            folderChain: rawFolderChain,
+            fileActions: rawFileActions,
+            disableDefaultFileActions,
+        } = props;
 
         // Instance ID used to distinguish between multiple Chonky instances on the
         // same page const chonkyInstanceId = useStaticValue(shortid.generate);
 
         //
         // ==== Default values assignment
-        const folderChain = props.folderChain ? props.folderChain : null;
         const fileActions = props.fileActions ? props.fileActions : [];
         const onFileAction = props.onFileAction ? props.onFileAction : null;
         const thumbnailGenerator = props.thumbnailGenerator
@@ -55,6 +53,11 @@ export const ChonkyBusinessLogic = React.memo(
         // ==== Update Redux state
         const dispatch = useDispatch();
         useEffect(() => {
+            dispatch(
+                thunkUpdateRawFileActions(rawFileActions, !!disableDefaultFileActions)
+            );
+        }, [dispatch, rawFileActions, disableDefaultFileActions]);
+        useEffect(() => {
             dispatch(thunkUpdateRawFiles(rawFiles));
         }, [dispatch, rawFiles]);
         useEffect(() => {
@@ -62,13 +65,9 @@ export const ChonkyBusinessLogic = React.memo(
         }, [dispatch, rawFolderChain]);
 
         //
-        // ==== File array sorting
-        const sortedFiles = useFileSorting(files);
-
-        //
         // ==== File selections
         const { selection, selectionUtilRef, selectionModifiers } = useSelection(
-            sortedFiles,
+            files,
             disableSelection
         );
 
@@ -82,18 +81,10 @@ export const ChonkyBusinessLogic = React.memo(
         useFileActions(fileActions, onFileAction, defaultFileViewActionId);
 
         //
-        // ==== File options - toggleable options based on file actions
-        const optionFilteredFiles = useOptions(sortedFiles);
-
-        //
-        // ==== File search (aka file array filtering)
-        const searchFilteredFiles = useFileSearch(optionFilteredFiles);
-
-        //
         // ==== Special actions - special actions hard-coded into Chonky that users
         //      cannot customize (easily).
         useSpecialActionDispatcher(
-            sortedFiles,
+            files,
             selection,
             selectionUtilRef.current,
             selectionModifiers
@@ -105,20 +96,8 @@ export const ChonkyBusinessLogic = React.memo(
 
         const setRecoilFiles = useSetRecoilState(filesState);
         useEffect(() => {
-            setRecoilFiles(searchFilteredFiles);
-        }, [searchFilteredFiles, setRecoilFiles]);
-
-        const setFolderChain = useSetRecoilState(folderChainState);
-        const setParentFolder = useSetRecoilState(parentFolderState);
-        useEffect(() => {
-            const parentFolder =
-                folderChain && folderChain.length > 1
-                    ? folderChain[folderChain?.length - 2]
-                    : null;
-
-            setFolderChain(folderChain);
-            setParentFolder(parentFolder);
-        }, [folderChain, setFolderChain, setParentFolder]);
+            setRecoilFiles(files);
+        }, [files, setRecoilFiles]);
 
         const setRecoilSelection = useSetRecoilState(selectionState);
         useEffect(() => {

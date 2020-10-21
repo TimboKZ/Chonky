@@ -1,19 +1,24 @@
 import { useCallback, useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Nilable, Nullable } from 'tsdef';
 
 import {
     dispatchFileActionState,
-    fileActionDataState,
     fileActionMapState,
     fileActionSelectedFilesCountState,
     fileActionsState,
     requestFileActionState,
 } from '../recoil/file-actions.recoil';
 import { fileViewConfigState } from '../recoil/file-view.recoil';
-import { parentFolderState } from '../recoil/files.recoil';
-import { optionMapState } from '../recoil/options.recoil';
-import { sortConfigState } from '../recoil/sort.recoil';
+import {
+    selectFileActionData,
+    selectOptionValue,
+    selectParentFolder,
+    selectSortActionId,
+    selectSortOrder,
+    useParamSelector,
+} from '../redux/selectors';
 import { FileAction, FileActionHandler } from '../types/file-actions.types';
 import { ChonkyIconName } from '../types/icons.types';
 import { SortOrder } from '../types/sort.types';
@@ -101,11 +106,15 @@ export const useFileActionTrigger = (fileActionId: string) => {
 export const useFileActionProps = (
     fileActionId: string
 ): { icon: Nullable<ChonkyIconName | string>; active: boolean; disabled: boolean } => {
-    const parentFolder = useRecoilValue(parentFolderState);
+    const parentFolder = useSelector(selectParentFolder);
     const fileViewConfig = useRecoilValue(fileViewConfigState);
-    const sortConfig = useRecoilValue(sortConfigState);
-    const optionMap = useRecoilValue(optionMapState);
-    const action = useRecoilValue(fileActionDataState(fileActionId));
+
+    const sortActionId = useSelector(selectSortActionId);
+    const sortOrder = useSelector(selectSortOrder);
+
+    const action = useParamSelector(selectFileActionData, fileActionId);
+    const optionValue = useParamSelector(selectOptionValue, action?.option?.id);
+
     const actionSelectionSize = useRecoilValue(
         fileActionSelectedFilesCountState(fileActionId)
     );
@@ -117,8 +126,8 @@ export const useFileActionProps = (
 
         let icon = action.toolbarButton?.icon ?? null;
         if (action.sortKeySelector) {
-            if (sortConfig.fileActionId === action.id) {
-                if (sortConfig.order === SortOrder.Asc) {
+            if (sortActionId === action.id) {
+                if (sortOrder === SortOrder.ASC) {
                     icon = ChonkyIconName.sortAsc;
                 } else {
                     icon = ChonkyIconName.sortDesc;
@@ -127,18 +136,16 @@ export const useFileActionProps = (
                 icon = ChonkyIconName.placeholder;
             }
         } else if (action.option) {
-            if (optionMap[action.option.id]) {
+            if (optionValue) {
                 icon = ChonkyIconName.toggleOn;
             } else {
                 icon = ChonkyIconName.toggleOff;
             }
         }
 
-        const isSortButtonAndCurrentSort = action.id === sortConfig.fileActionId;
+        const isSortButtonAndCurrentSort = action.id === sortActionId;
         const isFileViewButtonAndCurrentView = action.fileViewConfig === fileViewConfig;
-        const isOptionAndEnabled = action.option
-            ? !!optionMap[action.option.id]
-            : false;
+        const isOptionAndEnabled = action.option ? !!optionValue : false;
 
         const active =
             isSortButtonAndCurrentSort ||
@@ -154,11 +161,12 @@ export const useFileActionProps = (
 
         return { icon, active, disabled };
     }, [
-        action,
-        sortConfig,
-        fileViewConfig,
-        optionMap,
         parentFolder,
+        fileViewConfig,
+        sortActionId,
+        sortOrder,
+        action,
+        optionValue,
         actionSelectionEmpty,
     ]);
 };

@@ -6,10 +6,11 @@
 
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
 
-import { filesState } from '../../recoil/files.recoil';
 import { selectionSizeState } from '../../recoil/selection.recoil';
+import { selectDisplayFileIds } from '../../redux/selectors';
 import { important, makeChonkyStyles } from '../../util/styles';
 
 export interface ToolbarInfoProps {}
@@ -17,13 +18,13 @@ export interface ToolbarInfoProps {}
 export const ToolbarInfo: React.FC<ToolbarInfoProps> = () => {
     const classes = useStyles();
 
-    const files = useRecoilValue(filesState);
+    const displayFileIds = useSelector(selectDisplayFileIds);
     const selectionSize = useRecoilValue(selectionSizeState);
 
     return (
         <div className={classes.infoContainer}>
             <Typography className={classes.infoTypography} variant="body1">
-                {files.length} files
+                {displayFileIds.length} files
             </Typography>
             {!!selectionSize && (
                 <Typography className={classes.infoTypography} variant="body1">

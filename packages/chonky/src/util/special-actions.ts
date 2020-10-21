@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Nullable } from 'tsdef';
 
 import { dispatchFileActionState } from '../recoil/file-actions.recoil';
-import { filesState, parentFolderState } from '../recoil/files.recoil';
+import { filesState } from '../recoil/files.recoil';
 import { searchBarVisibleState } from '../recoil/search.recoil';
 import { selectedFilesState } from '../recoil/selection.recoil';
 import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
+import { selectParentFolder } from '../redux/selectors';
 import { FileArray } from '../types/files.types';
 import { FileSelection, SelectionModifiers } from '../types/selection.types';
 import {
@@ -82,7 +84,7 @@ export const useSpecialFileActionHandlerMap = (
     // Instance variables based on Recoil state
     const _recoilFiles = useRecoilValue(filesState);
     const filesRef = useInstanceVariable(_recoilFiles);
-    const parentFolderRef = useInstanceVariable(useRecoilValue(parentFolderState));
+    const parentFolderRef = useInstanceVariable(useSelector(selectParentFolder));
     const selectedFilesRef = useInstanceVariable(useRecoilValue(selectedFilesState));
     const dispatchFileActionRef = useInstanceVariable(
         useRecoilValue(dispatchFileActionState)
