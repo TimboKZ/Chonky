@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
-import { dispatchSpecialActionState } from '../../recoil/special-actions.recoil';
+import { selectSpecialActionDispatcher } from '../../redux/selectors';
 import { FileData } from '../../types/files.types';
 import {
     SpecialAction,
@@ -14,7 +14,7 @@ export const useFileClickHandlers = (
     file: Nullable<FileData>,
     displayIndex: number
 ) => {
-    const dispatchSpecialAction = useRecoilValue(dispatchSpecialActionState);
+    const dispatchSpecialAction = useSelector(selectSpecialActionDispatcher);
 
     // Prepare base handlers
     const onMouseClick = useCallback(

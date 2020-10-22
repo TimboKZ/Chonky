@@ -6,10 +6,9 @@
 
 import hotkeys from 'hotkeys-js';
 import React, { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useSelector } from 'react-redux';
 
-import { requestFileActionState } from '../../recoil/file-actions.recoil';
-import { selectFileActionData} from '../../redux/selectors';
+import { selectFileActionData, selectFileActionRequester } from '../../redux/selectors';
 import { useParamSelector } from '../../redux/store';
 
 export interface HotkeyListenerProps {
@@ -20,7 +19,7 @@ export const HotkeyListener: React.FC<HotkeyListenerProps> = React.memo((props) 
     const { fileActionId } = props;
 
     const fileAction = useParamSelector(selectFileActionData, fileActionId);
-    const requestFileAction = useRecoilValue(requestFileActionState);
+    const requestFileAction = useSelector(selectFileActionRequester);
 
     useEffect(() => {
         if (!fileAction || !fileAction.hotkeys || fileAction.hotkeys.length === 0) {

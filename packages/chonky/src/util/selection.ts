@@ -1,14 +1,16 @@
 import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { useRecoilValue } from 'recoil';
 
-import { dispatchFileActionState } from '../recoil/file-actions.recoil';
-import { selectFileMap, selectSelectedFileIds } from '../redux/selectors';
+import {
+    selectFileActionDispatcher,
+    selectFileMap,
+    selectSelectedFileIds,
+} from '../redux/selectors';
 import { ChonkyActions } from './file-actions-definitions';
 import { useInstanceVariable } from './hooks-helpers';
 
 export const useSelection = () => {
-    const dispatchFileAction = useRecoilValue(dispatchFileActionState);
+    const dispatchFileAction = useSelector(selectFileActionDispatcher);
 
     const fileMapRef = useInstanceVariable(useSelector(selectFileMap));
     const selectedFileIds = useSelector(selectSelectedFileIds);

@@ -1,15 +1,11 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Nullable } from 'tsdef';
 
-import {
-    dispatchFileActionState,
-    fileActionMapState,
-    requestFileActionState,
-} from '../recoil/file-actions.recoil';
+import { reduxActions } from '../redux/reducers';
 import {
     selectFileActionData,
+    selectFileActionRequester,
     selectFileViewConfig,
     selectOptionValue,
     selectParentFolder,
@@ -17,7 +13,7 @@ import {
     selectSortActionId,
     selectSortOrder,
 } from '../redux/selectors';
-import { useParamSelector } from '../redux/store';
+import { useDTE, useParamSelector } from '../redux/store';
 import { FileAction, FileActionHandler } from '../types/file-actions.types';
 import { ChonkyIconName } from '../types/icons.types';
 import { SortOrder } from '../types/sort.types';
@@ -33,15 +29,6 @@ export const useFileActions = (
     fileActions: FileAction[],
     externalFileActonHandler: Nullable<FileActionHandler>
 ) => {
-    // Recoil state: Put file actions and file action map into state
-    const setFileActionMap = useSetRecoilState(fileActionMapState);
-    useEffect(() => {
-        const fileActionMap: { [actionId: string]: FileAction } = {};
-        for (const action of fileActions) fileActionMap[action.id] = action;
-
-        setFileActionMap(fileActionMap);
-    }, [fileActions, setFileActionMap]);
-
     // Prepare file action dispatcher (used to dispatch actions to users)
     const internalFileActionDispatcher = useInternalFileActionDispatcher(
         externalFileActonHandler
@@ -52,11 +39,7 @@ export const useFileActions = (
         internalFileActionDispatcher,
         'the internal file action requester'
     );
-    const setDispatchFileAction = useSetRecoilState(dispatchFileActionState);
-    useEffect(() => setDispatchFileAction(() => safeInternalFileActionDispatcher), [
-        safeInternalFileActionDispatcher,
-        setDispatchFileAction,
-    ]);
+    useDTE(reduxActions.setFileActionDispatcher, safeInternalFileActionDispatcher);
 
     // Prepare file action requester (used to request a file action to be dispatched
     // internally)
@@ -67,17 +50,13 @@ export const useFileActions = (
         internalFileActionRequester,
         'the internal file action requester'
     );
-    const setRequestFileAction = useSetRecoilState(requestFileActionState);
-    useEffect(() => setRequestFileAction(() => safeInternalFileActionRequester), [
-        safeInternalFileActionRequester,
-        setRequestFileAction,
-    ]);
+    useDTE(reduxActions.setFileActionRequester, safeInternalFileActionRequester);
 
     return { internalFileActionDispatcher, internalFileActionRequester };
 };
 
 export const useFileActionTrigger = (fileActionId: string) => {
-    const requestFileAction = useRecoilValue(requestFileActionState);
+    const requestFileAction = useSelector(selectFileActionRequester);
     return useCallback(() => requestFileAction(fileActionId), [
         fileActionId,
         requestFileAction,

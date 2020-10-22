@@ -4,6 +4,10 @@ import { FileData, FileFilter } from '../types/files.types';
 import { FileHelper } from '../util/file-helper';
 import { RootState } from './reducers';
 
+export const selectFileActionDispatcher = (state: RootState) => state.fileActionDispatcher;
+export const selectFileActionRequester = (state: RootState) => state.fileActionRequester;
+export const selectSpecialActionDispatcher = (state: RootState) => state.specialActionDispatcher;
+
 export const selectFileActionMap = (state: RootState) => state.fileActionMap;
 export const selectFileActionData = (fileActionId: string) => (state: RootState) =>
     selectFileActionMap(state)[fileActionId];

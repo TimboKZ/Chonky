@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
 import { DragObjectWithType, DragSourceMonitor, useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { useRecoilValue } from 'recoil';
+import { useSelector } from 'react-redux';
 import { ExcludeKeys, Nilable, Nullable } from 'tsdef';
 
-import { dispatchSpecialActionState } from '../../recoil/special-actions.recoil';
+import { selectSpecialActionDispatcher } from '../../redux/selectors';
 import { FileData } from '../../types/files.types';
 import { SpecialAction } from '../../types/special-actions.types';
 import { FileHelper } from '../../util/file-helper';
@@ -23,7 +23,7 @@ export const DnDFileEntryType = 'chonky-file-entry';
 export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
     const { file } = props;
 
-    const dispatchSpecialAction = useRecoilValue(dispatchSpecialActionState);
+    const dispatchSpecialAction = useSelector(selectSpecialActionDispatcher);
 
     interface ChonkyDnDDropResult {
         dropTarget: Nilable<FileData>;

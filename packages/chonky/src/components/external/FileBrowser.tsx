@@ -3,7 +3,6 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ThemeProvider } from 'react-jss';
 import { Provider } from 'react-redux';
-import { RecoilRoot } from 'recoil';
 import shortid from 'shortid';
 
 import { useChonkyStore } from '../../redux/store';
@@ -74,13 +73,11 @@ export const FileBrowser = React.forwardRef<
     return (
         <Provider store={store}>
             <ThemeProvider theme={lightTheme}>
-                <RecoilRoot>
-                    {disableDragAndDropProvider ? (
-                        chonkyComps
-                    ) : (
-                        <DndProvider backend={HTML5Backend}>{chonkyComps}</DndProvider>
-                    )}
-                </RecoilRoot>
+                {disableDragAndDropProvider ? (
+                    chonkyComps
+                ) : (
+                    <DndProvider backend={HTML5Backend}>{chonkyComps}</DndProvider>
+                )}
             </ThemeProvider>
         </Provider>
     );

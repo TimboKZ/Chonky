@@ -45,7 +45,6 @@
     "react-redux": "^7.2.1",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
-    "recoil": "0.0.13",
     "shortid": "^2.2.15",
     "tsdef": "0.0.13"
   },

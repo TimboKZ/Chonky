@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useRecoilValue } from 'recoil';
 import { Nullable } from 'tsdef';
 
-import { dispatchSpecialActionState } from '../../recoil/special-actions.recoil';
-import { selectFolderChain } from '../../redux/selectors';
+import {
+    selectFolderChain,
+    selectSpecialActionDispatcher,
+} from '../../redux/selectors';
 import { FileData } from '../../types/files.types';
 import { SpecialAction } from '../../types/special-actions.types';
 import { FileHelper } from '../../util/file-helper';
@@ -17,7 +18,7 @@ export interface FolderChainItem {
 
 export const useFolderChainItems = (): FolderChainItem[] => {
     const folderChain = useSelector(selectFolderChain);
-    const dispatchSpecialAction = useRecoilValue(dispatchSpecialActionState);
+    const dispatchSpecialAction = useSelector(selectSpecialActionDispatcher);
 
     const folderChainItems = useMemo(() => {
         const items: FolderChainItem[] = [];

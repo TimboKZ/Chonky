@@ -1,19 +1,18 @@
 import { useCallback } from 'react';
-import { useDispatch, useStore } from 'react-redux';
-import { useRecoilValue } from 'recoil';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Nullable, Undefinable } from 'tsdef';
 
-import {
-    dispatchFileActionState,
-    fileActionMapState,
-} from '../recoil/file-actions.recoil';
-import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
 import {
     thunkActivateSortAction,
     thunkToggleOption,
 } from '../redux/file-actions.thunks';
 import { reduxActions, RootState } from '../redux/reducers';
-import { getSelectedFilesForAction } from '../redux/selectors';
+import {
+    getSelectedFilesForAction,
+    selectFileActionDispatcher,
+    selectFileActionMap,
+    selectSpecialActionDispatcher,
+} from '../redux/selectors';
 import {
     FileAction,
     FileActionData,
@@ -29,7 +28,7 @@ export const useInternalFileActionDispatcher = (
     externalFileActonHandler: Nullable<FileActionHandler>
 ): InternalFileActionDispatcher => {
     const externalFileActonHandlerRef = useInstanceVariable(externalFileActonHandler);
-    const fileActionMapRef = useInstanceVariable(useRecoilValue(fileActionMapState));
+    const fileActionMapRef = useInstanceVariable(useSelector(selectFileActionMap));
 
     const dispatchFileAction: InternalFileActionDispatcher = useCallback(
         (actionData) => {
@@ -65,12 +64,12 @@ export const useInternalFileActionRequester = () => {
     // the callback below without re-creating the callback function
     const store = useStore<RootState>();
     const dispatch = useDispatch();
-    const fileActionMapRef = useInstanceVariable(useRecoilValue(fileActionMapState));
+    const fileActionMapRef = useInstanceVariable(useSelector(selectFileActionMap));
     const dispatchFileActionRef = useInstanceVariable(
-        useRecoilValue(dispatchFileActionState)
+        useSelector(selectFileActionDispatcher)
     );
     const dispatchSpecialActionRef = useInstanceVariable(
-        useRecoilValue(dispatchSpecialActionState)
+        useSelector(selectSpecialActionDispatcher)
     );
 
     return useCallback(

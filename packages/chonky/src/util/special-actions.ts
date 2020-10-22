@@ -1,18 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Nullable } from 'tsdef';
 
-import { dispatchFileActionState } from '../recoil/file-actions.recoil';
-import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
 import { reduxActions, RootState } from '../redux/reducers';
 import {
     getIsFileSelected,
     getSelectedFiles,
+    selectFileActionDispatcher,
     selectParentFolder,
     selectRawFiles,
     selectSelectionSize,
 } from '../redux/selectors';
+import { useDTE } from '../redux/store';
 import {
     SpecialAction,
     SpecialActionData,
@@ -62,12 +61,7 @@ export const useSpecialActionDispatcher = () => {
         [specialActionHandlerMap]
     );
 
-    const setRecoilDispatchSpecialAction = useSetRecoilState(
-        dispatchSpecialActionState
-    );
-    useEffect(() => {
-        setRecoilDispatchSpecialAction(() => dispatchSpecialAction);
-    }, [dispatchSpecialAction, setRecoilDispatchSpecialAction]);
+    useDTE(reduxActions.setSpecialActionDispatcher, dispatchSpecialAction);
 };
 
 export const useSpecialFileActionHandlerMap = () => {
@@ -79,7 +73,7 @@ export const useSpecialFileActionHandlerMap = () => {
     const parentFolderRef = useInstanceVariable(useSelector(selectParentFolder));
     const selectionSizeRef = useInstanceVariable(useSelector(selectSelectionSize));
     const dispatchFileActionRef = useInstanceVariable(
-        useRecoilValue(dispatchFileActionState)
+        useSelector(selectFileActionDispatcher)
     );
 
     // Internal instance variables used by special actions
