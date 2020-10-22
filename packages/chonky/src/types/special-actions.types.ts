@@ -7,9 +7,6 @@ export enum SpecialAction {
     OpenParentFolder = 'open_parent_folder',
     OpenFolderChainFolder = 'open_folder_chain_folder',
 
-    SelectAllFiles = 'select_all_files',
-    ClearSelection = 'clear_selection',
-
     DragNDropStart = 'drag_n_drop_start',
     DragNDropEnd = 'drag_n_drop_end',
 }
@@ -55,8 +52,6 @@ export interface SpecialDragNDropEndAction {
 export interface SpecialSimpleAction {
     actionId:
         | SpecialAction.OpenParentFolder
-        | SpecialAction.SelectAllFiles
-        | SpecialAction.ClearSelection;
 }
 
 export type SpecialActionData =

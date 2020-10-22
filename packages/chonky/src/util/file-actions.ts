@@ -85,7 +85,7 @@ export const useFileActionProps = (
     return useMemo(() => {
         if (!action) return { icon: null, active: false, disabled: true };
 
-        let icon = action.toolbarButton?.icon ?? null;
+        let icon = action.button?.icon ?? null;
         if (action.sortKeySelector) {
             if (sortActionId === action.id) {
                 if (sortOrder === SortOrder.ASC) {

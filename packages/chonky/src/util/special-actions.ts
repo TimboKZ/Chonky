@@ -201,12 +201,6 @@ export const useSpecialFileActionHandlerMap = () => {
                     files: [data.file],
                 });
             },
-            [SpecialAction.SelectAllFiles]: () => {
-                dispatch(reduxActions.selectAllFiles());
-            },
-            [SpecialAction.ClearSelection]: () => {
-                dispatch(reduxActions.clearSelection());
-            },
             [SpecialAction.DragNDropStart]: (data: SpecialDragNDropStartAction) => {
                 const file = data.dragSource;
                 if (!getIsFileSelected(store.getState(), file)) {

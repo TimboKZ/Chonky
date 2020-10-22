@@ -7,6 +7,12 @@ import { ChonkyActions, DefaultFileActions } from '../util/file-actions-definiti
 import { sanitizeInputArray } from './files-transforms';
 import { reduxActions } from './reducers';
 import {
+    selectCleanFileIds,
+    selectFileMap,
+    selectHiddenFileIdMap,
+    selectSelectionMap,
+} from './selectors';
+import {
     AppThunk,
     thunkSortFiles,
     thunkUpdateDisplayFiles,
@@ -60,16 +66,21 @@ export const thunkUpdateToolbarItems = (fileActions: FileAction[]): AppThunk => 
     const toolbarItems: (FileAction | ToolbarDropdownProps)[] = [];
     const seenGroups: { [groupName: string]: ToolbarDropdownProps } = {};
     for (const action of fileActions) {
-        if (!action.toolbarButton || excludedActionIds.has(action.id)) continue;
-        if (action.toolbarButton.group && action.toolbarButton.dropdown) {
-            let group: ToolbarDropdownProps = seenGroups[action.toolbarButton.group];
+        if (
+            !action.button ||
+            !action.button.toolbar ||
+            excludedActionIds.has(action.id)
+        )
+            continue;
+        if (action.button.group && action.button.dropdown) {
+            let group: ToolbarDropdownProps = seenGroups[action.button.group];
             if (!group) {
                 group = {
-                    name: action.toolbarButton.group,
+                    name: action.button.group,
                     fileActionIds: [],
                 };
                 toolbarItems.push(group);
-                seenGroups[action.toolbarButton.group] = group;
+                seenGroups[action.button.group] = group;
             }
             group.fileActionIds.push(action.id);
         } else {
@@ -114,5 +125,33 @@ export const thunkToggleOption = (optionId: string): AppThunk => (dispatch) => {
     } else if (optionId === ChonkyActions.ToggleHiddenFiles.option.id) {
         dispatch(thunkUpdateHiddenFiles());
         dispatch(thunkUpdateDisplayFiles());
+    }
+};
+
+export const thunkApplySelectionTransform = (action: FileAction): AppThunk => (
+    dispatch,
+    getState
+) => {
+    const selectionTransform = action.selectionTransform;
+    if (!selectionTransform) return;
+
+    const state = getState();
+    const prevSelection = new Set<string>(Object.keys(selectSelectionMap(state)));
+    const hiddenFileIds = new Set<string>(Object.keys(selectHiddenFileIdMap(state)));
+
+    const newSelection = selectionTransform({
+        prevSelection,
+        fileIds: selectCleanFileIds(state),
+        fileMap: selectFileMap(state),
+        hiddenFileIds,
+    });
+    if (!newSelection) return;
+
+    if (newSelection.size === 0) {
+        dispatch(reduxActions.clearSelection());
+    } else {
+        dispatch(
+            reduxActions.selectFiles({ fileIds: Array.from(newSelection), reset: true })
+        );
     }
 };

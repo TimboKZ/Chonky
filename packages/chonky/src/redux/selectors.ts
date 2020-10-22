@@ -12,6 +12,7 @@ export const selectSpecialActionDispatcher = (state: RootState) =>
     state.specialActionDispatcher;
 
 export const selectFileActionMap = (state: RootState) => state.fileActionMap;
+export const selectFileActionIds = (state: RootState) => state.fileActionIds;
 export const selectFileActionData = (fileActionId: string) => (state: RootState) =>
     selectFileActionMap(state)[fileActionId];
 export const selectToolbarItems = (state: RootState) => state.toolbarItems;
@@ -26,10 +27,11 @@ export const selectParentFolder = (state: RootState) => {
 
 export const selectRawFiles = (state: RootState) => state.rawFiles;
 export const selectFileMap = (state: RootState) => state.fileMap;
-export const selectFileActionIds = (state: RootState) => state.fileActionIds;
+export const selectCleanFileIds = (state: RootState) => state.cleanFileIds;
 export const selectFileData = (fileId: Nullable<string>) => (state: RootState) =>
     fileId ? selectFileMap(state)[fileId] : null;
 
+export const selectHiddenFileIdMap = (state: RootState) => state.hiddenFileIdMap;
 export const selectDisplayFileIds = (state: RootState) => state.displayFileIds;
 
 export const selectSelectionMap = (state: RootState) => state.selectionMap;

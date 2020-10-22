@@ -1,5 +1,7 @@
+import { Nullable } from 'tsdef';
+
 import { FileViewConfig } from './file-view.types';
-import { FileData, FileFilter } from './files.types';
+import { FileData, FileFilter, FileMap } from './files.types';
 import { ChonkyIconName } from './icons.types';
 import { FileSortKeySelector } from './sort.types';
 import { SpecialAction } from './special-actions.types';
@@ -11,7 +13,23 @@ export interface FileAction {
     fileFilter?: FileFilter; // Used to filter the files array
 
     hotkeys?: string[]; // Hotkeys using `hotkey-js` notation
-    toolbarButton?: ToolbarButtonData; // Description below
+
+    /**
+     * When button is defined and `toolbar` or `contextMenu` is set to `true`, a
+     * button will be added to the relevant UI component. Clicking on this button
+     * will active this action. The appearance of the button will change based on
+     * the action definition and the current Chonky state.
+     */
+    button?: {
+        name: string; // Button name
+        toolbar?: boolean; // Whether to show the button in the toolbar
+        contextMenu?: boolean; // Whether to show the button in the context menu
+        group?: string; // Group to add the button too
+        dropdown?: boolean; // Whether to display group as dropdown
+        tooltip?: string; // Help tooltip text
+        icon?: ChonkyIconName | string; // Icon name
+        iconOnly?: boolean; // Whether to only display the icon
+    };
 
     // When `sortKeySelector` is specified, the action becomes a sorting toggle.
     // When this action is activated, it will sort files using the key selector,
@@ -29,20 +47,25 @@ export interface FileAction {
         defaultValue: boolean; // Whether the option is enabled by default (required)
     };
 
+    /**
+     * When selection transform is defined, activating this action will update the file
+     * selection. If the transform function returns `null`, selection will be left
+     * untouched.
+     */
+    selectionTransform?: (data: {
+        prevSelection: Set<string>;
+        fileIds: ReadonlyArray<string>;
+        fileMap: Readonly<FileMap>;
+        hiddenFileIds: Set<string>;
+    }) => Nullable<Set<string>>;
+
     // Special action that should be dispatched on activation of this action. This
     // is used by Chonky internally, keep it `undefined` unless you know what you're
     // doing.
     specialActionToDispatch?: SpecialAction;
 }
-
-export interface ToolbarButtonData {
-    name: string; // Button name
-    group?: string; // Group to add the button too
-    dropdown?: boolean; // Whether to display group as dropdown
-    tooltip?: string; // Help tooltip text
-    icon?: ChonkyIconName | string; // Icon name
-    iconOnly?: boolean; // Whether to only display the icon
-}
+export type FileActionButton = FileAction['button'];
+export type FileSelectionTransform = FileAction['selectionTransform'];
 
 export interface FileActionData {
     actionId: string;

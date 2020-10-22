@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import React from 'react';
 import { Nullable } from 'tsdef';
 
-import { selectFileActionData} from '../../redux/selectors';
+import { selectFileActionData } from '../../redux/selectors';
 import { useParamSelector } from '../../redux/store';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useFileActionProps, useFileActionTrigger } from '../../util/file-actions';
@@ -118,7 +118,7 @@ export const SmartToolbarButton: React.FC<SmartToolbarButtonProps> = React.memo(
         const { icon, active, disabled } = useFileActionProps(fileActionId);
 
         if (!action) return null;
-        const { toolbarButton: button } = action;
+        const { button } = action;
         if (!button) return null;
 
         return (

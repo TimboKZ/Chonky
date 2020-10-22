@@ -82,3 +82,4 @@ export const FileBrowser = React.forwardRef<
         </Provider>
     );
 });
+FileBrowser.displayName = 'FileBrowser';

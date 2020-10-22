@@ -95,7 +95,7 @@ export const SmartToolbarDropdownButton = React.forwardRef(
         }, [onClick, triggerAction]);
 
         if (!action) return null;
-        const { toolbarButton: button } = action;
+        const { button } = action;
         if (!button) return null;
 
         return (

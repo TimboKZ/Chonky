@@ -4,6 +4,7 @@ import { Nullable, Undefinable } from 'tsdef';
 
 import {
     thunkActivateSortAction,
+    thunkApplySelectionTransform,
     thunkToggleOption,
 } from '../redux/file-actions.thunks';
 import { reduxActions, RootState } from '../redux/reducers';
@@ -117,14 +118,18 @@ export const useInternalFileActionRequester = () => {
             const sortKeySelector = action.sortKeySelector;
             if (sortKeySelector) dispatch(thunkActivateSortAction(action.id));
 
-            // === Update option state if necessary
-            const option = action.option;
-            if (option) dispatch(thunkToggleOption(option.id));
-
             // === Update file view state if necessary
             const fileViewConfig = action.fileViewConfig;
             if (fileViewConfig)
                 dispatch(reduxActions.setFileViewConfig(fileViewConfig));
+
+            // === Update option state if necessary
+            const option = action.option;
+            if (option) dispatch(thunkToggleOption(option.id));
+
+            // === Apply selection transform if necessary
+            const selectionTransform = action.selectionTransform;
+            if (selectionTransform) dispatch(thunkApplySelectionTransform(action));
 
             //
             // === Dispatch a special action if file action defines it
@@ -134,8 +139,6 @@ export const useInternalFileActionRequester = () => {
                 // actions that do not require additional parameters.
                 switch (specialActionId) {
                     case SpecialAction.OpenParentFolder:
-                    case SpecialAction.SelectAllFiles:
-                    case SpecialAction.ClearSelection:
                         dispatchSpecialActionRef.current({
                             actionId: specialActionId,
                         });

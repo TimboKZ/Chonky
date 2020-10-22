@@ -30,8 +30,10 @@ export const ChonkyActions = validateActionTypes({
         requiresSelection: true,
         hotkeys: ['enter'],
         fileFilter: FileHelper.isOpenable,
-        toolbarButton: {
+        button: {
             name: 'Open selection',
+            toolbar: true,
+            contextMenu: true,
             group: 'Actions',
             dropdown: true,
             icon: ChonkyIconName.openFiles,
@@ -42,8 +44,10 @@ export const ChonkyActions = validateActionTypes({
     OpenParentFolder: {
         id: 'open_parent_folder',
         hotkeys: ['backspace'],
-        toolbarButton: {
+        button: {
             name: 'Go up a directory',
+            toolbar: true,
+            contextMenu: true,
             icon: ChonkyIconName.openParentFolder,
             iconOnly: true,
         },
@@ -55,34 +59,49 @@ export const ChonkyActions = validateActionTypes({
     SelectAllFiles: {
         id: 'select_all_files',
         hotkeys: ['ctrl+a'],
-        toolbarButton: {
+        button: {
             name: 'Select all files',
+            toolbar: true,
+            contextMenu: true,
             group: 'Actions',
             dropdown: true,
             icon: ChonkyIconName.selectAllFiles,
         },
-
-        specialActionToDispatch: SpecialAction.SelectAllFiles,
+        selectionTransform: ({ fileIds, hiddenFileIds }) => {
+            const newSelection = new Set<string>();
+            fileIds.map((fileId) => {
+                // We don't need to check if file is selectable because Chonky does
+                // it own checks internally.
+                if (!hiddenFileIds.has(fileId)) newSelection.add(fileId);
+            });
+            return newSelection;
+        },
     },
     ClearSelection: {
         id: 'clear_selection',
         hotkeys: ['escape'],
-        toolbarButton: {
+        button: {
             name: 'Clear selection',
+            toolbar: true,
+            contextMenu: true,
             group: 'Actions',
             dropdown: true,
             icon: ChonkyIconName.clearSelection,
         },
-
-        specialActionToDispatch: SpecialAction.ClearSelection,
+        selectionTransform: ({ prevSelection }) => {
+            if (prevSelection.size === 0) return null;
+            return new Set<string>();
+        },
     },
 
     // File views
     EnableListView: {
         id: 'enable_list_view',
         fileViewConfig: { entryHeight: 30 },
-        toolbarButton: {
+        button: {
             name: 'Switch to List view',
+            toolbar: true,
+            contextMenu: true,
             icon: ChonkyIconName.list,
             iconOnly: true,
         },
@@ -90,8 +109,10 @@ export const ChonkyActions = validateActionTypes({
     EnableGridView: {
         id: 'enable_grid_view',
         fileViewConfig: { entryWidth: 165, entryHeight: 130 },
-        toolbarButton: {
+        button: {
             name: 'Switch to Grid view',
+            toolbar: true,
+            contextMenu: true,
             icon: ChonkyIconName.smallThumbnail,
             iconOnly: true,
         },
@@ -101,8 +122,10 @@ export const ChonkyActions = validateActionTypes({
     SortFilesByName: {
         id: 'sort_files_by_name',
         sortKeySelector: (file: Nullable<FileData>) => (file ? file.name : undefined),
-        toolbarButton: {
+        button: {
             name: 'Sort by name',
+            toolbar: true,
+            contextMenu: true,
             group: 'Options',
             dropdown: true,
         },
@@ -110,8 +133,10 @@ export const ChonkyActions = validateActionTypes({
     SortFilesBySize: {
         id: 'sort_files_by_size',
         sortKeySelector: (file: Nullable<FileData>) => (file ? file.size : undefined),
-        toolbarButton: {
+        button: {
             name: 'Sort by size',
+            toolbar: true,
+            contextMenu: true,
             group: 'Options',
             dropdown: true,
         },
@@ -120,8 +145,10 @@ export const ChonkyActions = validateActionTypes({
         id: 'sort_files_by_date',
         sortKeySelector: (file: Nullable<FileData>) =>
             file ? file.modDate : undefined,
-        toolbarButton: {
+        button: {
             name: 'Sort by date',
+            toolbar: true,
+            contextMenu: true,
             group: 'Options',
             dropdown: true,
         },
@@ -135,8 +162,10 @@ export const ChonkyActions = validateActionTypes({
             id: 'show_hidden_files',
             defaultValue: true,
         },
-        toolbarButton: {
+        button: {
             name: 'Show hidden files',
+            toolbar: true,
+            contextMenu: true,
             group: 'Options',
             dropdown: true,
         },
@@ -147,8 +176,10 @@ export const ChonkyActions = validateActionTypes({
             id: 'show_folders_first',
             defaultValue: true,
         },
-        toolbarButton: {
+        button: {
             name: 'Show folders first',
+            toolbar: true,
+            contextMenu: true,
             group: 'Options',
             dropdown: true,
         },
@@ -159,8 +190,10 @@ export const ChonkyActions = validateActionTypes({
         id: 'copy_files',
         requiresSelection: true,
         hotkeys: ['ctrl+c'],
-        toolbarButton: {
+        button: {
             name: 'Copy selection',
+            toolbar: true,
+            contextMenu: true,
             group: 'Actions',
             dropdown: true,
             icon: ChonkyIconName.copy,
@@ -168,16 +201,20 @@ export const ChonkyActions = validateActionTypes({
     },
     CreateFolder: {
         id: 'create_folder',
-        toolbarButton: {
+        button: {
             name: 'Create folder',
+            toolbar: true,
+            contextMenu: true,
             tooltip: 'Create a folder',
             icon: ChonkyIconName.folderCreate,
         },
     },
     UploadFiles: {
         id: 'upload_files',
-        toolbarButton: {
+        button: {
             name: 'Upload files',
+            toolbar: true,
+            contextMenu: true,
             tooltip: 'Upload files',
             icon: ChonkyIconName.upload,
         },
@@ -185,8 +222,10 @@ export const ChonkyActions = validateActionTypes({
     DownloadFiles: {
         id: 'download_files',
         requiresSelection: true,
-        toolbarButton: {
+        button: {
             name: 'Download files',
+            toolbar: true,
+            contextMenu: true,
             group: 'Actions',
             tooltip: 'Download files',
             dropdown: true,
@@ -197,8 +236,10 @@ export const ChonkyActions = validateActionTypes({
         id: 'delete_files',
         requiresSelection: true,
         hotkeys: ['delete'],
-        toolbarButton: {
+        button: {
             name: 'Delete files',
+            toolbar: true,
+            contextMenu: true,
             group: 'Actions',
             tooltip: 'Delete files',
             dropdown: true,
