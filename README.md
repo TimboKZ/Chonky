@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://chonky.io/chonky-logo-v2.png" alt="Chonky v2 Logo" />
+    <img src="https://chonky.io/chonky-logo-v2.png" alt="Chonky v2 Logo" width="600" />
     <br />
     <a href="https://www.npmjs.com/package/chonky">
         <img alt="NPM package" src="https://img.shields.io/npm/v/chonky.svg" />
@@ -22,10 +22,11 @@
             src="https://img.shields.io/discord/696033621986770957?label=Chat%20on%20Discord"
         />
     </a>
+    <br />
+    <br />
+    <br />
 </p>
 
-> Chonky is constantly changing. Please [create an issue](https://github.com/TimboKZ/Chonky/issues)
-> if you have a problem or want to request a feature.
 
 Chonky is a file browser component for React. It tries to recreate the native file
 browsing experience in your browser. This means your users can make selections, drag
@@ -33,3 +34,6 @@ browsing experience in your browser. This means your users can make selections, 
 much more!
 
 ### [Click here for documentation and examples.](https://chonky.io/)
+
+> Chonky is constantly changing. Please [create an issue](https://github.com/TimboKZ/Chonky/issues)
+> if you have a problem or want to request a feature.
