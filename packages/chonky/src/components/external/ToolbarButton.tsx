@@ -6,10 +6,10 @@
 
 import Button from '@material-ui/core/Button';
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 import { Nullable } from 'tsdef';
 
-import { fileActionDataState } from '../../recoil/file-actions.recoil';
+import { selectFileActionData} from '../../redux/selectors';
+import { useParamSelector } from '../../redux/store';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useFileActionProps, useFileActionTrigger } from '../../util/file-actions';
 import { c, important, makeChonkyStyles } from '../../util/styles';
@@ -113,7 +113,7 @@ export const SmartToolbarButton: React.FC<SmartToolbarButtonProps> = React.memo(
     (props) => {
         const { fileActionId } = props;
 
-        const action = useRecoilValue(fileActionDataState(fileActionId));
+        const action = useParamSelector(selectFileActionData, fileActionId);
         const triggerAction = useFileActionTrigger(fileActionId);
         const { icon, active, disabled } = useFileActionProps(fileActionId);
 

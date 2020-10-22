@@ -6,12 +6,14 @@
 
 import Box from '@material-ui/core/Box';
 import React, { useCallback, useMemo } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { enableDragAndDropState } from '../../recoil/drag-and-drop.recoil';
-import { fileActionsState } from '../../recoil/file-actions.recoil';
-import { clearSelectionOnOutsideClickState } from '../../recoil/options.recoil';
-import { selectionModifiersState } from '../../recoil/selection.recoil';
+import { reduxActions } from '../../redux/reducers';
+import {
+    selectClearSelectionOnOutsideClick,
+    selectFileActionIds,
+    selectIsDnDDisabled,
+} from '../../redux/selectors';
 import { ErrorMessageData } from '../../types/validation.types';
 import { useClickListener } from '../../util/hooks-helpers';
 import { makeChonkyStyles } from '../../util/styles';
@@ -28,11 +30,11 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
 ) => {
     const { validationErrors, children } = props;
 
-    const fileActions = useRecoilValue(fileActionsState);
-    const selectionModifiers = useRecoilValue(selectionModifiersState);
-    const enableDragAndDrop = useRecoilValue(enableDragAndDropState);
-    const clearSelectionOnOutsideClick = useRecoilValue(
-        clearSelectionOnOutsideClickState
+    const dispatch = useDispatch();
+    const fileActionIds = useSelector(selectFileActionIds);
+    const dndDisabled = useSelector(selectIsDnDDisabled);
+    const clearSelectionOnOutsideClick = useSelector(
+        selectClearSelectionOnOutsideClick
     );
 
     // Deal with clicks outside of Chonky
@@ -43,22 +45,22 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
             // clicked because Chonky users might want to trigger some
             // selection-related action on that button click.
             if (!clearSelectionOnOutsideClick || targetIsAButton) return;
-            selectionModifiers.clearSelection();
+            dispatch(reduxActions.clearSelection());
         },
-        [selectionModifiers, clearSelectionOnOutsideClick]
+        [dispatch, clearSelectionOnOutsideClick]
     );
     const chonkyRootRef = useClickListener({ onOutsideClick });
 
     // Generate necessary components
     const hotkeyListenerComponents = useMemo(
         () =>
-            fileActions.map((action) => (
+            fileActionIds.map((actionId) => (
                 <HotkeyListener
-                    key={`file-action-listener-${action.id}`}
-                    fileActionId={action.id}
+                    key={`file-action-listener-${actionId}`}
+                    fileActionId={actionId}
                 />
             )),
-        [fileActions]
+        [fileActionIds]
     );
     const validationErrorComponents = useMemo(
         () =>
@@ -82,7 +84,7 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
 
     return (
         <Box className={classes.chonkyRoot} {...customProps}>
-            {enableDragAndDrop && <DnDFileListDragLayer />}
+            {!dndDisabled && <DnDFileListDragLayer />}
             {hotkeyListenerComponents}
             {validationErrorComponents}
             {children ? children : null}

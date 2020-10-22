@@ -1,24 +1,27 @@
 import React, { useImperativeHandle } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useDispatch, useStore } from 'react-redux';
 
-import { selectionState } from '../recoil/selection.recoil';
+import { reduxActions, RootState } from '../redux/reducers';
+import { selectSelectionMap } from '../redux/selectors';
 import { FileBrowserHandle } from '../types/file-browser.types';
-import { FileSelection, SelectionModifiers } from '../types/selection.types';
-import { useInstanceVariable } from './hooks-helpers';
 
-export const useFileBrowserHandle = (
-    ref: React.Ref<FileBrowserHandle>,
-    selectionModifiers: SelectionModifiers
-) => {
-    const selectionRef = useInstanceVariable(useRecoilValue(selectionState));
+export const useFileBrowserHandle = (ref: React.Ref<FileBrowserHandle>) => {
+    const store = useStore<RootState>();
+    const dispatch = useDispatch();
 
     useImperativeHandle(
         ref,
         () => ({
-            getFileSelection: () => new Set(selectionRef.current),
-            setFileSelection: (selection: FileSelection, reset: boolean = true) =>
-                selectionModifiers.selectFiles(Array.from(selection), reset),
+            getFileSelection: () => {
+                const selectionMap = selectSelectionMap(store.getState());
+                const selectionSet = new Set(Object.keys(selectionMap));
+                return selectionSet;
+            },
+            setFileSelection: (selection, reset = true) => {
+                const fileIds = Array.from(selection);
+                dispatch(reduxActions.selectFiles({ fileIds, reset }));
+            },
         }),
-        [selectionModifiers, selectionRef]
+        [store, dispatch]
     );
 };

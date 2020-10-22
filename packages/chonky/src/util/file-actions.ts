@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Nilable, Nullable } from 'tsdef';
+import { Nullable } from 'tsdef';
 
 import {
     dispatchFileActionState,
     fileActionMapState,
-    fileActionSelectedFilesCountState,
-    fileActionsState,
     requestFileActionState,
 } from '../recoil/file-actions.recoil';
 import {
@@ -15,10 +13,11 @@ import {
     selectFileViewConfig,
     selectOptionValue,
     selectParentFolder,
+    selectSelectedFilesForActionCount,
     selectSortActionId,
     selectSortOrder,
-    useParamSelector,
 } from '../redux/selectors';
+import { useParamSelector } from '../redux/store';
 import { FileAction, FileActionHandler } from '../types/file-actions.types';
 import { ChonkyIconName } from '../types/icons.types';
 import { SortOrder } from '../types/sort.types';
@@ -32,24 +31,16 @@ import { useRefCallbackWithErrorHandling } from './hooks-helpers';
 
 export const useFileActions = (
     fileActions: FileAction[],
-    externalFileActonHandler: Nullable<FileActionHandler>,
-    defaultFileViewActionId: Nilable<string>
+    externalFileActonHandler: Nullable<FileActionHandler>
 ) => {
     // Recoil state: Put file actions and file action map into state
-    const setFileActions = useSetRecoilState(fileActionsState);
     const setFileActionMap = useSetRecoilState(fileActionMapState);
-    useEffect(
-        () => {
-            const fileActionMap: { [actionId: string]: FileAction } = {};
-            for (const action of fileActions) fileActionMap[action.id] = action;
+    useEffect(() => {
+        const fileActionMap: { [actionId: string]: FileAction } = {};
+        for (const action of fileActions) fileActionMap[action.id] = action;
 
-            setFileActions(fileActions);
-            setFileActionMap(fileActionMap);
-        },
-        // XXX: We deliberately don't add `defaultFileViewActionId` to deps below.
-        // eslint-disable-next-line
-        [fileActions, setFileActions, setFileActionMap]
-    );
+        setFileActionMap(fileActionMap);
+    }, [fileActions, setFileActionMap]);
 
     // Prepare file action dispatcher (used to dispatch actions to users)
     const internalFileActionDispatcher = useInternalFileActionDispatcher(
@@ -105,8 +96,9 @@ export const useFileActionProps = (
     const action = useParamSelector(selectFileActionData, fileActionId);
     const optionValue = useParamSelector(selectOptionValue, action?.option?.id);
 
-    const actionSelectionSize = useRecoilValue(
-        fileActionSelectedFilesCountState(fileActionId)
+    const actionSelectionSize = useParamSelector(
+        selectSelectedFilesForActionCount,
+        fileActionId
     );
 
     const actionSelectionEmpty = actionSelectionSize === 0;

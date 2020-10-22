@@ -1,11 +1,10 @@
 import c from 'classnames';
-// eslint-disable-next-line import/order
 import path from 'path';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useSelector } from 'react-redux';
 import { Nullable, Undefinable } from 'tsdef';
 
-import { thumbnailGeneratorState } from '../../recoil/thumbnails.recoil';
+import { selectThumbnailGenerator } from '../../redux/selectors';
 import { FileData } from '../../types/files.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { FileHelper } from '../../util/file-helper';
@@ -81,7 +80,7 @@ export const useCommonFileEntryComponents = (
     isGridView: boolean,
     useDarkColor: boolean,
     thumbnailLoading: boolean,
-    thumbnailUrl: Nullable<string>,
+    thumbnailUrl: Nullable<string>
 ) => {
     // Determine file entry class
     const entryClassName = c({
@@ -118,7 +117,7 @@ export const useCommonFileEntryComponents = (
 };
 
 export const useThumbnailUrl = (file: Nullable<FileData>) => {
-    const thumbnailGenerator = useRecoilValue(thumbnailGeneratorState);
+    const thumbnailGenerator = useSelector(selectThumbnailGenerator);
     const [thumbnailUrl, setThumbnailUrl] = useState<Nullable<string>>(null);
     const [thumbnailLoading, setThumbnailLoading] = useState<boolean>(false);
 

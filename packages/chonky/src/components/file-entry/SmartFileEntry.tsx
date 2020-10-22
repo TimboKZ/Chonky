@@ -5,12 +5,15 @@
  */
 
 import React from 'react';
-import { useRecoilValue } from 'recoil';
+import { useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
-import { enableDragAndDropState } from '../../recoil/drag-and-drop.recoil';
-import { fileSelectedState } from '../../recoil/selection.recoil';
-import { selectFileData, useParamSelector } from '../../redux/selectors';
+import {
+    selectFileData,
+    selectIsDnDDisabled,
+    selectIsFileSelected,
+} from '../../redux/selectors';
+import { useParamSelector } from '../../redux/store';
 import { ClickableFileEntry } from './ClickableFileEntry';
 import { DnDFileEntry } from './DnDFileEntry';
 import { FileEntryProps } from './FileEntry';
@@ -25,8 +28,8 @@ export const SmartFileEntry: React.FC<SmartFileEntryProps> = React.memo((props) 
     const { fileId, displayIndex, isGridView } = props;
 
     const file = useParamSelector(selectFileData, fileId);
-    const selected = useRecoilValue(fileSelectedState(fileId));
-    const enableDragAndDrop = useRecoilValue(enableDragAndDropState);
+    const selected = useParamSelector(selectIsFileSelected, fileId);
+    const dndDisabled = useSelector(selectIsDnDDisabled);
 
     const entryProps: FileEntryProps = {
         file,
@@ -35,9 +38,9 @@ export const SmartFileEntry: React.FC<SmartFileEntryProps> = React.memo((props) 
         isGridView,
     };
 
-    return enableDragAndDrop ? (
-        <DnDFileEntry {...entryProps} />
-    ) : (
+    return dndDisabled ? (
         <ClickableFileEntry {...entryProps} />
+    ) : (
+        <DnDFileEntry {...entryProps} />
     );
 });

@@ -7,10 +7,8 @@
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useRecoilValue } from 'recoil';
 
-import { selectionSizeState } from '../../recoil/selection.recoil';
-import { selectDisplayFileIds } from '../../redux/selectors';
+import { selectDisplayFileIds, selectSelectionSize } from '../../redux/selectors';
 import { important, makeChonkyStyles } from '../../util/styles';
 
 export interface ToolbarInfoProps {}
@@ -19,7 +17,7 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = () => {
     const classes = useStyles();
 
     const displayFileIds = useSelector(selectDisplayFileIds);
-    const selectionSize = useRecoilValue(selectionSizeState);
+    const selectionSize = useSelector(selectSelectionSize);
 
     return (
         <div className={classes.infoContainer}>

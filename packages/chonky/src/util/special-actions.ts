@@ -1,15 +1,18 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Nullable } from 'tsdef';
 
 import { dispatchFileActionState } from '../recoil/file-actions.recoil';
-import { filesState } from '../recoil/files.recoil';
-import { selectedFilesState } from '../recoil/selection.recoil';
 import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
-import { selectParentFolder } from '../redux/selectors';
-import { FileArray } from '../types/files.types';
-import { FileSelection, SelectionModifiers } from '../types/selection.types';
+import { reduxActions, RootState } from '../redux/reducers';
+import {
+    getIsFileSelected,
+    getSelectedFiles,
+    selectParentFolder,
+    selectRawFiles,
+    selectSelectionSize,
+} from '../redux/selectors';
 import {
     SpecialAction,
     SpecialActionData,
@@ -24,24 +27,15 @@ import { ChonkyActions } from './file-actions-definitions';
 import { FileHelper } from './file-helper';
 import { useInstanceVariable } from './hooks-helpers';
 import { Logger } from './logger';
-import { SelectionUtil } from './selection';
 
 /**
  * Returns a dispatch method meant to be used by child components. This dispatch
  * method is meant for "special" internal actions. It takes a special action, and
  * transforms it into a "file action" that can be handled by the user.
  */
-export const useSpecialActionDispatcher = (
-    files: FileArray,
-    selection: FileSelection,
-    selectionUtil: SelectionUtil,
-    selectionModifiers: SelectionModifiers
-) => {
+export const useSpecialActionDispatcher = () => {
     // Create the special action handler map
-    const specialActionHandlerMap = useSpecialFileActionHandlerMap(
-        selectionUtil,
-        selectionModifiers
-    );
+    const specialActionHandlerMap = useSpecialFileActionHandlerMap();
 
     // Process special actions using the handlers from the map
     const dispatchSpecialAction = useCallback(
@@ -76,15 +70,14 @@ export const useSpecialActionDispatcher = (
     }, [dispatchSpecialAction, setRecoilDispatchSpecialAction]);
 };
 
-export const useSpecialFileActionHandlerMap = (
-    selectionUtil: SelectionUtil,
-    selectionModifiers: SelectionModifiers
-) => {
+export const useSpecialFileActionHandlerMap = () => {
+    const store = useStore<RootState>();
+    const dispatch = useDispatch();
+
     // Instance variables based on Recoil state
-    const _recoilFiles = useRecoilValue(filesState);
-    const filesRef = useInstanceVariable(_recoilFiles);
+    const rawFiles = useSelector(selectRawFiles);
     const parentFolderRef = useInstanceVariable(useSelector(selectParentFolder));
-    const selectedFilesRef = useInstanceVariable(useRecoilValue(selectedFilesState));
+    const selectionSizeRef = useInstanceVariable(useSelector(selectSelectionSize));
     const dispatchFileActionRef = useInstanceVariable(
         useRecoilValue(dispatchFileActionState)
     );
@@ -93,8 +86,9 @@ export const useSpecialFileActionHandlerMap = (
     const lastClickDisplayIndexRef = useRef<Nullable<number>>(null);
     useEffect(() => {
         // We zero out the last click whenever files update
+        // TODO: Improve this mechanism... There must be a better way.
         lastClickDisplayIndexRef.current = null;
-    }, [_recoilFiles]);
+    }, [rawFiles]);
 
     // Define handlers in a map
     const specialActionHandlerMap = useMemo<SpecialActionHandlerMap>(() => {
@@ -117,7 +111,12 @@ export const useSpecialFileActionHandlerMap = (
                     if (FileHelper.isSelectable(data.file)) {
                         if (data.ctrlKey) {
                             // Multiple selection
-                            selectionModifiers.toggleSelection(data.file.id, false);
+                            dispatch(
+                                reduxActions.toggleSelection({
+                                    fileId: data.file.id,
+                                    exclusive: false,
+                                })
+                            );
                             lastClickDisplayIndexRef.current = data.fileDisplayIndex;
                         } else if (data.shiftKey) {
                             // Range selection
@@ -129,25 +128,33 @@ export const useSpecialFileActionHandlerMap = (
                                     [rangeStart, rangeEnd] = [rangeEnd, rangeStart];
                                 }
 
-                                const fileIds = filesRef.current
-                                    .slice(rangeStart, rangeEnd + 1)
-                                    .filter((file) => FileHelper.isSelectable(file))
-                                    .map((file) => file!.id);
-                                selectionModifiers.selectFiles(fileIds, true);
+                                dispatch(
+                                    reduxActions.selectRange({ rangeStart, rangeEnd })
+                                );
                             } else {
                                 // Since we can't do a range selection, do a
                                 // multiple selection
-                                selectionModifiers.toggleSelection(data.file.id, false);
+                                dispatch(
+                                    reduxActions.toggleSelection({
+                                        fileId: data.file.id,
+                                        exclusive: false,
+                                    })
+                                );
                                 lastClickDisplayIndexRef.current =
                                     data.fileDisplayIndex;
                             }
                         } else {
                             // Exclusive selection
-                            selectionModifiers.toggleSelection(data.file.id, true);
+                            dispatch(
+                                reduxActions.toggleSelection({
+                                    fileId: data.file.id,
+                                    exclusive: true,
+                                })
+                            );
                             lastClickDisplayIndexRef.current = data.fileDisplayIndex;
                         }
                     } else {
-                        if (!data.ctrlKey) selectionModifiers.clearSelection();
+                        if (!data.ctrlKey) dispatch(reduxActions.clearSelection());
                         lastClickDisplayIndexRef.current = data.fileDisplayIndex;
                     }
                 }
@@ -160,7 +167,7 @@ export const useSpecialFileActionHandlerMap = (
                     // We only dispatch the Open Files action here when the selection is
                     // empty. Otherwise, `Enter` key presses are handled by the
                     // hotkey manager for the Open Files action.
-                    if (selectedFilesRef.current.length === 0) {
+                    if (selectionSizeRef.current === 0) {
                         dispatchFileActionRef.current({
                             actionId: ChonkyActions.OpenFiles.id,
                             target: data.file,
@@ -168,7 +175,12 @@ export const useSpecialFileActionHandlerMap = (
                         });
                     }
                 } else if (data.spaceKey && FileHelper.isSelectable(data.file)) {
-                    selectionModifiers.toggleSelection(data.file.id, data.ctrlKey);
+                    dispatch(
+                        reduxActions.toggleSelection({
+                            fileId: data.file.id,
+                            exclusive: data.ctrlKey,
+                        })
+                    );
                 }
             },
             [SpecialAction.OpenParentFolder]: () => {
@@ -196,30 +208,31 @@ export const useSpecialFileActionHandlerMap = (
                 });
             },
             [SpecialAction.SelectAllFiles]: () => {
-                const fileIds = filesRef.current
-                    .filter((file) => FileHelper.isSelectable(file))
-                    .map((file) => file!.id);
-                selectionModifiers.selectFiles(fileIds, true);
+                dispatch(reduxActions.selectAllFiles());
             },
             [SpecialAction.ClearSelection]: () => {
-                selectionModifiers.clearSelection();
+                dispatch(reduxActions.clearSelection());
             },
             [SpecialAction.DragNDropStart]: (data: SpecialDragNDropStartAction) => {
                 const file = data.dragSource;
-                if (!selectionUtil.isSelected(file)) {
-                    selectionModifiers.clearSelection();
+                if (!getIsFileSelected(store.getState(), file)) {
+                    dispatch(reduxActions.clearSelection());
                     if (FileHelper.isSelectable(file)) {
-                        selectionModifiers.selectFiles([file.id]);
+                        reduxActions.selectFiles({
+                            fileIds: [file.id],
+                            reset: true,
+                        });
                     }
                 }
             },
             [SpecialAction.DragNDropEnd]: (data: SpecialDragNDropEndAction) => {
-                if (selectionUtil.isSelected(data.dropTarget)) {
+                if (getIsFileSelected(store.getState(), data.dropTarget)) {
                     // Can't drop a selection into itself
                     return;
                 }
 
-                const selectedFiles = selectionUtil.getSelectedFiles(
+                const selectedFiles = getSelectedFiles(
+                    store.getState(),
                     FileHelper.isDraggable
                 );
                 const droppedFiles =
@@ -234,13 +247,6 @@ export const useSpecialFileActionHandlerMap = (
                 });
             },
         } as SpecialActionHandlerMap;
-    }, [
-        selectionUtil,
-        selectionModifiers,
-        filesRef,
-        parentFolderRef,
-        selectedFilesRef,
-        dispatchFileActionRef,
-    ]);
+    }, [store, dispatch, parentFolderRef, selectionSizeRef, dispatchFileActionRef]);
     return specialActionHandlerMap;
 };

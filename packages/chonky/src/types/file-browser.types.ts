@@ -2,7 +2,6 @@ import { Nullable } from 'tsdef';
 
 import { FileAction, FileActionHandler } from './file-actions.types';
 import { FileArray } from './files.types';
-import { FileSelection } from './selection.types';
 import { ThumbnailGenerator } from './thumbnails.types';
 
 /**
@@ -12,7 +11,7 @@ export interface FileBrowserHandle {
     /**
      * @returns An ES6 Set containing the IDs of the selected files.
      */
-    getFileSelection: () => FileSelection;
+    getFileSelection: () => Set<string>;
 
     /**
      * @param selection An ES6 Set containing the IDs of files that should be selected.
@@ -21,7 +20,7 @@ export interface FileBrowserHandle {
      * the new selection. When set to `false`, the new selection will be merged with
      * the current selection. Set to `true` by default.
      */
-    setFileSelection: (selection: FileSelection, reset?: boolean) => void;
+    setFileSelection: (selection: Set<string>, reset?: boolean) => void;
 }
 
 /**

@@ -41,6 +41,7 @@ export const thunkUpdateRawFiles = (rawFiles: FileArray | any): AppThunk => (
     dispatch(thunkSortFiles());
     dispatch(thunkUpdateHiddenFiles());
     dispatch(thunkUpdateDisplayFiles());
+    dispatch(reduxActions.cleanUpSelection());
 };
 
 export const thunkSortFiles = (): AppThunk => (dispatch, getState) => {

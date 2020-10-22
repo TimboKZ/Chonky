@@ -5,10 +5,10 @@
  */
 
 import React, { useCallback, useRef } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useSelector } from 'react-redux';
 import { Nilable, Nullable } from 'tsdef';
 
-import { doubleClickDelayState } from '../../recoil/file-actions.recoil';
+import { selectDoubleClickDelay } from '../../redux/selectors';
 import {
     KeyboardClickEvent,
     KeyboardClickEventHandler,
@@ -20,7 +20,7 @@ export const useClickHandler = (
     onSingleClick: Nilable<MouseClickEventHandler>,
     onDoubleClick: Nilable<MouseClickEventHandler>
 ) => {
-    const doubleClickDelay = useRecoilValue(doubleClickDelayState);
+    const doubleClickDelay = useSelector(selectDoubleClickDelay);
 
     const counter = useRef({
         clickCount: 0,

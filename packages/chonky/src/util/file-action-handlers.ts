@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import { useRecoilValue } from 'recoil';
 import { Nullable, Undefinable } from 'tsdef';
 
@@ -7,14 +7,13 @@ import {
     dispatchFileActionState,
     fileActionMapState,
 } from '../recoil/file-actions.recoil';
-import { filesState } from '../recoil/files.recoil';
-import { selectionState } from '../recoil/selection.recoil';
 import { dispatchSpecialActionState } from '../recoil/special-actions.recoil';
 import {
     thunkActivateSortAction,
     thunkToggleOption,
 } from '../redux/file-actions.thunks';
-import { reduxActions } from '../redux/reducers';
+import { reduxActions, RootState } from '../redux/reducers';
+import { getSelectedFilesForAction } from '../redux/selectors';
 import {
     FileAction,
     FileActionData,
@@ -24,7 +23,6 @@ import {
 import { SpecialAction } from '../types/special-actions.types';
 import { useInstanceVariable } from './hooks-helpers';
 import { Logger } from './logger';
-import { SelectionHelper } from './selection';
 import { isFunction } from './validation';
 
 export const useInternalFileActionDispatcher = (
@@ -65,6 +63,7 @@ export const useInternalFileActionDispatcher = (
 export const useInternalFileActionRequester = () => {
     // Write Recoil state to instance variables so we can access these values from
     // the callback below without re-creating the callback function
+    const store = useStore<RootState>();
     const dispatch = useDispatch();
     const fileActionMapRef = useInstanceVariable(useRecoilValue(fileActionMapState));
     const dispatchFileActionRef = useInstanceVariable(
@@ -73,8 +72,6 @@ export const useInternalFileActionRequester = () => {
     const dispatchSpecialActionRef = useInstanceVariable(
         useRecoilValue(dispatchSpecialActionState)
     );
-    const filesRef = useInstanceVariable(useRecoilValue(filesState));
-    const selectionRef = useInstanceVariable(useRecoilValue(selectionState));
 
     return useCallback(
         (fileActionId: string): void => {
@@ -91,13 +88,10 @@ export const useInternalFileActionRequester = () => {
             }
 
             // Determine files for the action if action requires selection
-            const selectedFilesForAction = action.requiresSelection
-                ? SelectionHelper.getSelectedFiles(
-                      filesRef.current,
-                      selectionRef.current,
-                      action.fileFilter
-                  )
-                : undefined;
+            const selectedFilesForAction = getSelectedFilesForAction(
+                store.getState(),
+                action.id
+            );
 
             if (
                 action.requiresSelection &&
@@ -158,12 +152,11 @@ export const useInternalFileActionRequester = () => {
             }
         },
         [
+            store,
             dispatch,
             fileActionMapRef,
             dispatchFileActionRef,
             dispatchSpecialActionRef,
-            filesRef,
-            selectionRef,
         ]
     );
 };

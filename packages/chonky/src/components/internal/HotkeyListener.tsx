@@ -8,10 +8,9 @@ import hotkeys from 'hotkeys-js';
 import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import {
-    fileActionDataState,
-    requestFileActionState,
-} from '../../recoil/file-actions.recoil';
+import { requestFileActionState } from '../../recoil/file-actions.recoil';
+import { selectFileActionData} from '../../redux/selectors';
+import { useParamSelector } from '../../redux/store';
 
 export interface HotkeyListenerProps {
     fileActionId: string;
@@ -20,7 +19,7 @@ export interface HotkeyListenerProps {
 export const HotkeyListener: React.FC<HotkeyListenerProps> = React.memo((props) => {
     const { fileActionId } = props;
 
-    const fileAction = useRecoilValue(fileActionDataState(fileActionId));
+    const fileAction = useParamSelector(selectFileActionData, fileActionId);
     const requestFileAction = useRecoilValue(requestFileActionState);
 
     useEffect(() => {

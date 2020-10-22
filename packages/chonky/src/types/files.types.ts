@@ -1,4 +1,4 @@
-import { Nullable } from 'tsdef';
+import { Nullable, Undefinable } from 'tsdef';
 
 // If you make changes to required params in `FileData`, make sure to makes relevant
 // changes `validation.ts` functions.
@@ -31,4 +31,4 @@ export type ReadonlyFileArray = ReadonlyArray<Nullable<FileData>>;
 export type FileFilter = (file: Nullable<FileData>) => boolean;
 
 export type FileMap = { [fileId: string]: FileData };
-export type FileIdMap = { [fileId: string]: boolean };
+export type FileIdTrueMap = { [fileId: string]: Undefinable<true> };

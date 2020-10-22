@@ -6,10 +6,10 @@
 
 import React from 'react';
 import { useDragLayer } from 'react-dnd';
-import { useRecoilValue } from 'recoil';
+import { useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
-import { selectionSizeState } from '../../recoil/selection.recoil';
+import { selectSelectionSize } from '../../redux/selectors';
 import { DnDFileEntryItem, DnDFileEntryType } from './DnDFileEntry';
 
 export interface DnDFileListDragLayerProps {}
@@ -43,7 +43,7 @@ const getItemStyles = (
 };
 
 export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
-    const selectionSize = useRecoilValue(selectionSizeState);
+    const selectionSize = useSelector(selectSelectionSize);
 
     const {
         itemType,

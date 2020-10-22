@@ -4,10 +4,13 @@ import { Nullable } from 'tsdef';
 import { ToolbarDropdownProps } from '../components/external/ToolbarDropdown';
 import { FileAction, FileActionMap } from '../types/file-actions.types';
 import { FileViewConfig } from '../types/file-view.types';
-import { FileArray, FileIdMap, FileMap } from '../types/files.types';
+import { FileArray, FileIdTrueMap, FileMap } from '../types/files.types';
 import { OptionMap } from '../types/options.types';
+import { FileSelection } from '../types/selection.types';
 import { SortOrder } from '../types/sort.types';
+import { ThumbnailGenerator } from '../types/thumbnails.types';
 import { ChonkyActions } from '../util/file-actions-definitions';
+import { FileHelper } from '../util/file-helper';
 
 export interface RootState {
     // Raw and sanitized file actions
@@ -31,8 +34,12 @@ export interface RootState {
 
     // Derivative files
     sortedFileIds: Nullable<string>[];
-    hiddenFileIdMap: FileIdMap;
+    hiddenFileIdMap: FileIdTrueMap;
     displayFileIds: Nullable<string>[]; // Files that should be shown to the user
+
+    // Selection
+    selectionMap: FileSelection;
+    disableSelection: boolean;
 
     // File views
     fileViewConfig: FileViewConfig;
@@ -43,6 +50,12 @@ export interface RootState {
 
     // Options
     optionMap: OptionMap;
+
+    // Other settings
+    thumbnailGenerator: Nullable<ThumbnailGenerator>;
+    doubleClickDelay: number;
+    disableDragAndDrop: boolean;
+    clearSelectionOnOutsideClick: boolean;
 }
 
 export const initialState: RootState = {
@@ -66,12 +79,20 @@ export const initialState: RootState = {
     hiddenFileIdMap: {},
     displayFileIds: [],
 
+    selectionMap: {},
+    disableSelection: false,
+
     fileViewConfig: ChonkyActions.EnableGridView.fileViewConfig,
 
     sortActionId: ChonkyActions.SortFilesByName.id,
     sortOrder: SortOrder.ASC,
 
     optionMap: {},
+
+    thumbnailGenerator: null,
+    doubleClickDelay: 300,
+    disableDragAndDrop: false,
+    clearSelectionOnOutsideClick: true,
 };
 
 export const { actions: reduxActions, reducer: rootReducer } = createSlice({
@@ -126,11 +147,61 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         setSortedFileIds(state, action: PayloadAction<Nullable<string>[]>) {
             state.sortedFileIds = action.payload;
         },
-        setHiddenFileIds(state, action: PayloadAction<FileIdMap>) {
+        setHiddenFileIds(state, action: PayloadAction<FileIdTrueMap>) {
             state.hiddenFileIdMap = action.payload;
         },
         setDisplayFileIds(state, action: PayloadAction<Nullable<string>[]>) {
             state.displayFileIds = action.payload;
+        },
+        selectAllFiles(state) {
+            state.fileIds
+                .filter((id) => id && FileHelper.isSelectable(state.fileMap[id]))
+                .map((id) => (id ? (state.selectionMap[id] = true) : null));
+        },
+        selectRange(
+            state,
+            action: PayloadAction<{ rangeStart: number; rangeEnd: number }>
+        ) {
+            state.selectionMap = {};
+            state.displayFileIds
+                .slice(action.payload.rangeStart, action.payload.rangeEnd + 1)
+                .filter((id) => id && FileHelper.isSelectable(state.fileMap[id]))
+                .map((id) => (state.selectionMap[id!] = true));
+        },
+        selectFiles(
+            state,
+            action: PayloadAction<{ fileIds: string[]; reset: boolean }>
+        ) {
+            if (state.disableSelection) return;
+            if (action.payload.reset) state.selectionMap = {};
+            action.payload.fileIds
+                .filter((id) => id && FileHelper.isSelectable(state.fileMap[id]))
+                .map((id) => (state.selectionMap[id] = true));
+        },
+        toggleSelection(
+            state,
+            action: PayloadAction<{ fileId: string; exclusive: boolean }>
+        ) {
+            if (state.disableSelection) return;
+            const oldValue = !!state.selectionMap[action.payload.fileId];
+            if (action.payload.exclusive) state.selectionMap = {};
+            if (oldValue) delete state.selectionMap[action.payload.fileId];
+            else if (FileHelper.isSelectable(state.fileMap[action.payload.fileId])) {
+                state.selectionMap[action.payload.fileId] = true;
+            }
+        },
+        cleanUpSelection(state) {
+            // Make sure files that are not visible anymore are not a part of the
+            // selection.
+            const newSelectionMap: FileSelection = {};
+            state.displayFileIds.map((id) => {
+                if (id && id in state.selectionMap) newSelectionMap[id] = true;
+            });
+            state.selectionMap = newSelectionMap;
+        },
+        clearSelection(state) {
+            if (state.disableSelection) return;
+            if (Object.keys(state.selectionMap).length !== 0) state.selectionMap = {};
         },
         setFileViewConfig(state, action: PayloadAction<FileViewConfig>) {
             state.fileViewConfig = action.payload;
@@ -147,6 +218,21 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         },
         toggleOption(state, action: PayloadAction<string>) {
             state.optionMap[action.payload] = !state.optionMap[action.payload];
+        },
+        setThumbnailGenerator(
+            state,
+            action: PayloadAction<Nullable<ThumbnailGenerator>>
+        ) {
+            state.thumbnailGenerator = action.payload;
+        },
+        setDoubleClickDelay(state, action: PayloadAction<number>) {
+            state.doubleClickDelay = action.payload;
+        },
+        setDisableDragAndDrop(state, action: PayloadAction<boolean>) {
+            state.disableDragAndDrop = action.payload;
+        },
+        setClearSelectionOnOutsideClick(state, action: PayloadAction<boolean>) {
+            state.clearSelectionOnOutsideClick = action.payload;
         },
     },
 });
