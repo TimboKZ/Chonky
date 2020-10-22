@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import React, { useCallback } from 'react';
 import { Nullable } from 'tsdef';
 
-import { selectFileActionData} from '../../redux/selectors';
+import { selectFileActionData } from '../../redux/selectors';
 import { useParamSelector } from '../../redux/store';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useFileActionProps, useFileActionTrigger } from '../../util/file-actions';
@@ -25,27 +25,34 @@ export interface ToolbarDropdownButtonProps {
     disabled?: boolean;
 }
 
-export const ToolbarDropdownButton: React.FC<ToolbarDropdownButtonProps> = (props) => {
-    const { text, active, icon, onClick, disabled } = props;
-    const classes = useStyles();
+export const ToolbarDropdownButton = React.forwardRef(
+    (props: ToolbarDropdownButtonProps, ref: React.Ref<HTMLLIElement>) => {
+        const { text, active, icon, onClick, disabled } = props;
+        const classes = useStyles();
 
-    const className = c({
-        [classes.baseButton]: true,
-        [classes.activeButton]: active,
-    });
-    return (
-        <MenuItem className={className} onClick={onClick} disabled={disabled}>
-            {icon && (
-                <ListItemIcon className={classes.icon}>
-                    <ChonkyIconFA icon={icon} fixedWidth={true} />
-                </ListItemIcon>
-            )}
-            <ListItemText primaryTypographyProps={{ className: classes.text }}>
-                {text}
-            </ListItemText>
-        </MenuItem>
-    );
-};
+        const className = c({
+            [classes.baseButton]: true,
+            [classes.activeButton]: active,
+        });
+        return (
+            <MenuItem
+                ref={ref}
+                className={className}
+                onClick={onClick}
+                disabled={disabled}
+            >
+                {icon && (
+                    <ListItemIcon className={classes.icon}>
+                        <ChonkyIconFA icon={icon} fixedWidth={true} />
+                    </ListItemIcon>
+                )}
+                <ListItemText primaryTypographyProps={{ className: classes.text }}>
+                    {text}
+                </ListItemText>
+            </MenuItem>
+        );
+    }
+);
 
 const useStyles = makeChonkyStyles((theme) => ({
     baseButton: {
@@ -73,32 +80,33 @@ export interface SmartToolbarDropdownButtonProps {
     onClick?: () => void;
 }
 
-export const SmartToolbarDropdownButton: React.FC<SmartToolbarDropdownButtonProps> = (
-    props
-) => {
-    const { fileActionId, onClick } = props;
+export const SmartToolbarDropdownButton = React.forwardRef(
+    (props: SmartToolbarDropdownButtonProps, ref: React.Ref<HTMLLIElement>) => {
+        const { fileActionId, onClick } = props;
 
-    const action = useParamSelector(selectFileActionData, fileActionId);
-    const triggerAction = useFileActionTrigger(fileActionId);
-    const { icon, active, disabled } = useFileActionProps(fileActionId);
+        const action = useParamSelector(selectFileActionData, fileActionId);
+        const triggerAction = useFileActionTrigger(fileActionId);
+        const { icon, active, disabled } = useFileActionProps(fileActionId);
 
-    // Combine external click handler with internal one
-    const handleClick = useCallback(() => {
-        triggerAction();
-        if (onClick) onClick();
-    }, [onClick, triggerAction]);
+        // Combine external click handler with internal one
+        const handleClick = useCallback(() => {
+            triggerAction();
+            if (onClick) onClick();
+        }, [onClick, triggerAction]);
 
-    if (!action) return null;
-    const { toolbarButton: button } = action;
-    if (!button) return null;
+        if (!action) return null;
+        const { toolbarButton: button } = action;
+        if (!button) return null;
 
-    return (
-        <ToolbarDropdownButton
-            text={button.name}
-            icon={icon}
-            onClick={handleClick}
-            active={active}
-            disabled={disabled}
-        />
-    );
-};
+        return (
+            <ToolbarDropdownButton
+                ref={ref}
+                text={button.name}
+                icon={icon}
+                onClick={handleClick}
+                active={active}
+                disabled={disabled}
+            />
+        );
+    }
+);

@@ -39,6 +39,7 @@ export const ToolbarDropdown: React.FC<ToolbarDropdownProps> = (props) => {
         <>
             <ToolbarButton text={name} onClick={handleClick} dropdown={true} />
             <Menu
+                autoFocus={true}
                 classes={{ list: classes.dropdownList }}
                 elevation={2}
                 anchorEl={anchor}
