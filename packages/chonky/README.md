@@ -1,21 +1,27 @@
 <p align="center">
-  <img src="https://timbokz.github.io/Chonky/Chonky_clear.png" alt="Chonky logo">
-  <br/>
-  <a href="https://www.npmjs.com/package/chonky">
-    <img alt="NPM package" src="https://img.shields.io/npm/v/chonky.svg">
-  </a>
-  <a href="https://tldrlegal.com/license/mit-license">
-    <img alt="MIT license" src="https://img.shields.io/npm/l/chonky">
-  </a>
-  <a href="https://www.npmjs.com/package/chonky">
-    <img alt="NPM downloads" src="https://img.shields.io/npm/dt/chonky">
-  </a>
-  <a href="https://github.com/TimboKZ/Chonky">
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/TimboKZ/Chonky">
-  </a>
-  <a href="https://discord.gg/4HJaFn9">
-    <img alt="Chat on Discord" src="https://img.shields.io/discord/696033621986770957?label=Chat%20on%20Discord" />
-  </a>
+    <img src="https://chonky.io/chonky-logo-v2.png" alt="Chonky v2 Logo" />
+    <br />
+    <a href="https://www.npmjs.com/package/chonky">
+        <img alt="NPM package" src="https://img.shields.io/npm/v/chonky.svg" />
+    </a>
+    <a href="https://tldrlegal.com/license/mit-license">
+        <img alt="MIT license" src="https://img.shields.io/npm/l/chonky" />
+    </a>
+    <a href="https://www.npmjs.com/package/chonky">
+        <img alt="NPM downloads" src="https://img.shields.io/npm/dt/chonky" />
+    </a>
+    <a href="https://github.com/TimboKZ/Chonky">
+        <img
+            alt="GitHub stars"
+            src="https://img.shields.io/github/stars/TimboKZ/Chonky"
+        />
+    </a>
+    <a href="https://discord.gg/4HJaFn9">
+        <img
+            alt="Chat on Discord"
+            src="https://img.shields.io/discord/696033621986770957?label=Chat%20on%20Discord"
+        />
+    </a>
 </p>
 
 # Introduction
@@ -28,7 +34,7 @@ browsing experience in your browser. This means your users can make selections, 
 & drop files, toggle between _List_ and _Grid_ file views, use keyboard shortcuts, and
 much more!
 
-### [Click here for documentation and examples.](https://timbokz.github.io/Chonky/)
+### [Click here for documentation and examples.](https://chonky.io/)
 
 <br />
 
