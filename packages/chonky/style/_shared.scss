@@ -4,29 +4,6 @@
     height: 100%;
 }
 
-.chonky-no-select {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.chonky-root {
-    border: solid 1px $border-light;
-    border-radius: $radius-medium;
-    padding: $base-padding * 1.5;
-    touch-action: manipulation;
-    font-size: $font-size-base;
-    font-family: sans-serif;
-    flex-direction: column;
-    box-sizing: border-box;
-    position: relative;
-    text-align: left;
-    display: flex;
-    height: 100%;
-}
-
 .chonky-error {
     border: solid 1px rgba(108, 72, 72, 0.11);
     margin-bottom: $file-browser-padding;
@@ -47,57 +24,5 @@
 
     li {
         margin-top: 0.5em;
-    }
-}
-
-.chonky-tooltip {
-    position: relative;
-
-    &:hover,
-    &:focus,
-    &:active {
-        &::before,
-        &::after {
-            display: block;
-            opacity: 1;
-        }
-    }
-
-    &::before,
-    &::after {
-        @include default-transition(opacity);
-
-        pointer-events: none;
-        position: absolute;
-        display: none;
-        z-index: 9999;
-        bottom: 100%;
-        opacity: 0;
-        left: 50%;
-    }
-
-    &::before {
-        @include transform(translateX(-75%));
-
-        background-color: $tooltip-bg;
-        border-radius: $radius-small;
-        content: attr(data-tooltip);
-        padding: 0.4em 0.5em;
-        white-space: nowrap;
-        margin-bottom: 6px;
-        line-height: 1em;
-        color: $tooltip-fg;
-        font-size: 0.8em;
-        height: 1em;
-    }
-
-    &::after {
-        @include transform(translateX(-50%) rotate(45deg));
-
-        border: solid 2px $tooltip-bg;
-        border-left-color: transparent;
-        border-top-color: transparent;
-        margin-bottom: 4px;
-        content: '';
     }
 }

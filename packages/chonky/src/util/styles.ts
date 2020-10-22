@@ -31,6 +31,11 @@ export const lightTheme = {
         buttonRadius: 4,
     },
 
+    fileList: {
+        desktopGridGutter: 8,
+        mobileGridGutter: 5,
+    },
+
     rootBorder: 'solid 1px #e4e4e4',
 } as const;
 

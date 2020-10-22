@@ -1,7 +1,7 @@
 export { FileBrowser } from './components/external/FileBrowser';
 export { FileNavbar } from './components/external/FileNavbar';
 export { FileToolbar } from './components/external/FileToolbar';
-export { FileList } from './components/external/FileList';
+export { FileList } from './components/file-list/FileList';
 export { ChonkyIconFA } from './components/external/ChonkyIcon';
 
 export { ChonkyActions } from './util/file-actions-definitions';
@@ -22,5 +22,5 @@ export type FileBrowserProps = import('./types/file-browser.types').FileBrowserP
 export type FileBrowserHandle = import('./types/file-browser.types').FileBrowserHandle;
 export type FileEntrySize = import('./types/file-view.types').FileEntrySize;
 export type FileToolbarProps = import('./components/external/FileToolbar').FileToolbarProps;
-export type FileListProps = import('./components/external/FileList').FileListProps;
+export type FileListProps = import('./components/file-list/FileList').FileListProps;
 export type ChonkyIconProps = import('./components/external/ChonkyIcon').ChonkyIconProps;
