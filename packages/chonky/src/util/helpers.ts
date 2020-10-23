@@ -37,3 +37,23 @@ export const defineFileAction = <Action extends FileAction>(
     action.effect = effect;
     return action;
 };
+
+export const elementIsInsideButton = (buttonCandidate: any): boolean => {
+    if (!buttonCandidate) {
+        return false;
+    }
+
+    // Current element is a button
+    if (buttonCandidate.tagName && buttonCandidate.tagName.toLowerCase() === 'button') {
+        return true;
+    }
+
+    // Current element is not a button: Check the parent element
+    const parentElement = buttonCandidate.parentElement;
+    if (parentElement) {
+        return elementIsInsideButton(parentElement);
+    }
+
+    // No parent element found -> No button
+    return false;
+};

@@ -24,30 +24,19 @@ export const ChonkyBusinessLogicInner = React.forwardRef<
     FileBrowserHandle,
     FileBrowserProps
 >((props, ref) => {
-    const {
-        files: rawFiles,
-        folderChain: rawFolderChain,
-        fileActions: rawFileActions,
-        disableDefaultFileActions,
-        defaultFileViewActionId,
-    } = props;
-
-    // Instance ID used to distinguish between multiple Chonky instances on the
-    // same page const chonkyInstanceId = useStaticValue(shortid.generate);
-
     // ==== Update Redux state
-    useDTE(thunkUpdateRawFiles, rawFiles ?? initialRootState.rawFiles);
-    useDTE(thunkUpdateRawFolderChain, rawFolderChain);
+    useDTE(thunkUpdateRawFiles, props.files ?? initialRootState.rawFiles);
+    useDTE(thunkUpdateRawFolderChain, props.folderChain);
     useDTE(
         thunkUpdateRawFileActions,
-        rawFileActions ?? initialRootState.rawFileActions,
-        !!disableDefaultFileActions
+        props.fileActions ?? initialRootState.rawFileActions,
+        !!props.disableDefaultFileActions
     );
     useDTE(
         reduxActions.setExternalFileActionHandler,
         props.onFileAction ?? initialRootState.externalFileActionHandler
     );
-    useDTE(thunkUpdateDefaultFileViewActionId, defaultFileViewActionId);
+    useDTE(thunkUpdateDefaultFileViewActionId, props.defaultFileViewActionId);
 
     useDTE(
         reduxActions.setThumbnailGenerator,

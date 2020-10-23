@@ -5,6 +5,7 @@
  */
 
 import Box from '@material-ui/core/Box';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,7 +16,7 @@ import {
     selectIsDnDDisabled,
 } from '../../redux/selectors';
 import { ErrorMessageData } from '../../types/validation.types';
-import { useClickListener } from '../../util/hooks-helpers';
+import { elementIsInsideButton } from '../../util/helpers';
 import { makeChonkyStyles } from '../../util/styles';
 import { DnDFileListDragLayer } from '../file-entry/DnDFileListDragLayer';
 import { ErrorMessage } from './ErrorMessage';
@@ -38,18 +39,19 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
     );
 
     // Deal with clicks outside of Chonky
-    const onOutsideClick = useCallback(
-        (event, targetIsAButton) => {
-            // We only clear out the selection on outside click if the click target was
-            // not a button. We don't want to clear out the selection when a button is
-            // clicked because Chonky users might want to trigger some
-            // selection-related action on that button click.
-            if (!clearSelectionOnOutsideClick || targetIsAButton) return;
+    const handleClickAway = useCallback(
+        (event: React.MouseEvent<Document>) => {
+            if (!clearSelectionOnOutsideClick || elementIsInsideButton(event.target)) {
+                // We only clear out the selection on outside click if the click target
+                // was not a button. We don't want to clear out the selection when a
+                // button is clicked because Chonky users might want to trigger some
+                // selection-related action on that button click.
+                return;
+            }
             dispatch(reduxActions.clearSelection());
         },
         [dispatch, clearSelectionOnOutsideClick]
     );
-    const chonkyRootRef = useClickListener({ onOutsideClick });
 
     // Generate necessary components
     const hotkeyListenerComponents = useMemo(
@@ -74,21 +76,16 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
         [validationErrors]
     );
 
-    const customProps = {
-        // We specify `ref` prop outside due to Material UI bug:
-        // @see https://github.com/mui-org/material-ui/pull/22925
-        ref: chonkyRootRef,
-    };
-
     const classes = useStyles();
-
     return (
-        <Box className={classes.chonkyRoot} {...customProps}>
-            {!dndDisabled && <DnDFileListDragLayer />}
-            {hotkeyListenerComponents}
-            {validationErrorComponents}
-            {children ? children : null}
-        </Box>
+        <ClickAwayListener onClickAway={handleClickAway}>
+            <Box className={classes.chonkyRoot}>
+                {!dndDisabled && <DnDFileListDragLayer />}
+                {hotkeyListenerComponents}
+                {validationErrorComponents}
+                {children ? children : null}
+            </Box>
+        </ClickAwayListener>
     );
 };
 
