@@ -1,3 +1,9 @@
+import {
+    GenericFileActionHandler,
+    MapFileActionsToData,
+} from './file-actons/handler.types';
+import { ChonkyActionUnion } from './types/file-browser.types';
+
 export { FileBrowser } from './components/external/FileBrowser';
 export { FileNavbar } from './components/external/FileNavbar';
 export { FileToolbar } from './components/external/FileToolbar';
@@ -15,6 +21,7 @@ export {
 } from './file-actons/actions.types';
 export {
     GenericFileActionHandler,
+    MapFileActionsToData,
     FileActionData,
     FileActionState,
 } from './file-actons/handler.types';
@@ -22,3 +29,6 @@ export { ChonkyActionUnion } from './types/file-browser.types';
 
 export { FileBrowserHandle } from './types/file-browser.types';
 export { ChonkyIconName } from './types/icons.types';
+
+export type FileActionHandler = GenericFileActionHandler<ChonkyActionUnion>;
+export type ChonkyFileActionData = MapFileActionsToData<ChonkyActionUnion>;

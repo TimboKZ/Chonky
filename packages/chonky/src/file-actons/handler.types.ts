@@ -14,7 +14,7 @@ export type FileActionState<ExtraState extends object = AnyObject> = {
     selectedFilesForAction?: FileAction[];
 } & ExtraState;
 
-type MapFileActionsToData<U> = U extends FileAction ? FileActionData<U> : never;
+export type MapFileActionsToData<U> = U extends FileAction ? FileActionData<U> : never;
 
 export type GenericFileActionHandler<T> = (
     data: MapFileActionsToData<T>
