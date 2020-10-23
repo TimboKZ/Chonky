@@ -94,7 +94,8 @@ export const EnableGridView = defineFileAction({
 
 export const SortFilesByName = defineFileAction({
     id: 'sort_files_by_name',
-    sortKeySelector: (file: Nullable<FileData>) => (file ? file.name : undefined),
+    sortKeySelector: (file: Nullable<FileData>) =>
+        file ? file.name.toLowerCase() : undefined,
     button: {
         name: 'Sort by name',
         toolbar: true,

@@ -49,8 +49,7 @@ export const thunkSortFiles = (): ChonkyThunk => (dispatch, getState) => {
 
     const sortAction = fileActionMap[sortActionId];
     const sortKeySelector = sortAction ? sortAction.sortKeySelector : null;
-    const showFolderFirst =
-        optionMap[ChonkyActions.ToggleShowFoldersFirst.option.id];
+    const showFolderFirst = optionMap[ChonkyActions.ToggleShowFoldersFirst.option.id];
 
     const prepareSortKeySelector = (selector: FileSortKeySelector) => (
         fileId: string
