@@ -30,6 +30,7 @@
     "@types/react-redux": "^7.1.9",
     "@types/react-virtualized-auto-sizer": "^1.0.0",
     "@types/react-window": "^1.8.2",
+    "@types/redux-watch": "^1.1.0",
     "@types/shortid": "0.0.29",
     "classnames": "^2.2.6",
     "dateformat": "^3.0.3",
@@ -45,6 +46,7 @@
     "react-redux": "^7.2.1",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
+    "redux-watch": "^1.2.0",
     "shortid": "^2.2.15",
     "tsdef": "0.0.13"
   },

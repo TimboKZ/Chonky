@@ -1,20 +1,13 @@
-import { Action, ThunkAction } from '@reduxjs/toolkit';
 import sort from 'fast-sort';
 import { Nullable } from 'tsdef';
 
-import { FileArray } from '../types/files.types';
-import { FileSortKeySelector, SortOrder } from '../types/sort.types';
-import { ChonkyActions } from '../util/file-actions-definitions';
-import { FileHelper } from '../util/file-helper';
-import { sanitizeInputArray } from './files-transforms';
-import { reduxActions, RootState } from './reducers';
-
-export type AppThunk<ReturnType = void> = ThunkAction<
-    ReturnType,
-    RootState,
-    unknown,
-    Action<string>
->;
+import { FileArray } from '../../types/files.types';
+import { FileSortKeySelector, SortOrder } from '../../types/sort.types';
+import { ChonkyActions } from '../../util/file-actions-definitions';
+import { FileHelper } from '../../util/file-helper';
+import { sanitizeInputArray } from '../files-transforms';
+import { reduxActions } from '../reducers';
+import { AppThunk } from '../store';
 
 export const thunkUpdateRawFolderChain = (
     rawFolderChain: Nullable<FileArray> | any

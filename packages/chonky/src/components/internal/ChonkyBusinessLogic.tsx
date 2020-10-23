@@ -6,18 +6,18 @@
 
 import React from 'react';
 
+import { initialRootState, reduxActions } from '../../redux/reducers';
+import { useDTE } from '../../redux/store';
 import {
     thunkUpdateDefaultFileViewActionId,
     thunkUpdateRawFileActions,
-} from '../../redux/file-actions.thunks';
-import { initialState, reduxActions } from '../../redux/reducers';
-import { useDTE } from '../../redux/store';
-import { thunkUpdateRawFiles, thunkUpdateRawFolderChain } from '../../redux/thunks';
+} from '../../redux/thunks/file-actions.thunks';
+import {
+    thunkUpdateRawFiles,
+    thunkUpdateRawFolderChain,
+} from '../../redux/thunks/files.thunks';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
-import { useFileActions } from '../../util/file-actions';
 import { useFileBrowserHandle } from '../../util/file-browser-handle';
-import { useSelection } from '../../util/selection';
-import { useSpecialActionDispatcher } from '../../util/special-actions';
 
 export const ChonkyBusinessLogicInner = React.forwardRef<
     FileBrowserHandle,
@@ -34,21 +34,27 @@ export const ChonkyBusinessLogicInner = React.forwardRef<
     // Instance ID used to distinguish between multiple Chonky instances on the
     // same page const chonkyInstanceId = useStaticValue(shortid.generate);
 
-    //
-    // ==== Default values assignment
-    const fileActions = props.fileActions ? props.fileActions : [];
-    const onFileAction = props.onFileAction ? props.onFileAction : null;
-
     // ==== Update Redux state
-    useDTE(thunkUpdateRawFileActions, rawFileActions, !!disableDefaultFileActions);
-    useDTE(thunkUpdateRawFiles, rawFiles);
+    useDTE(thunkUpdateRawFiles, rawFiles ?? initialRootState.rawFiles);
     useDTE(thunkUpdateRawFolderChain, rawFolderChain);
+    useDTE(
+        thunkUpdateRawFileActions,
+        rawFileActions ?? initialRootState.rawFileActions,
+        !!disableDefaultFileActions
+    );
+    useDTE(
+        reduxActions.setExternalFileActionHandler,
+        props.onFileAction ?? initialRootState.externalFileActionHandler
+    );
     useDTE(thunkUpdateDefaultFileViewActionId, defaultFileViewActionId);
 
-    useDTE(reduxActions.setThumbnailGenerator, props.thumbnailGenerator ?? null);
+    useDTE(
+        reduxActions.setThumbnailGenerator,
+        props.thumbnailGenerator ?? initialRootState.thumbnailGenerator
+    );
     useDTE(
         reduxActions.setDoubleClickDelay,
-        props.doubleClickDelay ?? initialState.doubleClickDelay
+        props.doubleClickDelay ?? initialRootState.doubleClickDelay
     );
     useDTE(reduxActions.setDisableDragAndDrop, !!props.disableDragAndDrop);
     useDTE(
@@ -58,20 +64,6 @@ export const ChonkyBusinessLogicInner = React.forwardRef<
             : true
     );
 
-    //
-    // ==== File selections
-    useSelection();
-
-    //
-    // ==== File actions - actions that users can customise as they please
-    useFileActions(fileActions, onFileAction);
-
-    //
-    // ==== Special actions - special actions hard-coded into Chonky that users
-    //      cannot customize (easily).
-    useSpecialActionDispatcher();
-
-    //
     // ==== Setup the imperative handle for external use
     useFileBrowserHandle(ref);
 

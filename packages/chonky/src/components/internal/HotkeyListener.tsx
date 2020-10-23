@@ -6,10 +6,11 @@
 
 import hotkeys from 'hotkeys-js';
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { selectFileActionData, selectFileActionRequester } from '../../redux/selectors';
+import { selectFileActionData } from '../../redux/selectors';
 import { useParamSelector } from '../../redux/store';
+import { thunkRequestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
 
 export interface HotkeyListenerProps {
     fileActionId: string;
@@ -18,8 +19,8 @@ export interface HotkeyListenerProps {
 export const HotkeyListener: React.FC<HotkeyListenerProps> = React.memo((props) => {
     const { fileActionId } = props;
 
+    const dispatch = useDispatch();
     const fileAction = useParamSelector(selectFileActionData, fileActionId);
-    const requestFileAction = useSelector(selectFileActionRequester);
 
     useEffect(() => {
         if (!fileAction || !fileAction.hotkeys || fileAction.hotkeys.length === 0) {
@@ -29,11 +30,11 @@ export const HotkeyListener: React.FC<HotkeyListenerProps> = React.memo((props) 
         const hotkeysStr = fileAction.hotkeys.join(',');
         const hotkeyCallback = (event: KeyboardEvent) => {
             event.preventDefault();
-            requestFileAction(fileAction.id);
+            dispatch(thunkRequestFileAction(fileAction.id));
         };
         hotkeys(hotkeysStr, hotkeyCallback);
         return () => hotkeys.unbind(hotkeysStr, hotkeyCallback);
-    }, [fileAction, requestFileAction]);
+    }, [dispatch, fileAction]);
 
     return null;
 });

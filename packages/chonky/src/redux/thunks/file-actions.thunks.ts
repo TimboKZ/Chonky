@@ -1,23 +1,23 @@
 import { Nilable } from 'tsdef';
 
-import { ToolbarDropdownProps } from '../components/external/ToolbarDropdown';
-import { FileAction } from '../types/file-actions.types';
-import { SortOrder } from '../types/sort.types';
-import { ChonkyActions, DefaultFileActions } from '../util/file-actions-definitions';
-import { sanitizeInputArray } from './files-transforms';
-import { reduxActions } from './reducers';
+import { ToolbarDropdownProps } from '../../components/external/ToolbarDropdown';
+import { FileAction } from '../../types/file-actions.types';
+import { SortOrder } from '../../types/sort.types';
+import { ChonkyActions, DefaultFileActions } from '../../util/file-actions-definitions';
+import { sanitizeInputArray } from '../files-transforms';
+import { reduxActions } from '../reducers';
 import {
     selectCleanFileIds,
     selectFileMap,
     selectHiddenFileIdMap,
     selectSelectionMap,
-} from './selectors';
+} from '../selectors';
+import { AppThunk } from '../store';
 import {
-    AppThunk,
     thunkSortFiles,
     thunkUpdateDisplayFiles,
     thunkUpdateHiddenFiles,
-} from './thunks';
+} from './files.thunks';
 
 export const thunkUpdateRawFileActions = (
     rawFileActions: FileAction[] | any,

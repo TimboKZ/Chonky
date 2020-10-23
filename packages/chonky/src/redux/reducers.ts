@@ -4,25 +4,20 @@ import { Nullable } from 'tsdef';
 import { ToolbarDropdownProps } from '../components/external/ToolbarDropdown';
 import {
     FileAction,
+    FileActionHandler,
     FileActionMap,
-    InternalFileActionDispatcher,
-    InternalFileActionRequester
 } from '../types/file-actions.types';
 import { FileViewConfig } from '../types/file-view.types';
 import { FileArray, FileIdTrueMap, FileMap } from '../types/files.types';
 import { OptionMap } from '../types/options.types';
 import { FileSelection } from '../types/selection.types';
 import { SortOrder } from '../types/sort.types';
-import { InternalSpecialActionDispatcher } from '../types/special-actions.types';
 import { ThumbnailGenerator } from '../types/thumbnails.types';
-import { NOOP_FUNCTION } from '../util/constants';
 import { ChonkyActions } from '../util/file-actions-definitions';
 import { FileHelper } from '../util/file-helper';
 
 export interface RootState {
-    fileActionDispatcher: InternalFileActionDispatcher;
-    fileActionRequester: InternalFileActionRequester;
-    specialActionDispatcher: InternalSpecialActionDispatcher;
+    externalFileActionHandler: Nullable<FileActionHandler>;
 
     // Raw and sanitized file actions
     rawFileActions: FileAction[] | any;
@@ -69,10 +64,8 @@ export interface RootState {
     clearSelectionOnOutsideClick: boolean;
 }
 
-export const initialState: RootState = {
-    fileActionDispatcher: NOOP_FUNCTION,
-    fileActionRequester: NOOP_FUNCTION,
-    specialActionDispatcher: NOOP_FUNCTION,
+export const initialRootState: RootState = {
+    externalFileActionHandler: null,
 
     rawFileActions: [],
     fileActionsErrorMessages: [],
@@ -112,25 +105,13 @@ export const initialState: RootState = {
 
 export const { actions: reduxActions, reducer: rootReducer } = createSlice({
     name: 'root',
-    initialState,
+    initialState: initialRootState,
     reducers: {
-        setFileActionDispatcher(
+        setExternalFileActionHandler(
             state,
-            action: PayloadAction<InternalFileActionDispatcher>
+            action: PayloadAction<Nullable<FileActionHandler>>
         ) {
-            state.fileActionDispatcher = action.payload;
-        },
-        setFileActionRequester(
-            state,
-            action: PayloadAction<InternalFileActionRequester>
-        ) {
-            state.fileActionRequester = action.payload;
-        },
-        setSpecialActionDispatcher(
-            state,
-            action: PayloadAction<InternalSpecialActionDispatcher>
-        ) {
-            state.specialActionDispatcher = action.payload;
+            state.externalFileActionHandler = action.payload;
         },
         setRawFileActions(state, action: PayloadAction<FileAction[] | any>) {
             state.rawFileActions = action.payload;

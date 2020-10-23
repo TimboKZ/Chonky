@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
 import { DragObjectWithType, DragSourceMonitor, useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ExcludeKeys, Nilable, Nullable } from 'tsdef';
 
-import { selectSpecialActionDispatcher } from '../../redux/selectors';
+import { thunkDispatchSpecialAction } from '../../redux/thunks/file-action-dispatchers.thunks';
 import { FileData } from '../../types/files.types';
 import { SpecialAction } from '../../types/special-actions.types';
 import { FileHelper } from '../../util/file-helper';
@@ -23,7 +23,7 @@ export const DnDFileEntryType = 'chonky-file-entry';
 export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
     const { file } = props;
 
-    const dispatchSpecialAction = useSelector(selectSpecialActionDispatcher);
+    const dispatch = useDispatch();
 
     interface ChonkyDnDDropResult {
         dropTarget: Nilable<FileData>;
@@ -35,11 +35,13 @@ export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
     const onDragStart = useCallback(() => {
         if (!FileHelper.isDraggable(file)) return;
 
-        dispatchSpecialAction({
-            actionId: SpecialAction.DragNDropStart,
-            dragSource: file,
-        });
-    }, [dispatchSpecialAction, file]);
+        dispatch(
+            thunkDispatchSpecialAction({
+                actionId: SpecialAction.DragNDropStart,
+                dragSource: file,
+            })
+        );
+    }, [dispatch, file]);
     const onDragEnd = useCallback(
         (item: DnDFileEntryItem, monitor: DragSourceMonitor) => {
             const dropResult = monitor.getDropResult() as ChonkyDnDDropResult;
@@ -51,14 +53,16 @@ export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
                 return;
             }
 
-            dispatchSpecialAction({
-                actionId: SpecialAction.DragNDropEnd,
-                dragSource: file,
-                dropTarget: dropResult.dropTarget,
-                dropEffect: dropResult.dropEffect,
-            });
+            dispatch(
+                thunkDispatchSpecialAction({
+                    actionId: SpecialAction.DragNDropEnd,
+                    dragSource: file,
+                    dropTarget: dropResult.dropTarget,
+                    dropEffect: dropResult.dropEffect,
+                })
+            );
         },
-        [dispatchSpecialAction, file]
+        [dispatch, file]
     );
 
     // For drop target

@@ -1,11 +1,9 @@
 import { useCallback, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
-import { reduxActions } from '../redux/reducers';
 import {
     selectFileActionData,
-    selectFileActionRequester,
     selectFileViewConfig,
     selectOptionValue,
     selectParentFolder,
@@ -13,53 +11,18 @@ import {
     selectSortActionId,
     selectSortOrder,
 } from '../redux/selectors';
-import { useDTE, useParamSelector } from '../redux/store';
-import { FileAction, FileActionHandler } from '../types/file-actions.types';
+import { useParamSelector } from '../redux/store';
+import { thunkRequestFileAction } from '../redux/thunks/file-action-dispatchers.thunks';
 import { ChonkyIconName } from '../types/icons.types';
 import { SortOrder } from '../types/sort.types';
-import {
-    useInternalFileActionDispatcher,
-    useInternalFileActionRequester,
-} from './file-action-handlers';
 import { ChonkyActions } from './file-actions-definitions';
 import { FileHelper } from './file-helper';
-import { useRefCallbackWithErrorHandling } from './hooks-helpers';
-
-export const useFileActions = (
-    fileActions: FileAction[],
-    externalFileActonHandler: Nullable<FileActionHandler>
-) => {
-    // Prepare file action dispatcher (used to dispatch actions to users)
-    const internalFileActionDispatcher = useInternalFileActionDispatcher(
-        externalFileActonHandler
-    );
-    // Recoil state: Put file action dispatcher into Recoil state, in a way that will
-    // not cause unnecessary re-renders.
-    const safeInternalFileActionDispatcher = useRefCallbackWithErrorHandling(
-        internalFileActionDispatcher,
-        'the internal file action requester'
-    );
-    useDTE(reduxActions.setFileActionDispatcher, safeInternalFileActionDispatcher);
-
-    // Prepare file action requester (used to request a file action to be dispatched
-    // internally)
-    const internalFileActionRequester = useInternalFileActionRequester();
-    // Recoil state: Put file action requester into Recoil state, in a way that will
-    // not cause unnecessary re-renders.
-    const safeInternalFileActionRequester = useRefCallbackWithErrorHandling(
-        internalFileActionRequester,
-        'the internal file action requester'
-    );
-    useDTE(reduxActions.setFileActionRequester, safeInternalFileActionRequester);
-
-    return { internalFileActionDispatcher, internalFileActionRequester };
-};
 
 export const useFileActionTrigger = (fileActionId: string) => {
-    const requestFileAction = useSelector(selectFileActionRequester);
-    return useCallback(() => requestFileAction(fileActionId), [
+    const dispatch = useDispatch();
+    return useCallback(() => dispatch(thunkRequestFileAction(fileActionId)), [
+        dispatch,
         fileActionId,
-        requestFileAction,
     ]);
 };
 
