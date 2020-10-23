@@ -20,8 +20,9 @@ export const isPromise = <T>(value: MaybePromise<T> | any): value is Promise<T> 
     return then && typeof then === 'function';
 };
 
-export const defineSimpleAction = <Action extends FileAction>(
-    action: Action
+export const defineFileAction = <Action extends FileAction>(
+    action: Action,
+    effect?: FileActionEffect<FileAction>
 ): WritableProps<Action> => {
     if (action.__payloadType !== undefined && (action.hotkeys || action.button)) {
         const errorMessage =
@@ -33,31 +34,6 @@ export const defineSimpleAction = <Action extends FileAction>(
         throw new Error(errorMessage);
     }
 
-    return action as any;
-};
-
-export const defineActionWithEffect = <
-    Action extends FileAction,
-    Payload extends any = undefined
->(params: {
-    definition: Action;
-    effect?: FileActionEffect<FileAction>;
-}): WritableProps<Action> => {
-    const { definition, effect } = params;
-
-    if (
-        definition.__payloadType !== undefined &&
-        (definition.hotkeys || definition.button)
-    ) {
-        const errorMessage =
-            `Invalid definition was provided for file action "${definition.id}". Actions ` +
-            `that specify hotkeys or buttons cannot define a payload type. If ` +
-            `your application requires this functionality, define two actions ` +
-            `and chain them using effects.`;
-        Logger.error(errorMessage);
-        throw new Error(errorMessage);
-    }
-
-    definition.effect = effect;
-    return definition as any;
+    action.effect = effect;
+    return action;
 };

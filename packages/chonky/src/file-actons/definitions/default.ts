@@ -3,10 +3,10 @@ import { Nullable } from 'tsdef';
 import { FileData } from '../../types/files.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { FileHelper } from '../../util/file-helper';
-import { defineSimpleAction } from '../../util/helpers';
+import { defineFileAction } from '../../util/helpers';
 import { FileSelectionTransform } from '../actions.types';
 
-export const OpenSelection = defineSimpleAction({
+export const OpenSelection = defineFileAction({
     id: 'open_selection',
     hotkeys: ['enter'],
     requiresSelection: true,
@@ -21,7 +21,7 @@ export const OpenSelection = defineSimpleAction({
     },
 } as const);
 
-export const SelectAllFiles = defineSimpleAction({
+export const SelectAllFiles = defineFileAction({
     id: 'select_all_files',
     hotkeys: ['ctrl+a'],
     button: {
@@ -42,7 +42,7 @@ export const SelectAllFiles = defineSimpleAction({
         return newSelection;
     }) as FileSelectionTransform,
 } as const);
-export const ClearSelection = defineSimpleAction({
+export const ClearSelection = defineFileAction({
     id: 'clear_selection',
     hotkeys: ['escape'],
     button: {
@@ -59,7 +59,7 @@ export const ClearSelection = defineSimpleAction({
     }) as FileSelectionTransform,
 } as const);
 
-export const EnableListView = defineSimpleAction({
+export const EnableListView = defineFileAction({
     id: 'enable_list_view',
     fileViewConfig: { entryHeight: 30 },
     button: {
@@ -70,7 +70,7 @@ export const EnableListView = defineSimpleAction({
         iconOnly: true,
     },
 } as const);
-export const EnableGridView = defineSimpleAction({
+export const EnableGridView = defineFileAction({
     id: 'enable_grid_view',
     fileViewConfig: { entryWidth: 165, entryHeight: 130 },
     button: {
@@ -82,7 +82,7 @@ export const EnableGridView = defineSimpleAction({
     },
 } as const);
 
-export const SortFilesByName = defineSimpleAction({
+export const SortFilesByName = defineFileAction({
     id: 'sort_files_by_name',
     sortKeySelector: (file: Nullable<FileData>) => (file ? file.name : undefined),
     button: {
@@ -93,7 +93,7 @@ export const SortFilesByName = defineSimpleAction({
         dropdown: true,
     },
 } as const);
-export const SortFilesBySize = defineSimpleAction({
+export const SortFilesBySize = defineFileAction({
     id: 'sort_files_by_size',
     sortKeySelector: (file: Nullable<FileData>) => (file ? file.size : undefined),
     button: {
@@ -104,7 +104,7 @@ export const SortFilesBySize = defineSimpleAction({
         dropdown: true,
     },
 } as const);
-export const SortFilesByDate = defineSimpleAction({
+export const SortFilesByDate = defineFileAction({
     id: 'sort_files_by_date',
     sortKeySelector: (file: Nullable<FileData>) => (file ? file.modDate : undefined),
     button: {
@@ -116,7 +116,7 @@ export const SortFilesByDate = defineSimpleAction({
     },
 } as const);
 
-export const ToggleHiddenFiles = defineSimpleAction({
+export const ToggleHiddenFiles = defineFileAction({
     id: 'toggle_hidden_files',
     hotkeys: ['ctrl+h'],
     option: {
@@ -131,7 +131,7 @@ export const ToggleHiddenFiles = defineSimpleAction({
         dropdown: true,
     },
 } as const);
-export const ToggleShowFoldersFirst = defineSimpleAction({
+export const ToggleShowFoldersFirst = defineFileAction({
     id: 'toggle_show_folders_first',
     option: {
         id: 'show_folders_first',

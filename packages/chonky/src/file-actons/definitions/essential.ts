@@ -12,7 +12,7 @@ import { requestFileAction } from '../../redux/thunks/file-action-dispatchers.th
 import { FileData } from '../../types/files.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { FileHelper } from '../../util/file-helper';
-import { defineActionWithEffect, defineSimpleAction } from '../../util/helpers';
+import { defineFileAction } from '../../util/helpers';
 import { Logger } from '../../util/logger';
 import { ChonkyActions } from './index';
 
@@ -24,12 +24,12 @@ export interface MouseClickFilePayload {
     shiftKey: boolean;
     clickType: 'single' | 'double';
 }
-export const MouseClickFile = defineActionWithEffect({
-    definition: {
+export const MouseClickFile = defineFileAction(
+    {
         id: 'mouse_click_file',
         __payloadType: {} as MouseClickFilePayload,
     } as const,
-    effect: ({ payload, dispatch, getState }) => {
+    ({ payload, dispatch, getState }) => {
         if (payload.clickType === 'double') {
             if (FileHelper.isOpenable(payload.file)) {
                 dispatch(
@@ -96,8 +96,8 @@ export const MouseClickFile = defineActionWithEffect({
             }
         }
         return false;
-    },
-});
+    }
+);
 
 export interface KeyboardClickFilePayload {
     file: FileData;
@@ -108,12 +108,12 @@ export interface KeyboardClickFilePayload {
     ctrlKey: boolean;
     shiftKey: boolean;
 }
-export const KeyboardClickFile = defineActionWithEffect({
-    definition: {
+export const KeyboardClickFile = defineFileAction(
+    {
         id: 'keyboard_click_file',
         __payloadType: {} as KeyboardClickFilePayload,
     } as const,
-    effect: ({ payload, dispatch, getState }) => {
+    ({ payload, dispatch, getState }) => {
         dispatch(reduxActions.setLastClickIndex(payload.fileDisplayIndex));
         if (payload.enterKey) {
             // We only dispatch the Open Files action here when the selection is
@@ -136,18 +136,18 @@ export const KeyboardClickFile = defineActionWithEffect({
             );
         }
         return false;
-    },
-});
+    }
+);
 
 export interface StartDragNDropPayload {
     dragSource: FileData;
 }
-export const StartDragNDrop = defineActionWithEffect({
-    definition: {
+export const StartDragNDrop = defineFileAction(
+    {
         id: 'start_drag_n_drop',
         __payloadType: {} as StartDragNDropPayload,
     } as const,
-    effect: ({ payload, dispatch, getState }) => {
+    ({ payload, dispatch, getState }) => {
         const file = payload.dragSource;
         if (!getIsFileSelected(getState(), file)) {
             if (FileHelper.isSelectable(file)) {
@@ -160,8 +160,8 @@ export const StartDragNDrop = defineActionWithEffect({
             }
         }
         return false;
-    },
-});
+    }
+);
 
 export interface EndDragNDropPayload {
     sourceInstanceId: string;
@@ -170,12 +170,12 @@ export interface EndDragNDropPayload {
     destination: FileData;
     copy: boolean;
 }
-export const EndDragNDrop = defineActionWithEffect({
-    definition: {
+export const EndDragNDrop = defineFileAction(
+    {
         id: 'end_drag_n_drop',
         __payloadType: {} as EndDragNDropPayload,
     } as const,
-    effect: ({ payload, dispatch, getState }) => {
+    ({ payload, dispatch, getState }) => {
         if (getIsFileSelected(getState(), payload.destination)) {
             // Can't drop a selection into itself
             return;
@@ -191,24 +191,24 @@ export const EndDragNDrop = defineActionWithEffect({
             })
         );
         return false;
-    },
-});
+    }
+);
 
-export const MoveFiles = defineSimpleAction({
+export const MoveFiles = defineFileAction({
     id: 'move_files',
     __payloadType: {} as MoveFilesPayload,
 } as const);
 
 export type MoveFilesPayload = EndDragNDropPayload & { files: FileData[] };
 
-export const ChangeSelection = defineSimpleAction({
+export const ChangeSelection = defineFileAction({
     id: 'change_selection',
     __payloadType: {} as ChangeSelectionPayload,
 } as const);
 
 export type ChangeSelectionPayload = { selection: Set<string> };
 
-export const OpenFiles = defineSimpleAction({
+export const OpenFiles = defineFileAction({
     id: 'open_files',
     __payloadType: {} as OpenFilesPayload,
 } as const);
@@ -218,8 +218,8 @@ export interface OpenFilesPayload {
     files: FileData[];
 }
 
-export const OpenParentFolder = defineActionWithEffect({
-    definition: {
+export const OpenParentFolder = defineFileAction(
+    {
         id: 'open_parent_folder',
         hotkeys: ['backspace'],
         button: {
@@ -230,7 +230,7 @@ export const OpenParentFolder = defineActionWithEffect({
             iconOnly: true,
         },
     } as const,
-    effect: ({ dispatch, getState }) => {
+    ({ dispatch, getState }) => {
         const parentFolder = selectParentFolder(getState());
         if (FileHelper.isOpenable(parentFolder)) {
             dispatch(
@@ -246,5 +246,5 @@ export const OpenParentFolder = defineActionWithEffect({
             );
         }
         return false;
-    },
-});
+    }
+);
