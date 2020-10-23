@@ -1,6 +1,7 @@
 // Used in React hooks to indicate empty deps are intentional.
-import { MaybePromise } from 'tsdef';
+import { MaybePromise, WritableProps } from 'tsdef';
 
+import { FileAction } from '../file-actons/actions.types';
 import { Logger } from './logger';
 
 // Used in contexts that need to provide some default value for a function.
@@ -17,4 +18,20 @@ export const isPromise = <T>(value: MaybePromise<T> | any): value is Promise<T> 
     if (typeof value !== 'object' || !value) return false;
     const then = (value as Promise<T>).then;
     return then && typeof then === 'function';
+};
+
+export const defineFileAction = <Action extends FileAction>(
+    action: Action
+): WritableProps<Action> => {
+    if (action.__payloadType !== undefined && (action.hotkeys || action.button)) {
+        const errorMessage =
+            `Invalid definition was provided for file action "${action.id}". Actions ` +
+            `that specify hotkeys or buttons cannot define a payload type. If ` +
+            `your application requires this functionality, define two actions ` +
+            `and chain them using effects.`;
+        Logger.error(errorMessage);
+        throw new Error(errorMessage);
+    }
+
+    return action as any;
 };

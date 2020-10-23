@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Nullable } from 'tsdef';
 
-import { NewChonkyActions } from '../../file-actons/definitions';
-import { thunkNewRequestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
+import { ChonkyActions } from '../../file-actons/definitions/index';
+import { thunkRequestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
 import { FileData } from '../../types/files.types';
 import { KeyboardClickEvent, MouseClickEvent } from '../internal/ClickableWrapper';
 
@@ -19,7 +19,7 @@ export const useFileClickHandlers = (
             if (!file) return;
 
             dispatch(
-                thunkNewRequestFileAction(NewChonkyActions.MouseClickFile, {
+                thunkRequestFileAction(ChonkyActions.MouseClickFile, {
                     clickType,
                     file,
                     fileDisplayIndex: displayIndex,
@@ -36,7 +36,7 @@ export const useFileClickHandlers = (
             if (!file) return;
 
             dispatch(
-                thunkNewRequestFileAction(NewChonkyActions.KeyboardClickFile, {
+                thunkRequestFileAction(ChonkyActions.KeyboardClickFile, {
                     file,
                     fileDisplayIndex: displayIndex,
                     enterKey: event.enterKey,

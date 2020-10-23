@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
+import { ChonkyActions } from '../file-actons/definitions/index';
 import {
     selectFileActionData,
     selectFileViewConfig,
@@ -15,15 +16,15 @@ import { useParamSelector } from '../redux/store';
 import { thunkRequestFileAction } from '../redux/thunks/file-action-dispatchers.thunks';
 import { ChonkyIconName } from '../types/icons.types';
 import { SortOrder } from '../types/sort.types';
-import { ChonkyActions } from './file-actions-definitions';
 import { FileHelper } from './file-helper';
 
 export const useFileActionTrigger = (fileActionId: string) => {
     const dispatch = useDispatch();
-    return useCallback(() => dispatch(thunkRequestFileAction(fileActionId)), [
-        dispatch,
-        fileActionId,
-    ]);
+    const fileAction = useParamSelector(selectFileActionData, fileActionId);
+    return useCallback(
+        () => dispatch(thunkRequestFileAction(fileAction, undefined)),
+        [dispatch, fileAction]
+    );
 };
 
 export const useFileActionProps = (

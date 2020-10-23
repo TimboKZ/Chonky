@@ -1,10 +1,11 @@
+import { ChonkyActions } from '../file-actons/definitions/index';
 import { SortOrder } from '../types/sort.types';
-import { ChonkyActions } from '../util/file-actions-definitions';
 import { RootState } from './types';
 
 export const initialRootState: RootState = {
+    instanceId: 'CHONKY_INVALID_ID', // should be overwritten by preloaded state
+
     externalFileActionHandler: null,
-    newExternalFileActionHandler: null,
 
     rawFileActions: [],
     fileActionsErrorMessages: [],

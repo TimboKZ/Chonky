@@ -1,9 +1,9 @@
 import { Action, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { AnyFunction, Nullable } from 'tsdef';
+import { Nullable } from 'tsdef';
 
 import { FileAction, FileActionMap } from '../file-actons/actions.types';
 import { GenericFileActionHandler } from '../file-actons/handler.types';
-import { ToolbarItemGroup } from '../file-actons/presentation.types';
+import { ToolbarItemArray } from '../file-actons/presentation.types';
 import { FileViewConfig } from '../types/file-view.types';
 import { FileArray, FileIdTrueMap, FileMap } from '../types/files.types';
 import { OptionMap } from '../types/options.types';
@@ -12,15 +12,16 @@ import { SortOrder } from '../types/sort.types';
 import { ThumbnailGenerator } from '../types/thumbnails.types';
 
 export type RootState = {
-    externalFileActionHandler: Nullable<AnyFunction>;
-    newExternalFileActionHandler: Nullable<GenericFileActionHandler<FileAction>>;
+    instanceId: string;
+
+    externalFileActionHandler: Nullable<GenericFileActionHandler<FileAction>>;
 
     // Raw and sanitized file actions
     rawFileActions: FileAction[] | any;
     fileActionsErrorMessages: string[];
     fileActionMap: FileActionMap;
     fileActionIds: string[];
-    toolbarItems: (FileAction | ToolbarItemGroup)[];
+    toolbarItems: ToolbarItemArray;
 
     // Raw and sanitized folder chain
     rawFolderChain: Nullable<FileArray> | any;

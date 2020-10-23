@@ -7,13 +7,8 @@ import shortid from 'shortid';
 
 import { useChonkyStore } from '../../redux/store';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
-import { DefaultFileActions } from '../../util/file-actions-definitions';
 import { useStaticValue } from '../../util/hooks-helpers';
 import { lightTheme } from '../../util/styles';
-import {
-    useFileActionsValidation,
-    useFileArrayValidation,
-} from '../../util/validation';
 import { ChonkyBusinessLogic } from '../internal/ChonkyBusinessLogic';
 import { ChonkyPresentationLayer } from '../internal/ChonkyPresentationLayer';
 
@@ -28,43 +23,38 @@ export const FileBrowser = React.forwardRef<
     FileBrowserHandle,
     FileBrowserProps & { children?: ReactNode }
 >((props, ref) => {
-    const { instanceId, files, disableDragAndDropProvider, children } = props;
+    const { instanceId, disableDragAndDropProvider, children } = props;
 
     const chonkyInstanceId = useStaticValue(() => instanceId ?? shortid.generate());
     const store = useChonkyStore(chonkyInstanceId);
 
-    // ==== Default values assignment
-    const folderChain = props.folderChain ? props.folderChain : null;
-    const fileActions = props.fileActions ? props.fileActions : [];
-    const disableDefaultFileActions = !!props.disableDefaultFileActions;
-
     // ==== Validation of the most important props
-    const {
-        cleanFiles,
-        cleanFolderChain,
-        errorMessages: fileArrayErrors,
-    } = useFileArrayValidation(files, folderChain);
-    const {
-        cleanFileActions,
-        errorMessages: fileActionsErrors,
-    } = useFileActionsValidation(
-        fileActions,
-        DefaultFileActions,
-        !disableDefaultFileActions
-    );
-    const validationErrors = [...fileArrayErrors, ...fileActionsErrors];
+    // const {
+    //     cleanFiles,
+    //     cleanFolderChain,
+    //     errorMessages: fileArrayErrors,
+    // } = useFileArrayValidation(files, folderChain);
+    // const {
+    //     cleanFileActions,
+    //     errorMessages: fileActionsErrors,
+    // } = useFileActionsValidation(
+    //     fileActions,
+    //     DefaultFileActions,
+    //     !disableDefaultFileActions
+    // );
+    // const validationErrors = [...fileArrayErrors, ...fileActionsErrors];
 
-    const businessLogicProps: FileBrowserProps = {
-        ...props,
-        files: cleanFiles,
-        folderChain: cleanFolderChain,
-        fileActions: cleanFileActions,
-    };
+    // const businessLogicProps: FileBrowserProps = {
+    //     ...props,
+    //     files: cleanFiles,
+    //     folderChain: cleanFolderChain,
+    //     fileActions: cleanFileActions,
+    // };
 
     const chonkyComps = (
         <>
-            <ChonkyBusinessLogic ref={ref} {...businessLogicProps} />
-            <ChonkyPresentationLayer validationErrors={validationErrors}>
+            <ChonkyBusinessLogic ref={ref} {...props} />
+            <ChonkyPresentationLayer validationErrors={[]}>
                 {children}
             </ChonkyPresentationLayer>
         </>

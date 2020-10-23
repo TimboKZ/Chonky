@@ -1,10 +1,13 @@
 import { Nilable } from 'tsdef';
 
 import { ToolbarDropdownProps } from '../../components/external/ToolbarDropdown';
-import { EssentialFileActions } from '../../file-actons/definitions';
 import { FileAction } from '../../file-actons/actions.types';
+import {
+    ChonkyActions,
+    DefaultFileActions,
+    EssentialFileActions,
+} from '../../file-actons/definitions/index';
 import { SortOrder } from '../../types/sort.types';
-import { ChonkyActions, DefaultFileActions } from '../../util/file-actions-definitions';
 import { sanitizeInputArray } from '../files-transforms';
 import { reduxActions } from '../reducers';
 import {

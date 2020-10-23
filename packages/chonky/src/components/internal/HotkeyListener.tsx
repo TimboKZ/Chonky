@@ -30,7 +30,7 @@ export const HotkeyListener: React.FC<HotkeyListenerProps> = React.memo((props) 
         const hotkeysStr = fileAction.hotkeys.join(',');
         const hotkeyCallback = (event: KeyboardEvent) => {
             event.preventDefault();
-            dispatch(thunkRequestFileAction(fileAction.id));
+            dispatch(thunkRequestFileAction(fileAction, undefined));
         };
         hotkeys(hotkeysStr, hotkeyCallback);
         return () => hotkeys.unbind(hotkeysStr, hotkeyCallback);

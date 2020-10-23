@@ -1,5 +1,5 @@
+import { ChonkyActionUnion } from './file-actons/definitions/index';
 import { GenericFileActionHandler } from './file-actons/handler.types';
-import { ChonkyActionUnion } from './test-handler';
 
 export { FileBrowser } from './components/external/FileBrowser';
 export { FileNavbar } from './components/external/FileNavbar';
@@ -13,7 +13,6 @@ export { FileHelper } from './util/file-helper';
 export { FileBrowserHandle } from './types/file-browser.types';
 export { ChonkyIconName } from './types/icons.types';
 export { FileData, FileArray } from './types/files.types';
-export { FileActionData } from './file-actons/actions.types';
 export { FileAction } from './file-actons/actions.types';
 export { FileSelection } from './types/selection.types';
 

@@ -2,7 +2,7 @@ import { AnyObject, MaybePromise, Nullable } from 'tsdef';
 
 import { ChonkyDispatch, RootState } from '../redux/types';
 import { FileViewConfig } from '../types/file-view.types';
-import { FileData, FileFilter, FileMap } from '../types/files.types';
+import { FileFilter, FileMap } from '../types/files.types';
 import { ChonkyIconName } from '../types/icons.types';
 import { FileSortKeySelector } from '../types/sort.types';
 
@@ -52,12 +52,7 @@ export interface FileAction {
      * selection. If the transform function returns `null`, selection will be left
      * untouched.
      */
-    selectionTransform?: (data: {
-        prevSelection: Set<string>;
-        fileIds: ReadonlyArray<string>;
-        fileMap: Readonly<FileMap>;
-        hiddenFileIds: Set<string>;
-    }) => Nullable<Set<string>>;
+    selectionTransform?: FileSelectionTransform;
 
     /**
      * When effect is defined, it will be called right before dispatching the action to
@@ -73,7 +68,12 @@ export interface FileAction {
     __extraStateType?: any;
 }
 export type FileActionButton = FileAction['button'];
-export type FileSelectionTransform = FileAction['selectionTransform'];
+export type FileSelectionTransform = (data: {
+    prevSelection: Set<string>;
+    fileIds: ReadonlyArray<string>;
+    fileMap: Readonly<FileMap>;
+    hiddenFileIds: Set<string>;
+}) => Nullable<Set<string>>;
 export type FileActionEffect<Action extends FileAction = any> = (data: {
     action: Action;
     payload: Action['__payloadType'];
@@ -81,19 +81,9 @@ export type FileActionEffect<Action extends FileAction = any> = (data: {
     getState: () => RootState;
 }) => MaybePromise<undefined | boolean>;
 
-export interface FileActionData {
-    actionId: string;
-    target?: FileData;
-    files?: FileData[];
-}
-
 export type FileActionState<ExtraState extends object = AnyObject> = {
     instanceId: string;
+    selectedFilesForAction?: FileAction[];
 } & ExtraState;
-
-export type FileActionHandler = (
-    action: FileAction,
-    data: FileActionData
-) => void | Promise<void>;
 
 export type FileActionMap = { [actonId: string]: FileAction };

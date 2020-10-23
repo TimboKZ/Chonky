@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
+import { ChonkyActions } from '../../file-actons/definitions/index';
 import { selectFolderChain } from '../../redux/selectors';
-import { thunkDispatchFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
+import { thunkRequestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
 import { FileData } from '../../types/files.types';
-import { ChonkyActions } from '../../util/file-actions-definitions';
 import { FileHelper } from '../../util/file-helper';
 
 export interface FolderChainItem {
@@ -32,9 +32,8 @@ export const useFolderChainItems = (): FolderChainItem[] => {
                         ? undefined
                         : () =>
                               dispatch(
-                                  thunkDispatchFileAction({
-                                      actionId: ChonkyActions.OpenFiles.id,
-                                      target: file,
+                                  thunkRequestFileAction(ChonkyActions.OpenFiles, {
+                                      targetFile: file,
                                       files: [file],
                                   })
                               ),

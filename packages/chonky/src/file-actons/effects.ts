@@ -6,14 +6,13 @@ import {
     selectParentFolder,
     selectSelectionSize,
 } from '../redux/selectors';
-import { thunkDispatchFileAction } from '../redux/thunks/file-action-dispatchers.thunks';
-import { ChonkyActions } from '../util/file-actions-definitions';
+import { thunkRequestFileAction } from '../redux/thunks/file-action-dispatchers.thunks';
 import { FileHelper } from '../util/file-helper';
 import { Logger } from '../util/logger';
 import { FileActionEffect } from './actions.types';
-import { NewChonkyActions } from './definitions';
+import { ChonkyActions } from './definitions/index';
 
-export const mouseClickFileEffect: FileActionEffect<typeof NewChonkyActions.MouseClickFile> = ({
+export const mouseClickFileEffect: FileActionEffect<typeof ChonkyActions.MouseClickFile> = ({
     payload,
     dispatch,
     getState,
@@ -21,9 +20,8 @@ export const mouseClickFileEffect: FileActionEffect<typeof NewChonkyActions.Mous
     if (payload.clickType === 'double') {
         if (FileHelper.isOpenable(payload.file)) {
             dispatch(
-                thunkDispatchFileAction({
-                    actionId: NewChonkyActions.OpenFiles.id,
-                    target: payload.file,
+                thunkRequestFileAction(ChonkyActions.OpenFiles, {
+                    targetFile: payload.file,
 
                     // To simulate Windows Explorer and Nautilus behaviour,
                     // a double click on a file only opens that file even if
@@ -84,9 +82,9 @@ export const mouseClickFileEffect: FileActionEffect<typeof NewChonkyActions.Mous
     }
     return false;
 };
-NewChonkyActions.MouseClickFile.effect = mouseClickFileEffect;
+ChonkyActions.MouseClickFile.effect = mouseClickFileEffect;
 
-export const keyboardClickFileEffect: FileActionEffect<typeof NewChonkyActions.KeyboardClickFile> = ({
+export const keyboardClickFileEffect: FileActionEffect<typeof ChonkyActions.KeyboardClickFile> = ({
     payload,
     dispatch,
     getState,
@@ -98,9 +96,8 @@ export const keyboardClickFileEffect: FileActionEffect<typeof NewChonkyActions.K
         // hotkey manager for the Open Files action.
         if (selectSelectionSize(getState()) === 0) {
             dispatch(
-                thunkDispatchFileAction({
-                    actionId: ChonkyActions.OpenFiles.id,
-                    target: payload.file,
+                thunkRequestFileAction(ChonkyActions.OpenFiles, {
+                    targetFile: payload.file,
                     files: [payload.file],
                 })
             );
@@ -115,9 +112,9 @@ export const keyboardClickFileEffect: FileActionEffect<typeof NewChonkyActions.K
     }
     return false;
 };
-NewChonkyActions.KeyboardClickFile.effect = keyboardClickFileEffect;
+ChonkyActions.KeyboardClickFile.effect = keyboardClickFileEffect;
 
-export const startDragNDropEffect: FileActionEffect<typeof NewChonkyActions.StartDragNDrop> = ({
+export const startDragNDropEffect: FileActionEffect<typeof ChonkyActions.StartDragNDrop> = ({
     payload,
     dispatch,
     getState,
@@ -135,45 +132,40 @@ export const startDragNDropEffect: FileActionEffect<typeof NewChonkyActions.Star
     }
     return false;
 };
-NewChonkyActions.StartDragNDrop.effect = startDragNDropEffect;
+ChonkyActions.StartDragNDrop.effect = startDragNDropEffect;
 
-export const endDragNDropEffect: FileActionEffect<typeof NewChonkyActions.EndDragNDrop> = ({
+export const endDragNDropEffect: FileActionEffect<typeof ChonkyActions.EndDragNDrop> = ({
     payload,
     dispatch,
     getState,
 }) => {
-    if (getIsFileSelected(getState(), payload.dropTarget)) {
+    if (getIsFileSelected(getState(), payload.destination)) {
         // Can't drop a selection into itself
         return;
     }
 
     const selectedFiles = getSelectedFiles(getState(), FileHelper.isDraggable);
     const droppedFiles =
-        selectedFiles.length > 0 ? selectedFiles : [payload.dragSource];
+        selectedFiles.length > 0 ? selectedFiles : [payload.draggedFile];
     dispatch(
-        thunkDispatchFileAction({
-            actionId:
-                payload.dropEffect === 'copy'
-                    ? ChonkyActions.DuplicateFilesTo.id
-                    : ChonkyActions.MoveFilesTo.id,
-            target: payload.dropTarget,
+        thunkRequestFileAction(ChonkyActions.MoveFiles, {
+            ...payload,
             files: droppedFiles,
         })
     );
     return false;
 };
-NewChonkyActions.EndDragNDrop.effect = endDragNDropEffect;
+ChonkyActions.EndDragNDrop.effect = endDragNDropEffect;
 
-export const openParentFolderEffect: FileActionEffect<typeof NewChonkyActions.OpenFiles> = ({
+export const openParentFolderEffect: FileActionEffect<typeof ChonkyActions.OpenParentFolder> = ({
     dispatch,
     getState,
 }) => {
     const parentFolder = selectParentFolder(getState());
     if (FileHelper.isOpenable(parentFolder)) {
         dispatch(
-            thunkDispatchFileAction({
-                actionId: NewChonkyActions.OpenFiles.id,
-                target: parentFolder,
+            thunkRequestFileAction(ChonkyActions.OpenFiles, {
+                targetFile: parentFolder,
                 files: [parentFolder],
             })
         );
@@ -185,3 +177,4 @@ export const openParentFolderEffect: FileActionEffect<typeof NewChonkyActions.Op
     }
     return false;
 };
+ChonkyActions.OpenParentFolder.effect = openParentFolderEffect;

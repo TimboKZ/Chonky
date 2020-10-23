@@ -1,6 +1,8 @@
 import { Nullable } from 'tsdef';
 
-import { FileAction, FileActionHandler } from '../file-actons/actions.types';
+import { FileAction } from '../file-actons/actions.types';
+import { ChonkyActionUnion } from '../file-actons/definitions/index';
+import { GenericFileActionHandler } from '../file-actons/handler.types';
 import { FileArray } from './files.types';
 import { ThumbnailGenerator } from './thumbnails.types';
 
@@ -62,7 +64,7 @@ export interface FileBrowserProps {
     /**
      * An action handler that will be called every time a file action is dispatched.
      */
-    onFileAction?: FileActionHandler;
+    onFileAction?: GenericFileActionHandler<ChonkyActionUnion>;
 
     /**
      * The function that determines the thumbnail image URL for a file. It gets a file

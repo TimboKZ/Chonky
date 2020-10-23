@@ -2,16 +2,16 @@ import { Store } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 import watch from 'redux-watch';
 
+import { ChonkyActions } from '../file-actons/definitions/index';
 import { FileSelection } from '../types/selection.types';
-import { ChonkyActions } from '../util/file-actions-definitions';
 import { reduxActions } from './reducers';
 import {
-    getSelectedFiles,
     selectDisplayFileIds,
     selectLastClickIndex,
+    selectSelectedFileIds,
     selectSelectionMap,
 } from './selectors';
-import { thunkDispatchFileAction } from './thunks/file-action-dispatchers.thunks';
+import { thunkRequestFileAction } from './thunks/file-action-dispatchers.thunks';
 import { RootState } from './types';
 
 export const useStoreWatchers = (store: Store<RootState>) => {
@@ -26,11 +26,11 @@ export const useStoreWatchers = (store: Store<RootState>) => {
             if (newSelection === oldSelection) return;
 
             // Notify users the selection has changed.
-            const selectedFiles = getSelectedFiles(store.getState());
+            const selectedFilesIds = selectSelectedFileIds(store.getState());
+            const selection = new Set<string>(selectedFilesIds);
             store.dispatch(
-                thunkDispatchFileAction({
-                    actionId: ChonkyActions.ChangeSelection.id,
-                    files: selectedFiles,
+                thunkRequestFileAction(ChonkyActions.ChangeSelection, {
+                    selection,
                 }) as any
             );
         };
@@ -71,7 +71,7 @@ export const useStoreWatchers = (store: Store<RootState>) => {
             store.subscribe(displayFileIdsWatcher(onDisplayFileIdsChange)),
         ];
         return () => {
-            for (const callback of unsubscribeCallbacks) callback();
+            for (const unsubscribe of unsubscribeCallbacks) unsubscribe();
         };
     }, [store]);
 };

@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
 import { DragObjectWithType, DragSourceMonitor, useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ExcludeKeys, Nilable, Nullable } from 'tsdef';
 
-import { NewChonkyActions } from '../../file-actons/definitions';
-import { thunkNewRequestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
+import { ChonkyActions } from '../../file-actons/definitions/index';
+import { selectInstanceId, selectParentFolder } from '../../redux/selectors';
+import { thunkRequestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
 import { FileData } from '../../types/files.types';
 import { FileHelper } from '../../util/file-helper';
 import { ClickableFileEntry } from './ClickableFileEntry';
@@ -18,6 +19,8 @@ export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
     const { file } = props;
 
     const dispatch = useDispatch();
+    const instanceId = useSelector(selectInstanceId);
+    const parentFolder = useSelector(selectParentFolder);
 
     interface ChonkyDnDDropResult {
         dropTarget: Nilable<FileData>;
@@ -30,7 +33,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
         if (!FileHelper.isDraggable(file)) return;
 
         dispatch(
-            thunkNewRequestFileAction(NewChonkyActions.StartDragNDrop, {
+            thunkRequestFileAction(ChonkyActions.StartDragNDrop, {
                 dragSource: file,
             })
         );
@@ -47,14 +50,16 @@ export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
             }
 
             dispatch(
-                thunkNewRequestFileAction(NewChonkyActions.EndDragNDrop, {
-                    dragSource: file,
-                    dropTarget: dropResult.dropTarget,
-                    dropEffect: dropResult.dropEffect,
+                thunkRequestFileAction(ChonkyActions.EndDragNDrop, {
+                    sourceInstanceId: instanceId,
+                    source: parentFolder,
+                    draggedFile: file,
+                    destination: dropResult.dropTarget,
+                    copy: dropResult.dropEffect === 'copy',
                 })
             );
         },
-        [dispatch, file]
+        [dispatch, file, instanceId, parentFolder]
     );
 
     // For drop target

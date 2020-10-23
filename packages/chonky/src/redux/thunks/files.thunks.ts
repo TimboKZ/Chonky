@@ -1,9 +1,9 @@
 import sort from 'fast-sort';
 import { Nullable } from 'tsdef';
 
+import { ChonkyActions } from '../../file-actons/definitions/index';
 import { FileArray } from '../../types/files.types';
 import { FileSortKeySelector, SortOrder } from '../../types/sort.types';
-import { ChonkyActions } from '../../util/file-actions-definitions';
 import { FileHelper } from '../../util/file-helper';
 import { sanitizeInputArray } from '../files-transforms';
 import { reduxActions } from '../reducers';
@@ -49,7 +49,8 @@ export const thunkSortFiles = (): ChonkyThunk => (dispatch, getState) => {
 
     const sortAction = fileActionMap[sortActionId];
     const sortKeySelector = sortAction ? sortAction.sortKeySelector : null;
-    const showFolderFirst = optionMap[ChonkyActions.ToggleShowFoldersFirst.option.id];
+    const showFolderFirst =
+        optionMap[ChonkyActions.ToggleShowFoldersFirst.option.id];
 
     const prepareSortKeySelector = (selector: FileSortKeySelector) => (
         fileId: string

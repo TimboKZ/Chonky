@@ -8,8 +8,8 @@ import Box from '@material-ui/core/Box';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import React, { ReactElement, useMemo } from 'react';
 
+import { ChonkyActions } from '../../file-actons/definitions/index';
 import { ChonkyIconName } from '../../types/icons.types';
-import { ChonkyActions } from '../../util/file-actions-definitions';
 import { c, important, makeChonkyStyles } from '../../util/styles';
 import { useFolderChainItems } from './FileNavbar-hooks';
 import { SmartToolbarButton, ToolbarButton } from './ToolbarButton';

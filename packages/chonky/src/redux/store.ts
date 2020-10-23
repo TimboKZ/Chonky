@@ -9,17 +9,18 @@ import { initialRootState } from './state';
 import { RootState } from './types';
 import { useStoreWatchers } from './watchers';
 
-export const useChonkyStore = (chonkyId: string) => {
+export const useChonkyStore = (chonkyInstanceId: string) => {
     const store = useStaticValue(() => {
         const preloadedState: DeepPartial<RootState> = {
             ...initialRootState,
+            instanceId: chonkyInstanceId,
         };
         return configureStore({
             preloadedState: preloadedState as any,
             reducer: rootReducer,
             middleware: (getDefaultMiddleware) =>
                 getDefaultMiddleware({ serializableCheck: false }),
-            devTools: { name: `chonky_${chonkyId}` },
+            devTools: { name: `chonky_${chonkyInstanceId}` },
         });
     });
     useStoreWatchers(store);

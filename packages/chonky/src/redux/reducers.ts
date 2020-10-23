@@ -1,12 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Nullable } from 'tsdef';
 
-import {
-    FileAction,
-    FileActionHandler,
-    FileActionMap,
-} from '../file-actons/actions.types';
-import { ToolbarItemGroup } from '../file-actons/presentation.types';
+import { FileAction, FileActionMap } from '../file-actons/actions.types';
+import { GenericFileActionHandler } from '../file-actons/handler.types';
+import { ToolbarItemArray } from '../file-actons/presentation.types';
 import { FileViewConfig } from '../types/file-view.types';
 import { FileArray, FileIdTrueMap, FileMap } from '../types/files.types';
 import { OptionMap } from '../types/options.types';
@@ -22,7 +19,7 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
     reducers: {
         setExternalFileActionHandler(
             state,
-            action: PayloadAction<Nullable<FileActionHandler>>
+            action: PayloadAction<Nullable<GenericFileActionHandler<FileAction>>>
         ) {
             state.externalFileActionHandler = action.payload;
         },
@@ -37,14 +34,11 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
             action.payload.map((a) => (fileActionMap[a.id] = a));
             const fileIds = action.payload.map((a) => a.id);
 
-            state.fileActionMap = fileActionMap;
+            state.fileActionMap = fileActionMap as FileMap;
             state.fileActionIds = fileIds;
         },
-        setToolbarItems(
-            state,
-            action: PayloadAction<(FileAction | ToolbarItemGroup)[]>
-        ) {
-            state.toolbarItems = action.payload;
+        setToolbarItems(state, action: PayloadAction<ToolbarItemArray>) {
+            state.toolbarItems = (action.payload as ToolbarItemArray) as any;
         },
         setRawFolderChain(state, action: PayloadAction<FileArray | any>) {
             state.rawFolderChain = action.payload;
