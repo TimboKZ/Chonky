@@ -1,7 +1,7 @@
 // Used in React hooks to indicate empty deps are intentional.
 import { MaybePromise, WritableProps } from 'tsdef';
 
-import { FileAction } from '../file-actons/actions.types';
+import { FileAction, FileActionEffect } from '../file-actons/actions.types';
 import { Logger } from './logger';
 
 // Used in contexts that need to provide some default value for a function.
@@ -20,7 +20,7 @@ export const isPromise = <T>(value: MaybePromise<T> | any): value is Promise<T> 
     return then && typeof then === 'function';
 };
 
-export const defineFileAction = <Action extends FileAction>(
+export const defineSimpleAction = <Action extends FileAction>(
     action: Action
 ): WritableProps<Action> => {
     if (action.__payloadType !== undefined && (action.hotkeys || action.button)) {
@@ -34,4 +34,30 @@ export const defineFileAction = <Action extends FileAction>(
     }
 
     return action as any;
+};
+
+export const defineActionWithEffect = <
+    Action extends FileAction,
+    Payload extends any = undefined
+>(params: {
+    definition: Action;
+    effect?: FileActionEffect<FileAction>;
+}): WritableProps<Action> => {
+    const { definition, effect } = params;
+
+    if (
+        definition.__payloadType !== undefined &&
+        (definition.hotkeys || definition.button)
+    ) {
+        const errorMessage =
+            `Invalid definition was provided for file action "${definition.id}". Actions ` +
+            `that specify hotkeys or buttons cannot define a payload type. If ` +
+            `your application requires this functionality, define two actions ` +
+            `and chain them using effects.`;
+        Logger.error(errorMessage);
+        throw new Error(errorMessage);
+    }
+
+    definition.effect = effect;
+    return definition as any;
 };

@@ -50,7 +50,7 @@ export const thunkDispatchFileAction = (data: ActionData<FileAction>): ChonkyThu
  * from Redux state. Once action data is ready, Chonky executes some side effect and/or
  * dispatches the action to the external action handler.
  */
-export const thunkRequestFileAction = <Action extends FileAction>(
+export const requestFileAction = <Action extends FileAction>(
     action: Action,
     payload: Action['__payloadType']
 ): ChonkyThunk => (dispatch, getState) => {

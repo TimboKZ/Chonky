@@ -4,7 +4,7 @@ import { Nullable } from 'tsdef';
 
 import { ChonkyActions } from '../../file-actons/definitions/index';
 import { selectFolderChain } from '../../redux/selectors';
-import { thunkRequestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
+import { requestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
 import { FileData } from '../../types/files.types';
 import { FileHelper } from '../../util/file-helper';
 
@@ -32,7 +32,7 @@ export const useFolderChainItems = (): FolderChainItem[] => {
                         ? undefined
                         : () =>
                               dispatch(
-                                  thunkRequestFileAction(ChonkyActions.OpenFiles, {
+                                  requestFileAction(ChonkyActions.OpenFiles, {
                                       targetFile: file,
                                       files: [file],
                                   })

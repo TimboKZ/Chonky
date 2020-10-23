@@ -6,7 +6,7 @@ import { ExcludeKeys, Nilable, Nullable } from 'tsdef';
 
 import { ChonkyActions } from '../../file-actons/definitions/index';
 import { selectInstanceId, selectParentFolder } from '../../redux/selectors';
-import { thunkRequestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
+import { requestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
 import { FileData } from '../../types/files.types';
 import { FileHelper } from '../../util/file-helper';
 import { ClickableFileEntry } from './ClickableFileEntry';
@@ -33,7 +33,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
         if (!FileHelper.isDraggable(file)) return;
 
         dispatch(
-            thunkRequestFileAction(ChonkyActions.StartDragNDrop, {
+            requestFileAction(ChonkyActions.StartDragNDrop, {
                 dragSource: file,
             })
         );
@@ -50,7 +50,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
             }
 
             dispatch(
-                thunkRequestFileAction(ChonkyActions.EndDragNDrop, {
+                requestFileAction(ChonkyActions.EndDragNDrop, {
                     sourceInstanceId: instanceId,
                     source: parentFolder,
                     draggedFile: file,
