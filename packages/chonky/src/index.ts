@@ -7,7 +7,7 @@ export { FileToolbar } from './components/external/FileToolbar';
 export { FileList } from './components/file-list/FileList';
 export { ChonkyIconFA } from './components/external/ChonkyIcon';
 
-export { ChonkyActions } from './util/file-actions-definitions';
+export { ChonkyActions } from './file-actons/definitions';
 export { FileHelper } from './util/file-helper';
 
 export { FileBrowserHandle } from './types/file-browser.types';

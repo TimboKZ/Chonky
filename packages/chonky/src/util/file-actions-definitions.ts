@@ -5,7 +5,7 @@ const validateActionTypes = <T extends { [action: string]: FileAction }>(
     actionMap: T
 ): T => actionMap;
 
-export const ChonkyActions = validateActionTypes({
+export const OldChonkyActions = validateActionTypes({
     // Optional actions
     CopyFiles: {
         id: 'copy_files',
