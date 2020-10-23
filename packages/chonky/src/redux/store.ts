@@ -1,10 +1,12 @@
-import { Action, configureStore, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeepPartial } from 'tsdef';
 
 import { useStaticValue } from '../util/hooks-helpers';
-import { initialRootState, rootReducer, RootState } from './reducers';
+import { rootReducer } from './reducers';
+import { initialRootState } from './state';
+import { RootState } from './types';
 import { useStoreWatchers } from './watchers';
 
 export const useChonkyStore = (chonkyId: string) => {
@@ -56,12 +58,3 @@ export const useDTE = <Args extends Array<any>, Value>(
         [dispatch, actionCreator, ...selectorParams]
     );
 };
-
-export type ChonkyThunk<ReturnType = void> = ThunkAction<
-    ReturnType,
-    RootState,
-    unknown,
-    Action<string>
->;
-
-export type ChonkyDispatch = ThunkDispatch<RootState, unknown, Action<string>>;

@@ -1,11 +1,10 @@
-import { MaybePromise, Nullable } from 'tsdef';
+import { AnyObject, MaybePromise, Nullable } from 'tsdef';
 
-import { RootState } from '../redux/reducers';
-import { ChonkyDispatch } from '../redux/store';
-import { FileViewConfig } from './file-view.types';
-import { FileData, FileFilter, FileMap } from './files.types';
-import { ChonkyIconName } from './icons.types';
-import { FileSortKeySelector } from './sort.types';
+import { ChonkyDispatch, RootState } from '../redux/types';
+import { FileViewConfig } from '../types/file-view.types';
+import { FileData, FileFilter, FileMap } from '../types/files.types';
+import { ChonkyIconName } from '../types/icons.types';
+import { FileSortKeySelector } from '../types/sort.types';
 
 export interface FileAction {
     id: string; // Unique action ID
@@ -13,7 +12,7 @@ export interface FileAction {
     requiresSelection?: boolean; // Requires selection of 1+ files
     fileFilter?: FileFilter; // Used to filter the files array
 
-    hotkeys?: string[]; // Hotkeys using `hotkey-js` notation
+    hotkeys?: string[] | readonly string[]; // Hotkeys using `hotkey-js` notation
 
     /**
      * When button is defined and `toolbar` or `contextMenu` is set to `true`, a
@@ -67,14 +66,20 @@ export interface FileAction {
      * handler. If this function returns `true`, the file action will NOT be dispatched
      * the the handler.
      */
-    effect?: (data: {
-        dispatch: ChonkyDispatch;
-        getState: () => RootState;
-    }) => MaybePromise<boolean | undefined>;
+    effect?: FileActionEffect;
+
+    // Fields used for type inference; not used at runtime.
+    __payloadType?: any;
+    __extraStateType?: any;
 }
 export type FileActionButton = FileAction['button'];
 export type FileSelectionTransform = FileAction['selectionTransform'];
-export type FileActionEffect = FileAction['effect'];
+export type FileActionEffect<Action extends FileAction = any> = (data: {
+    action: Action;
+    payload: Action['__payloadType'];
+    dispatch: ChonkyDispatch;
+    getState: () => RootState;
+}) => MaybePromise<undefined | boolean>;
 
 export interface FileActionData {
     actionId: string;
@@ -82,17 +87,13 @@ export interface FileActionData {
     files?: FileData[];
 }
 
+export type FileActionState<ExtraState extends object = AnyObject> = {
+    instanceId: string;
+} & ExtraState;
+
 export type FileActionHandler = (
     action: FileAction,
     data: FileActionData
 ) => void | Promise<void>;
 
-export type InternalFileActionDispatcher = (actionData: FileActionData) => void;
-export type InternalFileActionRequester = (actionId: string) => void;
-
 export type FileActionMap = { [actonId: string]: FileAction };
-
-export interface ToolbarItemGroup {
-    name: string;
-    fileActionIds: string[];
-}

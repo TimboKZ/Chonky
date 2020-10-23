@@ -6,7 +6,8 @@
 
 import React from 'react';
 
-import { initialRootState, reduxActions } from '../../redux/reducers';
+import { reduxActions } from '../../redux/reducers';
+import { initialRootState } from '../../redux/state';
 import { useDTE } from '../../redux/store';
 import {
     thunkUpdateDefaultFileViewActionId,

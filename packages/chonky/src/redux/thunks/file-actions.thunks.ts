@@ -1,7 +1,8 @@
 import { Nilable } from 'tsdef';
 
 import { ToolbarDropdownProps } from '../../components/external/ToolbarDropdown';
-import { FileAction } from '../../types/file-actions.types';
+import { EssentialFileActions } from '../../file-actons/definitions';
+import { FileAction } from '../../file-actons/actions.types';
 import { SortOrder } from '../../types/sort.types';
 import { ChonkyActions, DefaultFileActions } from '../../util/file-actions-definitions';
 import { sanitizeInputArray } from '../files-transforms';
@@ -12,7 +13,7 @@ import {
     selectHiddenFileIdMap,
     selectSelectionMap,
 } from '../selectors';
-import { ChonkyThunk } from '../store';
+import { ChonkyThunk } from '../types';
 import {
     thunkSortFiles,
     thunkUpdateDisplayFiles,
@@ -28,16 +29,30 @@ export const thunkUpdateRawFileActions = (
         rawFileActions
     );
 
+    const seenActionIds = new Set<string>();
+    const addToSeen = (a: FileAction) => !!seenActionIds.add(a.id);
+    const wasNotSeen = (a: FileAction) => !seenActionIds.has(a.id);
+
+    sanitizedArray.map(addToSeen);
+
+    // Add default actions unless user disabled them
     let defaultActionsToAdd: FileAction[] = [];
     if (!disableDefaultFileActions) {
-        const seenActionIds = new Set<string>();
-        sanitizedArray.map((a) => seenActionIds.add(a.id));
-        defaultActionsToAdd = DefaultFileActions.filter(
-            (a) => !seenActionIds.has(a.id)
-        );
+        defaultActionsToAdd = DefaultFileActions.filter(wasNotSeen);
+        defaultActionsToAdd.map(addToSeen);
     }
 
-    const fileActions = [...sanitizedArray, ...defaultActionsToAdd];
+    // Always add essential actions
+    const essentialFileActionsToAdd: FileAction[] = EssentialFileActions.filter(
+        wasNotSeen
+    );
+    essentialFileActionsToAdd.map(addToSeen);
+
+    const fileActions = [
+        ...essentialFileActionsToAdd,
+        ...sanitizedArray,
+        ...defaultActionsToAdd,
+    ];
     const optionDefaults = {};
     fileActions.map((a) =>
         a.option ? (optionDefaults[a.option.id] = a.option.defaultValue) : null

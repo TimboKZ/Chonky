@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { AnyObjectWithStringKeys, Nullable } from 'tsdef';
 
-import { FileAction } from '../types/file-actions.types';
+import { FileAction } from '../file-actons/actions.types';
 import { FileArray } from '../types/files.types';
 import { ErrorMessageData } from '../types/validation.types';
 import { Logger } from './logger';

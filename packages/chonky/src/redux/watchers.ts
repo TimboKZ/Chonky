@@ -4,33 +4,74 @@ import watch from 'redux-watch';
 
 import { FileSelection } from '../types/selection.types';
 import { ChonkyActions } from '../util/file-actions-definitions';
-import { RootState } from './reducers';
-import { getSelectedFiles, selectSelectionMap } from './selectors';
+import { reduxActions } from './reducers';
+import {
+    getSelectedFiles,
+    selectDisplayFileIds,
+    selectLastClickIndex,
+    selectSelectionMap,
+} from './selectors';
 import { thunkDispatchFileAction } from './thunks/file-action-dispatchers.thunks';
+import { RootState } from './types';
 
 export const useStoreWatchers = (store: Store<RootState>) => {
     useEffect(() => {
         const selectionWatcher = watch(() => selectSelectionMap(store.getState()));
-        const selectionUnsubscribe = store.subscribe(
-            selectionWatcher(
-                (newSelection: FileSelection, oldSelection: FileSelection) => {
-                    // We don't check for deep equality here as we expect the
-                    // reducers to prevent all unnecessary updates.
-                    if (newSelection === oldSelection) return;
+        const onSelectionChange = (
+            newSelection: FileSelection,
+            oldSelection: FileSelection
+        ) => {
+            // We don't check for deep equality here as we expect the
+            // reducers to prevent all unnecessary updates.
+            if (newSelection === oldSelection) return;
 
-                    const selectedFiles = getSelectedFiles(store.getState());
-                    store.dispatch(
-                        thunkDispatchFileAction({
-                            actionId: ChonkyActions.ChangeSelection.id,
-                            files: selectedFiles,
-                        }) as any
-                    );
-                }
-            )
+            // Notify users the selection has changed.
+            const selectedFiles = getSelectedFiles(store.getState());
+            store.dispatch(
+                thunkDispatchFileAction({
+                    actionId: ChonkyActions.ChangeSelection.id,
+                    files: selectedFiles,
+                }) as any
+            );
+        };
+
+        const displayFileIdsWatcher = watch(() =>
+            selectDisplayFileIds(store.getState())
         );
+        const onDisplayFileIdsChange = (
+            oldDisplayFileIds: string[],
+            newDisplayFileIds: string[]
+        ) => {
+            const oldLastClickIndex = selectLastClickIndex(store.getState());
+            let newLastClickIndex = oldLastClickIndex;
 
+            if (typeof oldLastClickIndex === 'number') {
+                if (oldLastClickIndex > newDisplayFileIds.length - 1) {
+                    // Reset last click index if it goes beyond the size of the new
+                    // array.
+                    newLastClickIndex = null;
+                } else if (
+                    oldDisplayFileIds[oldLastClickIndex] !==
+                    newDisplayFileIds[oldLastClickIndex]
+                ) {
+                    // Reset last click index if the file ID at the last index has
+                    // changed.
+                    newLastClickIndex = null;
+                }
+            }
+
+            // Update last click index in the interface
+            if (oldLastClickIndex !== newLastClickIndex) {
+                store.dispatch(reduxActions.setLastClickIndex(newLastClickIndex));
+            }
+        };
+
+        const unsubscribeCallbacks = [
+            store.subscribe(selectionWatcher(onSelectionChange)),
+            store.subscribe(displayFileIdsWatcher(onDisplayFileIdsChange)),
+        ];
         return () => {
-            selectionUnsubscribe();
+            for (const callback of unsubscribeCallbacks) callback();
         };
     }, [store]);
 };

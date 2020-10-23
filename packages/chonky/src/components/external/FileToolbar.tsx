@@ -2,7 +2,7 @@ import React, { ReactElement, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectToolbarItems } from '../../redux/selectors';
-import { FileAction } from '../../types/file-actions.types';
+import { FileAction } from '../../file-actons/actions.types';
 import { makeChonkyStyles } from '../../util/styles';
 import { SmartToolbarButton } from './ToolbarButton';
 import { ToolbarDropdown, ToolbarDropdownProps } from './ToolbarDropdown';

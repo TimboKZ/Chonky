@@ -1,3 +1,6 @@
+import { GenericFileActionHandler } from './file-actons/handler.types';
+import { ChonkyActionUnion } from './test-handler';
+
 export { FileBrowser } from './components/external/FileBrowser';
 export { FileNavbar } from './components/external/FileNavbar';
 export { FileToolbar } from './components/external/FileToolbar';
@@ -7,20 +10,11 @@ export { ChonkyIconFA } from './components/external/ChonkyIcon';
 export { ChonkyActions } from './util/file-actions-definitions';
 export { FileHelper } from './util/file-helper';
 
-export { SpecialAction } from './types/special-actions.types';
+export { FileBrowserHandle } from './types/file-browser.types';
 export { ChonkyIconName } from './types/icons.types';
-export { FileArray } from './types/files.types';
-export { FileData } from './types/files.types';
-export { FileActionHandler } from './types/file-actions.types';
-export { FileActionData } from './types/file-actions.types';
-export { FileAction } from './types/file-actions.types';
+export { FileData, FileArray } from './types/files.types';
+export { FileActionData } from './file-actons/actions.types';
+export { FileAction } from './file-actons/actions.types';
 export { FileSelection } from './types/selection.types';
 
-// Export interface separately to comply with isolated module requirements
-// @see https://github.com/microsoft/TypeScript/issues/28481
-export type FileBrowserProps = import('./types/file-browser.types').FileBrowserProps;
-export type FileBrowserHandle = import('./types/file-browser.types').FileBrowserHandle;
-export type FileEntrySize = import('./types/file-view.types').FileEntrySize;
-export type FileToolbarProps = import('./components/external/FileToolbar').FileToolbarProps;
-export type FileListProps = import('./components/file-list/FileList').FileListProps;
-export type ChonkyIconProps = import('./components/external/ChonkyIcon').ChonkyIconProps;
+export type FileActionHandler = GenericFileActionHandler<ChonkyActionUnion>;

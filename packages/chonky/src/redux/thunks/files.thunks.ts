@@ -7,7 +7,7 @@ import { ChonkyActions } from '../../util/file-actions-definitions';
 import { FileHelper } from '../../util/file-helper';
 import { sanitizeInputArray } from '../files-transforms';
 import { reduxActions } from '../reducers';
-import { ChonkyThunk } from '../store';
+import { ChonkyThunk } from '../types';
 
 export const thunkUpdateRawFolderChain = (
     rawFolderChain: Nullable<FileArray> | any

@@ -2,7 +2,12 @@ import React from 'react';
 import { Nullable } from 'tsdef';
 
 import { FileData } from '../../types/files.types';
-import { DnDProps } from './DnDFileEntry';
+
+export interface DnDProps {
+    dndIsDragging?: boolean;
+    dndIsOver?: boolean;
+    dndCanDrop?: boolean;
+}
 
 export interface FileEntryProps extends DnDProps {
     file: Nullable<FileData>;

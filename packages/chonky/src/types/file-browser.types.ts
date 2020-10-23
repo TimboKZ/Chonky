@@ -1,6 +1,6 @@
 import { Nullable } from 'tsdef';
 
-import { FileAction, FileActionHandler } from './file-actions.types';
+import { FileAction, FileActionHandler } from '../file-actons/actions.types';
 import { FileArray } from './files.types';
 import { ThumbnailGenerator } from './thumbnails.types';
 

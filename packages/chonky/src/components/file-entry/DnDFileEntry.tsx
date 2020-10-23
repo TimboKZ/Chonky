@@ -4,18 +4,12 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useDispatch } from 'react-redux';
 import { ExcludeKeys, Nilable, Nullable } from 'tsdef';
 
-import { thunkDispatchSpecialAction } from '../../redux/thunks/file-action-dispatchers.thunks';
+import { NewChonkyActions } from '../../file-actons/definitions';
+import { thunkNewRequestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
 import { FileData } from '../../types/files.types';
-import { SpecialAction } from '../../types/special-actions.types';
 import { FileHelper } from '../../util/file-helper';
 import { ClickableFileEntry } from './ClickableFileEntry';
 import { FileEntryProps } from './FileEntry';
-
-export interface DnDProps {
-    dndIsDragging?: boolean;
-    dndIsOver?: boolean;
-    dndCanDrop?: boolean;
-}
 
 export type DnDFileEntryItem = DragObjectWithType & { file: Nullable<FileData> };
 export const DnDFileEntryType = 'chonky-file-entry';
@@ -36,8 +30,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
         if (!FileHelper.isDraggable(file)) return;
 
         dispatch(
-            thunkDispatchSpecialAction({
-                actionId: SpecialAction.DragNDropStart,
+            thunkNewRequestFileAction(NewChonkyActions.StartDragNDrop, {
                 dragSource: file,
             })
         );
@@ -54,8 +47,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
             }
 
             dispatch(
-                thunkDispatchSpecialAction({
-                    actionId: SpecialAction.DragNDropEnd,
+                thunkNewRequestFileAction(NewChonkyActions.EndDragNDrop, {
                     dragSource: file,
                     dropTarget: dropResult.dropTarget,
                     dropEffect: dropResult.dropEffect,

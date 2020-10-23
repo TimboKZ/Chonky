@@ -2,12 +2,9 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Nullable } from 'tsdef';
 
-import { thunkDispatchSpecialAction } from '../../redux/thunks/file-action-dispatchers.thunks';
+import { NewChonkyActions } from '../../file-actons/definitions';
+import { thunkNewRequestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
 import { FileData } from '../../types/files.types';
-import {
-    SpecialAction,
-    SpecialFileMouseClickAction,
-} from '../../types/special-actions.types';
 import { KeyboardClickEvent, MouseClickEvent } from '../internal/ClickableWrapper';
 
 export const useFileClickHandlers = (
@@ -18,15 +15,11 @@ export const useFileClickHandlers = (
 
     // Prepare base handlers
     const onMouseClick = useCallback(
-        (
-            event: MouseClickEvent,
-            clickType: SpecialFileMouseClickAction['clickType']
-        ) => {
+        (event: MouseClickEvent, clickType: 'single' | 'double') => {
             if (!file) return;
 
             dispatch(
-                thunkDispatchSpecialAction({
-                    actionId: SpecialAction.MouseClickFile,
+                thunkNewRequestFileAction(NewChonkyActions.MouseClickFile, {
                     clickType,
                     file,
                     fileDisplayIndex: displayIndex,
@@ -43,8 +36,7 @@ export const useFileClickHandlers = (
             if (!file) return;
 
             dispatch(
-                thunkDispatchSpecialAction({
-                    actionId: SpecialAction.KeyboardClickFile,
+                thunkNewRequestFileAction(NewChonkyActions.KeyboardClickFile, {
                     file,
                     fileDisplayIndex: displayIndex,
                     enterKey: event.enterKey,

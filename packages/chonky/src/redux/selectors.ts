@@ -2,7 +2,7 @@ import { Nilable, Nullable } from 'tsdef';
 
 import { FileData, FileFilter } from '../types/files.types';
 import { FileHelper } from '../util/file-helper';
-import { RootState } from './reducers';
+import { RootState } from './types';
 
 export const selectFileActionMap = (state: RootState) => state.fileActionMap;
 export const selectFileActionIds = (state: RootState) => state.fileActionIds;
@@ -63,6 +63,8 @@ export const selectDoubleClickDelay = (state: RootState) => state.doubleClickDel
 export const selectIsDnDDisabled = (state: RootState) => state.disableDragAndDrop;
 export const selectClearSelectionOnOutsideClick = (state: RootState) =>
     state.clearSelectionOnOutsideClick;
+
+export const selectLastClickIndex = (state: RootState) => state.lastClickIndex;
 
 // Selectors meant to be used outside of Redux code
 export const getIsFileSelected = (state: RootState, file: FileData) => {

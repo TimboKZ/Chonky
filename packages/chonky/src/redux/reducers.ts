@@ -1,107 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Nullable } from 'tsdef';
 
-import { ToolbarDropdownProps } from '../components/external/ToolbarDropdown';
 import {
     FileAction,
     FileActionHandler,
     FileActionMap,
-} from '../types/file-actions.types';
+} from '../file-actons/actions.types';
+import { ToolbarItemGroup } from '../file-actons/presentation.types';
 import { FileViewConfig } from '../types/file-view.types';
 import { FileArray, FileIdTrueMap, FileMap } from '../types/files.types';
 import { OptionMap } from '../types/options.types';
 import { FileSelection } from '../types/selection.types';
 import { SortOrder } from '../types/sort.types';
 import { ThumbnailGenerator } from '../types/thumbnails.types';
-import { ChonkyActions } from '../util/file-actions-definitions';
 import { FileHelper } from '../util/file-helper';
-
-export interface RootState {
-    externalFileActionHandler: Nullable<FileActionHandler>;
-
-    // Raw and sanitized file actions
-    rawFileActions: FileAction[] | any;
-    fileActionsErrorMessages: string[];
-    fileActionMap: FileActionMap;
-    fileActionIds: string[];
-    toolbarItems: (FileAction | ToolbarDropdownProps)[];
-
-    // Raw and sanitized folder chain
-    rawFolderChain: Nullable<FileArray> | any;
-    folderChainErrorMessages: string[];
-    folderChain: FileArray;
-
-    // Raw and sanitized files
-    rawFiles: FileArray | any;
-    filesErrorMessages: string[];
-    fileMap: FileMap;
-    fileIds: Nullable<string>[];
-    cleanFileIds: string[];
-
-    // Derivative files
-    sortedFileIds: Nullable<string>[];
-    hiddenFileIdMap: FileIdTrueMap;
-    displayFileIds: Nullable<string>[]; // Files that should be shown to the user
-
-    // Selection
-    selectionMap: FileSelection;
-    disableSelection: boolean;
-
-    // File views
-    fileViewConfig: FileViewConfig;
-
-    // Sorting
-    sortActionId: string;
-    sortOrder: SortOrder;
-
-    // Options
-    optionMap: OptionMap;
-
-    // Other settings
-    thumbnailGenerator: Nullable<ThumbnailGenerator>;
-    doubleClickDelay: number;
-    disableDragAndDrop: boolean;
-    clearSelectionOnOutsideClick: boolean;
-}
-
-export const initialRootState: RootState = {
-    externalFileActionHandler: null,
-
-    rawFileActions: [],
-    fileActionsErrorMessages: [],
-    fileActionMap: {},
-    fileActionIds: [],
-    toolbarItems: [],
-
-    rawFolderChain: null,
-    folderChainErrorMessages: [],
-    folderChain: [],
-
-    rawFiles: [],
-    filesErrorMessages: [],
-    fileMap: {},
-    fileIds: [],
-    cleanFileIds: [],
-
-    sortedFileIds: [],
-    hiddenFileIdMap: {},
-    displayFileIds: [],
-
-    selectionMap: {},
-    disableSelection: false,
-
-    fileViewConfig: ChonkyActions.EnableGridView.fileViewConfig,
-
-    sortActionId: ChonkyActions.SortFilesByName.id,
-    sortOrder: SortOrder.ASC,
-
-    optionMap: {},
-
-    thumbnailGenerator: null,
-    doubleClickDelay: 300,
-    disableDragAndDrop: false,
-    clearSelectionOnOutsideClick: true,
-};
+import { initialRootState } from './state';
 
 export const { actions: reduxActions, reducer: rootReducer } = createSlice({
     name: 'root',
@@ -129,7 +42,7 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         },
         setToolbarItems(
             state,
-            action: PayloadAction<(FileAction | ToolbarDropdownProps)[]>
+            action: PayloadAction<(FileAction | ToolbarItemGroup)[]>
         ) {
             state.toolbarItems = action.payload;
         },
@@ -247,6 +160,9 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         },
         setClearSelectionOnOutsideClick(state, action: PayloadAction<boolean>) {
             state.clearSelectionOnOutsideClick = action.payload;
+        },
+        setLastClickIndex(state, action: PayloadAction<Nullable<number>>) {
+            state.lastClickIndex = action.payload;
         },
     },
 });

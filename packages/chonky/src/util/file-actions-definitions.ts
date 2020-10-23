@@ -1,9 +1,9 @@
 import { Nullable } from 'tsdef';
+import { openParentFolderEffect } from '../file-actons/effects';
 
-import { FileAction } from '../types/file-actions.types';
+import { FileAction } from '../file-actons/actions.types';
 import { FileData } from '../types/files.types';
 import { ChonkyIconName } from '../types/icons.types';
-import { openParentFolderEffect } from './file-actions-effects';
 import { FileHelper } from './file-helper';
 
 const validateActionTypes = <T extends { [action: string]: FileAction }>(
@@ -11,6 +11,8 @@ const validateActionTypes = <T extends { [action: string]: FileAction }>(
 ): T => actionMap;
 
 export const ChonkyActions = validateActionTypes({
+    // Different clicks
+
     // Actions triggered by drag & drop
     MoveFilesTo: {
         id: 'move_files_to',
