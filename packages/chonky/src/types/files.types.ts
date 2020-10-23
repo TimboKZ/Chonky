@@ -27,7 +27,6 @@ export interface FileData {
 }
 
 export type FileArray = Nullable<FileData>[];
-export type ReadonlyFileArray = ReadonlyArray<Nullable<FileData>>;
 export type FileFilter = (file: Nullable<FileData>) => boolean;
 
 export type FileMap = { [fileId: string]: FileData };

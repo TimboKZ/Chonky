@@ -43,8 +43,6 @@ export const ChonkyActions = {
     ToggleShowFoldersFirst,
 };
 
-export type ChonkyActionUnion = typeof ChonkyActions[keyof typeof ChonkyActions];
-
 export const EssentialFileActions = [
     ChonkyActions.MouseClickFile,
     ChonkyActions.KeyboardClickFile,

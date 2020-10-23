@@ -1,14 +1,20 @@
-// Types for file action handlers
-import { FileAction, FileActionState } from './actions.types';
+import { AnyObject } from 'tsdef';
 
-export type ActionData<Action extends FileAction> = {
+import { FileAction } from './actions.types';
+
+export type FileActionData<Action extends FileAction> = {
     id: Action['id'];
     action: Action;
     payload: Action['__payloadType'];
     state: FileActionState<Action['__extraStateType']>;
 };
 
-type MapFileActionsToData<U> = U extends FileAction ? ActionData<U> : never;
+export type FileActionState<ExtraState extends object = AnyObject> = {
+    instanceId: string;
+    selectedFilesForAction?: FileAction[];
+} & ExtraState;
+
+type MapFileActionsToData<U> = U extends FileAction ? FileActionData<U> : never;
 
 export type GenericFileActionHandler<T> = (
     data: MapFileActionsToData<T>

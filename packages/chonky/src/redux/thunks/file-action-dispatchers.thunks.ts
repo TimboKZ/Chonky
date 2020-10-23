@@ -1,7 +1,7 @@
 import { MaybePromise, Undefinable } from 'tsdef';
 
 import { FileAction } from '../../file-actons/actions.types';
-import { ActionData } from '../../file-actons/handler.types';
+import { FileActionData } from '../../file-actons/handler.types';
 import { Logger } from '../../util/logger';
 import { reduxActions } from '../reducers';
 import {
@@ -20,7 +20,7 @@ import {
 /**
  * Thunk that dispatches actions to the external (user-provided) action handler.
  */
-export const thunkDispatchFileAction = (data: ActionData<FileAction>): ChonkyThunk => (
+export const thunkDispatchFileAction = (data: FileActionData<FileAction>): ChonkyThunk => (
     dispatch,
     getState
 ) => {
@@ -121,7 +121,7 @@ export const requestFileAction = <Action extends FileAction>(
     // operations are over.
     Promise.resolve(maybeEffectPromise)
         .then((effectResult) => {
-            const data: ActionData<Action> = {
+            const data: FileActionData<Action> = {
                 id: action.id,
                 action,
                 payload,
@@ -134,7 +134,7 @@ export const requestFileAction = <Action extends FileAction>(
                 `User-defined effect function for action ${action.id} returned a ` +
                     `promise that was rejected: ${error.message}`
             );
-            const data: ActionData<Action> = {
+            const data: FileActionData<Action> = {
                 id: action.id,
                 action,
                 payload,
@@ -146,7 +146,7 @@ export const requestFileAction = <Action extends FileAction>(
 
 export const triggerDispatchAfterEffect = <Action extends FileAction>(
     dispatch: ChonkyDispatch,
-    data: ActionData<Action>,
+    data: FileActionData<Action>,
     effectResult: Undefinable<boolean>
 ) => {
     const preventDispatch = effectResult === true;

@@ -1,7 +1,7 @@
 import { Nullable } from 'tsdef';
 
 import { FileAction } from '../file-actons/actions.types';
-import { ChonkyActionUnion } from '../file-actons/definitions/index';
+import { ChonkyActions } from '../file-actons/definitions/index';
 import { GenericFileActionHandler } from '../file-actons/handler.types';
 import { FileArray } from './files.types';
 import { ThumbnailGenerator } from './thumbnails.types';
@@ -24,6 +24,8 @@ export interface FileBrowserHandle {
      */
     setFileSelection: (selection: Set<string>, reset?: boolean) => void;
 }
+
+export type ChonkyActionUnion = typeof ChonkyActions[keyof typeof ChonkyActions];
 
 /**
  * Props for the `FileBrowser` component that is exposed to library users.

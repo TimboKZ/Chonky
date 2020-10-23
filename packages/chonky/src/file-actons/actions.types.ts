@@ -1,4 +1,4 @@
-import { AnyObject, MaybePromise, Nullable } from 'tsdef';
+import { MaybePromise, Nullable } from 'tsdef';
 
 import { ChonkyDispatch, RootState } from '../redux/types';
 import { FileViewConfig } from '../types/file-view.types';
@@ -80,10 +80,5 @@ export type FileActionEffect<Action extends FileAction = any> = (data: {
     dispatch: ChonkyDispatch;
     getState: () => RootState;
 }) => MaybePromise<undefined | boolean>;
-
-export type FileActionState<ExtraState extends object = AnyObject> = {
-    instanceId: string;
-    selectedFilesForAction?: FileAction[];
-} & ExtraState;
 
 export type FileActionMap = { [actonId: string]: FileAction };
