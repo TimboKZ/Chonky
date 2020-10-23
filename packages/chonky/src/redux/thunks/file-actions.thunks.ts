@@ -12,7 +12,7 @@ import {
     selectHiddenFileIdMap,
     selectSelectionMap,
 } from '../selectors';
-import { AppThunk } from '../store';
+import { ChonkyThunk } from '../store';
 import {
     thunkSortFiles,
     thunkUpdateDisplayFiles,
@@ -22,7 +22,7 @@ import {
 export const thunkUpdateRawFileActions = (
     rawFileActions: FileAction[] | any,
     disableDefaultFileActions: boolean
-): AppThunk => (dispatch) => {
+): ChonkyThunk => (dispatch) => {
     const { sanitizedArray, errorMessages } = sanitizeInputArray(
         'fileActions',
         rawFileActions
@@ -53,7 +53,7 @@ export const thunkUpdateRawFileActions = (
     dispatch(thunkUpdateDisplayFiles());
 };
 
-export const thunkUpdateToolbarItems = (fileActions: FileAction[]): AppThunk => (
+export const thunkUpdateToolbarItems = (fileActions: FileAction[]): ChonkyThunk => (
     dispatch
 ) => {
     const excludedActionIds = new Set<string>([
@@ -93,7 +93,7 @@ export const thunkUpdateToolbarItems = (fileActions: FileAction[]): AppThunk => 
 
 export const thunkUpdateDefaultFileViewActionId = (
     fileActionId: Nilable<string>
-): AppThunk => (dispatch, getState) => {
+): ChonkyThunk => (dispatch, getState) => {
     const { fileActionMap } = getState();
     const action = fileActionId ? fileActionMap[fileActionId] : null;
     if (action && action.fileViewConfig) {
@@ -101,7 +101,7 @@ export const thunkUpdateDefaultFileViewActionId = (
     }
 };
 
-export const thunkActivateSortAction = (fileActionId: string): AppThunk => (
+export const thunkActivateSortAction = (fileActionId: string): ChonkyThunk => (
     dispatch,
     getState
 ) => {
@@ -117,7 +117,7 @@ export const thunkActivateSortAction = (fileActionId: string): AppThunk => (
     dispatch(thunkUpdateDisplayFiles());
 };
 
-export const thunkToggleOption = (optionId: string): AppThunk => (dispatch) => {
+export const thunkToggleOption = (optionId: string): ChonkyThunk => (dispatch) => {
     dispatch(reduxActions.toggleOption(optionId));
     if (optionId === ChonkyActions.ToggleShowFoldersFirst.option.id) {
         dispatch(thunkSortFiles());
@@ -128,7 +128,7 @@ export const thunkToggleOption = (optionId: string): AppThunk => (dispatch) => {
     }
 };
 
-export const thunkApplySelectionTransform = (action: FileAction): AppThunk => (
+export const thunkApplySelectionTransform = (action: FileAction): ChonkyThunk => (
     dispatch,
     getState
 ) => {

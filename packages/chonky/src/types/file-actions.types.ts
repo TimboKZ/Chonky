@@ -1,10 +1,11 @@
-import { Nullable } from 'tsdef';
+import { MaybePromise, Nullable } from 'tsdef';
 
+import { RootState } from '../redux/reducers';
+import { ChonkyDispatch } from '../redux/store';
 import { FileViewConfig } from './file-view.types';
 import { FileData, FileFilter, FileMap } from './files.types';
 import { ChonkyIconName } from './icons.types';
 import { FileSortKeySelector } from './sort.types';
-import { SpecialAction } from './special-actions.types';
 
 export interface FileAction {
     id: string; // Unique action ID
@@ -59,13 +60,21 @@ export interface FileAction {
         hiddenFileIds: Set<string>;
     }) => Nullable<Set<string>>;
 
-    // Special action that should be dispatched on activation of this action. This
-    // is used by Chonky internally, keep it `undefined` unless you know what you're
-    // doing.
-    specialActionToDispatch?: SpecialAction;
+    /**
+     * When effect is defined, it will be called right before dispatching the action to
+     * the user defined action handler. If the effect function returns a promise, Chonky
+     * will wait for the promise to resolve or fail before dispatching the action to the
+     * handler. If this function returns `true`, the file action will NOT be dispatched
+     * the the handler.
+     */
+    effect?: (data: {
+        dispatch: ChonkyDispatch;
+        getState: () => RootState;
+    }) => MaybePromise<boolean | undefined>;
 }
 export type FileActionButton = FileAction['button'];
 export type FileSelectionTransform = FileAction['selectionTransform'];
+export type FileActionEffect = FileAction['effect'];
 
 export interface FileActionData {
     actionId: string;

@@ -1,4 +1,4 @@
-import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { Action, configureStore, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeepPartial } from 'tsdef';
@@ -57,9 +57,11 @@ export const useDTE = <Args extends Array<any>, Value>(
     );
 };
 
-export type AppThunk<ReturnType = void> = ThunkAction<
+export type ChonkyThunk<ReturnType = void> = ThunkAction<
     ReturnType,
     RootState,
     unknown,
     Action<string>
 >;
+
+export type ChonkyDispatch = ThunkDispatch<RootState, unknown, Action<string>>;

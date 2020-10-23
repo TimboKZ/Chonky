@@ -7,11 +7,11 @@ import { ChonkyActions } from '../../util/file-actions-definitions';
 import { FileHelper } from '../../util/file-helper';
 import { sanitizeInputArray } from '../files-transforms';
 import { reduxActions } from '../reducers';
-import { AppThunk } from '../store';
+import { ChonkyThunk } from '../store';
 
 export const thunkUpdateRawFolderChain = (
     rawFolderChain: Nullable<FileArray> | any
-): AppThunk => (dispatch, getState) => {
+): ChonkyThunk => (dispatch, getState) => {
     if (getState().rawFolderChain === rawFolderChain) return;
     const { sanitizedArray, errorMessages } = sanitizeInputArray(
         'folderChain',
@@ -22,7 +22,7 @@ export const thunkUpdateRawFolderChain = (
     dispatch(reduxActions.setFolderChain(sanitizedArray));
 };
 
-export const thunkUpdateRawFiles = (rawFiles: FileArray | any): AppThunk => (
+export const thunkUpdateRawFiles = (rawFiles: FileArray | any): ChonkyThunk => (
     dispatch,
     getState
 ) => {
@@ -37,7 +37,7 @@ export const thunkUpdateRawFiles = (rawFiles: FileArray | any): AppThunk => (
     dispatch(reduxActions.cleanUpSelection());
 };
 
-export const thunkSortFiles = (): AppThunk => (dispatch, getState) => {
+export const thunkSortFiles = (): ChonkyThunk => (dispatch, getState) => {
     const {
         fileActionMap,
         fileMap,
@@ -82,7 +82,7 @@ export const thunkSortFiles = (): AppThunk => (dispatch, getState) => {
     }
 };
 
-export const thunkUpdateHiddenFiles = (): AppThunk => (dispatch, getState) => {
+export const thunkUpdateHiddenFiles = (): ChonkyThunk => (dispatch, getState) => {
     const { fileMap, fileIds, optionMap } = getState();
 
     const showHiddenFiles = optionMap[ChonkyActions.ToggleHiddenFiles.option.id];
@@ -103,7 +103,7 @@ export const thunkUpdateHiddenFiles = (): AppThunk => (dispatch, getState) => {
     }
 };
 
-export const thunkUpdateDisplayFiles = (): AppThunk => (dispatch, getState) => {
+export const thunkUpdateDisplayFiles = (): ChonkyThunk => (dispatch, getState) => {
     const { sortedFileIds, hiddenFileIdMap } = getState();
     const displayFileIds = sortedFileIds.filter((id) => !id || !hiddenFileIdMap[id]);
     dispatch(reduxActions.setDisplayFileIds(displayFileIds));

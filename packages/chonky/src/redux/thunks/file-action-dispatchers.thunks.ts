@@ -1,4 +1,4 @@
-import { Undefinable } from 'tsdef';
+import { MaybePromise, Undefinable } from 'tsdef';
 
 import { FileAction, FileActionData } from '../../types/file-actions.types';
 import {
@@ -9,10 +9,10 @@ import {
     SpecialDragNDropStartAction,
     SpecialFileKeyboardClickAction,
     SpecialFileMouseClickAction,
-    SpecialOpenFolderChainFolderAction,
 } from '../../types/special-actions.types';
 import { ChonkyActions } from '../../util/file-actions-definitions';
 import { FileHelper } from '../../util/file-helper';
+import { isPromise } from '../../util/helpers';
 import { Logger } from '../../util/logger';
 import { reduxActions, RootState } from '../reducers';
 import {
@@ -21,7 +21,7 @@ import {
     getSelectedFilesForAction,
     selectFileActionMap,
 } from '../selectors';
-import { AppThunk } from '../store';
+import { ChonkyDispatch, ChonkyThunk } from '../store';
 import {
     thunkActivateSortAction,
     thunkApplySelectionTransform,
@@ -31,7 +31,7 @@ import {
 /**
  * Thunk that dispatches actions to the external (user-provided) action handler.
  */
-export const thunkDispatchFileAction = (actionData: FileActionData): AppThunk => (
+export const thunkDispatchFileAction = (actionData: FileActionData): ChonkyThunk => (
     dispatch,
     getState
 ) => {
@@ -46,7 +46,7 @@ export const thunkDispatchFileAction = (actionData: FileActionData): AppThunk =>
                 state.externalFileActionHandler(action, actionData)
             ).catch((error) =>
                 Logger.error(
-                    `User-defined "onAction" handler threw an error: ${error.message}`
+                    `User-defined file action handler threw an error: ${error.message}`
                 )
             );
         }
@@ -64,7 +64,7 @@ export const thunkDispatchFileAction = (actionData: FileActionData): AppThunk =>
  * from Redux state. Once action data is ready, Chonky executes some side effect and/or
  * dispatches the action to the external action handler.
  */
-export const thunkRequestFileAction = (fileActionId: string): AppThunk => (
+export const thunkRequestFileAction = (fileActionId: string): ChonkyThunk => (
     dispatch,
     getState
 ) => {
@@ -101,9 +101,6 @@ export const thunkRequestFileAction = (fileActionId: string): AppThunk => (
         files: selectedFilesForAction,
     };
 
-    // === Dispatch a normal action, as usual
-    dispatch(thunkDispatchFileAction(actionData));
-
     // === Update sort state if necessary
     const sortKeySelector = action.sortKeySelector;
     if (sortKeySelector) dispatch(thunkActivateSortAction(action.id));
@@ -120,31 +117,51 @@ export const thunkRequestFileAction = (fileActionId: string): AppThunk => (
     const selectionTransform = action.selectionTransform;
     if (selectionTransform) dispatch(thunkApplySelectionTransform(action));
 
-    //
-    // === Dispatch a special action if file action defines it
-    const specialActionId = action.specialActionToDispatch;
-    if (specialActionId) {
-        // We can only dispatch "simple" special actions, i.e. special
-        // actions that do not require additional parameters.
-        switch (specialActionId) {
-            case SpecialAction.OpenParentFolder:
-                thunkDispatchSpecialAction({ actionId: specialActionId });
-                break;
-            default:
-                Logger.warn(
-                    `File action "${action.id}" tried to dispatch a ` +
-                        `special action "${specialActionId}", but that ` +
-                        `special action was not marked as simple. File ` +
-                        `actions can only trigger simple special actions.`
-                );
+    // Apply the effect
+    const effect = action.effect;
+    let effectResult: MaybePromise<boolean | undefined> | undefined = undefined;
+    if (effect) {
+        try {
+            effectResult = effect({ dispatch, getState });
+        } catch (error) {
+            Logger.error(
+                `User-defined effect function for action ${action.id} threw an ` +
+                    `error: ${error.message}`
+            );
         }
+    }
+
+    // Dispatch the action to user code. Deliberately call it after all other
+    // operations are over.
+    if (isPromise(effectResult)) {
+        effectResult
+            .then((effectPromiseResult) =>
+                triggerDispatchAfterEffect(dispatch, actionData, effectPromiseResult)
+            )
+            .catch((error) => {
+                Logger.error(
+                    `User-defined effect function for action ${action.id} returned a ` +
+                        `promise that was rejected: ${error.message}`
+                );
+                triggerDispatchAfterEffect(dispatch, actionData, undefined);
+            });
+    } else {
+        triggerDispatchAfterEffect(dispatch, actionData, effectResult);
     }
 };
 
-export const thunkDispatchSpecialAction = (actionData: SpecialActionData): AppThunk => (
-    dispatch,
-    getState
+export const triggerDispatchAfterEffect = (
+    dispatch: ChonkyDispatch,
+    actionData: FileActionData,
+    effectResult: Undefinable<boolean>
 ) => {
+    const preventDispatch = effectResult === true;
+    if (!preventDispatch) dispatch(thunkDispatchFileAction(actionData));
+};
+
+export const thunkDispatchSpecialAction = (
+    actionData: SpecialActionData
+): ChonkyThunk => (dispatch, getState) => {
     Logger.debug(`SPECIAL ACTION REQUEST:`, actionData);
     const state = getState();
     const { actionId } = actionData;
@@ -168,7 +185,6 @@ export const thunkDispatchSpecialAction = (actionData: SpecialActionData): AppTh
 
 export const getSpecialHandler = (dispatch: any, state: RootState) => {
     const lastClickDisplayIndexRef: any = {};
-    const parentFolderRef: any = {};
     const selectionSizeRef: any = {};
 
     return {
@@ -262,34 +278,6 @@ export const getSpecialHandler = (dispatch: any, state: RootState) => {
                     })
                 );
             }
-        },
-        [SpecialAction.OpenParentFolder]: () => {
-            if (FileHelper.isOpenable(parentFolderRef.current)) {
-                dispatch(
-                    thunkDispatchFileAction({
-                        actionId: ChonkyActions.OpenFiles.id,
-                        target: parentFolderRef.current,
-                        files: [parentFolderRef.current],
-                    })
-                );
-            } else {
-                Logger.warn(
-                    `Special action "${SpecialAction.OpenParentFolder}" was ` +
-                        `dispatched even though the parent folder is not ` +
-                        `openable. This indicates a bug in presentation components.`
-                );
-            }
-        },
-        [SpecialAction.OpenFolderChainFolder]: (
-            data: SpecialOpenFolderChainFolderAction
-        ) => {
-            dispatch(
-                thunkDispatchFileAction({
-                    actionId: ChonkyActions.OpenFiles.id,
-                    target: data.file,
-                    files: [data.file],
-                })
-            );
         },
         [SpecialAction.DragNDropStart]: (data: SpecialDragNDropStartAction) => {
             const file = data.dragSource;

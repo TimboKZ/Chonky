@@ -1,4 +1,6 @@
 // Used in React hooks to indicate empty deps are intentional.
+import { MaybePromise } from 'tsdef';
+
 import { Logger } from './logger';
 
 // Used in contexts that need to provide some default value for a function.
@@ -9,4 +11,10 @@ export const NOOP_FUNCTION = (...args: any[]) => {
             `This can indicate a bug in one of the components. Supplied args:`,
         args
     );
+};
+
+export const isPromise = <T>(value: MaybePromise<T> | any): value is Promise<T> => {
+    if (typeof value !== 'object' || !value) return false;
+    const then = (value as Promise<T>).then;
+    return then && typeof then === 'function';
 };

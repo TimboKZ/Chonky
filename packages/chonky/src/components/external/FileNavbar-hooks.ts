@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
 import { selectFolderChain } from '../../redux/selectors';
-import { thunkDispatchSpecialAction } from '../../redux/thunks/file-action-dispatchers.thunks';
+import { thunkDispatchFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
 import { FileData } from '../../types/files.types';
-import { SpecialAction } from '../../types/special-actions.types';
+import { ChonkyActions } from '../../util/file-actions-definitions';
 import { FileHelper } from '../../util/file-helper';
 
 export interface FolderChainItem {
@@ -30,14 +30,14 @@ export const useFolderChainItems = (): FolderChainItem[] => {
                 onClick:
                     !FileHelper.isOpenable(file) || i === folderChain.length - 1
                         ? undefined
-                        : () => {
+                        : () =>
                               dispatch(
-                                  thunkDispatchSpecialAction({
-                                      actionId: SpecialAction.OpenFolderChainFolder,
-                                      file,
+                                  thunkDispatchFileAction({
+                                      actionId: ChonkyActions.OpenFiles.id,
+                                      target: file,
+                                      files: [file],
                                   })
-                              );
-                          },
+                              ),
             });
         }
         return items;

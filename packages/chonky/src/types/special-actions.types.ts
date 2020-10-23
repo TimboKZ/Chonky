@@ -4,9 +4,6 @@ export enum SpecialAction {
     MouseClickFile = 'mouse_click_file',
     KeyboardClickFile = 'keyboard_click_file',
 
-    OpenParentFolder = 'open_parent_folder',
-    OpenFolderChainFolder = 'open_folder_chain_folder',
-
     DragNDropStart = 'drag_n_drop_start',
     DragNDropEnd = 'drag_n_drop_end',
 }
@@ -32,11 +29,6 @@ export interface SpecialFileKeyboardClickAction {
     shiftKey: boolean;
 }
 
-export interface SpecialOpenFolderChainFolderAction {
-    actionId: SpecialAction.OpenFolderChainFolder;
-    file: FileData;
-}
-
 export interface SpecialDragNDropStartAction {
     actionId: SpecialAction.DragNDropStart;
     dragSource: FileData;
@@ -49,20 +41,11 @@ export interface SpecialDragNDropEndAction {
     dropEffect: 'move' | 'copy';
 }
 
-export interface SpecialSimpleAction {
-    actionId:
-        | SpecialAction.OpenParentFolder
-}
-
 export type SpecialActionData =
     | SpecialFileMouseClickAction
     | SpecialFileKeyboardClickAction
-    | SpecialOpenFolderChainFolderAction
     | SpecialDragNDropStartAction
-    | SpecialDragNDropEndAction
-    | SpecialSimpleAction;
-
-export type InternalSpecialActionDispatcher = (actionData: SpecialActionData) => void;
+    | SpecialDragNDropEndAction;
 
 export type SpecialActionHandlerMap = {
     [actionId in SpecialAction]: (data: SpecialActionData) => void;

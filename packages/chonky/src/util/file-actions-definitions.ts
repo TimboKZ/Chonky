@@ -3,7 +3,7 @@ import { Nullable } from 'tsdef';
 import { FileAction } from '../types/file-actions.types';
 import { FileData } from '../types/files.types';
 import { ChonkyIconName } from '../types/icons.types';
-import { SpecialAction } from '../types/special-actions.types';
+import { openParentFolderEffect } from './file-actions-effects';
 import { FileHelper } from './file-helper';
 
 const validateActionTypes = <T extends { [action: string]: FileAction }>(
@@ -51,8 +51,7 @@ export const ChonkyActions = validateActionTypes({
             icon: ChonkyIconName.openParentFolder,
             iconOnly: true,
         },
-
-        specialActionToDispatch: SpecialAction.OpenParentFolder,
+        effect: openParentFolderEffect,
     },
 
     // Actions related to selection
