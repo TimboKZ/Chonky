@@ -15,6 +15,12 @@ export const selectFileActionData = (fileActionId: string) => (state: RootState)
 export const selectToolbarItems = (state: RootState) => state.toolbarItems;
 
 export const selectFolderChain = (state: RootState) => state.folderChain;
+export const selectCurrentFolder = (state: RootState) => {
+    const folderChain = selectFolderChain(state);
+    const currentFolder =
+        folderChain.length > 0 ? folderChain[folderChain.length - 1] : null;
+    return currentFolder;
+};
 export const selectParentFolder = (state: RootState) => {
     const folderChain = selectFolderChain(state);
     const parentFolder =

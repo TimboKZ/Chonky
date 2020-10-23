@@ -1,7 +1,7 @@
 import { MaybePromise, Undefinable } from 'tsdef';
 
 import { FileAction } from '../../file-actons/actions.types';
-import { FileActionData } from '../../file-actons/handler.types';
+import { FileActionData, FileActionState } from '../../file-actons/handler.types';
 import { Logger } from '../../util/logger';
 import { reduxActions } from '../reducers';
 import {
@@ -20,10 +20,9 @@ import {
 /**
  * Thunk that dispatches actions to the external (user-provided) action handler.
  */
-export const thunkDispatchFileAction = (data: FileActionData<FileAction>): ChonkyThunk => (
-    dispatch,
-    getState
-) => {
+export const thunkDispatchFileAction = (
+    data: FileActionData<FileAction>
+): ChonkyThunk => (dispatch, getState) => {
     Logger.debug(`FILE ACTION DISPATCH: [${data.id}]`, 'data:', data);
     const state = getState();
     const action = selectFileActionMap(state)[data.id];
@@ -50,7 +49,7 @@ export const thunkDispatchFileAction = (data: FileActionData<FileAction>): Chonk
  * from Redux state. Once action data is ready, Chonky executes some side effect and/or
  * dispatches the action to the external action handler.
  */
-export const requestFileAction = <Action extends FileAction>(
+export const thunkRequestFileAction = <Action extends FileAction>(
     action: Action,
     payload: Action['__payloadType']
 ): ChonkyThunk => (dispatch, getState) => {
@@ -87,6 +86,8 @@ export const requestFileAction = <Action extends FileAction>(
         return;
     }
 
+    const actionState: FileActionState<{}> = { instanceId, selectedFilesForAction };
+
     // === Update sort state if necessary
     const sortKeySelector = action.sortKeySelector;
     if (sortKeySelector) dispatch(thunkActivateSortAction(action.id));
@@ -108,7 +109,13 @@ export const requestFileAction = <Action extends FileAction>(
     let maybeEffectPromise: MaybePromise<boolean | undefined> | undefined = undefined;
     if (effect) {
         try {
-            maybeEffectPromise = effect({ action, payload, dispatch, getState });
+            maybeEffectPromise = effect({
+                action,
+                payload,
+                state: actionState,
+                reduxDispatch: dispatch,
+                getReduxState: getState,
+            });
         } catch (error) {
             Logger.error(
                 `User-defined effect function for action ${action.id} threw an ` +
@@ -125,7 +132,7 @@ export const requestFileAction = <Action extends FileAction>(
                 id: action.id,
                 action,
                 payload,
-                state: { instanceId, selectedFilesForAction },
+                state: actionState,
             };
             triggerDispatchAfterEffect(dispatch, data, effectResult);
         })
@@ -138,7 +145,7 @@ export const requestFileAction = <Action extends FileAction>(
                 id: action.id,
                 action,
                 payload,
-                state: { instanceId, selectedFilesForAction },
+                state: actionState,
             };
             triggerDispatchAfterEffect(dispatch, data, undefined);
         });

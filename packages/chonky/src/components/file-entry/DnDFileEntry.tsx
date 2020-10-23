@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ExcludeKeys, Nilable, Nullable } from 'tsdef';
 
 import { ChonkyActions } from '../../file-actons/definitions/index';
-import { selectInstanceId, selectParentFolder } from '../../redux/selectors';
-import { requestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
+import { selectCurrentFolder, selectInstanceId } from '../../redux/selectors';
+import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
 import { FileData } from '../../types/files.types';
 import { FileHelper } from '../../util/file-helper';
 import { ClickableFileEntry } from './ClickableFileEntry';
@@ -20,7 +20,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
 
     const dispatch = useDispatch();
     const instanceId = useSelector(selectInstanceId);
-    const parentFolder = useSelector(selectParentFolder);
+    const currentFolder = useSelector(selectCurrentFolder);
 
     interface ChonkyDnDDropResult {
         dropTarget: Nilable<FileData>;
@@ -33,7 +33,7 @@ export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
         if (!FileHelper.isDraggable(file)) return;
 
         dispatch(
-            requestFileAction(ChonkyActions.StartDragNDrop, {
+            thunkRequestFileAction(ChonkyActions.StartDragNDrop, {
                 dragSource: file,
             })
         );
@@ -50,16 +50,16 @@ export const DnDFileEntry: React.FC<FileEntryProps> = React.memo((props) => {
             }
 
             dispatch(
-                requestFileAction(ChonkyActions.EndDragNDrop, {
+                thunkRequestFileAction(ChonkyActions.EndDragNDrop, {
                     sourceInstanceId: instanceId,
-                    source: parentFolder,
+                    source: currentFolder,
                     draggedFile: file,
                     destination: dropResult.dropTarget,
                     copy: dropResult.dropEffect === 'copy',
                 })
             );
         },
-        [dispatch, file, instanceId, parentFolder]
+        [dispatch, file, instanceId, currentFolder]
     );
 
     // For drop target

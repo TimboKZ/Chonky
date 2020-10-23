@@ -8,7 +8,7 @@ import {
     selectParentFolder,
     selectSelectionSize,
 } from '../../redux/selectors';
-import { requestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
+import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
 import { FileData } from '../../types/files.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { FileHelper } from '../../util/file-helper';
@@ -29,11 +29,11 @@ export const MouseClickFile = defineFileAction(
         id: 'mouse_click_file',
         __payloadType: {} as MouseClickFilePayload,
     } as const,
-    ({ payload, dispatch, getState }) => {
+    ({ payload, reduxDispatch, getReduxState }) => {
         if (payload.clickType === 'double') {
             if (FileHelper.isOpenable(payload.file)) {
-                dispatch(
-                    requestFileAction(ChonkyActions.OpenFiles, {
+                reduxDispatch(
+                    thunkRequestFileAction(ChonkyActions.OpenFiles, {
                         targetFile: payload.file,
 
                         // To simulate Windows Explorer and Nautilus behaviour,
@@ -48,16 +48,16 @@ export const MouseClickFile = defineFileAction(
             if (FileHelper.isSelectable(payload.file)) {
                 if (payload.ctrlKey) {
                     // Multiple selection
-                    dispatch(
+                    reduxDispatch(
                         reduxActions.toggleSelection({
                             fileId: payload.file.id,
                             exclusive: false,
                         })
                     );
-                    dispatch(reduxActions.setLastClickIndex(payload.fileDisplayIndex));
+                    reduxDispatch(reduxActions.setLastClickIndex(payload.fileDisplayIndex));
                 } else if (payload.shiftKey) {
                     // Range selection
-                    const lastClickIndex = selectLastClickIndex(getState());
+                    const lastClickIndex = selectLastClickIndex(getReduxState());
                     if (typeof lastClickIndex === 'number') {
                         // We have the index of the previous click
                         let rangeStart = lastClickIndex;
@@ -66,33 +66,33 @@ export const MouseClickFile = defineFileAction(
                             [rangeStart, rangeEnd] = [rangeEnd, rangeStart];
                         }
 
-                        dispatch(reduxActions.selectRange({ rangeStart, rangeEnd }));
+                        reduxDispatch(reduxActions.selectRange({ rangeStart, rangeEnd }));
                     } else {
                         // Since we can't do a range selection, do a
                         // multiple selection
-                        dispatch(
+                        reduxDispatch(
                             reduxActions.toggleSelection({
                                 fileId: payload.file.id,
                                 exclusive: false,
                             })
                         );
-                        dispatch(
+                        reduxDispatch(
                             reduxActions.setLastClickIndex(payload.fileDisplayIndex)
                         );
                     }
                 } else {
                     // Exclusive selection
-                    dispatch(
+                    reduxDispatch(
                         reduxActions.toggleSelection({
                             fileId: payload.file.id,
                             exclusive: true,
                         })
                     );
-                    dispatch(reduxActions.setLastClickIndex(payload.fileDisplayIndex));
+                    reduxDispatch(reduxActions.setLastClickIndex(payload.fileDisplayIndex));
                 }
             } else {
-                if (!payload.ctrlKey) dispatch(reduxActions.clearSelection());
-                dispatch(reduxActions.setLastClickIndex(payload.fileDisplayIndex));
+                if (!payload.ctrlKey) reduxDispatch(reduxActions.clearSelection());
+                reduxDispatch(reduxActions.setLastClickIndex(payload.fileDisplayIndex));
             }
         }
         return false;
@@ -113,22 +113,22 @@ export const KeyboardClickFile = defineFileAction(
         id: 'keyboard_click_file',
         __payloadType: {} as KeyboardClickFilePayload,
     } as const,
-    ({ payload, dispatch, getState }) => {
-        dispatch(reduxActions.setLastClickIndex(payload.fileDisplayIndex));
+    ({ payload, reduxDispatch, getReduxState }) => {
+        reduxDispatch(reduxActions.setLastClickIndex(payload.fileDisplayIndex));
         if (payload.enterKey) {
             // We only dispatch the Open Files action here when the selection is
             // empty. Otherwise, `Enter` key presses are handled by the
             // hotkey manager for the Open Files action.
-            if (selectSelectionSize(getState()) === 0) {
-                dispatch(
-                    requestFileAction(ChonkyActions.OpenFiles, {
+            if (selectSelectionSize(getReduxState()) === 0) {
+                reduxDispatch(
+                    thunkRequestFileAction(ChonkyActions.OpenFiles, {
                         targetFile: payload.file,
                         files: [payload.file],
                     })
                 );
             }
         } else if (payload.spaceKey && FileHelper.isSelectable(payload.file)) {
-            dispatch(
+            reduxDispatch(
                 reduxActions.toggleSelection({
                     fileId: payload.file.id,
                     exclusive: payload.ctrlKey,
@@ -147,11 +147,11 @@ export const StartDragNDrop = defineFileAction(
         id: 'start_drag_n_drop',
         __payloadType: {} as StartDragNDropPayload,
     } as const,
-    ({ payload, dispatch, getState }) => {
+    ({ payload, reduxDispatch, getReduxState }) => {
         const file = payload.dragSource;
-        if (!getIsFileSelected(getState(), file)) {
+        if (!getIsFileSelected(getReduxState(), file)) {
             if (FileHelper.isSelectable(file)) {
-                dispatch(
+                reduxDispatch(
                     reduxActions.selectFiles({
                         fileIds: [file.id],
                         reset: true,
@@ -175,17 +175,17 @@ export const EndDragNDrop = defineFileAction(
         id: 'end_drag_n_drop',
         __payloadType: {} as EndDragNDropPayload,
     } as const,
-    ({ payload, dispatch, getState }) => {
-        if (getIsFileSelected(getState(), payload.destination)) {
+    ({ payload, reduxDispatch, getReduxState }) => {
+        if (getIsFileSelected(getReduxState(), payload.destination)) {
             // Can't drop a selection into itself
             return;
         }
 
-        const selectedFiles = getSelectedFiles(getState(), FileHelper.isDraggable);
+        const selectedFiles = getSelectedFiles(getReduxState(), FileHelper.isDraggable);
         const droppedFiles =
             selectedFiles.length > 0 ? selectedFiles : [payload.draggedFile];
-        dispatch(
-            requestFileAction(ChonkyActions.MoveFiles, {
+        reduxDispatch(
+            thunkRequestFileAction(ChonkyActions.MoveFiles, {
                 ...payload,
                 files: droppedFiles,
             })
@@ -230,11 +230,11 @@ export const OpenParentFolder = defineFileAction(
             iconOnly: true,
         },
     } as const,
-    ({ dispatch, getState }) => {
-        const parentFolder = selectParentFolder(getState());
+    ({ reduxDispatch, getReduxState }) => {
+        const parentFolder = selectParentFolder(getReduxState());
         if (FileHelper.isOpenable(parentFolder)) {
-            dispatch(
-                requestFileAction(ChonkyActions.OpenFiles, {
+            reduxDispatch(
+                thunkRequestFileAction(ChonkyActions.OpenFiles, {
                     targetFile: parentFolder,
                     files: [parentFolder],
                 })

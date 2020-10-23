@@ -1,25 +1,35 @@
 import { Nullable } from 'tsdef';
 
+import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
 import { FileData } from '../../types/files.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { FileHelper } from '../../util/file-helper';
 import { defineFileAction } from '../../util/helpers';
 import { FileSelectionTransform } from '../actions.types';
+import { OpenFiles } from './essential';
 
-export const OpenSelection = defineFileAction({
-    id: 'open_selection',
-    hotkeys: ['enter'],
-    requiresSelection: true,
-    fileFilter: FileHelper.isOpenable,
-    button: {
-        name: 'Open selection',
-        toolbar: true,
-        contextMenu: true,
-        group: 'Actions',
-        dropdown: true,
-        icon: ChonkyIconName.openFiles,
-    },
-} as const);
+export const OpenSelection = defineFileAction(
+    {
+        id: 'open_selection',
+        hotkeys: ['enter'],
+        requiresSelection: true,
+        fileFilter: FileHelper.isOpenable,
+        button: {
+            name: 'Open selection',
+            toolbar: true,
+            contextMenu: true,
+            group: 'Actions',
+            dropdown: true,
+            icon: ChonkyIconName.openFiles,
+        },
+    } as const,
+    ({ state, reduxDispatch }) => {
+        reduxDispatch(
+            thunkRequestFileAction(OpenFiles, { files: state.selectedFilesForAction! })
+        );
+        return undefined;
+    }
+);
 
 export const SelectAllFiles = defineFileAction({
     id: 'select_all_files',

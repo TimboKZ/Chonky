@@ -11,7 +11,7 @@ import {
     selectSelectedFileIds,
     selectSelectionMap,
 } from './selectors';
-import { requestFileAction } from './thunks/file-action-dispatchers.thunks';
+import { thunkRequestFileAction } from './thunks/dispatchers.thunks';
 import { RootState } from './types';
 
 export const useStoreWatchers = (store: Store<RootState>) => {
@@ -29,7 +29,7 @@ export const useStoreWatchers = (store: Store<RootState>) => {
             const selectedFilesIds = selectSelectedFileIds(store.getState());
             const selection = new Set<string>(selectedFilesIds);
             store.dispatch(
-                requestFileAction(ChonkyActions.ChangeSelection, {
+                thunkRequestFileAction(ChonkyActions.ChangeSelection, {
                     selection,
                 }) as any
             );

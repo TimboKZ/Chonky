@@ -13,7 +13,7 @@ import {
     selectSortOrder,
 } from '../redux/selectors';
 import { useParamSelector } from '../redux/store';
-import { requestFileAction } from '../redux/thunks/file-action-dispatchers.thunks';
+import { thunkRequestFileAction } from '../redux/thunks/dispatchers.thunks';
 import { ChonkyIconName } from '../types/icons.types';
 import { SortOrder } from '../types/sort.types';
 import { FileHelper } from './file-helper';
@@ -22,7 +22,7 @@ export const useFileActionTrigger = (fileActionId: string) => {
     const dispatch = useDispatch();
     const fileAction = useParamSelector(selectFileActionData, fileActionId);
     return useCallback(
-        () => dispatch(requestFileAction(fileAction, undefined)),
+        () => dispatch(thunkRequestFileAction(fileAction, undefined)),
         [dispatch, fileAction]
     );
 };

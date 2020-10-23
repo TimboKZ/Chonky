@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 
 import { selectFileActionData } from '../../redux/selectors';
 import { useParamSelector } from '../../redux/store';
-import { requestFileAction } from '../../redux/thunks/file-action-dispatchers.thunks';
+import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
 
 export interface HotkeyListenerProps {
     fileActionId: string;
@@ -30,7 +30,7 @@ export const HotkeyListener: React.FC<HotkeyListenerProps> = React.memo((props) 
         const hotkeysStr = fileAction.hotkeys.join(',');
         const hotkeyCallback = (event: KeyboardEvent) => {
             event.preventDefault();
-            dispatch(requestFileAction(fileAction, undefined));
+            dispatch(thunkRequestFileAction(fileAction, undefined));
         };
         hotkeys(hotkeysStr, hotkeyCallback);
         return () => hotkeys.unbind(hotkeysStr, hotkeyCallback);

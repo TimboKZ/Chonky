@@ -5,6 +5,7 @@ import { FileViewConfig } from '../types/file-view.types';
 import { FileFilter, FileMap } from '../types/files.types';
 import { ChonkyIconName } from '../types/icons.types';
 import { FileSortKeySelector } from '../types/sort.types';
+import { FileActionState } from './handler.types';
 
 export interface FileAction {
     id: string; // Unique action ID
@@ -77,8 +78,9 @@ export type FileSelectionTransform = (data: {
 export type FileActionEffect<Action extends FileAction = any> = (data: {
     action: Action;
     payload: Action['__payloadType'];
-    dispatch: ChonkyDispatch;
-    getState: () => RootState;
+    state: FileActionState<{}>; // empty extra state is deliberate
+    reduxDispatch: ChonkyDispatch;
+    getReduxState: () => RootState;
 }) => MaybePromise<undefined | boolean>;
 
 export type FileActionMap = { [actonId: string]: FileAction };
