@@ -6,12 +6,14 @@ install:
 
 jobs:
     include:
+        - stage: test
         - script: lerna run test
         - stage: lint
-          script: npm run lint
+          script: lerna run lint
         - stage: typecheck
-          script: npm run typecheck
+          script: lerna run typecheck
 
 stages:
+    - test
     - lint
     - typecheck
