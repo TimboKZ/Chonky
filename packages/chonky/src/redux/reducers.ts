@@ -128,6 +128,9 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
             if (state.disableSelection) return;
             if (Object.keys(state.selectionMap).length !== 0) state.selectionMap = {};
         },
+        setSelectionDisabled(state, action: PayloadAction<boolean>) {
+            state.disableSelection = action.payload;
+        },
         setFileViewConfig(state, action: PayloadAction<FileViewConfig>) {
             state.fileViewConfig = action.payload;
         },
