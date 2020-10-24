@@ -113,7 +113,7 @@ export const thunkRequestFileAction = <Action extends FileAction>(
 
     // Apply the effect
     const effect = action.effect;
-    let maybeEffectPromise: MaybePromise<boolean | undefined> | undefined = undefined;
+    let maybeEffectPromise: MaybePromise<boolean | undefined> = undefined;
     if (effect) {
         try {
             maybeEffectPromise = effect({
@@ -122,7 +122,7 @@ export const thunkRequestFileAction = <Action extends FileAction>(
                 state: actionState,
                 reduxDispatch: dispatch,
                 getReduxState: getState,
-            });
+            }) as MaybePromise<boolean | undefined>;
         } catch (error) {
             Logger.error(
                 `User-defined effect function for action ${action.id} threw an ` +

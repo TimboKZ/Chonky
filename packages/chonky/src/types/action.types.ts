@@ -74,12 +74,13 @@ export type FileSelectionTransform = (data: {
     fileMap: Readonly<FileMap>;
     hiddenFileIds: Set<string>;
 }) => Nullable<Set<string>>;
+
 export type FileActionEffect<Action extends FileAction = any> = (data: {
     action: Action;
     payload: Action['__payloadType'];
     state: FileActionState<{}>; // empty extra state is deliberate
     reduxDispatch: ChonkyDispatch;
     getReduxState: () => RootState;
-}) => MaybePromise<undefined | boolean>;
+}) => MaybePromise<undefined | boolean | void>;
 
 export type FileActionMap = { [actonId: string]: FileAction };

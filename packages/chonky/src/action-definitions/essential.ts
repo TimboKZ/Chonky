@@ -104,7 +104,6 @@ export const EssentialActions = {
                     );
                 }
             }
-            return false;
         }
     ),
     KeyboardClickFile: defineFileAction(
@@ -134,7 +133,6 @@ export const EssentialActions = {
                     })
                 );
             }
-            return false;
         }
     ),
     StartDragNDrop: defineFileAction(
@@ -154,7 +152,6 @@ export const EssentialActions = {
                     );
                 }
             }
-            return false;
         }
     ),
     EndDragNDrop: defineFileAction(
@@ -180,7 +177,6 @@ export const EssentialActions = {
                     files: droppedFiles,
                 })
             );
-            return false;
         }
     ),
     MoveFiles: defineFileAction({
@@ -222,7 +218,6 @@ export const EssentialActions = {
                         ' is not openable. This indicates a bug in presentation components.'
                 );
             }
-            return false;
         }
     ),
     OpenFileContextMenu: defineFileAction(
@@ -264,7 +259,6 @@ export const EssentialActions = {
                     mouseY: payload.clientY - 4,
                 })
             );
-            return false;
         }
     ),
 };
