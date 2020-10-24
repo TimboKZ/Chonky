@@ -30,7 +30,7 @@ export const ChonkyBusinessLogicInner = React.forwardRef<
     useDTE(
         thunkUpdateRawFileActions,
         props.fileActions ?? initialRootState.rawFileActions,
-        !!props.disableDefaultFileActions
+        props.disableDefaultFileActions
     );
     useDTE(
         reduxActions.setExternalFileActionHandler,

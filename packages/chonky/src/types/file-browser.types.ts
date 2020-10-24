@@ -87,12 +87,11 @@ export interface FileBrowserProps {
     disableSelection?: boolean;
 
     /**
-     * The flag that determines whether Chonky's built-in actions are enabled by
-     * default. When this is set to `true`, only the actions you provide in
-     * `fileActions` prop will be enabled. Note that this significantly changes the
-     * runtime behaviour of Chonky.
+     * The value that determines what default file actions will be disabled. You can
+     * set this to `true` to disable all default file actions, or explicitly pass an
+     * array of default file action IDs that you want to disable.
      */
-    disableDefaultFileActions?: boolean;
+    disableDefaultFileActions?: boolean | string[];
 
     /**
      * The flag that completely disables drag & drop functionality for this instance

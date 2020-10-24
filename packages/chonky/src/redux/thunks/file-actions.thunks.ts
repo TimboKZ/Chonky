@@ -23,39 +23,49 @@ import {
     thunkUpdateHiddenFiles,
 } from './files.thunks';
 
+/**
+ * Merges multiple file action arrays into one while removing duplicates
+ */
+const mergeFileActionsArrays = (...fileActionArrays: FileAction[][]): FileAction[] => {
+    const seenActionIds = new Set<string>();
+    const addToSeen = (a: FileAction) => !!seenActionIds.add(a.id);
+    const wasNotSeen = (a: FileAction) => !seenActionIds.has(a.id);
+
+    const duplicateFreeArrays = fileActionArrays.map((arr) => {
+        const duplicateFreeArray = arr.filter(wasNotSeen);
+        duplicateFreeArray.map(addToSeen);
+        return duplicateFreeArray;
+    });
+    return new Array<FileAction>().concat(...duplicateFreeArrays);
+};
+
 export const thunkUpdateRawFileActions = (
     rawFileActions: FileAction[] | any,
-    disableDefaultFileActions: boolean
+    disableDefaultFileActions: boolean | string[]
 ): ChonkyThunk => (dispatch) => {
     const { sanitizedArray, errorMessages } = sanitizeInputArray(
         'fileActions',
         rawFileActions
     );
 
-    const seenActionIds = new Set<string>();
-    const addToSeen = (a: FileAction) => !!seenActionIds.add(a.id);
-    const wasNotSeen = (a: FileAction) => !seenActionIds.has(a.id);
-
-    sanitizedArray.map(addToSeen);
-
     // Add default actions unless user disabled them
-    let defaultActionsToAdd: FileAction[] = [];
-    if (!disableDefaultFileActions) {
-        defaultActionsToAdd = DefaultFileActions.filter(wasNotSeen);
-        defaultActionsToAdd.map(addToSeen);
+    let defaultActionsToAdd: FileAction[];
+    if (Array.isArray(disableDefaultFileActions)) {
+        const disabledActionIds = new Set(disableDefaultFileActions);
+        defaultActionsToAdd = DefaultFileActions.filter(
+            (action) => !disabledActionIds.has(action.id)
+        );
+    } else if (disableDefaultFileActions) {
+        defaultActionsToAdd = [];
+    } else {
+        defaultActionsToAdd = DefaultFileActions;
     }
 
-    // Always add essential actions
-    const essentialFileActionsToAdd: FileAction[] = EssentialFileActions.filter(
-        wasNotSeen
+    const fileActions = mergeFileActionsArrays(
+        sanitizedArray,
+        EssentialFileActions,
+        defaultActionsToAdd
     );
-    essentialFileActionsToAdd.map(addToSeen);
-
-    const fileActions = [
-        ...essentialFileActionsToAdd,
-        ...sanitizedArray,
-        ...defaultActionsToAdd,
-    ];
     const optionDefaults = {};
     fileActions.map((a) =>
         a.option ? (optionDefaults[a.option.id] = a.option.defaultValue) : null
