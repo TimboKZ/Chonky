@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
-import { ChonkyActions } from '../file-actons/definitions/index';
+import { ChonkyActions } from '../action-definitions/index';
 import {
     selectFileActionData,
     selectFileViewConfig,

@@ -16,7 +16,7 @@ import { SmartToolbarDropdownButton } from './ToolbarDropdownButton';
 
 export interface FileContextMenuProps {}
 
-export const FileContextMenu: React.FC<FileContextMenuProps> = (props) => {
+export const FileContextMenu: React.FC<FileContextMenuProps> = React.memo(() => {
     const contextMenuConfig = useSelector(selectContextMenuConfig);
     const contextMenuItems = useSelector(selectContextMenuItems);
 
@@ -76,7 +76,7 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = (props) => {
             </ListSubheader>
         </Menu>
     );
-};
+});
 
 const useStyles = makeChonkyStyles((theme) => ({
     contextMenuList: {

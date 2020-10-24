@@ -1,6 +1,4 @@
-import { Nullable } from 'tsdef';
-
-import { reduxActions } from '../../redux/reducers';
+import { reduxActions } from '../redux/reducers';
 import {
     getFileData,
     getIsFileSelected,
@@ -8,23 +6,24 @@ import {
     selectLastClickIndex,
     selectParentFolder,
     selectSelectionSize,
-} from '../../redux/selectors';
-import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
-import { FileData } from '../../types/files.types';
-import { ChonkyIconName } from '../../types/icons.types';
-import { FileHelper } from '../../util/file-helper';
-import { defineFileAction } from '../../util/helpers';
-import { Logger } from '../../util/logger';
+} from '../redux/selectors';
+import { thunkRequestFileAction } from '../redux/thunks/dispatchers.thunks';
+import {
+    ChangeSelectionPayload,
+    EndDragNDropPayload,
+    KeyboardClickFilePayload,
+    MouseClickFilePayload,
+    MoveFilesPayload,
+    OpenFileContextMenuPayload,
+    OpenFilesPayload,
+    StartDragNDropPayload,
+} from '../types/action-payloads.types';
+import { ChonkyIconName } from '../types/icons.types';
+import { FileHelper } from '../util/file-helper';
+import { defineFileAction } from '../util/helpers';
+import { Logger } from '../util/logger';
 import { ChonkyActions } from './index';
 
-export interface MouseClickFilePayload {
-    file: FileData;
-    fileDisplayIndex: number;
-    altKey: boolean;
-    ctrlKey: boolean;
-    shiftKey: boolean;
-    clickType: 'single' | 'double';
-}
 export const MouseClickFile = defineFileAction(
     {
         id: 'mouse_click_file',
@@ -106,15 +105,6 @@ export const MouseClickFile = defineFileAction(
     }
 );
 
-export interface KeyboardClickFilePayload {
-    file: FileData;
-    fileDisplayIndex: number;
-    enterKey: boolean;
-    spaceKey: boolean;
-    altKey: boolean;
-    ctrlKey: boolean;
-    shiftKey: boolean;
-}
 export const KeyboardClickFile = defineFileAction(
     {
         id: 'keyboard_click_file',
@@ -146,9 +136,6 @@ export const KeyboardClickFile = defineFileAction(
     }
 );
 
-export interface StartDragNDropPayload {
-    dragSource: FileData;
-}
 export const StartDragNDrop = defineFileAction(
     {
         id: 'start_drag_n_drop',
@@ -170,13 +157,6 @@ export const StartDragNDrop = defineFileAction(
     }
 );
 
-export interface EndDragNDropPayload {
-    sourceInstanceId: string;
-    source: Nullable<FileData>;
-    draggedFile: FileData;
-    destination: FileData;
-    copy: boolean;
-}
 export const EndDragNDrop = defineFileAction(
     {
         id: 'end_drag_n_drop',
@@ -201,22 +181,16 @@ export const EndDragNDrop = defineFileAction(
     }
 );
 
-export type MoveFilesPayload = EndDragNDropPayload & { files: FileData[] };
 export const MoveFiles = defineFileAction({
     id: 'move_files',
     __payloadType: {} as MoveFilesPayload,
 } as const);
 
-export type ChangeSelectionPayload = { selection: Set<string> };
 export const ChangeSelection = defineFileAction({
     id: 'change_selection',
     __payloadType: {} as ChangeSelectionPayload,
 } as const);
 
-export interface OpenFilesPayload {
-    targetFile?: FileData;
-    files: FileData[];
-}
 export const OpenFiles = defineFileAction({
     id: 'open_files',
     __payloadType: {} as OpenFilesPayload,
@@ -253,11 +227,6 @@ export const OpenParentFolder = defineFileAction(
     }
 );
 
-export interface OpenFileContextMenuPayload {
-    clientX: number;
-    clientY: number;
-    triggerFileId: Nullable<string>;
-}
 export const OpenFileContextMenu = defineFileAction(
     {
         id: 'open_file_context_menu',

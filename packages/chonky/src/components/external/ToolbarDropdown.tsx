@@ -7,7 +7,7 @@
 import Menu from '@material-ui/core/Menu';
 import React, { useCallback, useMemo } from 'react';
 
-import { FileActionGroup } from '../../file-actons/presentation.types';
+import { FileActionGroup } from '../../types/action-menus.types';
 import { important, makeChonkyStyles } from '../../util/styles';
 import { ToolbarButton } from './ToolbarButton';
 import { SmartToolbarDropdownButton } from './ToolbarDropdownButton';

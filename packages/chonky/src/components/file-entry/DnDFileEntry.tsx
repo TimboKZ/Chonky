@@ -4,7 +4,7 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
 import { ExcludeKeys, Nilable, Nullable } from 'tsdef';
 
-import { ChonkyActions } from '../../file-actons/definitions/index';
+import { ChonkyActions } from '../../action-definitions/index';
 import { selectCurrentFolder, selectInstanceId } from '../../redux/selectors';
 import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
 import { FileData } from '../../types/files.types';

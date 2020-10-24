@@ -1,8 +1,8 @@
 import { Nullable } from 'tsdef';
 
-import { FileAction } from '../file-actons/actions.types';
-import { ChonkyActions } from '../file-actons/definitions/index';
-import { GenericFileActionHandler } from '../file-actons/handler.types';
+import { FileAction } from './action.types';
+import { ChonkyActions } from '../action-definitions/index';
+import { GenericFileActionHandler } from './action-handler.types';
 import { FileArray } from './files.types';
 import { ThumbnailGenerator } from './thumbnails.types';
 

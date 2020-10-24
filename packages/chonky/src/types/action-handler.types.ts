@@ -1,7 +1,7 @@
 import { AnyObject } from 'tsdef';
 
-import { FileData } from '../types/files.types';
-import { FileAction } from './actions.types';
+import { FileAction } from './action.types';
+import { FileData } from './files.types';
 
 export type FileActionData<Action extends FileAction> = {
     id: Action['id'];

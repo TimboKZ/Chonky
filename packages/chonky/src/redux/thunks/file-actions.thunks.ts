@@ -1,15 +1,12 @@
 import { Nilable } from 'tsdef';
 
-import { FileAction } from '../../file-actons/actions.types';
+import { FileAction } from '../../types/action.types';
 import {
     ChonkyActions,
     DefaultFileActions,
     EssentialFileActions,
-} from '../../file-actons/definitions/index';
-import {
-    FileActionGroup,
-    FileActionMenuItem,
-} from '../../file-actons/presentation.types';
+} from '../../action-definitions/index';
+import { FileActionGroup, FileActionMenuItem, } from '../../types/action-menus.types';
 import { SortOrder } from '../../types/sort.types';
 import { sanitizeInputArray } from '../files-transforms';
 import { reduxActions } from '../reducers';

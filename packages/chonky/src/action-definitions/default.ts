@@ -1,11 +1,11 @@
 import { Nullable } from 'tsdef';
 
-import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
-import { FileData } from '../../types/files.types';
-import { ChonkyIconName } from '../../types/icons.types';
-import { FileHelper } from '../../util/file-helper';
-import { defineFileAction } from '../../util/helpers';
-import { FileSelectionTransform } from '../actions.types';
+import { thunkRequestFileAction } from '../redux/thunks/dispatchers.thunks';
+import { FileSelectionTransform } from '../types/action.types';
+import { FileData } from '../types/files.types';
+import { ChonkyIconName } from '../types/icons.types';
+import { FileHelper } from '../util/file-helper';
+import { defineFileAction } from '../util/helpers';
 import { OpenFiles } from './essential';
 
 export const OpenSelection = defineFileAction(

@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Nullable } from 'tsdef';
 
-import { ChonkyActions } from '../../file-actons/definitions/index';
+import { ChonkyActions } from '../../action-definitions/index';
 import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
 import { FileData } from '../../types/files.types';
 import { KeyboardClickEvent, MouseClickEvent } from '../internal/ClickableWrapper';

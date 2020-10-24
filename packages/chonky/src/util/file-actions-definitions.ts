@@ -1,4 +1,4 @@
-import { FileAction } from '../file-actons/actions.types';
+import { FileAction } from '../types/action.types';
 import { ChonkyIconName } from '../types/icons.types';
 
 const validateActionTypes = <T extends { [action: string]: FileAction }>(

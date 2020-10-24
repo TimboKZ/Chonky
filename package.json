@@ -18,10 +18,10 @@
     "prettier": "^2.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "tsd": "^0.13.1",
     "typescript": "^3.9.7"
   },
   "dependencies": {
-    "@types/material-ui": "^0.21.8",
     "chonky": "file:packages/chonky",
     "chonky-icon-fontawesome": "file:packages/chonky-icon-fontawesome"
   }

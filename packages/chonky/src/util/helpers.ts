@@ -1,7 +1,7 @@
 // Used in React hooks to indicate empty deps are intentional.
 import { MaybePromise, Nullable, WritableProps } from 'tsdef';
 
-import { FileAction, FileActionEffect } from '../file-actons/actions.types';
+import { FileAction, FileActionEffect } from '../types/action.types';
 import { Logger } from './logger';
 
 // Used in contexts that need to provide some default value for a function.

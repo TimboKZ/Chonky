@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
-import { ChonkyActions } from '../../file-actons/definitions/index';
+import { ChonkyActions } from '../../action-definitions/index';
 import { selectFolderChain } from '../../redux/selectors';
 import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
 import { FileData } from '../../types/files.types';

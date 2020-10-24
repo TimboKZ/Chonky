@@ -1,4 +1,4 @@
-import { ChonkyActions } from '../file-actons/definitions/index';
+import { ChonkyActions } from '../action-definitions/index';
 import { SortOrder } from '../types/sort.types';
 import { RootState } from './types';
 

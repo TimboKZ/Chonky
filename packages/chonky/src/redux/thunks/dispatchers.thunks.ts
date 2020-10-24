@@ -1,7 +1,7 @@
 import { MaybePromise, Undefinable } from 'tsdef';
 
-import { FileAction } from '../../file-actons/actions.types';
-import { FileActionData, FileActionState } from '../../file-actons/handler.types';
+import { FileAction } from '../../types/action.types';
+import { FileActionData, FileActionState } from '../../types/action-handler.types';
 import { Logger } from '../../util/logger';
 import { reduxActions } from '../reducers';
 import {

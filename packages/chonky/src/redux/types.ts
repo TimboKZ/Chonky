@@ -1,9 +1,9 @@
 import { Action, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { Nullable } from 'tsdef';
 
-import { FileAction, FileActionMap } from '../file-actons/actions.types';
-import { GenericFileActionHandler } from '../file-actons/handler.types';
-import { FileActionMenuItem } from '../file-actons/presentation.types';
+import { FileAction, FileActionMap } from '../types/action.types';
+import { GenericFileActionHandler } from '../types/action-handler.types';
+import { FileActionMenuItem } from '../types/action-menus.types';
 import { ContextMenuConfig } from '../types/context-menu.types';
 import { FileViewConfig } from '../types/file-view.types';
 import { FileArray, FileIdTrueMap, FileMap } from '../types/files.types';

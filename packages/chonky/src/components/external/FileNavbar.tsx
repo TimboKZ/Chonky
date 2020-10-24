@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import React, { ReactElement, useMemo } from 'react';
 
-import { ChonkyActions } from '../../file-actons/definitions/index';
+import { ChonkyActions } from '../../action-definitions/index';
 import { ChonkyIconName } from '../../types/icons.types';
 import { c, important, makeChonkyStyles } from '../../util/styles';
 import { useFolderChainItems } from './FileNavbar-hooks';
@@ -16,7 +16,7 @@ import { SmartToolbarButton, ToolbarButton } from './ToolbarButton';
 
 export interface FileNavbarProps {}
 
-export const FileNavbar: React.FC<FileNavbarProps> = () => {
+export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
     const classes = useStyles();
     const folderChainItems = useFolderChainItems();
 
@@ -49,9 +49,7 @@ export const FileNavbar: React.FC<FileNavbarProps> = () => {
     return (
         <Box className={classes.navbarWrapper}>
             <Box className={classes.navbarContainer}>
-                <SmartToolbarButton
-                    fileActionId={ChonkyActions.OpenParentFolder.id}
-                />
+                <SmartToolbarButton fileActionId={ChonkyActions.OpenParentFolder.id} />
                 <Breadcrumbs
                     className={classes.navbarBreadcrumbs}
                     classes={{ separator: classes.separator }}
@@ -61,7 +59,7 @@ export const FileNavbar: React.FC<FileNavbarProps> = () => {
             </Box>
         </Box>
     );
-};
+});
 
 const useStyles = makeChonkyStyles((theme) => ({
     navbarWrapper: {

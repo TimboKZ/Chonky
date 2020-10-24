@@ -2,7 +2,7 @@ import { Store } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 import watch from 'redux-watch';
 
-import { ChonkyActions } from '../file-actons/definitions/index';
+import { ChonkyActions } from '../action-definitions';
 import { FileSelection } from '../types/selection.types';
 import { reduxActions } from './reducers';
 import {
