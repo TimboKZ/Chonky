@@ -2,6 +2,7 @@ import { Nullable } from 'tsdef';
 
 import { reduxActions } from '../../redux/reducers';
 import {
+    getFileData,
     getIsFileSelected,
     getSelectedFiles,
     selectLastClickIndex,
@@ -54,7 +55,9 @@ export const MouseClickFile = defineFileAction(
                             exclusive: false,
                         })
                     );
-                    reduxDispatch(reduxActions.setLastClickIndex(payload.fileDisplayIndex));
+                    reduxDispatch(
+                        reduxActions.setLastClickIndex(payload.fileDisplayIndex)
+                    );
                 } else if (payload.shiftKey) {
                     // Range selection
                     const lastClickIndex = selectLastClickIndex(getReduxState());
@@ -66,7 +69,9 @@ export const MouseClickFile = defineFileAction(
                             [rangeStart, rangeEnd] = [rangeEnd, rangeStart];
                         }
 
-                        reduxDispatch(reduxActions.selectRange({ rangeStart, rangeEnd }));
+                        reduxDispatch(
+                            reduxActions.selectRange({ rangeStart, rangeEnd })
+                        );
                     } else {
                         // Since we can't do a range selection, do a
                         // multiple selection
@@ -88,7 +93,9 @@ export const MouseClickFile = defineFileAction(
                             exclusive: true,
                         })
                     );
-                    reduxDispatch(reduxActions.setLastClickIndex(payload.fileDisplayIndex));
+                    reduxDispatch(
+                        reduxActions.setLastClickIndex(payload.fileDisplayIndex)
+                    );
                 }
             } else {
                 if (!payload.ctrlKey) reduxDispatch(reduxActions.clearSelection());
@@ -194,29 +201,26 @@ export const EndDragNDrop = defineFileAction(
     }
 );
 
+export type MoveFilesPayload = EndDragNDropPayload & { files: FileData[] };
 export const MoveFiles = defineFileAction({
     id: 'move_files',
     __payloadType: {} as MoveFilesPayload,
 } as const);
 
-export type MoveFilesPayload = EndDragNDropPayload & { files: FileData[] };
-
+export type ChangeSelectionPayload = { selection: Set<string> };
 export const ChangeSelection = defineFileAction({
     id: 'change_selection',
     __payloadType: {} as ChangeSelectionPayload,
-} as const);
-
-export type ChangeSelectionPayload = { selection: Set<string> };
-
-export const OpenFiles = defineFileAction({
-    id: 'open_files',
-    __payloadType: {} as OpenFilesPayload,
 } as const);
 
 export interface OpenFilesPayload {
     targetFile?: FileData;
     files: FileData[];
 }
+export const OpenFiles = defineFileAction({
+    id: 'open_files',
+    __payloadType: {} as OpenFilesPayload,
+} as const);
 
 export const OpenParentFolder = defineFileAction(
     {
@@ -245,6 +249,53 @@ export const OpenParentFolder = defineFileAction(
                     ' is not openable. This indicates a bug in presentation components.'
             );
         }
+        return false;
+    }
+);
+
+export interface OpenFileContextMenuPayload {
+    clientX: number;
+    clientY: number;
+    triggerFileId: Nullable<string>;
+}
+export const OpenFileContextMenu = defineFileAction(
+    {
+        id: 'open_file_context_menu',
+        __payloadType: {} as OpenFileContextMenuPayload,
+    } as const,
+    ({ payload, reduxDispatch, getReduxState }) => {
+        // TODO: Check if the context menu component is actually enabled. There is a
+        //  chance it doesn't matter if it is enabled or not - if it is not mounted,
+        //  the action will simply have no effect. It also allows users to provide
+        //  their own components - however, users could also flip the "context menu
+        //  component mounted" switch...
+        const triggerFile = getFileData(getReduxState(), payload.triggerFileId);
+        if (triggerFile) {
+            const fileSelected = getIsFileSelected(getReduxState(), triggerFile);
+            if (!fileSelected) {
+                // If file is selected, we leave the selection as is. If it is not
+                // selected, it means user right clicked the file with no selection.
+                // We simulate the Windows Explorer/Nautilus behaviour of moving
+                // selection to this file.
+                if (FileHelper.isSelectable(triggerFile)) {
+                    reduxDispatch(
+                        reduxActions.selectFiles({
+                            fileIds: [payload.triggerFileId],
+                            reset: true,
+                        })
+                    );
+                } else {
+                    reduxDispatch(reduxActions.clearSelection());
+                }
+            }
+        }
+
+        reduxDispatch(
+            reduxActions.showContextMenu({
+                mouseX: payload.clientX - 2,
+                mouseY: payload.clientY - 4,
+            })
+        );
         return false;
     }
 );

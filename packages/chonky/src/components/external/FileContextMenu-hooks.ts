@@ -1,20 +1,49 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { Nullable } from 'tsdef';
+import { ChonkyActions } from '../../file-actons/definitions/index';
 
 import { reduxActions } from '../../redux/reducers';
+import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
+import { findElementAmongAncestors } from '../../util/helpers';
 
-export const useContextMenuHandler = () => {
+export const findClosestChonkyFileId = (
+    element: HTMLElement | any
+): Nullable<string> => {
+    const fileEntryWrapperDiv = findElementAmongAncestors(
+        element,
+        (element: any) =>
+            element.tagName &&
+            element.tagName.toLowerCase() === 'div' &&
+            element.dataset &&
+            element.dataset.chonkyFileId
+    );
+    return fileEntryWrapperDiv ? fileEntryWrapperDiv.dataset.chonkyFileId! : null;
+};
+
+export const useContextMenuTrigger = () => {
     const dispatch = useDispatch();
     return useCallback(
         (event: React.MouseEvent<HTMLDivElement>) => {
+            // Users can use Alt+Right Click to bring up browser's default context menu
+            // instead of Chonky's context menu.
+            if (event.altKey) return;
             event.preventDefault();
+
+            const triggerFileId = findClosestChonkyFileId(event.target);
             dispatch(
-                reduxActions.showContextMenu({
-                    mouseX: event.clientX - 2,
-                    mouseY: event.clientY - 4,
+                thunkRequestFileAction(ChonkyActions.OpenFileContextMenu, {
+                    clientX:event.clientX,
+                    clientY:event.clientY,
+                    triggerFileId,
                 })
             );
         },
         [dispatch]
     );
+};
+
+export const useContextMenuDismisser = () => {
+    const dispatch = useDispatch();
+    return useCallback(() => dispatch(reduxActions.hideContextMenu()), [dispatch]);
 };

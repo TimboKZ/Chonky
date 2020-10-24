@@ -18,7 +18,7 @@ import {
 import { ErrorMessageData } from '../../types/validation.types';
 import { elementIsInsideButton } from '../../util/helpers';
 import { makeChonkyStyles } from '../../util/styles';
-import { useContextMenuHandler } from '../external/FileContextMenu-hooks';
+import { useContextMenuTrigger } from '../external/FileContextMenu-hooks';
 import { DnDFileListDragLayer } from '../file-entry/DnDFileListDragLayer';
 import { ErrorMessage } from './ErrorMessage';
 import { HotkeyListener } from './HotkeyListener';
@@ -77,12 +77,12 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
         [validationErrors]
     );
 
-    const handleContextMenu = useContextMenuHandler();
+    const showContextMenu = useContextMenuTrigger();
 
     const classes = useStyles();
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
-            <Box className={classes.chonkyRoot} onContextMenu={handleContextMenu}>
+            <Box className={classes.chonkyRoot} onContextMenu={showContextMenu}>
                 {!dndDisabled && <DnDFileListDragLayer />}
                 {hotkeyListenerComponents}
                 {validationErrorComponents}

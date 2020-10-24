@@ -1,7 +1,6 @@
 import { Nilable, Nullable } from 'tsdef';
 
 import { FileData, FileFilter } from '../types/files.types';
-import { FileHelper } from '../util/file-helper';
 import { RootState } from './types';
 
 export const selectInstanceId = (state: RootState) => state.instanceId;
@@ -80,8 +79,12 @@ export const selectLastClickIndex = (state: RootState) => state.lastClickIndex;
 export const selectContextMenuConfig = (state: RootState) => state.contextMenuConfig;
 
 // Selectors meant to be used outside of Redux code
+export const getFileData = (state: RootState, fileId: Nullable<string>) =>
+    fileId ? selectFileMap(state)[fileId] : null;
 export const getIsFileSelected = (state: RootState, file: FileData) => {
-    return FileHelper.isSelectable(file) && !!selectSelectionMap(state)[file.id];
+    // !!! We deliberately don't use `FileHelper.isSelectable` here as we want to
+    //     reflect the state of Redux store accurately.
+    return !!selectSelectionMap(state)[file.id];
 };
 export const getSelectedFiles = (
     state: RootState,

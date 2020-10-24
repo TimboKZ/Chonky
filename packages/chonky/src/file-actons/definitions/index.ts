@@ -15,7 +15,7 @@ import {
     EndDragNDrop,
     KeyboardClickFile,
     MouseClickFile,
-    MoveFiles,
+    MoveFiles, OpenFileContextMenu,
     OpenFiles,
     OpenParentFolder,
     StartDragNDrop,
@@ -30,6 +30,7 @@ export const ChonkyActions = {
     ChangeSelection,
     OpenFiles,
     OpenParentFolder,
+    OpenFileContextMenu,
 
     OpenSelection,
     SelectAllFiles,
@@ -52,6 +53,7 @@ export const EssentialFileActions = [
     ChonkyActions.ChangeSelection,
     ChonkyActions.OpenFiles,
     ChonkyActions.OpenParentFolder,
+    ChonkyActions.OpenFileContextMenu,
 ];
 
 export const DefaultFileActions = [

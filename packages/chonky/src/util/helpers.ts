@@ -1,5 +1,5 @@
 // Used in React hooks to indicate empty deps are intentional.
-import { MaybePromise, WritableProps } from 'tsdef';
+import { MaybePromise, Nullable, WritableProps } from 'tsdef';
 
 import { FileAction, FileActionEffect } from '../file-actons/actions.types';
 import { Logger } from './logger';
@@ -38,22 +38,29 @@ export const defineFileAction = <Action extends FileAction>(
     return action;
 };
 
-export const elementIsInsideButton = (buttonCandidate: any): boolean => {
-    if (!buttonCandidate) {
-        return false;
+/**
+ * Recursively check the current element and the parent elements, going bottom-up.
+ * Returns the first element to match the predicate, otherwise returns null if such
+ * element is not found.
+ */
+export const findElementAmongAncestors = (
+    maybeElement: HTMLElement | any,
+    predicate: (maybeElement: HTMLElement | any) => boolean
+): Nullable<HTMLElement> => {
+    if (!maybeElement) return maybeElement;
+
+    if (predicate(maybeElement)) return maybeElement;
+
+    if (maybeElement.parentElement) {
+        return findElementAmongAncestors(maybeElement.parentElement, predicate);
     }
 
-    // Current element is a button
-    if (buttonCandidate.tagName && buttonCandidate.tagName.toLowerCase() === 'button') {
-        return true;
-    }
+    return null;
+};
 
-    // Current element is not a button: Check the parent element
-    const parentElement = buttonCandidate.parentElement;
-    if (parentElement) {
-        return elementIsInsideButton(parentElement);
-    }
-
-    // No parent element found -> No button
-    return false;
+export const elementIsInsideButton = (buttonCandidate: HTMLElement | any): boolean => {
+    return !!findElementAmongAncestors(
+        buttonCandidate,
+        (element: any) => element.tagName && element.tagName.toLowerCase() === 'button'
+    );
 };

@@ -4,25 +4,23 @@
  * @license MIT
  */
 
+import ListSubheader from '@material-ui/core/ListSubheader';
 import Menu from '@material-ui/core/Menu';
-import React, { ReactElement, useCallback, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { ReactElement, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
-import { reduxActions } from '../../redux/reducers';
 import { selectContextMenuConfig, selectContextMenuItems } from '../../redux/selectors';
 import { important, makeChonkyStyles } from '../../util/styles';
+import { useContextMenuDismisser } from './FileContextMenu-hooks';
 import { SmartToolbarDropdownButton } from './ToolbarDropdownButton';
 
 export interface FileContextMenuProps {}
 
 export const FileContextMenu: React.FC<FileContextMenuProps> = (props) => {
-    const dispatch = useDispatch();
     const contextMenuConfig = useSelector(selectContextMenuConfig);
     const contextMenuItems = useSelector(selectContextMenuItems);
 
-    const handleClose = useCallback(() => dispatch(reduxActions.hideContextMenu()), [
-        dispatch,
-    ]);
+    const hideContextMenu = useContextMenuDismisser();
     const contextMenuItemComponents = useMemo(() => {
         const components: ReactElement[] = [];
         for (let i = 0; i < contextMenuItems.length; ++i) {
@@ -33,7 +31,7 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = (props) => {
                     <SmartToolbarDropdownButton
                         key={`context-menu-item-${item}`}
                         fileActionId={item}
-                        onClickFollowUp={handleClose}
+                        onClickFollowUp={hideContextMenu}
                     />
                 );
             } else {
@@ -42,14 +40,14 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = (props) => {
                         <SmartToolbarDropdownButton
                             key={`context-menu-item-${item.name}-${id}`}
                             fileActionId={id}
-                            onClickFollowUp={handleClose}
+                            onClickFollowUp={hideContextMenu}
                         />
                     )
                 );
             }
         }
         return components;
-    }, [contextMenuItems, handleClose]);
+    }, [contextMenuItems, hideContextMenu]);
 
     const anchorPosition = useMemo(
         () =>
@@ -65,7 +63,7 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = (props) => {
             keepMounted
             elevation={2}
             disablePortal
-            onClose={handleClose}
+            onClose={hideContextMenu}
             transitionDuration={150}
             open={!!contextMenuConfig}
             anchorPosition={anchorPosition}
@@ -73,6 +71,9 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = (props) => {
             classes={{ list: classes.contextMenuList }}
         >
             {contextMenuItemComponents}
+            <ListSubheader component="div" className={classes.browserMenuTooltip}>
+                Browser menu: <strong>Alt + Right Click</strong>
+            </ListSubheader>
         </Menu>
     );
 };
@@ -81,5 +82,9 @@ const useStyles = makeChonkyStyles((theme) => ({
     contextMenuList: {
         paddingBottom: important(0),
         paddingTop: important(0),
+    },
+    browserMenuTooltip: {
+        lineHeight: important('30px'),
+        fontSize: important('0.7em'),
     },
 }));

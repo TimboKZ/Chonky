@@ -107,7 +107,7 @@ export const thunkUpdateToolbarNContextMenuItems = (
         const button = action.button;
         if (!button) continue;
 
-        if (button.toolbar || !excludedToolbarFileActionIds.has(action.id)) {
+        if (button.toolbar && !excludedToolbarFileActionIds.has(action.id)) {
             if (button.group) {
                 const group = getGroup(toolbarItems, seenToolbarGroups, button.group);
                 group.fileActionIds.push(action.id);

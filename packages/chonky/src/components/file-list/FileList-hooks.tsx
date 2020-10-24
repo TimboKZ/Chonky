@@ -24,7 +24,7 @@ export const fileListItemRenderer = (
     }
 
     return (
-        <div style={styleWithGutter}>
+        <div style={styleWithGutter} data-chonky-file-id={fileId}>
             <SmartFileEntry
                 fileId={fileId ?? null}
                 displayIndex={index}
