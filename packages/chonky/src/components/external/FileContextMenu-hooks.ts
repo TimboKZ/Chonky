@@ -33,8 +33,8 @@ export const useContextMenuTrigger = () => {
             const triggerFileId = findClosestChonkyFileId(event.target);
             dispatch(
                 thunkRequestFileAction(ChonkyActions.OpenFileContextMenu, {
-                    clientX:event.clientX,
-                    clientY:event.clientY,
+                    clientX: event.clientX,
+                    clientY: event.clientY,
                     triggerFileId,
                 })
             );

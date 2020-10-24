@@ -1,0 +1,5 @@
+{
+    "extends": "../../react.tsconfig.json",
+    "compilerOptions": {},
+    "include": ["src/**/*", "test/**/*"]
+}

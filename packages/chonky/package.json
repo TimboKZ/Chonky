@@ -11,10 +11,10 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint src/",
-    "typecheck": "tsc -p ./tsconfig.json --noEmit",
-    "build": "rm -rf ./lib; tsc",
-    "watch": "rm -rf ./lib; tsc -w",
-    "prepublishOnly": "npm run build"
+    "format": "prettier --write src/ test/",
+    "typecheck": "tsc -p tsconfig.test.json --noEmit",
+    "build": "rm -rf ./lib; tsc -p tsconfig.production.json",
+    "prepublishOnly": "npm run test && npm run typecheck && npm run build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.29",

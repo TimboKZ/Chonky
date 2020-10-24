@@ -6,7 +6,7 @@ import {
     DefaultFileActions,
     EssentialFileActions,
 } from '../../action-definitions/index';
-import { FileActionGroup, FileActionMenuItem, } from '../../types/action-menus.types';
+import { FileActionGroup, FileActionMenuItem } from '../../types/action-menus.types';
 import { SortOrder } from '../../types/sort.types';
 import { sanitizeInputArray } from '../files-transforms';
 import { reduxActions } from '../reducers';

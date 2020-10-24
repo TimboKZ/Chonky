@@ -21,10 +21,10 @@ import { FileHelper } from './file-helper';
 export const useFileActionTrigger = (fileActionId: string) => {
     const dispatch = useDispatch();
     const fileAction = useParamSelector(selectFileActionData, fileActionId);
-    return useCallback(
-        () => dispatch(thunkRequestFileAction(fileAction, undefined)),
-        [dispatch, fileAction]
-    );
+    return useCallback(() => dispatch(thunkRequestFileAction(fileAction, undefined)), [
+        dispatch,
+        fileAction,
+    ]);
 };
 
 export const useFileActionProps = (

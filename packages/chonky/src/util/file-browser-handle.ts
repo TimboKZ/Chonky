@@ -1,7 +1,7 @@
 import React, { useImperativeHandle } from 'react';
 import { useDispatch, useStore } from 'react-redux';
 
-import { reduxActions} from '../redux/reducers';
+import { reduxActions } from '../redux/reducers';
 import { selectSelectionMap } from '../redux/selectors';
 import { RootState } from '../redux/types';
 import { FileBrowserHandle } from '../types/file-browser.types';

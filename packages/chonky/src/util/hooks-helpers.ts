@@ -33,4 +33,3 @@ export const useInstanceVariable = <T>(value: T) => {
     }, [ref, value]);
     return ref;
 };
-
