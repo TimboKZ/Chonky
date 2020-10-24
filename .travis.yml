@@ -6,12 +6,12 @@ install:
 
 jobs:
     include:
-        - script: echo "npm test temporarily disabled"
+        - script: lerna run test
         - stage: lint
           script: npm run lint
         - stage: typecheck
           script: npm run typecheck
 
 stages:
-    - lint-src
-    - typecheck-src
+    - lint
+    - typecheck
