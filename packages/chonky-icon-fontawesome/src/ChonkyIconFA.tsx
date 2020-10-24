@@ -7,6 +7,6 @@
 import { ChonkyIconProps } from 'chonky/lib/components/external/ChonkyIcon';
 import React from 'react';
 
-export const ChonkyIconFA: React.FC<ChonkyIconProps> = (props) => {
+export const ChonkyIconFA: React.FC<ChonkyIconProps> = () => {
     return <h1>ChonkyIconFA component.</h1>;
 };
