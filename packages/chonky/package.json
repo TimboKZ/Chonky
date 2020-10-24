@@ -1,6 +1,6 @@
 {
   "name": "chonky",
-  "version": "2.0.0-alpha.24+24946a1",
+  "version": "2.0.0-alpha.42+5ac69d5",
   "description": "A File Browser component for React",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -76,7 +76,7 @@
     "file-browser",
     "react-component"
   ],
-  "gitHead": "24946a144dbb35f7b9f47fa5e5adcfd936a7d498",
+  "gitHead": "5ac69d5a0080ecbade7fe67af6a11975d2ebe421",
   "devDependencies": {
     "@testing-library/dom": "^7.26.3",
     "@testing-library/jest-dom": "^5.11.5",

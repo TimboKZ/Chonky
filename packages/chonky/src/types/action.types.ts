@@ -25,8 +25,7 @@ export interface FileAction {
         name: string; // Button name
         toolbar?: boolean; // Whether to show the button in the toolbar
         contextMenu?: boolean; // Whether to show the button in the context menu
-        group?: string; // Group to add the button too
-        dropdown?: boolean; // Whether to display group as dropdown
+        group?: string; // Button group (dropdown in toolbar or section in context menu)
         tooltip?: string; // Help tooltip text
         icon?: ChonkyIconName | string; // Icon name
         iconOnly?: boolean; // Whether to only display the icon

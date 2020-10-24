@@ -202,7 +202,7 @@ export const EssentialActions = {
             button: {
                 name: 'Go up a directory',
                 toolbar: true,
-                contextMenu: true,
+                contextMenu: false,
                 icon: ChonkyIconName.openParentFolder,
                 iconOnly: true,
             },

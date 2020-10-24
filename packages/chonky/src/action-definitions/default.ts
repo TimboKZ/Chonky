@@ -20,7 +20,6 @@ export const DefaultActions = {
                 toolbar: true,
                 contextMenu: true,
                 group: 'Actions',
-                dropdown: true,
                 icon: ChonkyIconName.openFiles,
             },
         } as const,
@@ -41,7 +40,6 @@ export const DefaultActions = {
             toolbar: true,
             contextMenu: true,
             group: 'Actions',
-            dropdown: true,
             icon: ChonkyIconName.selectAllFiles,
         },
         selectionTransform: (({ fileIds, hiddenFileIds }) => {
@@ -62,7 +60,6 @@ export const DefaultActions = {
             toolbar: true,
             contextMenu: true,
             group: 'Actions',
-            dropdown: true,
             icon: ChonkyIconName.clearSelection,
         },
         selectionTransform: (({ prevSelection }) => {
@@ -76,7 +73,6 @@ export const DefaultActions = {
         button: {
             name: 'Switch to List view',
             toolbar: true,
-            contextMenu: true,
             icon: ChonkyIconName.list,
             iconOnly: true,
         },
@@ -87,7 +83,6 @@ export const DefaultActions = {
         button: {
             name: 'Switch to Grid view',
             toolbar: true,
-            contextMenu: true,
             icon: ChonkyIconName.smallThumbnail,
             iconOnly: true,
         },
@@ -100,7 +95,6 @@ export const DefaultActions = {
             name: 'Sort by name',
             toolbar: true,
             group: 'Options',
-            dropdown: true,
         },
     } as const),
     SortFilesBySize: defineFileAction({
@@ -110,7 +104,6 @@ export const DefaultActions = {
             name: 'Sort by size',
             toolbar: true,
             group: 'Options',
-            dropdown: true,
         },
     } as const),
     SortFilesByDate: defineFileAction({
@@ -121,7 +114,6 @@ export const DefaultActions = {
             name: 'Sort by date',
             toolbar: true,
             group: 'Options',
-            dropdown: true,
         },
     } as const),
     ToggleHiddenFiles: defineFileAction({
@@ -134,9 +126,7 @@ export const DefaultActions = {
         button: {
             name: 'Show hidden files',
             toolbar: true,
-            contextMenu: true,
             group: 'Options',
-            dropdown: true,
         },
     } as const),
     ToggleShowFoldersFirst: defineFileAction({
@@ -148,9 +138,7 @@ export const DefaultActions = {
         button: {
             name: 'Show folders first',
             toolbar: true,
-            contextMenu: true,
             group: 'Options',
-            dropdown: true,
         },
     } as const),
 };
