@@ -6,8 +6,6 @@
     "pre-push": "lerna run test"
   },
   "devDependencies": {
-    "@types/enzyme": "^3.10.7",
-    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^26.0.15",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",

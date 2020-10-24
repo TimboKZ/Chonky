@@ -41,8 +41,9 @@
   ],
   "gitHead": "24946a144dbb35f7b9f47fa5e5adcfd936a7d498",
   "devDependencies": {
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.5",
+    "@testing-library/dom": "^7.26.3",
+    "@testing-library/jest-dom": "^5.11.5",
+    "@testing-library/react": "^11.1.0",
     "react": "16.13",
     "react-dom": "16.13"
   }

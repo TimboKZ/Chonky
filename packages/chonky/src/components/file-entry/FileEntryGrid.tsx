@@ -4,10 +4,14 @@ import { FileHelper } from '../../util/file-helper';
 import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { FileThumbnail } from '../internal/FileThumbnail';
 import { FileEntryProps } from './FileEntry';
-import { useCommonFileEntryComponents, useThumbnailUrl } from './FileEntry-hooks';
+import {
+    useCommonFileEntryComponents,
+    useFileEntryHtmlProps,
+    useThumbnailUrl
+} from './FileEntry-hooks';
 
 export const FileEntryGrid: React.FC<FileEntryProps> = React.memo((props) => {
-    const { file, style } = props;
+    const { file } = props;
 
     // Deal with thumbnails
     const { thumbnailUrl, thumbnailLoading } = useThumbnailUrl(file);
@@ -32,8 +36,9 @@ export const FileEntryGrid: React.FC<FileEntryProps> = React.memo((props) => {
         thumbnailUrl
     );
 
+    const fileEntryHtmlProps = useFileEntryHtmlProps(file);
     return (
-        <div className={entryClassName} style={style}>
+        <div className={entryClassName} {...fileEntryHtmlProps}>
             <div className="chonky-file-entry-inside">
                 {dndIconName && (
                     <div

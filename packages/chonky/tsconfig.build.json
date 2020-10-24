@@ -1,7 +1,7 @@
 {
     "extends": "../../react.tsconfig.json",
     "compilerOptions": {
-        "moduleResolution": "node"
+        "outDir": "lib"
     },
-    "include": ["src/**/*", "test/**/*"]
+    "include": ["src/**/*"]
 }

@@ -3,7 +3,7 @@ sudo: false
 node_js:
     - 10
 install:
-    - npm ci && lerna exec npm install
+    - npm ci && lerna bootstrap && lerna exec npm install
 script:
     - lerna run test
     - lerna run typecheck

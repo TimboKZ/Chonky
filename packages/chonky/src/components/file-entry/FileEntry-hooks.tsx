@@ -1,5 +1,5 @@
 import path from 'path';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { HTMLProps, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Nullable, Undefinable } from 'tsdef';
 
@@ -13,6 +13,22 @@ import { c } from '../../util/styles';
 import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { TextPlaceholder } from '../external/TextPlaceholder';
 import { FileEntryProps } from './FileEntry';
+
+export const useFileEntryHtmlProps = (
+    file: Nullable<FileData>
+): HTMLProps<HTMLDivElement> => {
+    return useMemo(() => {
+        const dataProps: { [prop: string]: Undefinable<string> } = {
+            'data-test-id': 'file-entry',
+            'data-chonky-file-id': file ? file.id : undefined,
+        };
+
+        return {
+            role: 'listitem',
+            ...dataProps,
+        };
+    }, [file]);
+};
 
 export const useDndIcon = (props: FileEntryProps) => {
     let dndIconName: Nullable<ChonkyIconName> = null;

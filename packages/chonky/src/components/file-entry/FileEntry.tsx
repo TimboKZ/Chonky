@@ -1,4 +1,3 @@
-import React from 'react';
 import { Nullable } from 'tsdef';
 
 import { FileData } from '../../types/files.types';
@@ -15,5 +14,4 @@ export interface FileEntryProps extends DnDProps {
     selected: boolean;
     focused?: boolean;
     isGridView: boolean;
-    style?: React.CSSProperties;
 }

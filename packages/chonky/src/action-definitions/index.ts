@@ -1,48 +1,11 @@
-import {
-    ClearSelection,
-    EnableGridView,
-    EnableListView,
-    OpenSelection,
-    SelectAllFiles,
-    SortFilesByDate,
-    SortFilesByName,
-    SortFilesBySize,
-    ToggleHiddenFiles,
-    ToggleShowFoldersFirst,
-} from './default';
-import {
-    ChangeSelection,
-    EndDragNDrop,
-    KeyboardClickFile,
-    MouseClickFile,
-    MoveFiles,
-    OpenFileContextMenu,
-    OpenFiles,
-    OpenParentFolder,
-    StartDragNDrop,
-} from './essential';
+import { DefaultActions } from './default';
+import { EssentialActions } from './essential';
+import { ExtraActions } from './other';
 
 export const ChonkyActions = {
-    MouseClickFile,
-    KeyboardClickFile,
-    StartDragNDrop,
-    EndDragNDrop,
-    MoveFiles,
-    ChangeSelection,
-    OpenFiles,
-    OpenParentFolder,
-    OpenFileContextMenu,
-
-    OpenSelection,
-    SelectAllFiles,
-    ClearSelection,
-    EnableListView,
-    EnableGridView,
-    SortFilesByName,
-    SortFilesBySize,
-    SortFilesByDate,
-    ToggleHiddenFiles,
-    ToggleShowFoldersFirst,
+    ...EssentialActions,
+    ...DefaultActions,
+    ...ExtraActions,
 };
 
 export const EssentialFileActions = [

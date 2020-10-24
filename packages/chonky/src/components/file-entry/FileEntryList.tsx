@@ -3,10 +3,10 @@ import React from 'react';
 import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { TextPlaceholder } from '../external/TextPlaceholder';
 import { FileEntryProps } from './FileEntry';
-import { useCommonFileEntryComponents } from './FileEntry-hooks';
+import { useCommonFileEntryComponents, useFileEntryHtmlProps } from './FileEntry-hooks';
 
 export const FileEntryList: React.FC<FileEntryProps> = React.memo((props) => {
-    const { file, style } = props;
+    const { file } = props;
 
     // Get file entry components/properties
     const {
@@ -22,8 +22,13 @@ export const FileEntryList: React.FC<FileEntryProps> = React.memo((props) => {
         fileNameComponent,
     } = useCommonFileEntryComponents(props, false, true, false, null);
 
+    const fileEntryHtmlProps = useFileEntryHtmlProps(file);
     return (
-        <div className={entryClassName} style={{ ...style, color: dndIconColor }}>
+        <div
+            className={entryClassName}
+            style={{ color: dndIconColor }}
+            {...fileEntryHtmlProps}
+        >
             <div
                 className="chonky-file-entry-column chonky-file-entry-column-icon"
                 style={{ color: dndIconName ? dndIconColor : fileColor }}
