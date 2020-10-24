@@ -1,19 +1,10 @@
 language: node_js
+sudo: false
 node_js:
     - 10
 install:
-    - npm ci
-
-jobs:
-    include:
-        - stage: test
-        - script: lerna run test
-        - stage: lint
-          script: lerna run lint
-        - stage: typecheck
-          script: lerna run typecheck
-
-stages:
-    - test
-    - lint
-    - typecheck
+    - npm ci && lerna bootstrap
+script:
+    - lerna run test
+    - lerna run typecheck
+    - lerna run lint

@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Nullable } from 'tsdef';
-import { ChonkyActions } from '../../action-definitions/index';
 
+import { ChonkyActions } from '../../action-definitions/index';
 import { reduxActions } from '../../redux/reducers';
 import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
 import { findElementAmongAncestors } from '../../util/helpers';

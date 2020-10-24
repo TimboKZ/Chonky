@@ -1,11 +1,11 @@
 import { MaybePromise, Nullable } from 'tsdef';
 
 import { ChonkyDispatch, RootState } from '../redux/types';
+import { FileActionState } from './action-handler.types';
 import { FileViewConfig } from './file-view.types';
 import { FileFilter, FileMap } from './files.types';
 import { ChonkyIconName } from './icons.types';
 import { FileSortKeySelector } from './sort.types';
-import { FileActionState } from './action-handler.types';
 
 export interface FileAction {
     id: string; // Unique action ID

@@ -46,7 +46,7 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
     );
 });
 
-const useStyles = makeChonkyStyles((theme) => ({
+const useStyles = makeChonkyStyles(() => ({
     fileListWrapper: {
         minHeight: (viewConfig: FileViewConfig) => viewConfig.entryHeight,
         height: '100%',

@@ -1,4 +1,3 @@
-import c from 'classnames';
 import path from 'path';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -10,6 +9,7 @@ import { ChonkyIconName } from '../../types/icons.types';
 import { FileHelper } from '../../util/file-helper';
 import { ColorsDark, ColorsLight, useIconData } from '../../util/file-icon-helper';
 import { Logger } from '../../util/logger';
+import { c } from '../../util/styles';
 import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { TextPlaceholder } from '../external/TextPlaceholder';
 import { FileEntryProps } from './FileEntry';
