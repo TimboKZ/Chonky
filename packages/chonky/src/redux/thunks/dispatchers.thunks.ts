@@ -5,10 +5,10 @@ import { FileAction } from '../../types/action.types';
 import { Logger } from '../../util/logger';
 import { reduxActions } from '../reducers';
 import {
-    getSelectedFilesForAction,
     selectExternalFileActionHandler,
     selectFileActionMap,
     selectInstanceId,
+    selectSelectedFiles,
 } from '../selectors';
 import { ChonkyDispatch, ChonkyThunk } from '../types';
 import {
@@ -73,11 +73,11 @@ export const thunkRequestFileAction = <Action extends FileAction>(
     }
 
     // Determine files for the action if action requires selection
-    const selectedFilesForAction = getSelectedFilesForAction(state, action.id);
-    if (
-        action.requiresSelection &&
-        (!selectedFilesForAction || selectedFilesForAction.length === 0)
-    ) {
+    const selectedFiles = selectSelectedFiles(state);
+    const selectedFilesForAction = action.fileFilter
+        ? selectedFiles.filter(action.fileFilter)
+        : selectedFiles;
+    if (action.requiresSelection && selectedFilesForAction.length === 0) {
         Logger.warn(
             `Internal components requested the "${action.id}" file ` +
                 `action, but the selection for this action was empty. This ` +
@@ -86,7 +86,11 @@ export const thunkRequestFileAction = <Action extends FileAction>(
         return;
     }
 
-    const actionState: FileActionState<{}> = { instanceId, selectedFilesForAction };
+    const actionState: FileActionState<{}> = {
+        instanceId,
+        selectedFiles,
+        selectedFilesForAction,
+    };
 
     // === Update sort state if necessary
     const sortKeySelector = action.sortKeySelector;

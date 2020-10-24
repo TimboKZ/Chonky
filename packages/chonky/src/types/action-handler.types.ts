@@ -12,7 +12,8 @@ export type FileActionData<Action extends FileAction> = {
 
 export type FileActionState<ExtraState extends object = AnyObject> = {
     instanceId: string;
-    selectedFilesForAction?: FileData[];
+    selectedFiles: FileData[];
+    selectedFilesForAction: FileData[];
 } & ExtraState;
 
 export type MapFileActionsToData<U> = U extends FileAction ? FileActionData<U> : never;

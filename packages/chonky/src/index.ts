@@ -11,8 +11,9 @@ export { FileList } from './components/file-list/FileList';
 export { FileContextMenu } from './components/external/FileContextMenu';
 
 export { ChonkyActions, DefaultFileActions } from './action-definitions';
-export { FileHelper } from './util/file-helper';
+export { defineFileAction } from './util/helpers';
 
+export { FileHelper } from './util/file-helper';
 export { FileData, FileArray } from './types/files.types';
 export {
     FileAction,

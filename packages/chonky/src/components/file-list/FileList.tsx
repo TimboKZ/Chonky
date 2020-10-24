@@ -26,7 +26,6 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
     // own `div` if they want to have finer control over the height.
     const fillParentContainer = true;
 
-    console.warn(`Rendering ${displayFileIds.length} files`);
     const listRenderer = useCallback(
         ({ width, height }: { width: number; height: number }) => {
             if (displayFileIds.length === 0) {

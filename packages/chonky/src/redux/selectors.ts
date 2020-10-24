@@ -44,6 +44,10 @@ export const selectSelectionSize = (state: RootState) =>
     selectSelectedFileIds(state).length;
 export const selectIsFileSelected = (fileId: Nullable<string>) => (state: RootState) =>
     !!fileId && !!selectSelectionMap(state)[fileId];
+export const selectSelectedFiles = (state: RootState) => {
+    const fileMap = selectFileMap(state);
+    return Object.keys(selectSelectionMap(state)).map((id) => fileMap[id]);
+};
 export const selectSelectedFilesForAction = (fileActionId: string) => (
     state: RootState
 ) => {

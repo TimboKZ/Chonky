@@ -7,7 +7,7 @@ import { FileEntryProps } from './FileEntry';
 import {
     useCommonFileEntryComponents,
     useFileEntryHtmlProps,
-    useThumbnailUrl
+    useThumbnailUrl,
 } from './FileEntry-hooks';
 
 export const FileEntryGrid: React.FC<FileEntryProps> = React.memo((props) => {
