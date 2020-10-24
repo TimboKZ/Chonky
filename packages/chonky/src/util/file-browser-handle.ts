@@ -3,8 +3,8 @@ import { useDispatch, useStore } from 'react-redux';
 
 import { reduxActions } from '../redux/reducers';
 import { selectSelectionMap } from '../redux/selectors';
-import { RootState } from '../redux/types';
 import { FileBrowserHandle } from '../types/file-browser.types';
+import { RootState } from '../types/redux.types';
 
 export const useFileBrowserHandle = (ref: React.Ref<FileBrowserHandle>) => {
     const store = useStore<RootState>();

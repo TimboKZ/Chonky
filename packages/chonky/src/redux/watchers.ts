@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import watch from 'redux-watch';
 
 import { ChonkyActions } from '../action-definitions';
+import { RootState } from '../types/redux.types';
 import { FileSelection } from '../types/selection.types';
 import { reduxActions } from './reducers';
 import {
@@ -12,7 +13,6 @@ import {
     selectSelectionMap,
 } from './selectors';
 import { thunkRequestFileAction } from './thunks/dispatchers.thunks';
-import { RootState } from './types';
 
 export const useStoreWatchers = (store: Store<RootState>) => {
     useEffect(() => {

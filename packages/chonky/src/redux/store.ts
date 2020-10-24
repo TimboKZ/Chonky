@@ -3,10 +3,10 @@ import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeepPartial } from 'tsdef';
 
+import { RootState } from '../types/redux.types';
 import { useStaticValue } from '../util/hooks-helpers';
 import { rootReducer } from './reducers';
 import { initialRootState } from './state';
-import { RootState } from './types';
 import { useStoreWatchers } from './watchers';
 
 export const useChonkyStore = (chonkyInstanceId: string) => {

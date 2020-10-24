@@ -1,7 +1,7 @@
 import { Nilable, Nullable } from 'tsdef';
 
 import { FileData, FileFilter } from '../types/files.types';
-import { RootState } from './types';
+import { RootState } from '../types/redux.types';
 
 export const selectInstanceId = (state: RootState) => state.instanceId;
 export const selectExternalFileActionHandler = (state: RootState) =>
@@ -81,6 +81,12 @@ export const selectClearSelectionOnOutsideClick = (state: RootState) =>
 export const selectLastClickIndex = (state: RootState) => state.lastClickIndex;
 
 export const selectContextMenuConfig = (state: RootState) => state.contextMenuConfig;
+export const selectContextMenuTriggerFile = (state: RootState) => {
+    const config = selectContextMenuConfig(state);
+    if (!config || !config.triggerFileId) return null;
+    const fileMap = selectFileMap(state);
+    return fileMap[config.triggerFileId] ?? null;
+};
 
 // Selectors meant to be used outside of Redux code
 export const getFileData = (state: RootState, fileId: Nullable<string>) =>

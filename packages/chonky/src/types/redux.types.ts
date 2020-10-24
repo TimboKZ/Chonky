@@ -1,16 +1,16 @@
 import { Action, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { Nullable } from 'tsdef';
 
-import { GenericFileActionHandler } from '../types/action-handler.types';
-import { FileActionMenuItem } from '../types/action-menus.types';
-import { FileAction, FileActionMap } from '../types/action.types';
-import { ContextMenuConfig } from '../types/context-menu.types';
-import { FileViewConfig } from '../types/file-view.types';
-import { FileArray, FileIdTrueMap, FileMap } from '../types/files.types';
-import { OptionMap } from '../types/options.types';
-import { FileSelection } from '../types/selection.types';
-import { SortOrder } from '../types/sort.types';
-import { ThumbnailGenerator } from '../types/thumbnails.types';
+import { GenericFileActionHandler } from './action-handler.types';
+import { FileActionMenuItem } from './action-menus.types';
+import { FileAction, FileActionMap } from './action.types';
+import { ContextMenuConfig } from './context-menu.types';
+import { FileViewConfig } from './file-view.types';
+import { FileArray, FileIdTrueMap, FileMap } from './files.types';
+import { OptionMap } from './options.types';
+import { FileSelection } from './selection.types';
+import { SortOrder } from './sort.types';
+import { ThumbnailGenerator } from './thumbnails.types';
 
 export type RootState = {
     instanceId: string;

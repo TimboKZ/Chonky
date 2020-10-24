@@ -9,6 +9,7 @@
   "scripts": {
     "test": "echo 'no tests yet'",
     "lint": "eslint src/",
+    "lint-fix": "eslint --fix src/",
     "typecheck": "tsc -p ./tsconfig.json --noEmit",
     "build": "rm -rf ./lib; tsc",
     "watch": "rm -rf ./lib; tsc -w",

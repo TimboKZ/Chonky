@@ -1,4 +1,4 @@
-import { AnyObject } from 'tsdef';
+import { AnyObject, Nullable } from 'tsdef';
 
 import { FileAction } from './action.types';
 import { FileData } from './files.types';
@@ -14,6 +14,7 @@ export type FileActionState<ExtraState extends object = AnyObject> = {
     instanceId: string;
     selectedFiles: FileData[];
     selectedFilesForAction: FileData[];
+    contextMenuTriggerFile: Nullable<FileData>;
 } & ExtraState;
 
 export type MapFileActionsToData<U> = U extends FileAction ? FileActionData<U> : never;

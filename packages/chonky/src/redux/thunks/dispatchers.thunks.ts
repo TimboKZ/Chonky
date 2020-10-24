@@ -2,15 +2,16 @@ import { MaybePromise, Undefinable } from 'tsdef';
 
 import { FileActionData, FileActionState } from '../../types/action-handler.types';
 import { FileAction } from '../../types/action.types';
+import { ChonkyDispatch, ChonkyThunk } from '../../types/redux.types';
 import { Logger } from '../../util/logger';
 import { reduxActions } from '../reducers';
 import {
+    selectContextMenuTriggerFile,
     selectExternalFileActionHandler,
     selectFileActionMap,
     selectInstanceId,
     selectSelectedFiles,
 } from '../selectors';
-import { ChonkyDispatch, ChonkyThunk } from '../types';
 import {
     thunkActivateSortAction,
     thunkApplySelectionTransform,
@@ -86,10 +87,12 @@ export const thunkRequestFileAction = <Action extends FileAction>(
         return;
     }
 
+    const contextMenuTriggerFile = selectContextMenuTriggerFile(state);
     const actionState: FileActionState<{}> = {
         instanceId,
         selectedFiles,
         selectedFilesForAction,
+        contextMenuTriggerFile,
     };
 
     // === Update sort state if necessary

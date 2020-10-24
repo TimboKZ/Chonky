@@ -259,6 +259,7 @@ export const EssentialActions = {
 
             reduxDispatch(
                 reduxActions.showContextMenu({
+                    triggerFileId: payload.triggerFileId,
                     mouseX: payload.clientX - 2,
                     mouseY: payload.clientY - 4,
                 })

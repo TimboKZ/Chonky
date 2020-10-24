@@ -1,6 +1,6 @@
 import { ChonkyActions } from '../action-definitions/index';
+import { RootState } from '../types/redux.types';
 import { SortOrder } from '../types/sort.types';
-import { RootState } from './types';
 
 export const initialRootState: RootState = {
     instanceId: 'CHONKY_INVALID_ID', // should be overwritten by preloaded state
