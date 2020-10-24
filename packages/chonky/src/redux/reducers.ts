@@ -3,7 +3,8 @@ import { Nullable } from 'tsdef';
 
 import { FileAction, FileActionMap } from '../file-actons/actions.types';
 import { GenericFileActionHandler } from '../file-actons/handler.types';
-import { ToolbarItemArray } from '../file-actons/presentation.types';
+import { FileActionMenuItem } from '../file-actons/presentation.types';
+import { ContextMenuConfig } from '../types/context-menu.types';
 import { FileViewConfig } from '../types/file-view.types';
 import { FileArray, FileIdTrueMap, FileMap } from '../types/files.types';
 import { OptionMap } from '../types/options.types';
@@ -37,8 +38,11 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
             state.fileActionMap = fileActionMap as FileMap;
             state.fileActionIds = fileIds;
         },
-        setToolbarItems(state, action: PayloadAction<ToolbarItemArray>) {
-            state.toolbarItems = (action.payload as ToolbarItemArray) as any;
+        updateFileActionMenuItems(
+            state,
+            action: PayloadAction<[FileActionMenuItem[], FileActionMenuItem[]]>
+        ) {
+            [state.toolbarItems, state.contextMenuItems] = action.payload;
         },
         setRawFolderChain(state, action: PayloadAction<FileArray | any>) {
             state.rawFolderChain = action.payload;
@@ -157,6 +161,13 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         },
         setLastClickIndex(state, action: PayloadAction<Nullable<number>>) {
             state.lastClickIndex = action.payload;
+        },
+        showContextMenu(state, action: PayloadAction<ContextMenuConfig>) {
+            state.contextMenuConfig = action.payload;
+        },
+        hideContextMenu(state) {
+            if (!state.contextMenuConfig) return;
+            state.contextMenuConfig = null;
         },
     },
 });

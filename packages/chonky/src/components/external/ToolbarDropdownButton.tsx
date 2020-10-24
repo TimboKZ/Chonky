@@ -77,12 +77,12 @@ const useStyles = makeChonkyStyles((theme) => ({
 
 export interface SmartToolbarDropdownButtonProps {
     fileActionId: string;
-    onClick?: () => void;
+    onClickFollowUp?: () => void;
 }
 
 export const SmartToolbarDropdownButton = React.forwardRef(
     (props: SmartToolbarDropdownButtonProps, ref: React.Ref<HTMLLIElement>) => {
-        const { fileActionId, onClick } = props;
+        const { fileActionId, onClickFollowUp } = props;
 
         const action = useParamSelector(selectFileActionData, fileActionId);
         const triggerAction = useFileActionTrigger(fileActionId);
@@ -91,8 +91,8 @@ export const SmartToolbarDropdownButton = React.forwardRef(
         // Combine external click handler with internal one
         const handleClick = useCallback(() => {
             triggerAction();
-            if (onClick) onClick();
-        }, [onClick, triggerAction]);
+            if (onClickFollowUp) onClickFollowUp();
+        }, [onClickFollowUp, triggerAction]);
 
         if (!action) return null;
         const { button } = action;

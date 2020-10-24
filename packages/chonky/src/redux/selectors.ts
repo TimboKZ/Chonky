@@ -13,6 +13,7 @@ export const selectFileActionIds = (state: RootState) => state.fileActionIds;
 export const selectFileActionData = (fileActionId: string) => (state: RootState) =>
     selectFileActionMap(state)[fileActionId];
 export const selectToolbarItems = (state: RootState) => state.toolbarItems;
+export const selectContextMenuItems = (state: RootState) => state.contextMenuItems;
 
 export const selectFolderChain = (state: RootState) => state.folderChain;
 export const selectCurrentFolder = (state: RootState) => {
@@ -75,6 +76,8 @@ export const selectClearSelectionOnOutsideClick = (state: RootState) =>
     state.clearSelectionOnOutsideClick;
 
 export const selectLastClickIndex = (state: RootState) => state.lastClickIndex;
+
+export const selectContextMenuConfig = (state: RootState) => state.contextMenuConfig;
 
 // Selectors meant to be used outside of Redux code
 export const getIsFileSelected = (state: RootState, file: FileData) => {

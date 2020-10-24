@@ -3,7 +3,8 @@ import { Nullable } from 'tsdef';
 
 import { FileAction, FileActionMap } from '../file-actons/actions.types';
 import { GenericFileActionHandler } from '../file-actons/handler.types';
-import { ToolbarItemArray } from '../file-actons/presentation.types';
+import { FileActionMenuItem } from '../file-actons/presentation.types';
+import { ContextMenuConfig } from '../types/context-menu.types';
 import { FileViewConfig } from '../types/file-view.types';
 import { FileArray, FileIdTrueMap, FileMap } from '../types/files.types';
 import { OptionMap } from '../types/options.types';
@@ -21,7 +22,8 @@ export type RootState = {
     fileActionsErrorMessages: string[];
     fileActionMap: FileActionMap;
     fileActionIds: string[];
-    toolbarItems: ToolbarItemArray;
+    toolbarItems: FileActionMenuItem[];
+    contextMenuItems: FileActionMenuItem[];
 
     // Raw and sanitized folder chain
     rawFolderChain: Nullable<FileArray> | any;
@@ -62,6 +64,9 @@ export type RootState = {
 
     // State to use inside effects
     lastClickIndex: Nullable<number>;
+
+    // Context menu
+    contextMenuConfig: Nullable<ContextMenuConfig>;
 };
 
 export type ChonkyThunk<ReturnType = void> = ThunkAction<

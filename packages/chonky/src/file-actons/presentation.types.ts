@@ -1,8 +1,6 @@
-import { FileAction } from './actions.types';
-
-export interface ToolbarItemGroup {
+export interface FileActionGroup {
     name: string;
     fileActionIds: string[];
 }
 
-export type ToolbarItemArray = (FileAction | ToolbarItemGroup)[];
+export type FileActionMenuItem = string | FileActionGroup;

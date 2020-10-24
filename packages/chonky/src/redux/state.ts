@@ -12,6 +12,7 @@ export const initialRootState: RootState = {
     fileActionMap: {},
     fileActionIds: [],
     toolbarItems: [],
+    contextMenuItems: [],
 
     rawFolderChain: null,
     folderChainErrorMessages: [],
@@ -43,4 +44,6 @@ export const initialRootState: RootState = {
     clearSelectionOnOutsideClick: true,
 
     lastClickIndex: null,
+
+    contextMenuConfig: null,
 };

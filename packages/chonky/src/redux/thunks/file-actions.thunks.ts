@@ -1,12 +1,15 @@
 import { Nilable } from 'tsdef';
 
-import { ToolbarDropdownProps } from '../../components/external/ToolbarDropdown';
 import { FileAction } from '../../file-actons/actions.types';
 import {
     ChonkyActions,
     DefaultFileActions,
     EssentialFileActions,
 } from '../../file-actons/definitions/index';
+import {
+    FileActionGroup,
+    FileActionMenuItem,
+} from '../../file-actons/presentation.types';
 import { SortOrder } from '../../types/sort.types';
 import { sanitizeInputArray } from '../files-transforms';
 import { reduxActions } from '../reducers';
@@ -65,48 +68,69 @@ export const thunkUpdateRawFileActions = (
     dispatch(reduxActions.setFileActionsErrorMessages(errorMessages));
     dispatch(reduxActions.setFileActions(fileActions));
     dispatch(reduxActions.setOptionDefaults(optionDefaults));
-    dispatch(thunkUpdateToolbarItems(fileActions));
+    dispatch(thunkUpdateToolbarNContextMenuItems(fileActions));
     dispatch(thunkSortFiles());
     dispatch(thunkUpdateHiddenFiles());
     dispatch(thunkUpdateDisplayFiles());
 };
 
-export const thunkUpdateToolbarItems = (fileActions: FileAction[]): ChonkyThunk => (
-    dispatch
-) => {
-    const excludedActionIds = new Set<string>([
+export const thunkUpdateToolbarNContextMenuItems = (
+    fileActions: FileAction[]
+): ChonkyThunk => (dispatch) => {
+    const excludedToolbarFileActionIds = new Set<string>([
         // TODO: Move decision to exclude actions somewhere else, as users' custom
-        //  components might not give these actions special treatment like Chonky
-        //  does.
+        //  components might not give these actions special treatment like Chonky does.
         ChonkyActions.OpenParentFolder.id,
     ]);
 
-    const toolbarItems: (FileAction | ToolbarDropdownProps)[] = [];
-    const seenGroups: { [groupName: string]: ToolbarDropdownProps } = {};
+    type SeenGroupMap = { [groupName: string]: FileActionGroup };
+
+    const toolbarItems: FileActionMenuItem[] = [];
+    const seenToolbarGroups: SeenGroupMap = {};
+
+    const contextMenuItems: FileActionMenuItem[] = [];
+    const seenContextMenuGroups: SeenGroupMap = {};
+
+    const getGroup = (
+        itemArray: FileActionMenuItem[],
+        seenMap: SeenGroupMap,
+        groupName: string
+    ): FileActionGroup => {
+        if (seenMap[groupName]) return seenMap[groupName];
+        const group: FileActionGroup = { name: groupName, fileActionIds: [] };
+        itemArray.push(group);
+        seenMap[groupName] = group;
+        return group;
+    };
+
     for (const action of fileActions) {
-        if (
-            !action.button ||
-            !action.button.toolbar ||
-            excludedActionIds.has(action.id)
-        )
-            continue;
-        if (action.button.group && action.button.dropdown) {
-            let group: ToolbarDropdownProps = seenGroups[action.button.group];
-            if (!group) {
-                group = {
-                    name: action.button.group,
-                    fileActionIds: [],
-                };
-                toolbarItems.push(group);
-                seenGroups[action.button.group] = group;
+        const button = action.button;
+        if (!button) continue;
+
+        if (button.toolbar || !excludedToolbarFileActionIds.has(action.id)) {
+            if (button.group) {
+                const group = getGroup(toolbarItems, seenToolbarGroups, button.group);
+                group.fileActionIds.push(action.id);
+            } else {
+                toolbarItems.push(action.id);
             }
-            group.fileActionIds.push(action.id);
-        } else {
-            toolbarItems.push(action);
+        }
+
+        if (button.contextMenu) {
+            if (button.group) {
+                const group = getGroup(
+                    contextMenuItems,
+                    seenContextMenuGroups,
+                    button.group
+                );
+                group.fileActionIds.push(action.id);
+            } else {
+                contextMenuItems.push(action.id);
+            }
         }
     }
 
-    dispatch(reduxActions.setToolbarItems(toolbarItems));
+    dispatch(reduxActions.updateFileActionMenuItems([toolbarItems, contextMenuItems]));
 };
 
 export const thunkUpdateDefaultFileViewActionId = (

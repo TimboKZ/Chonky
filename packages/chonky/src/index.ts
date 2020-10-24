@@ -8,6 +8,7 @@ export { FileBrowser } from './components/external/FileBrowser';
 export { FileNavbar } from './components/external/FileNavbar';
 export { FileToolbar } from './components/external/FileToolbar';
 export { FileList } from './components/file-list/FileList';
+export { FileContextMenu } from './components/external/FileContextMenu';
 
 export { ChonkyActions, DefaultFileActions } from './file-actons/definitions';
 export { FileHelper } from './util/file-helper';

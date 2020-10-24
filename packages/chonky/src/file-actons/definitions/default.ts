@@ -99,7 +99,6 @@ export const SortFilesByName = defineFileAction({
     button: {
         name: 'Sort by name',
         toolbar: true,
-        contextMenu: true,
         group: 'Options',
         dropdown: true,
     },
@@ -110,7 +109,6 @@ export const SortFilesBySize = defineFileAction({
     button: {
         name: 'Sort by size',
         toolbar: true,
-        contextMenu: true,
         group: 'Options',
         dropdown: true,
     },
@@ -121,7 +119,6 @@ export const SortFilesByDate = defineFileAction({
     button: {
         name: 'Sort by date',
         toolbar: true,
-        contextMenu: true,
         group: 'Options',
         dropdown: true,
     },

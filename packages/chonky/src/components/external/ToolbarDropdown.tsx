@@ -5,33 +5,35 @@
  */
 
 import Menu from '@material-ui/core/Menu';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
-import { ToolbarItemGroup } from '../../file-actons/presentation.types';
+import { FileActionGroup } from '../../file-actons/presentation.types';
 import { important, makeChonkyStyles } from '../../util/styles';
 import { ToolbarButton } from './ToolbarButton';
 import { SmartToolbarDropdownButton } from './ToolbarDropdownButton';
 
-export type ToolbarDropdownProps = ToolbarItemGroup;
+export type ToolbarDropdownProps = FileActionGroup;
 
 export const ToolbarDropdown: React.FC<ToolbarDropdownProps> = (props) => {
     const { name, fileActionIds } = props;
     const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchor(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchor(null);
-    };
+    const handleClick = useCallback(
+        (event: React.MouseEvent<HTMLButtonElement>) => setAnchor(event.currentTarget),
+        [setAnchor]
+    );
+    const handleClose = useCallback(() => setAnchor(null), [setAnchor]);
 
     const menuItemComponents = useMemo(
         () =>
             fileActionIds.map((id) => (
-                <SmartToolbarDropdownButton key={`menu-item-${id}`} fileActionId={id} />
+                <SmartToolbarDropdownButton
+                    key={`menu-item-${id}`}
+                    fileActionId={id}
+                    onClickFollowUp={handleClose}
+                />
             )),
-        [fileActionIds]
+        [fileActionIds, handleClose]
     );
 
     const classes = useStyles();
@@ -39,13 +41,14 @@ export const ToolbarDropdown: React.FC<ToolbarDropdownProps> = (props) => {
         <>
             <ToolbarButton text={name} onClick={handleClick} dropdown={true} />
             <Menu
-                autoFocus={true}
-                classes={{ list: classes.dropdownList }}
+                autoFocus
+                keepMounted
                 elevation={2}
                 anchorEl={anchor}
-                keepMounted
-                open={Boolean(anchor)}
                 onClose={handleClose}
+                open={Boolean(anchor)}
+                transitionDuration={150}
+                classes={{ list: classes.dropdownList }}
             >
                 {menuItemComponents}
             </Menu>

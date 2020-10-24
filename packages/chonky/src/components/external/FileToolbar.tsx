@@ -2,16 +2,11 @@ import React, { ReactElement, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectToolbarItems } from '../../redux/selectors';
-import { FileAction } from '../../file-actons/actions.types';
 import { makeChonkyStyles } from '../../util/styles';
 import { SmartToolbarButton } from './ToolbarButton';
-import { ToolbarDropdown, ToolbarDropdownProps } from './ToolbarDropdown';
+import { ToolbarDropdown } from './ToolbarDropdown';
 import { ToolbarInfo } from './ToolbarInfo';
 import { ToolbarSearch } from './ToolbarSearch';
-
-export const isToolbarDropdownData = (
-    value: FileAction | ToolbarDropdownProps
-): value is ToolbarDropdownProps => !!(value as any).fileActionIds;
 
 export interface FileToolbarProps {}
 
@@ -24,18 +19,17 @@ export const FileToolbar: React.FC<FileToolbarProps> = React.memo(() => {
         for (let i = 0; i < toolbarItems.length; ++i) {
             const item = toolbarItems[i];
 
-            const key = `toolbar-item-${
-                isToolbarDropdownData(item) ? item.name : item.id
-            }`;
-            const component = isToolbarDropdownData(item) ? (
-                <ToolbarDropdown
-                    key={key}
-                    name={item.name}
-                    fileActionIds={item.fileActionIds}
-                />
-            ) : (
-                <SmartToolbarButton key={key} fileActionId={item.id} />
-            );
+            const key = `toolbar-item-${typeof item === 'string' ? item : item.name}`;
+            const component =
+                typeof item === 'string' ? (
+                    <SmartToolbarButton key={key} fileActionId={item} />
+                ) : (
+                    <ToolbarDropdown
+                        key={key}
+                        name={item.name}
+                        fileActionIds={item.fileActionIds}
+                    />
+                );
             components.push(component);
         }
         return components;
