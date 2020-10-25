@@ -84,7 +84,7 @@ const useStyles = makeChonkyStyles((theme) => ({
         textTransform: important('none'),
         letterSpacing: important(0),
         minWidth: important('auto'),
-        lineHeight: theme.toolbar.size,
+        lineHeight: theme.toolbar.lineHeight,
         padding: important(0),
         height: theme.toolbar.size,
     },

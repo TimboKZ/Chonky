@@ -55,8 +55,8 @@ const useStyles = makeChonkyStyles((theme) => ({
         display: 'flex',
     },
     infoText: {
+        lineHeight: important(theme.toolbar.lineHeight),
         fontSize: important(theme.toolbar.fontSize),
-        lineHeight: important(theme.toolbar.size),
         marginLeft: important(12),
         height: theme.toolbar.size,
     },

@@ -49,13 +49,14 @@ export const FileToolbar: React.FC<FileToolbarProps> = React.memo(() => {
 });
 
 const useStyles = makeChonkyStyles((theme) => ({
-    toolbarWrapper: {
-        paddingBottom: theme.margins.rootLayoutMargin,
-    },
+    toolbarWrapper: {},
     toolbarContainer: {
+        flexWrap: 'wrap-reverse',
         display: 'flex',
     },
     toolbarLeft: {
+        paddingBottom: theme.margins.rootLayoutMargin,
+        flexWrap: 'nowrap',
         flexGrow: 10000,
         display: 'flex',
     },
@@ -63,6 +64,8 @@ const useStyles = makeChonkyStyles((theme) => ({
         flexGrow: 10000,
     },
     toolbarRight: {
+        paddingBottom: theme.margins.rootLayoutMargin,
+        flexWrap: 'nowrap',
         display: 'flex',
     },
 }));

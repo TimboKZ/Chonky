@@ -18,6 +18,7 @@ import { VariableSizeGrid } from 'react-window';
 import { selectDisplayFileIds, selectFileViewConfig } from '../../redux/selectors';
 import { FileViewConfig } from '../../types/file-view.types';
 import { useInstanceVariable } from '../../util/hooks-helpers';
+import { useIsMobileBreakpoint } from '../../util/styles';
 import { isMobileDevice } from '../../util/validation';
 import { fileListItemRenderer } from './FileList-hooks';
 
@@ -30,27 +31,40 @@ interface GridConfig {
     rowCount: number;
     columnCount: number;
     gutter: number;
+    rowHeight: number;
+    columnWidth: number;
 }
 
 export const getGridConfig = (
     width: number,
     fileCount: number,
-    viewConfig: FileViewConfig
+    viewConfig: FileViewConfig,
+    isMobileBreakpoint: boolean
 ): GridConfig => {
-    const isMobile = isMobileDevice();
-    const gutter = isMobile ? 5 : 8;
-    const scrollbar = isMobile ? 0 : 16;
-    const columnWidth = isMobile ? 0 : viewConfig.entryWidth! + gutter;
+    const gutter = isMobileBreakpoint ? 5 : 8;
+    const scrollbar = isMobileDevice() ? 0 : 18;
 
-    const columnCount = isMobile
-        ? 2
-        : Math.max(1, Math.floor((width - scrollbar) / columnWidth));
+    let columnCount: number;
+    let columnWidth: number;
+    if (isMobileBreakpoint) {
+        columnCount = 2;
+        columnWidth = (width - gutter - scrollbar) / columnCount;
+    } else {
+        columnWidth = viewConfig.entryWidth!;
+        columnCount = Math.max(
+            1,
+            Math.floor((width - scrollbar) / (columnWidth + gutter))
+        );
+    }
+
     const rowCount = Math.ceil(fileCount / columnCount);
 
     return {
         rowCount,
         columnCount,
         gutter,
+        rowHeight: viewConfig.entryHeight,
+        columnWidth,
     };
 };
 
@@ -58,23 +72,23 @@ export const FileListGrid: React.FC<FileListGridProps> = React.memo((props) => {
     const { width, height } = props;
 
     const viewConfig = useSelector(selectFileViewConfig);
-    const viewConfigRef = useInstanceVariable(viewConfig);
     const displayFileIds = useSelector(selectDisplayFileIds);
     const fileCount = useMemo(() => displayFileIds.length, [displayFileIds]);
 
     const gridRef = useRef<VariableSizeGrid>();
+    const isMobileBreakpoint = useIsMobileBreakpoint();
 
     // Whenever the grid config changes at runtime, we call a method on the
     // `VariableSizeGrid` handle to reset column width/row height cache.
     // !!! Note that we deliberately update the `gridRef` firsts and update the React
     //     state AFTER that. This is needed to avoid file entries jumping up/down.
     const [gridConfig, setGridConfig] = useState(
-        getGridConfig(width, fileCount, viewConfig)
+        getGridConfig(width, fileCount, viewConfig, isMobileBreakpoint)
     );
     const gridConfigRef = useRef(gridConfig);
     useEffect(() => {
         const oldConf = gridConfigRef.current;
-        const newConf = getGridConfig(width, fileCount, viewConfig);
+        const newConf = getGridConfig(width, fileCount, viewConfig, isMobileBreakpoint);
 
         gridConfigRef.current = newConf;
         if (gridRef.current) {
@@ -88,23 +102,32 @@ export const FileListGrid: React.FC<FileListGridProps> = React.memo((props) => {
                     Math.min(oldConf.columnCount, newConf.rowCount) - 1
                 );
             }
+            if (oldConf.columnWidth !== newConf.columnWidth) {
+                gridRef.current.resetAfterIndices({ columnIndex: 0, rowIndex: 0 });
+            }
         }
 
         setGridConfig(newConf);
-    }, [setGridConfig, gridConfigRef, width, viewConfig, fileCount]);
+    }, [
+        setGridConfig,
+        gridConfigRef,
+        isMobileBreakpoint,
+        width,
+        viewConfig,
+        fileCount,
+    ]);
 
     const sizers = useMemo(() => {
-        const vc = viewConfigRef;
         const gc = gridConfigRef;
         return {
             getColumnWidth: (index: number) =>
-                vc.current.entryWidth! +
+                gc.current.columnWidth! +
                 (index === gc.current.columnCount - 1 ? 0 : gc.current.gutter),
             getRowHeight: (index: number) =>
-                vc.current.entryHeight +
+                gc.current.rowHeight +
                 (index === gc.current.rowCount - 1 ? 0 : gc.current.gutter),
         };
-    }, [viewConfigRef, gridConfigRef]);
+    }, [gridConfigRef]);
 
     const displayFileIdsRef = useInstanceVariable(useSelector(selectDisplayFileIds));
     const getItemKey = useCallback(
@@ -138,9 +161,9 @@ export const FileListGrid: React.FC<FileListGridProps> = React.memo((props) => {
             <VariableSizeGrid
                 ref={gridRef as any}
                 className="chonky-file-list-grid-view"
-                estimatedRowHeight={viewConfig.entryHeight + gridConfig.gutter}
+                estimatedRowHeight={gridConfig.rowHeight + gridConfig.gutter}
                 rowHeight={sizers.getRowHeight}
-                estimatedColumnWidth={viewConfig.entryWidth! + gridConfig.gutter}
+                estimatedColumnWidth={gridConfig.columnWidth + gridConfig.gutter}
                 columnWidth={sizers.getColumnWidth}
                 columnCount={gridConfig.columnCount}
                 height={height}
@@ -151,7 +174,7 @@ export const FileListGrid: React.FC<FileListGridProps> = React.memo((props) => {
                 {cellRenderer}
             </VariableSizeGrid>
         );
-    }, [width, height, viewConfig, gridConfig, sizers, getItemKey, cellRenderer]);
+    }, [width, height, gridConfig, sizers, getItemKey, cellRenderer]);
 
     return gridComponent;
 });

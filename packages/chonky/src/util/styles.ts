@@ -1,6 +1,8 @@
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import classnames from 'classnames';
 import { Styles } from 'jss';
 import { createUseStyles } from 'react-jss';
+import { DeepPartial } from 'tsdef';
 
 export const lightTheme = {
     colors: {
@@ -26,7 +28,8 @@ export const lightTheme = {
     },
 
     toolbar: {
-        size: '30px', // `px` suffix is required for `line-height` fields to work
+        size: 30,
+        lineHeight: '30px', // `px` suffix is required for `line-height` fields to work
         fontSize: 15,
         buttonRadius: 4,
     },
@@ -37,9 +40,22 @@ export const lightTheme = {
     },
 
     rootBorder: 'solid 1px #e4e4e4',
-} as const;
+};
 
 export type ChonkyTheme = typeof lightTheme;
+
+export const mobileOverrideTheme: DeepPartial<ChonkyTheme> = {
+    fontSizes: {
+        rootPrimary: 13,
+    },
+    toolbar: {
+        fontSize: 13,
+    },
+};
+
+export const useIsMobileBreakpoint = () => {
+    return useMediaQuery('(max-width:480px)');
+};
 
 export const makeChonkyStyles = <C extends string = string>(
     makeStyles: (theme: ChonkyTheme) => Styles<C>

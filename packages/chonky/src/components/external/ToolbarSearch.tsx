@@ -77,12 +77,13 @@ const useStyles = makeChonkyStyles((theme) => ({
     searchFieldInput: {
         fontSize: important(theme.toolbar.fontSize),
         borderRadius: theme.toolbar.buttonRadius,
+        height: theme.toolbar.size - 4,
         paddingLeft: important(8),
-        height: theme.toolbar.size,
+        marginTop: 2,
     },
     searchFieldInputInner: {
+        lineHeight: important(theme.toolbar.lineHeight),
         fontSize: important(theme.toolbar.fontSize),
-        lineHeight: important(theme.toolbar.size),
         padding: important([0, 8, 0, 0]),
         height: theme.toolbar.size,
     },

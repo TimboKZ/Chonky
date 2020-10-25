@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import merge from 'deepmerge';
+import React, { ReactNode, useMemo } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ThemeProvider } from 'react-jss';
@@ -8,7 +9,11 @@ import shortid from 'shortid';
 import { useChonkyStore } from '../../redux/store';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
 import { useStaticValue } from '../../util/hooks-helpers';
-import { lightTheme } from '../../util/styles';
+import {
+    lightTheme,
+    mobileOverrideTheme,
+    useIsMobileBreakpoint,
+} from '../../util/styles';
 import { ChonkyBusinessLogic } from '../internal/ChonkyBusinessLogic';
 import { ChonkyPresentationLayer } from '../internal/ChonkyPresentationLayer';
 
@@ -51,6 +56,11 @@ export const FileBrowser = React.forwardRef<
     //     fileActions: cleanFileActions,
     // };
 
+    const isMobileBreakpoint = useIsMobileBreakpoint();
+    const theme = useMemo(() => {
+        return isMobileBreakpoint ? merge(lightTheme, mobileOverrideTheme) : lightTheme;
+    }, [isMobileBreakpoint]);
+
     const chonkyComps = (
         <>
             <ChonkyBusinessLogic ref={ref} {...props} />
@@ -62,7 +72,7 @@ export const FileBrowser = React.forwardRef<
 
     return (
         <Provider store={store}>
-            <ThemeProvider theme={lightTheme}>
+            <ThemeProvider theme={theme}>
                 {disableDragAndDropProvider ? (
                     chonkyComps
                 ) : (
