@@ -48,20 +48,22 @@ export const makeChonkyStyles = <C extends string = string>(
     const makeGlobalStyles = (theme: ChonkyTheme) => {
         const localStyles = makeStyles(theme);
         const globalStyles = {};
-        Object.keys(localStyles).map((localSelector) => {
-            const globalSelector = `.chonky-${localSelector}`;
-            globalStyles[globalSelector] = localStyles[localSelector];
+        const localSelectors = Object.keys(localStyles);
+        localSelectors.map((localSelector) => {
+            const globalSelector = `chonky-${localSelector}`;
+            const jssSelector = `@global .${globalSelector}`;
+            globalStyles[jssSelector] = localStyles[localSelector];
             selectorMapping[localSelector] = globalSelector;
         });
-        return { '@global': globalStyles };
+        return globalStyles;
     };
 
     const useStyles = createUseStyles<ChonkyTheme, C>(makeGlobalStyles as any);
-    return () => {
-        const styles = useStyles();
+    return (...args: any[]) => {
+        const styles = useStyles(...args);
         const classes = {};
         Object.keys(selectorMapping).map((localSelector) => {
-            classes[localSelector] = selectorMapping[localSelector].replace('.', '');
+            classes[localSelector] = selectorMapping[localSelector];
         });
         return { ...classes, ...styles };
     };
