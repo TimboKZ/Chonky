@@ -42,8 +42,30 @@ export const lightTheme = {
 export type ChonkyTheme = typeof lightTheme;
 
 export const makeChonkyStyles = <C extends string = string>(
-    styles: (theme: ChonkyTheme) => Styles<C>
-) => createUseStyles<ChonkyTheme, C>(styles);
+    makeStyles: (theme: ChonkyTheme) => Styles<C>
+) => {
+    const selectorMapping = {};
+    const makeGlobalStyles = (theme: ChonkyTheme) => {
+        const localStyles = makeStyles(theme);
+        const globalStyles = {};
+        Object.keys(localStyles).map((localSelector) => {
+            const globalSelector = `.chonky-${localSelector}`;
+            globalStyles[globalSelector] = localStyles[localSelector];
+            selectorMapping[localSelector] = globalSelector;
+        });
+        return { '@global': globalStyles };
+    };
+
+    const useStyles = createUseStyles<ChonkyTheme, C>(makeGlobalStyles as any);
+    return () => {
+        const styles = useStyles();
+        const classes = {};
+        Object.keys(selectorMapping).map((localSelector) => {
+            classes[localSelector] = selectorMapping[localSelector].replace('.', '');
+        });
+        return { ...classes, ...styles };
+    };
+};
 
 export const important = <T>(value: T) => [value, '!important'];
 
