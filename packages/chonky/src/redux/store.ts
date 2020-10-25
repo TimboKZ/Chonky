@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../types/redux.types';
@@ -57,7 +57,7 @@ export const useDTE = <Args extends Array<any>, Value>(
     ...selectorParams: Args
 ) => {
     const dispatch = useDispatch();
-    useMemo(
+    useEffect(
         () => {
             dispatch(actionCreator(...selectorParams));
         },
