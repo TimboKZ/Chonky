@@ -1,25 +1,31 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DeepPartial } from 'tsdef';
 
 import { RootState } from '../types/redux.types';
 import { useStaticValue } from '../util/hooks-helpers';
+import { ThunkExtraArgument } from './middleware';
 import { rootReducer } from './reducers';
 import { initialRootState } from './state';
 import { useStoreWatchers } from './watchers';
 
 export const useChonkyStore = (chonkyInstanceId: string) => {
     const store = useStaticValue(() => {
-        const preloadedState: DeepPartial<RootState> = {
+        const preloadedState: RootState = {
             ...initialRootState,
             instanceId: chonkyInstanceId,
         };
+
+        const thunkExtraArgument = new ThunkExtraArgument();
+
         return configureStore({
             preloadedState: preloadedState as any,
             reducer: rootReducer,
             middleware: (getDefaultMiddleware) =>
-                getDefaultMiddleware({ serializableCheck: false }),
+                getDefaultMiddleware({
+                    serializableCheck: false,
+                    thunk: { extraArgument: thunkExtraArgument },
+                }),
             devTools: { name: `chonky_${chonkyInstanceId}` },
         });
     });

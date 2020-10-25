@@ -42,6 +42,10 @@ export type RootState = {
     hiddenFileIdMap: FileIdTrueMap;
     displayFileIds: Nullable<string>[]; // Files that should be shown to the user
 
+    // Search
+    searchString: string;
+    searchMode: 'currentFolder';
+
     // Selection
     selectionMap: FileSelection;
     disableSelection: boolean;
@@ -69,11 +73,23 @@ export type RootState = {
     contextMenuConfig: Nullable<ContextMenuConfig>;
 };
 
+export interface ChonkyThunkExtraArgument {
+    getCachedSearch(
+        cleanFileIds: string[],
+        fileMap: FileMap,
+        searchString: string
+    ): Set<string>;
+}
+
 export type ChonkyThunk<ReturnType = void> = ThunkAction<
     ReturnType,
     RootState,
-    unknown,
+    ChonkyThunkExtraArgument,
     Action<string>
 >;
 
-export type ChonkyDispatch = ThunkDispatch<RootState, unknown, Action<string>>;
+export type ChonkyDispatch = ThunkDispatch<
+    RootState,
+    ChonkyThunkExtraArgument,
+    Action<string>
+>;

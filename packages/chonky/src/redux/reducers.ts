@@ -78,6 +78,9 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         setDisplayFileIds(state, action: PayloadAction<Nullable<string>[]>) {
             state.displayFileIds = action.payload;
         },
+        setSearchString(state, action: PayloadAction<string>) {
+            state.searchString = action.payload;
+        },
         selectAllFiles(state) {
             state.fileIds
                 .filter((id) => id && FileHelper.isSelectable(state.fileMap[id]))

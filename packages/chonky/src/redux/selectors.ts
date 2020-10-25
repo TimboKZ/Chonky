@@ -35,7 +35,11 @@ export const selectFileData = (fileId: Nullable<string>) => (state: RootState) =
     fileId ? selectFileMap(state)[fileId] : null;
 
 export const selectHiddenFileIdMap = (state: RootState) => state.hiddenFileIdMap;
+export const selectHiddenFileCount = (state: RootState) =>
+    Object.keys(selectHiddenFileIdMap(state)).length;
 export const selectDisplayFileIds = (state: RootState) => state.displayFileIds;
+
+export const selectSearchString = (state: RootState) => state.searchString;
 
 export const selectSelectionMap = (state: RootState) => state.selectionMap;
 export const selectSelectedFileIds = (state: RootState) =>

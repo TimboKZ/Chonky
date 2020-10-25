@@ -12,6 +12,10 @@ export { FileContextMenu } from './components/external/FileContextMenu';
 
 export { ChonkyActions, DefaultFileActions } from './action-definitions';
 export { defineFileAction } from './util/helpers';
+export {
+    thunkDispatchFileAction,
+    thunkRequestFileAction,
+} from './redux/thunks/dispatchers.thunks';
 
 export { FileHelper } from './util/file-helper';
 export { FileData, FileArray } from './types/files.types';

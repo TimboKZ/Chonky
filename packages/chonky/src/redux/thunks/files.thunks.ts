@@ -8,6 +8,12 @@ import { FileSortKeySelector, SortOrder } from '../../types/sort.types';
 import { FileHelper } from '../../util/file-helper';
 import { sanitizeInputArray } from '../files-transforms';
 import { reduxActions } from '../reducers';
+import {
+    selectCleanFileIds,
+    selectFileMap,
+    selectOptionValue,
+    selectSearchString,
+} from '../selectors';
 
 export const thunkUpdateRawFolderChain = (
     rawFolderChain: Nullable<FileArray> | any
@@ -82,29 +88,58 @@ export const thunkSortFiles = (): ChonkyThunk => (dispatch, getState) => {
     }
 };
 
-export const thunkUpdateHiddenFiles = (): ChonkyThunk => (dispatch, getState) => {
-    const { fileMap, fileIds, optionMap } = getState();
+export const thunkUpdateHiddenFiles = (): ChonkyThunk => (
+    dispatch,
+    getState,
+    { getCachedSearch }
+) => {
+    const state = getState();
 
-    const showHiddenFiles = optionMap[ChonkyActions.ToggleHiddenFiles.option.id];
-    if (typeof showHiddenFiles !== 'boolean') {
+    const showHiddenFiles = selectOptionValue(
+        ChonkyActions.ToggleHiddenFiles.option.id
+    )(state);
+    const searchString = selectSearchString(state);
+
+    if (typeof showHiddenFiles !== 'boolean' && !searchString) {
         // If option is undefined (relevant actions is not enabled), we show hidden
         // files.
         dispatch(reduxActions.setHiddenFileIds({}));
-    } else {
-        const hiddenFileIdMap = {};
-        if (!showHiddenFiles) {
-            fileIds.map((id) => {
-                const file = id ? fileMap[id] : null;
-                if (!file) return;
-                if (FileHelper.isHidden(file)) hiddenFileIdMap[file.id] = true;
-            });
-        }
-        dispatch(reduxActions.setHiddenFileIds(hiddenFileIdMap));
+        return;
     }
+
+    const cleanFileIds = selectCleanFileIds(state);
+    const fileMap = selectFileMap(state);
+
+    const foundFileIds = searchString
+        ? getCachedSearch(cleanFileIds, fileMap, searchString)
+        : null;
+
+    const hiddenFileIdMap = {};
+    cleanFileIds.map((id) => {
+        const file = id ? fileMap[id] : null;
+        if (!file) return;
+
+        const hiddenBySearch = foundFileIds ? !foundFileIds.has(file.id) : false;
+        const hiddenByOptions = !showHiddenFiles && FileHelper.isHidden(file);
+
+        if (hiddenBySearch || hiddenByOptions) hiddenFileIdMap[file.id] = true;
+    });
+
+    dispatch(reduxActions.setHiddenFileIds(hiddenFileIdMap));
 };
 
 export const thunkUpdateDisplayFiles = (): ChonkyThunk => (dispatch, getState) => {
     const { sortedFileIds, hiddenFileIdMap } = getState();
     const displayFileIds = sortedFileIds.filter((id) => !id || !hiddenFileIdMap[id]);
     dispatch(reduxActions.setDisplayFileIds(displayFileIds));
+    dispatch(reduxActions.cleanUpSelection());
+};
+
+export const thunkUpdateSearchString = (searchString: string): ChonkyThunk => (
+    dispatch
+) => {
+    dispatch(reduxActions.setSearchString(searchString));
+    // TODO: Add thunk for setting search mode once global search is supported
+    dispatch(thunkUpdateHiddenFiles());
+    dispatch(thunkUpdateDisplayFiles());
 };

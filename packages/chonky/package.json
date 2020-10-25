@@ -81,6 +81,7 @@
     "@testing-library/dom": "^7.26.3",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
+    "@welldone-software/why-did-you-render": "^5.0.0",
     "react": "16.13",
     "react-dom": "16.13"
   }

@@ -8,7 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectDisplayFileIds, selectSelectionSize } from '../../redux/selectors';
+import {
+    selectDisplayFileIds,
+    selectHiddenFileCount,
+    selectSelectionSize,
+} from '../../redux/selectors';
 import { important, makeChonkyStyles } from '../../util/styles';
 
 export interface ToolbarInfoProps {}
@@ -18,17 +22,29 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = () => {
 
     const displayFileIds = useSelector(selectDisplayFileIds);
     const selectionSize = useSelector(selectSelectionSize);
+    const hiddenCount = useSelector(selectHiddenFileCount);
+
+    const fileCountString = `${displayFileIds.length} file${
+        displayFileIds.length !== 1 ? 's' : ''
+    }`;
+    const selectedString = selectionSize ? `${selectionSize} selected` : '';
+    const hiddenString = hiddenCount ? `${hiddenCount} hidden` : '';
 
     return (
         <div className={classes.infoContainer}>
-            <Typography className={classes.infoTypography} variant="body1">
-                {displayFileIds.length} files
+            <Typography className={classes.infoText} variant="body1">
+                {fileCountString}
+                {(selectedString || hiddenString) && (
+                    <span className={classes.extraInfoSpan}>
+                        (
+                        <span className={classes.selectionSizeText}>
+                            {selectedString}
+                        </span>
+                        {selectedString && hiddenString && ', '}
+                        <span className={classes.hiddenCountText}>{hiddenString}</span>)
+                    </span>
+                )}
             </Typography>
-            {!!selectionSize && (
-                <Typography className={classes.infoTypography} variant="body1">
-                    {selectionSize} selected
-                </Typography>
-            )}
         </div>
     );
 };
@@ -38,13 +54,19 @@ const useStyles = makeChonkyStyles((theme) => ({
         height: theme.toolbar.size,
         display: 'flex',
     },
-    infoTypography: {
+    infoText: {
         fontSize: important(theme.toolbar.fontSize),
         lineHeight: important(theme.toolbar.size),
-        marginRight: important(12),
+        marginLeft: important(12),
         height: theme.toolbar.size,
-        '&:first-child': {
-            marginLeft: 12,
-        },
     },
+    extraInfoSpan: {
+        marginRight: important(8),
+        marginLeft: important(8),
+        opacity: 0.8,
+    },
+    selectionSizeText: {
+        color: theme.colors.textActive,
+    },
+    hiddenCountText: {},
 }));
