@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { FileHelper } from '../../util/file-helper';
+import { makeGlobalChonkyStyles } from '../../util/styles';
 import { ClickableWrapper, ClickableWrapperProps } from '../internal/ClickableWrapper';
 import { useFileClickHandlers } from './ClickableFileEntry-hooks';
 import { FileEntryProps } from './FileEntry';
@@ -13,11 +14,10 @@ export const ClickableFileEntry: React.FC<FileEntryProps> = React.memo((props) =
     const fileClickHandlers = useFileClickHandlers(file, displayIndex);
     const [focused, setFocused] = useState(false);
 
+    const classes = useStyles();
     const wrapperProps: ClickableWrapperProps = {
         wrapperTag: 'div',
-        passthroughProps: {
-            className: 'chonky-file-entry-clickable-wrapper chonky-fill-parent',
-        },
+        passthroughProps: { className: classes.fileEntryClickableWrapper },
         ...(FileHelper.isClickable(file) ? fileClickHandlers : undefined),
         setFocused,
     };
@@ -32,3 +32,13 @@ export const ClickableFileEntry: React.FC<FileEntryProps> = React.memo((props) =
         </ClickableWrapper>
     );
 });
+
+const useStyles = makeGlobalChonkyStyles((theme) => ({
+    fileEntryClickableWrapper: {
+        // We disable default browser outline because Chonky provides its own outline
+        // (which doesn't compromise accessibility, hopefully)
+        outline: 'none !important',
+        position: 'relative',
+        height: '100%',
+    },
+}));

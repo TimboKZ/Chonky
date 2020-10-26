@@ -8,7 +8,7 @@ import {
     selectIsGridView,
 } from '../../redux/selectors';
 import { FileViewConfig } from '../../types/file-view.types';
-import { makeChonkyStyles } from '../../util/styles';
+import { c, makeGlobalChonkyStyles, makeLocalChonkyStyles } from '../../util/styles';
 import { FileListEmpty } from './FileListEmpty';
 import { FileListGrid } from './FileListGrid';
 import { FileListList } from './FileListList';
@@ -19,6 +19,8 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
     const displayFileIds = useSelector(selectDisplayFileIds);
     const viewConfig = useSelector(selectFileViewConfig);
     const isGridView = useSelector(selectIsGridView);
+
+    const localClasses = useLocalStyles(viewConfig);
     const classes = useStyles(viewConfig);
 
     // In Chonky v0.x, this field was user-configurable. In Chonky v1.x+, we hardcode
@@ -40,15 +42,23 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
     );
 
     return (
-        <div className={classes.fileListWrapper} role="list">
+        <div
+            className={c([classes.fileListWrapper, localClasses.fileListWrapper])}
+            role="list"
+        >
             <AutoSizer disableHeight={!fillParentContainer}>{listRenderer}</AutoSizer>
         </div>
     );
 });
 
-const useStyles = makeChonkyStyles(() => ({
+const useLocalStyles = makeLocalChonkyStyles(() => ({
     fileListWrapper: {
         minHeight: (viewConfig: FileViewConfig) => viewConfig.entryHeight,
+    },
+}));
+
+const useStyles = makeGlobalChonkyStyles(() => ({
+    fileListWrapper: {
         height: '100%',
     },
 }));

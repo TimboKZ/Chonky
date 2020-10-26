@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
 import { selectSelectionSize } from '../../redux/selectors';
+import { makeGlobalChonkyStyles } from '../../util/styles';
 import { DnDFileEntryItem, DnDFileEntryType } from './DnDFileEntry';
 
 export interface DnDFileListDragLayerProps {}
@@ -44,6 +45,7 @@ const getItemStyles = (
 
 export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
     const selectionSize = useSelector(selectSelectionSize);
+    const classes = useStyles();
 
     const {
         itemType,
@@ -64,7 +66,7 @@ export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
         if (!item.file || itemType !== DnDFileEntryType) return;
 
         return (
-            <div className="chonky-file-drag-preview">
+            <div className={classes.fileDragPreview}>
                 <b>{item.file.name}</b>
                 {selectionSize > 1 && (
                     <>
@@ -95,3 +97,15 @@ export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
         </div>
     );
 };
+
+const useStyles = makeGlobalChonkyStyles((theme) => ({
+    fileDragPreview: {
+        backgroundColor: theme.dragLayer.backgroundColor,
+        borderRadius: theme.dragLayer.borderRadius,
+        fontSize: theme.fontSizes.rootPrimary,
+        boxShadow: theme.dragLayer.boxShadow,
+        padding: theme.dragLayer.padding,
+        border: theme.dragLayer.border,
+        display: 'inline-block',
+    },
+}));

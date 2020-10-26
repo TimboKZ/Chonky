@@ -10,7 +10,7 @@ import React, { ReactElement, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectContextMenuConfig, selectContextMenuItems } from '../../redux/selectors';
-import { important, makeChonkyStyles } from '../../util/styles';
+import { important, makeGlobalChonkyStyles } from '../../util/styles';
 import { useContextMenuDismisser } from './FileContextMenu-hooks';
 import { SmartToolbarDropdownButton } from './ToolbarDropdownButton';
 
@@ -78,7 +78,7 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = React.memo(() => 
     );
 });
 
-const useStyles = makeChonkyStyles(() => ({
+const useStyles = makeGlobalChonkyStyles(() => ({
     contextMenuList: {
         paddingBottom: important(0),
         paddingTop: important(0),

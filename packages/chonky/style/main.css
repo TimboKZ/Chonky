@@ -79,42 +79,6 @@
   }
 }
 
-.chonky-file-list {
-  flex: 1;
-}
-.chonky-file-list-notification {
-  text-align: center;
-  position: relative;
-}
-.chonky-file-list-notification-empty {
-  color: #bbb;
-  font-size: 1.2em;
-}
-.chonky-file-list-notification-content {
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -o-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  position: absolute;
-  left: 50%;
-  top: 50%;
-}
-
-.chonky-file-entry-clickable-wrapper {
-  outline: none !important;
-  position: relative;
-}
-
-.chonky-file-drag-preview {
-  padding: 7.5px 10px;
-  box-shadow: 2px 2px 5px #888;
-  border-radius: 2px;
-  border: solid 2px #09f;
-  background-color: #f5f5f5;
-  display: inline-block;
-}
-
 .chonky-file-list-grid-view .chonky-file-entry {
   border: solid 1px #e4e4e4;
   border-radius: 2px;

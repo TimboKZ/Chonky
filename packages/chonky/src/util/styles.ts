@@ -34,6 +34,14 @@ export const lightTheme = {
         buttonRadius: 4,
     },
 
+    dragLayer: {
+        boxShadow: '2px 2px 5px #888',
+        backgroundColor: '#f5f5f5',
+        border: 'solid 2px #09f',
+        padding: '7px 10px',
+        borderRadius: 2,
+    },
+
     fileList: {
         desktopGridGutter: 8,
         mobileGridGutter: 5,
@@ -57,7 +65,11 @@ export const useIsMobileBreakpoint = () => {
     return useMediaQuery('(max-width:480px)');
 };
 
-export const makeChonkyStyles = <C extends string = string>(
+export const makeLocalChonkyStyles = <C extends string = string>(
+    styles: (theme: ChonkyTheme) => Styles<C>
+) => createUseStyles<ChonkyTheme, C>(styles);
+
+export const makeGlobalChonkyStyles = <C extends string = string>(
     makeStyles: (theme: ChonkyTheme) => Styles<C>
 ) => {
     const selectorMapping = {};

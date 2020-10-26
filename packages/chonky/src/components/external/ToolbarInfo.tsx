@@ -13,7 +13,7 @@ import {
     selectHiddenFileCount,
     selectSelectionSize,
 } from '../../redux/selectors';
-import { important, makeChonkyStyles } from '../../util/styles';
+import { important, makeGlobalChonkyStyles } from '../../util/styles';
 
 export interface ToolbarInfoProps {}
 
@@ -49,7 +49,7 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = () => {
     );
 };
 
-const useStyles = makeChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles((theme) => ({
     infoContainer: {
         height: theme.toolbar.size,
         display: 'flex',

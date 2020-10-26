@@ -17,7 +17,7 @@ import {
 } from '../../redux/selectors';
 import { ErrorMessageData } from '../../types/validation.types';
 import { elementIsInsideButton } from '../../util/helpers';
-import { makeChonkyStyles } from '../../util/styles';
+import { makeGlobalChonkyStyles } from '../../util/styles';
 import { useContextMenuTrigger } from '../external/FileContextMenu-hooks';
 import { DnDFileListDragLayer } from '../file-entry/DnDFileListDragLayer';
 import { ErrorMessage } from './ErrorMessage';
@@ -92,7 +92,7 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
     );
 };
 
-const useStyles = makeChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles((theme) => ({
     chonkyRoot: {
         backgroundColor: theme.colors.bgPrimary,
         padding: theme.margins.rootLayoutMargin,

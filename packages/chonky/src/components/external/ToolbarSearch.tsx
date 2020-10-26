@@ -13,7 +13,7 @@ import { selectSearchString } from '../../redux/selectors';
 import { thunkUpdateSearchString } from '../../redux/thunks/files.thunks';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useDebounce } from '../../util/hooks-helpers';
-import { important, makeChonkyStyles } from '../../util/styles';
+import { important, makeGlobalChonkyStyles } from '../../util/styles';
 import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface ToolbarSearchProps {}
@@ -65,7 +65,7 @@ export const ToolbarSearch: React.FC<ToolbarSearchProps> = () => {
     );
 };
 
-const useStyles = makeChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles((theme) => ({
     searchFieldContainer: {
         height: theme.toolbar.size,
         width: 150,

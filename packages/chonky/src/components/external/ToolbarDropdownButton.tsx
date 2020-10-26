@@ -14,7 +14,7 @@ import { selectFileActionData } from '../../redux/selectors';
 import { useParamSelector } from '../../redux/store';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useFileActionProps, useFileActionTrigger } from '../../util/file-actions';
-import { c, important, makeChonkyStyles } from '../../util/styles';
+import { c, important, makeGlobalChonkyStyles } from '../../util/styles';
 import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface ToolbarDropdownButtonProps {
@@ -54,7 +54,7 @@ export const ToolbarDropdownButton = React.forwardRef(
     }
 );
 
-const useStyles = makeChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles((theme) => ({
     baseButton: {
         minWidth: important('auto'),
         lineHeight: theme.toolbar.lineHeight,

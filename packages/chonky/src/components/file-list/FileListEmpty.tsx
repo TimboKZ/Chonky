@@ -4,10 +4,10 @@
  * @license MIT
  */
 
-import c from 'classnames';
 import React, { CSSProperties } from 'react';
 
 import { ChonkyIconName } from '../../types/icons.types';
+import { makeGlobalChonkyStyles } from '../../util/styles';
 import { ChonkyIconFA } from '../external/ChonkyIcon';
 
 export interface FileListEmptyProps {
@@ -17,21 +17,33 @@ export interface FileListEmptyProps {
 
 export const FileListEmpty: React.FC<FileListEmptyProps> = (props) => {
     const { width, height } = props;
-    const className = c({
-        'chonky-file-list-notification': true,
-        'chonky-file-list-notification-empty': true,
-    });
+    const classes = useStyles();
     const style: CSSProperties = {
         width,
         height,
     };
 
     return (
-        <div className={className} style={style}>
-            <div className="chonky-file-list-notification-content">
+        <div className={classes.fileListEmpty} style={style}>
+            <div className={classes.fileListEmptyContent}>
                 <ChonkyIconFA icon={ChonkyIconName.folderOpen} />
                 &nbsp; Nothing to show
             </div>
         </div>
     );
 };
+
+const useStyles = makeGlobalChonkyStyles((theme) => ({
+    fileListEmpty: {
+        color: theme.colors.textSubtle,
+        position: 'relative',
+        textAlign: 'center',
+        fontSize: '1.2em',
+    },
+    fileListEmptyContent: {
+        transform: 'translateX(-50%) translateY(-50%)',
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+    },
+}));

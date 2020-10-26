@@ -10,7 +10,7 @@ import React, { ReactElement, useMemo } from 'react';
 
 import { ChonkyActions } from '../../action-definitions/index';
 import { ChonkyIconName } from '../../types/icons.types';
-import { c, important, makeChonkyStyles } from '../../util/styles';
+import { c, important, makeGlobalChonkyStyles } from '../../util/styles';
 import { useFolderChainItems } from './FileNavbar-hooks';
 import { SmartToolbarButton, ToolbarButton } from './ToolbarButton';
 
@@ -61,7 +61,7 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
     );
 });
 
-const useStyles = makeChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles((theme) => ({
     navbarWrapper: {
         paddingBottom: theme.margins.rootLayoutMargin,
     },
