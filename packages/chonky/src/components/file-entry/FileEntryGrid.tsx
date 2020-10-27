@@ -1,8 +1,12 @@
 import React from 'react';
 
 import { FileHelper } from '../../util/file-helper';
-import { ChonkyIconFA } from '../external/ChonkyIcon';
-import { FileThumbnail } from '../internal/FileThumbnail';
+import { c, makeLocalChonkyStyles } from '../../util/styles';
+import {
+    FileEntryPreviewFile,
+    FileEntryPreviewFolder,
+    FileEntryState,
+} from '../file-entry-grid/FileEntryPreview';
 import { FileEntryProps } from './FileEntry';
 import {
     useCommonFileEntryComponents,
@@ -11,21 +15,17 @@ import {
 } from './FileEntry-hooks';
 
 export const FileEntryGrid: React.FC<FileEntryProps> = React.memo((props) => {
-    const { file } = props;
+    const { file, selected, focused } = props;
+    const isDirectory = FileHelper.isDirectory(file);
 
     // Deal with thumbnails
     const { thumbnailUrl, thumbnailLoading } = useThumbnailUrl(file);
 
     // Get file entry components/properties
     const {
-        entryClassName,
-        dndIconName,
-        dndIconColor,
         fileColor,
         iconSpin,
         icon,
-        fileDateString,
-        fileSizeString,
         modifierIconComponents,
         fileNameComponent,
     } = useCommonFileEntryComponents(
@@ -36,66 +36,81 @@ export const FileEntryGrid: React.FC<FileEntryProps> = React.memo((props) => {
         thumbnailUrl
     );
 
+    const entryState: FileEntryState = {
+        childrenCount: FileHelper.getChildrenCount(file),
+        icon: file && file.icon !== undefined ? file.icon : icon,
+        iconSpin: iconSpin,
+        thumbnailUrl: thumbnailUrl,
+        color: file && file.color !== undefined ? file.color : fileColor,
+        selected: selected,
+        focused: !!focused,
+    };
+
+    const classes = useFileEntryStyles(entryState);
     const fileEntryHtmlProps = useFileEntryHtmlProps(file);
+
+    const entryClassName = c({
+        [classes.gridFileEntry]: true,
+    });
     return (
         <div className={entryClassName} {...fileEntryHtmlProps}>
-            <div className="chonky-file-entry-inside">
-                {dndIconName && (
-                    <div
-                        className="chonky-file-entry-dnd-indicator"
-                        style={{ color: dndIconColor }}
-                    >
-                        <ChonkyIconFA icon={dndIconName} />
-                    </div>
-                )}
-
-                <div className="chonky-file-entry-preview">
-                    <div className="chonky-file-details">
-                        <div className="chonky-file-details-inside">
-                            <div className="chonky-file-details-item">
-                                {fileDateString}
-                            </div>
-                            <div className="chonky-file-details-item">
-                                {fileSizeString}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="chonky-file-icon">
-                        {FileHelper.isDirectory(file) && (
-                            <div className="chonky-file-icon-children-count">
-                                {FileHelper.getChildrenCount(file)}
-                            </div>
-                        )}
-                        <div className="chonky-file-icon-inside">
-                            <ChonkyIconFA icon={icon} spin={iconSpin} />
-                        </div>
-                    </div>
-
-                    <div className="chonky-file-selection" />
-
-                    <FileThumbnail thumbnailUrl={thumbnailUrl} />
-
-                    <div
-                        className="chonky-file-background"
-                        style={{ backgroundColor: fileColor }}
-                    />
-                </div>
-
-                <div className="chonky-file-entry-description">
-                    <div
-                        className="chonky-file-entry-description-title"
-                        title={file ? file.name : undefined}
-                    >
-                        {modifierIconComponents.length > 0 && (
-                            <span className="chonky-file-entry-description-title-modifiers">
-                                {modifierIconComponents}
-                            </span>
-                        )}
-                        {fileNameComponent}
-                    </div>
-                </div>
+            {isDirectory ? (
+                <FileEntryPreviewFolder
+                    className={classes.gridFileEntryPreview}
+                    entryState={entryState}
+                    dndState={props}
+                />
+            ) : (
+                <FileEntryPreviewFile
+                    className={classes.gridFileEntryPreview}
+                    entryState={entryState}
+                    dndState={props}
+                />
+            )}
+            <div
+                className={classes.gridFileEntryNameContainer}
+                title={file ? file.name : undefined}
+            >
+                <span className={classes.gridFileEntryName}>
+                    {modifierIconComponents.length > 0 && (
+                        <span className={classes.gridFileEntryNameModifiers}>
+                            {modifierIconComponents}
+                        </span>
+                    )}
+                    {fileNameComponent}
+                </span>
             </div>
         </div>
     );
 });
+
+const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
+    gridFileEntry: {
+        flexDirection: 'column',
+        display: 'flex',
+        height: '100%',
+    },
+    gridFileEntryPreview: {
+        flexGrow: 1,
+    },
+    gridFileEntryNameContainer: {
+        fontSize: theme.gridFileEntry.fontSize,
+        wordBreak: 'break-word',
+        textAlign: 'center',
+        paddingTop: 5,
+    },
+    gridFileEntryName: {
+        backgroundColor: (state: FileEntryState) =>
+            state.selected ? 'rgba(0,153,255, .25)' : 'transparent',
+        textDecoration: (state: FileEntryState) =>
+            state.focused ? 'underline' : 'none',
+        borderRadius: 3,
+        padding: [2, 4],
+    },
+    gridFileEntryNameModifiers: {
+        color: theme.gridFileEntry.modifiersColor,
+        position: 'relative',
+        fontSize: '0.775em',
+        paddingRight: 5,
+    },
+}));

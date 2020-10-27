@@ -47,6 +47,16 @@ export const lightTheme = {
         mobileGridGutter: 5,
     },
 
+    gridFileEntry: {
+        childrenCountSize: '1.6em',
+        iconColorFocused: '#000',
+        modifiersColor: '#888',
+        iconSize: '2.4em',
+        iconColor: '#fff',
+        borderRadius: 5,
+        fontSize: 14,
+    },
+
     rootBorder: 'solid 1px #e4e4e4',
 };
 
@@ -57,6 +67,9 @@ export const mobileOverrideTheme: DeepPartial<ChonkyTheme> = {
         rootPrimary: 13,
     },
     toolbar: {
+        fontSize: 13,
+    },
+    gridFileEntry: {
         fontSize: 13,
     },
 };

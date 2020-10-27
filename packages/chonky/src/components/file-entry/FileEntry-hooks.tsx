@@ -12,7 +12,7 @@ import { Logger } from '../../util/logger';
 import { c } from '../../util/styles';
 import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { TextPlaceholder } from '../external/TextPlaceholder';
-import { FileEntryProps } from './FileEntry';
+import { DndEntryState, FileEntryProps } from './FileEntry';
 
 export const useFileEntryHtmlProps = (
     file: Nullable<FileData>
@@ -30,16 +30,16 @@ export const useFileEntryHtmlProps = (
     }, [file]);
 };
 
-export const useDndIcon = (props: FileEntryProps) => {
+export const useDndIcon = (dndState: DndEntryState) => {
     let dndIconName: Nullable<ChonkyIconName> = null;
-    let dndIconColor: Undefinable<string> = undefined;
-    if (props.dndIsOver) {
-        const showDropIcon = props.dndCanDrop && !props.selected;
+    let dndIconColor: Undefinable<string> = 'inherit';
+    if (dndState.dndIsOver) {
+        const showDropIcon = dndState.dndCanDrop;
         dndIconName = showDropIcon
             ? ChonkyIconName.dndCanDrop
             : ChonkyIconName.dndCannotDrop;
         dndIconColor = showDropIcon ? 'green' : 'red';
-    } else if (props.dndIsDragging) {
+    } else if (dndState.dndIsDragging) {
         dndIconName = ChonkyIconName.dndDragging;
     }
 
@@ -69,12 +69,11 @@ export const useFileNameComponent = (file: Nullable<FileData>) => {
         if (!file) return <TextPlaceholder minLength={15} maxLength={20} />;
 
         let name;
-        let extension;
+        let extension = null;
 
         const isDir = FileHelper.isDirectory(file);
         if (isDir) {
             name = file.name;
-            extension = '/';
         } else {
             extension = file.ext ?? path.extname(file.name);
             name = file.name.substr(0, file.name.length - extension.length);
@@ -83,9 +82,11 @@ export const useFileNameComponent = (file: Nullable<FileData>) => {
         return (
             <>
                 {name}
-                <span className="chonky-file-entry-description-title-extension">
-                    {extension}
-                </span>
+                {extension && (
+                    <span className="chonky-file-entry-description-title-extension">
+                        {extension}
+                    </span>
+                )}
             </>
         );
     }, [file]);

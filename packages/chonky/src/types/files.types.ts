@@ -1,4 +1,5 @@
 import { Nullable, Undefinable } from 'tsdef';
+import { ChonkyIconName } from './icons.types';
 
 // If you make changes to required params in `FileData`, make sure to makes relevant
 // changes `validation.ts` functions.
@@ -21,6 +22,9 @@ export interface FileData {
     modDate?: Date | string; // Last change date (or its string representation)
     childrenCount?: number; // Number of files inside of a folder (only for folders)
 
+    // --- Default preview overriding
+    color?: string; // Color to use for this file
+    icon?: ChonkyIconName | string; // Icon to use for this file
     thumbnailUrl?: string; // Automatically load thumbnail from this URL
 
     [property: string]: any; // Any other user-defined property
