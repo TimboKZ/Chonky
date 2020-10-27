@@ -43,8 +43,10 @@ import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
 import { faMusic } from '@fortawesome/free-solid-svg-icons/faMusic';
 import { faObjectGroup } from '@fortawesome/free-solid-svg-icons/faObjectGroup';
+import { faPaste } from '@fortawesome/free-solid-svg-icons/faPaste';
 import { faRunning } from '@fortawesome/free-solid-svg-icons/faRunning';
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
+import { faShareAlt } from '@fortawesome/free-solid-svg-icons/faShareAlt';
 import { faSortAmountDownAlt } from '@fortawesome/free-solid-svg-icons/faSortAmountDownAlt';
 import { faSortAmountUpAlt } from '@fortawesome/free-solid-svg-icons/faSortAmountUpAlt';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons/faTerminal';
@@ -76,6 +78,8 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
     [ChonkyIconName.openFiles]: faBoxOpen,
     [ChonkyIconName.openParentFolder]: faLevelUpAlt,
     [ChonkyIconName.copy]: faCopy,
+    [ChonkyIconName.paste]: faPaste,
+    [ChonkyIconName.share]: faShareAlt,
     [ChonkyIconName.search]: faSearch,
     [ChonkyIconName.selectAllFiles]: faObjectGroup,
     [ChonkyIconName.clearSelection]: faEraser,

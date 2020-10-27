@@ -13,6 +13,9 @@ export enum ChonkyIconName {
     openFiles = 'openFiles',
     openParentFolder = 'openParentFolder',
     copy = 'copy',
+    paste = 'paste',
+    share = 'share',
+    
     search = 'search',
     selectAllFiles = 'selectAllFiles',
     clearSelection = 'clearSelection',
