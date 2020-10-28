@@ -3,7 +3,7 @@ import { Nullable } from 'tsdef';
 import { ChonkyActions } from '../action-definitions/index';
 import { GenericFileActionHandler } from './action-handler.types';
 import { FileAction } from './action.types';
-import { FileArray } from './files.types';
+import { FileArray } from './file.types';
 import { ThumbnailGenerator } from './thumbnails.types';
 
 /**

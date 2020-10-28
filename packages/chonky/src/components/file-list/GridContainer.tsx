@@ -16,11 +16,11 @@ import { useSelector } from 'react-redux';
 import { VariableSizeGrid } from 'react-window';
 
 import { selectDisplayFileIds, selectFileViewConfig } from '../../redux/selectors';
-import { FileViewConfig } from '../../types/file-view.types';
+import { FileViewConfigGrid } from '../../types/file-view.types';
 import { useInstanceVariable } from '../../util/hooks-helpers';
 import { useIsMobileBreakpoint } from '../../util/styles';
 import { isMobileDevice } from '../../util/validation';
-import { fileListItemRenderer } from './FileList-hooks';
+import { SmartFileEntry } from './FileEntry';
 
 export interface FileListGridProps {
     width: number;
@@ -38,7 +38,7 @@ interface GridConfig {
 export const getGridConfig = (
     width: number,
     fileCount: number,
-    viewConfig: FileViewConfig,
+    viewConfig: FileViewConfigGrid,
     isMobileBreakpoint: boolean
 ): GridConfig => {
     const gutter = isMobileBreakpoint ? 5 : 8;
@@ -50,7 +50,7 @@ export const getGridConfig = (
         columnCount = 2;
         columnWidth = (width - gutter - scrollbar) / columnCount;
     } else {
-        columnWidth = viewConfig.entryWidth!;
+        columnWidth = viewConfig.entryWidth;
         columnCount = Math.max(
             1,
             Math.floor((width - scrollbar) / (columnWidth + gutter))
@@ -68,10 +68,10 @@ export const getGridConfig = (
     };
 };
 
-export const FileListGrid: React.FC<FileListGridProps> = React.memo((props) => {
+export const GridContainer: React.FC<FileListGridProps> = React.memo((props) => {
     const { width, height } = props;
 
-    const viewConfig = useSelector(selectFileViewConfig);
+    const viewConfig = useSelector(selectFileViewConfig) as FileViewConfigGrid;
     const displayFileIds = useSelector(selectDisplayFileIds);
     const fileCount = useMemo(() => displayFileIds.length, [displayFileIds]);
 
@@ -144,16 +144,31 @@ export const FileListGrid: React.FC<FileListGridProps> = React.memo((props) => {
         (data: { rowIndex: number; columnIndex: number; style: CSSProperties }) => {
             const gc = gridConfigRef;
             const index = data.rowIndex * gc.current.columnCount + data.columnIndex;
-            return fileListItemRenderer(
-                index,
-                displayFileIds[index],
-                true,
-                data.style,
-                data.rowIndex === gc.current.rowCount - 1 ? 0 : gc.current.gutter,
-                data.columnIndex === gc.current.columnCount - 1 ? 0 : gc.current.gutter
+            const fileId = displayFileIds[index];
+            if (displayFileIds[index] === undefined) return null;
+
+            const styleWithGutter: CSSProperties = {
+                ...data.style,
+                paddingRight:
+                    data.columnIndex === gc.current.columnCount - 1
+                        ? 0
+                        : gc.current.gutter,
+                paddingBottom:
+                    data.rowIndex === gc.current.rowCount - 1 ? 0 : gc.current.gutter,
+                boxSizing: 'border-box',
+            };
+
+            return (
+                <div style={styleWithGutter}>
+                    <SmartFileEntry
+                        fileId={fileId ?? null}
+                        displayIndex={index}
+                        fileViewMode={viewConfig.mode}
+                    />
+                </div>
             );
         },
-        [gridConfigRef, displayFileIds]
+        [displayFileIds, viewConfig.mode]
     );
 
     const gridComponent = useMemo(() => {

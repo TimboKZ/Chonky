@@ -9,7 +9,7 @@ import memoize from 'memoizee';
 import { useMemo } from 'react';
 import { Nullable } from 'tsdef';
 
-import { FileData } from '../types/files.types';
+import { FileData } from '../types/file.types';
 import { ChonkyIconName, FileIconData } from '../types/icons.types';
 
 const getIconTrie = memoize(() => {

@@ -1,4 +1,4 @@
-import { FileIdTrueMap } from './files.types';
+import { FileIdTrueMap } from './file.types';
 
 export type FileSelection = FileIdTrueMap;
 

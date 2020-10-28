@@ -1,7 +1,7 @@
 import { Nullable } from 'tsdef';
 
 import { FileAction } from '../types/action.types';
-import { FileArray } from '../types/files.types';
+import { FileArray } from '../types/file.types';
 
 interface SanitizeFiles {
     (mode: 'files', rawArray: FileArray | any): {

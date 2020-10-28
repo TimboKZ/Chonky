@@ -9,15 +9,16 @@ import { useSelector } from 'react-redux';
 import { FixedSizeList } from 'react-window';
 
 import { selectDisplayFileIds, selectFileViewConfig } from '../../redux/selectors';
+import { FileViewMode } from '../../types/file-view.types';
 import { useInstanceVariable } from '../../util/hooks-helpers';
-import { fileListItemRenderer } from './FileList-hooks';
+import { SmartFileEntry } from './FileEntry';
 
 export interface FileListListProps {
     width: number;
     height: number;
 }
 
-export const FileListList: React.FC<FileListListProps> = React.memo((props) => {
+export const ListContainer: React.FC<FileListListProps> = React.memo((props) => {
     const { width, height } = props;
 
     const viewConfig = useSelector(selectFileViewConfig);
@@ -34,11 +35,14 @@ export const FileListList: React.FC<FileListListProps> = React.memo((props) => {
     const listComponent = useMemo(() => {
         // When entry size is null, we use List view
         const rowRenderer = (data: { index: number; style: CSSProperties }) => {
-            return fileListItemRenderer(
-                data.index,
-                displayFileIds[data.index],
-                false,
-                data.style
+            return (
+                <div style={data.style}>
+                    <SmartFileEntry
+                        fileId={displayFileIds[data.index] ?? null}
+                        displayIndex={data.index}
+                        fileViewMode={FileViewMode.List}
+                    />
+                </div>
             );
         };
 

@@ -6,6 +6,8 @@
 
 import React from 'react';
 
+import { makeLocalChonkyStyles } from '../../util/styles';
+
 export interface TextPlaceholderProps {
     minLength: number;
     maxLength: number;
@@ -20,10 +22,31 @@ export const TextPlaceholder: React.FC<TextPlaceholderProps> = React.memo((props
     const placeholderLength = getRandomInt(minLength, maxLength);
     const whitespace = '&nbsp;'.repeat(placeholderLength);
 
+    const classes = useStyles();
     return (
         <span
-            className="chonky-text-placeholder"
+            className={classes.textPlaceholder}
             dangerouslySetInnerHTML={{ __html: whitespace }}
         />
     );
 });
+
+const useStyles = makeLocalChonkyStyles((theme) => ({
+    '@keyframes loading-placeholder': {
+        '0%': { opacity: 0.2 },
+        '50%': { opacity: 0.4 },
+        '100%': { opacity: 0.2 },
+    },
+    textPlaceholder: {
+        animationName: '$loading-placeholder',
+        animationIterationCount: 'infinite',
+        animationTimingFunction: 'linear',
+        animationDuration: '1.5s',
+        backgroundColor: '#ccc',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        borderRadius: 4,
+        maxWidth: '40%',
+        minWidth: 20,
+    },
+}));

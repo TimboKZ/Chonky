@@ -1,6 +1,6 @@
 import { Nilable, Nullable } from 'tsdef';
 
-import { FileData, FileFilter } from '../types/files.types';
+import { FileData, FileFilter } from '../types/file.types';
 import { RootState } from '../types/redux.types';
 
 export const selectInstanceId = (state: RootState) => state.instanceId;

@@ -10,8 +10,8 @@ import {
 import { FileViewConfig } from '../../types/file-view.types';
 import { c, makeGlobalChonkyStyles, makeLocalChonkyStyles } from '../../util/styles';
 import { FileListEmpty } from './FileListEmpty';
-import { FileListGrid } from './FileListGrid';
-import { FileListList } from './FileListList';
+import { GridContainer } from './GridContainer';
+import { ListContainer } from './ListContainer';
 
 export interface FileListProps {}
 
@@ -33,9 +33,9 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
             if (displayFileIds.length === 0) {
                 return <FileListEmpty width={width} height={viewConfig.entryHeight} />;
             } else if (isGridView) {
-                return <FileListGrid width={width} height={height} />;
+                return <GridContainer width={width} height={height} />;
             } else {
-                return <FileListList width={width} height={height} />;
+                return <ListContainer width={width} height={height} />;
             }
         },
         [displayFileIds, viewConfig, isGridView]

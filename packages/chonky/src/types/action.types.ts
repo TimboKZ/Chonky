@@ -2,7 +2,7 @@ import { MaybePromise, Nullable } from 'tsdef';
 
 import { FileActionState } from './action-handler.types';
 import { FileViewConfig } from './file-view.types';
-import { FileFilter, FileMap } from './files.types';
+import { FileFilter, FileMap } from './file.types';
 import { ChonkyIconName } from './icons.types';
 import { ChonkyDispatch, RootState } from './redux.types';
 import { FileSortKeySelector } from './sort.types';

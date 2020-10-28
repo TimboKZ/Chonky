@@ -7,12 +7,12 @@
 import React from 'react';
 import { Nullable } from 'tsdef';
 
+import { DndEntryState } from '../../types/file-list.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { c, important, makeLocalChonkyStyles } from '../../util/styles';
 import { ChonkyIconFA } from '../external/ChonkyIcon';
-import { DndEntryState } from '../file-entry/FileEntry';
-import { FileThumbnail } from '../file-entry/FileThumbnail';
 import { DnDIndicator } from './DnDIndicator';
+import { FileThumbnail } from './FileThumbnail';
 
 export type FileEntryState = {
     childrenCount: Nullable<number>;
@@ -30,7 +30,7 @@ export interface FileEntryPreviewProps {
     dndState: DndEntryState;
 }
 
-export const FileEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.memo(
+export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.memo(
     (props) => {
         const { className: externalClassName, entryState, dndState } = props;
 
@@ -139,7 +139,7 @@ const useFolderStyles = makeLocalChonkyStyles((theme) => ({
     },
 }));
 
-export const FileEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(
+export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(
     (props) => {
         const { className: externalClassName, entryState, dndState } = props;
 

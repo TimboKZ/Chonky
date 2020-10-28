@@ -25,6 +25,7 @@ export const DefaultFileActions = [
     ChonkyActions.SelectAllFiles,
     ChonkyActions.ClearSelection,
     ChonkyActions.EnableListView,
+    ChonkyActions.EnableCompactView,
     ChonkyActions.EnableGridView,
     ChonkyActions.SortFilesByName,
     ChonkyActions.SortFilesBySize,

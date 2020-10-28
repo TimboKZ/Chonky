@@ -19,7 +19,7 @@ import { ErrorMessageData } from '../../types/validation.types';
 import { elementIsInsideButton } from '../../util/helpers';
 import { makeGlobalChonkyStyles } from '../../util/styles';
 import { useContextMenuTrigger } from '../external/FileContextMenu-hooks';
-import { DnDFileListDragLayer } from '../file-entry/DnDFileListDragLayer';
+import { DnDFileListDragLayer } from '../file-list/DnDFileListDragLayer';
 import { ErrorMessage } from './ErrorMessage';
 import { HotkeyListener } from './HotkeyListener';
 

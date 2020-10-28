@@ -1,0 +1,100 @@
+import React from 'react';
+
+import { FileEntryProps } from '../../types/file-list.types';
+import { FileHelper } from '../../util/file-helper';
+import { makeLocalChonkyStyles } from '../../util/styles';
+import { ChonkyIconFA } from '../external/ChonkyIcon';
+import { TextPlaceholder } from '../external/TextPlaceholder';
+import {
+    useFileEntryHtmlProps,
+    useFileEntryState,
+} from './FileEntry-hooks';
+import { FileEntryName } from './FileEntryName';
+import { FileEntryState } from './GridEntryPreview';
+
+export const ListEntry: React.FC<FileEntryProps> = React.memo(
+    ({ file, selected, focused, dndState }) => {
+        const entryState: FileEntryState = useFileEntryState(file, selected, focused);
+
+        const fileSizeString = FileHelper.getReadableDate(file);
+        const fileDateString = FileHelper.getReadableFileSize(file);
+
+        const classes = useStyles(entryState);
+        const fileEntryHtmlProps = useFileEntryHtmlProps(file);
+        return (
+            <div
+                className={classes.listFileEntry}
+                style={{ color: entryState.color }}
+                {...fileEntryHtmlProps}
+            >
+                <div className={classes.listFileEntryIcon}>
+                    <ChonkyIconFA
+                        icon={entryState.icon}
+                        spin={entryState.iconSpin}
+                        fixedWidth={true}
+                    />
+                </div>
+                <div className={classes.listFileEntryDescription}>
+                    <div
+                        className={classes.listFileEntryName}
+                        title={file ? file.name : undefined}
+                    >
+                        <FileEntryName file={file} />
+                    </div>
+                    <div className={classes.listFileEntryProperties}>
+                        <div className={classes.listFileEntryProperty}>
+                            {file ? (
+                                fileSizeString ?? <span>—</span>
+                            ) : (
+                                <TextPlaceholder minLength={5} maxLength={15} />
+                            )}
+                        </div>
+                        <div className={classes.listFileEntryProperty}>
+                            {file ? (
+                                fileDateString ?? <span>—</span>
+                            ) : (
+                                <TextPlaceholder minLength={10} maxLength={20} />
+                            )}
+                        </div>
+                    </div>
+                </div>
+                <div className="chonky-file-entry-outline"></div>
+                <div className="chonky-file-entry-selection"></div>
+            </div>
+        );
+    }
+);
+
+const useStyles = makeLocalChonkyStyles((theme) => ({
+    listFileEntry: {
+        fontSize: theme.listFileEntry.fontSize,
+        alignItems: 'center',
+        position: 'relative',
+        display: 'flex',
+        height: '100%',
+    },
+    listFileEntryIcon: {
+        backgroundColor: (state: FileEntryState) => state.color,
+        boxShadow: 'inset rgba(255, 255, 255, 0.4) 0 0 0 999px',
+        borderRadius: theme.listFileEntry.iconBorderRadius,
+        fontSize: theme.listFileEntry.iconFontSize,
+        color: '#fff',
+        padding: 8,
+    },
+    listFileEntryDescription: {
+        flexDirection: 'column',
+        display: 'flex',
+        flexGrow: 1,
+    },
+    listFileEntryName: {
+        padding: [0, 8, 8, 8],
+    },
+    listFileEntryProperties: {
+        fontSize: theme.listFileEntry.propertyFontSize,
+        flexDirection: 'row',
+        display: 'flex',
+    },
+    listFileEntryProperty: {
+        padding: [0, 8],
+    },
+}));

@@ -50,6 +50,7 @@ import { faSortAmountUpAlt } from '@fortawesome/free-solid-svg-icons/faSortAmoun
 import { faTerminal } from '@fortawesome/free-solid-svg-icons/faTerminal';
 import { faTh } from '@fortawesome/free-solid-svg-icons/faTh';
 import { faThLarge } from '@fortawesome/free-solid-svg-icons/faThLarge';
+import { faThList } from '@fortawesome/free-solid-svg-icons/faThList';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { faToggleOff } from '@fortawesome/free-solid-svg-icons/faToggleOff';
 import { faToggleOn } from '@fortawesome/free-solid-svg-icons/faToggleOn';
@@ -88,6 +89,7 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
 
     // File Actions: File Views
     [ChonkyIconName.list]: faList,
+    [ChonkyIconName.compact]: faThList,
     [ChonkyIconName.smallThumbnail]: faTh,
     [ChonkyIconName.largeThumbnail]: faThLarge,
 

@@ -2,7 +2,8 @@ import { Nullable } from 'tsdef';
 
 import { thunkRequestFileAction } from '../redux/thunks/dispatchers.thunks';
 import { FileSelectionTransform } from '../types/action.types';
-import { FileData } from '../types/files.types';
+import { FileViewMode } from '../types/file-view.types';
+import { FileData } from '../types/file.types';
 import { ChonkyIconName } from '../types/icons.types';
 import { FileHelper } from '../util/file-helper';
 import { defineFileAction } from '../util/helpers';
@@ -69,7 +70,10 @@ export const DefaultActions = {
     } as const),
     EnableListView: defineFileAction({
         id: 'enable_list_view',
-        fileViewConfig: { entryHeight: 30 },
+        fileViewConfig: {
+            mode: FileViewMode.List,
+            entryHeight: 30,
+        },
         button: {
             name: 'Switch to List view',
             toolbar: true,
@@ -77,9 +81,23 @@ export const DefaultActions = {
             iconOnly: true,
         },
     } as const),
+    EnableCompactView: defineFileAction({
+        id: 'enable_compact_view',
+        fileViewConfig: {
+            mode: FileViewMode.Compact,
+            entryHeight: 40,
+            entryWidth: 220,
+        },
+        button: {
+            name: 'Switch to Compact view',
+            toolbar: true,
+            icon: ChonkyIconName.compact,
+            iconOnly: true,
+        },
+    } as const),
     EnableGridView: defineFileAction({
         id: 'enable_grid_view',
-        fileViewConfig: { entryWidth: 165, entryHeight: 130 },
+        fileViewConfig: { mode: FileViewMode.Grid, entryWidth: 165, entryHeight: 130 },
         button: {
             name: 'Switch to Grid view',
             toolbar: true,

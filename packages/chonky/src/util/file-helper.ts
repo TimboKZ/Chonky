@@ -2,7 +2,7 @@ import dateFormat from 'dateformat';
 import filesize from 'filesize';
 import { Nullable } from 'tsdef';
 
-import { FileData } from '../types/files.types';
+import { FileData } from '../types/file.types';
 
 export class FileHelper {
     public static isDirectory(file: Nullable<FileData>): file is FileData {

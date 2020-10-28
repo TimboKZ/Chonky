@@ -2,7 +2,7 @@ import sort from 'fast-sort';
 import { Nullable } from 'tsdef';
 
 import { ChonkyActions } from '../../action-definitions/index';
-import { FileArray } from '../../types/files.types';
+import { FileArray } from '../../types/file.types';
 import { ChonkyThunk } from '../../types/redux.types';
 import { FileSortKeySelector, SortOrder } from '../../types/sort.types';
 import { FileHelper } from '../../util/file-helper';

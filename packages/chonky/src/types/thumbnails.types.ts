@@ -1,6 +1,6 @@
 import { Nilable } from 'tsdef';
 
-import { FileData } from './files.types';
+import { FileData } from './file.types';
 
 export type ThumbnailGenerator = (
     file: FileData

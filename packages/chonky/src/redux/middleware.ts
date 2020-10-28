@@ -1,7 +1,7 @@
 import FuzzySearch from 'fuzzy-search';
 import { Nullable } from 'tsdef';
 
-import { FileData, FileMap } from '../types/files.types';
+import { FileData, FileMap } from '../types/file.types';
 import { ChonkyThunkExtraArgument } from '../types/redux.types';
 
 export class ThunkExtraArgument implements ChonkyThunkExtraArgument {

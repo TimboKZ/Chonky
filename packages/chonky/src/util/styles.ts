@@ -57,6 +57,13 @@ export const lightTheme = {
         fontSize: 14,
     },
 
+    listFileEntry: {
+        propertyFontSize: '0.8em',
+        iconFontSize: '1.2em',
+        iconBorderRadius: 5,
+        fontSize: 14,
+    },
+
     rootBorder: 'solid 1px #e4e4e4',
 };
 

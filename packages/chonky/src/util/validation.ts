@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { AnyObjectWithStringKeys, Nullable } from 'tsdef';
 
 import { FileAction } from '../types/action.types';
-import { FileArray } from '../types/files.types';
+import { FileArray } from '../types/file.types';
 import { ErrorMessageData } from '../types/validation.types';
 import { Logger } from './logger';
 

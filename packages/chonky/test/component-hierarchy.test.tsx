@@ -6,7 +6,7 @@ import { FileContextMenu } from '../src/components/external/FileContextMenu';
 import { FileNavbar } from '../src/components/external/FileNavbar';
 import { FileToolbar } from '../src/components/external/FileToolbar';
 import { FileList } from '../src/components/file-list/FileList';
-import { FileArray } from '../src/types/files.types';
+import { FileArray } from '../src/types/file.types';
 import { sleep } from './test-util';
 
 describe('File Browser will all components', () => {

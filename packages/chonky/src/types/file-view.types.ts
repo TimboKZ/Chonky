@@ -1,11 +1,18 @@
-import { Nullable } from 'tsdef';
+export enum FileViewMode {
+    List = 'list',
+    Compact = 'compact',
+    Grid = 'grid',
+}
 
-export interface FileViewConfig {
-    entryWidth?: Nullable<number>;
+export type FileViewConfigList = {
+    mode: FileViewMode.List;
     entryHeight: number;
-}
+};
 
-export interface FileEntrySize {
-    width?: Nullable<number>;
-    height: number;
-}
+export type FileViewConfigGrid = {
+    mode: FileViewMode.Compact | FileViewMode.Grid;
+    entryWidth: number;
+    entryHeight: number;
+};
+
+export type FileViewConfig = FileViewConfigList | FileViewConfigGrid;

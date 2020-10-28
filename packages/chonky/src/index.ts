@@ -18,7 +18,7 @@ export {
 } from './redux/thunks/dispatchers.thunks';
 
 export { FileHelper } from './util/file-helper';
-export { FileData, FileArray } from './types/files.types';
+export { FileData, FileArray } from './types/file.types';
 export {
     FileAction,
     FileActionEffect,

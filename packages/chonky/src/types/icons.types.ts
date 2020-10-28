@@ -25,6 +25,7 @@ export enum ChonkyIconName {
 
     // File Actions: File Views
     list = 'list',
+    compact = 'compact',
     smallThumbnail = 'smallThumbnail',
     largeThumbnail = 'largeThumbnail',
 
