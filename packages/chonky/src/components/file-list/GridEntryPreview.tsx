@@ -11,8 +11,8 @@ import { DndEntryState } from '../../types/file-list.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { c, important, makeLocalChonkyStyles } from '../../util/styles';
 import { ChonkyIconFA } from '../external/ChonkyIcon';
-import { DnDIndicator } from './DnDIndicator';
 import { FileThumbnail } from './FileThumbnail';
+import { GridEntryDndIndicator } from './GridEntryDndIndicator';
 
 export type FileEntryState = {
     childrenCount: Nullable<number>;
@@ -36,7 +36,7 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
 
         const folderClasses = useFolderStyles(entryState);
         const fileClasses = useFileStyles(entryState);
-        const commonClasses = useCommonStyles(entryState);
+        const commonClasses = useCommonEntryStyles(entryState);
         const className = c({
             [folderClasses.previewFile]: true,
             [externalClassName || '']: !!externalClassName,
@@ -46,7 +46,7 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
                 <div className={folderClasses.folderBackSideMid}>
                     <div className={folderClasses.folderBackSideTop} />
                     <div className={folderClasses.folderFrontSide}>
-                        <DnDIndicator
+                        <GridEntryDndIndicator
                             className={fileClasses.dndIndicator}
                             dndState={dndState}
                         />
@@ -144,14 +144,14 @@ export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(
         const { className: externalClassName, entryState, dndState } = props;
 
         const fileClasses = useFileStyles(entryState);
-        const commonClasses = useCommonStyles(entryState);
+        const commonClasses = useCommonEntryStyles(entryState);
         const className = c({
             [fileClasses.previewFile]: true,
             [externalClassName || '']: !!externalClassName,
         });
         return (
             <div className={className}>
-                <DnDIndicator
+                <GridEntryDndIndicator
                     className={fileClasses.dndIndicator}
                     dndState={dndState}
                 />
@@ -210,7 +210,7 @@ const useFileStyles = makeLocalChonkyStyles((theme) => ({
     },
 }));
 
-const useCommonStyles = makeLocalChonkyStyles((theme) => ({
+export const useCommonEntryStyles = makeLocalChonkyStyles((theme) => ({
     selectionIndicator: {
         display: (state: FileEntryState) => (state.selected ? 'block' : 'none'),
         background:
@@ -226,5 +226,13 @@ const useCommonStyles = makeLocalChonkyStyles((theme) => ({
         height: '100%',
         width: '100%',
         zIndex: 10,
+    },
+    focusIndicator: {
+        display: (state: FileEntryState) => (state.focused ? 'block' : 'none'),
+        boxShadow: 'inset rgba(0, 0, 0, 1) 0 0 0 2px',
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+        zIndex: 11,
     },
 }));

@@ -82,6 +82,7 @@ export const DefaultActions = {
         },
     } as const),
     EnableCompactView: defineFileAction({
+        // TODO: Don't enable until compact view is fully supported
         id: 'enable_compact_view',
         fileViewConfig: {
             mode: FileViewMode.Compact,

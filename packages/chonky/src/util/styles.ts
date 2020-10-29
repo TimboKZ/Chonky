@@ -58,9 +58,10 @@ export const lightTheme = {
     },
 
     listFileEntry: {
-        propertyFontSize: '0.8em',
-        iconFontSize: '1.2em',
+        propertyFontSize: 14,
+        iconFontSize: '1.1em',
         iconBorderRadius: 5,
+        borderColor: '#eee',
         fontSize: 14,
     },
 
@@ -77,6 +78,11 @@ export const mobileOverrideTheme: DeepPartial<ChonkyTheme> = {
         fontSize: 13,
     },
     gridFileEntry: {
+        fontSize: 13,
+    },
+    listFileEntry: {
+        propertyFontSize: 12,
+        iconFontSize: '1em',
         fontSize: 13,
     },
 };

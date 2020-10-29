@@ -92,6 +92,6 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     },
     listFileEntryProperty: {
         padding: [0, 8],
-        opacity: 0.75,
+        opacity: 0.4,
     },
 }));

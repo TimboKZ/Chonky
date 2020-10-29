@@ -12,12 +12,12 @@ import { DndEntryState, FileEntryProps } from '../../types/file-list.types';
 import { FileViewMode } from '../../types/file-view.types';
 import { FileHelper } from '../../util/file-helper';
 import { makeGlobalChonkyStyles } from '../../util/styles';
-import { CompactEntry } from './CompactEntry';
-import { GridEntry } from './GridEntry';
-import { ListEntry } from './ListEntry';
 import { ClickableWrapper, ClickableWrapperProps } from '../internal/ClickableWrapper';
+import { CompactEntry } from './CompactEntry';
 import { DnDFileEntry } from './DnDFileEntry';
 import { useFileClickHandlers } from './FileEntry-hooks';
+import { GridEntry } from './GridEntry';
+import { ListEntry } from './ListEntry';
 
 export interface SmartFileEntryProps {
     fileId: Nullable<string>;
@@ -67,7 +67,7 @@ export const SmartFileEntry: React.FC<SmartFileEntryProps> = React.memo(
                 <EntryComponent {...fileEntryProps} dndState={disabledDndState} />
             </ClickableWrapper>
         ) : (
-            <DnDFileEntry file={file}>
+            <DnDFileEntry file={file} selected={selected}>
                 {(dndState) => (
                     <ClickableWrapper {...clickableWrapperProps}>
                         <EntryComponent {...fileEntryProps} dndState={dndState} />

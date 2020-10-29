@@ -20,9 +20,9 @@ import { ColorsDark, ColorsLight, useIconData } from '../../util/file-icon-helpe
 import { Logger } from '../../util/logger';
 import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { TextPlaceholder } from '../external/TextPlaceholder';
-import { FileEntryState } from './GridEntryPreview';
 import { KeyboardClickEvent, MouseClickEvent } from '../internal/ClickableWrapper';
 import { DnDFileEntryItem, DnDFileEntryType } from './DnDFileEntry';
+import { FileEntryState } from './GridEntryPreview';
 
 export const useFileEntryHtmlProps = (
     file: Nullable<FileData>
@@ -169,7 +169,7 @@ export const useThumbnailUrl = (file: Nullable<FileData>) => {
     return { thumbnailUrl, thumbnailLoading };
 };
 
-export const useFileEntryDnD = (file: Nullable<FileData>) => {
+export const useFileEntryDnD = (file: Nullable<FileData>, selected: boolean) => {
     const dispatch = useDispatch();
     const instanceId = useSelector(selectInstanceId);
     const currentFolder = useSelector(selectCurrentFolder);
@@ -228,9 +228,9 @@ export const useFileEntryDnD = (file: Nullable<FileData>) => {
     const canDrop = useCallback(
         (item: DnDFileEntryItem) => {
             const isSameFile = file && item.file && file.id === item.file.id;
-            return FileHelper.isDroppable(file) && !isSameFile;
+            return FileHelper.isDroppable(file) && !isSameFile && !selected;
         },
-        [file]
+        [file, selected]
     );
 
     // Create refs for react-dnd hooks

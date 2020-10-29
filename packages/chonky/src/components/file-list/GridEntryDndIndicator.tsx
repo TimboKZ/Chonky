@@ -16,7 +16,7 @@ export interface DnDIndicatorProps {
     dndState: DndEntryState;
 }
 
-export const DnDIndicator: React.FC<DnDIndicatorProps> = React.memo((props) => {
+export const GridEntryDndIndicator: React.FC<DnDIndicatorProps> = React.memo((props) => {
     const { className: externalClassName, dndState } = props;
     const { dndIconColor, dndIconName } = useDndIcon(dndState);
     const classes = useStyles(dndIconColor);

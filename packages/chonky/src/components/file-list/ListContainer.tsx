@@ -11,6 +11,7 @@ import { FixedSizeList } from 'react-window';
 import { selectDisplayFileIds, selectFileViewConfig } from '../../redux/selectors';
 import { FileViewMode } from '../../types/file-view.types';
 import { useInstanceVariable } from '../../util/hooks-helpers';
+import { makeLocalChonkyStyles } from '../../util/styles';
 import { SmartFileEntry } from './FileEntry';
 
 export interface FileListListProps {
@@ -32,6 +33,7 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
         [displayFileIdsRef]
     );
 
+    const classes = useStyles();
     const listComponent = useMemo(() => {
         // When entry size is null, we use List view
         const rowRenderer = (data: { index: number; style: CSSProperties }) => {
@@ -49,7 +51,7 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
         return (
             <FixedSizeList
                 ref={listRef as any}
-                className="chonky-file-list-list-view"
+                className={classes.listContainer}
                 itemSize={viewConfig.entryHeight}
                 height={height}
                 itemCount={displayFileIds.length}
@@ -59,7 +61,20 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
                 {rowRenderer}
             </FixedSizeList>
         );
-    }, [width, height, viewConfig, displayFileIds, getItemKey]);
+    }, [
+        classes.listContainer,
+        viewConfig.entryHeight,
+        height,
+        displayFileIds,
+        width,
+        getItemKey,
+    ]);
 
     return listComponent;
 });
+
+const useStyles = makeLocalChonkyStyles((theme) => ({
+    listContainer: {
+        borderTop: `solid 1px ${theme.listFileEntry.borderColor}`,
+    },
+}));
