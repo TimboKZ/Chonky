@@ -15,23 +15,17 @@ import {
     selectFileActionIds,
     selectIsDnDDisabled,
 } from '../../redux/selectors';
-import { ErrorMessageData } from '../../types/validation.types';
 import { elementIsInsideButton } from '../../util/helpers';
 import { makeGlobalChonkyStyles } from '../../util/styles';
 import { useContextMenuTrigger } from '../external/FileContextMenu-hooks';
 import { DnDFileListDragLayer } from '../file-list/DnDFileListDragLayer';
-import { ErrorMessage } from './ErrorMessage';
 import { HotkeyListener } from './HotkeyListener';
 
-export interface ChonkyPresentationLayerProps {
-    validationErrors: ErrorMessageData[];
-}
+export interface ChonkyPresentationLayerProps {}
 
-export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
-    props
-) => {
-    const { validationErrors, children } = props;
-
+export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = ({
+    children,
+}) => {
     const dispatch = useDispatch();
     const fileActionIds = useSelector(selectFileActionIds);
     const dndDisabled = useSelector(selectIsDnDDisabled);
@@ -65,17 +59,6 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
             )),
         [fileActionIds]
     );
-    const validationErrorComponents = useMemo(
-        () =>
-            validationErrors.map((data, index) => (
-                <ErrorMessage
-                    key={`error-message-${index}`}
-                    message={data.message}
-                    bullets={data.bullets}
-                />
-            )),
-        [validationErrors]
-    );
 
     const showContextMenu = useContextMenuTrigger();
 
@@ -85,7 +68,6 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
             <Box className={classes.chonkyRoot} onContextMenu={showContextMenu}>
                 {!dndDisabled && <DnDFileListDragLayer />}
                 {hotkeyListenerComponents}
-                {validationErrorComponents}
                 {children ? children : null}
             </Box>
         </ClickAwayListener>

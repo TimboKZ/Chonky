@@ -2,6 +2,7 @@ import { Nullable } from 'tsdef';
 
 import { FileAction } from '../types/action.types';
 import { FileArray } from '../types/file.types';
+import { Logger } from '../util/logger';
 
 interface SanitizeFiles {
     (mode: 'files', rawArray: FileArray | any): {
@@ -74,6 +75,29 @@ export const sanitizeInputArray: SanitizeFiles = (mode: string, rawArray: any[])
                     `following IDs were seen multiple times: ${repeatedIdsString}`
             );
         }
+    }
+
+    if (errorMessages.length > 0) {
+        const errorMessageString = '\n- ' + errorMessages.join('\n- ');
+        let arrayString: string;
+        let itemString: string;
+        if (mode === 'folderChain') {
+            arrayString = 'folder chain';
+            itemString = 'files';
+        } else if (mode === 'fileActions') {
+            arrayString = 'file actions';
+            itemString = 'file actions';
+        } else {
+            // mode === 'files'
+            arrayString = 'files';
+            itemString = 'files';
+        }
+
+        Logger.error(
+            `Errors were detected when sanitizing the ${arrayString} array. ` +
+                `Offending ${itemString} were removed from the array. Summary of ` +
+                `validation errors: ${errorMessageString}`
+        );
     }
 
     return {

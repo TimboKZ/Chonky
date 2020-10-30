@@ -33,29 +33,6 @@ export const FileBrowser = React.forwardRef<
     const chonkyInstanceId = useStaticValue(() => instanceId ?? shortid.generate());
     const store = useChonkyStore(chonkyInstanceId);
 
-    // ==== Validation of the most important props
-    // const {
-    //     cleanFiles,
-    //     cleanFolderChain,
-    //     errorMessages: fileArrayErrors,
-    // } = useFileArrayValidation(files, folderChain);
-    // const {
-    //     cleanFileActions,
-    //     errorMessages: fileActionsErrors,
-    // } = useFileActionsValidation(
-    //     fileActions,
-    //     DefaultFileActions,
-    //     !disableDefaultFileActions
-    // );
-    // const validationErrors = [...fileArrayErrors, ...fileActionsErrors];
-
-    // const businessLogicProps: FileBrowserProps = {
-    //     ...props,
-    //     files: cleanFiles,
-    //     folderChain: cleanFolderChain,
-    //     fileActions: cleanFileActions,
-    // };
-
     const isMobileBreakpoint = useIsMobileBreakpoint();
     const theme = useMemo(() => {
         return isMobileBreakpoint ? merge(lightTheme, mobileOverrideTheme) : lightTheme;
@@ -64,9 +41,7 @@ export const FileBrowser = React.forwardRef<
     const chonkyComps = (
         <>
             <ChonkyBusinessLogic ref={ref} {...props} />
-            <ChonkyPresentationLayer validationErrors={[]}>
-                {children}
-            </ChonkyPresentationLayer>
+            <ChonkyPresentationLayer>{children}</ChonkyPresentationLayer>
         </>
     );
 
