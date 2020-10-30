@@ -66,8 +66,6 @@ export const selectSelectedFilesForActionCount = (fileActionId: string) => (
 ) => getSelectedFilesForAction(state, fileActionId)?.length;
 
 export const selectFileViewConfig = (state: RootState) => state.fileViewConfig;
-export const selectIsGridView = (state: RootState) =>
-    !!selectFileViewConfig(state).entryWidth;
 
 export const selectSortActionId = (state: RootState) => state.sortActionId;
 export const selectSortOrder = (state: RootState) => state.sortOrder;

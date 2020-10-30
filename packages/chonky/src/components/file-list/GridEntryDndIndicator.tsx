@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import { DndEntryState } from '../../types/file-list.types';
 
+import { DndEntryState } from '../../types/file-list.types';
 import { c, makeLocalChonkyStyles } from '../../util/styles';
 import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { useDndIcon } from './FileEntry-hooks';

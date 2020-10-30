@@ -9,9 +9,9 @@ import {
 } from './FileEntry-hooks';
 import { FileEntryName } from './FileEntryName';
 import {
+    FileEntryState,
     GridEntryPreviewFile,
     GridEntryPreviewFolder,
-    FileEntryState,
 } from './GridEntryPreview';
 
 export const GridEntry: React.FC<FileEntryProps> = React.memo(

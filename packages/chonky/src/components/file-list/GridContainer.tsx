@@ -19,7 +19,6 @@ import { selectDisplayFileIds, selectFileViewConfig } from '../../redux/selector
 import { FileViewConfigGrid } from '../../types/file-view.types';
 import { useInstanceVariable } from '../../util/hooks-helpers';
 import { useIsMobileBreakpoint } from '../../util/styles';
-import { isMobileDevice } from '../../util/validation';
 import { SmartFileEntry } from './FileEntry';
 
 export interface FileListGridProps {
@@ -34,6 +33,14 @@ interface GridConfig {
     rowHeight: number;
     columnWidth: number;
 }
+
+export const isMobileDevice = () => {
+    // noinspection JSDeprecatedSymbols
+    return (
+        typeof window.orientation !== 'undefined' ||
+        navigator.userAgent.indexOf('IEMobile') !== -1
+    );
+};
 
 export const getGridConfig = (
     width: number,
