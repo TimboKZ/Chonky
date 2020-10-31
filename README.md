@@ -45,3 +45,13 @@ much more!
 
 > Please [create an issue](https://github.com/TimboKZ/Chonky/issues) if you have a
 > problem or want to request a feature.
+
+## Preview
+
+<p align="center">
+  <img src="https://chonky.io/chonky-v2-preview.gif" alt="Chonky preview">
+</p>
+
+## License
+
+MIT © [Tim Kuzhagaliyev](https://github.com/TimboKZ) 2020
