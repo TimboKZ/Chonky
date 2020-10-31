@@ -82,6 +82,7 @@ export const selectClearSelectionOnOutsideClick = (state: RootState) =>
 
 export const selectLastClickIndex = (state: RootState) => state.lastClickIndex;
 
+export const selectContextMenuMounted = (state: RootState) => state.contextMenuMounted;
 export const selectContextMenuConfig = (state: RootState) => state.contextMenuConfig;
 export const selectContextMenuTriggerFile = (state: RootState) => {
     const config = selectContextMenuConfig(state);

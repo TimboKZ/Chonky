@@ -48,5 +48,6 @@ export const initialRootState: RootState = {
 
     lastClickIndex: null,
 
+    contextMenuMounted: false,
     contextMenuConfig: null,
 };

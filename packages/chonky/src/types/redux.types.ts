@@ -70,6 +70,7 @@ export type RootState = {
     lastClickIndex: Nullable<number>;
 
     // Context menu
+    contextMenuMounted: boolean;
     contextMenuConfig: Nullable<ContextMenuConfig>;
 };
 

@@ -168,6 +168,9 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         setLastClickIndex(state, action: PayloadAction<Nullable<number>>) {
             state.lastClickIndex = action.payload;
         },
+        setContextMenuMounted(state, action: PayloadAction<boolean>) {
+            state.contextMenuMounted = action.payload;
+        },
         showContextMenu(state, action: PayloadAction<ContextMenuConfig>) {
             state.contextMenuConfig = action.payload;
         },

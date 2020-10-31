@@ -6,9 +6,10 @@
 
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Menu from '@material-ui/core/Menu';
-import React, { ReactElement, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { ReactElement, useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { reduxActions } from '../../redux/reducers';
 import { selectContextMenuConfig, selectContextMenuItems } from '../../redux/selectors';
 import { important, makeGlobalChonkyStyles } from '../../util/styles';
 import { useContextMenuDismisser } from './FileContextMenu-hooks';
@@ -17,6 +18,14 @@ import { SmartToolbarDropdownButton } from './ToolbarDropdownButton';
 export interface FileContextMenuProps {}
 
 export const FileContextMenu: React.FC<FileContextMenuProps> = React.memo(() => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(reduxActions.setContextMenuMounted(true));
+        return () => {
+            dispatch(reduxActions.setContextMenuMounted(false));
+        };
+    }, [dispatch]);
+
     const contextMenuConfig = useSelector(selectContextMenuConfig);
     const contextMenuItems = useSelector(selectContextMenuItems);
 

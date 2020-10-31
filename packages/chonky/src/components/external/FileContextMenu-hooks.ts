@@ -1,11 +1,13 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
 import { ChonkyActions } from '../../action-definitions/index';
 import { reduxActions } from '../../redux/reducers';
+import { selectContextMenuMounted } from '../../redux/selectors';
 import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
 import { findElementAmongAncestors } from '../../util/helpers';
+import { useInstanceVariable } from '../../util/hooks-helpers';
 
 export const findClosestChonkyFileId = (
     element: HTMLElement | any
@@ -23,11 +25,18 @@ export const findClosestChonkyFileId = (
 
 export const useContextMenuTrigger = () => {
     const dispatch = useDispatch();
+    const contextMenuMountedRef = useInstanceVariable(
+        useSelector(selectContextMenuMounted)
+    );
     return useCallback(
         (event: React.MouseEvent<HTMLDivElement>) => {
-            // Users can use Alt+Right Click to bring up browser's default context menu
-            // instead of Chonky's context menu.
+            // Use default browser context menu when Chonky context menu component
+            // is not mounted.
+            if (!contextMenuMountedRef.current) return;
+            // Users can use Alt+Right Click to bring up browser's default
+            // context menu instead of Chonky's context menu.
             if (event.altKey) return;
+
             event.preventDefault();
 
             const triggerFileId = findClosestChonkyFileId(event.target);
@@ -39,7 +48,7 @@ export const useContextMenuTrigger = () => {
                 })
             );
         },
-        [dispatch]
+        [contextMenuMountedRef, dispatch]
     );
 };
 
