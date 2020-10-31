@@ -7,8 +7,6 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
-    "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.8",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
     "eslint": "^7.12.0",
