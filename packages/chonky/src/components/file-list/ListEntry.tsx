@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 
 import { FileEntryProps } from '../../types/file-list.types';
 import { FileHelper } from '../../util/file-helper';
+import { ChonkyIconContext } from '../../util/icon-helper';
 import { c, makeLocalChonkyStyles } from '../../util/styles';
-import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { TextPlaceholder } from '../external/TextPlaceholder';
 import {
     useDndIcon,
@@ -33,6 +33,7 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
 
         const classes = useStyles(entryState);
         const commonClasses = useCommonEntryStyles(entryState);
+        const ChonkyIcon = useContext(ChonkyIconContext);
         const fileEntryHtmlProps = useFileEntryHtmlProps(file);
         return (
             <div
@@ -48,7 +49,7 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
                     ])}
                 ></div>
                 <div className={classes.listFileEntryIcon} style={dndStyle}>
-                    <ChonkyIconFA
+                    <ChonkyIcon
                         icon={dndIconName ?? entryState.icon}
                         spin={dndIconName ? false : entryState.iconSpin}
                         fixedWidth={true}

@@ -7,15 +7,15 @@
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Nullable } from 'tsdef';
 
 import { selectFileActionData } from '../../redux/selectors';
 import { useParamSelector } from '../../redux/store';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useFileActionProps, useFileActionTrigger } from '../../util/file-actions';
+import { ChonkyIconContext } from '../../util/icon-helper';
 import { c, important, makeGlobalChonkyStyles } from '../../util/styles';
-import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface ToolbarDropdownButtonProps {
     text: string;
@@ -29,6 +29,7 @@ export const ToolbarDropdownButton = React.forwardRef(
     (props: ToolbarDropdownButtonProps, ref: React.Ref<HTMLLIElement>) => {
         const { text, active, icon, onClick, disabled } = props;
         const classes = useStyles();
+        const ChonkyIcon = useContext(ChonkyIconContext);
 
         const className = c({
             [classes.baseButton]: true,
@@ -43,7 +44,7 @@ export const ToolbarDropdownButton = React.forwardRef(
             >
                 {icon && (
                     <ListItemIcon className={classes.icon}>
-                        <ChonkyIconFA icon={icon} fixedWidth={true} />
+                        <ChonkyIcon icon={icon} fixedWidth={true} />
                     </ListItemIcon>
                 )}
                 <ListItemText primaryTypographyProps={{ className: classes.text }}>

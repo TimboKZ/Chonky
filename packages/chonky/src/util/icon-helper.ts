@@ -6,11 +6,16 @@
 
 import ExactTrie from 'exact-trie';
 import memoize from 'memoizee';
-import { useMemo } from 'react';
+import { createContext, ElementType, useMemo } from 'react';
 import { Nullable } from 'tsdef';
 
+import { ChonkyIconPlaceholder } from '../components/internal/ChonkyIconPlaceholder';
 import { FileData } from '../types/file.types';
-import { ChonkyIconName, FileIconData } from '../types/icons.types';
+import { ChonkyIconName, ChonkyIconProps, FileIconData } from '../types/icons.types';
+
+export const ChonkyIconContext = createContext<ElementType<ChonkyIconProps>>(
+    ChonkyIconPlaceholder
+);
 
 const getIconTrie = memoize(() => {
     let colourIndex = 0;

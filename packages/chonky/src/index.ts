@@ -33,8 +33,8 @@ export {
 } from './types/action-handler.types';
 export { ChonkyActionUnion } from './types/file-browser.types';
 
-export { FileBrowserHandle } from './types/file-browser.types';
-export { ChonkyIconName } from './types/icons.types';
+export { FileBrowserHandle, FileBrowserProps } from './types/file-browser.types';
+export { ChonkyIconName, ChonkyIconProps } from './types/icons.types';
 
 export type FileActionHandler = GenericFileActionHandler<ChonkyActionUnion>;
 export type ChonkyFileActionData = MapFileActionsToData<ChonkyActionUnion>;

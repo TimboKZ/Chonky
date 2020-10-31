@@ -4,11 +4,11 @@
  * @license MIT
  */
 
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useContext } from 'react';
 
 import { ChonkyIconName } from '../../types/icons.types';
+import { ChonkyIconContext } from '../../util/icon-helper';
 import { makeGlobalChonkyStyles } from '../../util/styles';
-import { ChonkyIconFA } from '../external/ChonkyIcon';
 
 export interface FileListEmptyProps {
     width: number;
@@ -18,6 +18,7 @@ export interface FileListEmptyProps {
 export const FileListEmpty: React.FC<FileListEmptyProps> = (props) => {
     const { width, height } = props;
     const classes = useStyles();
+    const ChonkyIcon = useContext(ChonkyIconContext);
     const style: CSSProperties = {
         width,
         height,
@@ -26,7 +27,7 @@ export const FileListEmpty: React.FC<FileListEmptyProps> = (props) => {
     return (
         <div className={classes.fileListEmpty} style={style}>
             <div className={classes.fileListEmptyContent}>
-                <ChonkyIconFA icon={ChonkyIconName.folderOpen} />
+                <ChonkyIcon icon={ChonkyIconName.folderOpen} />
                 &nbsp; Nothing to show
             </div>
         </div>

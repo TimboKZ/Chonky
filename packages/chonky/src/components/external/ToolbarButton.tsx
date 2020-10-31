@@ -5,15 +5,15 @@
  */
 
 import Button from '@material-ui/core/Button';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Nullable } from 'tsdef';
 
 import { selectFileActionData } from '../../redux/selectors';
 import { useParamSelector } from '../../redux/store';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useFileActionProps, useFileActionTrigger } from '../../util/file-actions';
+import { ChonkyIconContext } from '../../util/icon-helper';
 import { c, important, makeGlobalChonkyStyles } from '../../util/styles';
-import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface ToolbarButtonProps {
     className?: string;
@@ -40,11 +40,12 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) =>
         dropdown,
     } = props;
     const classes = useStyles();
+    const ChonkyIcon = useContext(ChonkyIconContext);
 
     const iconComponent =
         icon || iconOnly ? (
             <div className={iconOnly ? '' : classes.iconWithText}>
-                <ChonkyIconFA
+                <ChonkyIcon
                     icon={icon ? icon : ChonkyIconName.fallbackIcon}
                     fixedWidth={true}
                 />
@@ -68,7 +69,7 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) =>
             {text && !iconOnly && <span>{text}</span>}
             {dropdown && (
                 <div className={classes.iconDropdown}>
-                    <ChonkyIconFA
+                    <ChonkyIcon
                         icon={icon ? icon : ChonkyIconName.dropdown}
                         fixedWidth={true}
                     />

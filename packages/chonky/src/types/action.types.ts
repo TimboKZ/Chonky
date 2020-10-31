@@ -27,7 +27,7 @@ export interface FileAction {
         contextMenu?: boolean; // Whether to show the button in the context menu
         group?: string; // Button group (dropdown in toolbar or section in context menu)
         tooltip?: string; // Help tooltip text
-        icon?: ChonkyIconName | string; // Icon name
+        icon?: ChonkyIconName | string | any; // Icon name
         iconOnly?: boolean; // Whether to only display the icon
     };
 

@@ -6,7 +6,7 @@
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { reduxActions } from '../../redux/reducers';
@@ -14,13 +14,14 @@ import { selectSearchString } from '../../redux/selectors';
 import { thunkUpdateSearchString } from '../../redux/thunks/files.thunks';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useDebounce } from '../../util/hooks-helpers';
+import { ChonkyIconContext } from '../../util/icon-helper';
 import { important, makeGlobalChonkyStyles } from '../../util/styles';
-import { ChonkyIconFA } from './ChonkyIcon';
 
 export interface ToolbarSearchProps {}
 
 export const ToolbarSearch: React.FC<ToolbarSearchProps> = () => {
     const classes = useStyles();
+    const ChonkyIcon = useContext(ChonkyIconContext);
 
     const searchInputRef = useRef<HTMLInputElement>();
 
@@ -79,7 +80,7 @@ export const ToolbarSearch: React.FC<ToolbarSearchProps> = () => {
                 onKeyUp: handleKeyUp,
                 startAdornment: (
                     <InputAdornment className={classes.searchIcon} position="start">
-                        <ChonkyIconFA
+                        <ChonkyIcon
                             icon={
                                 showLoadingIndicator
                                     ? ChonkyIconName.loading

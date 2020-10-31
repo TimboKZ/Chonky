@@ -1,5 +1,12 @@
 import path from 'path';
-import React, { HTMLProps, useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+    HTMLProps,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 import { DragSourceMonitor, useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,9 +23,13 @@ import { DndEntryState } from '../../types/file-list.types';
 import { FileData } from '../../types/file.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { FileHelper } from '../../util/file-helper';
-import { ColorsDark, ColorsLight, useIconData } from '../../util/file-icon-helper';
+import {
+    ChonkyIconContext,
+    ColorsDark,
+    ColorsLight,
+    useIconData,
+} from '../../util/icon-helper';
 import { Logger } from '../../util/logger';
-import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { TextPlaceholder } from '../external/TextPlaceholder';
 import { KeyboardClickEvent, MouseClickEvent } from '../internal/ClickableWrapper';
 import { DnDFileEntryItem, DnDFileEntryType } from './DnDFileEntry';
@@ -91,12 +102,13 @@ export const useModifierIconComponents = (file: Nullable<FileData>) => {
         if (FileHelper.isEncrypted(file)) modifierIcons.push(ChonkyIconName.lock);
         return modifierIcons;
     }, [file]);
+    const ChonkyIcon = useContext(ChonkyIconContext);
     const modifierIconComponents = useMemo(
         () =>
             modifierIcons.map((icon, index) => (
-                <ChonkyIconFA key={`file-modifier-${index}`} icon={icon} />
+                <ChonkyIcon key={`file-modifier-${index}`} icon={icon} />
             )),
-        [modifierIcons]
+        [ChonkyIcon, modifierIcons]
     );
     return modifierIconComponents;
 };

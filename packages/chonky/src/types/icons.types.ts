@@ -1,3 +1,5 @@
+import React from 'react';
+
 export enum ChonkyIconName {
     // Misc
     loading = 'loading',
@@ -13,6 +15,8 @@ export enum ChonkyIconName {
     openFiles = 'openFiles',
     openParentFolder = 'openParentFolder',
     copy = 'copy',
+    paste = 'paste',
+    share = 'share',
     search = 'search',
     selectAllFiles = 'selectAllFiles',
     clearSelection = 'clearSelection',
@@ -88,4 +92,13 @@ export enum ChonkyIconName {
 export interface FileIconData {
     icon: ChonkyIconName | string;
     colorCode: number;
+}
+
+export interface ChonkyIconProps {
+    icon: ChonkyIconName | string;
+    spin?: boolean;
+    className?: string;
+    color?: string;
+    fixedWidth?: boolean;
+    style?: React.CSSProperties;
 }

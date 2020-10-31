@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { FileEntryProps } from '../../types/file-list.types';
 import { FileHelper } from '../../util/file-helper';
+import { ChonkyIconContext } from '../../util/icon-helper';
 import { makeLocalChonkyStyles } from '../../util/styles';
-import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { TextPlaceholder } from '../external/TextPlaceholder';
 import {
     useFileEntryHtmlProps,
@@ -20,11 +20,12 @@ export const CompactEntry: React.FC<FileEntryProps> = React.memo(
         const fileDateString = FileHelper.getReadableFileSize(file);
 
         const classes = useStyles(entryState);
+        const ChonkyIcon = useContext(ChonkyIconContext);
         const fileEntryHtmlProps = useFileEntryHtmlProps(file);
         return (
             <div className={classes.listFileEntry} {...fileEntryHtmlProps}>
                 <div className={classes.listFileEntryIcon}>
-                    <ChonkyIconFA
+                    <ChonkyIcon
                         icon={entryState.icon}
                         spin={entryState.iconSpin}
                         fixedWidth={true}

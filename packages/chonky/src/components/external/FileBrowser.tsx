@@ -9,12 +9,14 @@ import shortid from 'shortid';
 import { useChonkyStore } from '../../redux/store';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
 import { useStaticValue } from '../../util/hooks-helpers';
+import { ChonkyIconContext } from '../../util/icon-helper';
 import {
     lightTheme,
     mobileOverrideTheme,
     useIsMobileBreakpoint,
 } from '../../util/styles';
 import { ChonkyBusinessLogic } from '../internal/ChonkyBusinessLogic';
+import { ChonkyIconPlaceholder } from '../internal/ChonkyIconPlaceholder';
 import { ChonkyPresentationLayer } from '../internal/ChonkyPresentationLayer';
 
 // if (process.env.NODE_ENV === 'development') {
@@ -48,11 +50,13 @@ export const FileBrowser = React.forwardRef<
     return (
         <Provider store={store}>
             <ThemeProvider theme={theme}>
-                {disableDragAndDropProvider ? (
-                    chonkyComps
-                ) : (
-                    <DndProvider backend={HTML5Backend}>{chonkyComps}</DndProvider>
-                )}
+                <ChonkyIconContext.Provider value={null ?? ChonkyIconPlaceholder}>
+                    {disableDragAndDropProvider ? (
+                        chonkyComps
+                    ) : (
+                        <DndProvider backend={HTML5Backend}>{chonkyComps}</DndProvider>
+                    )}
+                </ChonkyIconContext.Provider>
             </ThemeProvider>
         </Provider>
     );

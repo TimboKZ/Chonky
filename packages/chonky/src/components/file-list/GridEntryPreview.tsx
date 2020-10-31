@@ -4,13 +4,13 @@
  * @license MIT
  */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { Nullable } from 'tsdef';
 
 import { DndEntryState } from '../../types/file-list.types';
 import { ChonkyIconName } from '../../types/icons.types';
+import { ChonkyIconContext } from '../../util/icon-helper';
 import { c, important, makeLocalChonkyStyles } from '../../util/styles';
-import { ChonkyIconFA } from '../external/ChonkyIcon';
 import { FileThumbnail } from './FileThumbnail';
 import { GridEntryDndIndicator } from './GridEntryDndIndicator';
 
@@ -145,6 +145,7 @@ export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(
 
         const fileClasses = useFileStyles(entryState);
         const commonClasses = useCommonEntryStyles(entryState);
+        const ChonkyIcon = useContext(ChonkyIconContext);
         const className = c({
             [fileClasses.previewFile]: true,
             [externalClassName || '']: !!externalClassName,
@@ -156,7 +157,7 @@ export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(
                     dndState={dndState}
                 />
                 <div className={fileClasses.fileIcon}>
-                    <ChonkyIconFA icon={entryState.icon} spin={entryState.iconSpin} />
+                    <ChonkyIcon icon={entryState.icon} spin={entryState.iconSpin} />
                 </div>
                 <div className={commonClasses.selectionIndicator}></div>
                 <FileThumbnail
