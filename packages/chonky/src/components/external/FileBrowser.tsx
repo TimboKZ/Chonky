@@ -8,6 +8,7 @@ import shortid from 'shortid';
 
 import { useChonkyStore } from '../../redux/store';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
+import { defaultConfig } from '../../util/defaults';
 import { useStaticValue } from '../../util/hooks-helpers';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import {
@@ -30,7 +31,7 @@ export const FileBrowser = React.forwardRef<
     FileBrowserHandle,
     FileBrowserProps & { children?: ReactNode }
 >((props, ref) => {
-    const { instanceId, disableDragAndDropProvider, children } = props;
+    const { instanceId, disableDragAndDropProvider, iconComponent, children } = props;
 
     const chonkyInstanceId = useStaticValue(() => instanceId ?? shortid.generate());
     const store = useChonkyStore(chonkyInstanceId);
@@ -50,7 +51,13 @@ export const FileBrowser = React.forwardRef<
     return (
         <Provider store={store}>
             <ThemeProvider theme={theme}>
-                <ChonkyIconContext.Provider value={null ?? ChonkyIconPlaceholder}>
+                <ChonkyIconContext.Provider
+                    value={
+                        iconComponent ??
+                        defaultConfig.iconComponent ??
+                        ChonkyIconPlaceholder
+                    }
+                >
                     {disableDragAndDropProvider ? (
                         chonkyComps
                     ) : (

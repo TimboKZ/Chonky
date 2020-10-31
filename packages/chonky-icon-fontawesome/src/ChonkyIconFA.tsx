@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * @author Timur Kuzhagaliyev <tim.kuzh@gmail.com>
  * @copyright 2020

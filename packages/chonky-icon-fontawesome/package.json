@@ -1,6 +1,6 @@
 {
   "name": "chonky-icon-fontawesome",
-  "version": "2.0.0-alpha.63+4b2095b",
+  "version": "2.0.0-alpha.64+6e6cb5e",
   "description": "FontAwesome icon component for Chonky file browser",
   "main": "lib/index.js",
   "files": [
@@ -16,7 +16,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "chonky": "^2.0.0-alpha.63+4b2095b"
+    "chonky": "^2.0.0-alpha.64+6e6cb5e"
   },
   "homepage": "https://chonky.io/",
   "author": {
@@ -40,7 +40,7 @@
     "file-browser",
     "react-component"
   ],
-  "gitHead": "4b2095b036c524005fe244b91e915513ca4ec16d",
+  "gitHead": "6e6cb5e1214cb5bc30b2c3e25fce56423dcbd957",
   "devDependencies": {
     "@testing-library/dom": "^7.26.3",
     "@testing-library/jest-dom": "^5.11.5",

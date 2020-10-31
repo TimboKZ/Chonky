@@ -1,9 +1,11 @@
+import { ElementType } from 'react';
 import { Nullable } from 'tsdef';
 
 import { ChonkyActions } from '../action-definitions/index';
 import { GenericFileActionHandler } from './action-handler.types';
 import { FileAction } from './action.types';
 import { FileArray } from './file.types';
+import { ChonkyIconProps } from './icons.types';
 import { ThumbnailGenerator } from './thumbnails.types';
 
 /**
@@ -118,4 +120,11 @@ export interface FileBrowserProps {
      * unless the click target is a button.
      */
     clearSelectionOnOutsideClick?: boolean;
+
+    /**
+     * Icon component that will be used in this instance of Chonky. Note that this
+     * will only affect the current instance of Chonky. If you wanna set the icon
+     * component for all Chonky instances, use the global config.
+     */
+    iconComponent?: ElementType<ChonkyIconProps>;
 }
