@@ -6,9 +6,10 @@
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
-import React, { FormEvent, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { reduxActions } from '../../redux/reducers';
 import { selectSearchString } from '../../redux/selectors';
 import { thunkUpdateSearchString } from '../../redux/thunks/files.thunks';
 import { ChonkyIconName } from '../../types/icons.types';
@@ -21,6 +22,8 @@ export interface ToolbarSearchProps {}
 export const ToolbarSearch: React.FC<ToolbarSearchProps> = () => {
     const classes = useStyles();
 
+    const searchInputRef = useRef<HTMLInputElement>();
+
     const dispatch = useDispatch();
     const reduxSearchString = useSelector(selectSearchString);
 
@@ -29,14 +32,40 @@ export const ToolbarSearch: React.FC<ToolbarSearchProps> = () => {
     const [showLoadingIndicator, setShowLoadingIndicator] = useState(false);
 
     useEffect(() => {
+        dispatch(
+            reduxActions.setFocusSearchInput(() => {
+                if (searchInputRef.current) searchInputRef.current.focus();
+            })
+        );
+        return () => {
+            dispatch(reduxActions.setFocusSearchInput(null));
+        };
+    }, [dispatch]);
+
+    useEffect(() => {
         setShowLoadingIndicator(false);
         dispatch(thunkUpdateSearchString(debouncedLocalSearchString));
     }, [debouncedLocalSearchString, dispatch]);
 
-    const handleChange = useCallback((event: FormEvent<HTMLInputElement>) => {
+    const handleChange = useCallback((event: React.FormEvent<HTMLInputElement>) => {
         setShowLoadingIndicator(true);
         setLocalSearchString(event.currentTarget.value);
     }, []);
+    const handleKeyUp = useCallback(
+        (event: React.KeyboardEvent<HTMLInputElement>) => {
+            // Remove focus from the search input field when user presses escape.
+            // Note: We use KeyUp instead of KeyPress because some browser plugins can
+            //       intercept KeyPress events with Escape key.
+            //       @see https://stackoverflow.com/a/37461974
+            if (event.key === 'Escape') {
+                setLocalSearchString('');
+                dispatch(thunkUpdateSearchString(''));
+                if (searchInputRef.current) searchInputRef.current.blur();
+            }
+        },
+        [dispatch]
+    );
+
     return (
         <TextField
             className={classes.searchFieldContainer}
@@ -45,7 +74,9 @@ export const ToolbarSearch: React.FC<ToolbarSearchProps> = () => {
             value={localSearchString}
             placeholder="Search"
             onChange={handleChange as any}
+            inputRef={searchInputRef}
             InputProps={{
+                onKeyUp: handleKeyUp,
                 startAdornment: (
                     <InputAdornment className={classes.searchIcon} position="start">
                         <ChonkyIconFA

@@ -1,5 +1,6 @@
 import { Nullable } from 'tsdef';
 
+import { selectFocusSearchInput } from '../redux/selectors';
 import { thunkRequestFileAction } from '../redux/thunks/dispatchers.thunks';
 import { FileSelectionTransform } from '../types/action.types';
 import { FileViewMode } from '../types/file-view.types';
@@ -160,4 +161,14 @@ export const DefaultActions = {
             group: 'Options',
         },
     } as const),
+    FocusSearchInput: defineFileAction(
+        {
+            id: 'focus_search_input',
+            hotkeys: ['ctrl+f'],
+        } as const,
+        ({ getReduxState }) => {
+            const focusSearchInput = selectFocusSearchInput(getReduxState());
+            if (focusSearchInput) focusSearchInput();
+        }
+    ),
 };

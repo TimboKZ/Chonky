@@ -39,6 +39,7 @@ export const selectHiddenFileCount = (state: RootState) =>
     Object.keys(selectHiddenFileIdMap(state)).length;
 export const selectDisplayFileIds = (state: RootState) => state.displayFileIds;
 
+export const selectFocusSearchInput = (state: RootState) => state.focusSearchInput;
 export const selectSearchString = (state: RootState) => state.searchString;
 
 export const selectSelectionMap = (state: RootState) => state.selectionMap;

@@ -28,6 +28,7 @@ export const initialRootState: RootState = {
     hiddenFileIdMap: {},
     displayFileIds: [],
 
+    focusSearchInput: null,
     searchString: '',
     searchMode: 'currentFolder',
 

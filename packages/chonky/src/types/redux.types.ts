@@ -43,6 +43,7 @@ export type RootState = {
     displayFileIds: Nullable<string>[]; // Files that should be shown to the user
 
     // Search
+    focusSearchInput: Nullable<() => void>;
     searchString: string;
     searchMode: 'currentFolder';
 

@@ -33,4 +33,5 @@ export const DefaultFileActions = [
     ChonkyActions.SortFilesByDate,
     ChonkyActions.ToggleHiddenFiles,
     ChonkyActions.ToggleShowFoldersFirst,
+    ChonkyActions.FocusSearchInput,
 ];
