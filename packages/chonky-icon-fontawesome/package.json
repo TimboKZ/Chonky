@@ -1,6 +1,6 @@
 {
   "name": "chonky-icon-fontawesome",
-  "version": "2.0.0-alpha.65+7f51f66",
+  "version": "2.0.0-alpha.66",
   "description": "FontAwesome icon component for Chonky file browser",
   "main": "lib/index.js",
   "files": [
@@ -20,7 +20,7 @@
     "@fortawesome/free-brands-svg-icons": "5.13.1",
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
-    "chonky": "^2.0.0-alpha.65+7f51f66"
+    "chonky": "^2.0.0-alpha.65"
   },
   "homepage": "https://chonky.io/",
   "author": {
@@ -44,7 +44,7 @@
     "file-browser",
     "react-component"
   ],
-  "gitHead": "7f51f66a3ffec6b66bb6abeeec0cbd09323c095e",
+  "gitHead": "7649767bb8667f0e4104330972d1596bd797ae4e",
   "devDependencies": {
     "@testing-library/dom": "^7.26.3",
     "@testing-library/jest-dom": "^5.11.5",
