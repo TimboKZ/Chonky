@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Nullable } from 'tsdef';
+import { Nilable, Nullable } from 'tsdef';
 
 import { GenericFileActionHandler } from '../types/action-handler.types';
 import { FileActionMenuItem } from '../types/action-menus.types';
@@ -20,9 +20,9 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
     reducers: {
         setExternalFileActionHandler(
             state,
-            action: PayloadAction<Nullable<GenericFileActionHandler<FileAction>>>
+            action: PayloadAction<Nilable<GenericFileActionHandler<FileAction>>>
         ) {
-            state.externalFileActionHandler = action.payload;
+            state.externalFileActionHandler = action.payload ?? null;
         },
         setRawFileActions(state, action: PayloadAction<FileAction[] | any>) {
             state.rawFileActions = action.payload;

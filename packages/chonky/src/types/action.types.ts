@@ -9,7 +9,6 @@ import { FileSortKeySelector } from './sort.types';
 
 export interface FileAction {
     id: string; // Unique action ID
-    metadata?: any; // Any user-defined value
     requiresSelection?: boolean; // Requires selection of 1+ files
     fileFilter?: FileFilter; // Used to filter the files array
 

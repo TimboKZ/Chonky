@@ -36,7 +36,7 @@ export { ChonkyActionUnion } from './types/file-browser.types';
 export { FileBrowserHandle, FileBrowserProps } from './types/file-browser.types';
 export { ChonkyIconName, ChonkyIconProps } from './types/icons.types';
 
-export { setChonkyDefaults } from './util/defaults';
+export { setChonkyDefaults } from './util/default-config';
 
 export type FileActionHandler = GenericFileActionHandler<ChonkyActionUnion>;
 export type ChonkyFileActionData = MapFileActionsToData<ChonkyActionUnion>;

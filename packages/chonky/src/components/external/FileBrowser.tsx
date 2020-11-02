@@ -8,7 +8,8 @@ import shortid from 'shortid';
 
 import { useChonkyStore } from '../../redux/store';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
-import { defaultConfig } from '../../util/defaults';
+import { defaultConfig } from '../../util/default-config';
+import { getValueOrFallback } from '../../util/helpers';
 import { useStaticValue } from '../../util/hooks-helpers';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import {
@@ -31,7 +32,12 @@ export const FileBrowser = React.forwardRef<
     FileBrowserHandle,
     FileBrowserProps & { children?: ReactNode }
 >((props, ref) => {
-    const { instanceId, disableDragAndDropProvider, iconComponent, children } = props;
+    const { instanceId, iconComponent, children } = props;
+    const disableDragAndDropProvider = getValueOrFallback(
+        props.disableDragAndDropProvider,
+        defaultConfig.disableDragAndDropProvider,
+        'boolean'
+    );
 
     const chonkyInstanceId = useStaticValue(() => instanceId ?? shortid.generate());
     const store = useChonkyStore(chonkyInstanceId);

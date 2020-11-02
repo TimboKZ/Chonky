@@ -41,7 +41,7 @@ const mergeFileActionsArrays = (...fileActionArrays: FileAction[][]): FileAction
 
 export const thunkUpdateRawFileActions = (
     rawFileActions: FileAction[] | any,
-    disableDefaultFileActions: boolean | string[]
+    disableDefaultFileActions: Nilable<boolean | string[]>
 ): ChonkyThunk => (dispatch) => {
     const { sanitizedArray, errorMessages } = sanitizeInputArray(
         'fileActions',
@@ -150,11 +150,19 @@ export const thunkUpdateDefaultFileViewActionId = (
     }
 };
 
-export const thunkActivateSortAction = (fileActionId: string): ChonkyThunk => (
+export const thunkActivateSortAction = (fileActionId: Nilable<string>): ChonkyThunk => (
     dispatch,
     getState
 ) => {
-    const { sortActionId: oldActionId, sortOrder: oldOrder } = getState();
+    if (!fileActionId) return;
+
+    const {
+        sortActionId: oldActionId,
+        sortOrder: oldOrder,
+        fileActionMap,
+    } = getState();
+    const action = fileActionMap[fileActionId];
+    if (!action || !action.sortKeySelector) return;
 
     let order = oldOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC;
     if (oldActionId !== fileActionId) {

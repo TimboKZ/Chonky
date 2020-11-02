@@ -64,3 +64,14 @@ export const elementIsInsideButton = (buttonCandidate: HTMLElement | any): boole
         (element: any) => element.tagName && element.tagName.toLowerCase() === 'button'
     );
 };
+
+export const getValueOrFallback = <T extends any>(
+    value: T,
+    fallback: T,
+    desiredType?: 'boolean' | 'string' | 'number'
+): T => {
+    if (desiredType) {
+        return typeof value === desiredType ? value : fallback;
+    }
+    return value !== undefined ? value : fallback;
+};

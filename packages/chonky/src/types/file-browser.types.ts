@@ -63,19 +63,19 @@ export interface FileBrowserProps {
      * These actions will be activated in addition to default actions. If you don't
      * want default file actions to be enabled, see `disableDefaultFileActions` prop.
      */
-    fileActions?: FileAction[];
+    fileActions?: Nullable<FileAction[]>;
 
     /**
      * An action handler that will be called every time a file action is dispatched.
      */
-    onFileAction?: GenericFileActionHandler<ChonkyActionUnion>;
+    onFileAction?: Nullable<GenericFileActionHandler<ChonkyActionUnion>>;
 
     /**
      * The function that determines the thumbnail image URL for a file. It gets a file
      * object as the input, and should return a `string` or `null`. It can also
      * return a promise that resolves into a `string` or `null`.
      */
-    thumbnailGenerator?: ThumbnailGenerator;
+    thumbnailGenerator?: Nullable<ThumbnailGenerator>;
 
     /**
      * Maximum delay between the two clicks in a double click, in milliseconds.
@@ -109,7 +109,13 @@ export interface FileBrowserProps {
     disableDragAndDropProvider?: boolean;
 
     /**
-     * The ID of the file view-setting action to activate by default. This field can
+     * The ID of the sort-selector-setting action to activate by default. This field can
+     * be used to specify the default sort order in Chonky.
+     */
+    defaultSortActionId?: string;
+
+    /**
+     * The ID of the file-view-setting action to activate by default. This field can
      * be used to specify the default file view in Chonky.
      */
     defaultFileViewActionId?: string;
