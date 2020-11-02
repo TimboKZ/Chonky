@@ -19,7 +19,7 @@ export type ChonkyConfig = Pick<
 >;
 
 export const defaultConfig: ChonkyConfig = {
-    fileActions: undefined,
+    fileActions: null,
     onFileAction: null,
     thumbnailGenerator: null,
     doubleClickDelay: 300,
