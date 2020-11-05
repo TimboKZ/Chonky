@@ -56,7 +56,7 @@ export const ToolbarDropdown: React.FC<ToolbarDropdownProps> = (props) => {
     );
 };
 
-const useStyles = makeGlobalChonkyStyles(() => ({
+const useStyles = makeGlobalChonkyStyles((theme) => ({
     dropdownList: {
         paddingBottom: important(0),
         paddingTop: important(0),

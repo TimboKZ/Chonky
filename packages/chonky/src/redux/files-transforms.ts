@@ -23,7 +23,7 @@ export const sanitizeInputArray: SanitizeFiles = (mode: string, rawArray: any[])
     const sanitizedFiles = [];
     const errorMessages: string[] = [];
 
-    if (mode === 'folderChain' && !rawArray) {
+    if ((mode === 'folderChain' || mode === 'fileActions') && !rawArray) {
         // Do nothing, we allow folder chain to be null.
     } else if (!Array.isArray(rawArray)) {
         errorMessages.push(
