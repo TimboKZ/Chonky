@@ -53,6 +53,13 @@ export const thunkSortFiles = (): ChonkyThunk => (dispatch, getState) => {
         optionMap,
     } = getState();
 
+    if (!sortActionId) {
+        // We allow users to set the sort action ID to `null` if they want to use their
+        // own sorting mechanisms instead of relying on Chonky built-in sort.
+        dispatch(reduxActions.setSortedFileIds(fileIds));
+        return;
+    }
+
     const sortAction = fileActionMap[sortActionId];
     const sortKeySelector = sortAction ? sortAction.sortKeySelector : null;
     const showFolderFirst = optionMap[ChonkyActions.ToggleShowFoldersFirst.option.id];

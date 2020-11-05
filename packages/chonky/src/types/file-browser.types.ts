@@ -112,7 +112,7 @@ export interface FileBrowserProps {
      * The ID of the sort-selector-setting action to activate by default. This field can
      * be used to specify the default sort order in Chonky.
      */
-    defaultSortActionId?: string;
+    defaultSortActionId?: Nullable<string>;
 
     /**
      * The ID of the file-view-setting action to activate by default. This field can

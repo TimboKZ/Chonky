@@ -55,7 +55,7 @@ export type RootState = {
     fileViewConfig: FileViewConfig;
 
     // Sorting
-    sortActionId: string;
+    sortActionId: Nullable<string>;
     sortOrder: SortOrder;
 
     // Options

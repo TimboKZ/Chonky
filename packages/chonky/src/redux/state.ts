@@ -37,7 +37,7 @@ export const initialRootState: RootState = {
 
     fileViewConfig: ChonkyActions.EnableGridView.fileViewConfig,
 
-    sortActionId: ChonkyActions.SortFilesByName.id,
+    sortActionId: null,
     sortOrder: SortOrder.ASC,
 
     optionMap: {},

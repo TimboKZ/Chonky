@@ -52,11 +52,7 @@ export const ChonkyBusinessLogicInner = React.forwardRef<
     );
     useDTE(
         thunkActivateSortAction,
-        getValueOrFallback(
-            props.defaultSortActionId,
-            defaultConfig.defaultSortActionId,
-            'string'
-        )
+        getValueOrFallback(props.defaultSortActionId, defaultConfig.defaultSortActionId)
     );
     useDTE(
         thunkUpdateDefaultFileViewActionId,
