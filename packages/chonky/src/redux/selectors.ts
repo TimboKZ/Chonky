@@ -65,6 +65,7 @@ export const selectSelectedFilesForAction = (fileActionId: string) => (
 export const selectSelectedFilesForActionCount = (fileActionId: string) => (
     state: RootState
 ) => getSelectedFilesForAction(state, fileActionId)?.length;
+export const selectDisableSelection = (state: RootState) => state.disableSelection;
 
 export const selectFileViewConfig = (state: RootState) => state.fileViewConfig;
 

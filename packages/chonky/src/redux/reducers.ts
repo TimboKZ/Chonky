@@ -96,6 +96,7 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
             state,
             action: PayloadAction<{ rangeStart: number; rangeEnd: number }>
         ) {
+            if (state.disableSelection) return;
             state.selectionMap = {};
             state.displayFileIds
                 .slice(action.payload.rangeStart, action.payload.rangeEnd + 1)

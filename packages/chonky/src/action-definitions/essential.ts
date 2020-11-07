@@ -3,6 +3,7 @@ import {
     getFileData,
     getIsFileSelected,
     getSelectedFiles,
+    selectDisableSelection,
     selectLastClickIndex,
     selectParentFolder,
     selectSelectionSize,
@@ -46,7 +47,9 @@ export const EssentialActions = {
                 }
             } else {
                 // We're dealing with a single click
-                if (FileHelper.isSelectable(payload.file)) {
+
+                const disableSelection = selectDisableSelection(getReduxState());
+                if (FileHelper.isSelectable(payload.file) && !disableSelection) {
                     if (payload.ctrlKey) {
                         // Multiple selection
                         reduxDispatch(
@@ -98,7 +101,9 @@ export const EssentialActions = {
                         );
                     }
                 } else {
-                    if (!payload.ctrlKey) reduxDispatch(reduxActions.clearSelection());
+                    if (!payload.ctrlKey && !disableSelection) {
+                        reduxDispatch(reduxActions.clearSelection());
+                    }
                     reduxDispatch(
                         reduxActions.setLastClickIndex(payload.fileDisplayIndex)
                     );
