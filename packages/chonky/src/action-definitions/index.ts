@@ -1,6 +1,6 @@
 import { DefaultActions } from './default';
 import { EssentialActions } from './essential';
-import { ExtraActions } from './other';
+import { ExtraActions } from './extra';
 
 export const ChonkyActions = {
     ...EssentialActions,

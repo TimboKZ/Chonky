@@ -2,6 +2,9 @@ import { ChonkyIconName } from '../types/icons.types';
 import { defineFileAction } from '../util/helpers';
 
 export const ExtraActions = {
+    /**
+     * Action that adds a button and shortcut to copy files.
+     */
     CopyFiles: defineFileAction({
         id: 'copy_files',
         requiresSelection: true,
@@ -14,6 +17,9 @@ export const ExtraActions = {
             icon: ChonkyIconName.copy,
         },
     } as const),
+    /**
+     * Action that adds a button to create a new folder.
+     */
     CreateFolder: defineFileAction({
         id: 'create_folder',
         button: {
@@ -23,6 +29,9 @@ export const ExtraActions = {
             icon: ChonkyIconName.folderCreate,
         },
     } as const),
+    /**
+     * Action that adds a button to upload files.
+     */
     UploadFiles: defineFileAction({
         id: 'upload_files',
         button: {
@@ -32,6 +41,9 @@ export const ExtraActions = {
             icon: ChonkyIconName.upload,
         },
     } as const),
+    /**
+     * Action that adds a button to download files.
+     */
     DownloadFiles: defineFileAction({
         id: 'download_files',
         requiresSelection: true,
@@ -44,6 +56,9 @@ export const ExtraActions = {
             icon: ChonkyIconName.download,
         },
     } as const),
+    /**
+     * Action that adds a button and shortcut to delete files.
+     */
     DeleteFiles: defineFileAction({
         id: 'delete_files',
         requiresSelection: true,

@@ -26,6 +26,10 @@ import { Logger } from '../util/logger';
 import { ChonkyActions } from './index';
 
 export const EssentialActions = {
+    /**
+     * Action that is dispatched when the user clicks on a file entry using their mouse.
+     * Both single clicks and double clicks trigger this action.
+     */
     MouseClickFile: defineFileAction(
         {
             id: 'mouse_click_file',
@@ -111,6 +115,10 @@ export const EssentialActions = {
             }
         }
     ),
+    /**
+     * Action that is dispatched when the user "clicks" on a file using their keyboard.
+     * Using Space and Enter keys counts as clicking.
+     */
     KeyboardClickFile: defineFileAction(
         {
             id: 'keyboard_click_file',
@@ -140,6 +148,9 @@ export const EssentialActions = {
             }
         }
     ),
+    /**
+     * Action that is dispatched when user starts dragging some file.
+     */
     StartDragNDrop: defineFileAction(
         {
             id: 'start_drag_n_drop',
@@ -159,6 +170,10 @@ export const EssentialActions = {
             }
         }
     ),
+    /**
+     * Action that is dispatched when user either cancels the drag & drop interaction,
+     * or drops a file somewhere.
+     */
     EndDragNDrop: defineFileAction(
         {
             id: 'end_drag_n_drop',
@@ -184,18 +199,32 @@ export const EssentialActions = {
             );
         }
     ),
+    /**
+     * Action that is dispatched when user moves files from one folder to another,
+     * usually by dragging & dropping some files into the folder.
+     */
     MoveFiles: defineFileAction({
         id: 'move_files',
         __payloadType: {} as MoveFilesPayload,
     } as const),
+    /**
+     * Action that is dispatched when the selection changes for any reason.
+     */
     ChangeSelection: defineFileAction({
         id: 'change_selection',
         __payloadType: {} as ChangeSelectionPayload,
     } as const),
+    /**
+     * Action that is dispatched when user wants to open some files. This action is
+     * often triggered by other actions.
+      */
     OpenFiles: defineFileAction({
         id: 'open_files',
         __payloadType: {} as OpenFilesPayload,
     } as const),
+    /**
+     * Action that is triggered when user wants to go up a directory.
+     */
     OpenParentFolder: defineFileAction(
         {
             id: 'open_parent_folder',
@@ -225,6 +254,10 @@ export const EssentialActions = {
             }
         }
     ),
+    /**
+     * Action that is dispatched when user opens the context menu, either by right click
+     * on something or using the context menu button on their keyboard.
+     */
     OpenFileContextMenu: defineFileAction(
         {
             id: 'open_file_context_menu',
