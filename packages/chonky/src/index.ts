@@ -4,12 +4,12 @@ import {
 } from './types/action-handler.types';
 import { ChonkyActionUnion } from './types/file-browser.types';
 
-export { FullFileBrowser } from './components/external/FullFileBrowser';
 export { FileBrowser } from './components/external/FileBrowser';
 export { FileNavbar } from './components/external/FileNavbar';
 export { FileToolbar } from './components/external/FileToolbar';
 export { FileList } from './components/file-list/FileList';
 export { FileContextMenu } from './components/external/FileContextMenu';
+export { FullFileBrowser } from './components/external/FullFileBrowser';
 
 export { ChonkyActions, DefaultFileActions } from './action-definitions';
 export { defineFileAction } from './util/helpers';
