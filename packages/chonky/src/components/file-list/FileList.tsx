@@ -2,8 +2,9 @@ import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
+import { ChonkyActions } from '../../action-definitions/index';
 import { selectDisplayFileIds, selectFileViewConfig } from '../../redux/selectors';
-import { FileViewConfig, FileViewMode } from '../../types/file-view.types';
+import { FileViewMode } from '../../types/file-view.types';
 import { c, makeGlobalChonkyStyles, makeLocalChonkyStyles } from '../../util/styles';
 import { FileListEmpty } from './FileListEmpty';
 import { GridContainer } from './GridContainer';
@@ -48,12 +49,13 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
 
 const useLocalStyles = makeLocalChonkyStyles((theme) => ({
     fileListWrapper: {
-        minHeight: (viewConfig: FileViewConfig) => viewConfig.entryHeight,
+        minHeight: ChonkyActions.EnableGridView.fileViewConfig.entryHeight + 2,
     },
 }));
 
 const useStyles = makeGlobalChonkyStyles(() => ({
     fileListWrapper: {
         height: '100%',
+        maxHeight: '100%',
     },
 }));
