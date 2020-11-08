@@ -4,6 +4,7 @@ import {
 } from './types/action-handler.types';
 import { ChonkyActionUnion } from './types/file-browser.types';
 
+export { FullFileBrowser } from './components/external/FullFileBrowser';
 export { FileBrowser } from './components/external/FileBrowser';
 export { FileNavbar } from './components/external/FileNavbar';
 export { FileToolbar } from './components/external/FileToolbar';
