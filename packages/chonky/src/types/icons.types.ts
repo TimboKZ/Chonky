@@ -98,7 +98,6 @@ export interface ChonkyIconProps {
     icon: ChonkyIconName | string;
     spin?: boolean;
     className?: string;
-    color?: string;
     fixedWidth?: boolean;
     style?: React.CSSProperties;
 }

@@ -107,6 +107,9 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
         opacity: 0.75,
     },
     searchFieldInput: {
+        lineHeight: important(0),
+        padding: important(0),
+        margin: important(0),
         fontSize: important(theme.toolbar.fontSize),
         borderRadius: theme.toolbar.buttonRadius,
         height: theme.toolbar.size - 4,
@@ -114,9 +117,11 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
         marginTop: 2,
     },
     searchFieldInputInner: {
-        lineHeight: important(theme.toolbar.lineHeight),
+        lineHeight: important(`${theme.toolbar.size - 4}px`),
         fontSize: important(theme.toolbar.fontSize),
+        height: important(theme.toolbar.size - 4),
         padding: important([0, 8, 0, 0]),
-        height: theme.toolbar.size,
+        margin: important(0),
+        '-webkit-appearance': 'none',
     },
 }));

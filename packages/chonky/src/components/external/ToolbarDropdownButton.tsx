@@ -57,10 +57,11 @@ export const ToolbarDropdownButton = React.forwardRef(
 
 const useStyles = makeGlobalChonkyStyles((theme) => ({
     baseButton: {
+        lineHeight: important(theme.toolbar.lineHeight),
+        height: important(theme.toolbar.size),
+        minHeight: important('auto'),
         minWidth: important('auto'),
-        lineHeight: theme.toolbar.lineHeight,
         padding: important(20),
-        height: theme.toolbar.size,
     },
     icon: {
         fontSize: important(theme.toolbar.fontSize),

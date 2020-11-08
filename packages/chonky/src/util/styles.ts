@@ -74,7 +74,12 @@ export const mobileOverrideTheme: DeepPartial<ChonkyTheme> = {
     fontSizes: {
         rootPrimary: 13,
     },
+    margins: {
+        rootLayoutMargin: 4,
+    },
     toolbar: {
+        size: 28,
+        lineHeight: '28px',
         fontSize: 13,
     },
     gridFileEntry: {
