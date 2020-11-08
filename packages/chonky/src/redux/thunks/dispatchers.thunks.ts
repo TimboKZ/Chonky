@@ -133,7 +133,7 @@ export const thunkRequestFileAction = <Action extends FileAction>(
 
     // Dispatch the action to user code. Deliberately call it after all other
     // operations are over.
-    Promise.resolve(maybeEffectPromise)
+    return Promise.resolve(maybeEffectPromise)
         .then((effectResult) => {
             const data: FileActionData<Action> = {
                 id: action.id,

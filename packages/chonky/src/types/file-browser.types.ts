@@ -13,18 +13,31 @@ import { ThumbnailGenerator } from './thumbnails.types';
  */
 export interface FileBrowserHandle {
     /**
+     * Method used to get the current file selection.
      * @returns An ES6 Set containing the IDs of the selected files.
      */
-    getFileSelection: () => Set<string>;
+    getFileSelection(): Set<string>;
 
     /**
+     * Method used to set the current file selection.
      * @param selection An ES6 Set containing the IDs of files that should be selected.
      * IDs of files that are not present in the `files` array will be ignored.
      * @param [reset=true] Whether to clear the current selection before applying
      * the new selection. When set to `false`, the new selection will be merged with
      * the current selection. Set to `true` by default.
      */
-    setFileSelection: (selection: Set<string>, reset?: boolean) => void;
+    setFileSelection(selection: Set<string>, reset?: boolean): void;
+
+    /**
+     * Method used to programatically trigger file actions in Chonky.
+     * @param action A file action definition object
+     * @param payload The payload expected by the action. If action does not expect
+     * a payload, this should be set to `undefined`.
+     */
+    requestFileAction<Action extends FileAction>(
+        action: Action,
+        payload: Action['__payloadType']
+    ): Promise<void>;
 }
 
 export type ChonkyActionUnion = typeof ChonkyActions[keyof typeof ChonkyActions];

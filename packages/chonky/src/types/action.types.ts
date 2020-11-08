@@ -105,7 +105,7 @@ export type FileSelectionTransform = (data: {
 export type FileActionEffect<Action extends FileAction = any> = (data: {
     action: Action;
     payload: Action['__payloadType'];
-    state: FileActionState<{}>; // empty extra state is deliberate
+    state: FileActionState<{}>; // extra state is empty on purpose
     reduxDispatch: ChonkyDispatch;
     getReduxState: () => RootState;
 }) => MaybePromise<undefined | boolean | void>;
