@@ -34,6 +34,12 @@ export {
 export { ChonkyActionUnion } from './types/file-browser.types';
 
 export { FileBrowserHandle, FileBrowserProps } from './types/file-browser.types';
+export {
+    FileViewConfig,
+    FileViewConfigGrid,
+    FileViewConfigList,
+    FileViewMode,
+} from './types/file-view.types';
 export { ChonkyIconName, ChonkyIconProps } from './types/icons.types';
 
 export { setChonkyDefaults } from './util/default-config';
