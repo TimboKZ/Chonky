@@ -33,6 +33,11 @@ export const FileBrowser = React.forwardRef<
     FileBrowserProps & { children?: ReactNode }
 >((props, ref) => {
     const { instanceId, iconComponent, children } = props;
+    const disableDragAndDrop = getValueOrFallback(
+        props.disableDragAndDrop,
+        defaultConfig.disableDragAndDrop,
+        'boolean'
+    );
     const disableDragAndDropProvider = getValueOrFallback(
         props.disableDragAndDropProvider,
         defaultConfig.disableDragAndDropProvider,
@@ -64,7 +69,7 @@ export const FileBrowser = React.forwardRef<
                         ChonkyIconPlaceholder
                     }
                 >
-                    {disableDragAndDropProvider ? (
+                    {disableDragAndDrop || disableDragAndDropProvider ? (
                         chonkyComps
                     ) : (
                         <DndProvider backend={HTML5Backend}>{chonkyComps}</DndProvider>
