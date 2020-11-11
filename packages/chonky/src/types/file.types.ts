@@ -24,6 +24,7 @@ export interface FileData {
     color?: string; // Color to use for this file
     icon?: ChonkyIconName | string | any; // Icon to use for this file
     thumbnailUrl?: string; // Automatically load thumbnail from this URL
+    folderChainIcon?: Nullable<ChonkyIconName | string | any>; // Folder chain icon
 
     [property: string]: any; // Any other user-defined property
 }

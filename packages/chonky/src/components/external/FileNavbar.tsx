@@ -31,9 +31,13 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
                 [classes.currentBreadcrumb]: i === folderChainItems.length - 1,
             });
             const text = file ? file.name : 'Loading...';
+            const icon =
+                i === 0 && file?.folderChainIcon === undefined
+                    ? ChonkyIconName.folder
+                    : file?.folderChainIcon;
             const component = (
                 <ToolbarButton
-                    icon={i === 0 ? ChonkyIconName.folder : null}
+                    icon={icon}
                     className={className}
                     key={key}
                     text={text}
