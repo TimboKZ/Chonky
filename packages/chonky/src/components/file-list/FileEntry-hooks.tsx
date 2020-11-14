@@ -7,17 +7,11 @@ import React, {
     useMemo,
     useState,
 } from 'react';
-import { DragSourceMonitor, useDrag, useDrop } from 'react-dnd';
-import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
-import { ExcludeKeys, Nilable, Nullable, Undefinable } from 'tsdef';
+import { Nullable, Undefinable } from 'tsdef';
 
 import { ChonkyActions } from '../../action-definitions/index';
-import {
-    selectCurrentFolder,
-    selectInstanceId,
-    selectThumbnailGenerator,
-} from '../../redux/selectors';
+import { selectThumbnailGenerator } from '../../redux/selectors';
 import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
 import { DndEntryState } from '../../types/file-list.types';
 import { FileData } from '../../types/file.types';
@@ -32,7 +26,6 @@ import {
 import { Logger } from '../../util/logger';
 import { TextPlaceholder } from '../external/TextPlaceholder';
 import { KeyboardClickEvent, MouseClickEvent } from '../internal/ClickableWrapper';
-import { DnDFileEntryItem, DnDFileEntryType } from './DnDFileEntry';
 import { FileEntryState } from './GridEntryPreview';
 
 export const useFileEntryHtmlProps = (
@@ -80,18 +73,16 @@ export const useFileEntryState = (
 
 export const useDndIcon = (dndState: DndEntryState) => {
     let dndIconName: Nullable<ChonkyIconName> = null;
-    let dndIconColor: Undefinable<string> = 'inherit';
     if (dndState.dndIsOver) {
         const showDropIcon = dndState.dndCanDrop;
         dndIconName = showDropIcon
             ? ChonkyIconName.dndCanDrop
             : ChonkyIconName.dndCannotDrop;
-        dndIconColor = showDropIcon ? 'green' : 'red';
     } else if (dndState.dndIsDragging) {
         dndIconName = ChonkyIconName.dndDragging;
     }
 
-    return { dndIconName, dndIconColor };
+    return dndIconName;
 };
 
 export const useModifierIconComponents = (file: Nullable<FileData>) => {
@@ -182,111 +173,6 @@ export const useThumbnailUrl = (file: Nullable<FileData>) => {
     }, [file, setThumbnailUrl, setThumbnailLoading, thumbnailGenerator]);
 
     return { thumbnailUrl, thumbnailLoading };
-};
-
-export const useFileEntryDnD = (file: Nullable<FileData>, selected: boolean) => {
-    const dispatch = useDispatch();
-    const instanceId = useSelector(selectInstanceId);
-    const currentFolder = useSelector(selectCurrentFolder);
-
-    interface ChonkyDnDDropResult {
-        dropTarget: Nilable<FileData>;
-        dropEffect: 'move' | 'copy';
-    }
-
-    // For drag source
-    const canDrag = FileHelper.isDraggable(file);
-    const onDragStart = useCallback(() => {
-        if (!FileHelper.isDraggable(file)) return;
-
-        dispatch(
-            thunkRequestFileAction(ChonkyActions.StartDragNDrop, {
-                dragSource: file,
-            })
-        );
-    }, [dispatch, file]);
-    const onDragEnd = useCallback(
-        (item: DnDFileEntryItem, monitor: DragSourceMonitor) => {
-            const dropResult = monitor.getDropResult() as ChonkyDnDDropResult;
-            if (
-                !FileHelper.isDraggable(file) ||
-                !dropResult ||
-                !dropResult.dropTarget
-            ) {
-                return;
-            }
-
-            dispatch(
-                thunkRequestFileAction(ChonkyActions.EndDragNDrop, {
-                    sourceInstanceId: instanceId,
-                    source: currentFolder,
-                    draggedFile: file,
-                    destination: dropResult.dropTarget,
-                    copy: dropResult.dropEffect === 'copy',
-                })
-            );
-        },
-        [dispatch, file, instanceId, currentFolder]
-    );
-
-    // For drop target
-    const onDrop = useCallback(
-        (item: DnDFileEntryItem, monitor) => {
-            if (!monitor.canDrop()) return;
-            const customDropResult: ExcludeKeys<ChonkyDnDDropResult, 'dropEffect'> = {
-                dropTarget: file,
-            };
-            return customDropResult;
-        },
-        [file]
-    );
-    const canDrop = useCallback(
-        (item: DnDFileEntryItem) => {
-            const isSameFile = file && item.file && file.id === item.file.id;
-            return FileHelper.isDroppable(file) && !isSameFile && !selected;
-        },
-        [file, selected]
-    );
-
-    // Create refs for react-dnd hooks
-    const [{ isDragging: dndIsDragging }, drag, preview] = useDrag({
-        item: { type: DnDFileEntryType, file } as DnDFileEntryItem,
-        canDrag,
-        begin: onDragStart,
-        end: onDragEnd,
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
-    });
-    const [{ isOver: dndIsOver, canDrop: dndCanDrop }, drop] = useDrop({
-        accept: DnDFileEntryType,
-        drop: onDrop,
-        canDrop,
-        collect: (monitor) => ({
-            isOver: monitor.isOver(),
-            canDrop: monitor.canDrop(),
-        }),
-    });
-
-    useEffect(() => {
-        // Set drag preview to an empty image because `DnDFileListDragLayer` will
-        // provide its own preview.
-        preview(getEmptyImage(), { captureDraggingState: true });
-    }, [preview]);
-
-    const dndState = useMemo<DndEntryState>(
-        () => ({
-            dndIsDragging,
-            dndIsOver,
-            dndCanDrop,
-        }),
-        [dndCanDrop, dndIsDragging, dndIsOver]
-    );
-    return {
-        drop,
-        drag,
-        dndState,
-    };
 };
 
 export const useFileClickHandlers = (

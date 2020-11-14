@@ -5,10 +5,7 @@ import { FileHelper } from '../../util/file-helper';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import { makeLocalChonkyStyles } from '../../util/styles';
 import { TextPlaceholder } from '../external/TextPlaceholder';
-import {
-    useFileEntryHtmlProps,
-    useFileEntryState,
-} from './FileEntry-hooks';
+import { useFileEntryHtmlProps, useFileEntryState } from './FileEntry-hooks';
 import { FileEntryName } from './FileEntryName';
 import { FileEntryState } from './GridEntryPreview';
 

@@ -157,7 +157,7 @@ export const EssentialActions = {
             __payloadType: {} as StartDragNDropPayload,
         } as const,
         ({ payload, reduxDispatch, getReduxState }) => {
-            const file = payload.dragSource;
+            const file = payload.draggedFile;
             if (!getIsFileSelected(getReduxState(), file)) {
                 if (FileHelper.isSelectable(file)) {
                     reduxDispatch(
@@ -217,7 +217,7 @@ export const EssentialActions = {
     /**
      * Action that is dispatched when user wants to open some files. This action is
      * often triggered by other actions.
-      */
+     */
     OpenFiles: defineFileAction({
         id: 'open_files',
         __payloadType: {} as OpenFilesPayload,

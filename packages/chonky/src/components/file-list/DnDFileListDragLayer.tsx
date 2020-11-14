@@ -10,8 +10,8 @@ import { useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
 import { selectSelectionSize } from '../../redux/selectors';
+import { ChonkyDndFileEntryItem, ChonkyDndFileEntryType } from '../../types/dnd.types';
 import { makeGlobalChonkyStyles } from '../../util/styles';
-import { DnDFileEntryItem, DnDFileEntryType } from './DnDFileEntry';
 
 export interface DnDFileListDragLayerProps {}
 
@@ -55,7 +55,7 @@ export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
         currentFileOffset,
         isDragging,
     } = useDragLayer((monitor) => ({
-        item: monitor.getItem() as DnDFileEntryItem,
+        item: monitor.getItem() as ChonkyDndFileEntryItem,
         itemType: monitor.getItemType(),
         initialCursorOffset: monitor.getInitialClientOffset(),
         initialFileOffset: monitor.getInitialSourceClientOffset(),
@@ -63,7 +63,7 @@ export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
         isDragging: monitor.isDragging(),
     }));
     function renderItem() {
-        if (!item.file || itemType !== DnDFileEntryType) return;
+        if (!item.file || itemType !== ChonkyDndFileEntryType) return;
 
         return (
             <div className={classes.fileDragPreview}>

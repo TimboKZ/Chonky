@@ -34,6 +34,13 @@ export const lightTheme = {
         buttonRadius: 4,
     },
 
+    dnd: {
+        canDropColor: 'green',
+        cannotDropColor: 'red',
+        canDropMask: 'rgba(180, 235, 180, 0.75)',
+        cannotDropMask: 'rgba(235, 180, 180, 0.75)',
+    },
+
     dragLayer: {
         boxShadow: '2px 2px 5px #888',
         backgroundColor: '#f5f5f5',

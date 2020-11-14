@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 
-import { FileEntryProps } from '../../types/file-list.types';
+import { DndEntryState, FileEntryProps } from '../../types/file-list.types';
 import { FileHelper } from '../../util/file-helper';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import { c, makeLocalChonkyStyles } from '../../util/styles';
@@ -13,25 +13,28 @@ import {
 import { FileEntryName } from './FileEntryName';
 import { FileEntryState, useCommonEntryStyles } from './GridEntryPreview';
 
+interface StyleState {
+    entryState: FileEntryState;
+    dndState: DndEntryState;
+}
+
 export const ListEntry: React.FC<FileEntryProps> = React.memo(
     ({ file, selected, focused, dndState }) => {
         const entryState: FileEntryState = useFileEntryState(file, selected, focused);
-        const { dndIconColor, dndIconName } = useDndIcon(dndState);
+        const dndIconName = useDndIcon(dndState);
 
-        const dndStyle = useMemo(
-            () =>
-                dndIconName
-                    ? {
-                          color: dndIconColor,
-                      }
-                    : undefined,
-            [dndIconColor, dndIconName]
-        );
-
+        const dndStyle = {};
         const fileSizeString = FileHelper.getReadableDate(file);
         const fileDateString = FileHelper.getReadableFileSize(file);
 
-        const classes = useStyles(entryState);
+        const styleState = useMemo<StyleState>(
+            () => ({
+                entryState,
+                dndState,
+            }),
+            [dndState, entryState]
+        );
+        const classes = useStyles(styleState);
         const commonClasses = useCommonEntryStyles(entryState);
         const ChonkyIcon = useContext(ChonkyIconContext);
         const fileEntryHtmlProps = useFileEntryHtmlProps(file);
@@ -84,6 +87,12 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     listFileEntry: {
         boxShadow: `inset ${theme.listFileEntry.borderColor} 0 -1px 0`,
         fontSize: theme.listFileEntry.fontSize,
+        color: ({ dndState }: StyleState) =>
+            dndState.dndIsOver
+                ? dndState.dndCanDrop
+                    ? theme.dnd.canDropColor
+                    : theme.dnd.cannotDropColor
+                : 'inherit',
         alignItems: 'center',
         position: 'relative',
         display: 'flex',
@@ -93,7 +102,12 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
         opacity: 0.6,
     },
     listFileEntryIcon: {
-        color: (state: FileEntryState) => state.color,
+        color: ({ entryState, dndState }: StyleState) =>
+            dndState.dndIsOver
+                ? dndState.dndCanDrop
+                    ? theme.dnd.canDropColor
+                    : theme.dnd.cannotDropColor
+                : entryState.color,
         fontSize: theme.listFileEntry.iconFontSize,
         boxSizing: 'border-box',
         padding: [2, 4],

@@ -9,10 +9,10 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import React, { ReactElement, useMemo } from 'react';
 
 import { ChonkyActions } from '../../action-definitions/index';
-import { ChonkyIconName } from '../../types/icons.types';
-import { c, important, makeGlobalChonkyStyles } from '../../util/styles';
+import { important, makeGlobalChonkyStyles } from '../../util/styles';
 import { useFolderChainItems } from './FileNavbar-hooks';
-import { SmartToolbarButton, ToolbarButton } from './ToolbarButton';
+import { FolderChainButton } from './FolderChainButton';
+import { SmartToolbarButton } from './ToolbarButton';
 
 export interface FileNavbarProps {}
 
@@ -23,32 +23,19 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
     const folderChainComponents = useMemo(() => {
         const components: ReactElement[] = [];
         for (let i = 0; i < folderChainItems.length; ++i) {
-            const { file, disabled, onClick } = folderChainItems[i];
-            const key = `folder-chain-${file ? file.id : i}`;
-            const className = c({
-                [classes.baseBreadcrumb]: true,
-                [classes.disabledBreadcrumb]: disabled,
-                [classes.currentBreadcrumb]: i === folderChainItems.length - 1,
-            });
-            const text = file ? file.name : 'Loading...';
-            const icon =
-                i === 0 && file?.folderChainIcon === undefined
-                    ? ChonkyIconName.folder
-                    : file?.folderChainIcon;
+            const key = `folder-chain-${i}`;
             const component = (
-                <ToolbarButton
-                    icon={icon}
-                    className={className}
+                <FolderChainButton
                     key={key}
-                    text={text}
-                    disabled={disabled}
-                    onClick={onClick}
+                    first={i === 0}
+                    current={i === folderChainItems.length - 1}
+                    item={folderChainItems[i]}
                 />
             );
             components.push(component);
         }
         return components;
-    }, [folderChainItems, classes]);
+    }, [folderChainItems]);
 
     return (
         <Box className={classes.navbarWrapper}>
@@ -81,15 +68,6 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     navbarBreadcrumbs: {
         fontSize: important(theme.toolbar.fontSize),
         flexGrow: 100,
-    },
-    baseBreadcrumb: {
-        color: important(theme.colors.textPrimary),
-    },
-    disabledBreadcrumb: {
-        color: important(theme.colors.textSubtle),
-    },
-    currentBreadcrumb: {
-        textDecoration: important('underline'),
     },
     separator: {
         marginRight: important(4),

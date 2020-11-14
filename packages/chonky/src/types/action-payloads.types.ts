@@ -22,7 +22,7 @@ export interface KeyboardClickFilePayload {
 }
 
 export interface StartDragNDropPayload {
-    dragSource: FileData;
+    draggedFile: FileData;
 }
 
 export interface EndDragNDropPayload {

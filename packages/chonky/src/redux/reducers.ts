@@ -78,10 +78,7 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         setDisplayFileIds(state, action: PayloadAction<Nullable<string>[]>) {
             state.displayFileIds = action.payload;
         },
-        setFocusSearchInput(
-            state,
-            action: PayloadAction<Nullable<() => void>>
-        ) {
+        setFocusSearchInput(state, action: PayloadAction<Nullable<() => void>>) {
             state.focusSearchInput = action.payload;
         },
         setSearchString(state, action: PayloadAction<string>) {

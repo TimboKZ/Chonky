@@ -9,10 +9,7 @@ import { Nullable } from 'tsdef';
 
 import { FileData } from '../../types/file.types';
 import { makeLocalChonkyStyles } from '../../util/styles';
-import {
-    useFileNameComponent,
-    useModifierIconComponents,
-} from './FileEntry-hooks';
+import { useFileNameComponent, useModifierIconComponents } from './FileEntry-hooks';
 
 export interface FileEntryNameProps {
     file: Nullable<FileData>;

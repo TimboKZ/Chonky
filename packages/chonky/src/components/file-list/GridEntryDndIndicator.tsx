@@ -19,8 +19,8 @@ export interface DnDIndicatorProps {
 export const GridEntryDndIndicator: React.FC<DnDIndicatorProps> = React.memo(
     (props) => {
         const { className: externalClassName, dndState } = props;
-        const { dndIconColor, dndIconName } = useDndIcon(dndState);
-        const classes = useStyles(dndIconColor);
+        const dndIconName = useDndIcon(dndState);
+        const classes = useStyles(dndState);
         const ChonkyIcon = useContext(ChonkyIconContext);
         if (!dndIconName) return null;
         const className = c({
@@ -37,7 +37,12 @@ export const GridEntryDndIndicator: React.FC<DnDIndicatorProps> = React.memo(
 
 const useStyles = makeLocalChonkyStyles((theme) => ({
     dndIndicator: {
-        color: (dndColor: string) => dndColor,
+        color: (dndState: DndEntryState) =>
+            dndState.dndIsOver
+                ? dndState.dndCanDrop
+                    ? theme.dnd.canDropColor
+                    : theme.dnd.cannotDropColor
+                : theme.colors.textPrimary,
         boxSizing: 'border-box',
         position: 'absolute',
         fontSize: '1.2em',
