@@ -52,6 +52,13 @@ export class FileHelper {
         return file.droppable === true;
     }
 
+    public static isDndOpenable(file: Nullable<FileData>): file is FileData {
+        // Folders are DnD openable by default, files are not
+        if (!FileHelper.isOpenable(file)) return false;
+        if (file.isDir && file.dndOpenable !== false) return true;
+        return file.dndOpenable === true;
+    }
+
     public static getReadableFileSize(file: Nullable<FileData>): Nullable<string> {
         if (!file || typeof file.size !== 'number') return null;
 

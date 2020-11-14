@@ -15,6 +15,7 @@ export interface FileData {
     selectable?: boolean; // Can be selected, default: true
     draggable?: boolean; // Can be dragged, default: true
     droppable?: boolean; // Can have files dropped into it, default: true for folders
+    dndOpenable?: boolean; // Can be opened by DnD hover, default: true for folders
 
     size?: number; // File size in bytes
     modDate?: Date | string; // Last change date (or its string representation)

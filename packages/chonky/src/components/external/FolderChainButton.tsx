@@ -86,6 +86,8 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
         },
     },
     disabledBreadcrumb: {
+        // Constant function here is on purpose. Without the function, the color here
+        // does not override the `baseBreadcrumb` color from above.
         color: () => important(theme.colors.textSubtle),
     },
     currentBreadcrumb: {
