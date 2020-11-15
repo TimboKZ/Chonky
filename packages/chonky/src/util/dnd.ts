@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { DragSourceMonitor, useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { ExcludeKeys, Nullable } from 'tsdef';
 
 import { EssentialActions } from '../action-definitions/essential';
@@ -166,9 +166,14 @@ export const useFileEntryDnD = (file: Nullable<FileData>) => {
 
 export const useDndHoverOpen = (file: Nullable<FileData>, dndState: DndEntryState) => {
     const dispatch = useDispatch();
+    const currentFolderRef = useInstanceVariable(useSelector(selectCurrentFolder));
     useEffect(() => {
         let timeout: Nullable<any> = null;
-        if (dndState.dndIsOver && FileHelper.isDndOpenable(file)) {
+        if (
+            dndState.dndIsOver &&
+            FileHelper.isDndOpenable(file) &&
+            file.id !== currentFolderRef.current?.id
+        ) {
             timeout = setTimeout(
                 () =>
                     dispatch(
@@ -184,5 +189,5 @@ export const useDndHoverOpen = (file: Nullable<FileData>, dndState: DndEntryStat
         return () => {
             if (timeout) clearTimeout(timeout);
         };
-    }, [dispatch, file, dndState.dndIsOver]);
+    }, [dispatch, file, dndState.dndIsOver, currentFolderRef]);
 };
