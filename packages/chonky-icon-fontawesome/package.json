@@ -44,7 +44,7 @@
     "file-browser",
     "react-component"
   ],
-  "gitHead": "7649767bb8667f0e4104330972d1596bd797ae4e",
+  "gitHead": "b771337cb609da4df24cb1ae9522196b07568b12",
   "devDependencies": {
     "@testing-library/dom": "^7.26.3",
     "@testing-library/jest-dom": "^5.11.5",

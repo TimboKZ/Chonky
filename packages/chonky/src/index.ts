@@ -45,5 +45,7 @@ export { ChonkyIconName, ChonkyIconProps } from './types/icons.types';
 
 export { setChonkyDefaults } from './util/default-config';
 
+export { ChonkyDndFileEntryItem, ChonkyDndFileEntryType } from './types/dnd.types';
+
 export type FileActionHandler = GenericFileActionHandler<ChonkyActionUnion>;
 export type ChonkyFileActionData = MapFileActionsToData<ChonkyActionUnion>;
