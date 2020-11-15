@@ -22,16 +22,16 @@ export interface KeyboardClickFilePayload {
 }
 
 export interface StartDragNDropPayload {
-    draggedFile: FileData;
-}
-
-export interface EndDragNDropPayload {
     sourceInstanceId: string;
     source: Nullable<FileData>;
     draggedFile: FileData;
+    selection: FileData[];
+}
+
+export type EndDragNDropPayload = StartDragNDropPayload & {
     destination: FileData;
     copy: boolean;
-}
+};
 
 export type MoveFilesPayload = EndDragNDropPayload & { files: FileData[] };
 

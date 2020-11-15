@@ -6,10 +6,8 @@
 
 import React from 'react';
 import { useDragLayer } from 'react-dnd';
-import { useSelector } from 'react-redux';
 import { Nullable } from 'tsdef';
 
-import { selectSelectionSize } from '../../redux/selectors';
 import { ChonkyDndFileEntryItem, ChonkyDndFileEntryType } from '../../types/dnd.types';
 import { makeGlobalChonkyStyles } from '../../util/styles';
 
@@ -44,7 +42,6 @@ const getItemStyles = (
 };
 
 export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
-    const selectionSize = useSelector(selectSelectionSize);
     const classes = useStyles();
 
     const {
@@ -62,27 +59,11 @@ export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
         currentFileOffset: monitor.getSourceClientOffset(),
         isDragging: monitor.isDragging(),
     }));
-    function renderItem() {
-        if (!item.file || itemType !== ChonkyDndFileEntryType) return;
-
-        return (
-            <div className={classes.fileDragPreview}>
-                <b>{item.file.name}</b>
-                {selectionSize > 1 && (
-                    <>
-                        {' and '}
-                        <strong>
-                            {selectionSize - 1} other file
-                            {selectionSize - 1 !== 1 ? 's' : ''}
-                        </strong>
-                    </>
-                )}
-            </div>
-        );
-    }
-    if (!isDragging) {
+    if (!isDragging || itemType !== ChonkyDndFileEntryType || !item.payload) {
         return null;
     }
+
+    const selectionSize = item.payload.selection.length;
     return (
         <div style={layerStyles}>
             <div
@@ -92,7 +73,18 @@ export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
                     currentFileOffset
                 )}
             >
-                {renderItem()}
+                <div className={classes.fileDragPreview}>
+                    <b>{item.payload.draggedFile.name}</b>
+                    {selectionSize > 1 && (
+                        <>
+                            {' and '}
+                            <strong>
+                                {selectionSize - 1} other file
+                                {selectionSize - 1 !== 1 ? 's' : ''}
+                            </strong>
+                        </>
+                    )}
+                </div>
             </div>
         </div>
     );

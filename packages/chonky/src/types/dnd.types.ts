@@ -1,6 +1,7 @@
 import { DragObjectWithType } from 'react-dnd';
-import { Nilable, Nullable } from 'tsdef';
+import { Nilable } from 'tsdef';
 
+import { StartDragNDropPayload } from './action-payloads.types';
 import { FileData } from './file.types';
 
 export interface ChonkyDndDropResult {
@@ -8,5 +9,7 @@ export interface ChonkyDndDropResult {
     dropEffect: 'move' | 'copy';
 }
 
-export type ChonkyDndFileEntryItem = DragObjectWithType & { file: Nullable<FileData> };
+export type ChonkyDndFileEntryItem = DragObjectWithType & {
+    payload: StartDragNDropPayload;
+};
 export const ChonkyDndFileEntryType = 'dnd-chonky-file-entry';

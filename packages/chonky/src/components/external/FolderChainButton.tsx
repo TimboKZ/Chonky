@@ -8,7 +8,7 @@ import React, { useContext, useMemo } from 'react';
 
 import { DndEntryState } from '../../types/file-list.types';
 import { ChonkyIconName } from '../../types/icons.types';
-import { useFileDrop } from '../../util/dnd';
+import { useDndHoverOpen, useFileDrop } from '../../util/dnd';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import { c, important, makeLocalChonkyStyles } from '../../util/styles';
 import { useDndIcon } from '../file-list/FileEntry-hooks';
@@ -36,8 +36,8 @@ export const FolderChainButton: React.FC<FolderChainButtonProps> = ({
         }),
         [dndCanDrop, dndIsOver]
     );
+    useDndHoverOpen(file, dndState);
     const dndIconName = useDndIcon(dndState);
-    // const dndIconName = ChonkyIconName.dndCanDrop;
     const ChonkyIcon = useContext(ChonkyIconContext);
 
     const classes = useStyles(dndState);
