@@ -1,11 +1,23 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
 import { ChonkyActions } from '../../action-definitions/index';
-import { selectDisplayFileIds, selectFileViewConfig } from '../../redux/selectors';
+import {
+    selectCurrentFolder,
+    selectDisplayFileIds,
+    selectFileViewConfig,
+} from '../../redux/selectors';
 import { FileViewMode } from '../../types/file-view.types';
-import { c, makeGlobalChonkyStyles, makeLocalChonkyStyles } from '../../util/styles';
+import { ChonkyIconName } from '../../types/icons.types';
+import { useFileDrop } from '../../util/dnd';
+import { ChonkyIconContext } from '../../util/icon-helper';
+import {
+    c,
+    getStripeGradient,
+    makeGlobalChonkyStyles,
+    makeLocalChonkyStyles,
+} from '../../util/styles';
 import { FileListEmpty } from './FileListEmpty';
 import { GridContainer } from './GridContainer';
 import { ListContainer } from './ListContainer';
@@ -16,7 +28,10 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
     const displayFileIds = useSelector(selectDisplayFileIds);
     const viewConfig = useSelector(selectFileViewConfig);
 
-    const localClasses = useLocalStyles(viewConfig);
+    const currentFolder = useSelector(selectCurrentFolder);
+    const { dndCanDrop, drop } = useFileDrop(currentFolder);
+
+    const localClasses = useLocalStyles(dndCanDrop);
     const classes = useStyles(viewConfig);
 
     // In Chonky v0.x, this field was user-configurable. In Chonky v1.x+, we hardcode
@@ -37,11 +52,18 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
         [displayFileIds, viewConfig]
     );
 
+    const ChonkyIcon = useContext(ChonkyIconContext);
     return (
         <div
+            ref={drop}
             className={c([classes.fileListWrapper, localClasses.fileListWrapper])}
             role="list"
         >
+            <div className={localClasses.dndDropZone}>
+                <div className={localClasses.dndDropZoneIcon}>
+                    <ChonkyIcon icon={ChonkyIconName.dndCanDrop} />
+                </div>
+            </div>
             <AutoSizer disableHeight={!fillParentContainer}>{listRenderer}</AutoSizer>
         </div>
     );
@@ -50,6 +72,36 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
 const useLocalStyles = makeLocalChonkyStyles((theme) => ({
     fileListWrapper: {
         minHeight: ChonkyActions.EnableGridView.fileViewConfig.entryHeight + 2,
+        background: (showIndicator: boolean) =>
+            showIndicator
+                ? getStripeGradient(
+                      theme.dnd.fileListMaskOne,
+                      theme.dnd.fileListMaskTwo
+                  )
+                : 'none',
+    },
+    dndDropZone: {
+        display: (showIndicator: boolean) => (showIndicator ? 'block' : 'none'),
+        borderRadius: theme.gridFileEntry.borderRadius,
+        pointerEvents: 'none',
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+        zIndex: 2,
+    },
+    dndDropZoneIcon: {
+        borderRadius: theme.gridFileEntry.borderRadius,
+        transform: 'translateX(-50%) translateY(-50%)',
+        backgroundColor: theme.dnd.canDropMask,
+        color: theme.dnd.canDropColor,
+        position: 'absolute',
+        textAlign: 'center',
+        lineHeight: '60px',
+        fontSize: '2em',
+        left: '50%',
+        height: 60,
+        top: '50%',
+        width: 60,
     },
 }));
 

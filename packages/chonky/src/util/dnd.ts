@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { DragSourceMonitor, useDrag, useDrop } from 'react-dnd';
+import { DragSourceMonitor, DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { ExcludeKeys, Nullable } from 'tsdef';
@@ -116,8 +116,14 @@ export const useFileDrop = (file: Nullable<FileData>, allowDrop: boolean = true)
         [file]
     );
     const canDrop = useCallback(
-        (item: ChonkyDndFileEntryItem) => {
-            if (!allowDrop || !FileHelper.isDroppable(file)) return false;
+        (item: ChonkyDndFileEntryItem, monitor: DropTargetMonitor) => {
+            if (
+                !allowDrop ||
+                !monitor.isOver({ shallow: true }) ||
+                !FileHelper.isDroppable(file)
+            ) {
+                return false;
+            }
             const { source, draggedFile, selection } = item.payload;
 
             const filesToCheck: FileData[] = [draggedFile, ...selection];
@@ -133,17 +139,21 @@ export const useFileDrop = (file: Nullable<FileData>, allowDrop: boolean = true)
     const collect = useCallback(
         (monitor) => ({
             isOver: monitor.isOver(),
+            isOverCurrent: monitor.isOver({ shallow: true }),
             canDrop: monitor.canDrop(),
         }),
         []
     );
-    const [{ isOver: dndIsOver, canDrop: dndCanDrop }, drop] = useDrop({
+    const [
+        { isOver: dndIsOver, isOverCurrent: dndIsOverCurrent, canDrop: dndCanDrop },
+        drop,
+    ] = useDrop({
         accept: ChonkyDndFileEntryType,
         drop: onDrop,
         canDrop,
         collect,
     });
-    return { dndIsOver, dndCanDrop, drop };
+    return { dndIsOver, dndIsOverCurrent, dndCanDrop, drop };
 };
 
 export const useFileEntryDnD = (file: Nullable<FileData>) => {

@@ -39,6 +39,8 @@ export const lightTheme = {
         cannotDropColor: 'red',
         canDropMask: 'rgba(180, 235, 180, 0.75)',
         cannotDropMask: 'rgba(235, 180, 180, 0.75)',
+        fileListMaskOne: 'rgba(180, 235, 180, 0.15)',
+        fileListMaskTwo: 'rgba(180, 235, 180, 0.25)',
     },
 
     dragLayer: {
@@ -102,6 +104,15 @@ export const mobileOverrideTheme: DeepPartial<ChonkyTheme> = {
 export const useIsMobileBreakpoint = () => {
     return useMediaQuery('(max-width:480px)');
 };
+
+export const getStripeGradient = (colorOne: string, colorTwo: string) =>
+    'repeating-linear-gradient(' +
+    '45deg,' +
+    `${colorOne},` +
+    `${colorOne} 10px,` +
+    `${colorTwo} 0,` +
+    `${colorTwo} 20px` +
+    ')';
 
 export const makeLocalChonkyStyles = <C extends string = string>(
     styles: (theme: ChonkyTheme) => Styles<C>

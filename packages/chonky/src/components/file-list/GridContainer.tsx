@@ -18,7 +18,7 @@ import { VariableSizeGrid } from 'react-window';
 import { selectDisplayFileIds, selectFileViewConfig } from '../../redux/selectors';
 import { FileViewConfigGrid } from '../../types/file-view.types';
 import { useInstanceVariable } from '../../util/hooks-helpers';
-import { useIsMobileBreakpoint } from '../../util/styles';
+import { makeGlobalChonkyStyles, useIsMobileBreakpoint } from '../../util/styles';
 import { SmartFileEntry } from './FileEntry';
 
 export interface FileListGridProps {
@@ -178,11 +178,12 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo((props) => 
         [displayFileIds, viewConfig.mode]
     );
 
+    const classes = useStyles();
     const gridComponent = useMemo(() => {
         return (
             <VariableSizeGrid
                 ref={gridRef as any}
-                className="chonky-file-list-grid-view"
+                className={classes.gridContainer}
                 estimatedRowHeight={gridConfig.rowHeight + gridConfig.gutter}
                 rowHeight={sizers.getRowHeight}
                 estimatedColumnWidth={gridConfig.columnWidth + gridConfig.gutter}
@@ -196,7 +197,24 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo((props) => 
                 {cellRenderer}
             </VariableSizeGrid>
         );
-    }, [width, height, gridConfig, sizers, getItemKey, cellRenderer]);
+    }, [
+        classes.gridContainer,
+        gridConfig.rowHeight,
+        gridConfig.gutter,
+        gridConfig.columnWidth,
+        gridConfig.columnCount,
+        gridConfig.rowCount,
+        sizers.getRowHeight,
+        sizers.getColumnWidth,
+        height,
+        width,
+        getItemKey,
+        cellRenderer,
+    ]);
 
     return gridComponent;
 });
+
+const useStyles = makeGlobalChonkyStyles(() => ({
+    gridContainer: {},
+}));

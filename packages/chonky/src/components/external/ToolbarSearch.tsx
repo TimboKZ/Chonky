@@ -19,7 +19,7 @@ import { important, makeGlobalChonkyStyles } from '../../util/styles';
 
 export interface ToolbarSearchProps {}
 
-export const ToolbarSearch: React.FC<ToolbarSearchProps> = () => {
+export const ToolbarSearch: React.FC<ToolbarSearchProps> = React.memo(() => {
     const classes = useStyles();
     const ChonkyIcon = useContext(ChonkyIconContext);
 
@@ -95,7 +95,7 @@ export const ToolbarSearch: React.FC<ToolbarSearchProps> = () => {
             inputProps={{ className: classes.searchFieldInputInner }}
         />
     );
-};
+});
 
 const useStyles = makeGlobalChonkyStyles((theme) => ({
     searchFieldContainer: {

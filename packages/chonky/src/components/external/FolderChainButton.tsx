@@ -21,54 +21,52 @@ export interface FolderChainButtonProps {
     item: FolderChainItem;
 }
 
-export const FolderChainButton: React.FC<FolderChainButtonProps> = ({
-    first,
-    current,
-    item,
-}) => {
-    const { file, disabled, onClick } = item;
-    const { dndIsOver, dndCanDrop, drop } = useFileDrop(file, !!file && !current);
-    const dndState = useMemo<DndEntryState>(
-        () => ({
-            dndIsOver,
-            dndCanDrop,
-            dndIsDragging: false,
-        }),
-        [dndCanDrop, dndIsOver]
-    );
-    useDndHoverOpen(file, dndState);
-    const dndIconName = useDndIcon(dndState);
-    const ChonkyIcon = useContext(ChonkyIconContext);
+export const FolderChainButton: React.FC<FolderChainButtonProps> = React.memo(
+    ({ first, current, item }) => {
+        const { file, disabled, onClick } = item;
+        const { dndIsOver, dndCanDrop, drop } = useFileDrop(file, !!file && !current);
+        const dndState = useMemo<DndEntryState>(
+            () => ({
+                dndIsOver,
+                dndCanDrop,
+                dndIsDragging: false,
+            }),
+            [dndCanDrop, dndIsOver]
+        );
+        useDndHoverOpen(file, dndState);
+        const dndIconName = useDndIcon(dndState);
+        const ChonkyIcon = useContext(ChonkyIconContext);
 
-    const classes = useStyles(dndState);
-    const className = c({
-        [classes.baseBreadcrumb]: true,
-        [classes.disabledBreadcrumb]: disabled,
-        [classes.currentBreadcrumb]: current,
-    });
-    const text = file ? file.name : 'Loading...';
-    const icon =
-        first && file?.folderChainIcon === undefined
-            ? ChonkyIconName.folder
-            : file?.folderChainIcon;
+        const classes = useStyles(dndState);
+        const className = c({
+            [classes.baseBreadcrumb]: true,
+            [classes.disabledBreadcrumb]: disabled,
+            [classes.currentBreadcrumb]: current,
+        });
+        const text = file ? file.name : 'Loading...';
+        const icon =
+            first && file?.folderChainIcon === undefined
+                ? ChonkyIconName.folder
+                : file?.folderChainIcon;
 
-    return (
-        <div className={classes.buttonContainer} ref={file ? drop : null}>
-            {file && dndIconName && (
-                <div className={classes.dndIndicator}>
-                    <ChonkyIcon icon={dndIconName} fixedWidth={true} />
-                </div>
-            )}
-            <ToolbarButton
-                icon={icon}
-                className={className}
-                text={text}
-                disabled={disabled}
-                onClick={onClick}
-            />
-        </div>
-    );
-};
+        return (
+            <div className={classes.buttonContainer} ref={file ? drop : null}>
+                {file && dndIconName && (
+                    <div className={classes.dndIndicator}>
+                        <ChonkyIcon icon={dndIconName} fixedWidth={true} />
+                    </div>
+                )}
+                <ToolbarButton
+                    icon={icon}
+                    className={className}
+                    text={text}
+                    disabled={disabled}
+                    onClick={onClick}
+                />
+            </div>
+        );
+    }
+);
 
 const useStyles = makeLocalChonkyStyles((theme) => ({
     buttonContainer: {

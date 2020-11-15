@@ -14,7 +14,7 @@ import { SmartToolbarDropdownButton } from './ToolbarDropdownButton';
 
 export type ToolbarDropdownProps = FileActionGroup;
 
-export const ToolbarDropdown: React.FC<ToolbarDropdownProps> = (props) => {
+export const ToolbarDropdown: React.FC<ToolbarDropdownProps> = React.memo((props) => {
     const { name, fileActionIds } = props;
     const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
 
@@ -54,7 +54,7 @@ export const ToolbarDropdown: React.FC<ToolbarDropdownProps> = (props) => {
             </Menu>
         </>
     );
-};
+});
 
 const useStyles = makeGlobalChonkyStyles((theme) => ({
     dropdownList: {

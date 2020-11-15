@@ -17,7 +17,7 @@ import { important, makeGlobalChonkyStyles } from '../../util/styles';
 
 export interface ToolbarInfoProps {}
 
-export const ToolbarInfo: React.FC<ToolbarInfoProps> = () => {
+export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
     const classes = useStyles();
 
     const displayFileIds = useSelector(selectDisplayFileIds);
@@ -47,7 +47,7 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = () => {
             </Typography>
         </div>
     );
-};
+});
 
 const useStyles = makeGlobalChonkyStyles((theme) => ({
     infoContainer: {
