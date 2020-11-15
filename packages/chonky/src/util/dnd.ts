@@ -35,7 +35,7 @@ export const useFileDrag = (file: Nullable<FileData>) => {
             // We force non-null type below because by convention, if drag & drop for
             // this file was possible, it must have been non-null.
             draggedFile: fileRef.current!,
-            selection: selectSelectedFiles(reduxState),
+            selectedFiles: selectSelectedFiles(reduxState),
         };
     }, [store, fileRef]);
 
@@ -104,7 +104,17 @@ export const useFileDrag = (file: Nullable<FileData>) => {
     return { dndIsDragging, drag };
 };
 
-export const useFileDrop = (file: Nullable<FileData>, allowDrop: boolean = true) => {
+interface UseFileDropParams {
+    file: Nullable<FileData>;
+    forceDisableDrop?: boolean;
+    includeChildrenDrops?: boolean;
+}
+
+export const useFileDrop = ({
+    file,
+    forceDisableDrop,
+    includeChildrenDrops,
+}: UseFileDropParams) => {
     const onDrop = useCallback(
         (item: ChonkyDndFileEntryItem, monitor) => {
             if (!monitor.canDrop()) return;
@@ -118,15 +128,15 @@ export const useFileDrop = (file: Nullable<FileData>, allowDrop: boolean = true)
     const canDrop = useCallback(
         (item: ChonkyDndFileEntryItem, monitor: DropTargetMonitor) => {
             if (
-                !allowDrop ||
-                !monitor.isOver({ shallow: true }) ||
-                !FileHelper.isDroppable(file)
+                forceDisableDrop ||
+                !FileHelper.isDroppable(file) ||
+                (!monitor.isOver({ shallow: true }) && !includeChildrenDrops)
             ) {
                 return false;
             }
-            const { source, draggedFile, selection } = item.payload;
+            const { source, draggedFile, selectedFiles } = item.payload;
 
-            const filesToCheck: FileData[] = [draggedFile, ...selection];
+            const filesToCheck: FileData[] = [draggedFile, ...selectedFiles];
             if (source) filesToCheck.push(source);
             for (const currFile of filesToCheck) {
                 if (file.id === currFile.id) return false;
@@ -134,7 +144,7 @@ export const useFileDrop = (file: Nullable<FileData>, allowDrop: boolean = true)
 
             return true;
         },
-        [allowDrop, file]
+        [forceDisableDrop, file, includeChildrenDrops]
     );
     const collect = useCallback(
         (monitor) => ({
@@ -158,7 +168,7 @@ export const useFileDrop = (file: Nullable<FileData>, allowDrop: boolean = true)
 
 export const useFileEntryDnD = (file: Nullable<FileData>) => {
     const { dndIsDragging, drag } = useFileDrag(file);
-    const { dndIsOver, dndCanDrop, drop } = useFileDrop(file);
+    const { dndIsOver, dndCanDrop, drop } = useFileDrop({ file });
     const dndState = useMemo<DndEntryState>(
         () => ({
             dndIsDragging,

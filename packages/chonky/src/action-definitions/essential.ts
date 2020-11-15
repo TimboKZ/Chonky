@@ -2,7 +2,6 @@ import { reduxActions } from '../redux/reducers';
 import {
     getFileData,
     getIsFileSelected,
-    getSelectedFiles,
     selectDisableSelection,
     selectLastClickIndex,
     selectParentFolder,
@@ -185,12 +184,9 @@ export const EssentialActions = {
                 return;
             }
 
-            const selectedFiles = getSelectedFiles(
-                getReduxState(),
-                FileHelper.isDraggable
-            );
+            const { draggedFile, selectedFiles } = payload as EndDragNDropPayload;
             const droppedFiles =
-                selectedFiles.length > 0 ? selectedFiles : [payload.draggedFile];
+                selectedFiles.length > 0 ? selectedFiles : [draggedFile];
             reduxDispatch(
                 thunkRequestFileAction(ChonkyActions.MoveFiles, {
                     ...payload,

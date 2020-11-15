@@ -25,7 +25,7 @@ export interface StartDragNDropPayload {
     sourceInstanceId: string;
     source: Nullable<FileData>;
     draggedFile: FileData;
-    selection: FileData[];
+    selectedFiles: FileData[];
 }
 
 export type EndDragNDropPayload = StartDragNDropPayload & {

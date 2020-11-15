@@ -29,7 +29,7 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
     const viewConfig = useSelector(selectFileViewConfig);
 
     const currentFolder = useSelector(selectCurrentFolder);
-    const { dndCanDrop, drop } = useFileDrop(currentFolder);
+    const { dndCanDrop, drop } = useFileDrop({ file: currentFolder });
 
     const localClasses = useLocalStyles(dndCanDrop);
     const classes = useStyles(viewConfig);

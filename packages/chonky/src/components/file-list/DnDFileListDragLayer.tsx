@@ -63,7 +63,7 @@ export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
         return null;
     }
 
-    const selectionSize = item.payload.selection.length;
+    const selectionSize = item.payload.selectedFiles.length;
     return (
         <div style={layerStyles}>
             <div
