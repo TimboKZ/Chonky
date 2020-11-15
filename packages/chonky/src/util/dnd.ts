@@ -8,6 +8,7 @@ import { EssentialActions } from '../action-definitions/essential';
 import { ChonkyActions } from '../action-definitions/index';
 import {
     selectCurrentFolder,
+    selectFolderChain,
     selectInstanceId,
     selectSelectedFiles,
 } from '../redux/selectors';
@@ -115,6 +116,7 @@ export const useFileDrop = ({
     forceDisableDrop,
     includeChildrenDrops,
 }: UseFileDropParams) => {
+    const folderChainRef = useInstanceVariable(useSelector(selectFolderChain));
     const onDrop = useCallback(
         (item: ChonkyDndFileEntryItem, monitor) => {
             if (!monitor.canDrop()) return;
@@ -136,15 +138,24 @@ export const useFileDrop = ({
             }
             const { source, draggedFile, selectedFiles } = item.payload;
 
-            const filesToCheck: FileData[] = [draggedFile, ...selectedFiles];
-            if (source) filesToCheck.push(source);
-            for (const currFile of filesToCheck) {
-                if (file.id === currFile.id) return false;
+            // We prevent folders from being dropped into themselves. We also prevent
+            // any folder from current folder chain being moved - we can't move the
+            // folder that we are currently in.
+            const prohibitedFileIds = new Set<string>();
+            prohibitedFileIds.add(file.id);
+            folderChainRef.current.map((folder) => {
+                if (folder) prohibitedFileIds.add(folder.id);
+            });
+            const movedFiles: FileData[] = [draggedFile, ...selectedFiles];
+            for (const currFile of movedFiles) {
+                if (prohibitedFileIds.has(currFile.id)) return false;
             }
 
-            return true;
+            // Finally, prohibit files from being moved into their parent folder
+            // (which is a no-op).
+            return file.id !== source?.id;
         },
-        [forceDisableDrop, file, includeChildrenDrops]
+        [forceDisableDrop, file, includeChildrenDrops, folderChainRef]
     );
     const collect = useCallback(
         (monitor) => ({

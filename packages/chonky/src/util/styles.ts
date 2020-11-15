@@ -39,8 +39,10 @@ export const lightTheme = {
         cannotDropColor: 'red',
         canDropMask: 'rgba(180, 235, 180, 0.75)',
         cannotDropMask: 'rgba(235, 180, 180, 0.75)',
-        fileListMaskOne: 'rgba(180, 235, 180, 0.1)',
-        fileListMaskTwo: 'rgba(180, 235, 180, 0.2)',
+        fileListCanDropMaskOne: 'rgba(180, 235, 180, 0.1)',
+        fileListCanDropMaskTwo: 'rgba(180, 235, 180, 0.2)',
+        fileListCannotDropMaskOne: 'rgba(235, 180, 180, 0.1)',
+        fileListCannotDropMaskTwo: 'rgba(235, 180, 180, 0.2)',
     },
 
     dragLayer: {

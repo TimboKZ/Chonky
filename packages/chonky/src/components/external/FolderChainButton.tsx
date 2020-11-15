@@ -26,7 +26,7 @@ export const FolderChainButton: React.FC<FolderChainButtonProps> = React.memo(
         const { file, disabled, onClick } = item;
         const { dndIsOver, dndCanDrop, drop } = useFileDrop({
             file,
-            forceDisableDrop: !!file && !current,
+            forceDisableDrop: !file || current,
         });
         const dndState = useMemo<DndEntryState>(
             () => ({

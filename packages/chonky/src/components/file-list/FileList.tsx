@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
@@ -24,14 +24,23 @@ import { ListContainer } from './ListContainer';
 
 export interface FileListProps {}
 
+interface StyleState {
+    dndCanDrop: boolean;
+    dndIsOverCurrent: boolean;
+}
+
 export const FileList: React.FC<FileListProps> = React.memo(() => {
     const displayFileIds = useSelector(selectDisplayFileIds);
     const viewConfig = useSelector(selectFileViewConfig);
 
     const currentFolder = useSelector(selectCurrentFolder);
-    const { dndCanDrop, drop } = useFileDrop({ file: currentFolder });
+    const { drop, dndCanDrop, dndIsOverCurrent } = useFileDrop({ file: currentFolder });
+    const styleState = useMemo<StyleState>(() => ({ dndCanDrop, dndIsOverCurrent }), [
+        dndCanDrop,
+        dndIsOverCurrent,
+    ]);
 
-    const localClasses = useLocalStyles(dndCanDrop);
+    const localClasses = useLocalStyles(styleState);
     const classes = useStyles(viewConfig);
 
     // In Chonky v0.x, this field was user-configurable. In Chonky v1.x+, we hardcode
@@ -61,7 +70,13 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
         >
             <div className={localClasses.dndDropZone}>
                 <div className={localClasses.dndDropZoneIcon}>
-                    <ChonkyIcon icon={ChonkyIconName.dndCanDrop} />
+                    <ChonkyIcon
+                        icon={
+                            dndCanDrop
+                                ? ChonkyIconName.dndCanDrop
+                                : ChonkyIconName.dndCannotDrop
+                        }
+                    />
                 </div>
             </div>
             <AutoSizer disableHeight={!fillParentContainer}>{listRenderer}</AutoSizer>
@@ -72,16 +87,23 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
 const useLocalStyles = makeLocalChonkyStyles((theme) => ({
     fileListWrapper: {
         minHeight: ChonkyActions.EnableGridView.fileViewConfig.entryHeight + 2,
-        background: (showIndicator: boolean) =>
-            showIndicator
-                ? getStripeGradient(
-                      theme.dnd.fileListMaskOne,
-                      theme.dnd.fileListMaskTwo
-                  )
+        background: (state: StyleState) =>
+            state.dndIsOverCurrent && state.dndCanDrop
+                ? state.dndCanDrop
+                    ? getStripeGradient(
+                          theme.dnd.fileListCanDropMaskOne,
+                          theme.dnd.fileListCanDropMaskTwo
+                      )
+                    : getStripeGradient(
+                          theme.dnd.fileListCannotDropMaskOne,
+                          theme.dnd.fileListCannotDropMaskTwo
+                      )
                 : 'none',
     },
     dndDropZone: {
-        display: (showIndicator: boolean) => (showIndicator ? 'block' : 'none'),
+        display: (state: StyleState) =>
+            // When we cannot drop, we don't show an indicator at all
+            state.dndIsOverCurrent && state.dndCanDrop ? 'block' : 'none',
         borderRadius: theme.gridFileEntry.borderRadius,
         pointerEvents: 'none',
         position: 'absolute',
@@ -90,10 +112,12 @@ const useLocalStyles = makeLocalChonkyStyles((theme) => ({
         zIndex: 2,
     },
     dndDropZoneIcon: {
+        backgroundColor: (state: StyleState) =>
+            state.dndCanDrop ? theme.dnd.canDropMask : theme.dnd.cannotDropMask,
+        color: (state: StyleState) =>
+            state.dndCanDrop ? theme.dnd.canDropColor : theme.dnd.cannotDropColor,
         borderRadius: theme.gridFileEntry.borderRadius,
         transform: 'translateX(-50%) translateY(-50%)',
-        backgroundColor: theme.dnd.canDropMask,
-        color: theme.dnd.canDropColor,
         position: 'absolute',
         textAlign: 'center',
         lineHeight: '60px',
