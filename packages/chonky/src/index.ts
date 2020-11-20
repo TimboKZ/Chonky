@@ -33,19 +33,18 @@ export {
     FileActionState,
 } from './types/action-handler.types';
 export { ChonkyActionUnion } from './types/file-browser.types';
-
+export { ChonkyIconName } from './types/icons.types';
+export type ChonkyIconProps = import('./types/icons.types').ChonkyIconProps;
 export { FileBrowserHandle, FileBrowserProps } from './types/file-browser.types';
-export {
-    FileViewConfig,
-    FileViewConfigGrid,
-    FileViewConfigList,
-    FileViewMode,
-} from './types/file-view.types';
-export { ChonkyIconName, ChonkyIconProps } from './types/icons.types';
+export { FileViewMode } from './types/file-view.types';
+export type FileViewConfig = import('./types/file-view.types').FileViewConfig;
+export type FileViewConfigGrid = import('./types/file-view.types').FileViewConfigGrid;
+export type FileViewConfigList = import('./types/file-view.types').FileViewConfigList;
 
 export { setChonkyDefaults } from './util/default-config';
 
-export { ChonkyDndFileEntryItem, ChonkyDndFileEntryType } from './types/dnd.types';
+export { ChonkyDndFileEntryType } from './types/dnd.types';
+export type ChonkyDndFileEntryItem = import('./types/dnd.types').ChonkyDndFileEntryItem;
 
 export type FileActionHandler = GenericFileActionHandler<ChonkyActionUnion>;
 export type ChonkyFileActionData = MapFileActionsToData<ChonkyActionUnion>;
