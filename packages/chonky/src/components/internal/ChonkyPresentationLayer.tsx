@@ -15,6 +15,7 @@ import {
     selectFileActionIds,
     selectIsDnDDisabled,
 } from '../../redux/selectors';
+import { useDndContextAvailable } from '../../util/dnd-fallback';
 import { elementIsInsideButton } from '../../util/helpers';
 import { makeGlobalChonkyStyles } from '../../util/styles';
 import { useContextMenuTrigger } from '../external/FileContextMenu-hooks';
@@ -60,13 +61,14 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
         [fileActionIds]
     );
 
+    const dndContextAvailable = useDndContextAvailable();
     const showContextMenu = useContextMenuTrigger();
 
     const classes = useStyles();
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
             <Box className={classes.chonkyRoot} onContextMenu={showContextMenu}>
-                {!dndDisabled && <DnDFileListDragLayer />}
+                {!dndDisabled && dndContextAvailable && <DnDFileListDragLayer />}
                 {hotkeyListenerComponents}
                 {children ? children : null}
             </Box>

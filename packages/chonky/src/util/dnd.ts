@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { DragSourceMonitor, DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
+import { DragSourceMonitor, DropTargetMonitor } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { ExcludeKeys, Nullable } from 'tsdef';
@@ -21,6 +21,7 @@ import {
 } from '../types/dnd.types';
 import { DndEntryState } from '../types/file-list.types';
 import { FileData } from '../types/file.types';
+import { useDragIfAvailable, useDropIfAvailable } from './dnd-fallback';
 import { FileHelper } from './file-helper';
 import { useInstanceVariable } from './hooks-helpers';
 
@@ -88,7 +89,7 @@ export const useFileDrag = (file: Nullable<FileData>) => {
         (monitor) => ({ isDragging: monitor.isDragging() }),
         []
     );
-    const [{ isDragging: dndIsDragging }, drag, preview] = useDrag({
+    const [{ isDragging: dndIsDragging }, drag, preview] = useDragIfAvailable({
         item,
         canDrag,
         begin: onDragStart,
@@ -168,7 +169,7 @@ export const useFileDrop = ({
     const [
         { isOver: dndIsOver, isOverCurrent: dndIsOverCurrent, canDrop: dndCanDrop },
         drop,
-    ] = useDrop({
+    ] = useDropIfAvailable({
         accept: ChonkyDndFileEntryType,
         drop: onDrop,
         canDrop,
