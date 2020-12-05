@@ -77,7 +77,7 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     },
     baseBreadcrumb: {
         color: (dndState: DndEntryState) => {
-            let color = theme.colors.textPrimary;
+            let color = theme.palette.text.primary;
             if (dndState.dndIsOver) {
                 color = dndState.dndCanDrop
                     ? theme.dnd.canDropColor
@@ -89,7 +89,7 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     disabledBreadcrumb: {
         // Constant function here is on purpose. Without the function, the color here
         // does not override the `baseBreadcrumb` color from above.
-        color: () => important(theme.colors.textSubtle),
+        color: () => important(theme.palette.text.disabled),
     },
     currentBreadcrumb: {
         textDecoration: important('underline'),

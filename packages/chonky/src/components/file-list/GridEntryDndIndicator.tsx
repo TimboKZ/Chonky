@@ -42,7 +42,7 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
                 ? dndState.dndCanDrop
                     ? theme.dnd.canDropColor
                     : theme.dnd.cannotDropColor
-                : theme.colors.textPrimary,
+                : '#000',
         boxSizing: 'border-box',
         position: 'absolute',
         fontSize: '1.2em',

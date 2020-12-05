@@ -79,7 +79,7 @@ const useFolderStyles = makeLocalChonkyStyles((theme) => ({
     folderBackSideTop: {
         backgroundColor: (state: FileEntryState) => state.color,
         boxShadow: (state: FileEntryState) => {
-            let color = 'rgba(255, 255, 255, 0.1)';
+            let color = theme.gridFileEntry.folderBackColorTint;
             if (state.focused) color = 'rgba(0, 0, 0, 0.3)';
             else if (state.selected) color = 'rgba(0, 153, 255, .4)';
             return `inset ${color} 0 0 0 999px`;
@@ -92,7 +92,10 @@ const useFolderStyles = makeLocalChonkyStyles((theme) => ({
         top: -10,
         left: 0,
         '&:after': {
-            borderColor: '#fff #fff transparent transparent',
+            borderRightColor: theme.palette.background.paper,
+            borderTopColor: theme.palette.background.paper,
+            borderBottomColor: 'transparent',
+            borderLeftColor: 'transparent',
             borderWidth: [0, 15, 10, 0],
             borderStyle: 'solid',
             position: 'absolute',
@@ -105,7 +108,7 @@ const useFolderStyles = makeLocalChonkyStyles((theme) => ({
     folderBackSideMid: {
         backgroundColor: (state: FileEntryState) => state.color,
         boxShadow: (state: FileEntryState) => {
-            let color = 'rgba(255, 255, 255, 0.1)';
+            let color = theme.gridFileEntry.folderBackColorTint;
             if (state.focused) color = 'rgba(0, 0, 0, 0.3)';
             else if (state.selected) color = 'rgba(0, 153, 255, .4)';
             return `inset ${color} 0 0 0 999px`;
@@ -121,8 +124,10 @@ const useFolderStyles = makeLocalChonkyStyles((theme) => ({
         boxShadow: (state: FileEntryState) => {
             const shadows: string[] = [];
             if (state.focused) shadows.push('inset rgba(0, 0, 0, 1) 0 0 0 3px');
-            if (state.selected) shadows.push('inset rgba(0,153,255, .65) 0 0 0 3px');
-            shadows.push('inset rgba(255, 255, 255, 0.4) 0 0 0 999px');
+            if (state.selected) shadows.push('inset rgba(0, 153, 255, .65) 0 0 0 3px');
+            shadows.push(
+                `inset ${theme.gridFileEntry.folderFrontColorTint} 0 0 0 999px`
+            );
             return shadows.join(', ');
         },
         backgroundColor: (state: FileEntryState) => state.color,
@@ -175,7 +180,7 @@ const useFileStyles = makeLocalChonkyStyles((theme) => ({
             const shadows: string[] = [];
             if (state.selected) shadows.push('inset rgba(0,153,255, .65) 0 0 0 3px');
             if (state.focused) shadows.push('inset rgba(0, 0, 0, 1) 0 0 0 3px');
-            shadows.push('inset rgba(255, 255, 255, 0.5) 0 0 0 999px');
+            shadows.push(`inset ${theme.gridFileEntry.fileColorTint} 0 0 0 999px`);
             return shadows.join(', ');
         },
         backgroundColor: (state: FileEntryState) => state.color,
@@ -222,7 +227,7 @@ export const useCommonEntryStyles = makeLocalChonkyStyles((theme) => ({
             'rgba(0,153,255,.25) 0,' +
             'rgba(0,153,255,.25) 20px' +
             ')',
-        backgroundColor: 'rgba(0,153,255,.14)',
+        backgroundColor: 'rgba(0, 153, 255, .14)',
         position: 'absolute',
         height: '100%',
         width: '100%',

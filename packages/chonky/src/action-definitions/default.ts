@@ -209,4 +209,20 @@ export const DefaultActions = {
             if (focusSearchInput) focusSearchInput();
         }
     ),
+    /**
+     * Action that enables List view.
+     */
+    ToggleDarkMode: defineFileAction({
+        id: 'enable_dark_mode',
+        option: {
+            id: 'dark_mode',
+            defaultValue: false,
+        },
+        button: {
+            name: 'Enable dark mode',
+            toolbar: true,
+            icon: ChonkyIconName.list,
+            iconOnly: true,
+        },
+    } as const),
 };

@@ -92,10 +92,11 @@ export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
 
 const useStyles = makeGlobalChonkyStyles((theme) => ({
     fileDragPreview: {
-        backgroundColor: theme.dragLayer.backgroundColor,
+        boxShadow: `2px 2px 5px ${theme.palette.divider}`,
+        backgroundColor: theme.palette.background.default,
         borderRadius: theme.dragLayer.borderRadius,
         fontSize: theme.fontSizes.rootPrimary,
-        boxShadow: theme.dragLayer.boxShadow,
+        color: theme.palette.text.primary,
         padding: theme.dragLayer.padding,
         border: theme.dragLayer.border,
         display: 'inline-block',

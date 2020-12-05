@@ -1,3 +1,7 @@
+import {
+    createMuiTheme,
+    ThemeProvider as MuiThemeProvider,
+} from '@material-ui/core/styles';
 import merge from 'deepmerge';
 import React, { ReactNode, useMemo } from 'react';
 import { DndProvider } from 'react-dnd';
@@ -13,8 +17,9 @@ import { getValueOrFallback } from '../../util/helpers';
 import { useStaticValue } from '../../util/hooks-helpers';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import {
+    darkThemeOverride,
     lightTheme,
-    mobileOverrideTheme,
+    mobileThemeOverride,
     useIsMobileBreakpoint,
 } from '../../util/styles';
 import { ChonkyBusinessLogic } from '../internal/ChonkyBusinessLogic';
@@ -43,14 +48,28 @@ export const FileBrowser = React.forwardRef<
         defaultConfig.disableDragAndDropProvider,
         'boolean'
     );
+    const darkMode = getValueOrFallback(
+        props.darkMode,
+        defaultConfig.darkMode,
+        'boolean'
+    );
 
     const chonkyInstanceId = useStaticValue(() => instanceId ?? shortid.generate());
     const store = useChonkyStore(chonkyInstanceId);
 
     const isMobileBreakpoint = useIsMobileBreakpoint();
     const theme = useMemo(() => {
-        return isMobileBreakpoint ? merge(lightTheme, mobileOverrideTheme) : lightTheme;
-    }, [isMobileBreakpoint]);
+        const muiTheme = createMuiTheme({
+            palette: { type: darkMode ? 'dark' : 'light' },
+        });
+        const combinedTheme = merge(
+            muiTheme,
+            merge(lightTheme, darkMode ? darkThemeOverride : {})
+        );
+        return isMobileBreakpoint
+            ? merge(combinedTheme, mobileThemeOverride)
+            : combinedTheme;
+    }, [darkMode, isMobileBreakpoint]);
 
     const chonkyComps = (
         <>
@@ -62,19 +81,23 @@ export const FileBrowser = React.forwardRef<
     return (
         <Provider store={store}>
             <ThemeProvider theme={theme}>
-                <ChonkyIconContext.Provider
-                    value={
-                        iconComponent ??
-                        defaultConfig.iconComponent ??
-                        ChonkyIconPlaceholder
-                    }
-                >
-                    {disableDragAndDrop || disableDragAndDropProvider ? (
-                        chonkyComps
-                    ) : (
-                        <DndProvider backend={HTML5Backend}>{chonkyComps}</DndProvider>
-                    )}
-                </ChonkyIconContext.Provider>
+                <MuiThemeProvider theme={theme}>
+                    <ChonkyIconContext.Provider
+                        value={
+                            iconComponent ??
+                            defaultConfig.iconComponent ??
+                            ChonkyIconPlaceholder
+                        }
+                    >
+                        {disableDragAndDrop || disableDragAndDropProvider ? (
+                            chonkyComps
+                        ) : (
+                            <DndProvider backend={HTML5Backend}>
+                                {chonkyComps}
+                            </DndProvider>
+                        )}
+                    </ChonkyIconContext.Provider>
+                </MuiThemeProvider>
             </ThemeProvider>
         </Provider>
     );

@@ -1,3 +1,4 @@
+import { Theme as MuiTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import classnames from 'classnames';
 import { Styles } from 'jss';
@@ -12,10 +13,6 @@ export const lightTheme = {
         debugPurple: '#d2bdfa',
         debugYellow: '#fae9bd',
 
-        bgPrimary: '#fff',
-
-        textPrimary: '#000',
-        textSubtle: '#bbb',
         textActive: '#09f',
     },
 
@@ -46,8 +43,6 @@ export const lightTheme = {
     },
 
     dragLayer: {
-        boxShadow: '2px 2px 5px #888',
-        backgroundColor: '#f5f5f5',
         border: 'solid 2px #09f',
         padding: '7px 10px',
         borderRadius: 2,
@@ -61,27 +56,35 @@ export const lightTheme = {
     gridFileEntry: {
         childrenCountSize: '1.6em',
         iconColorFocused: '#000',
-        modifiersColor: '#888',
         iconSize: '2.4em',
         iconColor: '#fff',
         borderRadius: 5,
         fontSize: 14,
+
+        fileColorTint: 'rgba(255, 255, 255, 0.4)',
+        folderBackColorTint: 'rgba(255, 255, 255, 0.1)',
+        folderFrontColorTint: 'rgba(255, 255, 255, 0.4)',
     },
 
     listFileEntry: {
         propertyFontSize: 14,
         iconFontSize: '1.1em',
         iconBorderRadius: 5,
-        borderColor: '#eee',
         fontSize: 14,
     },
-
-    rootBorder: 'solid 1px #e4e4e4',
 };
 
 export type ChonkyTheme = typeof lightTheme;
 
-export const mobileOverrideTheme: DeepPartial<ChonkyTheme> = {
+export const darkThemeOverride: DeepPartial<ChonkyTheme> = {
+    gridFileEntry: {
+        fileColorTint: 'rgba(50, 50, 50, 0.4)',
+        folderBackColorTint: 'rgba(50, 50, 50, 0.4)',
+        folderFrontColorTint: 'rgba(50, 50, 50, 0.15)',
+    },
+};
+
+export const mobileThemeOverride: DeepPartial<ChonkyTheme> = {
     fontSizes: {
         rootPrimary: 13,
     },
@@ -117,15 +120,15 @@ export const getStripeGradient = (colorOne: string, colorTwo: string) =>
     ')';
 
 export const makeLocalChonkyStyles = <C extends string = string>(
-    styles: (theme: ChonkyTheme) => Styles<C>
+    styles: (theme: ChonkyTheme & MuiTheme) => Styles<C>
 ) => createUseStyles<ChonkyTheme, C>(styles);
 
 export const makeGlobalChonkyStyles = <C extends string = string>(
-    makeStyles: (theme: ChonkyTheme) => Styles<C>
+    makeStyles: (theme: ChonkyTheme & MuiTheme) => Styles<C>
 ) => {
     const selectorMapping = {};
     const makeGlobalStyles = (theme: ChonkyTheme) => {
-        const localStyles = makeStyles(theme);
+        const localStyles = makeStyles(theme as any);
         const globalStyles = {};
         const localSelectors = Object.keys(localStyles);
         localSelectors.map((localSelector) => {

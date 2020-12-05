@@ -36,7 +36,7 @@ export const FileListEmpty: React.FC<FileListEmptyProps> = (props) => {
 
 const useStyles = makeGlobalChonkyStyles((theme) => ({
     fileListEmpty: {
-        color: theme.colors.textSubtle,
+        color: theme.palette.text.disabled,
         position: 'relative',
         textAlign: 'center',
         fontSize: '1.2em',

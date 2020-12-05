@@ -75,6 +75,6 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
 
 const useStyles = makeLocalChonkyStyles((theme) => ({
     listContainer: {
-        borderTop: `solid 1px ${theme.listFileEntry.borderColor}`,
+        borderTop: `solid 1px ${theme.palette.divider}`,
     },
 }));

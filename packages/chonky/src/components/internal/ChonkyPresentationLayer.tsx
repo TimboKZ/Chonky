@@ -78,13 +78,13 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
 
 const useStyles = makeGlobalChonkyStyles((theme) => ({
     chonkyRoot: {
-        backgroundColor: theme.colors.bgPrimary,
+        backgroundColor: theme.palette.background.paper,
+        border: `solid 1px ${theme.palette.divider}`,
         padding: theme.margins.rootLayoutMargin,
         fontSize: theme.fontSizes.rootPrimary,
-        color: theme.colors.textPrimary,
+        color: theme.palette.text.primary,
         touchAction: 'manipulation', // Disabling zoom on double tap
         fontFamily: 'sans-serif',
-        border: theme.rootBorder,
         flexDirection: 'column',
         boxSizing: 'border-box',
         textAlign: 'left',

@@ -16,6 +16,7 @@ export type ChonkyConfig = Pick<
     | 'defaultFileViewActionId'
     | 'clearSelectionOnOutsideClick'
     | 'iconComponent'
+    | 'darkMode'
 >;
 
 export const defaultConfig: ChonkyConfig = {
@@ -31,6 +32,7 @@ export const defaultConfig: ChonkyConfig = {
     defaultFileViewActionId: ChonkyActions.EnableGridView.id,
     clearSelectionOnOutsideClick: true,
     iconComponent: ChonkyIconPlaceholder,
+    darkMode: false,
 };
 
 export const setChonkyDefaults = (config: Partial<ChonkyConfig>) => {

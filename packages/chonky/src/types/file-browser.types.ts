@@ -146,4 +146,9 @@ export interface FileBrowserProps {
      * component for all Chonky instances, use the global config.
      */
     iconComponent?: ElementType<ChonkyIconProps>;
+
+    /**
+     * Enables dark mode theme.
+     */
+    darkMode?: boolean;
 }
