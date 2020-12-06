@@ -40,6 +40,7 @@ export { FileViewMode } from './types/file-view.types';
 export type FileViewConfig = import('./types/file-view.types').FileViewConfig;
 export type FileViewConfigGrid = import('./types/file-view.types').FileViewConfigGrid;
 export type FileViewConfigList = import('./types/file-view.types').FileViewConfigList;
+export { ThumbnailGenerator } from './types/thumbnails.types';
 
 export { setChonkyDefaults } from './util/default-config';
 
