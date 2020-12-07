@@ -6,6 +6,7 @@
 
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 
 import {
@@ -13,6 +14,7 @@ import {
     selectHiddenFileCount,
     selectSelectionSize,
 } from '../../redux/selectors';
+import { getI18nId, I18nNamespace } from '../../util/i18n';
 import { important, makeGlobalChonkyStyles } from '../../util/styles';
 
 export interface ToolbarInfoProps {}
@@ -24,11 +26,38 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
     const selectionSize = useSelector(selectSelectionSize);
     const hiddenCount = useSelector(selectHiddenFileCount);
 
-    const fileCountString = `${displayFileIds.length} file${
-        displayFileIds.length !== 1 ? 's' : ''
-    }`;
-    const selectedString = selectionSize ? `${selectionSize} selected` : '';
-    const hiddenString = hiddenCount ? `${hiddenCount} hidden` : '';
+    const intl = useIntl();
+    const fileCountString = intl.formatMessage(
+        {
+            id: getI18nId(I18nNamespace.Toolbar, 'visibleFileCount'),
+            defaultMessage: `{fileCount, plural,
+                =0 {# items}
+                one {# item}
+                other {# items}
+            }`,
+        },
+        { fileCount: displayFileIds.length }
+    );
+    const selectedString = intl.formatMessage(
+        {
+            id: getI18nId(I18nNamespace.Toolbar, 'selectedFileCount'),
+            defaultMessage: `{fileCount, plural,
+                =0 {}
+                other {# selected}
+            }`,
+        },
+        { fileCount: selectionSize }
+    );
+    const hiddenString = intl.formatMessage(
+        {
+            id: getI18nId(I18nNamespace.Toolbar, 'hiddenFileCount'),
+            defaultMessage: `{fileCount, plural,
+                =0 {}
+                other {# hidden}
+            }`,
+        },
+        { fileCount: hiddenCount }
+    );
 
     return (
         <div className={classes.infoContainer}>

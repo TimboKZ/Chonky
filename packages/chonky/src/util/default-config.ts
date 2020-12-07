@@ -17,6 +17,7 @@ export type ChonkyConfig = Pick<
     | 'clearSelectionOnOutsideClick'
     | 'iconComponent'
     | 'darkMode'
+    | 'i18n'
 >;
 
 export const defaultConfig: ChonkyConfig = {
@@ -33,6 +34,7 @@ export const defaultConfig: ChonkyConfig = {
     clearSelectionOnOutsideClick: true,
     iconComponent: ChonkyIconPlaceholder,
     darkMode: false,
+    i18n: {},
 };
 
 export const setChonkyDefaults = (config: Partial<ChonkyConfig>) => {

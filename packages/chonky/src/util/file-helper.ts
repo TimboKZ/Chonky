@@ -1,8 +1,7 @@
-import dateFormat from 'dateformat';
-import filesize from 'filesize';
 import { Nullable } from 'tsdef';
 
 import { FileData } from '../types/file.types';
+import { Logger } from './logger';
 
 export class FileHelper {
     public static isDirectory(file: Nullable<FileData>): file is FileData {
@@ -59,39 +58,32 @@ export class FileHelper {
         return file.dndOpenable === true;
     }
 
-    public static getReadableFileSize(file: Nullable<FileData>): Nullable<string> {
-        if (!file || typeof file.size !== 'number') return null;
-
-        const size = file.size;
-        const sizeData = filesize(size, { bits: false, output: 'object' }) as any;
-        if (sizeData.symbol === 'B') {
-            return `${Math.round(sizeData.value / 10) / 100.0} KB`;
-        } else if (sizeData.symbol === 'KB') {
-            return `${Math.round(sizeData.value)} ${sizeData.symbol}`;
-        }
-        return `${sizeData.value} ${sizeData.symbol}`;
+    public static getModDate(file: Nullable<FileData>): Nullable<Date> {
+        if (!file || file.modDate === null || file.modDate === undefined) return null;
+        return FileHelper.parseDate(file.modDate);
     }
 
-    public static getReadableDate(file: Nullable<FileData>): Nullable<string> {
-        if (
-            !file ||
-            !(file.modDate instanceof Date || typeof file.modDate === 'string')
-        ) {
-            return null;
+    public static parseDate(maybeDate: Date | string | any): Nullable<Date> {
+        if (typeof maybeDate === 'string' || typeof maybeDate === 'number') {
+            // We allow users to provide string and numerical representations of dates.
+            try {
+                return new Date(maybeDate);
+            } catch (error) {
+                Logger.error(
+                    `Could not convert provided string/number into a date: ${error.message} `,
+                    'Invalid value:',
+                    maybeDate
+                );
+            }
+        }
+        if (maybeDate instanceof Date && !isNaN(maybeDate.getTime())) {
+            // We only allow valid dates objects
+            return maybeDate;
         }
 
-        // Convert string date into a date object
-        let date = file.modDate;
-        if (typeof date === 'string') {
-            date = new Date(date);
-        }
-
-        // Confirm that we have a valid date
-        if (isNaN(date.getTime())) return null;
-
-        const currentYear = date.getFullYear() === new Date().getFullYear();
-        if (currentYear) return dateFormat(date, 'd mmmm, HH:MM');
-        return dateFormat(date, 'd mmm yyyy, HH:MM');
+        // If we have an invalid date representation, we just return null.
+        Logger.warn('Unsupported date representation:', maybeDate);
+        return null;
     }
 
     public static getChildrenCount(file: Nullable<FileData>): Nullable<number> {

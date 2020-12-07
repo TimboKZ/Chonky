@@ -6,8 +6,9 @@ import merge from 'deepmerge';
 import React, { ReactNode, useMemo } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { IntlProvider } from 'react-intl';
 import { ThemeProvider } from 'react-jss';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import shortid from 'shortid';
 
 import { useChonkyStore } from '../../redux/store';
@@ -15,6 +16,7 @@ import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.ty
 import { defaultConfig } from '../../util/default-config';
 import { getValueOrFallback } from '../../util/helpers';
 import { useStaticValue } from '../../util/hooks-helpers';
+import { ChonkyFormattersContext, defaultFormatters } from '../../util/i18n';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import {
     darkThemeOverride,
@@ -53,6 +55,10 @@ export const FileBrowser = React.forwardRef<
         defaultConfig.darkMode,
         'boolean'
     );
+    const i18n = getValueOrFallback(props.i18n, defaultConfig.i18n);
+    const formatters = useMemo(() => ({ ...defaultFormatters, ...i18n?.formatters }), [
+        i18n,
+    ]);
 
     const chonkyInstanceId = useStaticValue(() => instanceId ?? shortid.generate());
     const store = useChonkyStore(chonkyInstanceId);
@@ -79,27 +85,31 @@ export const FileBrowser = React.forwardRef<
     );
 
     return (
-        <Provider store={store}>
-            <ThemeProvider theme={theme}>
-                <MuiThemeProvider theme={theme}>
-                    <ChonkyIconContext.Provider
-                        value={
-                            iconComponent ??
-                            defaultConfig.iconComponent ??
-                            ChonkyIconPlaceholder
-                        }
-                    >
-                        {disableDragAndDrop || disableDragAndDropProvider ? (
-                            chonkyComps
-                        ) : (
-                            <DndProvider backend={HTML5Backend}>
-                                {chonkyComps}
-                            </DndProvider>
-                        )}
-                    </ChonkyIconContext.Provider>
-                </MuiThemeProvider>
-            </ThemeProvider>
-        </Provider>
+        <IntlProvider locale="en" defaultLocale="en" {...i18n}>
+            <ChonkyFormattersContext.Provider value={formatters}>
+                <ReduxProvider store={store}>
+                    <ThemeProvider theme={theme}>
+                        <MuiThemeProvider theme={theme}>
+                            <ChonkyIconContext.Provider
+                                value={
+                                    iconComponent ??
+                                    defaultConfig.iconComponent ??
+                                    ChonkyIconPlaceholder
+                                }
+                            >
+                                {disableDragAndDrop || disableDragAndDropProvider ? (
+                                    chonkyComps
+                                ) : (
+                                    <DndProvider backend={HTML5Backend}>
+                                        {chonkyComps}
+                                    </DndProvider>
+                                )}
+                            </ChonkyIconContext.Provider>
+                        </MuiThemeProvider>
+                    </ThemeProvider>
+                </ReduxProvider>
+            </ChonkyFormattersContext.Provider>
+        </IntlProvider>
     );
 });
 FileBrowser.displayName = 'FileBrowser';

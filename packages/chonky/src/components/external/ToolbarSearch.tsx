@@ -7,6 +7,7 @@
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { reduxActions } from '../../redux/reducers';
@@ -14,12 +15,19 @@ import { selectSearchString } from '../../redux/selectors';
 import { thunkUpdateSearchString } from '../../redux/thunks/files.thunks';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useDebounce } from '../../util/hooks-helpers';
+import { getI18nId, I18nNamespace } from '../../util/i18n';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import { important, makeGlobalChonkyStyles } from '../../util/styles';
 
 export interface ToolbarSearchProps {}
 
 export const ToolbarSearch: React.FC<ToolbarSearchProps> = React.memo(() => {
+    const intl = useIntl();
+    const searchPlaceholderString = intl.formatMessage({
+        id: getI18nId(I18nNamespace.Toolbar, 'searchPlaceholder'),
+        defaultMessage: 'Search',
+    });
+
     const classes = useStyles();
     const ChonkyIcon = useContext(ChonkyIconContext);
 
@@ -73,7 +81,7 @@ export const ToolbarSearch: React.FC<ToolbarSearchProps> = React.memo(() => {
             size="small"
             variant="outlined"
             value={localSearchString}
-            placeholder="Search"
+            placeholder={searchPlaceholderString}
             onChange={handleChange as any}
             inputRef={searchInputRef}
             InputProps={{

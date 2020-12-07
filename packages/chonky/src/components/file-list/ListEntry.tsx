@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 
 import { DndEntryState, FileEntryProps } from '../../types/file-list.types';
-import { FileHelper } from '../../util/file-helper';
+import { useLocalizedFileEntryStrings } from '../../util/i18n';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import { c, makeLocalChonkyStyles } from '../../util/styles';
 import { TextPlaceholder } from '../external/TextPlaceholder';
@@ -23,10 +23,9 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
         const entryState: FileEntryState = useFileEntryState(file, selected, focused);
         const dndIconName = useDndIcon(dndState);
 
-        const dndStyle = {};
-        const fileSizeString = FileHelper.getReadableDate(file);
-        const fileDateString = FileHelper.getReadableFileSize(file);
-
+        const { fileModDateString, fileSizeString } = useLocalizedFileEntryStrings(
+            file
+        );
         const styleState = useMemo<StyleState>(
             () => ({
                 entryState,
@@ -39,11 +38,7 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
         const ChonkyIcon = useContext(ChonkyIconContext);
         const fileEntryHtmlProps = useFileEntryHtmlProps(file);
         return (
-            <div
-                className={classes.listFileEntry}
-                {...fileEntryHtmlProps}
-                style={dndStyle}
-            >
+            <div className={classes.listFileEntry} {...fileEntryHtmlProps}>
                 <div className={commonClasses.focusIndicator}></div>
                 <div
                     className={c([
@@ -51,7 +46,7 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
                         classes.listFileEntrySelection,
                     ])}
                 ></div>
-                <div className={classes.listFileEntryIcon} style={dndStyle}>
+                <div className={classes.listFileEntryIcon}>
                     <ChonkyIcon
                         icon={dndIconName ?? entryState.icon}
                         spin={dndIconName ? false : entryState.iconSpin}
@@ -66,14 +61,14 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
                 </div>
                 <div className={classes.listFileEntryProperty}>
                     {file ? (
-                        fileSizeString ?? <span>—</span>
+                        fileModDateString ?? <span>—</span>
                     ) : (
                         <TextPlaceholder minLength={5} maxLength={15} />
                     )}
                 </div>
                 <div className={classes.listFileEntryProperty}>
                     {file ? (
-                        fileDateString ?? <span>—</span>
+                        fileSizeString ?? <span>—</span>
                     ) : (
                         <TextPlaceholder minLength={10} maxLength={20} />
                     )}
