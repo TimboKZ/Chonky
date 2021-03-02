@@ -5,7 +5,6 @@
  */
 
 import ExactTrie from 'exact-trie';
-import memoize from 'memoizee';
 import { createContext, ElementType, useMemo } from 'react';
 import { Nullable } from 'tsdef';
 
@@ -17,7 +16,7 @@ export const ChonkyIconContext = createContext<ElementType<ChonkyIconProps>>(
     ChonkyIconPlaceholder
 );
 
-const getIconTrie = memoize(() => {
+const getIconTrie = () => {
     let colourIndex = 0;
     const step = 5;
 
@@ -109,14 +108,15 @@ const getIconTrie = memoize(() => {
     }
 
     return exactTrie;
-});
+};
+
+const iconTrie = getIconTrie();
 
 export const useIconData = (file: Nullable<FileData>): FileIconData => {
     return useMemo(() => {
         if (!file) return { icon: ChonkyIconName.loading, colorCode: 0 };
         if (file.isDir === true) return { icon: ChonkyIconName.folder, colorCode: 0 };
 
-        const iconTrie = getIconTrie();
         const match = iconTrie.getWithCheckpoints(file.name, '.', true);
         return match ? match : { icon: ChonkyIconName.file, colorCode: 32 };
     }, [file]);
