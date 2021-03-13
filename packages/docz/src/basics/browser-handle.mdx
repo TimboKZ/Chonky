@@ -1,0 +1,92 @@
+---
+name: File browser handle
+menu: Basics
+route: /basics/browser-handle
+---
+
+import { Playground } from 'docz';
+import { ChonkyActions, FileBrowser, FileList, FileNavbar, FileToolbar } from 'chonky';
+
+# File Browser handle
+
+You can access the file browser handle by passing a React ref to the `FileBrowser`
+component, as shown below. You can see the list of available methods in [file browser
+handle API reference](/api/file-browser-handle).
+
+```tsx
+import { FileBrowser, FileBrowserHandle } from 'chonky';
+
+const MyFileBrowser = () => {
+    // `FileBrowserHandle` is an interface exported from `chonky`.
+    const fileBrowserRef = React.useRef<FileBrowserHandle>(null);
+    return (
+        <FileBrowser ref={fileBrowserRef} files={[]}>
+            {/* ... */}
+        </FileBrowser>
+    );
+};
+```
+
+<br />
+
+Live example below shows the different ways file browse handle can be used.
+
+<Playground>
+    {() => {
+        const files = React.useMemo(
+            () => [
+                { id: 'zxc', name: 'One' },
+                { id: 'dfg', name: 'Two' },
+                { id: 'mds', name: 'Three' },
+                { id: 'asd', name: 'Four' },
+                { id: 'bgr', name: 'Five' },
+                { id: 'ojw', name: 'Six' },
+                { id: 'mew', name: 'Seven' },
+                { id: 'lre', name: 'Eight' },
+            ],
+            []
+        );
+        const fileBrowserRef = React.useRef(null);
+        const selectRandomFiles = React.useCallback(() => {
+            if (!fileBrowserRef.current) return;
+            const newSelection = new Set();
+            for (const file of files) {
+                if (Math.random() > 0.5) newSelection.add(file.id);
+            }
+            fileBrowserRef.current.setFileSelection(newSelection);
+        }, [files]);
+        const invertSelection = React.useCallback(() => {
+            if (!fileBrowserRef.current) return;
+            const oldSelection = fileBrowserRef.current.getFileSelection();
+            const newSelection = new Set();
+            for (const file of files) {
+                if (!oldSelection.has(file.id)) newSelection.add(file.id);
+            }
+            fileBrowserRef.current.setFileSelection(newSelection);
+        }, [files]);
+        const clearSelection = React.useCallback(() => {
+            if (!fileBrowserRef.current) return;
+            fileBrowserRef.current.requestFileAction(ChonkyActions.ClearSelection);
+        }, [files]);
+        return (
+            <>
+                <button className="demo-button" onClick={selectRandomFiles}>
+                    Select random files
+                </button>
+                <button className="demo-button" onClick={invertSelection}>
+                    Invert selection
+                </button>
+                <button className="demo-button" onClick={clearSelection}>
+                    Clear selection
+                </button>
+                <div style={{ height: 400 }}>
+                    <FileBrowser ref={fileBrowserRef} files={files}>
+                        <FileNavbar />
+                        <FileToolbar />
+                        <FileList />
+                    </FileBrowser>
+                </div>
+            </>
+        );
+    }}
+</Playground>

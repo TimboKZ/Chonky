@@ -1,0 +1,103 @@
+---
+name: Built-in actions
+menu: File actions
+route: /file-actions/built-in-actions
+---
+
+# Built-in file actions
+
+Chonky provides multiple file action definitions out of the box. Built-in actions are
+exactly the same as custom actions - they extend the same `FileAction` type, they have
+the same permissions, and they are executed in the exact same way. The only difference
+is that some built-in actions are enabled by default, while custom actions have to be
+enabled explicitly.
+
+## Using built-in file actions
+
+All built-in file actions are exported under the `ChonkyActions` component. You can
+import them as follows:
+
+```ts
+import { ChonkyActions } from 'chonky';
+
+console.log(ChonkyActions.ClearSelection); // Logs the entire action object
+console.log(ChonkyActions.EnableListView.id); // Logs just the action ID
+```
+
+Not all built-in actions are enabled by default. You can explicitly enable file actions
+by passing them to `fileActions` prop on `FileBrowser` component:
+
+```tsx
+import { ChonkyActions, FileBrowser } from 'chonky';
+
+export const MyFileBrowser = () => {
+    const myFileActions = [
+        ChonkyActions.UploadFiles,
+        ChonkyActions.DownloadFiles,
+        ChonkyActions.DeleteFiles,
+    ];
+
+    return (
+        <FileBrowser files={[]} fileActions={myFileActions}>
+            {/* ... */}
+        </FileBrowser>
+    );
+};
+```
+
+## Built-in action definitions
+
+Chonky separates built-in actions into 3 categories - essential file actions, default
+file actions and "extra" file actions.
+
+### Essential file actions
+
+[Click here to see essential action definitions.][src-essential]
+
+These are the file actions Chonky requires to function correctly. They are always
+enabled, and there is no way to disable them. If you know what you are doing, you can
+override an essential file action by defining a custom file action with the same action
+ID.
+
+### Default file actions
+
+[Click here to see default action definitions.][src-default]
+
+These are file Chonky provides for user convenience. They cover common features like
+file sorting, toggling hidden files, and changing file view. They are enabled by
+default.
+
+You can disable all default file actions by setting the `disableDefaultFileActions` on
+`FileBrowser` component to `true`:
+
+```tsx
+<FileBrowser files={[]} disableDefaultFileActions={true}>
+    {/* ... */}
+</FileBrowser>
+```
+
+Alternatively, you can disable some subset of default file actions by setting
+`disableDefaultFileActions` prop to an array of action IDs:
+
+```tsx
+const actionsToDisable: string[] = [
+    ChonkyActions.EnableListView.id,
+    ChonkyActions.SelectAllFiles.id,
+];
+
+<FileBrowser files={[]} disableDefaultFileActions={actionsToDisable}>
+    {/* ... */}
+</FileBrowser>;
+```
+
+### Extra file actions
+
+[Click here to see other action definitions.][src-other]
+
+These are file actions that ship with Chonky but are not enabled default. They cover
+less common scenarios like downloading files or creating folders. Users can enable them
+explicitly if they want.
+
+[src-essential]: https://github.com/TimboKZ/Chonky/blob/2.x/packages/chonky/src/action-definitions/essential.ts
+[src-default]: https://github.com/TimboKZ/Chonky/blob/2.x/packages/chonky/src/action-definitions/default.ts
+[src-other]: https://github.com/TimboKZ/Chonky/blob/2.x/packages/chonky/src/action-definitions/extra.ts

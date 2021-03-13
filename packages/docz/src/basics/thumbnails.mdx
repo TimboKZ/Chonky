@@ -1,0 +1,136 @@
+---
+name: File thumbnails
+menu: Basics
+route: /basics/thumbnails
+---
+
+import { Playground } from 'docz';
+import { FileBrowser, FileList, FileNavbar, FileToolbar } from 'chonky';
+
+# File thumbnails
+
+There are two ways you can add thumbnails to your files. The easy way and the hard way.
+
+## The easy way
+
+The easiest way to add a thumbnail to a file in Chonky is to specify the
+`thumbnailUrl` field in the file object:
+
+```tsx
+const files = [
+    {
+        id: 'zxc',
+        name: 'chonky-sphere-v2.png',
+        thumbnailUrl: 'https://chonky.io/chonky-sphere-v2.png', // <----
+    },
+];
+```
+
+This is useful when you know the URLs for all thumbnails beforehand. Chonky will
+automatically load the image from `thumbnailUrl` and display it as the thumbnail. [Data
+URIs](https://css-tricks.com/data-uris/) are also supported, in case you want generate
+thumbnails on client-side. See below for a live example.
+
+<Playground>
+    {() => {
+        const files = [
+            {
+                id: 'zxc',
+                name: 'chonky-sphere-v2.png',
+                thumbnailUrl: 'https://chonky.io/chonky-sphere-v2.png',
+            },
+            {
+                id: 'cxz',
+                name: 'Data URI.png',
+                thumbnailUrl:
+                    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkW' +
+                    'g2AAAAbUlEQVR4nGJZLhTIAANl0VVwdm/CPzh7/ZQncDYTA4mA9hoYWybNgHMeW2' +
+                    '2Ds9f+RLDNT3nT0Umk+0FvuSqcs6HjBZz9ZpE1QtxnGR2dRLofclNWwTm8iyrgbM' +
+                    'cDj+FsJfF5dHQSyRoAAQAA//9KrhmSuEupDgAAAABJRU5ErkJggg==',
+            },
+        ];
+        return (
+            <FileBrowser files={files}>
+                <FileNavbar />
+                <FileToolbar />
+                <FileList />
+            </FileBrowser>
+        );
+    }}
+</Playground>
+
+## The not so easy way
+
+There are situations where thumbnails will not be available beforehand. For example, you
+could have a server that generates thumbnails on-demand. In this case, you can pass a
+custom `thumbnailGenerator` prop to the `FileBrowser` component:
+
+```tsx
+const files = [
+    {
+        id: 'xsQwe',
+        name: 'Lenna.png',
+    },
+];
+
+const thumbnailGenerator = (file) => {
+    return Promise.resolve()
+        .then(() => ajaxRequestThumbnailGeneration(file))
+        .then((thumbnailUrl) => {
+            // Do some additional processing of the thumbnail url
+            return thumbnailUrl;
+        });
+};
+
+<FileBrowser files={files} thumbnailGenerator={thumbnailGenerator}>
+    <FileNavbar />
+    <FileToolbar />
+    <FileList />
+</FileBrowser>;
+```
+
+Your thumbnail generator can be a sync or an async function, and it should return
+either the thumbnail URL string or a `null`. Formal type of the thumbnail generator is:
+
+```ts
+type MaybeThumbnail = Nullable<string>;
+type ThumbnailGenerator = (file: FileData) => MaybeThumbnail | Promise<MaybeThumbnail>;
+```
+
+You'll be happy to find out your thumbnail generator will always be called in a
+lazy-loading fashion. That is, the thumbnail will only be requested when your file
+actually appears on your user's screen. This feature comes very handy when you need to
+display many files (>10,000), but don't want to generate 10,000 thumbnails at the same
+time.
+
+Example below shows a thumbnail generator that provides a random thumbnail for every
+file:
+
+<Playground>
+    {() => {
+        const files = [];
+        for (let i = 0; i < 20; ++i) {
+            files.push({
+                id: `file-${i}`,
+                name: `Chonky file #${i + 1}.png`,
+            });
+        }
+        const randomInt = (min, max) => {
+            return Math.floor(Math.random() * (max - min)) + min;
+        };
+        const thumbnailGenerator = (file) => {
+            const width = randomInt(50, 200);
+            const height = randomInt(50, 200);
+            return `https://via.placeholder.com/${width}x${height}`;
+        };
+        return (
+            <div style={{ height: 500 }}>
+                <FileBrowser files={files} thumbnailGenerator={thumbnailGenerator}>
+                    <FileNavbar />
+                    <FileToolbar />
+                    <FileList />
+                </FileBrowser>
+            </div>
+        );
+    }}
+</Playground>

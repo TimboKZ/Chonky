@@ -1,0 +1,159 @@
+---
+name: Defining an action handler
+menu: File actions
+route: /file-actions/action-handler
+---
+
+import typeSafeHandlerImage from '../images/type-safe-handler.png';
+
+# Defining an action handler
+
+An **action handler** is a function that Chonky calls every time a file action is
+dispatched. You can define it by setting the `onFileAction` prop on `FileBrowser`:
+
+```tsx
+import { FileActionHandler, FileBrowser } from 'chonky';
+
+const MyFileBrowser = () => {
+    const handleAction = React.useCallback<FileActionHandler>((data) => {
+        console.log('File action data:', data);
+    }, []);
+
+    return (
+        <FileBrowser files={[]} onFileAction={handleAction}>
+            {/* ... */}
+        </FileBrowser>
+    );
+};
+```
+
+Note that Chonky dispatches _a lot_ of actions, and normally you would only listen to
+a small fraction of them. You can catch desired actions using their file IDs:
+
+```tsx
+const handleAction: FileActionHandler = (data) => {
+    if (data.id === ChonkyActions.OpenFiles.id) {
+        // Open the files
+    } else if (data.id === ChonkyActions.DeleteFiles.id) {
+        // Delete the files
+    }
+};
+```
+
+The action handler is useful when you want _react_ to some user input or some state
+change in Chonky. If you want to _change_ Chonky's internal state in response to some
+event, you should consider using [action effects](/file-actions/effects).
+
+## Anatomy of action data
+
+As you saw above, the only parameter passed to your action handler is `data`. Formally,
+its type is defined as follows:
+
+```tsx
+export type FileActionData<Action extends FileAction> = {
+    id: Action['id'];
+    action: Action;
+    payload: Action['__payloadType'];
+    state: FileActionState<Action['__extraStateType']>;
+};
+```
+
+This might look like a complicated type, but it actually allows for some pretty neat
+type-safe logic and IntelliSense (more on this in the next section). Below you can see
+the description of each property.
+
+### `data.id`
+
+This is the action ID. You can use it to catch the actions you are interested in and
+ignore everything else, e.g. `data.id === ChonkyActions.OpenFiles.id`.
+
+### `data.action`
+
+This is the action definition. It is the exact same object you use to define file
+actions. In fact, if you wanted you could filter out actions using something like
+`data.action === ChonkyActions.OpenFiles`, but using `data.id` is much more IntelliSense
+friendly.
+
+### `data.payload`
+
+This is the optional action payload. The type of payload depends entirely on the
+action itself, and most actions will provide no payload at all.
+
+Some built-in actions like `ChonkyActions.OpenFiles` or `MouseClickFile` define their
+own formal payload types. [You can find these types here][action-payload].
+
+### `data.state`
+
+This is the state of the action after it has been dispatched. This state has the same
+structure for all actions. Its formal Typescript type is shown below. You can ignore the
+`ExtraState` part for now.
+
+```ts
+export type FileActionState<ExtraState extends object = AnyObject> = {
+    /**
+     * The ID of the Chonky instance that dispatched this action. This is useful if
+     * you're reusing the same action handler for multiple Chonky instances.
+     */
+    instanceId: string;
+    /**
+     * All selected files at the time the action was requested. Note that this does not
+     * reflect the changes applied by action's selection transform, if one is defined.
+     */
+    selectedFiles: FileData[];
+    /**
+     * Selected files filtered using actions file filter. If not file filter is defined,
+     * this is the same as `selectedFiles`. Note that this does not reflect the changes
+     * applied by action's selection transform, if one is defined.
+     */
+    selectedFilesForAction: FileData[];
+    /**
+     * If this action was requested using the file context menu, this field will hold
+     * the file that user right-clicked on to open the menu. If this action was not
+     * triggered using the context menu or right click was not on any file, this will be
+     * `null`.
+     */
+    contextMenuTriggerFile: Nullable<FileData>;
+} & ExtraState;
+```
+
+## Type-safe action handler
+
+Chonky exports the `FileActionHandler` type to help you write type-safe code. When you
+use `data.id === <action-id>` in your action handler, any IntelliSense-capable editor
+should be able to extract the correct action payload type. Below you can see what Chonky
+IntelliSense looks like in [JetBrains WebStorm IDE][webstorm].
+
+<img src={typeSafeHandlerImage} alt="Type-safe action handler" />
+
+Note that out-of-the-box payload type inference only works with built-in file actions.
+It possible to make it work for custom file actions as well, but the process is a bit
+involved:
+
+```tsx
+import { ChonkyActionUnion, defineFileAction, GenericFileActionHandler } from 'chonky';
+
+// Define your actions
+const customActionOne = defineFileAction({
+    id: 'custom-one',
+    __payloadType: {} as { one: string },
+} as const);
+const customActionTwo = defineFileAction({
+    id: 'custom-two',
+    __payloadType: {} as { two: string },
+} as const);
+
+// Define your types
+type CustomActionUnion = typeof customActionOne | typeof customActionTwo;
+type CustomHandler = GenericFileActionHandler<ChonkyActionUnion | CustomActionUnion>;
+
+// Use type-safe custom action handler!
+const handleAction: CustomHandler = (data) => {
+    if (data.id === customActionOne.id) {
+        console.log(data.payload.one); // No error
+        console.log(data.payload.two); // TS2339 error: 'two' is not defined
+    }
+};
+```
+
+[action-payload]: https://github.com/TimboKZ/Chonky/blob/2.x/packages/chonky/src/types/action-payloads.types.ts
+[webstorm]: https://www.jetbrains.com/webstorm/

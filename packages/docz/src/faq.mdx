@@ -1,0 +1,93 @@
+---
+name: FAQ
+route: /faq
+---
+
+# Frequently Asked Questions
+
+Have a question that is not covered here? [Create an
+issue](https://github.com/TimboKZ/Chonky/issues) on GitHub.
+
+## How can I set the default file view (grid, list) and sort function?
+
+To set the default file view or sort order, you need to pass a valid action ID to the
+relevant prop on `FileBrowser`:
+
+```tsx
+import { ChonkyActions, FileBrowser } from 'chonky';
+
+<FileBrowser
+    files={[]}
+    defaultFileViewActionId={ChonkyActions.EnableListView.id}
+    defaultSortActionId={ChonkyActions.SortFilesByDate.id}
+>
+    {/* ... */}
+</FileBrowser>;
+```
+
+You can also set the action IDs globally:
+
+```tsx
+import { ChonkyActions, setChonkyDefaults } from 'chonky';
+
+setChonkyDefaults({
+    defaultFileViewActionId: ChonkyActions.EnableListView.id,
+    defaultSortActionId: ChonkyActions.SortFilesByDate.id,
+});
+```
+
+Note that the actions you are using should be enabled (either by default or by you).
+You can use the following default action IDs:
+
+```ts
+ChonkyActions.EnableGridView.id;
+ChonkyActions.EnableListView.id;
+ChonkyActions.SortFilesByName.id;
+ChonkyActions.SortFilesByDate.id;
+ChonkyActions.SortFilesBySize.id;
+```
+
+## I want to sort the file array myself. How do I disable Chonky's built-in sorting?
+
+You can set the default sort action ID to `null` as shown below. When a `null` value is
+provided, Chonky just displays the files in the order they appear in the original
+`files` array. You might also want to hide the sort buttons from the toolbar, which
+can be done by passing relevant action IDs to `disableDefaultFileActions` prop.
+
+```tsx
+<FileBrowser
+    files={[]}
+    defaultSortActionId={null}
+    disableDefaultFileActions={[
+        ChonkyActions.SortFilesByName.id,
+        ChonkyActions.SortFilesByDate.id,
+        ChonkyActions.SortFilesBySize.id,
+    ]}
+>
+    {/* ... */}
+</FileBrowser>
+```
+
+## How can I get or set the current file selection?
+
+You have two mechanisms available to you:
+
+1. You can [define a custom action handler](/file-actions/action-handler) and listen
+   for actions with the ID `ChonkyActions.ChangeSelection.id`. This is useful when you
+   want to update React on every selection change.
+2. You can use [the file browser handle][handle] to get or set the selection at runtime.
+   This is useful when you don't need to update React state when selection changes.
+
+## How can I trigger an action programmatically?
+
+There are two ways to trigger file actions programatically:
+
+1. Using [the file browser handle][handle].
+2. Using [file action effects][effects].
+
+Note that in both cases, you should be careful with the action payload. If you provide
+an `undefined` payload to an action that expects non-null payload, Chonky might throw an
+error.
+
+[handle]: /basics/browser-handle
+[effects]: /file-actions/effects

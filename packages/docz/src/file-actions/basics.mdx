@@ -1,0 +1,65 @@
+---
+name: File action basics
+menu: File actions
+route: /file-actions/basics
+---
+
+# File action basics
+
+## What are file actions?
+
+File actions are the most powerful feature Chonky has to offer. They allow you to tweak
+file browser behaviour, add custom toolbar buttons, respond to key presses and much
+more!
+
+To get a sense of how powerful file actions are, consider this - most of the built-in
+Chonky features, such as file selections & context menu handling, are implemented using
+file actions. In theory, the definitions for these actions could come from user code,
+but Chonky provides these features out-of-the-box for convenience.
+
+## What can they do?
+
+Using simple file action definitions, you can do the following:
+
+-   Change file sort function.
+-   Change current file view.
+-   Toggle boolean options.
+-   Transform selection.
+-   Add buttons to toolbar or context menu.
+-   Response to keyboard shortcuts.
+-   Trigger the user-defined action handler.
+
+If you dive deeper and make use of [file action effects](/file-actions/effects), you can
+go further:
+
+-   Dispatch other file actions.
+-   Prevent user-defined action handler from being triggered.
+-   Read and modify Chonky's internal Redux state. This allows you to change Chonky's
+    behaviour in arbitrary ways.
+
+## Enabling file actions
+
+You can pass custom file actions to Chonky using the `fileActions` prop on `FileBrowser`
+component:
+
+```tsx
+import { ChonkyActions, defineFileAction, FileBrowser } from 'chonky';
+
+export const MyFileBrowser = () => {
+    const myCustomAction = defineFileAction({
+        /* ... */
+    } as const);
+
+    const myFileActions = [
+        myCustomAction,
+        ChonkyActions.UploadFiles,
+        ChonkyActions.DownloadFiles,
+    ];
+
+    return (
+        <FileBrowser files={[]} fileActions={myFileActions}>
+            {/* ... */}
+        </FileBrowser>
+    );
+};
+```

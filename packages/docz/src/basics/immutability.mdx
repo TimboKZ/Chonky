@@ -1,0 +1,50 @@
+---
+name: Immutability
+menu: Basics
+route: /basics/immutability
+---
+
+# Immutability
+
+Chonky assumes that the objects and arrays you provide through `FileBrowser` props (or
+any other props) are **immutable**. It is very important for your application to
+guarantee immutability, otherwise Chonky components will not update correctly.
+
+## What is immutability?
+
+Immutability is a crucial concept in React performance optimizations, and is used in
+many React libraries, such as Redux. If you're new to React, you should learn this
+concept as soon as possible.
+
+I will not go into the details of data immutability here. Instead, I'll point you to
+some useful resources which you can study yourself:
+
+-   [Dave Ceddia - Immutability in React and Redux: The Complete Guide](https://daveceddia.com/react-redux-immutability-guide/)
+-   [Redux FAQ - Immutable Data](https://redux.js.org/faq/immutable-data)
+-   [StackOverflow - Why should objects in Redux be immutable?](https://stackoverflow.com/questions/34958775/why-should-objects-in-redux-be-immutable/34962065#34962065)
+
+## Example of a common mistake
+
+Consider this example - you want to add a new file to the `files` array. The intuitive
+way is to just `.push()` the new file. However, this will change the
+array contents without updating array reference, which violates the principle of
+immutability.
+
+The correct approach would be to create a new array (and thus obtain a
+new array reference), then copy over all elements from the old array, appending the
+new file to the end of the array.
+
+Here's the code illustrating the above example:
+
+```ts
+// Incorrect - mutating the array:
+const oldArray1 = [1];
+const newArray1 = oldArray1;
+newArray1.push(2);
+console.log(oldArray1 === newArray1); // prints `true`, React can't tell the difference
+
+// Correct - creating new array:
+const oldArray2 = [1];
+const newArray2 = [...oldArray2, 2];
+console.log(oldArray2 === newArray2); // prints `false`, React knows array changed
+```

@@ -1,0 +1,48 @@
+---
+name: Built-in actions
+menu: API Reference
+route: /api/built-in-actions
+---
+
+import { TypeDocs } from '../docs-components/TypeDocs';
+
+# Built-in actions
+
+Note that `EssentialActions`, `DefaultActions` and `ExtraActions` as combined into a
+single object called `ChonkyActions`:
+
+```ts
+export const ChonkyActions = {
+    ...EssentialActions,
+    ...DefaultActions,
+    ...ExtraActions,
+};
+```
+
+This object is exported directly from `chonky`:
+
+```ts
+import { ChonkyActions } from 'chonky';
+
+console.log(ChonkyActions.OpenFiles);
+```
+
+See [_Built-in actions_](/file-actions/built-in-actions) page for more info.
+
+<TypeDocs
+    symbol="EssentialActions"
+    overrideChildrenType="FileAction"
+    hideOptionalFlags={true}
+/>
+
+<TypeDocs
+    symbol="DefaultActions"
+    overrideChildrenType="FileAction"
+    hideOptionalFlags={true}
+/>
+
+<TypeDocs
+    symbol="ExtraActions"
+    overrideChildrenType="FileAction"
+    hideOptionalFlags={true}
+/>
