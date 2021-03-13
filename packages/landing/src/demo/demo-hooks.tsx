@@ -11,6 +11,7 @@ import {
     FileData,
     FileHelper,
 } from 'chonky';
+import chonkyPackage from 'chonky/package.json'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { showActionNotification } from './demo-util';
@@ -24,6 +25,7 @@ type CustomFileMap = { [fileId: string]: CustomFileData };
 
 const RootFolderId = DemoFsMap.rootFolderId;
 const BaseFileMap = (DemoFsMap.fileMap as unknown) as CustomFileMap;
+BaseFileMap[RootFolderId].name = `Chonky ${chonkyPackage.version}`
 
 export const useCustomFileMap = () => {
     const [fileMap, setFileMap] = useState(BaseFileMap);

@@ -8,7 +8,6 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
-import Alert from '@material-ui/lab/Alert';
 import React from 'react';
 
 export interface HeaderProps {}
@@ -31,11 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
             '& > *': {
                 margin: 4,
             },
-        },
-        warning: {
-            backgroundColor: '#ffcc8a',
-            margin: 'auto',
-            maxWidth: 700,
         },
     })
 );
@@ -85,15 +79,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     />
                 </a>
             </div>
-            <br />
-            <Alert className={classes.warning} severity="warning">
-                Chonky 2.x was released on November 8th, 2020. There will likely be some
-                minor bugs in the code base. Please{' '}
-                <a href="https://github.com/TimboKZ/Chonky/issues">
-                    create an issue on GitHub
-                </a>{' '}
-                if you run into any such bugs.
-            </Alert>
         </header>
     );
 };
