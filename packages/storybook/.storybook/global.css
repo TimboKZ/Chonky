@@ -1,0 +1,39 @@
+.story-wrapper {
+    font-family: sans-serif;
+    max-width: 960px;
+    margin: auto;
+}
+
+.story-wrapper-dark {
+    color: #fff;
+}
+
+.story-description {
+    line-height: 24px;
+}
+.story-description h1 {
+    margin-top: 20px !important;
+}
+
+.story-description h1,
+.story-description p,
+.story-error {
+    margin-bottom: 20px;
+    margin-top: 0;
+    padding: 0;
+}
+
+.story-description code {
+    background-color: #eee;
+    border-radius: 2px;
+    font-size: 1.1em;
+    padding: 2px 4px;
+    color: #341121;
+}
+
+.story-error {
+    border-left: solid 5px #ca6871;
+    background-color: #f5dbde;
+    color: #341121;
+    padding: 10px;
+}
