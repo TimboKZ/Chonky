@@ -23,7 +23,7 @@ import {
  */
 export const thunkDispatchFileAction = (
     data: FileActionData<FileAction>
-): ChonkyThunk => (dispatch, getState) => {
+): ChonkyThunk => (_dispatch, getState) => {
     Logger.debug(`FILE ACTION DISPATCH: [${data.id}]`, 'data:', data);
     const state = getState();
     const action = selectFileActionMap(state)[data.id];

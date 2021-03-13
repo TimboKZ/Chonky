@@ -93,6 +93,7 @@ export const useFileDrag = (file: Nullable<FileData>) => {
         item,
         canDrag,
         begin: onDragStart,
+        // @ts-ignore
         end: onDragEnd,
         collect,
     });
@@ -119,7 +120,7 @@ export const useFileDrop = ({
 }: UseFileDropParams) => {
     const folderChainRef = useInstanceVariable(useSelector(selectFolderChain));
     const onDrop = useCallback(
-        (item: ChonkyDndFileEntryItem, monitor) => {
+        (_item: ChonkyDndFileEntryItem, monitor) => {
             if (!monitor.canDrop()) return;
             const customDropResult: ExcludeKeys<ChonkyDndDropResult, 'dropEffect'> = {
                 dropTarget: file,

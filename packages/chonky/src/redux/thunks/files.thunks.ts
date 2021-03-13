@@ -121,7 +121,7 @@ export const thunkUpdateHiddenFiles = (): ChonkyThunk => (
         ? getCachedSearch(cleanFileIds, fileMap, searchString)
         : null;
 
-    const hiddenFileIdMap = {};
+    const hiddenFileIdMap: any = {};
     cleanFileIds.map((id) => {
         const file = id ? fileMap[id] : null;
         if (!file) return;

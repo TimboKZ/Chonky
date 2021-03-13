@@ -1,7 +1,6 @@
 import { Theme as MuiTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import classnames from 'classnames';
-import { Styles } from 'jss';
 import { createUseStyles } from 'react-jss';
 import { DeepPartial } from 'tsdef';
 
@@ -120,11 +119,12 @@ export const getStripeGradient = (colorOne: string, colorTwo: string) =>
     ')';
 
 export const makeLocalChonkyStyles = <C extends string = string>(
-    styles: (theme: ChonkyTheme & MuiTheme) => Styles<C>
+    styles: (theme: ChonkyTheme & MuiTheme) => any
+    // @ts-ignore
 ) => createUseStyles<ChonkyTheme, C>(styles);
 
 export const makeGlobalChonkyStyles = <C extends string = string>(
-    makeStyles: (theme: ChonkyTheme & MuiTheme) => Styles<C>
+    makeStyles: (theme: ChonkyTheme & MuiTheme) => any
 ) => {
     const selectorMapping = {};
     const makeGlobalStyles = (theme: ChonkyTheme) => {
@@ -134,7 +134,9 @@ export const makeGlobalChonkyStyles = <C extends string = string>(
         localSelectors.map((localSelector) => {
             const globalSelector = `chonky-${localSelector}`;
             const jssSelector = `@global .${globalSelector}`;
+            // @ts-ignore
             globalStyles[jssSelector] = localStyles[localSelector];
+            // @ts-ignore
             selectorMapping[localSelector] = globalSelector;
         });
         return globalStyles;
@@ -145,6 +147,7 @@ export const makeGlobalChonkyStyles = <C extends string = string>(
         const styles = useStyles(...args);
         const classes = {};
         Object.keys(selectorMapping).map((localSelector) => {
+            // @ts-ignore
             classes[localSelector] = selectorMapping[localSelector];
         });
         return { ...classes, ...styles };

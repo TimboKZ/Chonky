@@ -216,7 +216,7 @@ const useFileStyles = makeLocalChonkyStyles((theme) => ({
     },
 }));
 
-export const useCommonEntryStyles = makeLocalChonkyStyles((theme) => ({
+export const useCommonEntryStyles = makeLocalChonkyStyles(() => ({
     selectionIndicator: {
         display: (state: FileEntryState) => (state.selected ? 'block' : 'none'),
         background:

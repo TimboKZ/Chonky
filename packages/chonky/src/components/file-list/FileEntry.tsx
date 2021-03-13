@@ -78,7 +78,7 @@ export const SmartFileEntry: React.FC<SmartFileEntryProps> = React.memo(
     }
 );
 
-const useStyles = makeGlobalChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles(() => ({
     fileEntryClickableWrapper: {
         // We disable default browser outline because Chonky provides its own outline
         // (which doesn't compromise accessibility, hopefully)

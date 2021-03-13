@@ -66,7 +66,7 @@ export const thunkUpdateRawFileActions = (
         EssentialFileActions,
         defaultActionsToAdd
     );
-    const optionDefaults = {};
+    const optionDefaults: any = {};
     fileActions.map((a) =>
         a.option ? (optionDefaults[a.option.id] = a.option.defaultValue) : null
     );

@@ -38,7 +38,9 @@ export const defaultConfig: ChonkyConfig = {
 };
 
 export const setChonkyDefaults = (config: Partial<ChonkyConfig>) => {
-    for (const key of Object.keys(config)) {
-        defaultConfig[key] = config[key];
+    for (const key of Object.keys(defaultConfig)) {
+        if (key in config) {
+            defaultConfig[key as keyof ChonkyConfig] = config[key as keyof ChonkyConfig] as any;
+        }
     }
 };

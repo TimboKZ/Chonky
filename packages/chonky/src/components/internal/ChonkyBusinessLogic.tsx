@@ -40,7 +40,7 @@ export const ChonkyBusinessLogicInner = React.forwardRef<
     );
     useDTE(
         reduxActions.setExternalFileActionHandler,
-        getValueOrFallback(props.onFileAction, defaultConfig.onFileAction)
+        getValueOrFallback(props.onFileAction, defaultConfig.onFileAction) as any
     );
     useDTE(
         reduxActions.setSelectionDisabled,

@@ -52,7 +52,7 @@ export const useParamSelector = <Args extends Array<any>, Value>(
  * DTE - DispatchThunkEffect. This method is used to decrease code duplication in
  * main Chonky method.
  */
-export const useDTE = <Args extends Array<any>, Value>(
+export const useDTE = <Args extends Array<any>>(
     actionCreator: (...args: Args) => any,
     ...selectorParams: Args
 ) => {

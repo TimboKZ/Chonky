@@ -28,7 +28,7 @@ export const FileThumbnail: React.FC<FileThumbnailProps> = React.memo((props) =>
     );
 });
 
-const useStyles = makeGlobalChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles(() => ({
     fileThumbnail: {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',

@@ -37,6 +37,7 @@ export const useFileActionProps = (
     const sortOrder = useSelector(selectSortOrder);
 
     const action = useParamSelector(selectFileActionData, fileActionId);
+    // @ts-ignore
     const optionValue = useParamSelector(selectOptionValue, action?.option?.id);
 
     const actionSelectionSize = useParamSelector(
