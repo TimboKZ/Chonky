@@ -2,18 +2,61 @@
   "name": "chonky-icon-fontawesome",
   "version": "2.1.0",
   "description": "FontAwesome icon component for Chonky file browser",
-  "main": "lib/index.js",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
-    "lib"
+    "dist",
+    "src"
   ],
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
-    "test": "echo 'no tests yet'",
-    "lint": "eslint src/",
-    "lint-fix": "eslint --fix src/",
-    "typecheck": "tsc -p ./tsconfig.json --noEmit",
-    "build": "rm -rf ./lib; tsc",
-    "watch": "rm -rf ./lib; tsc -w",
-    "prepublishOnly": "npm run build"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "module": "dist/chonky-icon-fontawesome.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/chonky-icon-fontawesome.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/chonky-icon-fontawesome.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^4.10.1",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.2",
+    "husky": "^5.1.3",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "size-limit": "^4.10.1",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.2.3"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -35,23 +78,11 @@
   "bugs": {
     "url": "https://github.com/TimboKZ/Chonky/issues"
   },
-  "license": "MIT",
   "keywords": [
     "file",
-    "icon",
     "chonky",
     "file-dialog",
     "file-browser",
     "react-component"
-  ],
-  "gitHead": "b771337cb609da4df24cb1ae9522196b07568b12",
-  "devDependencies": {
-    "@testing-library/dom": "^7.26.3",
-    "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.0",
-    "@types/react": "^16.9.55",
-    "@types/react-dom": "^16.9.9",
-    "react": "16.13",
-    "react-dom": "16.13"
-  }
+  ]
 }

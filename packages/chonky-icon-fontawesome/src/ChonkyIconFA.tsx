@@ -163,7 +163,7 @@ export const ChonkyIconFA: React.FC<ChonkyIconProps> = React.memo((props) => {
 
     let faIcon: any; // FontAwesome `IconDefinition`
     if (typeof icon === 'object') faIcon = icon;
-    else faIcon = IconMap[icon] ?? IconMap.fallbackIcon;
+    else faIcon = IconMap[icon as keyof typeof IconMap] ?? IconMap.fallbackIcon;
 
     const faProps = {
         ...props,
