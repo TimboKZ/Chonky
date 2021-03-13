@@ -156,7 +156,7 @@ export const useThumbnailUrl = (file: Nullable<FileData>) => {
                             setThumbnailUrl(thumbnailUrl);
                         }
                     })
-                    .catch((error) => {
+                    .catch(error => {
                         if (!loadingCancelled) setThumbnailLoading(false);
                         Logger.error(
                             `User-defined "thumbnailGenerator" handler threw an error: ${error.message}`

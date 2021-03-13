@@ -15,7 +15,7 @@ export interface FileThumbnailProps {
     thumbnailUrl: Nullable<string>;
 }
 
-export const FileThumbnail: React.FC<FileThumbnailProps> = React.memo((props) => {
+export const FileThumbnail: React.FC<FileThumbnailProps> = React.memo(props => {
     const { className, thumbnailUrl } = props;
 
     const thumbnailStyle: React.CSSProperties = thumbnailUrl

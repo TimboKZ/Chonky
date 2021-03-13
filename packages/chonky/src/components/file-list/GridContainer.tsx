@@ -75,7 +75,7 @@ export const getGridConfig = (
     };
 };
 
-export const GridContainer: React.FC<FileListGridProps> = React.memo((props) => {
+export const GridContainer: React.FC<FileListGridProps> = React.memo(props => {
     const { width, height } = props;
 
     const viewConfig = useSelector(selectFileViewConfig) as FileViewConfigGrid;

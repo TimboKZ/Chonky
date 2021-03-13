@@ -84,7 +84,7 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
     );
 });
 
-const useLocalStyles = makeLocalChonkyStyles((theme) => ({
+const useLocalStyles = makeLocalChonkyStyles(theme => ({
     fileListWrapper: {
         minHeight: ChonkyActions.EnableGridView.fileViewConfig.entryHeight + 2,
         background: (state: StyleState) =>

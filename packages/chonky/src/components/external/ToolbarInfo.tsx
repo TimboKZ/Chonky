@@ -78,7 +78,7 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
     );
 });
 
-const useStyles = makeGlobalChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles(theme => ({
     infoContainer: {
         height: theme.toolbar.size,
         display: 'flex',

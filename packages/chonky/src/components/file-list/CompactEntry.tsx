@@ -61,7 +61,7 @@ export const CompactEntry: React.FC<FileEntryProps> = React.memo(
     }
 );
 
-const useStyles = makeLocalChonkyStyles((theme) => ({
+const useStyles = makeLocalChonkyStyles(theme => ({
     listFileEntry: {
         fontSize: theme.listFileEntry.fontSize,
         alignItems: 'center',

@@ -52,7 +52,7 @@ export const DefaultActions = {
         },
         selectionTransform: (({ fileIds, hiddenFileIds }) => {
             const newSelection = new Set<string>();
-            fileIds.map((fileId) => {
+            fileIds.map(fileId => {
                 // We don't need to check if file is selectable because Chonky does
                 // it own checks internally.
                 if (!hiddenFileIds.has(fileId)) newSelection.add(fileId);

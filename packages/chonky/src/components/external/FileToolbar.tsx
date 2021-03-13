@@ -48,7 +48,7 @@ export const FileToolbar: React.FC<FileToolbarProps> = React.memo(() => {
     );
 });
 
-const useStyles = makeGlobalChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles(theme => ({
     toolbarWrapper: {},
     toolbarContainer: {
         flexWrap: 'wrap-reverse',

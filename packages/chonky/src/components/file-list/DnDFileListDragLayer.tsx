@@ -51,7 +51,7 @@ export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
         initialFileOffset,
         currentFileOffset,
         isDragging,
-    } = useDragLayer((monitor) => ({
+    } = useDragLayer(monitor => ({
         item: monitor.getItem() as ChonkyDndFileEntryItem,
         itemType: monitor.getItemType(),
         initialCursorOffset: monitor.getInitialClientOffset(),
@@ -90,7 +90,7 @@ export const DnDFileListDragLayer: React.FC<DnDFileListDragLayerProps> = () => {
     );
 };
 
-const useStyles = makeGlobalChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles(theme => ({
     fileDragPreview: {
         boxShadow: `2px 2px 5px ${theme.palette.divider}`,
         backgroundColor: theme.palette.background.default,

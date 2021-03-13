@@ -19,7 +19,7 @@ export interface FileListListProps {
     height: number;
 }
 
-export const ListContainer: React.FC<FileListListProps> = React.memo((props) => {
+export const ListContainer: React.FC<FileListListProps> = React.memo(props => {
     const { width, height } = props;
 
     const viewConfig = useSelector(selectFileViewConfig);
@@ -73,7 +73,7 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
     return listComponent;
 });
 
-const useStyles = makeLocalChonkyStyles((theme) => ({
+const useStyles = makeLocalChonkyStyles(theme => ({
     listContainer: {
         borderTop: `solid 1px ${theme.palette.divider}`,
     },

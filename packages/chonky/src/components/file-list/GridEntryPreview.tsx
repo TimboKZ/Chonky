@@ -31,7 +31,7 @@ export interface FileEntryPreviewProps {
 }
 
 export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.memo(
-    (props) => {
+    props => {
         const { className: externalClassName, entryState, dndState } = props;
 
         const folderClasses = useFolderStyles(entryState);
@@ -70,7 +70,7 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
     }
 );
 
-const useFolderStyles = makeLocalChonkyStyles((theme) => ({
+const useFolderStyles = makeLocalChonkyStyles(theme => ({
     previewFile: {
         borderRadius: theme.gridFileEntry.borderRadius,
         position: 'relative',
@@ -145,7 +145,7 @@ const useFolderStyles = makeLocalChonkyStyles((theme) => ({
 }));
 
 export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(
-    (props) => {
+    props => {
         const { className: externalClassName, entryState, dndState } = props;
 
         const fileClasses = useFileStyles(entryState);
@@ -174,7 +174,7 @@ export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(
     }
 );
 
-const useFileStyles = makeLocalChonkyStyles((theme) => ({
+const useFileStyles = makeLocalChonkyStyles(theme => ({
     previewFile: {
         boxShadow: (state: FileEntryState) => {
             const shadows: string[] = [];

@@ -30,10 +30,12 @@
     }
   },
   "prettier": {
-    "printWidth": 120,
+    "trailingComma": "es5",
+    "tabWidth": 4,
     "semi": true,
     "singleQuote": true,
-    "trailingComma": "es5"
+    "useTabs": false,
+    "printWidth": 88
   },
   "module": "dist/chonky.esm.js",
   "size-limit": [
@@ -68,6 +70,7 @@
     "@types/classnames": "^2.2.11",
     "@types/fuzzy-search": "^2.1.0",
     "@types/memoizee": "^0.4.5",
+    "@types/react": "^17.0.3",
     "@types/react-redux": "^7.1.16",
     "@types/react-virtualized-auto-sizer": "^1.0.0",
     "@types/react-window": "^1.8.2",

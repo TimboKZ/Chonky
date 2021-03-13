@@ -16,26 +16,24 @@ export interface DnDIndicatorProps {
     dndState: DndEntryState;
 }
 
-export const GridEntryDndIndicator: React.FC<DnDIndicatorProps> = React.memo(
-    (props) => {
-        const { className: externalClassName, dndState } = props;
-        const dndIconName = useDndIcon(dndState);
-        const classes = useStyles(dndState);
-        const ChonkyIcon = useContext(ChonkyIconContext);
-        if (!dndIconName) return null;
-        const className = c({
-            [classes.dndIndicator]: true,
-            [externalClassName]: true,
-        });
-        return (
-            <div className={className}>
-                <ChonkyIcon icon={dndIconName} />
-            </div>
-        );
-    }
-);
+export const GridEntryDndIndicator: React.FC<DnDIndicatorProps> = React.memo(props => {
+    const { className: externalClassName, dndState } = props;
+    const dndIconName = useDndIcon(dndState);
+    const classes = useStyles(dndState);
+    const ChonkyIcon = useContext(ChonkyIconContext);
+    if (!dndIconName) return null;
+    const className = c({
+        [classes.dndIndicator]: true,
+        [externalClassName]: true,
+    });
+    return (
+        <div className={className}>
+            <ChonkyIcon icon={dndIconName} />
+        </div>
+    );
+});
 
-const useStyles = makeLocalChonkyStyles((theme) => ({
+const useStyles = makeLocalChonkyStyles(theme => ({
     dndIndicator: {
         color: (dndState: DndEntryState) =>
             dndState.dndIsOver

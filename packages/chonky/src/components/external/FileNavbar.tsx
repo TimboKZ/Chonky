@@ -52,7 +52,7 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
     );
 });
 
-const useStyles = makeGlobalChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles(theme => ({
     navbarWrapper: {
         paddingBottom: theme.margins.rootLayoutMargin,
     },

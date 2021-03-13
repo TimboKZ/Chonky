@@ -71,7 +71,7 @@ export const FolderChainButton: React.FC<FolderChainButtonProps> = React.memo(
     }
 );
 
-const useStyles = makeLocalChonkyStyles((theme) => ({
+const useStyles = makeLocalChonkyStyles(theme => ({
     buttonContainer: {
         position: 'relative',
     },

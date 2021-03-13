@@ -28,7 +28,7 @@ export interface ToolbarButtonProps {
     dropdown?: boolean;
 }
 
-export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) => {
+export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo(props => {
     const {
         className: externalClassName,
         text,
@@ -80,7 +80,7 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) =>
     );
 });
 
-const useStyles = makeGlobalChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles(theme => ({
     baseButton: {
         fontSize: important(theme.toolbar.fontSize),
         textTransform: important('none'),
@@ -113,7 +113,7 @@ export interface SmartToolbarButtonProps {
 }
 
 export const SmartToolbarButton: React.FC<SmartToolbarButtonProps> = React.memo(
-    (props) => {
+    props => {
         const { fileActionId } = props;
 
         const action = useParamSelector(selectFileActionData, fileActionId);

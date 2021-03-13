@@ -17,7 +17,7 @@ export interface FileListEmptyProps {
     height: number;
 }
 
-export const FileListEmpty: React.FC<FileListEmptyProps> = (props) => {
+export const FileListEmpty: React.FC<FileListEmptyProps> = props => {
     const { width, height } = props;
     const classes = useStyles();
     const ChonkyIcon = useContext(ChonkyIconContext);
@@ -42,7 +42,7 @@ export const FileListEmpty: React.FC<FileListEmptyProps> = (props) => {
     );
 };
 
-const useStyles = makeGlobalChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles(theme => ({
     fileListEmpty: {
         color: theme.palette.text.disabled,
         position: 'relative',

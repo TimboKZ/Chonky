@@ -131,7 +131,7 @@ export const makeGlobalChonkyStyles = <C extends string = string>(
         const localStyles = makeStyles(theme as any);
         const globalStyles = {};
         const localSelectors = Object.keys(localStyles);
-        localSelectors.map((localSelector) => {
+        localSelectors.map(localSelector => {
             const globalSelector = `chonky-${localSelector}`;
             const jssSelector = `@global .${globalSelector}`;
             // @ts-ignore
@@ -146,7 +146,7 @@ export const makeGlobalChonkyStyles = <C extends string = string>(
     return (...args: any[]) => {
         const styles = useStyles(...args);
         const classes = {};
-        Object.keys(selectorMapping).map((localSelector) => {
+        Object.keys(selectorMapping).map(localSelector => {
             // @ts-ignore
             classes[localSelector] = selectorMapping[localSelector];
         });

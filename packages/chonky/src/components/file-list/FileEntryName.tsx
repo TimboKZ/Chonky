@@ -35,7 +35,7 @@ export const FileEntryName: React.FC<FileEntryNameProps> = React.memo(
     }
 );
 
-const useStyles = makeLocalChonkyStyles((theme) => ({
+const useStyles = makeLocalChonkyStyles(theme => ({
     modifierIcons: {
         color: theme.palette.text.hint,
         position: 'relative',

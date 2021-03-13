@@ -52,7 +52,7 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
     // Generate necessary components
     const hotkeyListenerComponents = useMemo(
         () =>
-            fileActionIds.map((actionId) => (
+            fileActionIds.map(actionId => (
                 <HotkeyListener
                     key={`file-action-listener-${actionId}`}
                     fileActionId={actionId}
@@ -76,7 +76,7 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
     );
 };
 
-const useStyles = makeGlobalChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles(theme => ({
     chonkyRoot: {
         backgroundColor: theme.palette.background.paper,
         border: `solid 1px ${theme.palette.divider}`,

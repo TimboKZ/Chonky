@@ -122,7 +122,7 @@ export const thunkUpdateHiddenFiles = (): ChonkyThunk => (
         : null;
 
     const hiddenFileIdMap: any = {};
-    cleanFileIds.map((id) => {
+    cleanFileIds.map(id => {
         const file = id ? fileMap[id] : null;
         if (!file) return;
 
@@ -137,7 +137,7 @@ export const thunkUpdateHiddenFiles = (): ChonkyThunk => (
 
 export const thunkUpdateDisplayFiles = (): ChonkyThunk => (dispatch, getState) => {
     const { sortedFileIds, hiddenFileIdMap } = getState();
-    const displayFileIds = sortedFileIds.filter((id) => !id || !hiddenFileIdMap[id]);
+    const displayFileIds = sortedFileIds.filter(id => !id || !hiddenFileIdMap[id]);
     dispatch(reduxActions.setDisplayFileIds(displayFileIds));
     dispatch(reduxActions.cleanUpSelection());
 };

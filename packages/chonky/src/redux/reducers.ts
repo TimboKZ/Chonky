@@ -32,8 +32,8 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         },
         setFileActions(state, action: PayloadAction<FileAction[]>) {
             const fileActionMap: FileActionMap = {};
-            action.payload.map((a) => (fileActionMap[a.id] = a));
-            const fileIds = action.payload.map((a) => a.id);
+            action.payload.map(a => (fileActionMap[a.id] = a));
+            const fileIds = action.payload.map(a => a.id);
 
             state.fileActionMap = fileActionMap as FileMap;
             state.fileActionIds = fileIds;
@@ -61,9 +61,9 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         },
         setFiles(state, action: PayloadAction<FileArray>) {
             const fileMap: FileMap = {};
-            action.payload.map((f) => (f ? (fileMap[f.id] = f) : null));
-            const fileIds = action.payload.map((f) => (f ? f.id : null));
-            const cleanFileIds = fileIds.filter((f) => !!f) as string[];
+            action.payload.map(f => (f ? (fileMap[f.id] = f) : null));
+            const fileIds = action.payload.map(f => (f ? f.id : null));
+            const cleanFileIds = fileIds.filter(f => !!f) as string[];
 
             state.fileMap = fileMap;
             state.fileIds = fileIds;
@@ -86,8 +86,8 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         },
         selectAllFiles(state) {
             state.fileIds
-                .filter((id) => id && FileHelper.isSelectable(state.fileMap[id]))
-                .map((id) => (id ? (state.selectionMap[id] = true) : null));
+                .filter(id => id && FileHelper.isSelectable(state.fileMap[id]))
+                .map(id => (id ? (state.selectionMap[id] = true) : null));
         },
         selectRange(
             state,
@@ -97,8 +97,8 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
             state.selectionMap = {};
             state.displayFileIds
                 .slice(action.payload.rangeStart, action.payload.rangeEnd + 1)
-                .filter((id) => id && FileHelper.isSelectable(state.fileMap[id]))
-                .map((id) => (state.selectionMap[id!] = true));
+                .filter(id => id && FileHelper.isSelectable(state.fileMap[id]))
+                .map(id => (state.selectionMap[id!] = true));
         },
         selectFiles(
             state,
@@ -107,8 +107,8 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
             if (state.disableSelection) return;
             if (action.payload.reset) state.selectionMap = {};
             action.payload.fileIds
-                .filter((id) => id && FileHelper.isSelectable(state.fileMap[id]))
-                .map((id) => (state.selectionMap[id] = true));
+                .filter(id => id && FileHelper.isSelectable(state.fileMap[id]))
+                .map(id => (state.selectionMap[id] = true));
         },
         toggleSelection(
             state,
@@ -126,7 +126,7 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
             // Make sure files that are not visible anymore are not a part of the
             // selection.
             const newSelectionMap: FileSelection = {};
-            state.displayFileIds.map((id) => {
+            state.displayFileIds.map(id => {
                 if (id && id in state.selectionMap) newSelectionMap[id] = true;
             });
             state.selectionMap = newSelectionMap;

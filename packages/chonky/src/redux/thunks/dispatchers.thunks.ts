@@ -30,7 +30,7 @@ export const thunkDispatchFileAction = (
     const externalFileActionHandler = selectExternalFileActionHandler(state);
     if (action) {
         if (externalFileActionHandler) {
-            Promise.resolve(externalFileActionHandler(data)).catch((error) =>
+            Promise.resolve(externalFileActionHandler(data)).catch(error =>
                 Logger.error(
                     `User-defined file action handler threw an error: ${error.message}`
                 )
@@ -134,7 +134,7 @@ export const thunkRequestFileAction = <Action extends FileAction>(
     // Dispatch the action to user code. Deliberately call it after all other
     // operations are over.
     return Promise.resolve(maybeEffectPromise)
-        .then((effectResult) => {
+        .then(effectResult => {
             const data: FileActionData<Action> = {
                 id: action.id,
                 action,
@@ -143,7 +143,7 @@ export const thunkRequestFileAction = <Action extends FileAction>(
             };
             triggerDispatchAfterEffect(dispatch, data, effectResult);
         })
-        .catch((error) => {
+        .catch(error => {
             Logger.error(
                 `User-defined effect function for action ${action.id} returned a ` +
                     `promise that was rejected: ${error.message}`

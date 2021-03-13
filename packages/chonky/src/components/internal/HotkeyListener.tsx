@@ -16,7 +16,7 @@ export interface HotkeyListenerProps {
     fileActionId: string;
 }
 
-export const HotkeyListener: React.FC<HotkeyListenerProps> = React.memo((props) => {
+export const HotkeyListener: React.FC<HotkeyListenerProps> = React.memo(props => {
     const { fileActionId } = props;
 
     const dispatch = useDispatch();

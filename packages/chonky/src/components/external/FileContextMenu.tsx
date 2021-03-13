@@ -55,7 +55,7 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = React.memo(() => 
                     />
                 );
             } else {
-                item.fileActionIds.map((id) =>
+                item.fileActionIds.map(id =>
                     components.push(
                         <SmartToolbarDropdownButton
                             key={`context-menu-item-${item.name}-${id}`}

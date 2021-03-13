@@ -78,7 +78,7 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
     }
 );
 
-const useStyles = makeLocalChonkyStyles((theme) => ({
+const useStyles = makeLocalChonkyStyles(theme => ({
     listFileEntry: {
         boxShadow: `inset ${theme.palette.divider} 0 -1px 0`,
         fontSize: theme.listFileEntry.fontSize,

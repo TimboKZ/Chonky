@@ -16,7 +16,7 @@ export interface TextPlaceholderProps {
 const getRandomInt = (min: number, max: number) => {
     return min + Math.floor(Math.random() * Math.floor(max - min));
 };
-export const TextPlaceholder: React.FC<TextPlaceholderProps> = React.memo((props) => {
+export const TextPlaceholder: React.FC<TextPlaceholderProps> = React.memo(props => {
     const { minLength, maxLength } = props;
 
     const placeholderLength = getRandomInt(minLength, maxLength);

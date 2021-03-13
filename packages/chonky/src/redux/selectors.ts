@@ -51,7 +51,7 @@ export const selectIsFileSelected = (fileId: Nullable<string>) => (state: RootSt
     !!fileId && !!selectSelectionMap(state)[fileId];
 export const selectSelectedFiles = (state: RootState) => {
     const fileMap = selectFileMap(state);
-    return Object.keys(selectSelectionMap(state)).map((id) => fileMap[id]);
+    return Object.keys(selectSelectionMap(state)).map(id => fileMap[id]);
 };
 export const selectSelectedFilesForAction = (fileActionId: string) => (
     state: RootState
@@ -107,7 +107,7 @@ export const getSelectedFiles = (
 ) => {
     const { fileMap, selectionMap } = state;
 
-    const selectedFiles = Object.keys(selectionMap).map((id) => fileMap[id]);
+    const selectedFiles = Object.keys(selectionMap).map(id => fileMap[id]);
     const filteredSelectedFiles = filters.reduce(
         (prevFiles, filter) => (filter ? prevFiles.filter(filter) : prevFiles),
         selectedFiles

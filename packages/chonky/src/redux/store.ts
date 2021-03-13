@@ -21,7 +21,7 @@ export const useChonkyStore = (chonkyInstanceId: string) => {
         return configureStore({
             preloadedState: preloadedState as any,
             reducer: rootReducer,
-            middleware: (getDefaultMiddleware) =>
+            middleware: getDefaultMiddleware =>
                 getDefaultMiddleware({
                     serializableCheck: false,
                     thunk: { extraArgument: thunkExtraArgument },

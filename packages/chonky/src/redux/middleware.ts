@@ -26,7 +26,7 @@ export class ThunkExtraArgument implements ChonkyThunkExtraArgument {
         } else {
             usingCachedSearcher = false;
             searcher = new FuzzySearch(
-                cleanFileIds.map((id) => fileMap[id]),
+                cleanFileIds.map(id => fileMap[id]),
                 ['name'],
                 { caseSensitive: false }
             );
@@ -43,7 +43,7 @@ export class ThunkExtraArgument implements ChonkyThunkExtraArgument {
         } else {
             const foundFiles = searcher.search(searchString);
             const foundFileIds = new Set<string>();
-            foundFiles.map((f) => foundFileIds.add(f.id));
+            foundFiles.map(f => foundFileIds.add(f.id));
             this.cachedSearchString = searchString;
             this.cachedSearchResult = foundFileIds;
             return foundFileIds;
