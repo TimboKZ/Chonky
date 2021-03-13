@@ -1,31 +1,16 @@
 {
   "name": "root",
   "private": true,
-  "scripts": {
-    "pre-commit": "lerna run lint && lerna run format",
-    "pre-push": "lerna run test"
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
-    "@types/jest": "^26.0.15",
-    "@typescript-eslint/eslint-plugin": "^3.10.1",
-    "@typescript-eslint/parser": "^3.10.1",
-    "eslint": "^7.12.0",
-    "eslint-config-prettier": "^6.14.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-simple-import-sort": "^5.0.3",
-    "husky": "^4.3.0",
-    "jest": "^26.6.1",
-    "lerna": "^3.22.1",
-    "prettier": "^2.1.2",
-    "ts-jest": "^26.4.2",
-    "tsd": "^0.13.1",
-    "typescript": "^4.0.3"
+    "lerna": "^3.22.1"
   },
-  "dependencies": {
-    "chonky": "file:packages/chonky",
-    "chonky-icon-fontawesome": "file:packages/chonky-icon-fontawesome"
+  "homepage": "https://chonky.io/",
+  "author": {
+    "name": "Timur Kuzhagaliyev",
+    "email": "tim.kuzh@gmail.com",
+    "url": "https://foxypanda.me/"
   }
 }
