@@ -73,7 +73,7 @@ This is the folder structure we set up for you:
 /src
   index.tsx       # EDIT THIS
 /test
-  blah.test.tsx   # EDIT THIS
+  component-hierarchy.test.tsx   # EDIT THIS
 /stories
   Thing.stories.tsx # EDIT THIS
 /.storybook

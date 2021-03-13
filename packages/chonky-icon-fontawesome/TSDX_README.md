@@ -57,7 +57,7 @@ This is the folder structure we set up for you:
 /src
   index.tsx       # EDIT THIS
 /test
-  blah.test.tsx   # EDIT THIS
+  component-hierarchy.test.tsx   # EDIT THIS
 .gitignore
 package.json
 README.md         # EDIT THIS
