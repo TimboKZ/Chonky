@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import React from 'react';
+import React, { UIEvent } from 'react';
 
 import { FileBrowser } from '../src/components/external/FileBrowser';
 import { FileContextMenu } from '../src/components/external/FileContextMenu';
@@ -15,11 +15,16 @@ describe('File Browser will all components', () => {
             { id: 'zxc', name: 'My File.txt' },
             { id: 'jre', name: 'My Folder' },
         ];
+
+        const onScrollEventHandler = (e: UIEvent<HTMLDivElement>): void => {
+            e.preventDefault();
+        };
+
         const { container } = render(
             <FileBrowser files={files}>
                 <FileNavbar />
                 <FileToolbar />
-                <FileList />
+                <FileList onScroll={onScrollEventHandler} />
                 <FileContextMenu />
             </FileBrowser>
         );
