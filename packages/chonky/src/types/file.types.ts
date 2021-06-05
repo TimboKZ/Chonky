@@ -30,8 +30,8 @@ export interface FileData {
     [property: string]: any; // Any other user-defined property
 }
 
-export type FileArray = Nullable<FileData>[];
+export type FileArray<FT extends FileData = FileData> = Nullable<FT>[];
 export type FileFilter = (file: Nullable<FileData>) => boolean;
 
-export type FileMap = { [fileId: string]: FileData };
+export type FileMap<FT extends FileData = FileData> = { [fileId: string]: FT };
 export type FileIdTrueMap = { [fileId: string]: Undefinable<true> };

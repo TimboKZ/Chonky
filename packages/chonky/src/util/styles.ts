@@ -121,7 +121,7 @@ export const getStripeGradient = (colorOne: string, colorTwo: string) =>
 export const makeLocalChonkyStyles = <C extends string = string>(
     styles: (theme: ChonkyTheme & MuiTheme) => any
     // @ts-ignore
-) => createUseStyles<ChonkyTheme, C>(styles);
+): any => createUseStyles<ChonkyTheme, C>(styles);
 
 export const makeGlobalChonkyStyles = <C extends string = string>(
     makeStyles: (theme: ChonkyTheme & MuiTheme) => any
@@ -142,8 +142,9 @@ export const makeGlobalChonkyStyles = <C extends string = string>(
         return globalStyles;
     };
 
+    // @ts-ignore
     const useStyles = createUseStyles<ChonkyTheme, C>(makeGlobalStyles as any);
-    return (...args: any[]) => {
+    return (...args: any[]): any => {
         const styles = useStyles(...args);
         const classes = {};
         Object.keys(selectorMapping).map(localSelector => {

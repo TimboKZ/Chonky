@@ -1,4 +1,3 @@
-import path from 'path';
 import React, {
     HTMLProps,
     useCallback,
@@ -107,6 +106,14 @@ export const useModifierIconComponents = (file: Nullable<FileData>) => {
     return modifierIconComponents;
 };
 
+const _extname = (fileName: string) => {
+    const parts = fileName.split('.');
+    if (parts.length) {
+        return `.${parts[parts.length - 1]}`
+    }
+    return '';
+};
+
 export const useFileNameComponent = (file: Nullable<FileData>) => {
     return useMemo(() => {
         if (!file) return <TextPlaceholder minLength={15} maxLength={20} />;
@@ -118,7 +125,7 @@ export const useFileNameComponent = (file: Nullable<FileData>) => {
         if (isDir) {
             name = file.name;
         } else {
-            extension = file.ext ?? path.extname(file.name);
+            extension = file.ext ?? _extname(file.name);
             name = file.name.substr(0, file.name.length - extension.length);
         }
 

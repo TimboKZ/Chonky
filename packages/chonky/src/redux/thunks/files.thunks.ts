@@ -33,10 +33,7 @@ export const thunkUpdateRawFiles = (rawFiles: FileArray | any): ChonkyThunk => (
     getState
 ) => {
     if (getState().rawFiles === rawFiles) return;
-    const { sanitizedArray, errorMessages } = sanitizeInputArray('files', rawFiles);
     dispatch(reduxActions.setRawFiles(rawFiles));
-    dispatch(reduxActions.setFilesErrorMessages(errorMessages));
-    dispatch(reduxActions.setFiles(sanitizedArray));
     dispatch(thunkSortFiles());
     dispatch(thunkUpdateHiddenFiles());
     dispatch(thunkUpdateDisplayFiles());

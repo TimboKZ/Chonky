@@ -13,6 +13,7 @@ import { SortOrder } from '../types/sort.types';
 import { ThumbnailGenerator } from '../types/thumbnails.types';
 import { FileHelper } from '../util/file-helper';
 import { initialRootState } from './state';
+import { sanitizeInputArray } from './files-transforms';
 
 export const { actions: reduxActions, reducer: rootReducer } = createSlice({
     name: 'root',
@@ -54,15 +55,14 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
             state.folderChain = action.payload;
         },
         setRawFiles(state, action: PayloadAction<FileArray | any>) {
-            state.rawFiles = action.payload;
-        },
-        setFilesErrorMessages(state, action: PayloadAction<string[]>) {
-            state.filesErrorMessages = action.payload;
-        },
-        setFiles(state, action: PayloadAction<FileArray>) {
+            const rawFiles = action.payload;
+            const { sanitizedArray: files, errorMessages } = sanitizeInputArray('files', rawFiles);
+            state.rawFiles = rawFiles;
+            state.filesErrorMessages = errorMessages;
+
             const fileMap: FileMap = {};
-            action.payload.map(f => (f ? (fileMap[f.id] = f) : null));
-            const fileIds = action.payload.map(f => (f ? f.id : null));
+            files.forEach(f => (f ? (fileMap[f.id] = f) : null));
+            const fileIds = files.map(f => (f ? f.id : null));
             const cleanFileIds = fileIds.filter(f => !!f) as string[];
 
             state.fileMap = fileMap;
