@@ -1,6 +1,6 @@
 {
   "name": "chonky-storybook",
-  "version": "0.1.0",
+  "version": "2.2.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "4.11.3",
@@ -13,8 +13,8 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "aws-sdk": "^2.774.0",
-    "chonky": "^2.1.0",
-    "chonky-icon-fontawesome": "^2.1.0",
+    "chonky": "^2.2.0",
+    "chonky-icon-fontawesome": "^2.2.0",
     "noty": "^3.2.0-beta-deprecated",
     "react": "^16.14.0",
     "react-dnd": "^11.1.3",
