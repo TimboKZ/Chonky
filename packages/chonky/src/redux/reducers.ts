@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Nilable, Nullable } from 'tsdef';
+
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { GenericFileActionHandler } from '../types/action-handler.types';
 import { FileActionMenuItem } from '../types/action-menus.types';
@@ -8,21 +9,17 @@ import { ContextMenuConfig } from '../types/context-menu.types';
 import { FileViewConfig } from '../types/file-view.types';
 import { FileArray, FileIdTrueMap, FileMap } from '../types/file.types';
 import { OptionMap } from '../types/options.types';
-import { FileSelection } from '../types/selection.types';
 import { SortOrder } from '../types/sort.types';
 import { ThumbnailGenerator } from '../types/thumbnails.types';
 import { FileHelper } from '../util/file-helper';
-import { initialRootState } from './state';
 import { sanitizeInputArray } from './files-transforms';
+import { initialRootState } from './state';
 
 export const { actions: reduxActions, reducer: rootReducer } = createSlice({
     name: 'root',
     initialState: initialRootState,
     reducers: {
-        setExternalFileActionHandler(
-            state,
-            action: PayloadAction<Nilable<GenericFileActionHandler<FileAction>>>
-        ) {
+        setExternalFileActionHandler(state, action: PayloadAction<Nilable<GenericFileActionHandler<FileAction>>>) {
             state.externalFileActionHandler = action.payload ?? null;
         },
         setRawFileActions(state, action: PayloadAction<FileAction[] | any>) {
@@ -39,20 +36,15 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
             state.fileActionMap = fileActionMap as FileMap;
             state.fileActionIds = fileIds;
         },
-        updateFileActionMenuItems(
-            state,
-            action: PayloadAction<[FileActionMenuItem[], FileActionMenuItem[]]>
-        ) {
+        updateFileActionMenuItems(state, action: PayloadAction<[FileActionMenuItem[], FileActionMenuItem[]]>) {
             [state.toolbarItems, state.contextMenuItems] = action.payload;
         },
         setRawFolderChain(state, action: PayloadAction<FileArray | any>) {
-            state.rawFolderChain = action.payload;
-        },
-        setFolderChainErrorMessages(state, action: PayloadAction<string[]>) {
-            state.folderChainErrorMessages = action.payload;
-        },
-        setFolderChain(state, action: PayloadAction<FileArray>) {
-            state.folderChain = action.payload;
+            const rawFolderChain = action.payload;
+            const { sanitizedArray: folderChain, errorMessages } = sanitizeInputArray('folderChain', rawFolderChain);
+            state.rawFolderChain = rawFolderChain;
+            state.folderChain = folderChain;
+            state.folderChainErrorMessages = errorMessages;
         },
         setRawFiles(state, action: PayloadAction<FileArray | any>) {
             const rawFiles = action.payload;
@@ -61,22 +53,35 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
             state.filesErrorMessages = errorMessages;
 
             const fileMap: FileMap = {};
-            files.forEach(f => (f ? (fileMap[f.id] = f) : null));
+            files.forEach(f => {
+                if (f) fileMap[f.id] = f;
+            });
             const fileIds = files.map(f => (f ? f.id : null));
             const cleanFileIds = fileIds.filter(f => !!f) as string[];
 
             state.fileMap = fileMap;
             state.fileIds = fileIds;
             state.cleanFileIds = cleanFileIds;
+
+            // Cleanup selection
+            for (const selectedFileId of Object.keys(state.selectionMap)) {
+                if (!fileMap[selectedFileId]) {
+                    delete state.selectionMap[selectedFileId];
+                }
+            }
         },
         setSortedFileIds(state, action: PayloadAction<Nullable<string>[]>) {
             state.sortedFileIds = action.payload;
         },
         setHiddenFileIds(state, action: PayloadAction<FileIdTrueMap>) {
             state.hiddenFileIdMap = action.payload;
-        },
-        setDisplayFileIds(state, action: PayloadAction<Nullable<string>[]>) {
-            state.displayFileIds = action.payload;
+
+            // Cleanup selection
+            for (const selectedFileId of Object.keys(state.selectionMap)) {
+                if (state.hiddenFileIdMap[selectedFileId]) {
+                    delete state.selectionMap[selectedFileId];
+                }
+            }
         },
         setFocusSearchInput(state, action: PayloadAction<Nullable<() => void>>) {
             state.focusSearchInput = action.payload;
@@ -89,31 +94,14 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
                 .filter(id => id && FileHelper.isSelectable(state.fileMap[id]))
                 .map(id => (id ? (state.selectionMap[id] = true) : null));
         },
-        selectRange(
-            state,
-            action: PayloadAction<{ rangeStart: number; rangeEnd: number }>
-        ) {
-            if (state.disableSelection) return;
-            state.selectionMap = {};
-            state.displayFileIds
-                .slice(action.payload.rangeStart, action.payload.rangeEnd + 1)
-                .filter(id => id && FileHelper.isSelectable(state.fileMap[id]))
-                .map(id => (state.selectionMap[id!] = true));
-        },
-        selectFiles(
-            state,
-            action: PayloadAction<{ fileIds: string[]; reset: boolean }>
-        ) {
+        selectFiles(state, action: PayloadAction<{ fileIds: string[]; reset: boolean }>) {
             if (state.disableSelection) return;
             if (action.payload.reset) state.selectionMap = {};
             action.payload.fileIds
                 .filter(id => id && FileHelper.isSelectable(state.fileMap[id]))
                 .map(id => (state.selectionMap[id] = true));
         },
-        toggleSelection(
-            state,
-            action: PayloadAction<{ fileId: string; exclusive: boolean }>
-        ) {
+        toggleSelection(state, action: PayloadAction<{ fileId: string; exclusive: boolean }>) {
             if (state.disableSelection) return;
             const oldValue = !!state.selectionMap[action.payload.fileId];
             if (action.payload.exclusive) state.selectionMap = {};
@@ -121,15 +109,6 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
             else if (FileHelper.isSelectable(state.fileMap[action.payload.fileId])) {
                 state.selectionMap[action.payload.fileId] = true;
             }
-        },
-        cleanUpSelection(state) {
-            // Make sure files that are not visible anymore are not a part of the
-            // selection.
-            const newSelectionMap: FileSelection = {};
-            state.displayFileIds.map(id => {
-                if (id && id in state.selectionMap) newSelectionMap[id] = true;
-            });
-            state.selectionMap = newSelectionMap;
         },
         clearSelection(state) {
             if (state.disableSelection) return;
@@ -154,10 +133,7 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         toggleOption(state, action: PayloadAction<string>) {
             state.optionMap[action.payload] = !state.optionMap[action.payload];
         },
-        setThumbnailGenerator(
-            state,
-            action: PayloadAction<Nullable<ThumbnailGenerator>>
-        ) {
+        setThumbnailGenerator(state, action: PayloadAction<Nullable<ThumbnailGenerator>>) {
             state.thumbnailGenerator = action.payload;
         },
         setDoubleClickDelay(state, action: PayloadAction<number>) {
@@ -169,8 +145,8 @@ export const { actions: reduxActions, reducer: rootReducer } = createSlice({
         setClearSelectionOnOutsideClick(state, action: PayloadAction<boolean>) {
             state.clearSelectionOnOutsideClick = action.payload;
         },
-        setLastClickIndex(state, action: PayloadAction<Nullable<number>>) {
-            state.lastClickIndex = action.payload;
+        setLastClickIndex(state, action: PayloadAction<Nullable<{ index: number; fileId: string }>>) {
+            state.lastClick = action.payload;
         },
         setContextMenuMounted(state, action: PayloadAction<boolean>) {
             state.contextMenuMounted = action.payload;

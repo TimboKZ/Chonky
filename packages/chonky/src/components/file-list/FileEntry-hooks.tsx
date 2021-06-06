@@ -1,10 +1,5 @@
 import React, {
-    HTMLProps,
-    useCallback,
-    useContext,
-    useEffect,
-    useMemo,
-    useState,
+    HTMLProps, useCallback, useContext, useEffect, useMemo, useRef, useState
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Nullable, Undefinable } from 'tsdef';
@@ -16,20 +11,13 @@ import { DndEntryState } from '../../types/file-list.types';
 import { FileData } from '../../types/file.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { FileHelper } from '../../util/file-helper';
-import {
-    ChonkyIconContext,
-    ColorsDark,
-    ColorsLight,
-    useIconData,
-} from '../../util/icon-helper';
+import { ChonkyIconContext, ColorsDark, ColorsLight, useIconData } from '../../util/icon-helper';
 import { Logger } from '../../util/logger';
 import { TextPlaceholder } from '../external/TextPlaceholder';
 import { KeyboardClickEvent, MouseClickEvent } from '../internal/ClickableWrapper';
 import { FileEntryState } from './GridEntryPreview';
 
-export const useFileEntryHtmlProps = (
-    file: Nullable<FileData>
-): HTMLProps<HTMLDivElement> => {
+export const useFileEntryHtmlProps = (file: Nullable<FileData>): HTMLProps<HTMLDivElement> => {
     return useMemo(() => {
         const dataProps: { [prop: string]: Undefinable<string> } = {
             'data-test-id': 'file-entry',
@@ -43,18 +31,12 @@ export const useFileEntryHtmlProps = (
     }, [file]);
 };
 
-export const useFileEntryState = (
-    file: Nullable<FileData>,
-    selected: boolean,
-    focused: boolean
-) => {
+export const useFileEntryState = (file: Nullable<FileData>, selected: boolean, focused: boolean) => {
     const iconData = useIconData(file);
     const { thumbnailUrl, thumbnailLoading } = useThumbnailUrl(file);
 
     return useMemo<FileEntryState>(() => {
-        const fileColor = thumbnailUrl
-            ? ColorsDark[iconData.colorCode]
-            : ColorsLight[iconData.colorCode];
+        const fileColor = thumbnailUrl ? ColorsDark[iconData.colorCode] : ColorsLight[iconData.colorCode];
         const iconSpin = thumbnailLoading || !file;
         const icon = thumbnailLoading ? ChonkyIconName.loading : iconData.icon;
 
@@ -74,9 +56,7 @@ export const useDndIcon = (dndState: DndEntryState) => {
     let dndIconName: Nullable<ChonkyIconName> = null;
     if (dndState.dndIsOver) {
         const showDropIcon = dndState.dndCanDrop;
-        dndIconName = showDropIcon
-            ? ChonkyIconName.dndCanDrop
-            : ChonkyIconName.dndCannotDrop;
+        dndIconName = showDropIcon ? ChonkyIconName.dndCanDrop : ChonkyIconName.dndCannotDrop;
     } else if (dndState.dndIsDragging) {
         dndIconName = ChonkyIconName.dndDragging;
     }
@@ -94,10 +74,7 @@ export const useModifierIconComponents = (file: Nullable<FileData>) => {
     }, [file]);
     const ChonkyIcon = useContext(ChonkyIconContext);
     const modifierIconComponents = useMemo(
-        () =>
-            modifierIcons.map((icon, index) => (
-                <ChonkyIcon key={`file-modifier-${index}`} icon={icon} />
-            )),
+        () => modifierIcons.map((icon, index) => <ChonkyIcon key={`file-modifier-${index}`} icon={icon} />),
         // For some reason ESLint marks `ChonkyIcon` as an unnecessary dependency,
         // but we expect it can change at runtime so we disable the check.
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -109,7 +86,7 @@ export const useModifierIconComponents = (file: Nullable<FileData>) => {
 const _extname = (fileName: string) => {
     const parts = fileName.split('.');
     if (parts.length) {
-        return `.${parts[parts.length - 1]}`
+        return `.${parts[parts.length - 1]}`;
     }
     return '';
 };
@@ -132,11 +109,7 @@ export const useFileNameComponent = (file: Nullable<FileData>) => {
         return (
             <>
                 {name}
-                {extension && (
-                    <span className="chonky-file-entry-description-title-extension">
-                        {extension}
-                    </span>
-                )}
+                {extension && <span className="chonky-file-entry-description-title-extension">{extension}</span>}
             </>
         );
     }, [file]);
@@ -146,13 +119,17 @@ export const useThumbnailUrl = (file: Nullable<FileData>) => {
     const thumbnailGenerator = useSelector(selectThumbnailGenerator);
     const [thumbnailUrl, setThumbnailUrl] = useState<Nullable<string>>(null);
     const [thumbnailLoading, setThumbnailLoading] = useState<boolean>(false);
+    const loadingAttempts = useRef(0);
 
     useEffect(() => {
         let loadingCancelled = false;
 
         if (file) {
             if (thumbnailGenerator) {
-                setThumbnailLoading(true);
+                if (loadingAttempts.current === 0) {
+                    setThumbnailLoading(true);
+                }
+                loadingAttempts.current++;
                 Promise.resolve()
                     .then(() => thumbnailGenerator(file))
                     .then((thumbnailUrl: any) => {
@@ -165,9 +142,7 @@ export const useThumbnailUrl = (file: Nullable<FileData>) => {
                     })
                     .catch(error => {
                         if (!loadingCancelled) setThumbnailLoading(false);
-                        Logger.error(
-                            `User-defined "thumbnailGenerator" handler threw an error: ${error.message}`
-                        );
+                        Logger.error(`User-defined "thumbnailGenerator" handler threw an error: ${error.message}`);
                     });
             } else if (file.thumbnailUrl) {
                 setThumbnailUrl(file.thumbnailUrl);
@@ -182,10 +157,7 @@ export const useThumbnailUrl = (file: Nullable<FileData>) => {
     return { thumbnailUrl, thumbnailLoading };
 };
 
-export const useFileClickHandlers = (
-    file: Nullable<FileData>,
-    displayIndex: number
-) => {
+export const useFileClickHandlers = (file: Nullable<FileData>, displayIndex: number) => {
     const dispatch = useDispatch();
 
     // Prepare base handlers
@@ -226,14 +198,8 @@ export const useFileClickHandlers = (
     );
 
     // Prepare single/double click handlers
-    const onSingleClick = useCallback(
-        (event: MouseClickEvent) => onMouseClick(event, 'single'),
-        [onMouseClick]
-    );
-    const onDoubleClick = useCallback(
-        (event: MouseClickEvent) => onMouseClick(event, 'double'),
-        [onMouseClick]
-    );
+    const onSingleClick = useCallback((event: MouseClickEvent) => onMouseClick(event, 'single'), [onMouseClick]);
+    const onDoubleClick = useCallback((event: MouseClickEvent) => onMouseClick(event, 'double'), [onMouseClick]);
 
     return {
         onSingleClick,

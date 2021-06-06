@@ -4,16 +4,13 @@
  * @license MIT
  */
 
-import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 
-import {
-    selectDisplayFileIds,
-    selectHiddenFileCount,
-    selectSelectionSize,
-} from '../../redux/selectors';
+import Typography from '@material-ui/core/Typography';
+
+import { selectHiddenFileCount, selectors, selectSelectionSize } from '../../redux/selectors';
 import { getI18nId, I18nNamespace } from '../../util/i18n';
 import { important, makeGlobalChonkyStyles } from '../../util/styles';
 
@@ -22,7 +19,7 @@ export interface ToolbarInfoProps {}
 export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
     const classes = useStyles();
 
-    const displayFileIds = useSelector(selectDisplayFileIds);
+    const displayFileIds = useSelector(selectors.getDisplayFileIds);
     const selectionSize = useSelector(selectSelectionSize);
     const hiddenCount = useSelector(selectHiddenFileCount);
 

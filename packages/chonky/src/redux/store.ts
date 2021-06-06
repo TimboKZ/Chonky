@@ -1,10 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { configureStore } from '@reduxjs/toolkit';
+
 import { RootState } from '../types/redux.types';
 import { useStaticValue } from '../util/hooks-helpers';
-import { ThunkExtraArgument } from './middleware';
 import { rootReducer } from './reducers';
 import { initialRootState } from './state';
 import { useStoreWatchers } from './watchers';
@@ -16,15 +16,12 @@ export const useChonkyStore = (chonkyInstanceId: string) => {
             instanceId: chonkyInstanceId,
         };
 
-        const thunkExtraArgument = new ThunkExtraArgument();
-
         return configureStore({
             preloadedState: preloadedState as any,
             reducer: rootReducer,
             middleware: getDefaultMiddleware =>
                 getDefaultMiddleware({
                     serializableCheck: false,
-                    thunk: { extraArgument: thunkExtraArgument },
                 }),
             devTools: { name: `chonky_${chonkyInstanceId}` },
         });
@@ -52,10 +49,7 @@ export const useParamSelector = <Args extends Array<any>, Value>(
  * DTE - DispatchThunkEffect. This method is used to decrease code duplication in
  * main Chonky method.
  */
-export const useDTE = <Args extends Array<any>>(
-    actionCreator: (...args: Args) => any,
-    ...selectorParams: Args
-) => {
+export const useDTE = <Args extends Array<any>>(actionCreator: (...args: Args) => any, ...selectorParams: Args) => {
     const dispatch = useDispatch();
     useEffect(
         () => {
@@ -64,4 +58,9 @@ export const useDTE = <Args extends Array<any>>(
         // eslint-disable-next-line
         [dispatch, actionCreator, ...selectorParams]
     );
+};
+
+export const usePropReduxUpdate = <Payload extends any>(actionCreator: (payload: Payload) => any, payload: Payload) => {
+    const dispatch = useDispatch();
+    useEffect(() => dispatch(actionCreator(payload)), [dispatch, actionCreator, payload]);
 };

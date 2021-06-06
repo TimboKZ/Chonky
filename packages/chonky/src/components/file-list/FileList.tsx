@@ -3,20 +3,13 @@ import { useSelector } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
 import { ChonkyActions } from '../../action-definitions/index';
-import {
-    selectCurrentFolder,
-    selectDisplayFileIds,
-    selectFileViewConfig,
-} from '../../redux/selectors';
+import { selectCurrentFolder, selectFileViewConfig, selectors } from '../../redux/selectors';
 import { FileViewMode } from '../../types/file-view.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useFileDrop } from '../../util/dnd';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import {
-    c,
-    getStripeGradient,
-    makeGlobalChonkyStyles,
-    makeLocalChonkyStyles,
+    c, getStripeGradient, makeGlobalChonkyStyles, makeLocalChonkyStyles
 } from '../../util/styles';
 import { FileListEmpty } from './FileListEmpty';
 import { GridContainer } from './GridContainer';
@@ -30,15 +23,12 @@ interface StyleState {
 }
 
 export const FileList: React.FC<FileListProps> = React.memo(() => {
-    const displayFileIds = useSelector(selectDisplayFileIds);
+    const displayFileIds = useSelector(selectors.getDisplayFileIds);
     const viewConfig = useSelector(selectFileViewConfig);
 
     const currentFolder = useSelector(selectCurrentFolder);
     const { drop, dndCanDrop, dndIsOverCurrent } = useFileDrop({ file: currentFolder });
-    const styleState = useMemo<StyleState>(() => ({ dndCanDrop, dndIsOverCurrent }), [
-        dndCanDrop,
-        dndIsOverCurrent,
-    ]);
+    const styleState = useMemo<StyleState>(() => ({ dndCanDrop, dndIsOverCurrent }), [dndCanDrop, dndIsOverCurrent]);
 
     const localClasses = useLocalStyles(styleState);
     const classes = useStyles(viewConfig);
@@ -63,26 +53,17 @@ export const FileList: React.FC<FileListProps> = React.memo(() => {
 
     const ChonkyIcon = useContext(ChonkyIconContext);
     return (
-        <div
-            ref={drop}
-            className={c([classes.fileListWrapper, localClasses.fileListWrapper])}
-            role="list"
-        >
+        <div ref={drop} className={c([classes.fileListWrapper, localClasses.fileListWrapper])} role="list">
             <div className={localClasses.dndDropZone}>
                 <div className={localClasses.dndDropZoneIcon}>
-                    <ChonkyIcon
-                        icon={
-                            dndCanDrop
-                                ? ChonkyIconName.dndCanDrop
-                                : ChonkyIconName.dndCannotDrop
-                        }
-                    />
+                    <ChonkyIcon icon={dndCanDrop ? ChonkyIconName.dndCanDrop : ChonkyIconName.dndCannotDrop} />
                 </div>
             </div>
             <AutoSizer disableHeight={!fillParentContainer}>{listRenderer}</AutoSizer>
         </div>
     );
 });
+FileList.displayName = 'FileList';
 
 const useLocalStyles = makeLocalChonkyStyles(theme => ({
     fileListWrapper: {
@@ -90,14 +71,8 @@ const useLocalStyles = makeLocalChonkyStyles(theme => ({
         background: (state: StyleState) =>
             state.dndIsOverCurrent && state.dndCanDrop
                 ? state.dndCanDrop
-                    ? getStripeGradient(
-                          theme.dnd.fileListCanDropMaskOne,
-                          theme.dnd.fileListCanDropMaskTwo
-                      )
-                    : getStripeGradient(
-                          theme.dnd.fileListCannotDropMaskOne,
-                          theme.dnd.fileListCannotDropMaskTwo
-                      )
+                    ? getStripeGradient(theme.dnd.fileListCanDropMaskOne, theme.dnd.fileListCanDropMaskTwo)
+                    : getStripeGradient(theme.dnd.fileListCannotDropMaskOne, theme.dnd.fileListCannotDropMaskTwo)
                 : 'none',
     },
     dndDropZone: {
@@ -112,10 +87,8 @@ const useLocalStyles = makeLocalChonkyStyles(theme => ({
         zIndex: 2,
     },
     dndDropZoneIcon: {
-        backgroundColor: (state: StyleState) =>
-            state.dndCanDrop ? theme.dnd.canDropMask : theme.dnd.cannotDropMask,
-        color: (state: StyleState) =>
-            state.dndCanDrop ? theme.dnd.canDropColor : theme.dnd.cannotDropColor,
+        backgroundColor: (state: StyleState) => (state.dndCanDrop ? theme.dnd.canDropMask : theme.dnd.cannotDropMask),
+        color: (state: StyleState) => (state.dndCanDrop ? theme.dnd.canDropColor : theme.dnd.cannotDropColor),
         borderRadius: theme.gridFileEntry.borderRadius,
         transform: 'translateX(-50%) translateY(-50%)',
         position: 'absolute',

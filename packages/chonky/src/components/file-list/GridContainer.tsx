@@ -4,19 +4,14 @@
  * @license MIT
  */
 
-import React, {
-    CSSProperties,
-    useCallback,
-    useEffect,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { VariableSizeGrid } from 'react-window';
 
-import { selectDisplayFileIds, selectFileViewConfig } from '../../redux/selectors';
+import { ChonkyActions } from '../../action-definitions';
+import { selectFileViewConfig, selectors } from '../../redux/selectors';
 import { FileViewConfigGrid } from '../../types/file-view.types';
+import { RootState } from '../../types/redux.types';
 import { useInstanceVariable } from '../../util/hooks-helpers';
 import { makeGlobalChonkyStyles, useIsMobileBreakpoint } from '../../util/styles';
 import { SmartFileEntry } from './FileEntry';
@@ -36,10 +31,7 @@ interface GridConfig {
 
 export const isMobileDevice = () => {
     // noinspection JSDeprecatedSymbols
-    return (
-        typeof window.orientation !== 'undefined' ||
-        navigator.userAgent.indexOf('IEMobile') !== -1
-    );
+    return typeof window.orientation !== 'undefined' || navigator.userAgent.indexOf('IEMobile') !== -1;
 };
 
 export const getGridConfig = (
@@ -58,10 +50,7 @@ export const getGridConfig = (
         columnWidth = (width - gutter - scrollbar) / columnCount;
     } else {
         columnWidth = viewConfig.entryWidth;
-        columnCount = Math.max(
-            1,
-            Math.floor((width - scrollbar) / (columnWidth + gutter))
-        );
+        columnCount = Math.max(1, Math.floor((width - scrollbar) / (columnWidth + gutter)));
     }
 
     const rowCount = Math.ceil(fileCount / columnCount);
@@ -79,7 +68,7 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo(props => {
     const { width, height } = props;
 
     const viewConfig = useSelector(selectFileViewConfig) as FileViewConfigGrid;
-    const displayFileIds = useSelector(selectDisplayFileIds);
+    const displayFileIds = useSelector(selectors.getDisplayFileIds);
     const fileCount = useMemo(() => displayFileIds.length, [displayFileIds]);
 
     const gridRef = useRef<VariableSizeGrid>();
@@ -89,9 +78,7 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo(props => {
     // `VariableSizeGrid` handle to reset column width/row height cache.
     // !!! Note that we deliberately update the `gridRef` firsts and update the React
     //     state AFTER that. This is needed to avoid file entries jumping up/down.
-    const [gridConfig, setGridConfig] = useState(
-        getGridConfig(width, fileCount, viewConfig, isMobileBreakpoint)
-    );
+    const [gridConfig, setGridConfig] = useState(getGridConfig(width, fileCount, viewConfig, isMobileBreakpoint));
     const gridConfigRef = useRef(gridConfig);
     useEffect(() => {
         const oldConf = gridConfigRef.current;
@@ -100,14 +87,10 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo(props => {
         gridConfigRef.current = newConf;
         if (gridRef.current) {
             if (oldConf.rowCount !== newConf.rowCount) {
-                gridRef.current.resetAfterRowIndex(
-                    Math.min(oldConf.rowCount, newConf.rowCount) - 1
-                );
+                gridRef.current.resetAfterRowIndex(Math.min(oldConf.rowCount, newConf.rowCount) - 1);
             }
             if (oldConf.columnCount !== newConf.columnCount) {
-                gridRef.current.resetAfterColumnIndex(
-                    Math.min(oldConf.columnCount, newConf.rowCount) - 1
-                );
+                gridRef.current.resetAfterColumnIndex(Math.min(oldConf.columnCount, newConf.rowCount) - 1);
             }
             if (oldConf.columnWidth !== newConf.columnWidth) {
                 gridRef.current.resetAfterIndices({ columnIndex: 0, rowIndex: 0 });
@@ -115,32 +98,22 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo(props => {
         }
 
         setGridConfig(newConf);
-    }, [
-        setGridConfig,
-        gridConfigRef,
-        isMobileBreakpoint,
-        width,
-        viewConfig,
-        fileCount,
-    ]);
+    }, [setGridConfig, gridConfigRef, isMobileBreakpoint, width, viewConfig, fileCount]);
 
     const sizers = useMemo(() => {
         const gc = gridConfigRef;
         return {
             getColumnWidth: (index: number) =>
-                gc.current.columnWidth! +
-                (index === gc.current.columnCount - 1 ? 0 : gc.current.gutter),
+                gc.current.columnWidth! + (index === gc.current.columnCount - 1 ? 0 : gc.current.gutter),
             getRowHeight: (index: number) =>
-                gc.current.rowHeight +
-                (index === gc.current.rowCount - 1 ? 0 : gc.current.gutter),
+                gc.current.rowHeight + (index === gc.current.rowCount - 1 ? 0 : gc.current.gutter),
         };
     }, [gridConfigRef]);
 
-    const displayFileIdsRef = useInstanceVariable(useSelector(selectDisplayFileIds));
+    const displayFileIdsRef = useInstanceVariable(useSelector(selectors.getDisplayFileIds));
     const getItemKey = useCallback(
         (data: { columnIndex: number; rowIndex: number; data: any }) => {
-            const index =
-                data.rowIndex * gridConfigRef.current.columnCount + data.columnIndex;
+            const index = data.rowIndex * gridConfigRef.current.columnCount + data.columnIndex;
 
             return displayFileIdsRef.current[index] ?? `loading-file-${index}`;
         },
@@ -156,22 +129,14 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo(props => {
 
             const styleWithGutter: CSSProperties = {
                 ...data.style,
-                paddingRight:
-                    data.columnIndex === gc.current.columnCount - 1
-                        ? 0
-                        : gc.current.gutter,
-                paddingBottom:
-                    data.rowIndex === gc.current.rowCount - 1 ? 0 : gc.current.gutter,
+                paddingRight: data.columnIndex === gc.current.columnCount - 1 ? 0 : gc.current.gutter,
+                paddingBottom: data.rowIndex === gc.current.rowCount - 1 ? 0 : gc.current.gutter,
                 boxSizing: 'border-box',
             };
 
             return (
                 <div style={styleWithGutter}>
-                    <SmartFileEntry
-                        fileId={fileId ?? null}
-                        displayIndex={index}
-                        fileViewMode={viewConfig.mode}
-                    />
+                    <SmartFileEntry fileId={fileId ?? null} displayIndex={index} fileViewMode={viewConfig.mode} />
                 </div>
             );
         },

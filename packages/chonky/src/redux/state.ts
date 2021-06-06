@@ -26,7 +26,6 @@ export const initialRootState: RootState = {
 
     sortedFileIds: [],
     hiddenFileIdMap: {},
-    displayFileIds: [],
 
     focusSearchInput: null,
     searchString: '',
@@ -47,7 +46,7 @@ export const initialRootState: RootState = {
     disableDragAndDrop: false,
     clearSelectionOnOutsideClick: true,
 
-    lastClickIndex: null,
+    lastClick: null,
 
     contextMenuMounted: false,
     contextMenuConfig: null,

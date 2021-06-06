@@ -1,5 +1,6 @@
-import { Action, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { Nullable } from 'tsdef';
+
+import { Action, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import { GenericFileActionHandler } from './action-handler.types';
 import { FileActionMenuItem } from './action-menus.types';
@@ -40,7 +41,6 @@ export type RootState = {
     // Derivative files
     sortedFileIds: Nullable<string>[];
     hiddenFileIdMap: FileIdTrueMap;
-    displayFileIds: Nullable<string>[]; // Files that should be shown to the user
 
     // Search
     focusSearchInput: Nullable<() => void>;
@@ -68,30 +68,13 @@ export type RootState = {
     clearSelectionOnOutsideClick: boolean;
 
     // State to use inside effects
-    lastClickIndex: Nullable<number>;
+    lastClick: Nullable<{ index: number; fileId: string }>;
 
     // Context menu
     contextMenuMounted: boolean;
     contextMenuConfig: Nullable<ContextMenuConfig>;
 };
 
-export interface ChonkyThunkExtraArgument {
-    getCachedSearch(
-        cleanFileIds: string[],
-        fileMap: FileMap,
-        searchString: string
-    ): Set<string>;
-}
+export type ChonkyThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, null, Action<string>>;
 
-export type ChonkyThunk<ReturnType = void> = ThunkAction<
-    ReturnType,
-    RootState,
-    ChonkyThunkExtraArgument,
-    Action<string>
->;
-
-export type ChonkyDispatch = ThunkDispatch<
-    RootState,
-    ChonkyThunkExtraArgument,
-    Action<string>
->;
+export type ChonkyDispatch = ThunkDispatch<RootState, null, Action<string>>;

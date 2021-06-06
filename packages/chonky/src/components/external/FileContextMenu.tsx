@@ -4,11 +4,12 @@
  * @license MIT
  */
 
-import ListSubheader from '@material-ui/core/ListSubheader';
-import Menu from '@material-ui/core/Menu';
 import React, { ReactElement, useEffect, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
+
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Menu from '@material-ui/core/Menu';
 
 import { reduxActions } from '../../redux/reducers';
 import { selectContextMenuConfig, selectContextMenuItems } from '../../redux/selectors';
@@ -70,17 +71,13 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = React.memo(() => 
     }, [contextMenuItems, hideContextMenu]);
 
     const anchorPosition = useMemo(
-        () =>
-            contextMenuConfig
-                ? { top: contextMenuConfig.mouseY, left: contextMenuConfig.mouseX }
-                : undefined,
+        () => (contextMenuConfig ? { top: contextMenuConfig.mouseY, left: contextMenuConfig.mouseX } : undefined),
         [contextMenuConfig]
     );
 
     const classes = useStyles();
     return (
         <Menu
-            keepMounted
             elevation={2}
             disablePortal
             onClose={hideContextMenu}

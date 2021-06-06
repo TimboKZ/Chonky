@@ -1,7 +1,4 @@
-import {
-    GenericFileActionHandler,
-    MapFileActionsToData,
-} from './types/action-handler.types';
+import { GenericFileActionHandler, MapFileActionsToData } from './types/action-handler.types';
 import { ChonkyActionUnion } from './types/file-browser.types';
 
 export { FileBrowser } from './components/external/FileBrowser';
@@ -11,21 +8,13 @@ export { FileList } from './components/file-list/FileList';
 export { FileContextMenu } from './components/external/FileContextMenu';
 export { FullFileBrowser } from './components/external/FullFileBrowser';
 
-export { ChonkyActions, DefaultFileActions } from './action-definitions';
+export { ChonkyActions, DefaultFileActions, OptionIds } from './action-definitions';
 export { defineFileAction } from './util/helpers';
-export {
-    thunkDispatchFileAction,
-    thunkRequestFileAction,
-} from './redux/thunks/dispatchers.thunks';
+export { thunkDispatchFileAction, thunkRequestFileAction } from './redux/thunks/dispatchers.thunks';
 
 export { FileHelper } from './util/file-helper';
 export { FileData, FileArray } from './types/file.types';
-export {
-    FileAction,
-    FileActionEffect,
-    FileSelectionTransform,
-    FileActionButton,
-} from './types/action.types';
+export { FileAction, FileActionEffect, FileSelectionTransform, FileActionButton } from './types/action.types';
 export {
     GenericFileActionHandler,
     MapFileActionsToData,
@@ -43,12 +32,7 @@ export type FileViewConfigList = import('./types/file-view.types').FileViewConfi
 export { ThumbnailGenerator } from './types/thumbnails.types';
 
 export { I18nConfig, ChonkyFormatters } from './types/i18n.types';
-export {
-    defaultFormatters,
-    getI18nId,
-    getActionI18nId,
-    I18nNamespace,
-} from './util/i18n';
+export { defaultFormatters, getI18nId, getActionI18nId, I18nNamespace } from './util/i18n';
 
 export { setChonkyDefaults } from './util/default-config';
 
