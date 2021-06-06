@@ -1,17 +1,13 @@
 import { Nilable } from 'tsdef';
 
-import {
-    ChonkyActions, DefaultFileActions, EssentialFileActions
-} from '../../action-definitions/index';
+import { ChonkyActions, DefaultFileActions, EssentialFileActions } from '../../action-definitions/index';
 import { FileActionGroup, FileActionMenuItem } from '../../types/action-menus.types';
 import { FileAction } from '../../types/action.types';
 import { ChonkyThunk } from '../../types/redux.types';
 import { SortOrder } from '../../types/sort.types';
 import { sanitizeInputArray } from '../files-transforms';
 import { reduxActions } from '../reducers';
-import {
-    selectCleanFileIds, selectFileMap, selectHiddenFileIdMap, selectSelectionMap
-} from '../selectors';
+import { selectCleanFileIds, selectFileMap, selectHiddenFileIdMap, selectSelectionMap } from '../selectors';
 
 /**
  * Merges multiple file action arrays into one while removing duplicates

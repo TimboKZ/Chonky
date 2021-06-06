@@ -68,14 +68,50 @@ export const useFileMapMethods = <FT extends CustomFileData>(
         setFileMap(baseFileMap);
         setCurrentFolderId(initialFolderId);
     }, [baseFileMap, initialFolderId]);
+    const moveFiles = useCallback(
+        (files: FT[], source: FT, destination: FT) =>
+            setFileMap(currentFileMap => {
+                const newFileMap = { ...currentFileMap };
+                const moveFileIds = new Set(files.map(f => f.id));
+
+                // Delete files from their source folder.
+                const newSourceChildrenIds = source.childrenIds!.filter(id => !moveFileIds.has(id));
+                newFileMap[source.id] = {
+                    ...source,
+                    childrenIds: newSourceChildrenIds,
+                    childrenCount: newSourceChildrenIds.length,
+                };
+
+                // Add the files to their destination folder.
+                const newDestinationChildrenIds = [...destination.childrenIds!, ...files.map(f => f.id)];
+                newFileMap[destination.id] = {
+                    ...destination,
+                    childrenIds: newDestinationChildrenIds,
+                    childrenCount: newDestinationChildrenIds.length,
+                };
+
+                // Finally, update the parent folder ID on the files from source folder
+                // ID to the destination folder ID.
+                files.forEach(file => {
+                    newFileMap[file.id] = {
+                        ...file,
+                        parentId: destination.id,
+                    };
+                });
+
+                return newFileMap;
+            }),
+        []
+    );
 
     const methods = useMemo(
         () => ({
             setFileMap,
             setCurrentFolderId,
             resetFileMap,
+            moveFiles,
         }),
-        [setFileMap, setCurrentFolderId, resetFileMap]
+        [setFileMap, setCurrentFolderId, resetFileMap, moveFiles]
     );
     return {
         fileMap,
@@ -94,6 +130,8 @@ export const useFileActionHandler = (methods: FileMethods) => {
                 if (fileToOpen && FileHelper.isDirectory(fileToOpen)) {
                     methods.setCurrentFolderId(fileToOpen.id);
                 }
+            } else if (data.id === ChonkyActions.MoveFiles.id) {
+                methods.moveFiles(data.payload.files, data.payload.source!, data.payload.destination);
             }
         },
         [methods]
@@ -104,10 +142,7 @@ export const useFileMap = <FT extends CustomFileData = CustomFileData>({
     baseFileMap,
     initialFolderId,
 }: FileMapParams<FT>) => {
-    const { fileMap, currentFolderId, methods } = useFileMapMethods(
-        baseFileMap,
-        initialFolderId
-    );
+    const { fileMap, currentFolderId, methods } = useFileMapMethods(baseFileMap, initialFolderId);
     const folderChain = useFolderChain(fileMap, currentFolderId);
     const files = useFiles(fileMap, currentFolderId);
     const fileActionHandler = useFileActionHandler(methods as FileMethods);
