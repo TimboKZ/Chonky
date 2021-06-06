@@ -83,7 +83,6 @@
     "filesize": "^6.1.0",
     "fuzzy-search": "^3.2.1",
     "hotkeys-js": "^3.8.3",
-    "memoizee": "^0.4.15",
     "react-dnd": "11",
     "react-dnd-html5-backend": "11",
     "react-intl": "^5.13.2",
