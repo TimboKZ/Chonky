@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import React from 'react';
+import React, { UIEvent } from 'react';
 import { FileArray, FullFileBrowser } from '../.';
 import { FileBrowser } from '../src/components/external/FileBrowser';
 import { FileContextMenu } from '../src/components/external/FileContextMenu';
@@ -13,6 +13,10 @@ describe('FileBrowser', () => {
         { id: 'jre', name: 'My Folder' },
     ];
 
+    const onScrollEventHandler = (e: UIEvent<HTMLDivElement>): void => {
+        e.preventDefault();
+    };
+
     it('renders without crashing when using FullFileBrowser', () => {
         render(<FullFileBrowser files={files} />);
     });
@@ -21,7 +25,7 @@ describe('FileBrowser', () => {
             <FileBrowser files={files}>
                 <FileNavbar />
                 <FileToolbar />
-                <FileList />
+                <FileList onScroll={onScrollEventHandler} />
                 <FileContextMenu />
             </FileBrowser>
         );
