@@ -1,4 +1,4 @@
-import { ElementType } from 'react';
+import { ElementType, UIEvent } from 'react';
 import { Nullable } from 'tsdef';
 
 import { ChonkyActions } from '../action-definitions/index';
@@ -160,4 +160,9 @@ export interface FileBrowserProps {
      * @see https://formatjs.io/docs/react-intl/components
      */
     i18n?: I18nConfig;
+
+    /**
+     * Define listener for on scroll events on file lists
+     */
+    onScroll?: (e: UIEvent<HTMLDivElement>) => void;
 }
