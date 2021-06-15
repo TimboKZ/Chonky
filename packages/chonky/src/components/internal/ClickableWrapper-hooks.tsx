@@ -31,8 +31,9 @@ export const useClickHandler = (
         (event: React.MouseEvent) => {
             const mouseClickEvent: MouseClickEvent = {
                 altKey: event.altKey,
-                ctrlKey: event.ctrlKey,
+                ctrlKey: event.ctrlKey || event.metaKey,
                 shiftKey: event.shiftKey,
+
             };
 
             counter.current.clickCount++;
