@@ -1,5 +1,5 @@
 import {
-    createMuiTheme,
+    createTheme,
     ThemeProvider as MuiThemeProvider,
 } from '@material-ui/core/styles';
 import merge from 'deepmerge';
@@ -65,7 +65,7 @@ export const FileBrowser = React.forwardRef<
 
     const isMobileBreakpoint = useIsMobileBreakpoint();
     const theme = useMemo(() => {
-        const muiTheme = createMuiTheme({
+        const muiTheme = createTheme({
             palette: { type: darkMode ? 'dark' : 'light' },
         });
         const combinedTheme = merge(
