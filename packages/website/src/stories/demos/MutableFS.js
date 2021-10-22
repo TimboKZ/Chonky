@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { fileMap, FullFileBrowser, setChonkyDefaults } from 'chonky';
+import { fileMap, defineFileAction, ChonkyIconName, FullFileBrowser, setChonkyDefaults, ChonkyActions } from 'chonky';
 import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 import styled from 'styled-components';
 
@@ -35,6 +35,9 @@ const StoryComponent = () => {
         darkMode: false,
         selection: true,
     });
+    const [copyPaste, setCopyPaste] = useState({
+        copied: false
+    })
     const handleSettingChange = useCallback(
         event => setStorySettings(currentState => ({ ...currentState, [event.target.name]: event.target.checked })),
         []
@@ -52,10 +55,52 @@ const StoryComponent = () => {
     const customActionHandler = useCallback(
         data => {
             console.log(`File action [${data.id}]`, data);
+            if (data.id == ChonkyActions.CopyFiles.id) {
+                setCopyPaste({copied: true});
+            }
+            else if (data.id == PasteFiles.id) {
+                setCopyPaste({copied: false});
+            } 
             fileActionHandler(data);
         },
         [fileActionHandler]
     );
+
+    const PasteFiles = defineFileAction({
+        id: 'paste_files',
+        requiresSelection: false,
+        button: {
+            name: 'Paste selection',
+            toolbar: true,
+            contextMenu: true,
+            group: 'Actions',
+            icon: ChonkyIconName.paste
+        },
+        hotkeys: ['ctrl+v', 'cmd+v'],
+        isReadOnly: !copyPaste.copied
+        // isReadOnly: function nothingWasCopied() {
+        //     console.log("isReadOnly was called!");
+        //     return !copyPaste.copied;
+        // }
+    });
+
+    const CopyFiles = defineFileAction({
+        id: 'copy_files',
+        requiresSelection: true,
+        button: {
+            name: 'Copy selection',
+            toolbar: true,
+            contextMenu: true,
+            group: 'Actions',
+            icon: ChonkyIconName.copy
+        },
+        hotkeys: ['ctrl+c', 'cmd+c'],
+        isReadOnly: copyPaste.copied
+        // isReadOnly: function somethingWasCopied() {
+        //     console.log("isReadOnly was called!");
+        //     return copyPaste.copied;
+        // }
+    });
 
     return (
         <StyledWrapper>
@@ -64,6 +109,11 @@ const StoryComponent = () => {
                     folderChain={data.folderChain}
                     files={data.files}
                     onFileAction={customActionHandler}
+                    fileActions={[
+                        ChonkyActions.OpenFiles,
+                        CopyFiles,
+                        PasteFiles
+                    ]}
                     thumbnailGenerator={thumbnailGenerator}
                     darkMode={storySettings.darkMode}
                     disableDragAndDrop={!storySettings.dnd}

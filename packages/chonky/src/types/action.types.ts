@@ -68,6 +68,7 @@ export interface FileAction {
      * the the handler.
      */
     effect?: FileActionEffect;
+    isReadOnly?: any;
     /**
      * Field used to infer the type of action payload. It is used solely for Typescript
      * type inference and action validation.

@@ -77,7 +77,15 @@ export const useFileActionProps = (
             isSortButtonAndCurrentSort ||
             isFileViewButtonAndCurrentView ||
             isOptionAndEnabled;
-        let disabled: boolean = !!action.requiresSelection && actionSelectionEmpty;
+        let readOnly = false;
+        if (action.isReadOnly !== undefined) {
+            if (typeof action.isReadOnly === 'function') {
+                readOnly = action.isReadOnly();
+            } else if (typeof action.isReadOnly === 'boolean') {
+                readOnly = action.isReadOnly;
+            }
+        }
+        let disabled: boolean = (!!action.requiresSelection && actionSelectionEmpty) || readOnly;
 
         if (action.id === ChonkyActions.OpenParentFolder.id) {
             // We treat `open_parent_folder` file action as a special case as it
