@@ -15,6 +15,7 @@ import {
 import { useParamSelector } from '../redux/store';
 import { thunkRequestFileAction } from '../redux/thunks/dispatchers.thunks';
 import { ChonkyIconName } from '../types/icons.types';
+import { CustomVisibilityState } from '../types/action.types';
 import { SortOrder } from '../types/sort.types';
 import { FileHelper } from './file-helper';
 
@@ -73,19 +74,19 @@ export const useFileActionProps = (
         const isFileViewButtonAndCurrentView = action.fileViewConfig === fileViewConfig;
         const isOptionAndEnabled = action.option ? !!optionValue : false;
 
+        let customDisabled = false;
+        let customActive = false;
+        if (action.customVisibility !== undefined) {
+            customDisabled = action.customVisibility() === CustomVisibilityState.Disabled;
+            customActive = action.customVisibility() === CustomVisibilityState.Active;
+        }
         const active =
             isSortButtonAndCurrentSort ||
             isFileViewButtonAndCurrentView ||
-            isOptionAndEnabled;
-        let readOnly = false;
-        if (action.isReadOnly !== undefined) {
-            if (typeof action.isReadOnly === 'function') {
-                readOnly = action.isReadOnly();
-            } else if (typeof action.isReadOnly === 'boolean') {
-                readOnly = action.isReadOnly;
-            }
-        }
-        let disabled: boolean = (!!action.requiresSelection && actionSelectionEmpty) || readOnly;
+            isOptionAndEnabled ||
+            customActive;
+        
+        let disabled: boolean = (!!action.requiresSelection && actionSelectionEmpty) || customDisabled;
 
         if (action.id === ChonkyActions.OpenParentFolder.id) {
             // We treat `open_parent_folder` file action as a special case as it
