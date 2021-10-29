@@ -14,7 +14,7 @@ export { thunkDispatchFileAction, thunkRequestFileAction } from './redux/thunks/
 
 export { FileHelper } from './util/file-helper';
 export { FileData, FileArray } from './types/file.types';
-export { FileAction, FileActionEffect, FileSelectionTransform, FileActionButton } from './types/action.types';
+export { FileAction, FileActionEffect, FileSelectionTransform, FileActionButton, CustomVisibilityState } from './types/action.types';
 export {
     GenericFileActionHandler,
     MapFileActionsToData,

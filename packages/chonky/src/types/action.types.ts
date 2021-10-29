@@ -68,7 +68,10 @@ export interface FileAction {
      * the the handler.
      */
     effect?: FileActionEffect;
-    isReadOnly?: any;
+    /**
+     * When customVisibility is defined, it will change the display state of the file action
+     */
+    customVisibility?: CustomVisibilityFunction;
     /**
      * Field used to infer the type of action payload. It is used solely for Typescript
      * type inference and action validation.
@@ -112,3 +115,12 @@ export type FileActionEffect<Action extends FileAction = any> = (data: {
 }) => MaybePromise<undefined | boolean | void>;
 
 export type FileActionMap = { [actonId: string]: FileAction };
+
+export enum CustomVisibilityState {
+    Hidden, 
+    Disabled, 
+    Default,
+    Active
+};
+
+export type CustomVisibilityFunction = () => CustomVisibilityState;

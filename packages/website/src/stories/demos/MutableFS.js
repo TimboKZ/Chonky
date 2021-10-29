@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 
-import { fileMap, defineFileAction, ChonkyIconName, FullFileBrowser, setChonkyDefaults, ChonkyActions } from 'chonky';
+import { fileMap, defineFileAction, ChonkyIconName, FullFileBrowser, setChonkyDefaults, ChonkyActions, CustomVisibilityState } from 'chonky';
 import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 import styled from 'styled-components';
 
@@ -35,9 +35,9 @@ const StoryComponent = () => {
         darkMode: false,
         selection: true,
     });
-    const [copyPaste, setCopyPaste] = useState({
-        copied: false
-    })
+    const [copyPaste, setCopyPaste] = useState(false);
+    const [hideShow, setHideShow] = useState(false);
+    const [activate, setActivate] = useState(false);
     const handleSettingChange = useCallback(
         event => setStorySettings(currentState => ({ ...currentState, [event.target.name]: event.target.checked })),
         []
@@ -52,15 +52,38 @@ const StoryComponent = () => {
         file => (file.thumbnailUrl ? `http://localhost:3000/img/${file.thumbnailUrl}` : null),
         []
     );
+
+    useEffect( () => {
+        console.log('copyPaste changed to: ', copyPaste);
+        console.log('hideShow changed to: ', hideShow);
+        console.log('activate changed to: ', activate);
+    }, [copyPaste, hideShow, activate]);
+
     const customActionHandler = useCallback(
         data => {
             console.log(`File action [${data.id}]`, data);
-            if (data.id == ChonkyActions.CopyFiles.id) {
-                setCopyPaste({copied: true});
+            switch(data.id) {
+                case CopyFiles.id: {
+                    setCopyPaste(true);
+                    break;
+                }
+                case PasteFiles.id: {
+                    setCopyPaste(false);
+                    break;
+                }
+                case ActivateOptions.id: {
+                    setActivate(activate => !activate);
+                    break;
+                }
+                case HiddenOptions.id: {
+                    setHideShow(true);
+                    break;
+                }
+                case ShowOptions.id: {
+                    setHideShow(false);
+                    break;
+                }
             }
-            else if (data.id == PasteFiles.id) {
-                setCopyPaste({copied: false});
-            } 
             fileActionHandler(data);
         },
         [fileActionHandler]
@@ -77,11 +100,9 @@ const StoryComponent = () => {
             icon: ChonkyIconName.paste
         },
         hotkeys: ['ctrl+v', 'cmd+v'],
-        isReadOnly: !copyPaste.copied
-        // isReadOnly: function nothingWasCopied() {
-        //     console.log("isReadOnly was called!");
-        //     return !copyPaste.copied;
-        // }
+        customVisibility: () => {
+            return copyPaste ? CustomVisibilityState.Default : CustomVisibilityState.Disabled;
+        }
     });
 
     const CopyFiles = defineFileAction({
@@ -95,12 +116,59 @@ const StoryComponent = () => {
             icon: ChonkyIconName.copy
         },
         hotkeys: ['ctrl+c', 'cmd+c'],
-        isReadOnly: copyPaste.copied
-        // isReadOnly: function somethingWasCopied() {
-        //     console.log("isReadOnly was called!");
-        //     return copyPaste.copied;
-        // }
+        customVisibility: () => {
+            return copyPaste ? CustomVisibilityState.Disabled : CustomVisibilityState.Default;
+        }
     });
+
+    const ActivateOptions = defineFileAction({
+        id: 'activate_options',
+        requiresSelection: true,
+        button: {
+            name: 'Activate',
+            toolbar: true,
+            contextMenu: true,
+            group: 'Actions',
+            icon: ChonkyIconName.paste
+        },
+        hotkeys: ['ctrl+t', 'cmd+t'],
+        customVisibility: () => {
+            return activate ? CustomVisibilityState.Active : CustomVisibilityState.Default;
+        }
+    });
+
+    const HiddenOptions = defineFileAction({
+        id: 'hidden_options',
+        requiresSelection: true,
+        button: {
+            name: 'Hide',
+            toolbar: true,
+            contextMenu: true,
+            group: 'Actions',
+            icon: ChonkyIconName.hidden
+        },
+        hotkeys: ['ctrl+h', 'cmd+h'],
+        customVisibility: () => {
+            return hideShow ? CustomVisibilityState.Hidden : CustomVisibilityState.Default;
+        }
+    });
+
+    const ShowOptions = defineFileAction({
+        id: 'show_options',
+        requiresSelection: true,
+        button: {
+            name: 'Show',
+            toolbar: true,
+            contextMenu: true,
+            group: 'Actions',
+            icon: ChonkyIconName.hidden
+        },
+        hotkeys: ['ctrl+h', 'cmd+h'],
+        customVisibility: () => {
+            return hideShow ? CustomVisibilityState.Default : CustomVisibilityState.Hidden;
+        }
+    });
+
 
     return (
         <StyledWrapper>
@@ -112,7 +180,10 @@ const StoryComponent = () => {
                     fileActions={[
                         ChonkyActions.OpenFiles,
                         CopyFiles,
-                        PasteFiles
+                        PasteFiles,
+                        ActivateOptions,
+                        HiddenOptions,
+                        ShowOptions
                     ]}
                     thumbnailGenerator={thumbnailGenerator}
                     darkMode={storySettings.darkMode}
