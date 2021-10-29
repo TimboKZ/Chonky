@@ -70,8 +70,13 @@ export interface FileAction {
     effect?: FileActionEffect;
     /**
      * When customVisibility is defined, it will change the display state of the file action
+     * The function must return the visibility as one of the CustomVisibilityState values:
+     *  - Hidden
+     *  - Disabled
+     *  - Default
+     *  - Active
      */
-    customVisibility?: CustomVisibilityFunction;
+    customVisibility?: () => CustomVisibilityState;
     /**
      * Field used to infer the type of action payload. It is used solely for Typescript
      * type inference and action validation.
@@ -122,5 +127,3 @@ export enum CustomVisibilityState {
     Default,
     Active
 };
-
-export type CustomVisibilityFunction = () => CustomVisibilityState;
