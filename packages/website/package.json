@@ -48,11 +48,5 @@
     "@storybook/addon-links": "^6.2.9",
     "@storybook/react": "^6.2.9",
     "babel-loader": "^8.2.2"
-  },
-  "workspaces": {
-    "nohoist": [
-      "@docusaurus/*",
-      "**/html-minifier-terser"
-    ]
   }
 }

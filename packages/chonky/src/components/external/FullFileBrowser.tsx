@@ -20,8 +20,8 @@ export const FullFileBrowser = React.memo(
             <FileBrowser ref={ref} {...props}>
                 <FileNavbar />
                 <FileToolbar />
-                <FileList />
-                <FileContextMenu onScroll={onScroll}/>
+                <FileList onScroll={onScroll}/>
+                <FileContextMenu/>
             </FileBrowser>
         );
     })
