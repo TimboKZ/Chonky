@@ -14,17 +14,25 @@ https://discord.gg/4HJaFn9
     yarn install
     lerna bootstrap
     ```
-2. Start the TSDX watcher which will transpile TS in real time:
+
+2. In main `chonky/` package, start the TSDX watcher which will transpile TS in real time:
    ```bash
    cd packages/chonky/
    yarn start
    # Keep the script running
    ```
-3. In a separate shell, start the Storybook server to test the changes. It will
+
+3. Build the `chonky-icon-fontawesome/` package:
+   ```bash
+   cd packages/chonky-icon-fontawesome/
+   yarn build
+   ```
+
+4. In a separate shell, start the Storybook server to test the changes. It will
    hot-reload when you change Chonky source code.
    ```bash
-   cd packages/storybook/
-   yarn start
+   cd packages/website/
+   yarn storybook
    # Keep the script running
    ```
 
