@@ -1,6 +1,6 @@
 {
   "name": "chonky-icon-fontawesome",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "FontAwesome icon component for Chonky file browser",
   "license": "MIT",
   "main": "dist/index.js",
@@ -65,7 +65,7 @@
     "@fortawesome/free-brands-svg-icons": "5.13.1",
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
-    "chonky": "^2.2.0"
+    "chonky": "^2.3.0"
   },
   "homepage": "https://chonky.io/",
   "author": {
