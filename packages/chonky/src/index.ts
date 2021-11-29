@@ -10,7 +10,6 @@ export { FullFileBrowser } from './components/external/FullFileBrowser';
 
 export { ChonkyActions, DefaultFileActions, OptionIds } from './action-definitions';
 export { defineFileAction } from './util/helpers';
-export { thunkDispatchFileAction, thunkRequestFileAction } from './redux/thunks/dispatchers.thunks';
 
 export { FileHelper } from './util/file-helper';
 export { FileData, FileArray } from './types/file.types';
@@ -44,3 +43,8 @@ export type ChonkyFileActionData = MapFileActionsToData<ChonkyActionUnion>;
 
 // Extensions
 export * from './extensions';
+
+// Redux/Store
+export * from './redux/store';
+export * from './redux/selectors';
+export { thunkDispatchFileAction, thunkRequestFileAction } from './redux/thunks/dispatchers.thunks';
