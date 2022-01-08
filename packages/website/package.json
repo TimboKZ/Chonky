@@ -1,6 +1,6 @@
 {
   "name": "chonky-docs",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -21,7 +21,7 @@
     "@docusaurus/theme-live-codeblock": "^2.0.0-beta.0",
     "@mdx-js/react": "^1.6.21",
     "@svgr/webpack": "^5.5.0",
-    "chonky": "^2.3.0",
+    "chonky": "^2.3.1",
     "clsx": "^1.1.1",
     "file-loader": "^6.2.0",
     "react": "^17.0.1",
