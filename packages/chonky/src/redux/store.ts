@@ -62,5 +62,7 @@ export const useDTE = <Args extends Array<any>>(actionCreator: (...args: Args) =
 
 export const usePropReduxUpdate = <Payload extends any>(actionCreator: (payload: Payload) => any, payload: Payload) => {
     const dispatch = useDispatch();
-    useEffect(() => dispatch(actionCreator(payload)), [dispatch, actionCreator, payload]);
+    useEffect(() => {
+        dispatch(actionCreator(payload));
+    }, [dispatch, actionCreator, payload]);
 };
