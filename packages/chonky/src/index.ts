@@ -45,6 +45,7 @@ export type ChonkyFileActionData = MapFileActionsToData<ChonkyActionUnion>;
 export * from './extensions';
 
 // Redux/Store
+export * from './redux/reducers';
 export * from './redux/store';
 export * from './redux/selectors';
 export { thunkDispatchFileAction, thunkRequestFileAction } from './redux/thunks/dispatchers.thunks';
