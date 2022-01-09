@@ -36,10 +36,17 @@ jobs:
           npx yarn
           npx lerna bootstrap
 
-      # Runs a set of commands using the runners shell
-      - name: Build S3 artifacts
+      - name: Build Chonky docs
         run: |
-          npx lerna run build-s3-artifacts
+          export VERSION_NAME=${{ env.GITHUB_REF_SLUG }} # Use branch name as version name
+          export GIT_BRANCH_NAME_OVERRIDE=VERSION_NAME # Used to set base URL in JS code
+          npx lerna run --stream --scope chonky-docs build-s3-artifacts
+
+      - name: Build Chonky storybook
+        run: |
+          export VERSION_NAME=${{ env.GITHUB_REF_SLUG }} # Use branch name as version name
+          export GIT_BRANCH_NAME_OVERRIDE=VERSION_NAME # Used to set base URL in JS code
+          npx lerna run --stream --scope chonky-storybook build-s3-artifacts
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -48,8 +55,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.CHONKYIO_BUCKET_SECRET_ACCESS_KEY }}
           aws-region: eu-west-2
 
-      - name: Upload S3 artifacts
+      - name: Upload artifacts to S3
         run: |
           export VERSION_NAME=${{ env.GITHUB_REF_SLUG }} # Use branch name as version name
           aws s3 sync $GITHUB_WORKSPACE/websites/chonky-docs/build/ s3://chonky.io/docs/$VERSION_NAME/ --delete
           aws s3 sync $GITHUB_WORKSPACE/websites/chonky-storybook/storybook-static/ s3://chonky.io/storybook/$VERSION_NAME/ --delete
+
+      - name: Invalidate S3 cache
+        run: |
+          echo "Invalidating S3 cache"
+          aws cloudfront create-invalidation --distribution-id E2QXKJDCSL8EW5 --paths "/docs/3.x*" "/storybook/3.x*"

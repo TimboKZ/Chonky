@@ -4,12 +4,15 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
+const branchName = process.env.GIT_BRANCH_NAME || process.env.GIT_BRANCH_NAME_OVERRIDE;
+if (!branchName) throw new Error('`GIT_BRANCH_NAME` environment variable is not set.');
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Chonky',
   tagline: 'A File Browser for React',
   url: 'https://chonky.io/',
-  baseUrl: '/docs/',
+  baseUrl: `/docs/${branchName}/`,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',

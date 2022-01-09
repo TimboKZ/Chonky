@@ -30,7 +30,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build-s3-artifacts": "$npm_execpath run build-storybook"
+    "build-s3-artifacts": "yarn run build-storybook"
   },
   "eslintConfig": {
     "extends": [
