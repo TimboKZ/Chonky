@@ -19,6 +19,8 @@ const config = {
   organizationName: 'TimboKZ',
   projectName: 'Chonky',
 
+  themes: ['@docusaurus/theme-live-codeblock'],
+
   presets: [
     [
       'classic',
@@ -27,7 +29,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: `https://github.com/TimboKZ/Chonky/tree/${branchName}/websites/chonky-docs/docs`,
         },
         blog: {
           showReadingTime: true,
@@ -44,6 +46,19 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      announcementBar: {
+        id: 'github_issue',
+        content:
+          'Chonky 3.x is still under development, please <a target="_blank" rel="noopener noreferrer" ' +
+          'href="https://github.com/TimboKZ/Chonky/issues">create an issue on GitHub</a> if you run into bugs or see ' +
+          'errors in documentation.',
+        backgroundColor: '#fafbfc',
+        textColor: '#091E42',
+        isCloseable: false,
+      },
+      colorMode: {
+        disableSwitch: true,
+      },
       navbar: {
         title: 'Chonky',
         logo: {
@@ -55,21 +70,32 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: '3.x Docs',
+          },
+          {
+            href: `https://chonky.io/storybook/${branchName}/`,
+            label: '3.x Storybook',
+            position: 'left',
           },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
-            type: 'docsVersionDropdown',
+            href: 'https://github.com/TimboKZ/Chonky',
+            label: 'GitHub Repo',
             position: 'right',
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
+            type: 'docsVersionDropdown',
             position: 'right',
           },
         ],
       },
       footer: {
+        logo: {
+          alt: 'Chonky v3 Logo',
+          src: 'https://chonky.io/chonky-static/chonky-logo-v3.png',
+          width: 200,
+          height: 66,
+        },
         style: 'dark',
         links: [
           {
@@ -79,6 +105,10 @@ const config = {
                 label: 'Tutorial',
                 to: '/docs/intro',
               },
+              {
+                label: '3.x Storybook',
+                href: `https://chonky.io/storybook/${branchName}/`,
+              },
             ],
           },
           {
@@ -87,6 +117,10 @@ const config = {
               {
                 label: 'Discord',
                 href: 'https://discord.gg/4HJaFn9',
+              },
+              {
+                label: 'GitHub Issues',
+                href: 'https://github.com/TimboKZ/Chonky/issues',
               },
             ],
           },
@@ -98,7 +132,7 @@ const config = {
                 to: '/blog',
               },
               {
-                label: 'GitHub',
+                label: 'GitHub Repo',
                 href: 'https://github.com/TimboKZ/Chonky',
               },
             ],

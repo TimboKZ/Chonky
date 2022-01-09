@@ -1,5 +1,8 @@
 # Contributing to Chonky
 
+> **(!!!) Note that the setup instructions described below were only tested on
+> Ubuntu 20.04 with Node v16.13.1.**
+
 https://discord.gg/4HJaFn9
 
 ## Setting up the development environment

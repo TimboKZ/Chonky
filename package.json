@@ -19,5 +19,6 @@
     "url": "https://foxypanda.me/"
   },
   "resolutions": {
+    "**/typescript": "4.2.3"
   }
 }
