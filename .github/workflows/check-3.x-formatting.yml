@@ -1,0 +1,27 @@
+# Workflow that verifies all source code is formatted using Prettier
+name: Check 3.x formatting
+on:
+  push:
+    branches: [ '3.x*' ]
+  pull_request:
+    branches: [ '3.x*' ]
+  workflow_dispatch: # To support manual trigger
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Chonky
+        uses: actions/checkout@v2 # Checked out at $GITHUB_WORKSPACE
+      - name: Setup node
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: 16.13.1
+          cache: 'yarn'
+      - name: Setup the monorepo
+        run: |
+          npx yarn
+          npx lerna bootstrap
+      - name: Check formatting using Prettier
+        run: |
+          echo "Checking formatting..."
+          npx yarn format-check-all

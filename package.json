@@ -9,8 +9,8 @@
     "lerna": "^4.0.0"
   },
   "scripts": {
-    "format-all": "lerna run format --no-bail --stream",
-    "format-check-all": "lerna run format-check --no-bail --stream"
+    "format-all": "lerna run format --no-bail --stream --concurrency 1",
+    "format-check-all": "lerna run format-check --no-bail --stream --concurrency 1"
   },
   "homepage": "https://chonky.io/",
   "author": {

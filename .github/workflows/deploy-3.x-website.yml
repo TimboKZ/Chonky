@@ -1,67 +1,47 @@
-# This is a basic workflow to help you get started with Actions
-
+# Workflow that deploys 3.x website to https://chonky.io
 name: Deploy 3.x website
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the 2.x branch
   push:
     branches: [ 3.x, 3.x-dev, 3.x-experimental ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  workflow_dispatch: # To support manual trigger
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v4
-
       - name: Checkout Chonky
         uses: actions/checkout@v2 # Checked out at $GITHUB_WORKSPACE
-
       - name: Setup node
         uses: actions/setup-node@v2.5.1
         with:
           node-version: 16.13.1
           cache: 'yarn'
-
       - name: Setup the monorepo
         run: |
           npx yarn
           npx lerna bootstrap
-
       - name: Build Chonky docs
         run: |
           export VERSION_NAME=${{ env.GITHUB_REF_SLUG }} # Use branch name as version name
           export GIT_BRANCH_NAME_OVERRIDE=VERSION_NAME # Used to set base URL in JS code
           npx lerna run --stream --scope chonky-docs build-s3-artifacts
-
       - name: Build Chonky storybook
         run: |
           export VERSION_NAME=${{ env.GITHUB_REF_SLUG }} # Use branch name as version name
           export GIT_BRANCH_NAME_OVERRIDE=VERSION_NAME # Used to set base URL in JS code
           npx lerna run --stream --scope chonky-storybook build-s3-artifacts
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.CHONKYIO_BUCKET_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.CHONKYIO_BUCKET_SECRET_ACCESS_KEY }}
           aws-region: eu-west-2
-
       - name: Upload artifacts to S3
         run: |
           export VERSION_NAME=${{ env.GITHUB_REF_SLUG }} # Use branch name as version name
           aws s3 sync $GITHUB_WORKSPACE/websites/chonky-docs/build/ s3://chonky.io/docs/$VERSION_NAME/ --delete
           aws s3 sync $GITHUB_WORKSPACE/websites/chonky-storybook/storybook-static/ s3://chonky.io/storybook/$VERSION_NAME/ --delete
-
       - name: Invalidate S3 cache
         run: |
           echo "Invalidating S3 cache"
