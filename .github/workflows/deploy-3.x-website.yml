@@ -20,9 +20,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v4
+
       - name: Checkout Chonky
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2 # Checked out at $GITHUB_WORKSPACE
+
       - name: Setup node
         uses: actions/setup-node@v2.5.1
         with:
@@ -34,9 +37,19 @@ jobs:
           npx lerna bootstrap
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Build S3 artifacts
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-          pwd
-          echo $GITHUB_WORKSPACE
+          npx lerna run build-s3-artifacts
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.CHONKYIO_BUCKET_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.CHONKYIO_BUCKET_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+      - name: Upload S3 artifacts
+        run: |
+          export VERSION_NAME=${{ env.GITHUB_REF_SLUG }} # Use branch name as version name
+          aws s3 sync $GITHUB_WORKSPACE/websites/chonky-docs/build/ s3://chonky.io/docs/$VERSION_NAME/ --delete
+          aws s3 sync $GITHUB_WORKSPACE/websites/chonky-storybook/storybook-static/ s3://chonky.io/storybook/$VERSION_NAME/ --delete
