@@ -1,5 +1,5 @@
 {
-  "name": "intro-storybook-react-template",
+  "name": "chonky-storybook",
   "version": "0.1.0",
   "description": "Starter template to get up and running quickly with React and Storybook",
   "author": "Chromatic <https://chromatic.com/>",
@@ -29,7 +29,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "build-s3-artifacts": "$npm_execpath run build-storybook"
   },
   "eslintConfig": {
     "extends": [
