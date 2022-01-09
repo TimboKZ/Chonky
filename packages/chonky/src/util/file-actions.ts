@@ -4,13 +4,13 @@ import { Nullable } from 'tsdef';
 
 import { ChonkyActions } from '../action-definitions/index';
 import {
-    selectFileActionData,
-    selectFileViewConfig,
-    selectOptionValue,
-    selectParentFolder,
-    selectSelectedFilesForActionCount,
-    selectSortActionId,
-    selectSortOrder,
+  selectFileActionData,
+  selectFileViewConfig,
+  selectOptionValue,
+  selectParentFolder,
+  selectSelectedFilesForActionCount,
+  selectSortActionId,
+  selectSortOrder,
 } from '../redux/selectors';
 import { useParamSelector } from '../redux/store';
 import { thunkRequestFileAction } from '../redux/thunks/dispatchers.thunks';
@@ -20,88 +20,70 @@ import { SortOrder } from '../types/sort.types';
 import { FileHelper } from './file-helper';
 
 export const useFileActionTrigger = (fileActionId: string) => {
-    const dispatch = useDispatch();
-    const fileAction = useParamSelector(selectFileActionData, fileActionId);
-    return useCallback(() => dispatch(thunkRequestFileAction(fileAction, undefined)), [
-        dispatch,
-        fileAction,
-    ]);
+  const dispatch = useDispatch();
+  const fileAction = useParamSelector(selectFileActionData, fileActionId);
+  return useCallback(() => dispatch(thunkRequestFileAction(fileAction, undefined)), [dispatch, fileAction]);
 };
 
 export const useFileActionProps = (
-    fileActionId: string
+  fileActionId: string,
 ): { icon: Nullable<ChonkyIconName | string>; active: boolean; disabled: boolean } => {
-    const parentFolder = useSelector(selectParentFolder);
-    const fileViewConfig = useSelector(selectFileViewConfig);
+  const parentFolder = useSelector(selectParentFolder);
+  const fileViewConfig = useSelector(selectFileViewConfig);
 
-    const sortActionId = useSelector(selectSortActionId);
-    const sortOrder = useSelector(selectSortOrder);
+  const sortActionId = useSelector(selectSortActionId);
+  const sortOrder = useSelector(selectSortOrder);
 
-    const action = useParamSelector(selectFileActionData, fileActionId);
-    // @ts-ignore
-    const optionValue = useParamSelector(selectOptionValue, action?.option?.id);
+  const action = useParamSelector(selectFileActionData, fileActionId);
+  // @ts-ignore
+  const optionValue = useParamSelector(selectOptionValue, action?.option?.id);
 
-    const actionSelectionSize = useParamSelector(
-        selectSelectedFilesForActionCount,
-        fileActionId
-    );
+  const actionSelectionSize = useParamSelector(selectSelectedFilesForActionCount, fileActionId);
 
-    const actionSelectionEmpty = actionSelectionSize === 0;
+  const actionSelectionEmpty = actionSelectionSize === 0;
 
-    return useMemo(() => {
-        if (!action) return { icon: null, active: false, disabled: true };
+  return useMemo(() => {
+    if (!action) return { icon: null, active: false, disabled: true };
 
-        let icon = action.button?.icon ?? null;
-        if (action.sortKeySelector) {
-            if (sortActionId === action.id) {
-                if (sortOrder === SortOrder.ASC) {
-                    icon = ChonkyIconName.sortAsc;
-                } else {
-                    icon = ChonkyIconName.sortDesc;
-                }
-            } else {
-                icon = ChonkyIconName.placeholder;
-            }
-        } else if (action.option) {
-            if (optionValue) {
-                icon = ChonkyIconName.toggleOn;
-            } else {
-                icon = ChonkyIconName.toggleOff;
-            }
+    let icon = action.button?.icon ?? null;
+    if (action.sortKeySelector) {
+      if (sortActionId === action.id) {
+        if (sortOrder === SortOrder.ASC) {
+          icon = ChonkyIconName.sortAsc;
+        } else {
+          icon = ChonkyIconName.sortDesc;
         }
+      } else {
+        icon = ChonkyIconName.placeholder;
+      }
+    } else if (action.option) {
+      if (optionValue) {
+        icon = ChonkyIconName.toggleOn;
+      } else {
+        icon = ChonkyIconName.toggleOff;
+      }
+    }
 
-        const isSortButtonAndCurrentSort = action.id === sortActionId;
-        const isFileViewButtonAndCurrentView = action.fileViewConfig === fileViewConfig;
-        const isOptionAndEnabled = action.option ? !!optionValue : false;
+    const isSortButtonAndCurrentSort = action.id === sortActionId;
+    const isFileViewButtonAndCurrentView = action.fileViewConfig === fileViewConfig;
+    const isOptionAndEnabled = action.option ? !!optionValue : false;
 
-        let customDisabled = false;
-        let customActive = false;
-        if (action.customVisibility !== undefined) {
-            customDisabled = action.customVisibility() === CustomVisibilityState.Disabled;
-            customActive = action.customVisibility() === CustomVisibilityState.Active;
-        }
-        const active =
-            isSortButtonAndCurrentSort ||
-            isFileViewButtonAndCurrentView ||
-            isOptionAndEnabled ||
-            customActive;
-        
-        let disabled: boolean = (!!action.requiresSelection && actionSelectionEmpty) || customDisabled;
+    let customDisabled = false;
+    let customActive = false;
+    if (action.customVisibility !== undefined) {
+      customDisabled = action.customVisibility() === CustomVisibilityState.Disabled;
+      customActive = action.customVisibility() === CustomVisibilityState.Active;
+    }
+    const active = isSortButtonAndCurrentSort || isFileViewButtonAndCurrentView || isOptionAndEnabled || customActive;
 
-        if (action.id === ChonkyActions.OpenParentFolder.id) {
-            // We treat `open_parent_folder` file action as a special case as it
-            // requires the parent folder to be present to work...
-            disabled = disabled || !FileHelper.isOpenable(parentFolder);
-        }
+    let disabled: boolean = (!!action.requiresSelection && actionSelectionEmpty) || customDisabled;
 
-        return { icon, active, disabled };
-    }, [
-        parentFolder,
-        fileViewConfig,
-        sortActionId,
-        sortOrder,
-        action,
-        optionValue,
-        actionSelectionEmpty,
-    ]);
+    if (action.id === ChonkyActions.OpenParentFolder.id) {
+      // We treat `open_parent_folder` file action as a special case as it
+      // requires the parent folder to be present to work...
+      disabled = disabled || !FileHelper.isOpenable(parentFolder);
+    }
+
+    return { icon, active, disabled };
+  }, [parentFolder, fileViewConfig, sortActionId, sortOrder, action, optionValue, actionSelectionEmpty]);
 };

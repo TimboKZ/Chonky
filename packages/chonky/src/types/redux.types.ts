@@ -14,65 +14,65 @@ import { SortOrder } from './sort.types';
 import { ThumbnailGenerator } from './thumbnails.types';
 
 export type RootState = {
-    instanceId: string;
+  instanceId: string;
 
-    externalFileActionHandler: Nullable<GenericFileActionHandler<FileAction>>;
+  externalFileActionHandler: Nullable<GenericFileActionHandler<FileAction>>;
 
-    // Raw and sanitized file actions
-    rawFileActions: FileAction[] | any;
-    fileActionsErrorMessages: string[];
-    fileActionMap: FileActionMap;
-    fileActionIds: string[];
-    toolbarItems: FileActionMenuItem[];
-    contextMenuItems: FileActionMenuItem[];
+  // Raw and sanitized file actions
+  rawFileActions: FileAction[] | any;
+  fileActionsErrorMessages: string[];
+  fileActionMap: FileActionMap;
+  fileActionIds: string[];
+  toolbarItems: FileActionMenuItem[];
+  contextMenuItems: FileActionMenuItem[];
 
-    // Raw and sanitized folder chain
-    rawFolderChain: Nullable<FileArray> | any;
-    folderChainErrorMessages: string[];
-    folderChain: FileArray;
+  // Raw and sanitized folder chain
+  rawFolderChain: Nullable<FileArray> | any;
+  folderChainErrorMessages: string[];
+  folderChain: FileArray;
 
-    // Raw and sanitized files
-    rawFiles: FileArray | any;
-    filesErrorMessages: string[];
-    fileMap: FileMap;
-    fileIds: Nullable<string>[];
-    cleanFileIds: string[];
+  // Raw and sanitized files
+  rawFiles: FileArray | any;
+  filesErrorMessages: string[];
+  fileMap: FileMap;
+  fileIds: Nullable<string>[];
+  cleanFileIds: string[];
 
-    // Derivative files
-    sortedFileIds: Nullable<string>[];
-    hiddenFileIdMap: FileIdTrueMap;
+  // Derivative files
+  sortedFileIds: Nullable<string>[];
+  hiddenFileIdMap: FileIdTrueMap;
 
-    // Search
-    focusSearchInput: Nullable<() => void>;
-    searchString: string;
-    searchMode: 'currentFolder';
+  // Search
+  focusSearchInput: Nullable<() => void>;
+  searchString: string;
+  searchMode: 'currentFolder';
 
-    // Selection
-    selectionMap: FileSelection;
-    disableSelection: boolean;
+  // Selection
+  selectionMap: FileSelection;
+  disableSelection: boolean;
 
-    // File views
-    fileViewConfig: FileViewConfig;
+  // File views
+  fileViewConfig: FileViewConfig;
 
-    // Sorting
-    sortActionId: Nullable<string>;
-    sortOrder: SortOrder;
+  // Sorting
+  sortActionId: Nullable<string>;
+  sortOrder: SortOrder;
 
-    // Options
-    optionMap: OptionMap;
+  // Options
+  optionMap: OptionMap;
 
-    // Other settings
-    thumbnailGenerator: Nullable<ThumbnailGenerator>;
-    doubleClickDelay: number;
-    disableDragAndDrop: boolean;
-    clearSelectionOnOutsideClick: boolean;
+  // Other settings
+  thumbnailGenerator: Nullable<ThumbnailGenerator>;
+  doubleClickDelay: number;
+  disableDragAndDrop: boolean;
+  clearSelectionOnOutsideClick: boolean;
 
-    // State to use inside effects
-    lastClick: Nullable<{ index: number; fileId: string }>;
+  // State to use inside effects
+  lastClick: Nullable<{ index: number; fileId: string }>;
 
-    // Context menu
-    contextMenuMounted: boolean;
-    contextMenuConfig: Nullable<ContextMenuConfig>;
+  // Context menu
+  contextMenuMounted: boolean;
+  contextMenuConfig: Nullable<ContextMenuConfig>;
 };
 
 export type ChonkyThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, null, Action<string>>;

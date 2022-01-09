@@ -3,51 +3,51 @@ import { RootState } from '../types/redux.types';
 import { SortOrder } from '../types/sort.types';
 
 export const initialRootState: RootState = {
-    instanceId: 'CHONKY_INVALID_ID', // should be overwritten by preloaded state
+  instanceId: 'CHONKY_INVALID_ID', // should be overwritten by preloaded state
 
-    externalFileActionHandler: null,
+  externalFileActionHandler: null,
 
-    rawFileActions: [],
-    fileActionsErrorMessages: [],
-    fileActionMap: {},
-    fileActionIds: [],
-    toolbarItems: [],
-    contextMenuItems: [],
+  rawFileActions: [],
+  fileActionsErrorMessages: [],
+  fileActionMap: {},
+  fileActionIds: [],
+  toolbarItems: [],
+  contextMenuItems: [],
 
-    rawFolderChain: null,
-    folderChainErrorMessages: [],
-    folderChain: [],
+  rawFolderChain: null,
+  folderChainErrorMessages: [],
+  folderChain: [],
 
-    rawFiles: [],
-    filesErrorMessages: [],
-    fileMap: {},
-    fileIds: [],
-    cleanFileIds: [],
+  rawFiles: [],
+  filesErrorMessages: [],
+  fileMap: {},
+  fileIds: [],
+  cleanFileIds: [],
 
-    sortedFileIds: [],
-    hiddenFileIdMap: {},
+  sortedFileIds: [],
+  hiddenFileIdMap: {},
 
-    focusSearchInput: null,
-    searchString: '',
-    searchMode: 'currentFolder',
+  focusSearchInput: null,
+  searchString: '',
+  searchMode: 'currentFolder',
 
-    selectionMap: {},
-    disableSelection: false,
+  selectionMap: {},
+  disableSelection: false,
 
-    fileViewConfig: ChonkyActions.EnableGridView.fileViewConfig,
+  fileViewConfig: ChonkyActions.EnableGridView.fileViewConfig,
 
-    sortActionId: null,
-    sortOrder: SortOrder.ASC,
+  sortActionId: null,
+  sortOrder: SortOrder.ASC,
 
-    optionMap: {},
+  optionMap: {},
 
-    thumbnailGenerator: null,
-    doubleClickDelay: 300,
-    disableDragAndDrop: false,
-    clearSelectionOnOutsideClick: true,
+  thumbnailGenerator: null,
+  doubleClickDelay: 300,
+  disableDragAndDrop: false,
+  clearSelectionOnOutsideClick: true,
 
-    lastClick: null,
+  lastClick: null,
 
-    contextMenuMounted: false,
-    contextMenuConfig: null,
+  contextMenuMounted: false,
+  contextMenuConfig: null,
 };

@@ -5,11 +5,11 @@ import { StartDragNDropPayload } from './action-payloads.types';
 import { FileData } from './file.types';
 
 export interface ChonkyDndDropResult {
-    dropTarget: Nilable<FileData> | any;
-    dropEffect: 'move' | 'copy';
+  dropTarget: Nilable<FileData> | any;
+  dropEffect: 'move' | 'copy';
 }
 
 export type ChonkyDndFileEntryItem = DragObjectWithType & {
-    payload: StartDragNDropPayload;
+  payload: StartDragNDropPayload;
 };
 export const ChonkyDndFileEntryType = 'dnd-chonky-file-entry';

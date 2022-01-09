@@ -1,4 +1,4 @@
 export interface ErrorMessageData {
-    message: string;
-    bullets: string[];
+  message: string;
+  bullets: string[];
 }

@@ -13,12 +13,18 @@ export { defineFileAction } from './util/helpers';
 
 export { FileHelper } from './util/file-helper';
 export { FileData, FileArray } from './types/file.types';
-export { FileAction, FileActionEffect, FileSelectionTransform, FileActionButton, CustomVisibilityState } from './types/action.types';
 export {
-    GenericFileActionHandler,
-    MapFileActionsToData,
-    FileActionData,
-    FileActionState,
+  FileAction,
+  FileActionEffect,
+  FileSelectionTransform,
+  FileActionButton,
+  CustomVisibilityState,
+} from './types/action.types';
+export {
+  GenericFileActionHandler,
+  MapFileActionsToData,
+  FileActionData,
+  FileActionState,
 } from './types/action-handler.types';
 export { ChonkyActionUnion } from './types/file-browser.types';
 export { ChonkyIconName } from './types/icons.types';

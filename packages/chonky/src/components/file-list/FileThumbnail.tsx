@@ -11,24 +11,24 @@ import { Nullable } from 'tsdef';
 import { makeGlobalChonkyStyles } from '../../util/styles';
 
 export interface FileThumbnailProps {
-    className: string;
-    thumbnailUrl: Nullable<string>;
+  className: string;
+  thumbnailUrl: Nullable<string>;
 }
 
-export const FileThumbnail: React.FC<FileThumbnailProps> = React.memo(props => {
-    const { className, thumbnailUrl } = props;
+export const FileThumbnail: React.FC<FileThumbnailProps> = React.memo((props) => {
+  const { className, thumbnailUrl } = props;
 
-    const thumbnailStyle: React.CSSProperties = thumbnailUrl ? { backgroundImage: `url('${thumbnailUrl}')` } : {};
+  const thumbnailStyle: React.CSSProperties = thumbnailUrl ? { backgroundImage: `url('${thumbnailUrl}')` } : {};
 
-    const classes = useStyles();
-    return <div className={c([className, classes.fileThumbnail])} style={thumbnailStyle} />;
+  const classes = useStyles();
+  return <div className={c([className, classes.fileThumbnail])} style={thumbnailStyle} />;
 });
 FileThumbnail.displayName = 'FileThumbnail';
 
 const useStyles = makeGlobalChonkyStyles(() => ({
-    fileThumbnail: {
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        backgroundSize: 'contain',
-    },
+  fileThumbnail: {
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundSize: 'contain',
+  },
 }));

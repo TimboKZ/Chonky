@@ -70,104 +70,104 @@ import { ChonkyIconName, ChonkyIconProps } from 'chonky';
 import React from 'react';
 
 const IconMap: { [iconName in ChonkyIconName]: any } = {
-    // Misc
-    [ChonkyIconName.loading]: faCircleNotch,
-    [ChonkyIconName.dropdown]: faChevronDown,
-    [ChonkyIconName.placeholder]: faMinus,
+  // Misc
+  [ChonkyIconName.loading]: faCircleNotch,
+  [ChonkyIconName.dropdown]: faChevronDown,
+  [ChonkyIconName.placeholder]: faMinus,
 
-    // File Actions: Drag & drop
-    [ChonkyIconName.dndDragging]: faFistRaised,
-    [ChonkyIconName.dndCanDrop]: faArrowDown,
-    [ChonkyIconName.dndCannotDrop]: faTimes,
+  // File Actions: Drag & drop
+  [ChonkyIconName.dndDragging]: faFistRaised,
+  [ChonkyIconName.dndCanDrop]: faArrowDown,
+  [ChonkyIconName.dndCannotDrop]: faTimes,
 
-    // File Actions: File operations
-    [ChonkyIconName.openFiles]: faBoxOpen,
-    [ChonkyIconName.openParentFolder]: faLevelUpAlt,
-    [ChonkyIconName.copy]: faCopy,
-    [ChonkyIconName.paste]: faPaste,
-    [ChonkyIconName.share]: faShareAlt,
-    [ChonkyIconName.search]: faSearch,
-    [ChonkyIconName.selectAllFiles]: faObjectGroup,
-    [ChonkyIconName.clearSelection]: faEraser,
+  // File Actions: File operations
+  [ChonkyIconName.openFiles]: faBoxOpen,
+  [ChonkyIconName.openParentFolder]: faLevelUpAlt,
+  [ChonkyIconName.copy]: faCopy,
+  [ChonkyIconName.paste]: faPaste,
+  [ChonkyIconName.share]: faShareAlt,
+  [ChonkyIconName.search]: faSearch,
+  [ChonkyIconName.selectAllFiles]: faObjectGroup,
+  [ChonkyIconName.clearSelection]: faEraser,
 
-    // File Actions: Sorting & options
-    [ChonkyIconName.sortAsc]: faSortAmountDownAlt,
-    [ChonkyIconName.sortDesc]: faSortAmountUpAlt,
-    [ChonkyIconName.toggleOn]: faToggleOn,
-    [ChonkyIconName.toggleOff]: faToggleOff,
+  // File Actions: Sorting & options
+  [ChonkyIconName.sortAsc]: faSortAmountDownAlt,
+  [ChonkyIconName.sortDesc]: faSortAmountUpAlt,
+  [ChonkyIconName.toggleOn]: faToggleOn,
+  [ChonkyIconName.toggleOff]: faToggleOff,
 
-    // File Actions: File Views
-    [ChonkyIconName.list]: faList,
-    [ChonkyIconName.compact]: faThList,
-    [ChonkyIconName.smallThumbnail]: faTh,
-    [ChonkyIconName.largeThumbnail]: faThLarge,
+  // File Actions: File Views
+  [ChonkyIconName.list]: faList,
+  [ChonkyIconName.compact]: faThList,
+  [ChonkyIconName.smallThumbnail]: faTh,
+  [ChonkyIconName.largeThumbnail]: faThLarge,
 
-    // File Actions: Unsorted
-    [ChonkyIconName.folder]: faFolder,
-    [ChonkyIconName.folderCreate]: faFolderPlus,
-    [ChonkyIconName.folderOpen]: faFolderOpen,
-    [ChonkyIconName.folderChainSeparator]: faChevronRight,
-    [ChonkyIconName.download]: faDownload,
-    [ChonkyIconName.upload]: faUpload,
-    [ChonkyIconName.trash]: faTrash,
-    [ChonkyIconName.fallbackIcon]: faExclamationTriangle,
+  // File Actions: Unsorted
+  [ChonkyIconName.folder]: faFolder,
+  [ChonkyIconName.folderCreate]: faFolderPlus,
+  [ChonkyIconName.folderOpen]: faFolderOpen,
+  [ChonkyIconName.folderChainSeparator]: faChevronRight,
+  [ChonkyIconName.download]: faDownload,
+  [ChonkyIconName.upload]: faUpload,
+  [ChonkyIconName.trash]: faTrash,
+  [ChonkyIconName.fallbackIcon]: faExclamationTriangle,
 
-    // File modifiers
-    [ChonkyIconName.symlink]: faExternalLinkAlt,
-    [ChonkyIconName.hidden]: faEyeSlash,
+  // File modifiers
+  [ChonkyIconName.symlink]: faExternalLinkAlt,
+  [ChonkyIconName.hidden]: faEyeSlash,
 
-    // Generic file types
-    [ChonkyIconName.file]: faFile,
-    [ChonkyIconName.license]: faBalanceScale,
-    [ChonkyIconName.code]: faFileCode,
-    [ChonkyIconName.config]: faCogs,
-    [ChonkyIconName.model]: faCubes,
-    [ChonkyIconName.database]: faDatabase,
-    [ChonkyIconName.text]: faFileAlt,
-    [ChonkyIconName.archive]: faFileArchive,
-    [ChonkyIconName.image]: faFileImage,
-    [ChonkyIconName.video]: faFilm,
-    [ChonkyIconName.info]: faInfoCircle,
-    [ChonkyIconName.key]: faKey,
-    [ChonkyIconName.lock]: faLock,
-    [ChonkyIconName.music]: faMusic,
-    [ChonkyIconName.terminal]: faTerminal,
-    [ChonkyIconName.users]: faUsers,
+  // Generic file types
+  [ChonkyIconName.file]: faFile,
+  [ChonkyIconName.license]: faBalanceScale,
+  [ChonkyIconName.code]: faFileCode,
+  [ChonkyIconName.config]: faCogs,
+  [ChonkyIconName.model]: faCubes,
+  [ChonkyIconName.database]: faDatabase,
+  [ChonkyIconName.text]: faFileAlt,
+  [ChonkyIconName.archive]: faFileArchive,
+  [ChonkyIconName.image]: faFileImage,
+  [ChonkyIconName.video]: faFilm,
+  [ChonkyIconName.info]: faInfoCircle,
+  [ChonkyIconName.key]: faKey,
+  [ChonkyIconName.lock]: faLock,
+  [ChonkyIconName.music]: faMusic,
+  [ChonkyIconName.terminal]: faTerminal,
+  [ChonkyIconName.users]: faUsers,
 
-    // OS file types
-    [ChonkyIconName.linux]: faLinux,
-    [ChonkyIconName.ubuntu]: faUbuntu,
-    [ChonkyIconName.windows]: faWindows,
+  // OS file types
+  [ChonkyIconName.linux]: faLinux,
+  [ChonkyIconName.ubuntu]: faUbuntu,
+  [ChonkyIconName.windows]: faWindows,
 
-    // Programming language file types
-    [ChonkyIconName.rust]: faRust,
-    [ChonkyIconName.python]: faPython,
-    [ChonkyIconName.nodejs]: faNodeJs,
-    [ChonkyIconName.php]: faPhp,
+  // Programming language file types
+  [ChonkyIconName.rust]: faRust,
+  [ChonkyIconName.python]: faPython,
+  [ChonkyIconName.nodejs]: faNodeJs,
+  [ChonkyIconName.php]: faPhp,
 
-    // Development tools file types
-    [ChonkyIconName.git]: faGitAlt,
+  // Development tools file types
+  [ChonkyIconName.git]: faGitAlt,
 
-    // Brands file types
-    [ChonkyIconName.adobe]: faAdobe,
+  // Brands file types
+  [ChonkyIconName.adobe]: faAdobe,
 
-    // Other program file types
-    [ChonkyIconName.pdf]: faFilePdf,
-    [ChonkyIconName.excel]: faFileExcel,
-    [ChonkyIconName.word]: faFileWord,
-    [ChonkyIconName.flash]: faRunning,
+  // Other program file types
+  [ChonkyIconName.pdf]: faFilePdf,
+  [ChonkyIconName.excel]: faFileExcel,
+  [ChonkyIconName.word]: faFileWord,
+  [ChonkyIconName.flash]: faRunning,
 } as const;
 
 export const ChonkyIconFA: React.FC<ChonkyIconProps> = React.memo((props) => {
-    const { icon } = props;
+  const { icon } = props;
 
-    let faIcon: any; // FontAwesome `IconDefinition`
-    if (typeof icon === 'object') faIcon = icon;
-    else faIcon = IconMap[icon as keyof typeof IconMap] ?? IconMap.fallbackIcon;
+  let faIcon: any; // FontAwesome `IconDefinition`
+  if (typeof icon === 'object') faIcon = icon;
+  else faIcon = IconMap[icon as keyof typeof IconMap] ?? IconMap.fallbackIcon;
 
-    const faProps = {
-        ...props,
-        icon: faIcon,
-    } as const;
-    return <FontAwesomeIcon {...faProps} />;
+  const faProps = {
+    ...props,
+    icon: faIcon,
+  } as const;
+  return <FontAwesomeIcon {...faProps} />;
 });
