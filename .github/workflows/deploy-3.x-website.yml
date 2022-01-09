@@ -21,6 +21,10 @@ jobs:
         run: |
           npx yarn
           npx lerna bootstrap
+      - name: Build Chonky packages
+        run: |
+          echo "Building Chonky packages..."
+          npx yarn build-packages
       - name: Build Chonky docs
         run: |
           export VERSION_NAME=${{ env.GITHUB_REF_SLUG }} # Use branch name as version name
