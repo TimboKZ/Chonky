@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "start": "GIT_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD) docusaurus start",
     "build": "GIT_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD) docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
