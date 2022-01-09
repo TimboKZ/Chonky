@@ -1,0 +1,7 @@
+.docusaurus
+.eslintcache
+build
+coverage
+node_modules
+package.json
+storybook-static

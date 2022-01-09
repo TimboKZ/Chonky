@@ -12,7 +12,9 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "build-s3-artifacts": "yarn run build"
+    "build-s3-artifacts": "yarn run build",
+    "format": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore . --write",
+    "format-check": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore --check ."
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.14",
@@ -35,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1"
   }
 }

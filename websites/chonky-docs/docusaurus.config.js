@@ -15,9 +15,9 @@ const config = {
   baseUrl: `/docs/${branchName}/`,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  favicon: 'https://chonky.io/chonky-static/chonky-sphere-v3.png',
+  organizationName: 'TimboKZ',
+  projectName: 'Chonky',
 
   presets: [
     [
@@ -49,7 +49,7 @@ const config = {
         title: 'Chonky',
         logo: {
           alt: 'Chonky: A File Browser for React',
-          src: 'img/logo.svg',
+          src: 'https://chonky.io/chonky-static/chonky-sphere-v3.png',
         },
         items: [
           {

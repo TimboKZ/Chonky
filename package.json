@@ -8,6 +8,10 @@
   "devDependencies": {
     "lerna": "^4.0.0"
   },
+  "scripts": {
+    "format-all": "lerna run format --no-bail --stream",
+    "format-check-all": "lerna run format-check --no-bail --stream"
+  },
   "homepage": "https://chonky.io/",
   "author": {
     "name": "Timur Kuzhagaliyev",
