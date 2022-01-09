@@ -1,0 +1,71 @@
+{
+  "name": "intro-storybook-react-template",
+  "version": "0.1.0",
+  "description": "Starter template to get up and running quickly with React and Storybook",
+  "author": "Chromatic <https://chromatic.com/>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chromaui/intro-storybook-react-template"
+  },
+  "bugs": {
+    "url": "https://github.com/chromaui/intro-storybook-react-template/issues"
+  },
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "eslint": "6.x",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "web-vitals": "^0.2.4",
+    "webpack": "4.x"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "eslintConfig": {
+    "extends": [
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.4.0",
+    "@storybook/addon-essentials": "^6.4.0",
+    "@storybook/addon-interactions": "^6.4.0",
+    "@storybook/addon-links": "^6.4.0",
+    "@storybook/node-logger": "^6.4.0",
+    "@storybook/preset-create-react-app": "^3.1.7",
+    "@storybook/react": "^6.4.0",
+    "@storybook/testing-library": "^0.0.7",
+    "@storybook/testing-react": "^1.0.0"
+  }
+}

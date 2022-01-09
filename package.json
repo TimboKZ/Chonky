@@ -1,9 +1,12 @@
 {
   "name": "root",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*",
+    "websites/*"
+  ],
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "lerna": "^4.0.0"
   },
   "homepage": "https://chonky.io/",
   "author": {
@@ -12,7 +15,5 @@
     "url": "https://foxypanda.me/"
   },
   "resolutions": {
-    "**/typescript": "4.2.2",
-    "**/immer": "8.0.4"
   }
 }
