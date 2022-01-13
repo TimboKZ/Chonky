@@ -14,7 +14,7 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "build-s3-artifacts": "yarn run build",
-    "format": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore . --write",
+    "format": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore . --write --list-different",
     "format-check": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore --check ."
   },
   "dependencies": {

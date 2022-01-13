@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build-packages": "lerna run build --no-bail --stream --concurrency 1",
-    "format-all": "lerna run format --no-bail --stream --concurrency 1",
+    "format-all": "prettier CONTRIBUTING.md --write && lerna run format --no-bail --stream --concurrency 1",
     "format-check-all": "lerna run format-check --no-bail --stream --concurrency 1"
   },
   "homepage": "https://chonky.io/",

@@ -38,9 +38,20 @@ Empty.args = {};
 export const DarkMode = Template.bind({});
 DarkMode.args = {
   darkMode: true,
-  folderChain: [
-    { id: 'xcv', name: 'Home', isDir: true },
+  folderChain: [{ id: 'xcv', name: 'Home', isDir: true }],
+  files: [
+    {
+      id: 'mcd',
+      name: 'chonky-sphere-v3.png',
+      thumbnailUrl: 'https://chonky.io/chonky-static/chonky-sphere-v3.png',
+    },
   ],
+};
+
+export const DisabledDragNDrop = Template.bind({});
+DisabledDragNDrop.args = {
+  disableDragAndDrop: true,
+  folderChain: [{ id: 'xcv', name: 'Home', isDir: true }],
   files: [
     {
       id: 'mcd',

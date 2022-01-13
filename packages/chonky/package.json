@@ -20,7 +20,7 @@
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "format": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore . --write",
+    "format": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore . --write --list-different",
     "format-check": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore --check ."
   },
   "peerDependencies": {

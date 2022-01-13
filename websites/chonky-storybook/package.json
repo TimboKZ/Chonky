@@ -33,7 +33,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build-s3-artifacts": "yarn run build-storybook",
-    "format": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore . --write",
+    "format": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore . --write --list-different",
     "format-check": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore --check ."
   },
   "eslintConfig": {
