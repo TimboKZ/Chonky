@@ -66,6 +66,7 @@
     "@storybook/addon-essentials": "^6.4.12",
     "@storybook/addon-interactions": "^6.4.12",
     "@storybook/addon-links": "^6.4.12",
+    "@storybook/addon-storyshots": "^6.4.12",
     "@storybook/addon-storysource": "^6.4.12",
     "@storybook/node-logger": "^6.4.12",
     "@storybook/preset-create-react-app": "^3.1.7",

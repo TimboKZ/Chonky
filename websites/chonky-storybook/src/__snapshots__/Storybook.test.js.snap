@@ -1,0 +1,677 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Basics/FullFileBrowser Dark Mode 1`] = `
+<div
+  style={
+    Object {
+      "height": 400,
+      "width": 800,
+    }
+  }
+>
+  <div
+    className="MuiBox-root MuiBox-root-1 chonky-chonkyRoot"
+    onClick={[Function]}
+    onContextMenu={[Function]}
+    onTouchEnd={[Function]}
+  >
+    <div
+      className="MuiBox-root MuiBox-root-2 chonky-navbarWrapper"
+    >
+      <div
+        className="MuiBox-root MuiBox-root-3 chonky-navbarContainer"
+      >
+        <nav
+          className="MuiTypography-root MuiBreadcrumbs-root chonky-navbarBreadcrumbs MuiTypography-body1 MuiTypography-colorTextSecondary"
+        >
+          <ol
+            className="MuiBreadcrumbs-ol"
+          />
+        </nav>
+      </div>
+    </div>
+    <div
+      className="chonky-toolbarWrapper"
+    >
+      <div
+        className="chonky-toolbarContainer"
+      >
+        <div
+          className="chonky-toolbarLeft"
+        >
+          <div
+            className="MuiFormControl-root MuiTextField-root chonky-searchFieldContainer"
+          >
+            <div
+              className="MuiInputBase-root MuiOutlinedInput-root chonky-searchFieldInput MuiInputBase-formControl MuiInputBase-adornedStart MuiOutlinedInput-adornedStart MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+              onClick={[Function]}
+            >
+              <div
+                className="MuiInputAdornment-root chonky-searchIcon MuiInputAdornment-positionStart MuiInputAdornment-marginDense"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-search fa-w-16 "
+                  data-icon="search"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+              <input
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInputBase-input MuiOutlinedInput-input chonky-searchFieldInputInner MuiInputBase-inputAdornedStart MuiOutlinedInput-inputAdornedStart MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+                disabled={false}
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyUp={[Function]}
+                placeholder="Search"
+                required={false}
+                type="text"
+                value=""
+              />
+              <fieldset
+                aria-hidden={true}
+                className="PrivateNotchedOutline-root-4 MuiOutlinedInput-notchedOutline"
+                style={
+                  Object {
+                    "paddingLeft": 8,
+                  }
+                }
+              >
+                <legend
+                  className="PrivateNotchedOutline-legend-5"
+                  style={
+                    Object {
+                      "width": 0.01,
+                    }
+                  }
+                >
+                  <span
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "&#8203;",
+                      }
+                    }
+                  />
+                </legend>
+              </fieldset>
+            </div>
+          </div>
+          <div
+            className="chonky-infoContainer"
+          >
+            <p
+              className="MuiTypography-root chonky-infoText MuiTypography-body1"
+            >
+              0 items
+              
+            </p>
+          </div>
+        </div>
+        <div
+          className="chonky-toolbarRight"
+        />
+      </div>
+    </div>
+    <div
+      className="chonky-fileListWrapper fileListWrapper-0-3-1 fileListWrapper-d0-0-3-4"
+      role="list"
+    >
+      <div
+        className="dndDropZone-0-3-2 dndDropZone-d1-0-3-5"
+      >
+        <div
+          className="dndDropZoneIcon-0-3-3 dndDropZoneIcon-d2-0-3-6"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-times fa-w-11 "
+            data-icon="times"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 352 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "height": 0,
+            "overflow": "visible",
+            "width": 0,
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Basics/FullFileBrowser Disabled Drag N Drop 1`] = `
+<div
+  style={
+    Object {
+      "height": 400,
+      "width": 800,
+    }
+  }
+>
+  <div
+    className="MuiBox-root MuiBox-root-8 chonky-chonkyRoot"
+    onClick={[Function]}
+    onContextMenu={[Function]}
+    onTouchEnd={[Function]}
+  >
+    <div
+      className="MuiBox-root MuiBox-root-9 chonky-navbarWrapper"
+    >
+      <div
+        className="MuiBox-root MuiBox-root-10 chonky-navbarContainer"
+      >
+        <nav
+          className="MuiTypography-root MuiBreadcrumbs-root chonky-navbarBreadcrumbs MuiTypography-body1 MuiTypography-colorTextSecondary"
+        >
+          <ol
+            className="MuiBreadcrumbs-ol"
+          />
+        </nav>
+      </div>
+    </div>
+    <div
+      className="chonky-toolbarWrapper"
+    >
+      <div
+        className="chonky-toolbarContainer"
+      >
+        <div
+          className="chonky-toolbarLeft"
+        >
+          <div
+            className="MuiFormControl-root MuiTextField-root chonky-searchFieldContainer"
+          >
+            <div
+              className="MuiInputBase-root MuiOutlinedInput-root chonky-searchFieldInput MuiInputBase-formControl MuiInputBase-adornedStart MuiOutlinedInput-adornedStart MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+              onClick={[Function]}
+            >
+              <div
+                className="MuiInputAdornment-root chonky-searchIcon MuiInputAdornment-positionStart MuiInputAdornment-marginDense"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-search fa-w-16 "
+                  data-icon="search"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+              <input
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInputBase-input MuiOutlinedInput-input chonky-searchFieldInputInner MuiInputBase-inputAdornedStart MuiOutlinedInput-inputAdornedStart MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+                disabled={false}
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyUp={[Function]}
+                placeholder="Search"
+                required={false}
+                type="text"
+                value=""
+              />
+              <fieldset
+                aria-hidden={true}
+                className="PrivateNotchedOutline-root-11 MuiOutlinedInput-notchedOutline"
+                style={
+                  Object {
+                    "paddingLeft": 8,
+                  }
+                }
+              >
+                <legend
+                  className="PrivateNotchedOutline-legend-12"
+                  style={
+                    Object {
+                      "width": 0.01,
+                    }
+                  }
+                >
+                  <span
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "&#8203;",
+                      }
+                    }
+                  />
+                </legend>
+              </fieldset>
+            </div>
+          </div>
+          <div
+            className="chonky-infoContainer"
+          >
+            <p
+              className="MuiTypography-root chonky-infoText MuiTypography-body1"
+            >
+              0 items
+              
+            </p>
+          </div>
+        </div>
+        <div
+          className="chonky-toolbarRight"
+        />
+      </div>
+    </div>
+    <div
+      className="chonky-fileListWrapper fileListWrapper-0-3-7 fileListWrapper-d0-0-3-10"
+      role="list"
+    >
+      <div
+        className="dndDropZone-0-3-8 dndDropZone-d1-0-3-11"
+      >
+        <div
+          className="dndDropZoneIcon-0-3-9 dndDropZoneIcon-d2-0-3-12"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-times fa-w-11 "
+            data-icon="times"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 352 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "height": 0,
+            "overflow": "visible",
+            "width": 0,
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Basics/FullFileBrowser Empty 1`] = `
+<div
+  style={
+    Object {
+      "height": 400,
+      "width": 800,
+    }
+  }
+>
+  <div
+    className="MuiBox-root MuiBox-root-15 chonky-chonkyRoot"
+    onClick={[Function]}
+    onContextMenu={[Function]}
+    onTouchEnd={[Function]}
+  >
+    <div
+      className="MuiBox-root MuiBox-root-16 chonky-navbarWrapper"
+    >
+      <div
+        className="MuiBox-root MuiBox-root-17 chonky-navbarContainer"
+      >
+        <nav
+          className="MuiTypography-root MuiBreadcrumbs-root chonky-navbarBreadcrumbs MuiTypography-body1 MuiTypography-colorTextSecondary"
+        >
+          <ol
+            className="MuiBreadcrumbs-ol"
+          />
+        </nav>
+      </div>
+    </div>
+    <div
+      className="chonky-toolbarWrapper"
+    >
+      <div
+        className="chonky-toolbarContainer"
+      >
+        <div
+          className="chonky-toolbarLeft"
+        >
+          <div
+            className="MuiFormControl-root MuiTextField-root chonky-searchFieldContainer"
+          >
+            <div
+              className="MuiInputBase-root MuiOutlinedInput-root chonky-searchFieldInput MuiInputBase-formControl MuiInputBase-adornedStart MuiOutlinedInput-adornedStart MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+              onClick={[Function]}
+            >
+              <div
+                className="MuiInputAdornment-root chonky-searchIcon MuiInputAdornment-positionStart MuiInputAdornment-marginDense"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-search fa-w-16 "
+                  data-icon="search"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+              <input
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInputBase-input MuiOutlinedInput-input chonky-searchFieldInputInner MuiInputBase-inputAdornedStart MuiOutlinedInput-inputAdornedStart MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+                disabled={false}
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyUp={[Function]}
+                placeholder="Search"
+                required={false}
+                type="text"
+                value=""
+              />
+              <fieldset
+                aria-hidden={true}
+                className="PrivateNotchedOutline-root-18 MuiOutlinedInput-notchedOutline"
+                style={
+                  Object {
+                    "paddingLeft": 8,
+                  }
+                }
+              >
+                <legend
+                  className="PrivateNotchedOutline-legend-19"
+                  style={
+                    Object {
+                      "width": 0.01,
+                    }
+                  }
+                >
+                  <span
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "&#8203;",
+                      }
+                    }
+                  />
+                </legend>
+              </fieldset>
+            </div>
+          </div>
+          <div
+            className="chonky-infoContainer"
+          >
+            <p
+              className="MuiTypography-root chonky-infoText MuiTypography-body1"
+            >
+              0 items
+              
+            </p>
+          </div>
+        </div>
+        <div
+          className="chonky-toolbarRight"
+        />
+      </div>
+    </div>
+    <div
+      className="chonky-fileListWrapper fileListWrapper-0-3-13 fileListWrapper-d0-0-3-16"
+      role="list"
+    >
+      <div
+        className="dndDropZone-0-3-14 dndDropZone-d1-0-3-17"
+      >
+        <div
+          className="dndDropZoneIcon-0-3-15 dndDropZoneIcon-d2-0-3-18"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-times fa-w-11 "
+            data-icon="times"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 352 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "height": 0,
+            "overflow": "visible",
+            "width": 0,
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Basics/FullFileBrowser With Files And Folders 1`] = `
+<div
+  style={
+    Object {
+      "height": 400,
+      "width": 800,
+    }
+  }
+>
+  <div
+    className="MuiBox-root MuiBox-root-22 chonky-chonkyRoot"
+    onClick={[Function]}
+    onContextMenu={[Function]}
+    onTouchEnd={[Function]}
+  >
+    <div
+      className="MuiBox-root MuiBox-root-23 chonky-navbarWrapper"
+    >
+      <div
+        className="MuiBox-root MuiBox-root-24 chonky-navbarContainer"
+      >
+        <nav
+          className="MuiTypography-root MuiBreadcrumbs-root chonky-navbarBreadcrumbs MuiTypography-body1 MuiTypography-colorTextSecondary"
+        >
+          <ol
+            className="MuiBreadcrumbs-ol"
+          />
+        </nav>
+      </div>
+    </div>
+    <div
+      className="chonky-toolbarWrapper"
+    >
+      <div
+        className="chonky-toolbarContainer"
+      >
+        <div
+          className="chonky-toolbarLeft"
+        >
+          <div
+            className="MuiFormControl-root MuiTextField-root chonky-searchFieldContainer"
+          >
+            <div
+              className="MuiInputBase-root MuiOutlinedInput-root chonky-searchFieldInput MuiInputBase-formControl MuiInputBase-adornedStart MuiOutlinedInput-adornedStart MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+              onClick={[Function]}
+            >
+              <div
+                className="MuiInputAdornment-root chonky-searchIcon MuiInputAdornment-positionStart MuiInputAdornment-marginDense"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-search fa-w-16 "
+                  data-icon="search"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+              <input
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInputBase-input MuiOutlinedInput-input chonky-searchFieldInputInner MuiInputBase-inputAdornedStart MuiOutlinedInput-inputAdornedStart MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+                disabled={false}
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyUp={[Function]}
+                placeholder="Search"
+                required={false}
+                type="text"
+                value=""
+              />
+              <fieldset
+                aria-hidden={true}
+                className="PrivateNotchedOutline-root-25 MuiOutlinedInput-notchedOutline"
+                style={
+                  Object {
+                    "paddingLeft": 8,
+                  }
+                }
+              >
+                <legend
+                  className="PrivateNotchedOutline-legend-26"
+                  style={
+                    Object {
+                      "width": 0.01,
+                    }
+                  }
+                >
+                  <span
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "&#8203;",
+                      }
+                    }
+                  />
+                </legend>
+              </fieldset>
+            </div>
+          </div>
+          <div
+            className="chonky-infoContainer"
+          >
+            <p
+              className="MuiTypography-root chonky-infoText MuiTypography-body1"
+            >
+              0 items
+              
+            </p>
+          </div>
+        </div>
+        <div
+          className="chonky-toolbarRight"
+        />
+      </div>
+    </div>
+    <div
+      className="chonky-fileListWrapper fileListWrapper-0-3-19 fileListWrapper-d0-0-3-22"
+      role="list"
+    >
+      <div
+        className="dndDropZone-0-3-20 dndDropZone-d1-0-3-23"
+      >
+        <div
+          className="dndDropZoneIcon-0-3-21 dndDropZoneIcon-d2-0-3-24"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-times fa-w-11 "
+            data-icon="times"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 352 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "height": 0,
+            "overflow": "visible",
+            "width": 0,
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;

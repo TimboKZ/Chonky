@@ -1,0 +1,32 @@
+# Workflow that verifies new source code changes do not break storybook tests.
+name: Run 3.x storybook snapshot tests
+on:
+  push:
+    branches: [ '3.x*' ]
+  pull_request:
+    branches: [ '3.x*' ]
+  workflow_dispatch: # To support manual trigger
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Chonky
+        uses: actions/checkout@v2 # Checked out at $GITHUB_WORKSPACE
+      - name: Setup node
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: 16.13.1
+          cache: 'yarn'
+      - name: Setup the monorepo
+        run: |
+          npx yarn
+          npx lerna bootstrap
+      - name: Build Chonky packages
+        run: |
+          echo "Building Chonky packages..."
+          npx yarn build-packages
+      - name: Run Storybook snapshot tests
+        run: |
+          export VERSION_NAME=${{ env.GITHUB_REF_SLUG }} # Use branch name as version name
+          export GIT_BRANCH_NAME_OVERRIDE=VERSION_NAME # Used to set base URL in JS code
+          npx lerna run --stream --scope chonky-storybook test
