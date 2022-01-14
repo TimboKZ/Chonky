@@ -9,7 +9,7 @@
     "lerna": "^4.0.0"
   },
   "scripts": {
-    "build-packages": "lerna run build --no-bail --stream --concurrency 1",
+    "build-packages": "lerna run build --no-bail --stream --concurrency 1 --scope 'chonky{,-icon-fontawesome}'",
     "format-all": "prettier CONTRIBUTING.md --write && lerna run format --no-bail --stream --concurrency 1",
     "format-check-all": "lerna run format-check --no-bail --stream --concurrency 1"
   },

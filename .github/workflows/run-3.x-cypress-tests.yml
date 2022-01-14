@@ -32,5 +32,5 @@ jobs:
           GIT_BRANCH_NAME_OVERRIDE: ${{ env.GITHUB_REF_SLUG }} # Used to set base URL in JS code
         with:
           project: ./websites/chonky-storybook/
-          start: yarn start
+          start: npx lerna run --stream --scope chonky-storybook storybook
 
