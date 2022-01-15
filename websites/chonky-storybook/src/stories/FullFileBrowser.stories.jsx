@@ -1,8 +1,8 @@
 import React from 'react';
-import { FullFileBrowser, setChonkyDefaults } from 'chonky';
-import { ChonkyIconFA } from 'chonky-icon-fontawesome';
+import { FullFileBrowser } from 'chonky';
+// import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 
-setChonkyDefaults({ iconComponent: ChonkyIconFA });
+// setChonkyDefaults({ iconComponent: ChonkyIconFA });
 
 export default {
   title: 'Basics/FullFileBrowser',

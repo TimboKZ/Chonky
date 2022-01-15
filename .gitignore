@@ -2,6 +2,9 @@
 .idea/
 *.swp
 
+# Old versions, cos why not?
+chonky-old/
+
 # VS Code for external contributors
 .vscode
 

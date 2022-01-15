@@ -1,57 +1,160 @@
-<p align="center">
-    <img src="https://chonky.io/chonky-logo-v2.png" alt="Chonky v2 Logo" width="500" />
-    <br />
-    <a href="https://www.npmjs.com/package/chonky">
-        <img
-            alt="NPM package"
-            src="https://img.shields.io/npm/v/chonky.svg?style=flat&colorB=ffac5c"
-        />
-    </a>
-    <a href="https://tldrlegal.com/license/mit-license">
-        <img
-            alt="MIT license"
-            src="https://img.shields.io/npm/l/chonky?style=flat&colorB=dcd67a"
-        />
-    </a>
-    <a href="https://www.npmjs.com/package/chonky">
-        <img
-            alt="NPM downloads"
-            src="https://img.shields.io/npm/dt/chonky?style=flat&colorB=aef498"
-        />
-    </a>
-    <a href="https://github.com/TimboKZ/Chonky">
-        <img
-            alt="GitHub stars"
-            src="https://img.shields.io/github/stars/TimboKZ/Chonky?style=flat&colorB=50f4cc"
-        />
-    </a>
-    <a href="https://discord.gg/4HJaFn9">
-        <img
-            alt="Chat on Discord"
-            src="https://img.shields.io/discord/696033621986770957?label=discord&style=flat&colorB=08acee"
-        />
-    </a>
-    <br />
-    <br />
-    <br />
-</p>
+# TSDX React User Guide
 
-Chonky is a file browser component for React. It tries to recreate the native file
-browsing experience in your browser. This means your users can make selections, drag
-& drop files, toggle between _List_ and _Grid_ file views, use keyboard shortcuts, and
-much more!
+Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
 
-### [Click here for documentation and examples.](https://chonky.io/)
+> This TSDX setup is meant for developing React component libraries (not apps!) that can be published to NPM. If you’re looking to build a React-based app, you should use `create-react-app`, `razzle`, `nextjs`, `gatsby`, or `react-static`.
 
-> Please [create an issue](https://github.com/TimboKZ/Chonky/issues) if you have a
-> problem or want to request a feature.
+> If you’re new to TypeScript and React, checkout [this handy cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet/)
 
-## Preview
+## Commands
 
-<p align="center">
-  <img src="https://chonky.io/chonky-v2-preview.gif" alt="Chonky preview">
-</p>
+TSDX scaffolds your new library inside `/src`, and also sets up a [Parcel-based](https://parceljs.org) playground for it inside `/example`.
 
-## License
+The recommended workflow is to run TSDX in one terminal:
 
-MIT © [Tim Kuzhagaliyev](https://github.com/TimboKZ) 2020
+```bash
+npm start # or yarn start
+```
+
+This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+
+Then run the example inside another:
+
+```bash
+cd example
+npm i # or yarn to install dependencies
+npm start # or yarn start
+```
+
+The default example imports and live reloads whatever is in `/dist`, so if you are seeing an out of date component, make sure TSDX is running in watch mode like we recommend above. **No symlinking required**, we use [Parcel's aliasing](https://parceljs.org/module_resolution.html#aliases).
+
+To do a one-off build, use `npm run build` or `yarn build`.
+
+To run tests, use `npm test` or `yarn test`.
+
+## Configuration
+
+Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
+
+### Jest
+
+Jest tests are set up to run with `npm test` or `yarn test`.
+
+### Bundle analysis
+
+Calculates the real cost of your library using [size-limit](https://github.com/ai/size-limit) with `npm run size` and visulize it with `npm run analyze`.
+
+#### Setup Files
+
+This is the folder structure we set up for you:
+
+```txt
+/example
+  index.html
+  index.tsx       # test your component here in a demo app
+  package.json
+  tsconfig.json
+/src
+  index.tsx       # EDIT THIS
+/test
+  blah.test.tsx   # EDIT THIS
+.gitignore
+package.json
+README.md         # EDIT THIS
+tsconfig.json
+```
+
+#### React Testing Library
+
+We do not set up `react-testing-library` for you yet, we welcome contributions and documentation on this.
+
+### Rollup
+
+TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
+
+### TypeScript
+
+`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
+
+## Continuous Integration
+
+### GitHub Actions
+
+Two actions are added by default:
+
+- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
+- `size` which comments cost comparison of your library on every pull request using [`size-limit`](https://github.com/ai/size-limit)
+
+## Optimizations
+
+Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
+
+```js
+// ./types/index.d.ts
+declare var __DEV__: boolean;
+
+// inside your code...
+if (__DEV__) {
+  console.log('foo');
+}
+```
+
+You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
+
+## Module Formats
+
+CJS, ESModules, and UMD module formats are supported.
+
+The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
+
+## Deploying the Example Playground
+
+The Playground is just a simple [Parcel](https://parceljs.org) app, you can deploy it anywhere you would normally deploy that. Here are some guidelines for **manually** deploying with the Netlify CLI (`npm i -g netlify-cli`):
+
+```bash
+cd example # if not already in the example folder
+npm run build # builds to dist
+netlify deploy # deploy the dist folder
+```
+
+Alternatively, if you already have a git repo connected, you can set up continuous deployment with Netlify:
+
+```bash
+netlify init
+# build command: yarn build && cd example && yarn && yarn build
+# directory to deploy: example/dist
+# pick yes for netlify.toml
+```
+
+## Named Exports
+
+Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
+
+## Including Styles
+
+There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
+
+For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
+
+## Publishing to NPM
+
+We recommend using [np](https://github.com/sindresorhus/np).
+
+## Usage with Lerna
+
+When creating a new package with TSDX within a project set up with Lerna, you might encounter a `Cannot resolve dependency` error when trying to run the `example` project. To fix that you will need to make changes to the `package.json` file _inside the `example` directory_.
+
+The problem is that due to the nature of how dependencies are installed in Lerna projects, the aliases in the example project's `package.json` might not point to the right place, as those dependencies might have been installed in the root of your Lerna project.
+
+Change the `alias` to point to where those packages are actually installed. This depends on the directory structure of your Lerna project, so the actual path might be different from the diff below.
+
+```diff
+   "alias": {
+-    "react": "../node_modules/react",
+-    "react-dom": "../node_modules/react-dom"
++    "react": "../../../node_modules/react",
++    "react-dom": "../../../node_modules/react-dom"
+   },
+```
+
+An alternative to fixing this problem would be to remove aliases altogether and define the dependencies referenced as aliases as dev dependencies instead. [However, that might cause other problems.](https://github.com/palmerhq/tsdx/issues/64)

@@ -1,6 +1,7 @@
 {
   "name": "chonky-engine",
-  "version": "0.1.0",
+  "version": "2.3.2",
+  "description": "Core busines logic for Chonky file browser.",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -9,24 +10,23 @@
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why",
+    "start": "tsup --watch",
+    "build": "tsup",
+    "prepublishOnly": "tsup",
     "format": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore . --write --list-different",
     "format-check": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore --check ."
   },
   "peerDependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
+  "devDependencies": {
+    "tsup": "^5.11.11"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.7.1",
+    "js-logger": "^1.6.1",
+    "redux-thunk": "^2.4.1"
   },
   "homepage": "https://chonky.io/",
   "author": {
@@ -34,27 +34,18 @@
     "email": "tim.kuzh@gmail.com",
     "url": "https://foxypanda.me/"
   },
-  "module": "dist/chonky-engine.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/chonky-engine.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/chonky-engine.esm.js",
-      "limit": "10 KB"
-    }
-  ],
-  "devDependencies": {
-    "@size-limit/preset-small-lib": "^7.0.5",
-    "husky": "^7.0.4",
-    "size-limit": "^7.0.5",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.3.1",
-    "typescript": "^4.5.4"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimboKZ/Chonky.git"
   },
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.7.1",
-    "js-logger": "^1.6.1"
-  }
+  "bugs": {
+    "url": "https://github.com/TimboKZ/Chonky/issues"
+  },
+  "keywords": [
+    "file",
+    "chonky",
+    "file-dialog",
+    "file-browser",
+    "react-component"
+  ]
 }

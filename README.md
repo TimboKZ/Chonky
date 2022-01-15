@@ -54,4 +54,4 @@ much more!
 
 ## License
 
-MIT © [Tim Kuzhagaliyev](https://github.com/TimboKZ) 2020
+MIT © [Tim Kuzhagaliyev](https://github.com/TimboKZ) 2020-2022

@@ -1,12 +1,13 @@
 # `chonky-icon-fontawesome`
 
-This package contains the icon component for [Chonky][chonky], a file browser component
-for React. Please refer to [the official documentation][docs] for usage instructions.
+This package contains the icon component for [Chonky][chonky], a file browser
+component for React. Please refer to [the official documentation][docs] for
+usage instructions.
 
 ## Usage
 
 ```shell
-npm install chonky@latest chonky-icon-fontawesome@latest
+yarn add chonky@latest chonky-icon-fontawesome@latest
 ```
 
 ```ts
@@ -16,5 +17,5 @@ import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 setChonkyDefaults({ iconComponent: ChonkyIconFA });
 ```
 
-[chonky]: https://chonky.io/
-[docs]: https://chonky.io/docs/2.x/installation-usage
+[chonky]: https://github.com/TimboKZ/Chonky
+[docs]: https://chonky.io/docs/3.x/

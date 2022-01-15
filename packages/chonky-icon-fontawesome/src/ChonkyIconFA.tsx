@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import React from 'react';
 import { faAdobe } from '@fortawesome/free-brands-svg-icons/faAdobe';
 import { faGitAlt } from '@fortawesome/free-brands-svg-icons/faGitAlt';
 import { faLinux } from '@fortawesome/free-brands-svg-icons/faLinux';
@@ -66,8 +67,8 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { faUpload } from '@fortawesome/free-solid-svg-icons/faUpload';
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ChonkyIconName, ChonkyIconProps } from 'chonky';
-import React from 'react';
+
+import { ChonkyIconName, ChonkyIconProps } from 'chonky-engine/dist/types/icons.types';
 
 const IconMap: { [iconName in ChonkyIconName]: any } = {
   // Misc
