@@ -62,19 +62,11 @@ export const useFileDrag = (file: Nullable<FileData>) => {
   );
 
   // Create refs for react-dnd hooks
-  const item = useMemo<ChonkyDndFileEntryItem>(
-    () => ({
-      type: ChonkyDndFileEntryType,
-      // Payload is actually added in `onDragStart`
-      payload: {} as StartDragNDropPayload,
-    }),
-    [],
-  );
   const collect = useCallback((monitor) => ({ isDragging: monitor.isDragging() }), []);
   const [{ isDragging: dndIsDragging }, drag, preview] = useDragIfAvailable({
-    item,
+    type: ChonkyDndFileEntryType,
+    item: onDragStart,
     canDrag,
-    begin: onDragStart,
     // @ts-ignore
     end: onDragEnd,
     collect,
