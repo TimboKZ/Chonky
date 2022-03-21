@@ -51,6 +51,7 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
                         icon={dndIconName ?? entryState.icon}
                         spin={dndIconName ? false : entryState.iconSpin}
                         fixedWidth={true}
+                        file={file}
                     />
                 </div>
                 <div

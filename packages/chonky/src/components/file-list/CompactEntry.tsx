@@ -28,6 +28,7 @@ export const CompactEntry: React.FC<FileEntryProps> = React.memo(
                         icon={entryState.icon}
                         spin={entryState.iconSpin}
                         fixedWidth={true}
+                        file={file}
                     />
                 </div>
                 <div className={classes.listFileEntryDescription}>

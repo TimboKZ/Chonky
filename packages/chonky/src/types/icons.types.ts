@@ -1,4 +1,5 @@
 import React from 'react';
+import { FileData } from './file.types';
 
 export enum ChonkyIconName {
     // Misc
@@ -100,4 +101,5 @@ export interface ChonkyIconProps {
     className?: string;
     fixedWidth?: boolean;
     style?: React.CSSProperties;
+    file?: FileData | null;
 }

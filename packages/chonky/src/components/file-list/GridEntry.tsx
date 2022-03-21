@@ -23,12 +23,14 @@ export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
                     className={classes.gridFileEntryPreview}
                     entryState={entryState}
                     dndState={dndState}
+                    file={file}
                 />
             ) : (
                 <GridEntryPreviewFile
                     className={classes.gridFileEntryPreview}
                     entryState={entryState}
                     dndState={dndState}
+                    file={file}
                 />
             )}
             <div className={classes.gridFileEntryNameContainer}>
