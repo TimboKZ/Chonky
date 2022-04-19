@@ -1,1 +1,1 @@
-export type { ChonkyConfig } from './types/base.types';
+export const note = 'chonky-engine has no exports by design.';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FullFileBrowser } from 'chonky';
+import { ChonkyConfigProvider, ChonkyErrorBoundary, FullFileBrowser } from 'chonky';
 // import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 
 // setChonkyDefaults({ iconComponent: ChonkyIconFA });
@@ -11,7 +11,11 @@ export default {
 
 const Template = (args) => (
   <div style={{ width: 800, height: 400 }}>
-    <FullFileBrowser {...args} />
+    <ChonkyErrorBoundary>
+      <ChonkyConfigProvider config={{ 'Hello World': 1, test: 123123 }}>
+        <FullFileBrowser {...args} />
+      </ChonkyConfigProvider>
+    </ChonkyErrorBoundary>
   </div>
 );
 

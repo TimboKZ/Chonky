@@ -1,20 +1,23 @@
 import React, { useContext, useMemo } from 'react';
 
-import { ChonkyConfig } from 'chonky-engine/dist/types/base.types';
-import { GlobalChonkyConfig, mergeChonkyConfigs } from 'chonky-engine/dist/config';
+import { ChonkyConfig } from 'chonky-engine/dist/types/config.types';
+import { getGlobalChonkyConfig, mergeChonkyConfigs } from 'chonky-engine/dist/config';
 import { Nullable } from 'chonky-engine/dist/types/helpers.types';
 
 export const ChonkyConfigContext = React.createContext<Nullable<ChonkyConfig>>(null);
 
 export interface ChonkyConfigProviderProps {
-  config: Nullable<ChonkyConfig>;
+  config: Nullable<Partial<ChonkyConfig>>;
+  children: any;
 }
 
 export const ChonkyConfigProvider = React.memo<ChonkyConfigProviderProps>(function ChonkyConfigProvider({
   config = null,
+  children,
 }) {
-  config;
-  return null;
+  const configFromParentContext = useContext(ChonkyConfigContext);
+  const mergedConfig = useMergedChonkyConfig(configFromParentContext, config);
+  return <ChonkyConfigContext.Provider value={mergedConfig as ChonkyConfig}>{children}</ChonkyConfigContext.Provider>;
 });
 
 export function useMergedChonkyConfig(
@@ -24,11 +27,15 @@ export function useMergedChonkyConfig(
   return useMemo(() => mergeChonkyConfigs(baseConfig, newPartialConfig), [baseConfig, newPartialConfig]);
 }
 
-export function useChonkyConfig() {
+/**
+ * To be used by user code that just wants the final view of the config.
+ */
+export function useChonkyConfig(): ChonkyConfig {
   const contextConfig = useContext(ChonkyConfigContext);
   return useMemo<ChonkyConfig>(() => {
-    if (contextConfig) return contextConfig as ChonkyConfig;
-    const readOnlyConfigCopy = { ...GlobalChonkyConfig };
+    let readOnlyConfigCopy;
+    if (contextConfig) readOnlyConfigCopy = {...contextConfig} as ChonkyConfig;
+    else  readOnlyConfigCopy = { ...getGlobalChonkyConfig() };
     Object.freeze(readOnlyConfigCopy);
     return readOnlyConfigCopy;
   }, [contextConfig]);

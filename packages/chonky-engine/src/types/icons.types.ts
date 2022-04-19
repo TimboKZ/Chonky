@@ -3,6 +3,7 @@ export enum ChonkyIconName {
   loading = 'loading',
   dropdown = 'dropdown',
   placeholder = 'placeholder',
+  cog = 'cog',
 
   // File Actions: Drag & drop
   dndDragging = 'dndDragging',

@@ -20,6 +20,7 @@ import { faBoxOpen } from '@fortawesome/free-solid-svg-icons/faBoxOpen';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons/faCircleNotch';
+import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faCogs } from '@fortawesome/free-solid-svg-icons/faCogs';
 import { faCopy } from '@fortawesome/free-solid-svg-icons/faCopy';
 import { faCubes } from '@fortawesome/free-solid-svg-icons/faCubes';
@@ -75,6 +76,7 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
   [ChonkyIconName.loading]: faCircleNotch,
   [ChonkyIconName.dropdown]: faChevronDown,
   [ChonkyIconName.placeholder]: faMinus,
+  [ChonkyIconName.cog]: faCog,
 
   // File Actions: Drag & drop
   [ChonkyIconName.dndDragging]: faFistRaised,

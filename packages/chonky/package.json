@@ -30,9 +30,12 @@
     "tsup": "^5.11.11"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.2.8",
     "chonky-engine": "^0.1.0",
     "clsx": "^1.1.1",
+    "nanoid": "^3.1.32",
     "react-redux": "^7.2.6",
     "styled-components": "^5.3.3"
   },
