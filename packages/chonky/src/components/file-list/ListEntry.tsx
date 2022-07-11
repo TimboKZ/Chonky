@@ -122,7 +122,7 @@ const useStyles = makeLocalChonkyStyles(theme => ({
         boxSizing: 'border-box',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
-        flex: '0 1 150px',
+        flex: '0 1 160px',
         padding: [2, 8],
         zIndex: 20,
     },
