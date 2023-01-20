@@ -56,7 +56,7 @@ const useStyles = makeGlobalChonkyStyles(theme => ({
     },
     toolbarLeft: {
         paddingBottom: theme.margins.rootLayoutMargin,
-        flexWrap: 'nowrap',
+        flexWrap: 'wrap', // Ensure buttons do not overflow when the file manager is narrow.
         flexGrow: 10000,
         display: 'flex',
     },
@@ -65,7 +65,7 @@ const useStyles = makeGlobalChonkyStyles(theme => ({
     },
     toolbarRight: {
         paddingBottom: theme.margins.rootLayoutMargin,
-        flexWrap: 'nowrap',
+        flexWrap: 'wrap', // Ensure buttons do not overflow when the file manager is narrow.
         display: 'flex',
     },
 }));
