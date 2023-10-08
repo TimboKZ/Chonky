@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Nullable } from 'tsdef';
 
 import { DndEntryState } from '../../types/file-list.types';

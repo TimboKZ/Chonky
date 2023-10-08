@@ -39,6 +39,7 @@ export const sanitizeInputArray: SanitizeFiles = (mode: string, rawArray: any[])
             const item = rawArray[i];
             if (!item) {
                 if (mode === 'fileActions') nonObjectFileCount++;
+                // @ts-ignore
                 else sanitizedFiles.push(null);
             } else if (typeof item !== 'object') {
                 nonObjectFileCount++;
@@ -49,6 +50,7 @@ export const sanitizeInputArray: SanitizeFiles = (mode: string, rawArray: any[])
                     duplicateIds.add(item.id);
                 } else {
                     seenIds.add(item.id);
+                    // @ts-ignore
                     sanitizedFiles.push(item);
                 }
             }

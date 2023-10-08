@@ -1,4 +1,4 @@
-import { ChonkyActions } from '../action-definitions/index';
+import { FileViewMode } from '../types/file-view.types';
 import { RootState } from '../types/redux.types';
 import { SortOrder } from '../types/sort.types';
 
@@ -34,7 +34,9 @@ export const initialRootState: RootState = {
     selectionMap: {},
     disableSelection: false,
 
-    fileViewConfig: ChonkyActions.EnableGridView.fileViewConfig,
+    // HAX(tkuzh, 20230710): Dirty hack to fix a circular import, need to fix this later.
+    // fileViewConfig: ChonkyActions.EnableGridView.fileViewConfig,
+    fileViewConfig: { mode: FileViewMode.Grid, entryWidth: 165, entryHeight: 130 },
 
     sortActionId: null,
     sortOrder: SortOrder.ASC,

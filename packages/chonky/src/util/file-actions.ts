@@ -18,11 +18,12 @@ import { ChonkyIconName } from '../types/icons.types';
 import { CustomVisibilityState } from '../types/action.types';
 import { SortOrder } from '../types/sort.types';
 import { FileHelper } from './file-helper';
+import { AnyAction } from '@reduxjs/toolkit';
 
 export const useFileActionTrigger = (fileActionId: string) => {
     const dispatch = useDispatch();
     const fileAction = useParamSelector(selectFileActionData, fileActionId);
-    return useCallback(() => dispatch(thunkRequestFileAction(fileAction, undefined)), [
+    return useCallback(() => dispatch(thunkRequestFileAction(fileAction, undefined) as any as AnyAction), [
         dispatch,
         fileAction,
     ]);

@@ -1,0 +1,4 @@
+link-workspace-packages: false
+packages:
+  - 'packages/chonky'
+  - '!**/test/**'

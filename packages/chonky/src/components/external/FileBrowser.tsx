@@ -9,7 +9,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { IntlProvider } from 'react-intl';
 import { ThemeProvider } from 'react-jss';
 import { Provider as ReduxProvider } from 'react-redux';
-import shortid from 'shortid';
+import {nanoid} from 'nanoid'
 
 import { useChonkyStore } from '../../redux/store';
 import { FileBrowserHandle, FileBrowserProps } from '../../types/file-browser.types';
@@ -60,7 +60,7 @@ export const FileBrowser = React.forwardRef<
         i18n,
     ]);
 
-    const chonkyInstanceId = useStaticValue(() => instanceId ?? shortid.generate());
+    const chonkyInstanceId = useStaticValue(() => instanceId ?? nanoid(10));
     const store = useChonkyStore(chonkyInstanceId);
 
     const isMobileBreakpoint = useIsMobileBreakpoint();
@@ -84,8 +84,14 @@ export const FileBrowser = React.forwardRef<
         </>
     );
 
+    const intlProviderProps = {
+        locale: 'en',
+        defaultLocale:"en",
+        messages: {},
+        ...i18n
+    };
     return (
-        <IntlProvider locale="en" defaultLocale="en" {...i18n}>
+        <IntlProvider {...intlProviderProps}>
             <ChonkyFormattersContext.Provider value={formatters}>
                 <ReduxProvider store={store}>
                     <ThemeProvider theme={theme}>

@@ -1,4 +1,4 @@
-import filesize from 'filesize';
+import {filesize} from 'filesize';
 import { createContext, useContext, useMemo } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 import { Nullable, Undefinable } from 'tsdef';
@@ -25,7 +25,8 @@ export const getActionI18nId = (actionId: string, stringId: string): string =>
     `chonky.${I18nNamespace.FileActions}.${actionId}.${stringId}`;
 
 export const useLocalizedFileActionGroup = (groupName: string) => {
-    const intl = useIntl();
+    // HAX(tkuzh, 20230810): Force `any` type due to TS error TS2339: Property 'formatMessage' does not exist on type 'IntlShape'
+    const intl: any = useIntl();
     return useMemo(() => {
         return intl.formatMessage({
             id: getI18nId(I18nNamespace.FileActionGroups, groupName),
@@ -35,7 +36,8 @@ export const useLocalizedFileActionGroup = (groupName: string) => {
 };
 
 export const useLocalizedFileActionStrings = (action: Nullable<FileAction>) => {
-    const intl = useIntl();
+    // HAX(tkuzh, 20230810): Force `any` type due to TS error TS2339: Property 'formatMessage' does not exist on type 'IntlShape'
+    const intl: any = useIntl();
     return useMemo(() => {
         if (!action) {
             return {
@@ -78,7 +80,9 @@ export const useLocalizedFileEntryStrings = (file: Nullable<FileData>) => {
 
 export const defaultFormatters: ChonkyFormatters = {
     formatFileModDate: (
-        intl: IntlShape,
+        // HAX(tkuzh, 20230810): Force `any` type due to TS error TS2339: Property 'formatMessage' does not exist on type 'IntlShape'
+        // intl: IntlShape,
+        intl: any,
         file: Nullable<FileData>
     ): Nullable<string> => {
         const safeModDate = FileHelper.getModDate(file);

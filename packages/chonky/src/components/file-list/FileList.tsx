@@ -14,6 +14,7 @@ import {
 import { FileListEmpty } from './FileListEmpty';
 import { GridContainer } from './GridContainer';
 import { ListContainer } from './ListContainer';
+import { Nullable } from 'tsdef';
 
 export interface FileListProps {
     onScroll?: (e: UIEvent<HTMLDivElement>) => void;
@@ -25,7 +26,7 @@ interface StyleState {
 }
 
 export const FileList: React.FC<FileListProps> = React.memo((props: FileListProps) => {
-    const displayFileIds = useSelector(selectors.getDisplayFileIds);
+    const displayFileIds: Nullable<string>[] = useSelector(selectors.getDisplayFileIds);
     const viewConfig = useSelector(selectFileViewConfig);
 
     const currentFolder = useSelector(selectCurrentFolder);

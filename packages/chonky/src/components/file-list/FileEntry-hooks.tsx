@@ -1,4 +1,4 @@
-import React, {
+import {
     HTMLProps, useCallback, useContext, useEffect, useMemo, useRef, useState
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ import { Logger } from '../../util/logger';
 import { TextPlaceholder } from '../external/TextPlaceholder';
 import { KeyboardClickEvent, MouseClickEvent } from '../internal/ClickableWrapper';
 import { FileEntryState } from './GridEntryPreview';
+import { AnyAction } from '@reduxjs/toolkit';
 
 export const useFileEntryHtmlProps = (file: Nullable<FileData>): HTMLProps<HTMLDivElement> => {
     return useMemo(() => {
@@ -91,12 +92,12 @@ const _extname = (fileName: string) => {
     return '';
 };
 
-export const useFileNameComponent = (file: Nullable<FileData>) => {
+export const useFileNameComponent = (file: FileData | null) => {
     return useMemo(() => {
         if (!file) return <TextPlaceholder minLength={15} maxLength={20} />;
 
         let name;
-        let extension = null;
+        let extension: Nullable<string> = null;
 
         const isDir = FileHelper.isDirectory(file);
         if (isDir) {
@@ -173,7 +174,7 @@ export const useFileClickHandlers = (file: Nullable<FileData>, displayIndex: num
                     altKey: event.altKey,
                     ctrlKey: event.ctrlKey,
                     shiftKey: event.shiftKey,
-                })
+                }) as any as AnyAction
             );
         },
         [dispatch, file, displayIndex]
@@ -191,7 +192,7 @@ export const useFileClickHandlers = (file: Nullable<FileData>, displayIndex: num
                     altKey: event.altKey,
                     ctrlKey: event.ctrlKey,
                     shiftKey: event.shiftKey,
-                })
+                }) as any as AnyAction
             );
         },
         [dispatch, file, displayIndex]

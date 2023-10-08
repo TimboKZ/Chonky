@@ -29,7 +29,8 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = React.memo(() => 
         };
     }, [dispatch]);
 
-    const intl = useIntl();
+    // HAX(tkuzh, 20230810): Force `any` type due to TS error TS2339: Property 'formatMessage' does not exist on type 'IntlShape'
+    const intl: any = useIntl();
     const browserMenuShortcutString = intl.formatMessage(
         {
             id: getI18nId(I18nNamespace.FileContextMenu, 'browserMenuShortcut'),

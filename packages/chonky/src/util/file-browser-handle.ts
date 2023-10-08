@@ -7,6 +7,7 @@ import { thunkRequestFileAction } from '../redux/thunks/dispatchers.thunks';
 import { FileAction } from '../types/action.types';
 import { FileBrowserHandle } from '../types/file-browser.types';
 import { RootState } from '../types/redux.types';
+import { AnyAction } from '@reduxjs/toolkit';
 
 export const useFileBrowserHandle = (ref: React.Ref<FileBrowserHandle>) => {
     const store = useStore<RootState>();
@@ -29,7 +30,7 @@ export const useFileBrowserHandle = (ref: React.Ref<FileBrowserHandle>) => {
                 payload: Action['__payloadType']
             ): Promise<void> {
                 return Promise.resolve(
-                    dispatch(thunkRequestFileAction(action, payload))
+                    dispatch(thunkRequestFileAction(action, payload) as any as AnyAction)
                 ).then();
             },
         }),

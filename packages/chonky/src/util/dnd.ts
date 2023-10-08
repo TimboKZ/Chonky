@@ -24,6 +24,7 @@ import { FileData } from '../types/file.types';
 import { useDragIfAvailable, useDropIfAvailable } from './dnd-fallback';
 import { FileHelper } from './file-helper';
 import { useInstanceVariable } from './hooks-helpers';
+import { AnyAction } from '@reduxjs/toolkit';
 
 export const useFileDrag = (file: Nullable<FileData>) => {
     // Prepare the dnd payload
@@ -32,12 +33,12 @@ export const useFileDrag = (file: Nullable<FileData>) => {
     const getDndStartPayload = useCallback<() => StartDragNDropPayload>(() => {
         const reduxState = store.getState();
         return {
-            sourceInstanceId: selectInstanceId(reduxState),
-            source: selectCurrentFolder(reduxState),
+            sourceInstanceId: selectInstanceId(reduxState as any),
+            source: selectCurrentFolder(reduxState as any),
             // We force non-null type below because by convention, if drag & drop for
             // this file was possible, it must have been non-null.
             draggedFile: fileRef.current!,
-            selectedFiles: selectSelectedFiles(reduxState),
+            selectedFiles: selectSelectedFiles(reduxState as any),
         };
     }, [store, fileRef]);
 
@@ -51,7 +52,7 @@ export const useFileDrag = (file: Nullable<FileData>) => {
             type: ChonkyDndFileEntryType,
             payload: getDndStartPayload(),
         };
-        dispatch(thunkRequestFileAction(ChonkyActions.StartDragNDrop, item.payload));
+        dispatch(thunkRequestFileAction(ChonkyActions.StartDragNDrop, item.payload) as any as AnyAction);
         return item;
     }, [dispatch, getDndStartPayload]);
     const onDragEnd = useCallback(
@@ -70,26 +71,27 @@ export const useFileDrag = (file: Nullable<FileData>) => {
                     ...item.payload,
                     destination: dropResult.dropTarget,
                     copy: dropResult.dropEffect === 'copy',
-                })
+                }) as any as AnyAction
             );
         },
         [dispatch]
     );
 
     // Create refs for react-dnd hooks
-    const item = useMemo<ChonkyDndFileEntryItem>(
-        () => ({
-            type: ChonkyDndFileEntryType,
-            // Payload is actually added in `onDragStart`
-            payload: {} as StartDragNDropPayload,
-        }),
-        []
-    );
-    const collect = useCallback(monitor => ({ isDragging: monitor.isDragging() }), []);
-    const [{ isDragging: dndIsDragging }, drag, preview] = useDragIfAvailable({
-        item,
+    // const item = useMemo<ChonkyDndFileEntryItem>(
+    //     () => ({
+    //         type: ChonkyDndFileEntryType,
+    //         // Payload is actually added in `onDragStart`
+    //         payload: {} as StartDragNDropPayload,
+    //     }),
+    //     []
+    // );
+    const collect = useCallback((monitor: DragSourceMonitor) => ({ isDragging: monitor.isDragging() }), []);
+    const [{ isDragging: dndIsDragging }, drag, preview] = useDragIfAvailable<ChonkyDndFileEntryItem, ChonkyDndDropResult, any>({
+        type: ChonkyDndFileEntryType, 
+        item: onDragStart,
         canDrag,
-        begin: onDragStart,
+        // begin: onDragStart,
         // @ts-ignore
         end: onDragEnd,
         collect,
@@ -117,7 +119,7 @@ export const useFileDrop = ({
 }: UseFileDropParams) => {
     const folderChainRef = useInstanceVariable(useSelector(selectFolderChain));
     const onDrop = useCallback(
-        (_item: ChonkyDndFileEntryItem, monitor) => {
+        (_item: ChonkyDndFileEntryItem, monitor: DropTargetMonitor) => {
             if (!monitor.canDrop()) return;
             const customDropResult: ExcludeKeys<ChonkyDndDropResult, 'dropEffect'> = {
                 dropTarget: file,
@@ -157,7 +159,7 @@ export const useFileDrop = ({
         [forceDisableDrop, file, includeChildrenDrops, folderChainRef]
     );
     const collect = useCallback(
-        monitor => ({
+        (monitor: DropTargetMonitor) => ({
             isOver: monitor.isOver(),
             isOverCurrent: monitor.isOver({ shallow: true }),
             canDrop: monitor.canDrop(),
@@ -210,7 +212,7 @@ export const useDndHoverOpen = (file: Nullable<FileData>, dndState: DndEntryStat
                         thunkRequestFileAction(EssentialActions.OpenFiles, {
                             targetFile: file,
                             files: [file],
-                        })
+                        }) as any as AnyAction
                     ),
                 // TODO: Make this timeout configurable
                 1500

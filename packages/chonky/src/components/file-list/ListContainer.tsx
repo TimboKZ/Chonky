@@ -49,6 +49,7 @@ export const ListContainer: React.FC<FileListListProps> = React.memo(props => {
         };
 
         return (
+            // @ts-ignore: Something about ReactNode not being assignable to ReactNode
             <FixedSizeList
                 ref={listRef as any}
                 className={classes.listContainer}

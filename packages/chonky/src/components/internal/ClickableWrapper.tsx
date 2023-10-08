@@ -35,7 +35,7 @@ export interface ClickableWrapperProps {
     setFocused?: (focused: boolean) => void;
 }
 
-export const ClickableWrapper: React.FC<ClickableWrapperProps> = props => {
+export const ClickableWrapper: React.FC<React.PropsWithChildren<ClickableWrapperProps>> = props => {
     const {
         children,
         wrapperTag: WrapperTag,

@@ -7,6 +7,7 @@ import { selectFolderChain } from '../../redux/selectors';
 import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
 import { FileData } from '../../types/file.types';
 import { FileHelper } from '../../util/file-helper';
+import { AnyAction } from '@reduxjs/toolkit';
 
 export interface FolderChainItem {
     file: Nullable<FileData>;
@@ -35,7 +36,7 @@ export const useFolderChainItems = (): FolderChainItem[] => {
                                   thunkRequestFileAction(ChonkyActions.OpenFiles, {
                                       targetFile: file,
                                       files: [file],
-                                  })
+                                    }) as any as AnyAction
                               ),
             });
         }

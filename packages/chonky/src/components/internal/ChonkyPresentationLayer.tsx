@@ -24,7 +24,7 @@ import { HotkeyListener } from './HotkeyListener';
 
 export interface ChonkyPresentationLayerProps {}
 
-export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = ({
+export const ChonkyPresentationLayer: React.FC<React.PropsWithChildren<ChonkyPresentationLayerProps>> = ({
     children,
 }) => {
     const dispatch = useDispatch();

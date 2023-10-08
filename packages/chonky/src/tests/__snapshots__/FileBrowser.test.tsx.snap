@@ -1,0 +1,825 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`FileBrowser > renders a full file browser as a single component 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="MuiBox-root MuiBox-root-1 chonky-chonkyRoot"
+      >
+        <div
+          class="MuiBox-root MuiBox-root-2 chonky-navbarWrapper"
+        >
+          <div
+            class="MuiBox-root MuiBox-root-3 chonky-navbarContainer"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-text  chonky-baseButton chonky-iconOnlyButton Mui-disabled Mui-disabled"
+              disabled=""
+              tabindex="-1"
+              title="Go up a directory"
+              type="button"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                <div
+                  class=""
+                >
+                  <span
+                    title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+                  >
+                    ⚠️
+                  </span>
+                </div>
+              </span>
+            </button>
+            <nav
+              class="MuiTypography-root MuiBreadcrumbs-root chonky-navbarBreadcrumbs MuiTypography-body1 MuiTypography-colorTextSecondary"
+            >
+              <ol
+                class="MuiBreadcrumbs-ol"
+              />
+            </nav>
+          </div>
+        </div>
+        <div
+          class="chonky-toolbarWrapper"
+        >
+          <div
+            class="chonky-toolbarContainer"
+          >
+            <div
+              class="chonky-toolbarLeft"
+            >
+              <div
+                class="MuiFormControl-root MuiTextField-root chonky-searchFieldContainer"
+              >
+                <div
+                  class="MuiInputBase-root MuiOutlinedInput-root chonky-searchFieldInput MuiInputBase-formControl MuiInputBase-adornedStart MuiOutlinedInput-adornedStart MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+                >
+                  <div
+                    class="MuiInputAdornment-root chonky-searchIcon MuiInputAdornment-positionStart MuiInputAdornment-marginDense"
+                  >
+                    <span
+                      title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+                    >
+                      ⚠️
+                    </span>
+                  </div>
+                  <input
+                    aria-invalid="false"
+                    class="MuiInputBase-input MuiOutlinedInput-input chonky-searchFieldInputInner MuiInputBase-inputAdornedStart MuiOutlinedInput-inputAdornedStart MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+                    placeholder="Search"
+                    type="text"
+                    value=""
+                  />
+                  <fieldset
+                    aria-hidden="true"
+                    class="PrivateNotchedOutline-root-4 MuiOutlinedInput-notchedOutline"
+                    style="padding-left: 8px;"
+                  >
+                    <legend
+                      class="PrivateNotchedOutline-legend-5"
+                      style="width: 0.01px;"
+                    >
+                      <span>
+                        ​
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+              <div
+                class="chonky-infoContainer"
+              >
+                <p
+                  class="MuiTypography-root chonky-infoText MuiTypography-body1"
+                >
+                  2 items
+                </p>
+              </div>
+            </div>
+            <div
+              class="chonky-toolbarRight"
+            >
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text  chonky-baseButton"
+                tabindex="0"
+                title="Actions"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label"
+                >
+                  <span>
+                    Actions
+                  </span>
+                  <div
+                    class="chonky-iconDropdown"
+                  >
+                    <span
+                      title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+                    >
+                      ⚠️
+                    </span>
+                  </div>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text  chonky-baseButton chonky-iconOnlyButton"
+                tabindex="0"
+                title="Switch to List view"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+                    >
+                      ⚠️
+                    </span>
+                  </div>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text  chonky-baseButton chonky-iconOnlyButton chonky-activeButton"
+                tabindex="0"
+                title="Switch to Grid view"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+                    >
+                      ⚠️
+                    </span>
+                  </div>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text  chonky-baseButton"
+                tabindex="0"
+                title="Options"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label"
+                >
+                  <span>
+                    Options
+                  </span>
+                  <div
+                    class="chonky-iconDropdown"
+                  >
+                    <span
+                      title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+                    >
+                      ⚠️
+                    </span>
+                  </div>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="chonky-fileListWrapper fileListWrapper-0-3-1 fileListWrapper-d0-0-3-4"
+          role="list"
+        >
+          <div
+            class="dndDropZone-0-3-2 dndDropZone-d1-0-3-5"
+          >
+            <div
+              class="dndDropZoneIcon-0-3-3 dndDropZoneIcon-d2-0-3-6"
+            >
+              <span
+                title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+              >
+                ⚠️
+              </span>
+            </div>
+          </div>
+          <div
+            style="overflow: visible; height: 0px; width: 0px;"
+          >
+            <div
+              class="chonky-gridContainer"
+              style="position: relative; overflow: auto; will-change: transform; direction: ltr;"
+            >
+              <div />
+            </div>
+          </div>
+          <div
+            class="resize-triggers"
+          >
+            <div
+              class="expand-trigger"
+            >
+              <div
+                style="width: 1px; height: 1px;"
+              />
+            </div>
+            <div
+              class="contract-trigger"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      class="MuiPopover-root"
+      role="presentation"
+      style="position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px; visibility: hidden;"
+    >
+      <div
+        data-test="sentinelStart"
+        tabindex="0"
+      />
+      <div
+        class="MuiPaper-root MuiMenu-paper MuiPopover-paper MuiPaper-elevation2 MuiPaper-rounded"
+        style="opacity: 0; transform: scale(0.75, 0.5625); visibility: hidden;"
+        tabindex="-1"
+      >
+        <ul
+          class="MuiList-root MuiMenu-list chonky-dropdownList MuiList-padding"
+          role="menu"
+          tabindex="-1"
+        >
+          <li
+            aria-disabled="true"
+            class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root chonky-baseButton MuiMenuItem-gutters MuiListItem-gutters Mui-disabled MuiListItem-button Mui-disabled"
+            role="menuitem"
+            tabindex="-1"
+          >
+            <div
+              class="MuiListItemIcon-root chonky-icon"
+            >
+              <span
+                title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+              >
+                ⚠️
+              </span>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root chonky-text MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Open selection
+              </span>
+            </div>
+          </li>
+          <li
+            aria-disabled="false"
+            class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root chonky-baseButton MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button"
+            role="menuitem"
+            tabindex="-1"
+          >
+            <div
+              class="MuiListItemIcon-root chonky-icon"
+            >
+              <span
+                title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+              >
+                ⚠️
+              </span>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root chonky-text MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Select all files
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+          <li
+            aria-disabled="false"
+            class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root chonky-baseButton MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button"
+            role="menuitem"
+            tabindex="-1"
+          >
+            <div
+              class="MuiListItemIcon-root chonky-icon"
+            >
+              <span
+                title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+              >
+                ⚠️
+              </span>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root chonky-text MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Clear selection
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+        </ul>
+      </div>
+      <div
+        data-test="sentinelEnd"
+        tabindex="0"
+      />
+    </div>
+    <div
+      aria-hidden="true"
+      class="MuiPopover-root"
+      role="presentation"
+      style="position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px; visibility: hidden;"
+    >
+      <div
+        data-test="sentinelStart"
+        tabindex="0"
+      />
+      <div
+        class="MuiPaper-root MuiMenu-paper MuiPopover-paper MuiPaper-elevation2 MuiPaper-rounded"
+        style="opacity: 0; transform: scale(0.75, 0.5625); visibility: hidden;"
+        tabindex="-1"
+      >
+        <ul
+          class="MuiList-root MuiMenu-list chonky-dropdownList MuiList-padding"
+          role="menu"
+          tabindex="-1"
+        >
+          <li
+            aria-disabled="false"
+            class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root chonky-baseButton chonky-activeButton MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button"
+            role="menuitem"
+            tabindex="-1"
+          >
+            <div
+              class="MuiListItemIcon-root chonky-icon"
+            >
+              <span
+                title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+              >
+                ⚠️
+              </span>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root chonky-text MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Sort by name
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+          <li
+            aria-disabled="false"
+            class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root chonky-baseButton MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button"
+            role="menuitem"
+            tabindex="-1"
+          >
+            <div
+              class="MuiListItemIcon-root chonky-icon"
+            >
+              <span
+                title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+              >
+                ⚠️
+              </span>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root chonky-text MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Sort by size
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+          <li
+            aria-disabled="false"
+            class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root chonky-baseButton MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button"
+            role="menuitem"
+            tabindex="-1"
+          >
+            <div
+              class="MuiListItemIcon-root chonky-icon"
+            >
+              <span
+                title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+              >
+                ⚠️
+              </span>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root chonky-text MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Sort by date
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+          <li
+            aria-disabled="false"
+            class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root chonky-baseButton chonky-activeButton MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button"
+            role="menuitem"
+            tabindex="-1"
+          >
+            <div
+              class="MuiListItemIcon-root chonky-icon"
+            >
+              <span
+                title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+              >
+                ⚠️
+              </span>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root chonky-text MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Show hidden files
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+          <li
+            aria-disabled="false"
+            class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root chonky-baseButton chonky-activeButton MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button"
+            role="menuitem"
+            tabindex="-1"
+          >
+            <div
+              class="MuiListItemIcon-root chonky-icon"
+            >
+              <span
+                title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+              >
+                ⚠️
+              </span>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root chonky-text MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Show folders first
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+        </ul>
+      </div>
+      <div
+        data-test="sentinelEnd"
+        tabindex="0"
+      />
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="MuiBox-root MuiBox-root-1 chonky-chonkyRoot"
+    >
+      <div
+        class="MuiBox-root MuiBox-root-2 chonky-navbarWrapper"
+      >
+        <div
+          class="MuiBox-root MuiBox-root-3 chonky-navbarContainer"
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text  chonky-baseButton chonky-iconOnlyButton Mui-disabled Mui-disabled"
+            disabled=""
+            tabindex="-1"
+            title="Go up a directory"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              <div
+                class=""
+              >
+                <span
+                  title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+                >
+                  ⚠️
+                </span>
+              </div>
+            </span>
+          </button>
+          <nav
+            class="MuiTypography-root MuiBreadcrumbs-root chonky-navbarBreadcrumbs MuiTypography-body1 MuiTypography-colorTextSecondary"
+          >
+            <ol
+              class="MuiBreadcrumbs-ol"
+            />
+          </nav>
+        </div>
+      </div>
+      <div
+        class="chonky-toolbarWrapper"
+      >
+        <div
+          class="chonky-toolbarContainer"
+        >
+          <div
+            class="chonky-toolbarLeft"
+          >
+            <div
+              class="MuiFormControl-root MuiTextField-root chonky-searchFieldContainer"
+            >
+              <div
+                class="MuiInputBase-root MuiOutlinedInput-root chonky-searchFieldInput MuiInputBase-formControl MuiInputBase-adornedStart MuiOutlinedInput-adornedStart MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+              >
+                <div
+                  class="MuiInputAdornment-root chonky-searchIcon MuiInputAdornment-positionStart MuiInputAdornment-marginDense"
+                >
+                  <span
+                    title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+                  >
+                    ⚠️
+                  </span>
+                </div>
+                <input
+                  aria-invalid="false"
+                  class="MuiInputBase-input MuiOutlinedInput-input chonky-searchFieldInputInner MuiInputBase-inputAdornedStart MuiOutlinedInput-inputAdornedStart MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+                  placeholder="Search"
+                  type="text"
+                  value=""
+                />
+                <fieldset
+                  aria-hidden="true"
+                  class="PrivateNotchedOutline-root-4 MuiOutlinedInput-notchedOutline"
+                  style="padding-left: 8px;"
+                >
+                  <legend
+                    class="PrivateNotchedOutline-legend-5"
+                    style="width: 0.01px;"
+                  >
+                    <span>
+                      ​
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+            </div>
+            <div
+              class="chonky-infoContainer"
+            >
+              <p
+                class="MuiTypography-root chonky-infoText MuiTypography-body1"
+              >
+                2 items
+              </p>
+            </div>
+          </div>
+          <div
+            class="chonky-toolbarRight"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-text  chonky-baseButton"
+              tabindex="0"
+              title="Actions"
+              type="button"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                <span>
+                  Actions
+                </span>
+                <div
+                  class="chonky-iconDropdown"
+                >
+                  <span
+                    title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+                  >
+                    ⚠️
+                  </span>
+                </div>
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-text  chonky-baseButton chonky-iconOnlyButton"
+              tabindex="0"
+              title="Switch to List view"
+              type="button"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                <div
+                  class=""
+                >
+                  <span
+                    title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+                  >
+                    ⚠️
+                  </span>
+                </div>
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-text  chonky-baseButton chonky-iconOnlyButton chonky-activeButton"
+              tabindex="0"
+              title="Switch to Grid view"
+              type="button"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                <div
+                  class=""
+                >
+                  <span
+                    title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+                  >
+                    ⚠️
+                  </span>
+                </div>
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-text  chonky-baseButton"
+              tabindex="0"
+              title="Options"
+              type="button"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                <span>
+                  Options
+                </span>
+                <div
+                  class="chonky-iconDropdown"
+                >
+                  <span
+                    title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+                  >
+                    ⚠️
+                  </span>
+                </div>
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="chonky-fileListWrapper fileListWrapper-0-3-1 fileListWrapper-d0-0-3-4"
+        role="list"
+      >
+        <div
+          class="dndDropZone-0-3-2 dndDropZone-d1-0-3-5"
+        >
+          <div
+            class="dndDropZoneIcon-0-3-3 dndDropZoneIcon-d2-0-3-6"
+          >
+            <span
+              title="No icon component found. Please follow Chonky installation instructions to provide a pre-made icon component (or a custom icon)."
+            >
+              ⚠️
+            </span>
+          </div>
+        </div>
+        <div
+          style="overflow: visible; height: 0px; width: 0px;"
+        >
+          <div
+            class="chonky-gridContainer"
+            style="position: relative; overflow: auto; will-change: transform; direction: ltr;"
+          >
+            <div />
+          </div>
+        </div>
+        <div
+          class="resize-triggers"
+        >
+          <div
+            class="expand-trigger"
+          >
+            <div
+              style="width: 1px; height: 1px;"
+            />
+          </div>
+          <div
+            class="contract-trigger"
+          />
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

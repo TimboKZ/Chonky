@@ -34,7 +34,7 @@ export const defaultConfig: ChonkyConfig = {
     clearSelectionOnOutsideClick: true,
     iconComponent: ChonkyIconPlaceholder,
     darkMode: false,
-    i18n: {},
+    i18n: { },
 };
 
 export const setChonkyDefaults = (config: Partial<ChonkyConfig>) => {

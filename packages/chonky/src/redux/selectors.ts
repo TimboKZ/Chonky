@@ -1,4 +1,4 @@
-import sort from 'fast-sort';
+import {sort} from 'fast-sort';
 import FuzzySearch from 'fuzzy-search';
 import { Nilable, Nullable } from 'tsdef';
 

@@ -38,7 +38,10 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
     }, [folderChainItems]);
 
     return (
+        // @ts-ignore: `className` not defined on Box props
         <Box className={classes.navbarWrapper}>
+            {/* 
+            // @ts-ignore: `className` not defined on Box props */}
             <Box className={classes.navbarContainer}>
                 <SmartToolbarButton fileActionId={ChonkyActions.OpenParentFolder.id} />
                 <Breadcrumbs
