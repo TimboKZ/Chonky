@@ -1,14 +1,14 @@
 {
   "name": "root",
-  "private": true,
+  "private": false,
   "workspaces": ["packages/*"],
   "devDependencies": {
     "lerna": "^3.22.1"
   },
   "homepage": "https://chonky.io/",
   "author": {
-    "name": "Timur Kuzhagaliyev",
-    "email": "tim.kuzh@gmail.com",
+    "name": "van quan",
+    "email": "quan100202@gmail.com",
     "url": "https://foxypanda.me/"
   },
   "resolutions": {

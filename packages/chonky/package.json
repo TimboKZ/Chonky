@@ -1,6 +1,6 @@
 {
-  "name": "chonky",
-  "version": "2.3.2",
+  "name": "chonky-ost-v3",
+  "version": "1.0.0",
   "description": "A File Browser component for React",
   "license": "MIT",
   "main": "dist/index.js",
@@ -97,16 +97,16 @@
   },
   "homepage": "https://chonky.io/",
   "author": {
-    "name": "Timur Kuzhagaliyev",
-    "email": "tim.kuzh@gmail.com",
+    "name": "van quan",
+    "email": "quan100202@gmail.com",
     "url": "https://foxypanda.me/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TimboKZ/Chonky.git"
+    "url": "git+https://github.com/vanquan2002/Chonky-ost-v3.git"
   },
   "bugs": {
-    "url": "https://github.com/TimboKZ/Chonky/issues"
+    "url": "https://github.com/vanquan2002/Chonky-ost-v3/issues"
   },
   "keywords": [
     "file",
