@@ -60,8 +60,13 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo(props => {
         [classes.iconOnlyButton]: iconOnly,
         [classes.activeButton]: !!active,
     });
+    const buttonStyle = {
+        color: 'inherit', 
+        backgroundColor: 'transparent', 
+    };
     return (
         <Button
+            style={buttonStyle}
             className={className}
             onClick={onClick}
             title={tooltip ? tooltip : text}
@@ -94,6 +99,8 @@ const useStyles = makeGlobalChonkyStyles(theme => ({
     },
     iconWithText: {
         marginRight: 8,
+        color: '#406BC7',
+        fontSize: '22px'
     },
     iconOnlyButton: {
         width: theme.toolbar.size,
@@ -107,6 +114,10 @@ const useStyles = makeGlobalChonkyStyles(theme => ({
     activeButton: {
         color: important(theme.colors.textActive),
     },
+    textFolder: {
+        color: important('#406BC7'),
+        fontSize: '20px'
+    }
 }));
 
 export interface SmartToolbarButtonProps {

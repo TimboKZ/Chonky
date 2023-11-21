@@ -80,7 +80,7 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
 
 const useStyles = makeLocalChonkyStyles(theme => ({
     listFileEntry: {
-        boxShadow: `inset ${theme.palette.divider} 0 -1px 0`,
+        // boxShadow: `inset ${theme.palette.divider} 0 -1px 0`,
         fontSize: theme.listFileEntry.fontSize,
         color: ({ dndState }: StyleState) =>
             dndState.dndIsOver
@@ -92,6 +92,8 @@ const useStyles = makeLocalChonkyStyles(theme => ({
         position: 'relative',
         display: 'flex',
         height: '100%',
+        borderRadius: '5px',
+        backgroundColor: '#F4F4F4',
     },
     listFileEntrySelection: {
         opacity: 0.6,
@@ -105,7 +107,7 @@ const useStyles = makeLocalChonkyStyles(theme => ({
                 : entryState.color,
         fontSize: theme.listFileEntry.iconFontSize,
         boxSizing: 'border-box',
-        padding: [2, 4],
+        padding: [2, 10],
         zIndex: 20,
     },
     listFileEntryName: {
@@ -114,7 +116,7 @@ const useStyles = makeLocalChonkyStyles(theme => ({
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         flex: '1 1 300px',
-        paddingLeft: 8,
+        paddingLeft: 10,
         zIndex: 20,
     },
     listFileEntryProperty: {

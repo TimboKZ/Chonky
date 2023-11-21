@@ -74,17 +74,16 @@ export const ToolbarSearch: React.FC<ToolbarSearchProps> = React.memo(() => {
         },
         [dispatch]
     );
-
     return (
         <TextField
             className={classes.searchFieldContainer}
             size="small"
-            variant="outlined"
             value={localSearchString}
             placeholder={searchPlaceholderString}
             onChange={handleChange as any}
             inputRef={searchInputRef}
             InputProps={{
+                disableUnderline: true,
                 onKeyUp: handleKeyUp,
                 startAdornment: (
                     <InputAdornment className={classes.searchIcon} position="start">
@@ -104,7 +103,7 @@ export const ToolbarSearch: React.FC<ToolbarSearchProps> = React.memo(() => {
 const useStyles = makeGlobalChonkyStyles(theme => ({
     searchFieldContainer: {
         height: theme.toolbar.size,
-        width: 150,
+        width: 200,
     },
     searchIcon: {
         fontSize: '0.9em',
@@ -112,13 +111,13 @@ const useStyles = makeGlobalChonkyStyles(theme => ({
     },
     searchFieldInput: {
         lineHeight: important(0),
-        padding: important(0),
+        padding: important(16.5),
         margin: important(0),
         fontSize: important(theme.toolbar.fontSize),
         borderRadius: theme.toolbar.buttonRadius,
         height: theme.toolbar.size - 4,
-        paddingLeft: important(8),
-        marginTop: 2,
+        paddingLeft: important(14),
+        backgroundColor: '#F4F4F4',
     },
     searchFieldInputInner: {
         lineHeight: important(`${theme.toolbar.size - 4}px`),

@@ -23,10 +23,10 @@ export const ExtraActions = {
     CreateFolder: defineFileAction({
         id: 'create_folder',
         button: {
-            name: 'Create folder',
+            name: '+ Create',
             toolbar: true,
             tooltip: 'Create a folder',
-            icon: ChonkyIconName.folderCreate,
+            // icon: ChonkyIconName.folderCreate,
         },
     } as const),
     /**
@@ -38,7 +38,7 @@ export const ExtraActions = {
             name: 'Upload files',
             toolbar: true,
             tooltip: 'Upload files',
-            icon: ChonkyIconName.upload,
+            // icon: ChonkyIconName.upload,
         },
     } as const),
     /**

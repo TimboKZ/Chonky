@@ -6438,6 +6438,41 @@ chokidar@^3.4.1, chokidar@^3.4.2, chokidar@^3.5.1:
   optionalDependencies:
     fsevents "~2.3.1"
 
+chonky@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/chonky/-/chonky-2.3.2.tgz#40f2d7e922291efba16006e669d0b92922d582fd"
+  integrity sha512-ed2u+SEjEPSn8bv/zC0sXfMG/XS6Ydm4J2leLCvRb7a/2BZxKqE1DFETxqfLeJ2OA1IRujvwnuvmJO8ZgyOGyA==
+  dependencies:
+    "@material-ui/core" "4.11.3"
+    "@reduxjs/toolkit" "^1.5.0"
+    "@types/classnames" "^2.2.11"
+    "@types/fuzzy-search" "^2.1.0"
+    "@types/memoizee" "^0.4.5"
+    "@types/react" "^17.0.3"
+    "@types/react-redux" "^7.1.16"
+    "@types/react-virtualized-auto-sizer" "^1.0.0"
+    "@types/react-window" "^1.8.2"
+    "@types/redux-watch" "^1.1.0"
+    "@types/shortid" "^0.0.29"
+    classnames "^2.2.6"
+    deepmerge "^4.2.2"
+    exact-trie "^1.0.13"
+    fast-sort "^2.2.0"
+    filesize "^6.1.0"
+    fuzzy-search "^3.2.1"
+    hotkeys-js "^3.8.3"
+    react-dnd "11"
+    react-dnd-html5-backend "11"
+    react-intl "^5.13.2"
+    react-jss "^10.5.1"
+    react-redux "^7.2.2"
+    react-virtualized-auto-sizer "^1.0.5"
+    react-window "^1.8.6"
+    redux-watch "^1.2.0"
+    shortid "^2.2.16"
+    styled-components "^5.3.0"
+    tsdef "^0.0.14"
+
 chownr@^1.1.1, chownr@^1.1.2:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.4.tgz#6fc9d7b42d32a583596337666e7d08084da2cc6b"

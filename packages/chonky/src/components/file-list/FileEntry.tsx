@@ -34,7 +34,6 @@ export const SmartFileEntry: React.FC<SmartFileEntryProps> = React.memo(({ fileI
     const file = useParamSelector(selectFileData, fileId);
     const selected = useParamSelector(selectIsFileSelected, fileId);
     const dndDisabled = useSelector(selectIsDnDDisabled);
-
     // Clickable wrapper properties
     const fileClickHandlers = useFileClickHandlers(file, displayIndex);
     const [focused, setFocused] = useState(false);
@@ -56,7 +55,6 @@ export const SmartFileEntry: React.FC<SmartFileEntryProps> = React.memo(({ fileI
     if (fileViewMode === FileViewMode.List) EntryComponent = ListEntry;
     else if (fileViewMode === FileViewMode.Compact) EntryComponent = CompactEntry;
     else EntryComponent = GridEntry;
-
     return dndDisabled ? (
         <ClickableWrapper {...clickableWrapperProps}>
             <EntryComponent {...fileEntryProps} dndState={disabledDndState} />
@@ -79,6 +77,6 @@ const useStyles = makeGlobalChonkyStyles(() => ({
         // (which doesn't compromise accessibility, hopefully)
         outline: 'none !important',
         position: 'relative',
-        height: '100%',
+        height: 'calc(100% - 6px)',
     },
 }));

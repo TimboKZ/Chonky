@@ -69,16 +69,16 @@
   },
   "homepage": "https://chonky.io/",
   "author": {
-    "name": "Timur Kuzhagaliyev",
-    "email": "tim.kuzh@gmail.com",
+    "name": "van quan",
+    "email": "quan100202@gmail.com",
     "url": "https://foxypanda.me/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TimboKZ/Chonky.git"
+    "url": "git+https://github.com/vanquan2002/Chonky-ost-v3.git"
   },
   "bugs": {
-    "url": "https://github.com/TimboKZ/Chonky/issues"
+    "url": "https://github.com/vanquan2002/Chonky-ost-v3/issues"
   },
   "keywords": [
     "file",

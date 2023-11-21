@@ -82,10 +82,14 @@ export const thunkUpdateToolbarNContextMenuItems = (fileActions: FileAction[]): 
 
         if (button.toolbar && !excludedToolbarFileActionIds.has(action.id)) {
             if (button.group) {
-                const group = getGroup(toolbarItems, seenToolbarGroups, button.group);
-                group.fileActionIds.push(action.id);
+                if (button.group == "Actions") {
+                    const group = getGroup(toolbarItems, seenToolbarGroups, button.group);
+                    group.fileActionIds.push(action.id);
+                }
             } else {
-                toolbarItems.push(action.id);
+                if (!(action.id == "enable_list_view" || action.id == "enable_grid_view")) {
+                    toolbarItems.push(action.id);
+                }
             }
         }
 

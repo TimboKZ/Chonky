@@ -222,6 +222,7 @@ export const AudioExtensions: string[] = [
     'xm',
 ];
 export const ColorsLight: string[] = [
+    '#406BC7',
     '#bbbbbb',
     '#d65c5c',
     '#d6665c',
@@ -422,10 +423,9 @@ const getIconTrie = () => {
     const exactTrie = new ExactTrie({ ignoreCase: true });
     for (const pair of IconsToExtensions) {
         const [icon, extensions] = pair;
-
         for (let i = 0; i < extensions.length; ++i) {
             colourIndex += step;
-            const colorCode = (colourIndex % (ColorsLight.length - 1)) + 1;
+            const colorCode = 0;
             const iconData: FileIconData = {
                 icon,
                 colorCode,
@@ -445,6 +445,6 @@ export const useIconData = (file: Nullable<FileData>): FileIconData => {
         if (file.isDir === true) return { icon: ChonkyIconName.folder, colorCode: 0 };
 
         const match = iconTrie.getWithCheckpoints(file.name, '.', true);
-        return match ? match : { icon: ChonkyIconName.file, colorCode: 32 };
+        return match ? match : { icon: ChonkyIconName.file, colorCode: 0 };
     }, [file]);
 };

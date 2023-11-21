@@ -40,7 +40,7 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
     return (
         <Box className={classes.navbarWrapper}>
             <Box className={classes.navbarContainer}>
-                <SmartToolbarButton fileActionId={ChonkyActions.OpenParentFolder.id} />
+                {/* <SmartToolbarButton fileActionId={ChonkyActions.OpenParentFolder.id} /> */}
                 <Breadcrumbs
                     className={classes.navbarBreadcrumbs}
                     classes={{ separator: classes.separator }}
@@ -55,6 +55,8 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
 const useStyles = makeGlobalChonkyStyles(theme => ({
     navbarWrapper: {
         paddingBottom: theme.margins.rootLayoutMargin,
+        margin: '14px 0px',
+        marginLeft: '15px',
     },
     navbarContainer: {
         display: 'flex',
