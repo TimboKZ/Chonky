@@ -46,6 +46,24 @@
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
 
+  /*
+   * Restore the stock Tailwind max-widths for the named sizes.
+   *
+   * Tailwind v4 resolves `max-w-sm` as --max-width-sm → --spacing-sm →
+   * --container-sm. The named --spacing-* tokens above therefore SHADOW the
+   * container scale, collapsing `max-w-sm` from 24rem to 0.75rem and `max-w-xs`
+   * to 0.5rem — a dialog becomes a 12px vertical sliver. Defining --max-width-*
+   * wins over both. Do not remove these while the named spacing tokens exist.
+   */
+  --max-width-3xs: 16rem;
+  --max-width-2xs: 18rem;
+  --max-width-xs: 20rem;
+  --max-width-sm: 24rem;
+  --max-width-md: 28rem;
+  --max-width-lg: 32rem;
+  --max-width-xl: 36rem;
+  --max-width-2xl: 42rem;
+
   --shadow-2xs: 0 1px 0 0 hsl(221 39% 11% / 0.05);
   --shadow-xs: 0 1px 2px 0 hsl(221 39% 11% / 0.05);
   --shadow-sm: 0 0 7px -3px rgba(17, 24, 39, 0.16), 0 3px 5px -4px rgba(17, 24, 39, 0.06);

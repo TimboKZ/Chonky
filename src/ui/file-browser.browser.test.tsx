@@ -500,3 +500,54 @@ describe('FileBrowser — permissions', () => {
     await expect.element(option('contract.pdf')).toBeVisible()
   })
 })
+
+describe('FileBrowser — layout tokens', () => {
+  /**
+   * Tailwind v4 resolves `max-w-sm` as --max-width-sm → --spacing-sm →
+   * --container-sm, so this package's named --spacing-* tokens shadow the
+   * container scale unless --max-width-* is defined to win over both. Without it
+   * `max-w-sm` collapsed from 24rem to 0.75rem and every dialog rendered as a
+   * 12px vertical sliver. Asserting the resolved values keeps that from silently
+   * coming back the next time the spacing scale is touched.
+   */
+  it('resolves the named max-width utilities to their real sizes', async () => {
+    renderBrowser()
+    await expect.element(option('notes.txt')).toBeVisible()
+
+    const probe = document.createElement('div')
+    document.body.appendChild(probe)
+    const resolve = (className: string) => {
+      probe.className = className
+      return getComputedStyle(probe).maxWidth
+    }
+
+    try {
+      expect(resolve('max-w-xs')).toBe('320px')
+      expect(resolve('max-w-sm')).toBe('384px')
+      expect(resolve('max-w-lg')).toBe('512px')
+      expect(resolve('max-w-2xl')).toBe('672px')
+    } finally {
+      probe.remove()
+    }
+  })
+
+  it('gives the create-folder dialog a usable width', async () => {
+    renderBrowser()
+    await page.getByRole('button', { name: 'New folder' }).click()
+
+    const box = dialog().element().getBoundingClientRect()
+    expect(box.width).toBeGreaterThan(300)
+    // Taller than it is wide is the signature of the collapsed-max-width bug.
+    expect(box.width).toBeGreaterThan(box.height)
+  })
+
+  it('gives a toolbar tooltip a usable width', async () => {
+    renderBrowser()
+    await page.getByRole('radio', { name: 'List view' }).hover()
+
+    const tip = page.getByRole('tooltip')
+    await expect.element(tip).toBeVisible()
+    const box = tip.element().getBoundingClientRect()
+    expect(box.width).toBeGreaterThan(box.height)
+  })
+})
