@@ -13,6 +13,68 @@ export function getBaseName(fileName: string): string {
 }
 
 /**
+ * Extensions that wrap another one rather than replacing it, so `archive.tar.gz`
+ * reads as `tar.gz` and `backup.sql.gz` as `sql.gz`.
+ */
+const WRAPPER_EXTENSIONS = new Set(['gz', 'bz2', 'xz', 'zst', 'lz', 'lzma', 'br', 'z'])
+
+/**
+ * Two-part extensions that aren't a compressor pair.
+ *
+ * Deliberately short. `jquery.min.js` and `button.test.tsx` are naming
+ * conventions, not extensions — the file is a `.js` and a `.tsx` — so treating
+ * `min.js` or `test.tsx` as one unit would strip part of the name.
+ */
+const COMPOUND_EXTENSIONS = new Set(['d.ts', 'd.mts', 'd.cts'])
+
+/** A segment short and plain enough to be an extension rather than part of a name. */
+const looksLikeExtension = (segment: string) => segment.length > 0 && segment.length <= 8 && /^[A-Za-z0-9]+$/.test(segment)
+
+export interface SplitName {
+  /** The name without its extension, and without the separating dot. */
+  stem: string
+  /** The extension, without a leading dot. Empty when there isn't one. */
+  extension: string
+}
+
+/**
+ * Splits a filename into stem and extension, handling the cases a
+ * `lastIndexOf('.')` gets wrong.
+ *
+ * - `archive.tar.gz` → `archive` + `tar.gz`, not `archive.tar` + `gz`
+ * - `Report v1.2 Final.pdf` → the whole phrase + `pdf`, because `2 Final` is not
+ *   a plausible extension
+ * - `.gitignore` → all stem: a leading dot makes a hidden file, not an extension
+ * - `notes.` and `README` → all stem
+ *
+ * Case is preserved, so the caller decides how to display it. Don't call this on
+ * a directory — a folder called `2024.backup` is not a `.backup` file.
+ */
+export function splitFileName(name: string): SplitName {
+  const trimmed = name.replace(/\/+$/, '')
+  const lastDot = trimmed.lastIndexOf('.')
+
+  // <= 0 covers both "no dot" and a leading dot (a hidden file).
+  if (lastDot <= 0 || lastDot === trimmed.length - 1) return { stem: trimmed, extension: '' }
+
+  const last = trimmed.slice(lastDot + 1)
+  if (!looksLikeExtension(last)) return { stem: trimmed, extension: '' }
+
+  const previousDot = trimmed.lastIndexOf('.', lastDot - 1)
+  if (previousDot > 0) {
+    const previous = trimmed.slice(previousDot + 1, lastDot)
+    const combined = `${previous}.${last}`
+    const isCompound =
+      looksLikeExtension(previous) &&
+      (WRAPPER_EXTENSIONS.has(last.toLowerCase()) || COMPOUND_EXTENSIONS.has(combined.toLowerCase()))
+
+    if (isCompound) return { stem: trimmed.slice(0, previousDot), extension: combined }
+  }
+
+  return { stem: trimmed.slice(0, lastDot), extension: last }
+}
+
+/**
  * Middle-truncates a long name for display, keeping both ends legible — the tail
  * matters because it carries the extension and any trailing counter.
  *

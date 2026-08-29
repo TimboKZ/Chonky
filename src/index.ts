@@ -86,8 +86,8 @@ export type {
 // ── Utilities ─────────────────────────────────────────────────────────────────
 export { formatBytes } from './util/bytes'
 export { formatDate, formatDateTime } from './ui/format-date'
-export { getBaseName, getExtension, joinPath, sanitizeFileName, truncateMiddle, uniqueName, validateName } from './util/names'
-export type { NameValidation } from './util/names'
+export { getBaseName, getExtension, joinPath, sanitizeFileName, splitFileName, truncateMiddle, uniqueName, validateName } from './util/names'
+export type { NameValidation, SplitName } from './util/names'
 export { getFileKind, getKindLabel, isHeic } from './util/mime'
 export type { FileKind } from './util/mime'
 export { isSystemFile } from './util/system-files'

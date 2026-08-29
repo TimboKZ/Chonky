@@ -13,6 +13,7 @@ const INTERNAL_DRAG_TYPE = 'application/x-fsg-file-browser'
 export interface EntryInteraction {
   getEntryProps: (entry: FileEntry, index: number) => {
     'role': string
+    'aria-label': string
     'tabIndex': number
     'aria-selected': boolean
     'data-selected': boolean
@@ -117,6 +118,10 @@ export function useEntryInteraction(): EntryInteraction {
   const getEntryProps: EntryInteraction['getEntryProps'] = useCallback(
     (entry, index) => ({
       'role': 'option',
+      // The full name, always. The grid splits the extension onto the icon badge
+      // and truncates the stem, so the visible text is no longer the whole name —
+      // a screen reader should still hear `Cost Breakdown.xlsx`, not `Cost`.
+      'aria-label': entry.name,
       // Roving tabindex: exactly one entry is tabbable, so Tab moves past the whole
       // listing rather than through every row in it.
       'tabIndex': state.focusedId === entry.id || (!state.focusedId && index === 0) ? 0 : -1,

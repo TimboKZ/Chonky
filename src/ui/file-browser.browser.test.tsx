@@ -638,3 +638,79 @@ describe('FileBrowser — responsive', () => {
     }
   })
 })
+
+describe('FileBrowser — filenames', () => {
+  function renderNames(width: number) {
+    const adapter = createMemoryAdapter({
+      tree: [
+        { name: 'Cost Breakdown.xlsx', isDir: false, size: 91_800 },
+        { name: 'daily-backups.tar.gz', isDir: false, size: 18_400_000 },
+        { name: 'Site Survey v1.2 Final (signed).pdf', isDir: false, size: 4_100 },
+        { name: '2024.backup', isDir: true, children: [] },
+        { name: 'README', isDir: false, size: 120 },
+      ],
+    })
+    render(
+      <div style={{ width, height: 560 }}>
+        <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} showSidebar={false} />
+      </div>,
+    )
+  }
+
+  it('keeps the full name as the accessible name even though the tile splits it', async () => {
+    // The visible text is stem-only; a screen reader must still hear the extension.
+    renderNames(700)
+    await expect.element(option('Cost Breakdown\\.xlsx')).toBeVisible()
+    await expect.element(option('daily-backups\\.tar\\.gz')).toBeVisible()
+  })
+
+  /** Waits for the tile to paint, then hands back its element. */
+  async function tileFor(name: string) {
+    const locator = option(name)
+    await expect.element(locator).toBeVisible()
+    return locator.element()
+  }
+
+  it('shows the extension on the icon rather than in the name', async () => {
+    renderNames(700)
+    const tile = await tileFor('Cost Breakdown\\.xlsx')
+
+    expect(tile.textContent).toContain('Cost Breakdown')
+    expect(tile.textContent).not.toContain('.xlsx')
+    expect(tile.textContent?.toLowerCase()).toContain('xlsx')
+  })
+
+  it('keeps a compound extension together on the badge', async () => {
+    renderNames(700)
+    const tile = await tileFor('daily-backups\\.tar\\.gz')
+
+    expect(tile.textContent).toContain('daily-backups')
+    expect(tile.textContent?.toLowerCase()).toContain('tar.gz')
+  })
+
+  it('does not mistake a dot inside a name for an extension', async () => {
+    renderNames(700)
+    const tile = await tileFor('Site Survey')
+
+    expect(tile.textContent).toContain('Site Survey v1.2 Final (signed)')
+    expect(tile.textContent?.toLowerCase()).toContain('pdf')
+  })
+
+  it('leaves folders and extensionless files whole', async () => {
+    renderNames(700)
+    // A folder called `2024.backup` is not a `.backup` file.
+    expect((await tileFor('2024\\.backup')).textContent).toContain('2024.backup')
+    expect((await tileFor('README')).textContent).toContain('README')
+  })
+
+  it('shortens by tile width rather than a fixed character count', async () => {
+    // The old grid middle-truncated at 34 characters regardless of tile size, so a
+    // narrow listing wrapped and clamped instead of shortening.
+    renderNames(360)
+    const tile = await tileFor('Site Survey')
+    const name = tile.querySelector('span')!
+
+    expect(name.scrollHeight).toBeLessThanOrEqual(name.clientHeight + 1)
+    expect(tile.getBoundingClientRect().width).toBeLessThan(130)
+  })
+})

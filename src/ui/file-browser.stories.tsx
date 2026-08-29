@@ -71,6 +71,8 @@ function sampleTree(): MemoryNode[] {
       ],
     },
     { name: 'Scope of Work.docx', isDir: false, size: 48_200, modifiedAt: ago(12) },
+    { name: 'Site Survey v1.2 Final (signed).pdf', isDir: false, mimeType: 'application/pdf', modifiedAt: ago(8), content: CONTRACT_PDF },
+    { name: 'daily-backups.tar.gz', isDir: false, size: 18_400_000, modifiedAt: ago(1) },
     { name: 'Cost Breakdown.xlsx', isDir: false, size: 91_800, modifiedAt: ago(6) },
     { name: 'Punch List.csv', isDir: false, mimeType: 'text/csv', modifiedAt: ago(3), content: PUNCH_LIST_CSV },
     { name: 'Weekly Summary.html', isDir: false, mimeType: 'text/html', modifiedAt: ago(2), content: SITE_SUMMARY_HTML },

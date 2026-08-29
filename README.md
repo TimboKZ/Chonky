@@ -222,6 +222,23 @@ one, render `<FileBrowserRoot>` and compose them yourself:
 
 `useFileBrowserContext()` gives any child the state, the selection, and the handle.
 
+## Filenames
+
+Names are never shortened in the data — `entry.name` is always the real name, and
+every mutation uses it. Shortening is a rendering concern, handled for you:
+
+- **Grid view** moves the extension onto a badge on the icon and shows the stem
+  below, clamped to two lines. Because the tail no longer carries anything
+  important, CSS does the shortening and it follows the tile width automatically.
+- **List and details** truncate with an ellipsis, and the full name is the
+  element's `aria-label` and `title`.
+
+`splitFileName` is exported if you need the same split elsewhere. It is aware of
+the cases `lastIndexOf('.')` gets wrong: `archive.tar.gz` splits as
+`archive` + `tar.gz`, `Report v1.2 Final.pdf` keeps the dots in its name, and
+`.gitignore` is all stem. `jquery.min.js` is a `.js` — `min` is part of the name,
+not the extension.
+
 ## Responsive behaviour
 
 The browser is a **query container**, so its layout follows its own width rather
