@@ -197,7 +197,10 @@ export function FileToolbar({ className, children }: FileToolbarProps) {
                 onClick={() => void dispatch(action.id)}
               >
                 {Icon && <Icon className="size-4" />}
-                <span className="hidden lg:inline">{action.label}</span>
+                {/* sr-only rather than hidden: `display: none` drops the label out of
+                    the accessibility tree, leaving an icon-only button with no
+                    accessible name on narrower viewports. */}
+                <span className="sr-only lg:not-sr-only">{action.label}</span>
               </Button>
             )
           })}

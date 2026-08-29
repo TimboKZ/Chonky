@@ -88,6 +88,7 @@ export interface FullFileBrowserCompatProps {
   fileActions?: ChonkyFileAction[]
   onFileAction?: ChonkyFileActionHandler
   defaultFileViewActionId?: string
+  /** Accepted and ignored — drag-to-move is always off in the compat layer. */
   disableDragAndDrop?: boolean
   disableSelection?: boolean
   /** Accepted and ignored — theming follows the `.dark`/`.dracula` root class. */
@@ -121,7 +122,6 @@ export function FullFileBrowser({
   fileActions,
   onFileAction,
   defaultFileViewActionId,
-  disableDragAndDrop,
   className,
   style,
   instanceId = 'chonky-compat',
@@ -152,15 +152,31 @@ export function FullFileBrowser({
   // A controlled adapter: it serves whatever the props currently hold and ignores
   // the requested path, because in Chonky's model the app answers navigation by
   // swapping the `files` prop.
-  const adapter = useMemo<FileSystemAdapter>(
-    () => ({
+  //
+  // The mutating methods exist but never run. Declaring them is what keeps the
+  // matching actions on the toolbar and in the context menu — the browser hides an
+  // action its adapter can't service, and in this model the *app* is the backend.
+  // Every action is forwarded and its default suppressed, so reaching one of these
+  // means that contract broke; they throw rather than fail silently.
+  const adapter = useMemo<FileSystemAdapter>(() => {
+    const appOwnsIt = (operation: string) => () => {
+      throw new Error(
+        `chonky-compat: the app is responsible for "${operation}" — handle it in onFileAction. ` +
+          'Reaching the adapter means an action escaped the compat layer; please report it.',
+      )
+    }
+    return {
       id: `chonky-compat:${instanceId}`,
       async list() {
         return { entries: entriesRef.current, folderChain: chainRef.current }
       },
-    }),
-    [instanceId],
-  )
+      createDirectory: appOwnsIt('createDirectory'),
+      move: appOwnsIt('move'),
+      copy: appOwnsIt('copy'),
+      remove: appOwnsIt('remove'),
+      upload: appOwnsIt('upload'),
+    }
+  }, [instanceId])
 
   // New props mean new contents; re-read them through the adapter.
   useEffect(() => {
@@ -239,7 +255,11 @@ export function FullFileBrowser({
         onFileAction={handleAction}
         onSelectionChange={onSelectionChange}
         initialViewMode={initialViewMode}
-        readOnly={disableDragAndDrop}
+        // Chonky emitted `end_drag_n_drop` and let the app perform the move. The
+        // rebuilt browser moves through its adapter instead, which a controlled
+        // adapter cannot do — so drag-to-move is off here regardless of the prop.
+        // Migrate to the adapter API to get it back; see MIGRATION.md.
+        disableDragAndDrop
         persistKey={`chonky-compat:${instanceId}`}
         // The tree navigates by path, which a controlled adapter cannot serve.
         showSidebar={false}

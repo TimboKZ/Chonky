@@ -44,6 +44,25 @@ const toEpoch = (value?: string) => (value ? new Date(value).getTime() : undefin
 const normalise = (path: string) => path.replace(/^\/+|\/+$/g, '')
 
 /**
+ * Reduces a path to the one form both sides of a comparison can be trusted to
+ * agree on: no edge slashes, and percent-decoded.
+ *
+ * The listing endpoints take a percent-encoded path, and whether they echo
+ * `parent_id` and `path` back encoded or decoded varies by deployment. Comparing
+ * raw strings meant a folder called "My Folder" listed as empty against a backend
+ * that returned `My%20Folder`. A malformed escape is left as-is rather than
+ * throwing, so one bad entry can't fail the whole listing.
+ */
+function canonical(path: string): string {
+  const trimmed = normalise(path)
+  try {
+    return decodeURIComponent(trimmed)
+  } catch {
+    return trimmed
+  }
+}
+
+/**
  * Adapter for the FSG file-storage v2 service.
  *
  * Two quirks of that API are handled here rather than leaking into the UI:
@@ -88,8 +107,7 @@ export function createFsgAdapter(options: FsgAdapterOptions): FileSystemAdapter 
     id: `fsg:${area}`,
 
     async list(path, listOptions): Promise<ListResult> {
-      const normalised = normalise(path)
-      const decoded = decodeURIComponent(normalised)
+      const requested = canonical(path)
 
       const [directoryResponse, fileResponse] = await Promise.all([
         request({ path: FILE_STORAGE.DIRECTORIES(area, path), signal: listOptions?.signal }),
@@ -99,16 +117,11 @@ export function createFsgAdapter(options: FsgAdapterOptions): FileSystemAdapter 
       // `id: '.'` is the listed directory reporting itself — the backend walks from
       // the directory it was asked for, so at the area root that entry would pass
       // the path filter and the area would list itself as its own child.
-      const directories: FsgDirectory[] = (directoryResponse?.results ?? []).filter((directory: FsgDirectory) => {
-        if (directory.id === '.') return false
-        const parent = normalise(directory.path ?? '')
-        return parent === normalised || parent === decoded
-      })
+      const directories: FsgDirectory[] = (directoryResponse?.results ?? []).filter(
+        (directory: FsgDirectory) => directory.id !== '.' && canonical(directory.path ?? '') === requested,
+      )
 
-      const files: FsgFile[] = (fileResponse?.results ?? []).filter((file: FsgFile) => {
-        const parent = normalise(file.parent_id ?? '')
-        return parent === normalised || parent === decoded
-      })
+      const files: FsgFile[] = (fileResponse?.results ?? []).filter((file: FsgFile) => canonical(file.parent_id ?? '') === requested)
 
       return {
         entries: [
@@ -160,7 +173,7 @@ export function createFsgAdapter(options: FsgAdapterOptions): FileSystemAdapter 
         try {
           const archived = await request({ path: FILE_STORAGE.DIRECTORIES(area, destination) })
           taken = ((archived?.results ?? []) as FsgDirectory[])
-            .filter((directory) => normalise(directory.path ?? '') === normalise(destination))
+            .filter((directory) => canonical(directory.path ?? '') === canonical(destination))
             .map((directory) => directory.name)
         } catch (e) {
           // A missing archive path lists empty rather than erroring; if the listing

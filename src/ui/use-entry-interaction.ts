@@ -3,7 +3,6 @@ import type { DragEvent, KeyboardEvent, MouseEvent } from 'react'
 import { useFileBrowserContext } from '../core/context'
 import { resolveSelection } from '../core/selection'
 import { FileActionId } from '../core/actions'
-import { adapterCan } from '../adapter/types'
 import { joinPath, uniqueName } from '../util/names'
 import type { FileEntry } from '../core/types'
 
@@ -38,7 +37,7 @@ export interface EntryInteraction {
 }
 
 export function useEntryInteraction(): EntryInteraction {
-  const { handle, visible, state, dispatch, adapter, readOnly, isEntryLocked } = useFileBrowserContext()
+  const { handle, visible, state, dispatch, adapter, dragAndDropEnabled, isEntryLocked } = useFileBrowserContext()
 
   const [draggingIds, setDraggingIds] = useState<ReadonlySet<string>>(new Set())
   const [dropTargetId, setDropTargetId] = useState<string | null>(null)
@@ -60,7 +59,7 @@ export function useEntryInteraction(): EntryInteraction {
     [visible],
   )
 
-  const canMove = adapterCan.move(adapter) && !readOnly
+  const canMove = dragAndDropEnabled
 
   const moveInto = useCallback(
     async (destinationEntry: FileEntry, ids: string[]) => {

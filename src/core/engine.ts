@@ -53,6 +53,13 @@ export interface UseFileBrowserOptions {
   /** Hides every mutating action and refuses them defensively in the handler. */
   readOnly?: boolean
   /**
+   * Turns off drag-to-move within the browser, leaving the rest of the mutating
+   * actions available. Separate from `readOnly` because the two are different
+   * questions: whether the user may change anything, and whether dragging is the
+   * right way to do it.
+   */
+  disableDragAndDrop?: boolean
+  /**
    * Locks individual entries against rename, delete, cut, and drag-move while
    * leaving them open to browse and download.
    */
@@ -90,6 +97,8 @@ export interface FileBrowserEngine {
   handle: FileBrowserHandle
   adapter: FileSystemAdapter
   readOnly: boolean
+  /** Whether drag-to-move is live: the adapter can move, and nothing has disabled it. */
+  dragAndDropEnabled: boolean
   dialog: DialogRequest | null
   closeDialog: (value: unknown) => void
   /** Entry the preview panel is showing, if any. */
@@ -126,6 +135,7 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
     readOnly = false,
     allowFolderDelete = false,
     initialViewMode = 'grid',
+    disableDragAndDrop = false,
     density,
     persistKey,
     transformUpload,
@@ -791,6 +801,7 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
     handle,
     adapter,
     readOnly,
+    dragAndDropEnabled: adapterCan.move(adapter) && !readOnly && !disableDragAndDrop,
     dialog,
     closeDialog,
     previewEntry,

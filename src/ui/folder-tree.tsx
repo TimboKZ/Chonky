@@ -3,7 +3,6 @@ import { ChevronRight, Folder, FolderOpen } from 'lucide-react'
 import { cn } from '../util/cn'
 import { joinPath, uniqueName } from '../util/names'
 import { useFileBrowserContext } from '../core/context'
-import { adapterCan } from '../adapter/types'
 import { INTERNAL_DRAG_TYPE } from './use-entry-interaction'
 import { Spinner } from './primitives/progress'
 
@@ -21,7 +20,7 @@ interface TreeNode {
  * doesn't re-hit the backend for folders already seen.
  */
 export function FolderTree({ className }: { className?: string }) {
-  const { state, handle, adapter, rootPath, readOnly } = useFileBrowserContext()
+  const { state, handle, adapter, rootPath, dragAndDropEnabled } = useFileBrowserContext()
   const rootName = state.folderChain[0]?.name ?? 'Files'
 
   const [nodes, setNodes] = useState<Record<string, TreeNode>>({})
@@ -107,7 +106,7 @@ export function FolderTree({ className }: { className?: string }) {
     [nodes, loadChildren],
   )
 
-  const canDrop = adapterCan.move(adapter) && !readOnly
+  const canDrop = dragAndDropEnabled
 
   const dropInto = useCallback(
     async (path: string, ids: string[]) => {

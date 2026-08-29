@@ -5,7 +5,6 @@ import { cn } from '../util/cn'
 import { useFileBrowserContext } from '../core/context'
 import { menuContentClass, menuItemClass } from './primitives/menu'
 import { INTERNAL_DRAG_TYPE } from './use-entry-interaction'
-import { adapterCan } from '../adapter/types'
 import { uniqueName } from '../util/names'
 import type { FolderChainItem } from '../core/types'
 
@@ -13,7 +12,7 @@ import type { FolderChainItem } from '../core/types'
 const MAX_VISIBLE = 4
 
 export function Breadcrumbs({ className }: { className?: string }) {
-  const { state, handle, adapter, readOnly } = useFileBrowserContext()
+  const { state, handle, adapter, dragAndDropEnabled } = useFileBrowserContext()
   const chain = state.folderChain
   const containerRef = useRef<HTMLElement>(null)
   const [dropTarget, setDropTarget] = useState<string | null>(null)
@@ -25,7 +24,7 @@ export function Breadcrumbs({ className }: { className?: string }) {
     if (element) element.scrollLeft = element.scrollWidth
   }, [chain.length])
 
-  const canDropInto = adapterCan.move(adapter) && !readOnly
+  const canDropInto = dragAndDropEnabled
 
   const dropInto = async (crumb: FolderChainItem, ids: string[]) => {
     const entries = state.entries.filter((entry) => ids.includes(entry.id))

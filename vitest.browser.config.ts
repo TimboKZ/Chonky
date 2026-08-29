@@ -17,7 +17,11 @@ export default mergeConfig(
       browser: {
         enabled: true,
         provider: playwright(),
+        // A desktop viewport: the toolbar collapses its primary actions into an
+        // overflow menu below `sm`, and the default mobile-sized viewport would
+        // silently test that layout instead of the one most users see.
         instances: [{ browser: 'chromium', headless: true }],
+        viewport: { width: 1280, height: 800 },
       },
     },
   }),
