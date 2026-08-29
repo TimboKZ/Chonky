@@ -398,6 +398,68 @@ describe('FileBrowser — actions', () => {
   })
 })
 
+describe('FileBrowser — drag to move', () => {
+  /**
+   * Native HTML5 drag-and-drop, dispatched by hand.
+   *
+   * Playwright's dragAndDrop drives mouse events, which never produce `dragstart`
+   * / `drop` — the browser only synthesises those for a real OS-level drag. So the
+   * test builds one DataTransfer and walks the sequence itself, which is also what
+   * exercises the payload contract between dragstart and drop.
+   */
+  async function dragOnto(sourceName: string, targetName: string) {
+    const source = option(sourceName).element()
+    const target = option(targetName).element()
+    const dataTransfer = new DataTransfer()
+
+    source.dispatchEvent(new DragEvent('dragstart', { bubbles: true, cancelable: true, dataTransfer }))
+    target.dispatchEvent(new DragEvent('dragover', { bubbles: true, cancelable: true, dataTransfer }))
+    target.dispatchEvent(new DragEvent('drop', { bubbles: true, cancelable: true, dataTransfer }))
+    source.dispatchEvent(new DragEvent('dragend', { bubbles: true, cancelable: true, dataTransfer }))
+  }
+
+  it('moves a dragged file into the folder it is dropped on', async () => {
+    const { nodes } = renderBrowser({ initialViewMode: 'list' })
+    await option('notes.txt').click()
+    await dragOnto('notes.txt', 'Invoices')
+
+    await expect.element(option('notes.txt')).not.toBeInTheDocument()
+    const invoices = nodes.find((node) => node.name === 'Invoices')
+    expect(invoices?.children?.some((child) => child.name === 'notes.txt')).toBe(true)
+  })
+
+  it('moves the whole selection, not just the entry under the cursor', async () => {
+    const { nodes } = renderBrowser({ initialViewMode: 'list' })
+    await option('budget.xlsx').click()
+    await option('notes.txt').click({ modifiers: [MOD] })
+    await dragOnto('notes.txt', 'Invoices')
+
+    await vi.waitFor(() => {
+      const invoices = nodes.find((node) => node.name === 'Invoices')
+      expect(invoices?.children?.map((child) => child.name).sort()).toEqual(['budget.xlsx', 'notes.txt'])
+    })
+  })
+
+  it('refuses to move an entry the app has locked', async () => {
+    const { nodes } = renderBrowser({ initialViewMode: 'list', isEntryLocked: (entry) => entry.name === 'contract.pdf' })
+    await option('contract.pdf').click()
+    await dragOnto('contract.pdf', 'Invoices')
+
+    await expect.element(option('contract.pdf')).toBeVisible()
+    expect(nodes.find((node) => node.name === 'Invoices')?.children).toHaveLength(0)
+  })
+
+  it('does not drag at all when drag-and-drop is disabled', async () => {
+    const { nodes } = renderBrowser({ initialViewMode: 'list', disableDragAndDrop: true })
+    await option('notes.txt').click()
+    await expect.element(option('notes.txt')).toHaveAttribute('draggable', 'false')
+
+    await dragOnto('notes.txt', 'Invoices')
+    await expect.element(option('notes.txt')).toBeVisible()
+    expect(nodes.find((node) => node.name === 'Invoices')?.children).toHaveLength(0)
+  })
+})
+
 describe('FileBrowser — permissions', () => {
   it('hides every mutating action in read-only mode', async () => {
     renderBrowser({ readOnly: true })
