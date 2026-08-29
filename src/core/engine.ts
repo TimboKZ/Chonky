@@ -486,6 +486,10 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
           return adapterCan.download(adapter)
         case FileActionId.OpenInNewTab:
           return adapterCan.open(adapter)
+        case FileActionId.PreviewFile:
+          // A preview needs either the bytes (for the in-panel viewers) or a URL
+          // (for images, video, and PDFs). With neither there is nothing to show.
+          return adapterCan.read(adapter) || adapterCan.open(adapter)
         case FileActionId.ConvertHeic:
           return adapterCan.read(adapter) && adapterCan.upload(adapter)
         default:

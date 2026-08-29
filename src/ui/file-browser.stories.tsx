@@ -7,11 +7,27 @@ import { createMemoryAdapter, type MemoryNode } from '../adapter/memory-adapter'
 import { useImageOptimization } from '../images/use-image-optimization'
 import { ImageOptimizationDialog } from '../images/optimization-dialog'
 import type { FileEntry, Notification } from '../core/types'
+import {
+  APPROVAL_EML,
+  BRACKET_STL,
+  CONTRACT_PDF,
+  FIELD_NOTES_TXT,
+  PUNCH_LIST_CSV,
+  SITE_PHOTO_SVG,
+  SITE_SUMMARY_HTML,
+  toDataUrl,
+} from './story-fixtures'
 
 const day = 24 * 60 * 60 * 1000
 const ago = (days: number) => Date.now() - days * day
 
-/** A work-order folder, shaped like what the FSG apps actually store. */
+/**
+ * A work-order folder, shaped like what the FSG apps actually store.
+ *
+ * Most files carry real `content`, so the preview panel previews them for real.
+ * `Scope of Work.docx` and `Cost Breakdown.xlsx` deliberately do not: they show
+ * what the panel does when the backend cannot produce the bytes.
+ */
 function sampleTree(): MemoryNode[] {
   return [
     {
@@ -19,9 +35,29 @@ function sampleTree(): MemoryNode[] {
       isDir: true,
       modifiedAt: ago(2),
       children: [
-        { name: 'front-elevation.jpg', isDir: false, size: 2_411_000, mimeType: 'image/jpeg', modifiedAt: ago(2) },
+        {
+          name: 'front-elevation.svg',
+          isDir: false,
+          mimeType: 'image/svg+xml',
+          modifiedAt: ago(2),
+          content: SITE_PHOTO_SVG,
+          thumbnailUrl: toDataUrl(SITE_PHOTO_SVG, 'image/svg+xml'),
+        },
         { name: 'roof-detail.heic', isDir: false, size: 3_902_000, mimeType: 'image/heic', modifiedAt: ago(2) },
-        { name: 'Before', isDir: true, modifiedAt: ago(4), children: [{ name: 'damage.jpg', isDir: false, size: 1_204_000, mimeType: 'image/jpeg' }] },
+        {
+          name: 'Before',
+          isDir: true,
+          modifiedAt: ago(4),
+          children: [
+            {
+              name: 'damage.svg',
+              isDir: false,
+              mimeType: 'image/svg+xml',
+              content: SITE_PHOTO_SVG,
+              thumbnailUrl: toDataUrl(SITE_PHOTO_SVG, 'image/svg+xml'),
+            },
+          ],
+        },
       ],
     },
     { name: 'Submittals', isDir: true, modifiedAt: ago(9), children: [] },
@@ -30,16 +66,18 @@ function sampleTree(): MemoryNode[] {
       isDir: true,
       modifiedAt: ago(1),
       children: [
-        { name: 'INV-40112.pdf', isDir: false, size: 184_000, mimeType: 'application/pdf', modifiedAt: ago(1) },
-        { name: 'INV-40118.pdf', isDir: false, size: 172_400, mimeType: 'application/pdf', modifiedAt: ago(1) },
+        { name: 'INV-40112.pdf', isDir: false, mimeType: 'application/pdf', modifiedAt: ago(1), content: CONTRACT_PDF },
+        { name: 'INV-40118.pdf', isDir: false, mimeType: 'application/pdf', modifiedAt: ago(1), content: CONTRACT_PDF },
       ],
     },
     { name: 'Scope of Work.docx', isDir: false, size: 48_200, modifiedAt: ago(12) },
     { name: 'Cost Breakdown.xlsx', isDir: false, size: 91_800, modifiedAt: ago(6) },
-    { name: 'Punch List.csv', isDir: false, size: 4_120, mimeType: 'text/csv', modifiedAt: ago(3) },
-    { name: 'Signed Contract.pdf', isDir: false, size: 1_820_000, mimeType: 'application/pdf', modifiedAt: ago(30) },
-    { name: 'field-notes.txt', isDir: false, size: 2_048, mimeType: 'text/plain', modifiedAt: ago(1) },
-    { name: 'bracket.stl', isDir: false, size: 612_000, modifiedAt: ago(20) },
+    { name: 'Punch List.csv', isDir: false, mimeType: 'text/csv', modifiedAt: ago(3), content: PUNCH_LIST_CSV },
+    { name: 'Weekly Summary.html', isDir: false, mimeType: 'text/html', modifiedAt: ago(2), content: SITE_SUMMARY_HTML },
+    { name: 'Approval.eml', isDir: false, mimeType: 'message/rfc822', modifiedAt: ago(2), content: APPROVAL_EML },
+    { name: 'Signed Contract.pdf', isDir: false, mimeType: 'application/pdf', modifiedAt: ago(30), content: CONTRACT_PDF },
+    { name: 'field-notes.txt', isDir: false, mimeType: 'text/plain', modifiedAt: ago(1), content: FIELD_NOTES_TXT },
+    { name: 'bracket.stl', isDir: false, modifiedAt: ago(20), content: BRACKET_STL },
     { name: '.internal-metadata', isDir: false, size: 96, modifiedAt: ago(40) },
   ]
 }
@@ -165,6 +203,19 @@ export const ListOnlyBackend: Story = {
 
 /** `isEntryLocked` pins individual items: they still open and download, but cannot
  * be renamed, deleted, cut, or dragged away. */
+/** A backend that lists but cannot serve file content: no Preview, no Download,
+ * and the panel says so rather than sitting blank. */
+export const NoContentBackend: Story = {
+  render: function Render() {
+    const adapter = useMemo(() => createMemoryAdapter({ tree: sampleTree(), servesContent: false }), [])
+    return (
+      <Frame>
+        <FileBrowser adapter={adapter} rootLabel="Job 40112" persistKey={false} aside={<FilePreviewPanel />} />
+      </Frame>
+    )
+  },
+}
+
 export const LockedEntries: Story = {
   render: function Render() {
     const adapter = useMemo(() => createMemoryAdapter({ tree: sampleTree() }), [])

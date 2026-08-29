@@ -59,7 +59,9 @@ export function useEntryContent(entry: FileEntry | null, strategy: PreviewStrate
       .catch((e) => {
         if (cancelled) return
         console.error('Failed to load file content', e)
-        setContent({ text: null, binary: null, loading: false, error: 'Failed to load file content' })
+        // Surface the adapter's own message: it knows why (permissions, a missing
+        // object, an unconfigured fixture) and a generic string throws that away.
+        setContent({ text: null, binary: null, loading: false, error: e instanceof Error ? e.message : 'Failed to load file content' })
       })
 
     return () => {

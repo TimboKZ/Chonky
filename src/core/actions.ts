@@ -16,6 +16,9 @@ import {
 } from 'lucide-react'
 import type { FileAction } from './types'
 import { isHeic } from '../util/mime'
+// registry.ts only reads the name and MIME type — no viewer code, so this does not
+// pull the lazy viewer chunks into the main bundle.
+import { getPreviewStrategy } from '../preview/registry'
 
 /**
  * Canonical action ids. Exported as constants because handlers switch on them and
@@ -84,7 +87,9 @@ export const previewAction: FileAction = {
   group: 'Open',
   contextMenu: true,
   requiresSelection: true,
-  appliesTo: notADirectory,
+  // Offering Preview on a file no viewer handles just opens a panel that says it
+  // cannot preview it.
+  appliesTo: (entry) => !entry.isDir && getPreviewStrategy(entry) !== 'none',
 }
 
 export const renameAction: FileAction = {

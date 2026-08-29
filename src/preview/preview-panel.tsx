@@ -193,24 +193,43 @@ function PreviewBody({ entry, adapter }: { entry: FileEntry; adapter: FileSystem
     case 'iframe':
     case 'server-render':
       return openUrl ? (
-        // Sandboxed: a previewed file is rarely one this app authored.
-        <iframe src={openUrl} title={entry.name} sandbox="" className="h-full min-h-96 w-full border-0" />
+        /*
+         * Sandboxed, because a previewed file is rarely one this app authored.
+         *
+         * `allow-scripts` is granted deliberately: Chrome's built-in PDF viewer is
+         * itself an HTML/JS document, and a fully empty sandbox stops it rendering
+         * at all. It is safe here only because `allow-same-origin` is NOT granted —
+         * the frame keeps an opaque origin, so script inside it cannot reach this
+         * app's storage or session. The two together would defeat the sandbox
+         * entirely; never add allow-same-origin to this.
+         */
+        <iframe
+          src={openUrl}
+          title={entry.name}
+          sandbox="allow-scripts"
+          className="h-full min-h-96 w-full border-0"
+        />
       ) : (
         <UnsupportedPreview entry={entry} adapter={adapter} />
       )
 
+    // The content-based viewers fall through to the same fallback when there is
+    // nothing to give them. That happens whenever the adapter cannot `read` — a
+    // legitimate configuration, since every adapter method except `list` is
+    // optional — and rendering null there left a blank panel with no explanation
+    // and no way to reach the file.
     case 'csv':
-      return text ? <CsvViewer content={text} /> : null
+      return text ? <CsvViewer content={text} /> : <UnsupportedPreview entry={entry} adapter={adapter} />
     case 'html':
-      return text ? <HtmlViewer content={text} /> : null
+      return text ? <HtmlViewer content={text} /> : <UnsupportedPreview entry={entry} adapter={adapter} />
     case 'eml':
-      return text ? <EmlViewer content={text} /> : null
+      return text ? <EmlViewer content={text} /> : <UnsupportedPreview entry={entry} adapter={adapter} />
     case 'stl':
-      return binary ? <StlViewer content={binary} /> : null
+      return binary ? <StlViewer content={binary} /> : <UnsupportedPreview entry={entry} adapter={adapter} />
     case 'xlsx':
-      return binary ? <XlsxViewer content={binary} /> : null
+      return binary ? <XlsxViewer content={binary} /> : <UnsupportedPreview entry={entry} adapter={adapter} />
     case 'docx':
-      return binary ? <DocxViewer content={binary} /> : null
+      return binary ? <DocxViewer content={binary} /> : <UnsupportedPreview entry={entry} adapter={adapter} />
 
     default:
       return <UnsupportedPreview entry={entry} adapter={adapter} />
@@ -221,10 +240,16 @@ function UnsupportedPreview({ entry, adapter }: { entry: FileEntry; adapter: Fil
   const openUrl = adapter.getOpenUrl?.(entry)
   const downloadUrl = adapter.getDownloadUrl?.(entry)
 
+  // Distinguish "this type has no viewer" from "this backend can't serve the file",
+  // which are different problems and point the reader at different fixes.
+  const previewable = getPreviewStrategy(entry) !== 'none'
+
   return (
     <div className="flex h-full flex-col items-center justify-center gap-3 p-6 text-center">
       <FileTypeIcon entry={entry} className="size-12" />
-      <p className="text-sm text-muted-foreground">There’s no preview for this file type.</p>
+      <p className="text-sm text-muted-foreground">
+        {previewable ? 'This file can’t be previewed here.' : 'There’s no preview for this file type.'}
+      </p>
       <div className="flex gap-2">
         {openUrl && (
           <Button variant="outline" size="sm" asChild>

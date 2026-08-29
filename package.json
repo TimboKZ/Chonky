@@ -62,8 +62,8 @@
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
-    "@react-three/drei": ">=9.0.0",
-    "@react-three/fiber": ">=8.0.0",
+    "@react-three/drei": "^9.0.0 || ^10.0.0",
+    "@react-three/fiber": "^8.18.0 || ^9.0.0",
     "docx-preview": ">=0.3.0",
     "libheif-js": ">=1.19.0",
     "lucide-react": ">=0.477.0",
@@ -104,8 +104,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
-    "@react-three/drei": "^10.7.8",
-    "@react-three/fiber": "^9.7.0",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
     "@storybook/addon-docs": "^10.0.5",
     "@storybook/react-vite": "^10.0.5",
     "@tailwindcss/vite": "^4.0.10",

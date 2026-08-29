@@ -10,6 +10,12 @@ export interface MemoryNode {
   modifiedAt?: number
   thumbnailUrl?: string
   children?: MemoryNode[]
+  /**
+   * The file's bytes. Give a node content and it previews, opens, and downloads
+   * like a real one; without it `read` reports that the fixture has no content and
+   * the URL builders return undefined, so the preview panel falls back cleanly.
+   */
+  content?: string | ArrayBuffer | Uint8Array
 }
 
 export interface MemoryAdapterOptions {
@@ -18,6 +24,12 @@ export interface MemoryAdapterOptions {
   latency?: number
   /** Read-only when false — the browser then hides every mutating action. */
   writable?: boolean
+  /**
+   * Serve file content: implements `read`, `getOpenUrl`, and `getDownloadUrl`, so
+   * previews and downloads work. Set false to model a listing-only backend.
+   * @default true
+   */
+  servesContent?: boolean
 }
 
 function findDirectory(roots: MemoryNode[], path: string): MemoryNode[] | null {
@@ -36,15 +48,44 @@ function findDirectory(roots: MemoryNode[], path: string): MemoryNode[] | null {
  * An in-memory backend for Storybook, tests, and prototyping. Mutations apply to
  * the tree object handed in, so a story can assert against it afterwards.
  */
+function toBytes(content: string | ArrayBuffer | Uint8Array): ArrayBuffer {
+  if (typeof content === 'string') return new TextEncoder().encode(content).buffer as ArrayBuffer
+  if (content instanceof Uint8Array) return content.slice().buffer as ArrayBuffer
+  return content
+}
+
+/**
+ * A `blob:` URL for a node's content, created once and reused.
+ *
+ * Not `data:` — Chrome blocks frame navigation to data: URLs outright, so a PDF
+ * served that way would silently render nothing. Blob URLs work in an iframe, in
+ * `<img>`, and for downloads. Caching per node also keeps the URL stable across
+ * renders, so an `<img src>` doesn't churn on every paint.
+ */
+const blobUrls = new WeakMap<MemoryNode, string>()
+
+function toObjectUrl(node: MemoryNode): string | undefined {
+  if (!node.content) return undefined
+  const cached = blobUrls.get(node)
+  if (cached) return cached
+  const url = URL.createObjectURL(new Blob([toBytes(node.content)], { type: node.mimeType || 'application/octet-stream' }))
+  blobUrls.set(node, url)
+  return url
+}
+
 export function createMemoryAdapter(options: MemoryAdapterOptions): FileSystemAdapter {
-  const { tree, latency = 0, writable = true } = options
+  const { tree, latency = 0, writable = true, servesContent = true } = options
   const wait = () => (latency > 0 ? new Promise((resolve) => setTimeout(resolve, latency)) : Promise.resolve())
+
+  /** Walks the tree to the node an entry came from, so mutations are reflected. */
+  const findNode = (entry: FileEntry): MemoryNode | undefined =>
+    findDirectory(tree, entry.path ?? '')?.find((node) => node.name === entry.name)
 
   const toEntry = (node: MemoryNode, path: string): FileEntry => ({
     id: joinPath(path, node.name) || node.name,
     name: node.name,
     isDir: node.isDir,
-    size: node.size,
+    size: node.size ?? (node.content ? toBytes(node.content).byteLength : undefined),
     mimeType: node.mimeType,
     modifiedAt: node.modifiedAt,
     thumbnailUrl: node.thumbnailUrl,
@@ -61,10 +102,32 @@ export function createMemoryAdapter(options: MemoryAdapterOptions): FileSystemAd
     },
   }
 
-  if (!writable) return base
+  const content: Partial<FileSystemAdapter> = servesContent
+    ? {
+        async read(entry) {
+          await wait()
+          const node = findNode(entry)
+          if (!node?.content) {
+            throw new Error(`“${entry.name}” has no content in this fixture — set \`content\` on the node to preview it.`)
+          }
+          return toBytes(node.content)
+        },
+        getOpenUrl(entry) {
+          const node = findNode(entry)
+          return node ? toObjectUrl(node) : undefined
+        },
+        getDownloadUrl(entry) {
+          const node = findNode(entry)
+          return node ? toObjectUrl(node) : undefined
+        },
+      }
+    : {}
+
+  if (!writable) return { ...base, ...content }
 
   return {
     ...base,
+    ...content,
     async createDirectory(path, name) {
       await wait()
       const level = findDirectory(tree, path)

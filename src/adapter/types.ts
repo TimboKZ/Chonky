@@ -51,10 +51,17 @@ export interface FileSystemAdapter {
   remove?(entry: FileEntry): Promise<void>
   upload?(request: UploadRequest): Promise<void>
 
-  /** URL to open the file in a new tab. Enables the Open action. */
-  getOpenUrl?(entry: FileEntry): string
-  /** URL to download the file. Enables the Download action. */
-  getDownloadUrl?(entry: FileEntry): string
+  /**
+   * URL to open the file in a new tab. Enables the Open action, and is what the
+   * preview panel renders images, video, audio, and PDFs from.
+   *
+   * Return `undefined` for an entry that has no URL — the UI falls back rather
+   * than rendering an element with an empty `src`, which some browsers treat as a
+   * request for the current page.
+   */
+  getOpenUrl?(entry: FileEntry): string | undefined
+  /** URL to download the file, or `undefined` when the entry has none. */
+  getDownloadUrl?(entry: FileEntry): string | undefined
   /** Fetches raw bytes — used by the viewers and by HEIC conversion. */
   read?(entry: FileEntry): Promise<ArrayBuffer>
 }
