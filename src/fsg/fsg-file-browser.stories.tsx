@@ -20,23 +20,30 @@ const env = import.meta.env
 const DEFAULTS = {
   baseUrl: (env.VITE_API_GATEWAY_BASE_URL as string) || 'https://api.dev.fsgapps.com',
   identityServiceUrl: (env.VITE_IDENTITY_SERVICE_URL as string) || 'https://identity.dev.fsgapps.com',
-  area: (env.VITE_FILE_STORAGE_AREA as string) || '',
-  entityId: (env.VITE_FILE_STORAGE_ENTITY_ID as string) || '',
+  area: (env.VITE_FILE_STORAGE_AREA as string) || 'engage-v2',
+  // `/` opens the area root, which lists every entity folder in it — so the stories
+  // work without knowing an entity id up front. Narrow it to one folder by setting
+  // VITE_FILE_STORAGE_ROOT_PATH, or by typing a path into the Controls panel.
+  rootPath: (env.VITE_FILE_STORAGE_ROOT_PATH as string) || (env.VITE_FILE_STORAGE_ENTITY_ID as string) || '/',
 }
 
 interface DevArgs {
   baseUrl: string
   identityServiceUrl: string
   area: string
-  entityId: string
+  rootPath: string
   readOnly: boolean
   showPreviewPanel: boolean
   initialViewMode: 'icon' | 'list' | 'details'
 }
 
-function DevBrowser({ area, entityId, baseUrl, identityServiceUrl, ...rest }: DevArgs) {
+/** Label for the root crumb: the folder being browsed, or the area at its root. */
+const labelFor = (area: string, rootPath: string) => rootPath.split('/').filter(Boolean).pop() || area
+
+function DevBrowser({ area, rootPath, baseUrl, identityServiceUrl, ...rest }: DevArgs) {
   const session = useDevSession({ identityServiceUrl })
   const [previewFile, setPreviewFile] = useState<FileItem | undefined>()
+  const label = labelFor(area, rootPath)
 
   return (
     <div className="flex h-[calc(100vh-2rem)] w-full flex-col gap-2">
@@ -44,8 +51,8 @@ function DevBrowser({ area, entityId, baseUrl, identityServiceUrl, ...rest }: De
           message — upload failures, locked items, HEIC fallbacks — through sonner. */}
       <Toaster position="bottom-right" richColors />
 
-      {!area || !entityId ? (
-        <MissingConfig area={area} entityId={entityId} />
+      {!area ? (
+        <MissingConfig />
       ) : (
         <DevSessionGate
           state={session.state}
@@ -56,15 +63,19 @@ function DevBrowser({ area, entityId, baseUrl, identityServiceUrl, ...rest }: De
           <div className="flex min-h-0 flex-1 flex-col gap-2">
             <p className="shrink-0 text-xs text-muted-foreground">
               {session.user?.email ? `Signed in as ${session.user.email} · ` : ''}
-              <span className="font-mono">{area}</span> / <span className="font-mono">{entityId}</span> on{' '}
+              <span className="font-mono">{area}</span>
+              <span className="font-mono">{rootPath === '/' ? '' : `/${rootPath.replace(/^\/+/, '')}`}</span> on{' '}
               <span className="font-mono">{baseUrl}</span>
             </p>
             <div className="min-h-0 flex-1">
               <FsgFileBrowser
-                key={`${baseUrl}:${area}:${entityId}`}
-                entityId={entityId}
+                // Remounts when the target changes: the browser loads its root once
+                // on mount, so a new area or path needs a fresh instance.
+                key={`${baseUrl}:${area}:${rootPath}`}
+                entityId={label}
+                rootPath={rootPath}
                 apiConfig={{ baseUrl, area }}
-                title={entityId}
+                title={label}
                 setPreviewFile={setPreviewFile}
                 {...rest}
               />
@@ -78,15 +89,13 @@ function DevBrowser({ area, entityId, baseUrl, identityServiceUrl, ...rest }: De
   )
 }
 
-function MissingConfig({ area, entityId }: { area: string; entityId: string }) {
+function MissingConfig() {
   return (
     <div className="fsg-fb-surface flex h-full flex-col items-center justify-center gap-2 rounded-lg border border-border bg-card p-8 text-center">
-      <p className="text-sm font-medium">Point this at a folder first</p>
+      <p className="text-sm font-medium">Point this at an area first</p>
       <p className="max-w-lg text-xs text-muted-foreground">
-        Set {!area && <code>VITE_FILE_STORAGE_AREA</code>}
-        {!area && !entityId && ' and '}
-        {!entityId && <code>VITE_FILE_STORAGE_ENTITY_ID</code>} in <code>.env.local</code> (copy <code>.env.example</code>), or type
-        them into the Controls panel below.
+        Set <code>VITE_FILE_STORAGE_AREA</code> in <code>.env.local</code> (copy <code>.env.example</code>), or type one into the
+        Controls panel below.
       </p>
     </div>
   )
@@ -106,8 +115,8 @@ const meta = {
     },
   },
   argTypes: {
-    area: { control: 'text', description: 'Storage area, e.g. engage or fsgone-workorders' },
-    entityId: { control: 'text', description: 'Work order / ticket / job the folder belongs to' },
+    area: { control: 'text', description: 'Storage area, e.g. engage-v2 or fsgone-workorders' },
+    rootPath: { control: 'text', description: '“/” browses the whole area; a path opens one entity folder' },
     baseUrl: { control: 'text' },
     identityServiceUrl: { control: 'text' },
     initialViewMode: { control: 'radio', options: ['icon', 'list', 'details'] },
@@ -148,7 +157,7 @@ export const LivePreviewPanel: Story = {
     const session = useDevSession({ identityServiceUrl: args.identityServiceUrl })
     const [file, setFile] = useState<FileItem | undefined>()
 
-    if (!args.area || !args.entityId) return <MissingConfig area={args.area} entityId={args.entityId} />
+    if (!args.area) return <MissingConfig />
 
     return (
       <DevSessionGate
@@ -160,9 +169,10 @@ export const LivePreviewPanel: Story = {
         <div className="flex h-[calc(100vh-2rem)] gap-2">
           <div className="min-w-0 flex-1">
             <FsgFileBrowser
-              entityId={args.entityId}
+              entityId={labelFor(args.area, args.rootPath)}
+              rootPath={args.rootPath}
               apiConfig={{ baseUrl: args.baseUrl, area: args.area }}
-              title={args.entityId}
+              title={labelFor(args.area, args.rootPath)}
               initialViewMode="list"
               setPreviewFile={setFile}
             />

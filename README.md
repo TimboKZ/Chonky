@@ -264,13 +264,17 @@ Most stories run against an in-memory backend. **File Browser → Dev file stora
 runs against the real file-storage service instead:
 
 ```bash
-cp .env.example .env.local   # set VITE_FILE_STORAGE_AREA and VITE_FILE_STORAGE_ENTITY_ID
-pnpm dev
+pnpm dev   # then open File Browser -> Dev file storage
 ```
 
+It defaults to the `engage-v2` area at `/`, which lists every entity folder in it,
+so there is nothing to configure to get started. Copy `.env.example` to `.env.local`
+to change the area or open one entity folder directly; both are also editable in the
+Controls panel, so you can retarget a story without restarting.
+
 Auth is your `fsg_apps_session` cookie — the story probes the identity service and
-offers a sign-in link before it tries to load anything. Area and entity are also
-editable in the Controls panel, so you can retarget a story without restarting.
+offers a sign-in link before it tries to load anything. The gateway already allows
+`http://localhost:*` as a credentialed CORS origin, so no proxy is needed.
 
 A bearer token is deliberately not offered: image, PDF and video previews load
 through `<img>` and `<iframe>` `src` attributes, which cannot carry an
