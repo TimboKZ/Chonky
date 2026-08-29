@@ -23,6 +23,7 @@ export default defineConfig({
         'preview/index': resolve(__dirname, 'src/preview/index.ts'),
         'images/index': resolve(__dirname, 'src/images/index.ts'),
         'compat/index': resolve(__dirname, 'src/compat/index.ts'),
+        'fsg/index': resolve(__dirname, 'src/fsg/index.ts'),
       },
       formats: ['es'],
     },
@@ -33,6 +34,10 @@ export default defineConfig({
         // lucide-react is a peer shared with @fsg/gui-bytes; bundling it would
         // duplicate the whole icon set in every consumer.
         if (id === 'lucide-react' || id.startsWith('lucide-react/')) return true
+        if (id === 'sonner') return true
+        // The design system this package is built out of. Bundling it would ship a
+        // second copy of every primitive and a second set of React contexts.
+        if (id === '@fsg/gui-bytes' || id.startsWith('@fsg/gui-bytes/')) return true
         return OPTIONAL_PEERS.some((pkg) => id === pkg || id.startsWith(pkg + '/'))
       },
     },

@@ -1,4 +1,13 @@
-/* Storybook runs the package standalone, with no host app to define tokens or a
- * base reset — the library ships neither, deliberately (see src/styles.css). */
-@import 'tailwindcss/preflight.css' layer(base);
-@import '../src/tokens.css';
+/*
+ * Storybook and the browser tests run this package against the real design
+ * system, the same way a consuming app does.
+ *
+ * The `@source` is not optional. Tailwind skips `node_modules` when scanning for
+ * class names, and gui-bytes is linked in there — so importing its stylesheet
+ * alone yields the tokens but none of the utility classes its own components
+ * emit, and a dialog renders unpositioned at the bottom of the page. A published
+ * app gets those classes from gui-bytes' bundled CSS instead; here we have to ask
+ * for them.
+ */
+@import '@fsg/gui-bytes/styles';
+@source '../node_modules/@fsg/gui-bytes/dist/**/*.js';

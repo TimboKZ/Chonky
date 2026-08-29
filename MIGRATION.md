@@ -11,6 +11,14 @@ lets an app switch packages first, then what a proper migration looks like.
 +import { FullFileBrowser, ChonkyActions, defineFileAction, FileHelper, setChonkyDefaults } from '@fsg/file-browser/chonky-compat'
 ```
 
+If the app reached the file browser through `@fsg/gui-bytes` rather than `chonky`
+directly, the move is a one-line import change and the props are unchanged:
+
+```diff
+-import { FileBrowser, FilePreviewPanel } from '@fsg/gui-bytes'
++import { FileBrowser, FilePreviewPanel } from '@fsg/file-browser/fsg'
+```
+
 The compat layer reproduces Chonky's controlled model: your app still owns `files`
 and `folderChain` and still handles every action in `onFileAction`, with the same
 `data.id` / `data.state.selectedFiles` / `data.state.selectedFilesForAction` shape.

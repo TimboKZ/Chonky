@@ -1,12 +1,19 @@
 import { useEffect, useRef, useState } from 'react'
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { ArrowUp, Check, LayoutGrid, List, MoreVertical, Rows3, Search, X } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@fsg/gui-bytes/components/ui'
+import { ArrowUp, LayoutGrid, List, MoreVertical, Rows3, Search, X } from 'lucide-react'
 import { cn } from '../util/cn'
 import { useFileBrowserContext } from '../core/context'
 import { Button } from './primitives/button'
 import { Input } from './primitives/input'
 import { Tooltip } from './primitives/tooltip'
-import { menuContentClass, menuItemClass, menuLabelClass, menuSeparatorClass } from './primitives/menu'
 import { Breadcrumbs } from './breadcrumbs'
 import type { ViewMode } from '../core/types'
 
@@ -107,51 +114,38 @@ function OverflowMenu() {
   )
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon-sm" aria-label="More options">
           <MoreVertical className="size-4" />
         </Button>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content className={menuContentClass} align="end">
-          <div className={menuLabelClass}>Actions</div>
-          {overflow.map((action) => {
-            const Icon = action.icon
-            return (
-              <DropdownMenu.Item
-                key={action.id}
-                className={menuItemClass}
-                disabled={!isActionEnabled(action)}
-                onSelect={() => void dispatch(action.id)}
-              >
-                {Icon && <Icon className="size-4" />}
-                {action.label}
-              </DropdownMenu.Item>
-            )
-          })}
+      </DropdownMenuTrigger>
+      {/* fsg-fb-surface: portalled to document.body, outside the browser root. */}
+      <DropdownMenuContent className="fsg-fb-surface" align="end">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        {overflow.map((action) => {
+          const Icon = action.icon
+          return (
+            <DropdownMenuItem key={action.id} disabled={!isActionEnabled(action)} onSelect={() => void dispatch(action.id)}>
+              {Icon && <Icon className="size-4" />}
+              {action.label}
+            </DropdownMenuItem>
+          )
+        })}
 
-          <DropdownMenu.Separator className={menuSeparatorClass} />
-          <div className={menuLabelClass}>View</div>
-          <DropdownMenu.CheckboxItem
-            className={menuItemClass}
-            checked={state.density === 'compact'}
-            onCheckedChange={(checked) => handle.setDensity(checked ? 'compact' : 'comfortable')}
-          >
-            {state.density === 'compact' && <Check className="size-4" />}
-            <span className={state.density === 'compact' ? '' : 'pl-6'}>Compact rows</span>
-          </DropdownMenu.CheckboxItem>
-          <DropdownMenu.CheckboxItem
-            className={menuItemClass}
-            checked={state.showHidden}
-            onCheckedChange={(checked) => handle.setShowHidden(checked === true)}
-          >
-            {state.showHidden && <Check className="size-4" />}
-            <span className={state.showHidden ? '' : 'pl-6'}>Show hidden files</span>
-          </DropdownMenu.CheckboxItem>
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+        <DropdownMenuSeparator />
+        <DropdownMenuLabel>View</DropdownMenuLabel>
+        <DropdownMenuCheckboxItem
+          checked={state.density === 'compact'}
+          onCheckedChange={(checked: boolean) => handle.setDensity(checked ? 'compact' : 'comfortable')}
+        >
+          Compact rows
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem checked={state.showHidden} onCheckedChange={(checked: boolean) => handle.setShowHidden(checked === true)}>
+          Show hidden files
+        </DropdownMenuCheckboxItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 

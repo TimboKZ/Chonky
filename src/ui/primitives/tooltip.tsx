@@ -1,9 +1,20 @@
-import * as TooltipPrimitive from '@radix-ui/react-tooltip'
+import {
+  Tooltip as GuiTooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider as GuiTooltipProvider,
+} from '@fsg/gui-bytes/components/ui'
 import type { ReactNode } from 'react'
-import { cn } from '../../util/cn'
 
-export const TooltipProvider = TooltipPrimitive.Provider
+export const TooltipProvider = GuiTooltipProvider
 
+/**
+ * Single-element tooltip.
+ *
+ * gui-bytes exposes the Radix parts; nearly every use here is "one trigger, one
+ * short string", so this collapses that into a prop and renders the child
+ * untouched when there is nothing to say.
+ */
 export function Tooltip({
   content,
   children,
@@ -15,21 +26,11 @@ export function Tooltip({
 }) {
   if (!content) return <>{children}</>
   return (
-    <TooltipPrimitive.Root>
-      <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
-      <TooltipPrimitive.Portal>
-        <TooltipPrimitive.Content
-          side={side}
-          sideOffset={6}
-          className={cn(
-            // fsg-fb-surface: portalled to document.body — see styles.css.
-            'fsg-fb-surface z-50 max-w-xs rounded-md bg-foreground px-2 py-1 text-xs text-background shadow-md',
-            'data-[state=delayed-open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=delayed-open]:fade-in-0',
-          )}
-        >
-          {content}
-        </TooltipPrimitive.Content>
-      </TooltipPrimitive.Portal>
-    </TooltipPrimitive.Root>
+    <GuiTooltip>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipContent side={side} sideOffset={6}>
+        {content}
+      </TooltipContent>
+    </GuiTooltip>
   )
 }

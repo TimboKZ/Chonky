@@ -1,9 +1,8 @@
 import { useLayoutEffect, useRef, useState } from 'react'
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@fsg/gui-bytes/components/ui'
 import { ChevronRight, MoreHorizontal } from 'lucide-react'
 import { cn } from '../util/cn'
 import { useFileBrowserContext } from '../core/context'
-import { menuContentClass, menuItemClass } from './primitives/menu'
 import { INTERNAL_DRAG_TYPE } from './use-entry-interaction'
 import { uniqueName } from '../util/names'
 import type { FolderChainItem } from '../core/types'
@@ -106,23 +105,21 @@ export function Breadcrumbs({ className }: { className?: string }) {
 
         {collapsed && (
           <li className="flex shrink-0 items-center">
-            <DropdownMenu.Root>
-              <DropdownMenu.Trigger
+            <DropdownMenu>
+              <DropdownMenuTrigger
                 className="rounded-md px-1 py-1 text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
                 aria-label={`Show ${hidden.length} hidden folders`}
               >
                 <MoreHorizontal className="size-4" />
-              </DropdownMenu.Trigger>
-              <DropdownMenu.Portal>
-                <DropdownMenu.Content className={menuContentClass} align="start">
-                  {hidden.map((crumb) => (
-                    <DropdownMenu.Item key={crumb.path} className={menuItemClass} onSelect={() => void handle.navigate(crumb.path)}>
-                      {crumb.name}
-                    </DropdownMenu.Item>
-                  ))}
-                </DropdownMenu.Content>
-              </DropdownMenu.Portal>
-            </DropdownMenu.Root>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="fsg-fb-surface" align="start">
+                {hidden.map((crumb) => (
+                  <DropdownMenuItem key={crumb.path} onSelect={() => void handle.navigate(crumb.path)}>
+                    {crumb.name}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             <ChevronRight className="size-3.5 shrink-0 text-muted-foreground/60" aria-hidden />
           </li>
         )}

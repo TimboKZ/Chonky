@@ -535,19 +535,34 @@ describe('FileBrowser — layout tokens', () => {
     renderBrowser()
     await page.getByRole('button', { name: 'New folder' }).click()
 
-    const box = dialog().element().getBoundingClientRect()
+    const element = dialog().element()
+    const box = element.getBoundingClientRect()
+    const styles = getComputedStyle(element)
+
     expect(box.width).toBeGreaterThan(300)
     // Taller than it is wide is the signature of the collapsed-max-width bug.
     expect(box.width).toBeGreaterThan(box.height)
+
+    // Width alone is not enough: when gui-bytes' own classes failed to compile the
+    // dialog kept a sane width but rendered static, unlayered, and below the fold.
+    expect(styles.position).toBe('fixed')
+    expect(Number(styles.zIndex)).toBeGreaterThan(0)
+    expect(box.top).toBeGreaterThanOrEqual(0)
+    expect(box.bottom).toBeLessThanOrEqual(window.innerHeight)
   })
 
   it('gives a toolbar tooltip a usable width', async () => {
     renderBrowser()
     await page.getByRole('radio', { name: 'List view' }).hover()
 
-    const tip = page.getByRole('tooltip')
-    await expect.element(tip).toBeVisible()
-    const box = tip.element().getBoundingClientRect()
+    // Radix renders a 1x1 visually-hidden duplicate that also carries
+    // role="tooltip", so measure the painted content by its slot instead.
+    await expect.element(page.getByText('List view').first()).toBeVisible()
+    const content = document.querySelector('[data-slot="tooltip-content"]')
+    expect(content).not.toBeNull()
+
+    const box = content!.getBoundingClientRect()
     expect(box.width).toBeGreaterThan(box.height)
+    expect(box.width).toBeGreaterThan(50)
   })
 })

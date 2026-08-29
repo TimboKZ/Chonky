@@ -1,6 +1,6 @@
 # @fsg/file-browser
 
-A file browser component for React, built on the FSG design tokens.
+A file browser component for React, built out of [`@fsg/gui-bytes`](https://github.com/facilitysolutionsgroup/gui-bytes).
 
 This is the FSG rebuild of [Chonky](https://chonky.io/), whose upstream project is
 no longer maintained. It keeps Chonky's conceptual model — selectable entries,
@@ -8,37 +8,51 @@ switchable views, a pluggable file-action system — and replaces the implementa
 Material-UI v4, react-jss, Redux Toolkit, react-dnd, react-window and react-intl are
 all gone.
 
+Every control it renders — buttons, dialogs, inputs, tooltips, menus — is a real
+gui-bytes component, so it looks and behaves like the rest of an FSG app by
+construction rather than by imitation.
+
 ```bash
-pnpm add @fsg/file-browser
+pnpm add @fsg/file-browser @fsg/gui-bytes
 ```
+
+Most FSG apps want the ready-wired entry, which brings the file-storage adapter,
+`sonner` notifications, and the HEIC and image-optimization upload pass:
+
+```tsx
+import { FileBrowser } from '@fsg/file-browser/fsg'
+
+<FileBrowser entityId={jobId} apiConfig={{ baseUrl, area: 'jobs' }} title={`Job ${jobId}`} />
+```
+
+Use the core component when you have your own backend:
 
 ```tsx
 import { FileBrowser } from '@fsg/file-browser'
-import { createFsgAdapter } from '@fsg/file-browser/adapters/fsg'
 
-const adapter = createFsgAdapter({ baseUrl: import.meta.env.VITE_API_URL, area: 'jobs' })
-
-<FileBrowser adapter={adapter} rootPath={`jobs/${jobId}`} rootLabel={`Job ${jobId}`} />
+<FileBrowser adapter={myAdapter} rootPath="projects/42" rootLabel="Project 42" />
 ```
 
 ## Styles
 
-The package ships utility CSS that resolves against the shadcn token set. In an FSG
-app those tokens already exist:
+`@fsg/gui-bytes` supplies the tokens, the fonts, and the base reset. Import its
+stylesheet once, as you already do:
 
 ```ts
-import '@fsg/gui-bytes/styles'   // defines --background, --primary, --radius, …
+import '@fsg/gui-bytes/styles'
 ```
 
-Outside one, import the bundled fallback palette instead:
-
-```ts
-import '@fsg/file-browser/tokens'
-```
-
-Import **one or the other**, never both — whichever lands last in the cascade wins.
+That is the only stylesheet needed — this package's own CSS is injected on import.
 Theming follows the `.dark` / `.dracula` class on the root element, so it picks up
 `next-themes` (or anything else that sets that class) with no extra wiring.
+
+## Dependency direction
+
+`@fsg/file-browser` depends on `@fsg/gui-bytes`, never the reverse. gui-bytes is the
+design system; this is one of its consumers. Its meetings entry declares this package
+as an *optional* peer for the attachments tab, and the imports here deliberately
+target `@fsg/gui-bytes/components/ui` — which imports nothing from meetings or the
+file browser — so the module graph stays acyclic.
 
 ## Adapters
 
@@ -67,7 +81,7 @@ Three come with the package:
 
 | Adapter | Import | Use |
 | --- | --- | --- |
-| `createFsgAdapter` | `@fsg/file-browser/adapters/fsg` | The FSG file-storage v2 service |
+| `createFsgAdapter` | `@fsg/file-browser/adapters/fsg` | The FSG file-storage v2 service (already wired by `/fsg`) |
 | `createMemoryAdapter` | `@fsg/file-browser` | Stories, tests, prototypes |
 | compat | `@fsg/file-browser/chonky-compat` | Migrating an app off Chonky |
 
@@ -249,3 +263,6 @@ pnpm build
 ## License
 
 MIT. A derivative work of Chonky, © 2020 Tim Kuzhagaliyev — see [NOTICE](./NOTICE).
+
+Note that the package now depends on `@fsg/gui-bytes`, which is private, so it is no
+longer independently publishable outside FSG.

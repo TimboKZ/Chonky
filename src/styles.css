@@ -2,15 +2,14 @@
  * @fsg/file-browser — style entry.
  *
  * This file declares the *shape* of the design system (which utility names exist
- * and which custom property each resolves to). It deliberately declares no token
- * *values*: `@theme inline` substitutes the `var(--…)` reference straight into the
- * compiled utility, so `bg-background` emits `background-color: var(--background)`
- * and picks up whatever the host app has set. In an FSG app that is
- * `@fsg/gui-bytes/styles`; standalone consumers (and this package's own Storybook)
- * import `@fsg/file-browser/tokens` for a default palette.
+ * and which custom property each resolves to) so Tailwind can compile this
+ * package's own class names. It declares no token *values*: `@theme inline`
+ * substitutes the `var(--…)` reference straight into the compiled utility, so
+ * `bg-background` emits `background-color: var(--background)` and resolves against
+ * whatever `@fsg/gui-bytes/styles` has set.
  *
- * The token names are a subset of gui-bytes' shadcn token set, so the two stay in
- * lockstep without this package importing anything from gui-bytes.
+ * The names are a subset of gui-bytes' shadcn token set. They have to agree — see
+ * the max-width note below for what happens when they quietly don't.
  */
 
 /*
