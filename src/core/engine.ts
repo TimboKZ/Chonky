@@ -289,9 +289,19 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
     [state.entries, state.search, state.showHidden, state.sortKey, state.sortDirection],
   )
 
+  const visibleRef = useRef(visible)
+  visibleRef.current = visible
+
   const selection = useMemo(() => selectedEntries(visible, state.selection), [visible, state.selection])
 
+  // `selection` is a fresh array on every reload, so notifying on its identity would
+  // fire the callback after every refresh even when nothing was selected or
+  // deselected. Compare the ids instead.
+  const lastSelectionKey = useRef<string | null>(null)
   useEffect(() => {
+    const key = selection.map((entry) => entry.id).join('\u0000')
+    if (lastSelectionKey.current === key) return
+    lastSelectionKey.current = key
     optionsRef.current.onSelectionChange?.(selection)
   }, [selection])
 
@@ -398,7 +408,10 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
           focusedId: focusedId !== undefined ? focusedId : current.focusedId,
         })),
       setFocus: (focusedId) => store.set({ focusedId }),
-      selectAll: () => store.set({ selection: new Set(visible.map((entry) => entry.id)) }),
+      // Reads the visible list through a ref: keeping it out of the memo's deps is
+      // what makes `handle` stable, and an unstable handle would churn the ref an
+      // app holds and re-fire every memo keyed on it whenever the listing changed.
+      selectAll: () => store.set({ selection: new Set(visibleRef.current.map((entry) => entry.id)) }),
       clearSelection: () => store.set({ selection: new Set<string>(), anchorId: null }),
       setViewMode: (viewMode: ViewMode) => store.set({ viewMode }),
       setDensity: (nextDensity: Density) => store.set({ density: nextDensity }),
@@ -415,7 +428,7 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
       confirm,
       notify,
     }),
-    [store, navigate, open, refresh, rootPath, visible, upload, prompt, confirm, notify],
+    [store, navigate, open, refresh, rootPath, upload, prompt, confirm, notify],
   )
   handleRef.current = handle
 

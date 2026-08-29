@@ -114,6 +114,21 @@ describe('FileBrowser — selection', () => {
     await expect.element(page.getByText('2 folders · 3 files')).toBeVisible()
   })
 
+  it('does not re-report an unchanged selection when the folder reloads', async () => {
+    const onSelectionChange = vi.fn()
+    renderBrowser({ onSelectionChange })
+    await option('notes.txt').click()
+    await vi.waitFor(() => expect(onSelectionChange).toHaveBeenCalled())
+
+    const callsAfterSelect = onSelectionChange.mock.calls.length
+    await page.getByRole('button', { name: 'Refresh' }).click()
+    await expect.element(option('notes.txt')).toHaveAttribute('aria-selected', 'true')
+
+    // A reload rebuilds the entry array, so notifying on its identity would fire the
+    // callback again even though the user's selection never changed.
+    expect(onSelectionChange.mock.calls.length).toBe(callsAfterSelect)
+  })
+
   it('reports the selection to the host app', async () => {
     const onSelectionChange = vi.fn()
     renderBrowser({ onSelectionChange })
@@ -256,6 +271,28 @@ describe('FileBrowser — views and search', () => {
 
     await header.click()
     await expect.element(page.getByRole('columnheader', { name: /Name/ })).toHaveAttribute('aria-sort', 'ascending')
+  })
+
+  it('resizes a details column in the direction the handle is dragged', async () => {
+    renderBrowser({ initialViewMode: 'details' })
+    const header = page.getByRole('columnheader', { name: /Size/ })
+    await expect.element(header).toBeVisible()
+
+    const before = header.element().getBoundingClientRect().width
+    const handle = page.getByRole('separator', { name: 'Resize Size column' })
+    const box = handle.element().getBoundingClientRect()
+
+    // Dragging the Name/Size boundary to the right gives the space to Name, so the
+    // Size column gets narrower — the opposite would move the boundary left while
+    // the pointer went right.
+    await userEvent.dragAndDrop(handle, page.getByRole('columnheader', { name: /Modified/ }), {
+      sourcePosition: { x: box.width / 2, y: box.height / 2 },
+      targetPosition: { x: 60, y: 8 },
+    })
+
+    await vi.waitFor(() => {
+      expect(header.element().getBoundingClientRect().width).toBeLessThan(before)
+    })
   })
 
   it('filters the listing as the user types', async () => {

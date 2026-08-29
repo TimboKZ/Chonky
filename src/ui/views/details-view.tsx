@@ -79,7 +79,10 @@ export function DetailsView({ entries, interaction, scrollRef, columns = default
     const startWidth = header?.getBoundingClientRect().width ?? MIN_COLUMN_WIDTH
 
     const onMove = (move: PointerEvent) => {
-      setWidths((current) => ({ ...current, [columnId]: Math.max(MIN_COLUMN_WIDTH, startWidth + (move.clientX - startX)) }))
+      // The handle sits on the column's LEFT edge, so it drags the boundary this
+      // column shares with the flexible Name column. Dragging right widens Name and
+      // narrows this one — hence minus, not plus.
+      setWidths((current) => ({ ...current, [columnId]: Math.max(MIN_COLUMN_WIDTH, startWidth - (move.clientX - startX)) }))
     }
     const onUp = () => {
       window.removeEventListener('pointermove', onMove)
