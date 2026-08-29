@@ -140,7 +140,7 @@ export function FilePicker({
       }}
       onDrop={(event) => void onDrop(event)}
       className={cn(
-        'flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed p-6 text-center transition-all',
+        'fsg-fb-surface flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed p-6 text-center transition-all',
         'focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
         dragActive ? 'scale-[1.01] border-primary bg-primary/10' : 'border-border hover:border-muted-foreground hover:bg-muted',
         (disabled || uploading) && 'pointer-events-none opacity-60',

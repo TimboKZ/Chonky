@@ -1,4 +1,4 @@
-import { useFileBrowserContext } from '../core/context'
+import { useOptionalFileBrowserContext } from '../core/context'
 import { Button } from '../ui/primitives/button'
 import { Spinner } from '../ui/primitives/progress'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/primitives/dialog'
@@ -6,6 +6,7 @@ import { getPreviewStrategy } from './registry'
 import { useEntryContent } from './use-entry-content'
 import { DocxViewer, XlsxViewer } from './lazy-viewers'
 import type { FileEntry } from '../core/types'
+import type { FileSystemAdapter } from '../adapter/types'
 
 /** Strategies worth a full-screen surface: documents and spreadsheets are unreadable
  * in a 320px side panel. */
@@ -15,6 +16,11 @@ export interface FileViewerDialogProps {
   entry: FileEntry | null
   open: boolean
   onOpenChange: (open: boolean) => void
+  /**
+   * Backend to read from. Required when the dialog is rendered on its own; inside a
+   * `<FileBrowser>` it defaults to that browser's adapter.
+   */
+  adapter?: FileSystemAdapter
   /**
    * Replaces the built-in spreadsheet renderer. FSG apps pass a renderer backed by
    * gui-bytes' AG Grid, which brings filtering, column tools, and CSV export that
@@ -27,13 +33,14 @@ export interface FileViewerDialogProps {
  * Full-screen viewer for the formats that need room. Returns null for anything the
  * side panel already handles well, so it can be rendered unconditionally.
  */
-export function FileViewerDialog({ entry, open, onOpenChange, renderSpreadsheet }: FileViewerDialogProps) {
-  const { adapter } = useFileBrowserContext()
+export function FileViewerDialog({ entry, open, onOpenChange, adapter: adapterProp, renderSpreadsheet }: FileViewerDialogProps) {
+  const engine = useOptionalFileBrowserContext()
+  const adapter = adapterProp ?? engine?.adapter
   const strategy = entry ? getPreviewStrategy(entry) : 'none'
-  const supported = entry !== null && FULLSCREEN_STRATEGIES.has(strategy)
+  const supported = entry !== null && adapter !== undefined && FULLSCREEN_STRATEGIES.has(strategy)
 
   // The hook must run on every render — bail out after it, not before.
-  const { binary, loading, error } = useEntryContent(supported && open ? entry : null, strategy, adapter)
+  const { binary, loading, error } = useEntryContent(supported && open ? entry : null, strategy, adapter as FileSystemAdapter)
 
   if (!supported) return null
 

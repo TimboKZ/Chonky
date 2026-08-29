@@ -26,7 +26,7 @@ export type { DetailsColumn } from './ui/views/details-view'
 // ── Engine ────────────────────────────────────────────────────────────────────
 export { useFileBrowser } from './core/engine'
 export type { FileBrowserEngine, UseFileBrowserOptions } from './core/engine'
-export { FileBrowserProvider, useFileBrowserContext } from './core/context'
+export { FileBrowserProvider, useFileBrowserContext, useOptionalFileBrowserContext } from './core/context'
 export { useEntryInteraction } from './ui/use-entry-interaction'
 
 // ── Actions ───────────────────────────────────────────────────────────────────

@@ -79,6 +79,20 @@ export interface UseFileBrowserOptions {
   notify?: NotificationAdapter
   /** Transforms files before upload — HEIC decode, image downscale. */
   transformUpload?: (files: File[]) => Promise<{ files: File[]; cancelled?: boolean }>
+  /**
+   * Keep the original after a manual "Convert to JPG", instead of removing it.
+   *
+   * Off by default: leaving both means the folder now holds the same photo twice,
+   * and on a backend that archives rather than erases (FSG's does) the original is
+   * recoverable anyway.
+   * @default false
+   */
+  heicKeepOriginal?: boolean
+  /**
+   * Override the HEIC → JPEG converter. Mainly for tests and Storybook, which would
+   * otherwise download the libheif WASM bundle.
+   */
+  heicConverter?: (bytes: Uint8Array, quality?: number) => Promise<Uint8Array>
 }
 
 export interface DialogRequest {

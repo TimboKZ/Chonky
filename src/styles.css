@@ -13,7 +13,18 @@
  * lockstep without this package importing anything from gui-bytes.
  */
 
-@import 'tailwindcss';
+/*
+ * Tailwind's theme and utilities, but deliberately NOT its preflight.
+ *
+ * This stylesheet is injected at runtime by the library build, which puts it after
+ * the host app's own stylesheet in the cascade — a preflight landing there would
+ * silently re-set every base element in an app that already has one. Instead the
+ * handful of resets these components actually rely on are scoped below, so the
+ * browser looks right in an app with Tailwind, an app without it, and standalone.
+ */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
 
 @source './**/*.{ts,tsx}';
 
@@ -95,6 +106,62 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: calc(var(--radius) + 2px);
   --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  /*
+   * Scoped reset, standing in for preflight.
+   *
+   * `.fsg-fb-surface` is on every portalled surface (dialogs, menus, tooltips),
+   * which Radix renders into document.body — outside `.fsg-file-browser` — so both
+   * roots have to be named. `:where()` keeps specificity at zero, so a consuming
+   * app's own rules still win without needing `!important`.
+   */
+  :where(.fsg-file-browser, .fsg-fb-surface),
+  :where(.fsg-file-browser, .fsg-fb-surface) *,
+  :where(.fsg-file-browser, .fsg-fb-surface) *::before,
+  :where(.fsg-file-browser, .fsg-fb-surface) *::after {
+    box-sizing: border-box;
+    border: 0 solid;
+    margin: 0;
+    padding: 0;
+  }
+
+  :where(.fsg-file-browser, .fsg-fb-surface) {
+    -webkit-font-smoothing: antialiased;
+    font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+
+  /* Form controls do not inherit typography from their ancestor by default. */
+  :where(.fsg-file-browser, .fsg-fb-surface) :is(button, input, select, textarea) {
+    font: inherit;
+    color: inherit;
+    background: transparent;
+  }
+
+  :where(.fsg-file-browser, .fsg-fb-surface) button {
+    cursor: pointer;
+  }
+
+  :where(.fsg-file-browser, .fsg-fb-surface) :is(ul, ol) {
+    list-style: none;
+  }
+
+  :where(.fsg-file-browser, .fsg-fb-surface) :is(img, svg, video, canvas, iframe) {
+    display: block;
+    max-width: 100%;
+  }
+
+  :where(.fsg-file-browser, .fsg-fb-surface) :is(h1, h2, h3, h4, p) {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  :where(.fsg-file-browser, .fsg-fb-surface) a {
+    color: inherit;
+    text-decoration: inherit;
+  }
 }
 
 @layer components {

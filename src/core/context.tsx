@@ -17,3 +17,12 @@ export function useFileBrowserContext(): FileBrowserEngine {
   if (!engine) throw new Error('useFileBrowserContext must be used inside <FileBrowser>')
   return engine
 }
+
+/**
+ * The engine if there is one, `null` otherwise. For components that work both
+ * inside a browser and on their own — the preview panel is the main one, since an
+ * app may render it on a standalone preview page.
+ */
+export function useOptionalFileBrowserContext(): FileBrowserEngine | null {
+  return useContext(FileBrowserContext)
+}

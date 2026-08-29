@@ -1,2 +1,4 @@
-/* Storybook runs the package standalone, with no host app to define tokens. */
+/* Storybook runs the package standalone, with no host app to define tokens or a
+ * base reset — the library ships neither, deliberately (see src/styles.css). */
+@import 'tailwindcss/preflight.css' layer(base);
 @import '../src/tokens.css';

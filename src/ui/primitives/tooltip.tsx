@@ -22,7 +22,8 @@ export function Tooltip({
           side={side}
           sideOffset={6}
           className={cn(
-            'z-50 max-w-xs rounded-md bg-foreground px-2 py-1 text-xs text-background shadow-md',
+            // fsg-fb-surface: portalled to document.body — see styles.css.
+            'fsg-fb-surface z-50 max-w-xs rounded-md bg-foreground px-2 py-1 text-xs text-background shadow-md',
             'data-[state=delayed-open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=delayed-open]:fade-in-0',
           )}
         >

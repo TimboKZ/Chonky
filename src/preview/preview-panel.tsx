@@ -7,7 +7,7 @@ import { getFileKind, getKindLabel } from '../util/mime'
 import { FileTypeIcon } from '../ui/file-icon'
 import { Button } from '../ui/primitives/button'
 import { Spinner } from '../ui/primitives/progress'
-import { useFileBrowserContext } from '../core/context'
+import { useOptionalFileBrowserContext } from '../core/context'
 import { getPreviewStrategy } from './registry'
 import { useEntryContent } from './use-entry-content'
 import { CsvViewer, DocxViewer, EmlViewer, HtmlViewer, StlViewer, XlsxViewer } from './lazy-viewers'
@@ -16,32 +16,45 @@ import type { FileSystemAdapter } from '../adapter/types'
 
 export interface FilePreviewPanelProps {
   className?: string
-  /** Entry to preview. Defaults to whatever the browser has selected. */
+  /** Entry to preview. Defaults to whatever the enclosing browser has selected. */
   entry?: FileEntry | null
+  /**
+   * Backend to read from. Required when the panel is rendered on its own; inside a
+   * `<FileBrowser>` it defaults to that browser's adapter.
+   */
+  adapter?: FileSystemAdapter
   onClose?: () => void
 }
 
 /**
  * The side panel: metadata header plus an inline preview of the selected file.
  *
- * Rendered inside a `<FileBrowser>`, it follows the selection on its own. Pass
- * `entry` to drive it from outside — a standalone preview page, say.
+ * Inside a `<FileBrowser>` it follows the selection by itself. It also stands alone
+ * — on a dedicated preview page, or beside something that is not a file browser —
+ * given an `entry` and an `adapter`.
  */
-export function FilePreviewPanel({ className, entry: entryProp, onClose }: FilePreviewPanelProps) {
-  const { previewEntry, selection, adapter, setPreviewEntry, setDetailsOpen } = useFileBrowserContext()
-  const entry = entryProp !== undefined ? entryProp : (previewEntry ?? selection.find((candidate) => !candidate.isDir) ?? null)
+export function FilePreviewPanel({ className, entry: entryProp, adapter: adapterProp, onClose }: FilePreviewPanelProps) {
+  const engine = useOptionalFileBrowserContext()
+  const adapter = adapterProp ?? engine?.adapter
+
+  const entry = entryProp !== undefined ? entryProp : (engine?.previewEntry ?? engine?.selection.find((candidate) => !candidate.isDir) ?? null)
 
   const close =
     onClose ??
     (() => {
-      setPreviewEntry(null)
-      setDetailsOpen(false)
+      engine?.setPreviewEntry(null)
+      engine?.setDetailsOpen(false)
     })
+
+  if (!adapter) {
+    throw new Error('FilePreviewPanel needs an `adapter` prop when rendered outside a <FileBrowser>')
+  }
 
   return (
     <aside
       aria-label="File details"
-      className={cn('flex w-80 shrink-0 flex-col border-l border-border bg-card', className)}
+      // fsg-fb-surface: the panel is also rendered standalone, outside a browser root.
+      className={cn('fsg-fb-surface flex w-80 shrink-0 flex-col border-l border-border bg-card', className)}
       // Clicks inside the panel must not reach the listing's clear-selection handler.
       onClick={(event) => event.stopPropagation()}
     >
