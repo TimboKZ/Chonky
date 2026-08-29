@@ -1,0 +1,152 @@
+/*
+ * @fsg/file-browser — default token values.
+ *
+ * A standalone fallback palette, mirroring @fsg/gui-bytes' shadcn tokens so the
+ * component looks identical in and out of an FSG app. FSG apps should NOT import
+ * this: `@fsg/gui-bytes/styles` already defines every token here, and loading both
+ * means whichever lands last in the cascade wins. Import it only when using this
+ * package on its own (or in this package's Storybook).
+ */
+
+:root {
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  --radius: 0.625rem;
+
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(224 71% 4%);
+  --hover-background: var(--gray-50);
+  --card: hsl(0 0% 100%);
+  --card-foreground: var(--foreground);
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+  --primary: #1d4fd7;
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(220 14% 96%);
+  --secondary-foreground: hsl(221 39% 11%);
+  --muted: hsl(220 14% 96%);
+  --muted-foreground: hsl(220 9% 46%);
+  --accent: var(--gray-200);
+  --accent-foreground: hsl(221 39% 11%);
+  --destructive: hsl(357 100% 45%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(220 13% 91%);
+  --input: var(--gray-300);
+  --ring: var(--primary);
+  --link: var(--blue);
+
+  --sidebar: var(--gray-50);
+  --sidebar-foreground: hsl(229 84% 5%);
+  --sidebar-accent: hsl(214 95% 93%);
+  --sidebar-accent-foreground: var(--primary);
+  --sidebar-border: var(--border);
+
+  --success: hsl(142 71% 25%);
+  --success-bg: hsl(142 76% 94%);
+  --info: hsl(221 83% 20%);
+  --info-bg: hsl(221 91% 95%);
+  --warning: hsl(38 92% 30%);
+  --warning-bg: hsl(38 100% 95%);
+  --danger: hsl(0 72% 38%);
+  --danger-bg: hsl(0 93% 94%);
+
+  --blue: hsl(221 83% 53%);
+  --green: hsl(142 71% 45%);
+  --red: hsl(0 72% 51%);
+  --yellow: hsl(38 92% 50%);
+  --orange: hsl(25 95% 53%);
+  --purple: hsl(271 91% 65%);
+}
+
+.dark {
+  --gray-50: hsl(215 28% 17%);
+  --gray-100: hsl(217 19% 27%);
+  --gray-200: hsl(215 14% 34%);
+  --gray-300: hsl(218 11% 65%);
+  --gray-400: hsl(217 12% 75%);
+  --gray-500: hsl(218 11% 65%);
+  --gray-600: hsl(216 12% 84%);
+  --gray-700: hsl(220 13% 91%);
+  --gray-800: hsl(220 14% 96%);
+  --gray-900: hsl(210 20% 98%);
+
+  --background: hsl(224 71% 4%);
+  --foreground: hsl(210 20% 98%);
+  --card: hsl(221 39% 11%);
+  --card-foreground: var(--foreground);
+  --popover: var(--gray-50);
+  --popover-foreground: var(--foreground);
+  --primary: #6d93ec;
+  --primary-foreground: hsl(224 71% 4%);
+  --secondary: var(--gray-50);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--gray-50);
+  --muted-foreground: var(--gray-300);
+  --accent: hsl(217 19% 20%);
+  --accent-foreground: hsl(210 20% 98%);
+  --border: var(--gray-100);
+  --input: var(--gray-100);
+  --ring: hsl(220 9% 46%);
+
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-accent: var(--gray-50);
+  --sidebar-accent-foreground: var(--primary);
+  --sidebar-border: var(--border);
+}
+
+/* Dracula inherits the dark palette and overrides only its ground colours, which is
+ * how gui-bytes models it — every `dark:` utility already matches `.dracula`. */
+.dracula {
+  --gray-50: hsl(231 15% 22%);
+  --gray-100: hsl(232 14% 31%);
+  --gray-200: hsl(230 14% 38%);
+  --gray-300: hsl(231 11% 68%);
+  --gray-400: hsl(228 12% 78%);
+  --gray-500: hsl(231 11% 68%);
+  --gray-600: hsl(226 12% 86%);
+  --gray-700: hsl(229 13% 92%);
+  --gray-800: hsl(230 14% 97%);
+  --gray-900: hsl(60 30% 96%);
+
+  --background: hsl(231 15% 18%);
+  --foreground: hsl(60 30% 96%);
+  --card: hsl(232 14% 24%);
+  --card-foreground: var(--foreground);
+  --popover: var(--gray-50);
+  --popover-foreground: var(--foreground);
+  --primary: hsl(265 89% 78%);
+  --primary-foreground: hsl(231 15% 18%);
+  --secondary: var(--gray-50);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--gray-50);
+  --muted-foreground: var(--gray-300);
+  --accent: hsl(232 14% 28%);
+  --accent-foreground: var(--foreground);
+  --destructive: hsl(0 100% 67%);
+  --border: var(--gray-100);
+  --input: var(--gray-100);
+  --ring: hsl(265 89% 78%);
+
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-accent: var(--gray-50);
+  --sidebar-accent-foreground: var(--primary);
+  --sidebar-border: var(--border);
+
+  --green: hsl(135 94% 65%);
+  --red: hsl(0 100% 67%);
+  --yellow: hsl(65 92% 76%);
+  --orange: hsl(31 100% 71%);
+  --purple: hsl(265 89% 78%);
+  --blue: hsl(191 97% 77%);
+}

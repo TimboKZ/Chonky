@@ -1,0 +1,128 @@
+/*
+ * @fsg/file-browser — style entry.
+ *
+ * This file declares the *shape* of the design system (which utility names exist
+ * and which custom property each resolves to). It deliberately declares no token
+ * *values*: `@theme inline` substitutes the `var(--…)` reference straight into the
+ * compiled utility, so `bg-background` emits `background-color: var(--background)`
+ * and picks up whatever the host app has set. In an FSG app that is
+ * `@fsg/gui-bytes/styles`; standalone consumers (and this package's own Storybook)
+ * import `@fsg/file-browser/tokens` for a default palette.
+ *
+ * The token names are a subset of gui-bytes' shadcn token set, so the two stay in
+ * lockstep without this package importing anything from gui-bytes.
+ */
+
+@import 'tailwindcss';
+
+@source './**/*.{ts,tsx}';
+
+/* Resolve `dark:` against the theme class rather than the OS setting — the FSG
+ * apps are class-themed (`.dark` / `.dracula` on the root element). Left at
+ * Tailwind's `prefers-color-scheme` default, a `dark:` utility and a token-driven
+ * colour would disagree whenever the OS and the in-app theme differ. `.dracula` is
+ * a dark theme, so it matches `dark:` too. */
+@custom-variant dark (&:where(.dark, .dark *, .dracula, .dracula *));
+
+@theme {
+  --spacing-4xs: 0.125rem;
+  --spacing-3xs: 0.25rem;
+  --spacing-2xs: 0.375rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  --shadow-2xs: 0 1px 0 0 hsl(221 39% 11% / 0.05);
+  --shadow-xs: 0 1px 2px 0 hsl(221 39% 11% / 0.05);
+  --shadow-sm: 0 0 7px -3px rgba(17, 24, 39, 0.16), 0 3px 5px -4px rgba(17, 24, 39, 0.06);
+  --shadow-md: 0 4px 6px -1px hsl(221 39% 11% / 0.1), 0 2px 4px -2px hsl(221 39% 11% / 0.1);
+  --shadow-lg: 0 10px 15px -3px hsl(221 39% 11% / 0.1), 0 4px 6px -4px hsl(221 39% 11% / 0.1);
+  --shadow-xl: 0 20px 25px -5px hsl(221 39% 11% / 0.1), 0 8px 10px -6px hsl(221 39% 11% / 0.1);
+}
+
+@theme inline {
+  --font-sans: 'Barlow', sans-serif;
+  --font-mono: 'Courier New', monospace;
+
+  --color-background: var(--background);
+  --color-hover-background: var(--hover-background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-link: var(--link);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+
+  --color-blue: var(--blue);
+  --color-green: var(--green);
+  --color-red: var(--red);
+  --color-yellow: var(--yellow);
+  --color-orange: var(--orange);
+  --color-purple: var(--purple);
+
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer components {
+  /* The grid's tile track. Declared here rather than as an arbitrary-value utility
+   * so `--fsg-fb-tile` can be re-tuned per density without recompiling utilities. */
+  .fsg-fb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--fsg-fb-tile, 9.5rem), 1fr));
+    gap: var(--spacing-sm);
+  }
+
+  /* Drag feedback. `:where()` keeps specificity at 0 so a consumer's own class on
+   * the same element still wins without needing `!important`. */
+  :where(.fsg-fb-entry)[data-dragging='true'] {
+    opacity: 0.4;
+  }
+
+  :where(.fsg-fb-entry)[data-drop-target='true'] {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+  }
+
+  /* Native drag images are captured before the browser paints hover state; pinning
+   * the transform keeps the ghost aligned with the element the user grabbed. */
+  .fsg-fb-drag-ghost {
+    position: fixed;
+    top: -1000px;
+    left: -1000px;
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,2 @@
+/* Storybook runs the package standalone, with no host app to define tokens. */
+@import '../src/tokens.css';

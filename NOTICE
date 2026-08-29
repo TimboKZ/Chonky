@@ -1,0 +1,12 @@
+@fsg/file-browser
+Copyright (c) 2026 Facility Solutions Group
+
+This product is a derivative work of Chonky (https://chonky.io/),
+Copyright (c) 2020 Tim Kuzhagaliyev, released under the MIT License.
+
+Chonky's original source is preserved in this repository's git history at tag
+v2.3.2 and remains available on npm as the `chonky` package. The v1 rebuild
+shares Chonky's conceptual model — a file browser with selectable entries,
+switchable views, and a pluggable file-action system — while replacing the
+implementation (Material-UI v4, react-jss, Redux, react-dnd, react-window,
+react-intl) with a dependency-light one built on the FSG design tokens.
