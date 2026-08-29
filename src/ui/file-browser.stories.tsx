@@ -274,18 +274,19 @@ export const LargeFolder: Story = {
  * details views truncate in the middle instead, and the grid moves the extension
  * onto the icon and middle-truncates the stem to fit the tile.
  */
+const SIMILAR_NAMES = [
+  'Site Survey v1 FINAL.pdf',
+  'Site Survey v1 FINAL-signed.pdf',
+  'Site Survey v1 FINAL-signed-rev2.pdf',
+  'Site Survey v1 FINAL-signed-rev3.pdf',
+  'daily-backups.tar.gz',
+  'Q3 Reconciliation (draft, do not circulate).xlsx',
+]
+
 export const SimilarNames: Story = {
   render: function Render() {
-    const names = [
-      'Site Survey v1 FINAL.pdf',
-      'Site Survey v1 FINAL-signed.pdf',
-      'Site Survey v1 FINAL-signed-rev2.pdf',
-      'Site Survey v1 FINAL-signed-rev3.pdf',
-      'daily-backups.tar.gz',
-      'Q3 Reconciliation (draft, do not circulate).xlsx',
-    ]
     const adapter = useMemo(
-      () => createMemoryAdapter({ tree: names.map((name) => ({ name, isDir: false, size: 412_000, modifiedAt: ago(3) })) }),
+      () => createMemoryAdapter({ tree: SIMILAR_NAMES.map((name) => ({ name, isDir: false, size: 412_000, modifiedAt: ago(3) })) }),
       [],
     )
     return (
