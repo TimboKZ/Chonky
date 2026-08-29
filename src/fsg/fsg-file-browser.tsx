@@ -28,6 +28,12 @@ export interface FsgFileBrowserProps {
   setPreviewPanelOpen?: React.Dispatch<React.SetStateAction<boolean>>
   /** Initial view mode. `'icon'` is the grid of tiles. */
   initialViewMode?: 'icon' | 'list' | 'details'
+  /**
+   * Where a file's extension appears. `'badge'` holds it apart from the name so
+   * truncation cannot hide it; `'inline'` leaves it in the name string.
+   * @default 'badge'
+   */
+  extensionDisplay?: 'badge' | 'inline'
   showToolbar?: boolean
   /** Renders the preview panel beside the listing, driven by the selection. */
   showPreviewPanel?: boolean
@@ -113,6 +119,7 @@ export function FsgFileBrowser({
   setPreviewFile,
   setPreviewPanelOpen,
   initialViewMode = 'icon',
+  extensionDisplay = 'badge',
   showToolbar = true,
   showPreviewPanel = false,
   onSelectionChange,
@@ -221,6 +228,7 @@ export function FsgFileBrowser({
           path={controlledPath}
           onPathChange={urlIntegration ? onPathChange : undefined}
           initialViewMode={VIEW_MODES[initialViewMode]}
+          extensionDisplay={extensionDisplay}
           showToolbar={showToolbar}
           readOnly={readOnly}
           isEntryLocked={isEntryLocked}

@@ -6,7 +6,7 @@ import { formatBytes } from '../../util/bytes'
 import { getFileKind, getKindLabel } from '../../util/mime'
 import { formatDateTime } from '../format-date'
 import { Thumbnail } from '../thumbnail'
-import { TruncatedName } from '../truncated-name'
+import { EntryName } from '../entry-name'
 import { useFileBrowserContext } from '../../core/context'
 import { useCoarsePointer } from '../use-coarse-pointer'
 import type { EntryInteraction } from '../use-entry-interaction'
@@ -201,7 +201,7 @@ export function DetailsView({ entries, interaction, scrollRef, columns: allColum
                 >
                   {column.id === 'name' && <Thumbnail entry={entry} className="size-5 shrink-0 rounded-sm" iconClassName="size-4" />}
                   {column.id === 'name' ? (
-                    <TruncatedName name={entry.name} className="text-sm text-foreground" />
+                    <EntryName entry={entry} className="text-sm text-foreground" />
                   ) : (
                     <span className="truncate">{column.render(entry)}</span>
                   )}

@@ -323,6 +323,32 @@ export const NarrowContainer: Story = {
   },
 }
 
+/**
+ * `extensionDisplay="inline"` puts the extension back in the name string, for apps
+ * that would rather see `report.pdf` than `report` + a PDF badge. Truncation still
+ * happens in the middle, so the extension survives either way.
+ */
+export const ExtensionInline: Story = {
+  render: function Render() {
+    const adapter = useMemo(
+      () => createMemoryAdapter({ tree: SIMILAR_NAMES.map((name) => ({ name, isDir: false, size: 412_000, modifiedAt: ago(3) })) }),
+      [],
+    )
+    return (
+      <Frame>
+        <div className="flex h-full gap-4">
+          <div className="h-full min-w-0 flex-1">
+            <FileBrowser adapter={adapter} rootLabel="badge (default)" initialViewMode="list" persistKey={false} />
+          </div>
+          <div className="h-full min-w-0 flex-1">
+            <FileBrowser adapter={adapter} rootLabel="inline" initialViewMode="list" extensionDisplay="inline" persistKey={false} />
+          </div>
+        </div>
+      </Frame>
+    )
+  },
+}
+
 /** Mid-width, where the toolbar has its buttons back but the tree has not returned. */
 export const MediumContainer: Story = {
   render: function Render() {

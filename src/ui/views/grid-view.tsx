@@ -4,6 +4,7 @@ import { cn } from '../../util/cn'
 import { splitFileName, truncateMiddle } from '../../util/names'
 import { formatBytes } from '../../util/bytes'
 import { Thumbnail } from '../thumbnail'
+import { ExtensionBadge } from '../extension-badge'
 import { useFileBrowserContext } from '../../core/context'
 import type { EntryInteraction } from '../use-entry-interaction'
 import type { FileEntry } from '../../core/types'
@@ -106,11 +107,13 @@ function GridTile({
   interaction: EntryInteraction
   tile: TileSize
 }) {
+  const { extensionDisplay } = useFileBrowserContext()
   const { ref, ...props } = interaction.getEntryProps(entry, index)
 
   // Directories keep their whole name: a folder called `2024.backup` is not a
   // `.backup` file.
-  const { stem, extension } = entry.isDir ? { stem: entry.name, extension: '' } : splitFileName(entry.name)
+  const separate = extensionDisplay === 'badge' && !entry.isDir
+  const { stem, extension } = separate ? splitFileName(entry.name) : { stem: entry.name, extension: '' }
 
   /*
    * Two lines of tile is the budget. The clamp below would otherwise cut the end
@@ -140,18 +143,8 @@ function GridTile({
     >
       <div className={cn('relative w-full shrink-0', tile.thumb)}>
         <Thumbnail entry={entry} className="h-full w-full rounded-md bg-muted/60" iconClassName={tile.icon} />
-        {extension && (
-          <span
-            // The extension moves onto the icon so the name below can truncate with
-            // plain CSS. Leaving it in the string meant middle-truncating at a fixed
-            // character count to protect the tail, which had to be re-tuned every
-            // time the tile changed size.
-            aria-hidden
-            className="absolute bottom-1 right-1 max-w-[70%] truncate rounded border border-border/60 bg-background/85 px-1 text-[10px] font-semibold uppercase leading-4 tracking-wide text-muted-foreground"
-          >
-            {extension}
-          </span>
-        )}
+        {/* On the icon, so the name below can truncate without losing the type. */}
+        {extension && <ExtensionBadge extension={extension} className="absolute bottom-1 right-1 max-w-[70%]" />}
       </div>
       <div className="flex w-full min-w-0 flex-col">
         {/* break-words, not break-all: only hyphenate when a single token really is

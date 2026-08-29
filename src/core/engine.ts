@@ -68,6 +68,15 @@ export interface UseFileBrowserOptions {
   allowFolderDelete?: boolean
 
   initialViewMode?: ViewMode
+  /**
+   * Where a file's extension appears.
+   *
+   * `'badge'` holds it apart from the name — on the icon in the grid, beside the
+   * name in the row views — so the name can truncate without hiding what kind of
+   * file it is. `'inline'` leaves it in the name string.
+   * @default 'badge'
+   */
+  extensionDisplay?: 'badge' | 'inline'
   density?: Density
   /** Key under which view preferences persist. Defaults to the adapter's id. */
   persistKey?: string | false
@@ -111,6 +120,7 @@ export interface FileBrowserEngine {
   handle: FileBrowserHandle
   adapter: FileSystemAdapter
   readOnly: boolean
+  extensionDisplay: 'badge' | 'inline'
   /** Whether drag-to-move is live: the adapter can move, and nothing has disabled it. */
   dragAndDropEnabled: boolean
   dialog: DialogRequest | null
@@ -149,6 +159,7 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
     readOnly = false,
     allowFolderDelete = false,
     initialViewMode = 'grid',
+    extensionDisplay = 'badge',
     disableDragAndDrop = false,
     density,
     persistKey,
@@ -832,6 +843,7 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
     handle,
     adapter,
     readOnly,
+    extensionDisplay,
     dragAndDropEnabled: adapterCan.move(adapter) && !readOnly && !disableDragAndDrop,
     dialog,
     closeDialog,

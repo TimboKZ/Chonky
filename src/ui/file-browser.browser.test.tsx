@@ -725,11 +725,22 @@ describe('FileBrowser — telling similar names apart', () => {
     'Site Survey v1 FINAL-signed-rev3.pdf',
   ]
 
-  function renderVersions(width: number, viewMode: 'grid' | 'list' | 'details') {
+  function renderVersions(
+    width: number,
+    viewMode: 'grid' | 'list' | 'details',
+    extensionDisplay: 'badge' | 'inline' = 'badge',
+  ) {
     const adapter = createMemoryAdapter({ tree: VERSIONS.map((name) => ({ name, isDir: false, size: 4_100 })) })
     render(
       <div style={{ width, height: 560 }}>
-        <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} showSidebar={false} initialViewMode={viewMode} />
+        <FileBrowser
+          adapter={adapter}
+          rootLabel="Files"
+          persistKey={false}
+          showSidebar={false}
+          initialViewMode={viewMode}
+          extensionDisplay={extensionDisplay}
+        />
       </div>,
     )
   }
@@ -795,10 +806,11 @@ describe('FileBrowser — telling similar names apart', () => {
     renderVersions(300, 'list')
     const names = await paintedNames()
 
+    // The core property: four files, four readable rows.
     expect(new Set(names).size).toBe(VERSIONS.length)
-    // includes, not endsWith: the painted row also carries the size and date columns.
-    for (const suffix of ['FINAL.pdf', 'signed.pdf', 'rev2.pdf', 'rev3.pdf']) {
-      expect(names.some((name) => name.includes(suffix))).toBe(true)
+    // includes, not endsWith: the painted row also carries the size column.
+    for (const tail of ['signed', 'rev2', 'rev3']) {
+      expect(names.some((name) => name.includes(tail))).toBe(true)
     }
   })
 
@@ -807,7 +819,7 @@ describe('FileBrowser — telling similar names apart', () => {
     const names = await paintedNames()
 
     expect(new Set(names).size).toBe(VERSIONS.length)
-    expect(names.some((name) => name.includes('rev3.pdf'))).toBe(true)
+    expect(names.some((name) => name.includes('rev3'))).toBe(true)
   })
 
   it('keeps the distinguishing tail visible on a narrow grid tile', async () => {
@@ -825,11 +837,44 @@ describe('FileBrowser — telling similar names apart', () => {
     const adapter = createMemoryAdapter({ tree: [{ name: 'notes.txt', isDir: false, size: 12 }] })
     render(
       <div style={{ width: 620, height: 400 }}>
-        <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} showSidebar={false} initialViewMode="list" />
+        <FileBrowser
+          adapter={adapter}
+          rootLabel="Files"
+          persistKey={false}
+          showSidebar={false}
+          initialViewMode="list"
+          extensionDisplay="inline"
+        />
       </div>,
     )
     const names = await paintedNames()
     expect(names[0]).toContain('notes.txt')
     expect(names[0]).not.toContain('…')
+  })
+
+  it('holds the extension apart from the name in the row views', async () => {
+    renderVersions(600, 'list')
+    const names = await paintedNames()
+
+    // The badge carries the type; the name itself no longer ends in `.pdf`.
+    expect(names.some((name) => name.includes('Site Survey v1 FINAL'))).toBe(true)
+    expect(names.some((name) => name.toLowerCase().includes('pdf'))).toBe(true)
+    expect(names.every((name) => !name.includes('.pdf'))).toBe(true)
+  })
+
+  it('leaves the extension in the name when asked to', async () => {
+    renderVersions(600, 'list', 'inline')
+    const names = await paintedNames()
+
+    expect(names.some((name) => name.includes('Site Survey v1 FINAL.pdf'))).toBe(true)
+  })
+
+  it('still truncates in the middle with the extension inline', async () => {
+    // Turning the badge off must not turn end-truncation back on.
+    renderVersions(300, 'list', 'inline')
+    const names = await paintedNames()
+
+    expect(new Set(names).size).toBe(VERSIONS.length)
+    expect(names.some((name) => name.includes('rev3.pdf'))).toBe(true)
   })
 })

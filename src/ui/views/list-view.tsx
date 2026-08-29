@@ -2,7 +2,7 @@ import { useVirtualizer } from '@tanstack/react-virtual'
 import { cn } from '../../util/cn'
 import { formatBytes } from '../../util/bytes'
 import { Thumbnail } from '../thumbnail'
-import { TruncatedName } from '../truncated-name'
+import { EntryName } from '../entry-name'
 import { useFileBrowserContext } from '../../core/context'
 import { useCoarsePointer } from '../use-coarse-pointer'
 import { formatDate } from '../format-date'
@@ -55,7 +55,7 @@ export function ListView({ entries, interaction, scrollRef }: ListViewProps) {
               className={cn('shrink-0 rounded-sm', coarse ? 'size-7' : 'size-6')}
               iconClassName={state.density === 'compact' && !coarse ? 'size-4' : 'size-5'}
             />
-            <TruncatedName name={entry.name} className="min-w-0 flex-1 text-sm" />
+            <EntryName entry={entry} className="min-w-0 flex-1 text-sm" />
             <span className="w-24 shrink-0 text-right text-xs tabular-nums text-muted-foreground">
               {entry.isDir ? '' : formatBytes(entry.size)}
             </span>

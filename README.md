@@ -227,18 +227,24 @@ one, render `<FileBrowserRoot>` and compose them yourself:
 Names are never shortened in the data — `entry.name` is always the real name, and
 every mutation uses it. Shortening is a rendering concern, handled for you:
 
-- **Grid view** moves the extension onto a badge on the icon and shows the stem
-  below, clamped to two lines. Because the tail no longer carries anything
-  important, CSS does the shortening and it follows the tile width automatically.
-- **List and details** truncate in the *middle*, never at the end. End-truncation
-  makes versions of one document indistinguishable — `Site Survey v1 FINAL.pdf`
-  and `Site Survey v1 FINAL-signed-rev2.pdf` both render as `Site Survey v1 FIN…`,
+- **The extension is held apart from the name** — on the icon in the grid, beside
+  the name in the list and details views — so truncating a name can never hide
+  what kind of file it is. Set `extensionDisplay="inline"` to leave it in the
+  name string instead.
+- **Names truncate in the middle, never at the end.** End-truncation makes
+  versions of one document indistinguishable: `Site Survey v1 FINAL.pdf` and
+  `Site Survey v1 FINAL-signed-rev2.pdf` both render as `Site Survey v1 FIN…`,
   and the part that tells them apart is exactly the part it removes. The name is
   split into a head that may truncate and a tail that may not, so CSS does the
-  work and it adapts to any column width.
+  work and it adapts to any column width. This applies in both extension modes.
+- **Grid tiles** clamp the stem to two lines, middle-truncating first to a limit
+  taken from the tile width — so it tracks density and narrow listings on its own.
 
 The full name is always the element's `aria-label` and `title`, whatever the
 rendering does.
+
+`EntryName`, `ExtensionBadge` and `TruncatedName` are exported if you are building
+a custom row.
 
 `splitFileName` is exported if you need the same split elsewhere. It is aware of
 the cases `lastIndexOf('.')` gets wrong: `archive.tar.gz` splits as
