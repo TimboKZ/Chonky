@@ -91,7 +91,7 @@ function DevBrowser({ area, rootPath, baseUrl, identityServiceUrl, ...rest }: De
 
 function MissingConfig() {
   return (
-    <div className="fsg-fb-surface flex h-full flex-col items-center justify-center gap-2 rounded-lg border border-border bg-card p-8 text-center">
+    <div className="fsg-fb-surface flex h-full flex-col items-center justify-center gap-2 rounded-lg border border-border bg-background p-8 text-center">
       <p className="text-sm font-medium">Point this at an area first</p>
       <p className="max-w-lg text-xs text-muted-foreground">
         Set <code>VITE_FILE_STORAGE_AREA</code> in <code>.env.local</code> (copy <code>.env.example</code>), or type one into the

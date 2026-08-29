@@ -21,7 +21,9 @@ export function UploadQueue({ className }: { className?: string }) {
     <div
       role="status"
       aria-live="polite"
-      className={cn('border-t border-border bg-card px-3 py-2', className)}
+      // bg-background, not bg-card: gui-bytes leaves --card undefined in light mode,
+      // and this strip sits over the bottom of the listing.
+      className={cn('border-t border-border bg-background px-3 py-2', className)}
     >
       <div className="mb-1.5 flex items-center gap-2 text-xs">
         {failed > 0 ? (

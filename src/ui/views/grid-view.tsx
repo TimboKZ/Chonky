@@ -8,10 +8,25 @@ import { useFileBrowserContext } from '../../core/context'
 import type { EntryInteraction } from '../use-entry-interaction'
 import type { FileEntry } from '../../core/types'
 
-const TILE = {
+interface TileSize {
+  width: number
+  height: number
+  thumb: string
+  icon: string
+}
+
+const TILE: Record<'comfortable' | 'compact', TileSize> = {
   comfortable: { width: 152, height: 148, thumb: 'h-[84px]', icon: 'size-10' },
   compact: { width: 116, height: 112, thumb: 'h-[60px]', icon: 'size-7' },
-} as const
+}
+
+/**
+ * Narrow listings get a smaller tile so a phone shows three columns rather than
+ * two enormous ones. Keyed off the listing's width, not the viewport's, so a
+ * browser in a narrow panel behaves the same way.
+ */
+const NARROW_TILE: TileSize = { width: 108, height: 116, thumb: 'h-[60px]', icon: 'size-8' }
+const NARROW_LISTING = 420
 
 export interface GridViewProps {
   entries: FileEntry[]
@@ -22,7 +37,8 @@ export interface GridViewProps {
 
 export function GridView({ entries, interaction, scrollRef, onColumnsChange }: GridViewProps) {
   const { state } = useFileBrowserContext()
-  const tile = TILE[state.density]
+  const [narrow, setNarrow] = useState(false)
+  const tile = narrow ? NARROW_TILE : TILE[state.density]
   const [columns, setColumns] = useState(1)
 
   // Column count drives both the virtual row model and what ArrowDown means, so it
@@ -32,6 +48,7 @@ export function GridView({ entries, interaction, scrollRef, onColumnsChange }: G
     if (!element) return
 
     const measure = () => {
+      setNarrow(element.clientWidth < NARROW_LISTING)
       const width = element.clientWidth - 16
       const next = Math.max(1, Math.floor(width / tile.width))
       setColumns(next)
@@ -87,7 +104,7 @@ function GridTile({
   entry: FileEntry
   index: number
   interaction: EntryInteraction
-  tile: (typeof TILE)[keyof typeof TILE]
+  tile: TileSize
 }) {
   const { ref, ...props } = interaction.getEntryProps(entry, index)
 
@@ -109,7 +126,10 @@ function GridTile({
         iconClassName={tile.icon}
       />
       <div className="flex w-full min-w-0 flex-col">
-        <span className="line-clamp-2 break-all text-xs font-medium leading-tight">{truncateMiddle(entry.name, 34)}</span>
+        {/* break-words, not break-all: only hyphenate when a single token really is
+            too long, so "Cost Breakdown.xlsx" wraps at the space rather than as
+            "Cost Breakdow / n.xlsx". */}
+        <span className="line-clamp-2 break-words text-xs font-medium leading-tight">{truncateMiddle(entry.name, 34)}</span>
         {!entry.isDir && <span className="mt-0.5 text-[11px] text-muted-foreground">{formatBytes(entry.size)}</span>}
       </div>
     </div>

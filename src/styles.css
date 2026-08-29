@@ -209,4 +209,35 @@
     left: -1000px;
     pointer-events: none;
   }
+
+  /*
+   * Touch targets.
+   *
+   * A 32px icon button is a comfortable mouse target and a poor thumb target;
+   * the usual floor is ~44px. Applied by pointer type rather than by viewport
+   * width, because a small window on a laptop still has a mouse and a tablet in
+   * landscape still has a finger.
+   *
+   * Row heights are NOT handled here — the virtualizer positions rows absolutely
+   * at a height it is told in advance, so a min-height would desynchronise the
+   * measured and painted heights and rows would overlap. See `useCoarsePointer`.
+   */
+  @media (pointer: coarse) {
+    :where(.fsg-file-browser, .fsg-fb-surface) [data-slot='button'],
+    :where(.fsg-file-browser, .fsg-fb-surface) [role='menuitem'],
+    :where(.fsg-file-browser, .fsg-fb-surface) [role='menuitemcheckbox'] {
+      min-height: 2.75rem;
+    }
+
+    :where(.fsg-file-browser, .fsg-fb-surface) [data-slot='button'] {
+      min-width: 2.75rem;
+    }
+
+    /* Breadcrumbs are plain buttons, and the trail is the only way to navigate up
+     * once the folder tree is hidden. */
+    :where(.fsg-file-browser) nav[aria-label='Folder path'] button {
+      min-height: 2.5rem;
+      padding-inline: 0.5rem;
+    }
+  }
 }

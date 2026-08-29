@@ -222,6 +222,32 @@ one, render `<FileBrowserRoot>` and compose them yourself:
 
 `useFileBrowserContext()` gives any child the state, the selection, and the handle.
 
+## Responsive behaviour
+
+The browser is a **query container**, so its layout follows its own width rather
+than the window's. A browser in a 380px panel on a desktop behaves like a browser
+on a phone, because as far as it is concerned it is one — which is how gui-bytes'
+meetings view renders it.
+
+| Container width | Behaviour |
+| --- | --- |
+| < 576px | Primary actions fold into the overflow menu; grid switches to a smaller tile |
+| < 768px | Folder tree gives way to the breadcrumb trail; the preview panel covers the listing instead of sitting beside it |
+| < 780px | Details view drops the Type column |
+| < 500px | Details view drops the Modified column |
+| any | The Name column never collapses, and the listing never scrolls sideways |
+
+Touch is handled by pointer type, not width — a small window on a laptop still has
+a mouse, and a tablet in landscape still has a finger. On a coarse pointer, rows
+grow (52px in the list view, 48px in details) and controls take a 44px minimum.
+Row heights are set in JS rather than CSS because the virtualizer is told each
+row's height in advance; a `min-height` would desynchronise the two and rows would
+overlap.
+
+Right-click becomes a 700ms long-press on touch, which Radix handles. Drag-to-move
+is mouse-only — HTML5 drag events do not fire for touch — so cut and paste is the
+path on a phone.
+
 ## Keyboard and accessibility
 
 The listing is an ARIA listbox with roving tabindex, so Tab moves past it rather than

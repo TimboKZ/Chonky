@@ -20,7 +20,7 @@ function renderWithPanel(options: { servesContent?: boolean } = {}) {
   const adapter = createMemoryAdapter({ tree: tree(), servesContent: options.servesContent ?? true })
   render(
     <div style={{ height: 600, width: 1100 }}>
-      <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} aside={<FilePreviewPanel />} />
+      <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} aside={<FilePreviewPanel overlayWhenNarrow />} />
     </div>,
   )
 }
@@ -107,5 +107,66 @@ describe('Preview action gating', () => {
     await option('firmware.bin').click({ button: 'right' })
 
     await expect.element(page.getByRole('menuitem', { name: 'Preview' })).toBeDisabled()
+  })
+})
+
+describe('FilePreviewPanel — narrow layout', () => {
+  /** A browser embedded in a narrow box, the way meetings renders it. */
+  function renderNarrow(width: number) {
+    const adapter = createMemoryAdapter({ tree: tree() })
+    render(
+      <div style={{ width: 900, height: 600, padding: 8 }}>
+        <div style={{ width, height: 560 }}>
+          <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} aside={<FilePreviewPanel overlayWhenNarrow />} />
+        </div>
+      </div>,
+    )
+  }
+
+  it('stays out of the way until a file is chosen', async () => {
+    renderNarrow(380)
+    await expect.element(option('punch-list.csv')).toBeVisible()
+
+    // Queried through the DOM rather than a locator: the panel is present but
+    // display:none, and an element locator treats that as "not found" and throws
+    // instead of reporting it as not visible.
+    const aside = document.querySelector('[aria-label="File details"]')
+    expect(aside).not.toBeNull()
+    expect(getComputedStyle(aside!).display).toBe('none')
+  })
+
+  it('covers the listing rather than squeezing it', async () => {
+    renderNarrow(380)
+    await option('punch-list.csv').click()
+    await expect.element(panel()).toBeVisible()
+
+    // The failure mode this replaces: a 320px sidebar beside a 380px browser left
+    // the listing a ~55px sliver.
+    const box = panel().element().getBoundingClientRect()
+    expect(box.width).toBeGreaterThan(300)
+  })
+
+  it('stays inside the browser instead of taking over the page', async () => {
+    // `fixed` positions against the viewport, so an embedded browser would throw
+    // its preview across the whole window.
+    renderNarrow(380)
+    await option('punch-list.csv').click()
+    await expect.element(panel()).toBeVisible()
+
+    const box = panel().element().getBoundingClientRect()
+    expect(box.width).toBeLessThanOrEqual(380)
+    expect(box.right).toBeLessThanOrEqual(400)
+  })
+
+  it('sits beside the listing when there is room', async () => {
+    renderNarrow(880)
+    await option('punch-list.csv').click()
+    await expect.element(panel()).toBeVisible()
+
+    const panelBox = panel().element().getBoundingClientRect()
+    const listbox = page.getByRole('listbox', { name: 'Files' }).element().getBoundingClientRect()
+    expect(panelBox.width).toBeLessThan(400)
+    // Side by side, not stacked.
+    expect(listbox.right).toBeLessThanOrEqual(panelBox.left + 1)
   })
 })

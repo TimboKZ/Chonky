@@ -566,3 +566,75 @@ describe('FileBrowser — layout tokens', () => {
     expect(box.width).toBeGreaterThan(50)
   })
 })
+
+describe('FileBrowser — responsive', () => {
+  /** Renders into a fixed-width box, which is what the responsive logic measures. */
+  function renderAtWidth(width: number, props: Partial<React.ComponentProps<typeof FileBrowser>> = {}) {
+    const adapter = createMemoryAdapter({ tree: tree() })
+    render(
+      <div style={{ width, height: 600 }}>
+        <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} showSidebar={false} {...props} />
+      </div>,
+    )
+  }
+
+  const headers = () => page.getByRole('columnheader')
+
+  it('keeps the details Name column readable on a phone', async () => {
+    // The bug this covers: the fixed columns outran the width, so the flexible Name
+    // column collapsed to zero and rows showed icons with no filenames at all.
+    renderAtWidth(360, { initialViewMode: 'details' })
+    await expect.element(option('notes.txt')).toBeVisible()
+
+    const nameCell = option('notes.txt').element().querySelector('div')!
+    expect(nameCell.getBoundingClientRect().width).toBeGreaterThan(120)
+  })
+
+  it('sheds the lowest-value details columns as the listing narrows', async () => {
+    renderAtWidth(360, { initialViewMode: 'details' })
+    await expect.element(option('notes.txt')).toBeVisible()
+
+    await expect.element(headers().first()).toHaveTextContent('Name')
+    await expect.element(page.getByRole('columnheader', { name: /Type/ })).not.toBeInTheDocument()
+    await expect.element(page.getByRole('columnheader', { name: /Modified/ })).not.toBeInTheDocument()
+  })
+
+  it('shows every details column when there is room', async () => {
+    renderAtWidth(1100, { initialViewMode: 'details' })
+    await expect.element(option('notes.txt')).toBeVisible()
+
+    await expect.element(page.getByRole('columnheader', { name: /Type/ })).toBeVisible()
+    await expect.element(page.getByRole('columnheader', { name: /Modified/ })).toBeVisible()
+  })
+
+  it('never lets the listing scroll sideways', async () => {
+    renderAtWidth(360, { initialViewMode: 'details' })
+    await expect.element(option('notes.txt')).toBeVisible()
+
+    const listbox = page.getByRole('listbox', { name: 'Files' }).element()
+    expect(listbox.scrollWidth).toBeLessThanOrEqual(listbox.clientWidth + 1)
+  })
+
+  it('fits more grid tiles per row in a narrow listing', async () => {
+    renderAtWidth(360)
+    await expect.element(option('notes.txt')).toBeVisible()
+
+    // Narrow listings switch to a smaller tile, so a phone gets three columns
+    // rather than two oversized ones.
+    const tile = option('notes.txt').element().getBoundingClientRect()
+    expect(tile.width).toBeLessThan(130)
+  })
+
+  it('keeps the view-mode toggle usable when the toolbar is cramped', async () => {
+    // It sat between a fixed-width search box and the icon buttons, and was the
+    // thing that got crushed — down to a few pixels with no visible icons.
+    renderAtWidth(380)
+    await expect.element(option('notes.txt')).toBeVisible()
+
+    for (const name of ['Grid view', 'List view', 'Details view']) {
+      const box = page.getByRole('radio', { name }).element().getBoundingClientRect()
+      expect(box.width).toBeGreaterThan(20)
+      expect(box.height).toBeGreaterThan(20)
+    }
+  })
+})

@@ -3,11 +3,14 @@ import { cn } from '../../util/cn'
 import { formatBytes } from '../../util/bytes'
 import { Thumbnail } from '../thumbnail'
 import { useFileBrowserContext } from '../../core/context'
+import { useCoarsePointer } from '../use-coarse-pointer'
 import { formatDate } from '../format-date'
 import type { EntryInteraction } from '../use-entry-interaction'
 import type { FileEntry } from '../../core/types'
 
 const ROW_HEIGHT = { comfortable: 40, compact: 30 } as const
+/** A 40px row is a comfortable mouse target and a cramped thumb target. */
+const TOUCH_ROW_HEIGHT = { comfortable: 52, compact: 44 } as const
 
 export interface ListViewProps {
   entries: FileEntry[]
@@ -17,7 +20,8 @@ export interface ListViewProps {
 
 export function ListView({ entries, interaction, scrollRef }: ListViewProps) {
   const { state } = useFileBrowserContext()
-  const rowHeight = ROW_HEIGHT[state.density]
+  const coarse = useCoarsePointer()
+  const rowHeight = (coarse ? TOUCH_ROW_HEIGHT : ROW_HEIGHT)[state.density]
 
   const virtualizer = useVirtualizer({
     count: entries.length,
@@ -47,8 +51,8 @@ export function ListView({ entries, interaction, scrollRef }: ListViewProps) {
           >
             <Thumbnail
               entry={entry}
-              className="size-6 shrink-0 rounded-sm"
-              iconClassName={state.density === 'compact' ? 'size-4' : 'size-5'}
+              className={cn('shrink-0 rounded-sm', coarse ? 'size-7' : 'size-6')}
+              iconClassName={state.density === 'compact' && !coarse ? 'size-4' : 'size-5'}
             />
             <span className="min-w-0 flex-1 truncate text-sm">{entry.name}</span>
             <span className="w-24 shrink-0 text-right text-xs tabular-nums text-muted-foreground">

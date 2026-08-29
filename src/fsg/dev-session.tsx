@@ -70,7 +70,7 @@ export function DevSessionGate({ state, identityServiceUrl, onRetry, onSignIn, c
   if (state === 'signed-in') return <>{children}</>
 
   return (
-    <div className="fsg-fb-surface flex h-full flex-col items-center justify-center gap-3 rounded-lg border border-border bg-card p-8 text-center">
+    <div className="fsg-fb-surface flex h-full flex-col items-center justify-center gap-3 rounded-lg border border-border bg-background p-8 text-center">
       {state === 'checking' ? (
         <>
           <Spinner className="size-6" />

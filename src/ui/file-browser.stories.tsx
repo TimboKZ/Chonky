@@ -171,7 +171,7 @@ export const WithPreviewPanel: Story = {
     const adapter = useMemo(() => createMemoryAdapter({ tree: sampleTree() }), [])
     return (
       <Frame>
-        <FileBrowser adapter={adapter} rootLabel="Job 40112" persistKey={false} aside={<FilePreviewPanel />} />
+        <FileBrowser adapter={adapter} rootLabel="Job 40112" persistKey={false} aside={<FilePreviewPanel overlayWhenNarrow />} />
       </Frame>
     )
   },
@@ -210,7 +210,7 @@ export const NoContentBackend: Story = {
     const adapter = useMemo(() => createMemoryAdapter({ tree: sampleTree(), servesContent: false }), [])
     return (
       <Frame>
-        <FileBrowser adapter={adapter} rootLabel="Job 40112" persistKey={false} aside={<FilePreviewPanel />} />
+        <FileBrowser adapter={adapter} rootLabel="Job 40112" persistKey={false} aside={<FilePreviewPanel overlayWhenNarrow />} />
       </Frame>
     )
   },
@@ -251,6 +251,44 @@ export const LargeFolder: Story = {
       <Frame>
         <FileBrowser adapter={adapter} rootLabel="2,500 files" initialViewMode="details" persistKey={false} />
       </Frame>
+    )
+  },
+}
+
+/**
+ * Phone-width, in a fixed 380px frame.
+ *
+ * The browser is a query container, so its layout follows its own width rather
+ * than the window's — which means this frame exercises the real mobile behaviour
+ * without resizing anything: primary actions fold into the overflow menu, the
+ * folder tree gives way to the breadcrumb trail, and the grid switches to a
+ * smaller tile. It is also what the browser does inside a narrow panel on a
+ * desktop, which is how meetings renders it.
+ */
+export const NarrowContainer: Story = {
+  render: function Render() {
+    const adapter = useMemo(() => createMemoryAdapter({ tree: sampleTree() }), [])
+    return (
+      <div className="flex h-[calc(100vh-2rem)] gap-4">
+        <div className="h-full w-[380px] shrink-0">
+          <FileBrowser adapter={adapter} rootLabel="Job 40112" persistKey={false} aside={<FilePreviewPanel overlayWhenNarrow />} />
+        </div>
+        <p className="max-w-xs self-center text-sm text-muted-foreground">
+          Same component, 380px wide. Select a file and the preview covers the listing rather than squeezing it.
+        </p>
+      </div>
+    )
+  },
+}
+
+/** Mid-width, where the toolbar has its buttons back but the tree has not returned. */
+export const MediumContainer: Story = {
+  render: function Render() {
+    const adapter = useMemo(() => createMemoryAdapter({ tree: sampleTree() }), [])
+    return (
+      <div className="h-[calc(100vh-2rem)] w-[680px]">
+        <FileBrowser adapter={adapter} rootLabel="Job 40112" initialViewMode="details" persistKey={false} />
+      </div>
     )
   },
 }

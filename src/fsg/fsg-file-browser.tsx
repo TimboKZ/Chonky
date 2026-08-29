@@ -234,7 +234,7 @@ export function FsgFileBrowser({
           notify={notify}
           persistKey={`fsg:${area}`}
           className={className}
-          aside={showPreviewPanel ? <FilePreviewPanel /> : undefined}
+          aside={showPreviewPanel ? <FilePreviewPanel overlayWhenNarrow /> : undefined}
         />
       )}
       <ImageOptimizationDialog

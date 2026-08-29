@@ -84,14 +84,18 @@ function FileBrowserShell({
     <div
       ref={rootRef}
       className={cn(
-        'fsg-file-browser flex h-full min-h-64 w-full flex-col overflow-hidden rounded-lg border border-border bg-background text-foreground',
+        // @container: the responsive behaviour below is driven by this element's
+        // width, not the viewport's. A browser embedded in a 400px panel on a
+        // desktop should behave like a phone, because as far as it is concerned it
+        // is one — meetings renders exactly that.
+        'fsg-file-browser @container flex h-full min-h-64 w-full flex-col overflow-hidden rounded-lg border border-border bg-background text-foreground',
         className,
       )}
     >
       {showToolbar && <FileToolbar>{toolbarExtra}</FileToolbar>}
 
       <FileDropzone className="min-h-0 flex-1">
-        {showSidebar && <FolderTree className="hidden md:block" />}
+        {showSidebar && <FolderTree className="hidden @3xl:block" />}
         <FileListing detailsColumns={detailsColumns} />
         {aside}
       </FileDropzone>

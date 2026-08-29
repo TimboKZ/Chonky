@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { ArrowDown, ArrowUp } from 'lucide-react'
 import { cn } from '../../util/cn'
@@ -7,6 +7,7 @@ import { getFileKind, getKindLabel } from '../../util/mime'
 import { formatDateTime } from '../format-date'
 import { Thumbnail } from '../thumbnail'
 import { useFileBrowserContext } from '../../core/context'
+import { useCoarsePointer } from '../use-coarse-pointer'
 import type { EntryInteraction } from '../use-entry-interaction'
 import type { FileEntry, SortKey } from '../../core/types'
 
@@ -18,9 +19,20 @@ export interface DetailsColumn {
   align?: 'left' | 'right'
   /** Sorts by this key when the header is clicked. Omit to make the column unsortable. */
   sortKey?: SortKey
+  /**
+   * Drop the column when the listing is narrower than this many pixels.
+   *
+   * Measured against the listing, not the viewport, so a browser rendered inside a
+   * narrow panel sheds columns the same way it does on a phone. Without this the
+   * fixed columns outrun the available width and the flexible Name column is what
+   * collapses — leaving rows of icons with no filenames at all.
+   */
+  hideBelow?: number
   render: (entry: FileEntry) => React.ReactNode
 }
 
+/* Ordered by what survives a narrow listing: the name always, then size, then the
+ * date, and the type label last — it is the most inferable from the icon. */
 export const defaultDetailsColumns: DetailsColumn[] = [
   { id: 'name', label: 'Name', width: 0, sortKey: 'name', render: (entry) => entry.name },
   {
@@ -31,17 +43,23 @@ export const defaultDetailsColumns: DetailsColumn[] = [
     sortKey: 'size',
     render: (entry) => (entry.isDir ? '' : formatBytes(entry.size)),
   },
-  { id: 'kind', label: 'Type', width: 130, sortKey: 'kind', render: (entry) => getKindLabel(getFileKind(entry)) },
+  { id: 'kind', label: 'Type', width: 130, sortKey: 'kind', hideBelow: 780, render: (entry) => getKindLabel(getFileKind(entry)) },
   {
     id: 'modifiedAt',
     label: 'Modified',
     width: 180,
     sortKey: 'modifiedAt',
+    // 500 rather than a rounder number: at a 768px viewport the folder tree takes
+    // 224px, leaving the listing ~510px, and the modified date is worth more there
+    // than the ~100px of name width it costs.
+    hideBelow: 500,
     render: (entry) => formatDateTime(entry.modifiedAt),
   },
 ]
 
 const ROW_HEIGHT = { comfortable: 36, compact: 28 } as const
+/** A virtualized row's height is declared in advance, so it has to be set in JS. */
+const TOUCH_ROW_HEIGHT = { comfortable: 48, compact: 42 } as const
 const MIN_COLUMN_WIDTH = 64
 
 export interface DetailsViewProps {
@@ -51,9 +69,27 @@ export interface DetailsViewProps {
   columns?: DetailsColumn[]
 }
 
-export function DetailsView({ entries, interaction, scrollRef, columns = defaultDetailsColumns }: DetailsViewProps) {
+export function DetailsView({ entries, interaction, scrollRef, columns: allColumns = defaultDetailsColumns }: DetailsViewProps) {
   const { state, handle } = useFileBrowserContext()
-  const rowHeight = ROW_HEIGHT[state.density]
+  const coarse = useCoarsePointer()
+  const rowHeight = (coarse ? TOUCH_ROW_HEIGHT : ROW_HEIGHT)[state.density]
+
+  // Column visibility follows the listing's own width, not the viewport's.
+  const [available, setAvailable] = useState<number>(Number.POSITIVE_INFINITY)
+  useEffect(() => {
+    const element = scrollRef.current
+    if (!element || typeof ResizeObserver === 'undefined') return
+    const measure = () => setAvailable(element.clientWidth)
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [scrollRef])
+
+  const columns = useMemo(
+    () => allColumns.filter((column) => column.hideBelow === undefined || available >= column.hideBelow),
+    [allColumns, available],
+  )
 
   const [widths, setWidths] = useState<Record<string, number>>(() =>
     Object.fromEntries(columns.filter((column) => column.width > 0).map((column) => [column.id, column.width])),

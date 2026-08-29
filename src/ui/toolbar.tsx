@@ -26,7 +26,7 @@ const VIEW_MODES: { value: ViewMode; label: string; icon: typeof LayoutGrid }[] 
 function ViewModeToggle() {
   const { state, handle } = useFileBrowserContext()
   return (
-    <div role="radiogroup" aria-label="View mode" className="flex items-center rounded-md border border-border p-0.5">
+    <div role="radiogroup" aria-label="View mode" className="flex shrink-0 items-center rounded-md border border-border p-0.5">
       {VIEW_MODES.map(({ value, label, icon: Icon }) => (
         <Tooltip key={value} content={`${label} view`}>
           <button
@@ -37,6 +37,8 @@ function ViewModeToggle() {
             onClick={() => handle.setViewMode(value)}
             className={cn(
               'rounded-sm p-1.5 transition-colors focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
+              // Touch targets: 24px of icon is fine for a mouse and not for a thumb.
+              'pointer-coarse:p-2.5',
               state.viewMode === value ? 'bg-muted text-foreground' : 'text-muted-foreground hover:text-foreground',
             )}
           >
@@ -67,7 +69,7 @@ function SearchBox() {
   }, [state.search])
 
   return (
-    <div className="relative w-full max-w-56">
+    <div className="relative w-full min-w-24 max-w-56 shrink">
       <Search className="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
       <Input
         ref={inputRef}
@@ -177,9 +179,9 @@ export function FileToolbar({ className, children }: FileToolbarProps) {
         <SearchBox />
         <ViewModeToggle />
 
-        {/* Primary actions collapse into the overflow menu below `sm`, where a full
-            button row would push the breadcrumbs off screen. */}
-        <div className="hidden items-center gap-1 sm:flex">
+        {/* Primary actions collapse into the overflow menu when the browser is
+            narrow, where a full button row would push the breadcrumbs out. */}
+        <div className="hidden items-center gap-1 @xl:flex">
           {primary.map((action) => {
             const Icon = action.icon
             return (
@@ -194,7 +196,7 @@ export function FileToolbar({ className, children }: FileToolbarProps) {
                 {/* sr-only rather than hidden: `display: none` drops the label out of
                     the accessibility tree, leaving an icon-only button with no
                     accessible name on narrower viewports. */}
-                <span className="sr-only lg:not-sr-only">{action.label}</span>
+                <span className="sr-only @4xl:not-sr-only">{action.label}</span>
               </Button>
             )
           })}
@@ -218,7 +220,7 @@ export function FileToolbar({ className, children }: FileToolbarProps) {
         })}
 
         {children}
-        <div className="sm:hidden">
+        <div className="@xl:hidden">
           <OverflowMenu />
         </div>
       </div>

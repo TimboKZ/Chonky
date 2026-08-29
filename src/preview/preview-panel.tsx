@@ -23,6 +23,14 @@ export interface FilePreviewPanelProps {
    * `<FileBrowser>` it defaults to that browser's adapter.
    */
   adapter?: FileSystemAdapter
+  /**
+   * Cover the listing instead of sitting beside it when the browser is narrow.
+   *
+   * Set by `<FileBrowser>` for its `aside` slot. Off by default, because a panel
+   * rendered on its own — beside an attachment list, on a preview page — has no
+   * listing to cover and its container owns its size.
+   */
+  overlayWhenNarrow?: boolean
   onClose?: () => void
 }
 
@@ -33,7 +41,13 @@ export interface FilePreviewPanelProps {
  * — on a dedicated preview page, or beside something that is not a file browser —
  * given an `entry` and an `adapter`.
  */
-export function FilePreviewPanel({ className, entry: entryProp, adapter: adapterProp, onClose }: FilePreviewPanelProps) {
+export function FilePreviewPanel({
+  className,
+  entry: entryProp,
+  adapter: adapterProp,
+  overlayWhenNarrow = false,
+  onClose,
+}: FilePreviewPanelProps) {
   const engine = useOptionalFileBrowserContext()
   const adapter = adapterProp ?? engine?.adapter
 
@@ -53,8 +67,30 @@ export function FilePreviewPanel({ className, entry: entryProp, adapter: adapter
   return (
     <aside
       aria-label="File details"
-      // fsg-fb-surface: the panel is also rendered standalone, outside a browser root.
-      className={cn('fsg-fb-surface flex w-80 shrink-0 flex-col border-l border-border bg-card', className)}
+      className={cn(
+        // fsg-fb-surface: the panel is also rendered standalone, outside a browser root.
+        'fsg-fb-surface flex flex-col border-border',
+        // gui-bytes defines --card only under .dark / .dracula, so `bg-card` is
+        // transparent in light mode. Harmless for a panel sitting in the layout;
+        // fatal for the fixed overlay below, which would show the listing straight
+        // through it. Opaque ground first, card tint only where it exists.
+        'bg-background @3xl:bg-card',
+        // In a narrow browser the panel covers the listing instead of sitting
+        // beside it: a 320px sidebar next to a 375px screen leaves the listing a
+        // 55px sliver, and the browser becomes unusable the moment a file is
+        // selected. With nothing selected there is nothing to cover it *with*, so
+        // it stays out of the way entirely.
+        // `absolute`, not `fixed`: fixed positions against the viewport, so an
+        // embedded browser — one rendered in a 380px panel on a desktop — would
+        // throw its preview across the whole page. Absolute keeps the overlay
+        // inside the browser's own box, which the dropzone establishes as the
+        // positioning context.
+        overlayWhenNarrow
+          ? cn('absolute inset-0 z-30 w-full @3xl:static @3xl:inset-auto @3xl:z-auto @3xl:w-80 @3xl:shrink-0 @3xl:border-l',
+               !entry && 'hidden @3xl:flex')
+          : 'w-full border-l',
+        className,
+      )}
       // Clicks inside the panel must not reach the listing's clear-selection handler.
       onClick={(event) => event.stopPropagation()}
     >
