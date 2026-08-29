@@ -10,6 +10,15 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false
   },
-  "include": ["src"],
-  "exclude": ["src/**/*.stories.tsx", "src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.browser.test.ts", "src/**/*.browser.test.tsx"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "src/**/*.stories.tsx",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.browser.test.ts",
+    "src/**/*.browser.test.tsx",
+    "src/fsg/dev-session.tsx"
+  ]
 }

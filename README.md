@@ -260,6 +260,25 @@ pnpm lint
 pnpm build
 ```
 
+Most stories run against an in-memory backend. **File Browser → Dev file storage**
+runs against the real file-storage service instead:
+
+```bash
+cp .env.example .env.local   # set VITE_FILE_STORAGE_AREA and VITE_FILE_STORAGE_ENTITY_ID
+pnpm dev
+```
+
+Auth is your `fsg_apps_session` cookie — the story probes the identity service and
+offers a sign-in link before it tries to load anything. Area and entity are also
+editable in the Controls panel, so you can retarget a story without restarting.
+
+A bearer token is deliberately not offered: image, PDF and video previews load
+through `<img>` and `<iframe>` `src` attributes, which cannot carry an
+Authorization header. Only the cookie makes those work.
+
+These stories write to real storage. `Live (read only)` is the safe one to open if
+you only want to look.
+
 ## License
 
 MIT. A derivative work of Chonky, © 2020 Tim Kuzhagaliyev — see [NOTICE](./NOTICE).

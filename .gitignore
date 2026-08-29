@@ -5,3 +5,7 @@ storybook-static
 .DS_Store
 coverage
 .vitest
+
+# Local Storybook config for the dev file-storage stories
+.env
+.env.local
