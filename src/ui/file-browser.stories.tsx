@@ -267,6 +267,45 @@ export const LargeFolder: Story = {
  * smaller tile. It is also what the browser does inside a narrow panel on a
  * desktop, which is how meetings renders it.
  */
+/**
+ * Four versions of one document, differing only in their tails.
+ *
+ * End-truncation renders every one of them as "Site Survey v1 FIN…". The list and
+ * details views truncate in the middle instead, and the grid moves the extension
+ * onto the icon and middle-truncates the stem to fit the tile.
+ */
+export const SimilarNames: Story = {
+  render: function Render() {
+    const names = [
+      'Site Survey v1 FINAL.pdf',
+      'Site Survey v1 FINAL-signed.pdf',
+      'Site Survey v1 FINAL-signed-rev2.pdf',
+      'Site Survey v1 FINAL-signed-rev3.pdf',
+      'daily-backups.tar.gz',
+      'Q3 Reconciliation (draft, do not circulate).xlsx',
+    ]
+    const adapter = useMemo(
+      () => createMemoryAdapter({ tree: names.map((name) => ({ name, isDir: false, size: 412_000, modifiedAt: ago(3) })) }),
+      [],
+    )
+    return (
+      <Frame>
+        <div className="flex h-full gap-4">
+          <div className="h-full w-[320px] shrink-0">
+            <FileBrowser adapter={adapter} rootLabel="Grid, 320px" initialViewMode="grid" persistKey={false} />
+          </div>
+          <div className="h-full w-[340px] shrink-0">
+            <FileBrowser adapter={adapter} rootLabel="List, 340px" initialViewMode="list" persistKey={false} />
+          </div>
+          <div className="h-full min-w-0 flex-1">
+            <FileBrowser adapter={adapter} rootLabel="Details, full width" initialViewMode="details" persistKey={false} />
+          </div>
+        </div>
+      </Frame>
+    )
+  },
+}
+
 export const NarrowContainer: Story = {
   render: function Render() {
     const adapter = useMemo(() => createMemoryAdapter({ tree: sampleTree() }), [])

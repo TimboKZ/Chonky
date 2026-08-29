@@ -2,6 +2,7 @@ import { useVirtualizer } from '@tanstack/react-virtual'
 import { cn } from '../../util/cn'
 import { formatBytes } from '../../util/bytes'
 import { Thumbnail } from '../thumbnail'
+import { TruncatedName } from '../truncated-name'
 import { useFileBrowserContext } from '../../core/context'
 import { useCoarsePointer } from '../use-coarse-pointer'
 import { formatDate } from '../format-date'
@@ -54,11 +55,16 @@ export function ListView({ entries, interaction, scrollRef }: ListViewProps) {
               className={cn('shrink-0 rounded-sm', coarse ? 'size-7' : 'size-6')}
               iconClassName={state.density === 'compact' && !coarse ? 'size-4' : 'size-5'}
             />
-            <span className="min-w-0 flex-1 truncate text-sm">{entry.name}</span>
+            <TruncatedName name={entry.name} className="min-w-0 flex-1 text-sm" />
             <span className="w-24 shrink-0 text-right text-xs tabular-nums text-muted-foreground">
               {entry.isDir ? '' : formatBytes(entry.size)}
             </span>
-            <span className="hidden w-36 shrink-0 text-right text-xs text-muted-foreground sm:block">{formatDate(entry.modifiedAt)}</span>
+            {/* A container query, like the rest of the browser. On `sm:` this was a
+                viewport breakpoint, so a browser embedded in a 300px panel still
+                reserved 144px for the date and squeezed the name to nothing. */}
+            <span className="hidden w-36 shrink-0 text-right text-xs text-muted-foreground @md:block">
+              {formatDate(entry.modifiedAt)}
+            </span>
           </div>
         )
       })}

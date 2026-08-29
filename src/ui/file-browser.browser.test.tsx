@@ -714,3 +714,122 @@ describe('FileBrowser — filenames', () => {
     expect(tile.getBoundingClientRect().width).toBeLessThan(130)
   })
 })
+
+describe('FileBrowser — telling similar names apart', () => {
+  /* The names below differ only at the end, which is the case end-truncation
+   * destroys: every one of them renders as "Site Survey v1 FIN…". */
+  const VERSIONS = [
+    'Site Survey v1 FINAL.pdf',
+    'Site Survey v1 FINAL-signed.pdf',
+    'Site Survey v1 FINAL-signed-rev2.pdf',
+    'Site Survey v1 FINAL-signed-rev3.pdf',
+  ]
+
+  function renderVersions(width: number, viewMode: 'grid' | 'list' | 'details') {
+    const adapter = createMemoryAdapter({ tree: VERSIONS.map((name) => ({ name, isDir: false, size: 4_100 })) })
+    render(
+      <div style={{ width, height: 560 }}>
+        <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} showSidebar={false} initialViewMode={viewMode} />
+      </div>,
+    )
+  }
+
+  /**
+   * The text actually painted inside each row.
+   *
+   * `textContent` is no use here: CSS truncation clips text without removing it,
+   * so an end-ellipsised name still reports in full and every assertion passes
+   * whether or not the fix is present.
+   *
+   * Each character is measured against the nearest ancestor that actually clips —
+   * not against the row, which is wider and would count overflowing text as
+   * visible.
+   */
+  async function paintedNames() {
+    await expect.element(page.getByRole('option').first()).toBeVisible()
+
+    const clipperOf = (node: Node, row: Element): Element => {
+      let element = node.parentElement
+      while (element && element !== row) {
+        const overflowX = getComputedStyle(element).overflowX
+        if (overflowX === 'hidden' || overflowX === 'clip') return element
+        element = element.parentElement
+      }
+      return row
+    }
+
+    return (await page.getByRole('option').all()).map((locator) => {
+      const row = locator.element()
+      const walker = document.createTreeWalker(row, NodeFilter.SHOW_TEXT)
+      const range = document.createRange()
+      let painted = ''
+
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        const text = node.textContent ?? ''
+        const bounds = clipperOf(node, row).getBoundingClientRect()
+
+        // Character by character: a clipped run is partly visible, and only the
+        // part inside the clipping box counts as readable.
+        for (let index = 0; index < text.length; index++) {
+          range.setStart(node, index)
+          range.setEnd(node, index + 1)
+          const rect = range.getBoundingClientRect()
+          if (rect.width === 0) continue
+          // Vertical bounds too: a line-clamped grid tile hides overflow by row,
+          // and those characters are laid out below the box rather than beyond it.
+          const inside =
+            rect.left >= bounds.left - 1 &&
+            rect.right <= bounds.right + 1 &&
+            rect.top >= bounds.top - 1 &&
+            rect.bottom <= bounds.bottom + 1
+          if (inside) painted += text[index]
+        }
+      }
+      return painted.replace(/\s+/g, ' ').trim()
+    })
+  }
+
+  it('keeps the distinguishing tail visible in the list view', async () => {
+    // Narrow enough to force truncation: at a comfortable width these names fit
+    // whole and the test would prove nothing.
+    renderVersions(300, 'list')
+    const names = await paintedNames()
+
+    expect(new Set(names).size).toBe(VERSIONS.length)
+    // includes, not endsWith: the painted row also carries the size and date columns.
+    for (const suffix of ['FINAL.pdf', 'signed.pdf', 'rev2.pdf', 'rev3.pdf']) {
+      expect(names.some((name) => name.includes(suffix))).toBe(true)
+    }
+  })
+
+  it('keeps the distinguishing tail visible in the details view', async () => {
+    renderVersions(300, 'details')
+    const names = await paintedNames()
+
+    expect(new Set(names).size).toBe(VERSIONS.length)
+    expect(names.some((name) => name.includes('rev3.pdf'))).toBe(true)
+  })
+
+  it('keeps the distinguishing tail visible on a narrow grid tile', async () => {
+    // The grid shows the extension on the badge, so the stems have to differ.
+    renderVersions(360, 'grid')
+    const names = await paintedNames()
+
+    expect(new Set(names).size).toBe(VERSIONS.length)
+    for (const suffix of ['rev2', 'rev3']) {
+      expect(names.some((name) => name.includes(suffix))).toBe(true)
+    }
+  })
+
+  it('shows a name that fits without any ellipsis', async () => {
+    const adapter = createMemoryAdapter({ tree: [{ name: 'notes.txt', isDir: false, size: 12 }] })
+    render(
+      <div style={{ width: 620, height: 400 }}>
+        <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} showSidebar={false} initialViewMode="list" />
+      </div>,
+    )
+    const names = await paintedNames()
+    expect(names[0]).toContain('notes.txt')
+    expect(names[0]).not.toContain('…')
+  })
+})

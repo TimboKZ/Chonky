@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { cn } from '../../util/cn'
-import { splitFileName } from '../../util/names'
+import { splitFileName, truncateMiddle } from '../../util/names'
 import { formatBytes } from '../../util/bytes'
 import { Thumbnail } from '../thumbnail'
 import { useFileBrowserContext } from '../../core/context'
@@ -112,6 +112,20 @@ function GridTile({
   // `.backup` file.
   const { stem, extension } = entry.isDir ? { stem: entry.name, extension: '' } : splitFileName(entry.name)
 
+  /*
+   * Two lines of tile is the budget. The clamp below would otherwise cut the end
+   * off, and the end is what tells `… FINAL` from `… FINAL-signed-rev2` apart —
+   * so anything longer is middle-truncated to keep the tail.
+   *
+   * The character estimate is deliberately pessimistic (6.8px at text-xs, against
+   * a real average nearer 6.3): under-filling leaves a little slack, while
+   * over-filling would hand the string back to the clamp and lose the tail again.
+   * Derived from the tile rather than fixed, so it tracks density and narrow
+   * listings on its own.
+   */
+  const perLine = Math.max(8, Math.floor((tile.width - 16) / 6.8))
+  const displayStem = truncateMiddle(stem, perLine * 2)
+
   return (
     <div
       {...props}
@@ -143,7 +157,7 @@ function GridTile({
         {/* break-words, not break-all: only hyphenate when a single token really is
             too long, so "Cost Breakdown" wraps at the space rather than mid-word.
             line-clamp does the shortening, so it follows the tile width for free. */}
-        <span className="line-clamp-2 break-words text-xs font-medium leading-tight">{stem}</span>
+        <span className="line-clamp-2 break-words text-xs font-medium leading-tight">{displayStem}</span>
         {!entry.isDir && <span className="mt-0.5 text-[11px] text-muted-foreground">{formatBytes(entry.size)}</span>}
       </div>
     </div>
