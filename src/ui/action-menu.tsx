@@ -6,8 +6,18 @@ import { formatHotkey } from '../core/hotkeys'
 import { menuContentClass, menuDestructiveItemClass, menuItemClass, menuSeparatorClass, menuShortcutClass } from './primitives/menu'
 import type { FileAction } from '../core/types'
 
-/** Groups actions in declaration order, so a consumer's added action lands beside
- * the ones it belongs with rather than in a group sorted alphabetically. */
+/**
+ * Menu section order, which is not the same as the toolbar's.
+ *
+ * A right-click is nearly always about the thing under the cursor, so what you can
+ * do *to it* comes first and the folder-level Create actions come last — the order
+ * every desktop file manager uses. The toolbar reads the other way round, which is
+ * why this can't just follow the action array.
+ */
+const GROUP_ORDER = ['Open', 'Edit', 'Create']
+
+/** Groups actions, ordering known sections by GROUP_ORDER and leaving any group a
+ * consuming app added at the end, in the order it declared them. */
 function groupActions(actions: FileAction[]): [string, FileAction[]][] {
   const groups = new Map<string, FileAction[]>()
   for (const action of actions) {
@@ -16,7 +26,13 @@ function groupActions(actions: FileAction[]): [string, FileAction[]][] {
     list.push(action)
     groups.set(key, list)
   }
-  return [...groups.entries()]
+
+  const rank = (group: string) => {
+    const index = GROUP_ORDER.indexOf(group)
+    return index === -1 ? GROUP_ORDER.length : index
+  }
+
+  return [...groups.entries()].sort(([a], [b]) => rank(a) - rank(b))
 }
 
 export function FileContextMenu({ children }: { children: ReactNode }) {

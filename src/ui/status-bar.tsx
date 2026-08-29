@@ -10,10 +10,14 @@ export function StatusBar({ className }: { className?: string }) {
   const files = visible.length - folders
   const selectedSize = selection.reduce((sum, entry) => sum + (entry.size ?? 0), 0)
 
+  // Grouped: a folder of several thousand files is common, and "2500 files" is
+  // measurably harder to read at a glance than "2,500 files".
+  const count = (value: number) => value.toLocaleString()
+
   const summary =
     selection.length > 0
-      ? `${selection.length} selected${selectedSize > 0 ? ` · ${formatBytes(selectedSize)}` : ''}`
-      : `${folders} ${folders === 1 ? 'folder' : 'folders'} · ${files} ${files === 1 ? 'file' : 'files'}`
+      ? `${count(selection.length)} selected${selectedSize > 0 ? ` · ${formatBytes(selectedSize)}` : ''}`
+      : `${count(folders)} ${folders === 1 ? 'folder' : 'folders'} · ${count(files)} ${files === 1 ? 'file' : 'files'}`
 
   return (
     <div
