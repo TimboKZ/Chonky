@@ -130,11 +130,36 @@ export interface FileBrowserEngine {
   setPreviewEntry: (entry: FileEntry | null) => void
   detailsOpen: boolean
   setDetailsOpen: (open: boolean) => void
+  /** Called by a mounted details panel; returns its unregister. */
+  registerDetailsPanel: () => () => void
   dispatch: (id: string, options?: { origin?: FileEntry; targets?: FileEntry[] }) => Promise<void>
   isActionEnabled: (action: FileAction) => boolean
   isEntryLocked: (entry: FileEntry) => boolean
   /** Roots the tree sidebar and bounds `navigateUp`. */
   rootPath: string
+}
+
+/**
+ * The shallowest deleted folder that contains `path`, if any.
+ *
+ * `path` itself counts: deleting the folder you are in strands you exactly as
+ * surely as deleting its parent does.
+ */
+function deletedAncestorOf(path: string, deleted: readonly FileEntry[], fallbackParent: string): string | null {
+  const folders = deleted
+    .filter((entry) => entry.isDir)
+    .map((entry) => joinPath(entry.path ?? fallbackParent, entry.name))
+    .filter((candidate) => path === candidate || path.startsWith(`${candidate}/`))
+
+  // Shallowest wins: deleting a folder and its child in one go should land the
+  // user above both, not inside the parent that went with it.
+  return folders.sort((a, b) => a.length - b.length)[0] ?? null
+}
+
+/** One level up, never above the root the browser is bounded to. */
+function parentPath(path: string, rootPath: string): string {
+  const parent = path.split('/').slice(0, -1).join('/')
+  return parent.length < rootPath.length ? rootPath : parent
 }
 
 function buildFolderChain(path: string, rootPath: string, rootLabel: string): FolderChainItem[] {
@@ -189,7 +214,20 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
 
   const [dialog, setDialog] = useState<DialogRequest | null>(null)
   const [previewEntry, setPreviewEntry] = useState<FileEntry | null>(null)
-  const [detailsOpen, setDetailsOpen] = useState(false)
+  // Open by default so a mounted panel is visible without being asked for; the
+  // toolbar's File info toggle and the panel's own close button drive it from there.
+  const [detailsOpen, setDetailsOpen] = useState(true)
+  // Counted, not a boolean: a panel remounting would otherwise clear the flag its
+  // replacement had already set.
+  const [detailsPanels, setDetailsPanels] = useState(0)
+  const registerDetailsPanel = useCallback(() => {
+    setDetailsPanels((count) => count + 1)
+    return () => setDetailsPanels((count) => count - 1)
+  }, [])
+  // `dispatch` is a stable callback and must not re-create itself whenever a panel
+  // mounts, so the event reads the count through a ref.
+  const detailsPanelsRef = useRef(detailsPanels)
+  detailsPanelsRef.current = detailsPanels
 
   // Refs for values the stable callbacks below read but must not re-create on.
   const optionsRef = useRef(options)
@@ -217,6 +255,25 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
       optionsRef.current.onError?.(cause instanceof Error ? cause : new Error(message))
     },
     [store, notify],
+  )
+
+  /**
+   * Reports a failed *action*, as opposed to a failed listing.
+   *
+   * `fail` puts the browser into its error state, which is right when the folder
+   * could not be listed — there is nothing to show. It is wrong when a rename or a
+   * conversion failed: the folder is still there, still listed, and replacing it
+   * with an error screen loses far more than the message explains. Callers refresh
+   * first, so the listing reflects whatever the failed mutation did or didn't do,
+   * and this only carries the message.
+   */
+  const failAction = useCallback(
+    (message: string, cause?: unknown) => {
+      if (cause) console.error(message, cause)
+      notify({ level: 'error', message })
+      optionsRef.current.onError?.(cause instanceof Error ? cause : new Error(message))
+    },
+    [notify],
   )
 
   const isEntryLocked = useCallback((entry: FileEntry) => optionsRef.current.isEntryLocked?.(entry) ?? false, [])
@@ -376,14 +433,14 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
           })
         }
       } catch (e) {
-        fail(e instanceof Error ? e.message : 'Upload failed', e)
+        failAction(e instanceof Error ? e.message : 'Upload failed', e)
       } finally {
         // Leave completed tasks on screen briefly so the queue doesn't vanish the
         // instant the last transfer lands.
         setTimeout(() => store.set({ uploads: [] }), 2500)
       }
     },
-    [adapter, store, transformUpload, notify, refresh, fail],
+    [adapter, store, transformUpload, notify, refresh, failAction],
   )
 
   const open = useCallback(
@@ -522,8 +579,9 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
       folderChain: state.folderChain,
       clipboard: state.clipboard,
       readOnly,
+      hasDetailsPanel: detailsPanels > 0,
     }),
-    [state.path, visible, selection, state.folderChain, state.clipboard, readOnly],
+    [state.path, visible, selection, state.folderChain, state.clipboard, readOnly, detailsPanels],
   )
 
   const isActionEnabled = useCallback(
@@ -555,7 +613,9 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
           const target = event.origin ?? targets[0]
           if (!target) return
           if (target.isDir) {
-            await navigate(joinPath(currentPath, target.name))
+            // Resolved against the entry's own folder, not the listing's: a folder
+            // opened from the tree is rarely a child of what is on screen.
+            await navigate(joinPath(target.path ?? currentPath, target.name))
             return
           }
           const url = adapter.getOpenUrl?.(target)
@@ -661,7 +721,8 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
             store.set({ clipboard: null })
             await refresh()
           } catch (e) {
-            fail(clipboard.mode === 'copy' ? 'Failed to copy files' : 'Failed to move files', e)
+            await refresh()
+            failAction(clipboard.mode === 'copy' ? 'Failed to copy files' : 'Failed to move files', e)
           }
           return
         }
@@ -680,7 +741,8 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
             await adapter.createDirectory(currentPath, name)
             await refresh()
           } catch (e) {
-            fail('Failed to create folder', e)
+            await refresh()
+            failAction('Failed to create folder', e)
           }
           return
         }
@@ -700,10 +762,14 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
           if (!name || name === target.name) return
           store.set({ status: 'loading' })
           try {
-            await adapter.move({ entry: target, destination: currentPath, name })
+            // `target.path`, not the listing's path: a rename from the folder tree
+            // names an entry that is not in the current listing, and moving it to
+            // the listing's folder would relocate it rather than rename it.
+            await adapter.move({ entry: target, destination: target.path ?? currentPath, name })
             await refresh()
           } catch (e) {
-            fail('Failed to rename', e)
+            await refresh()
+            failAction('Failed to rename', e)
           }
           return
         }
@@ -728,9 +794,17 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
               if (isEntryLocked(entry)) continue
               await adapter.remove(entry)
             }
-            await refresh()
+            // Deleting the folder you are standing in — which the tree's own menu
+            // makes easy — leaves nothing to reload. Refreshing it would ask the
+            // adapter for a folder that no longer exists and answer with "failed to
+            // load this folder", stranding the user somewhere they cannot leave
+            // except by clicking another folder in the tree.
+            const orphaned = deletedAncestorOf(currentPath, targets, currentPath)
+            if (orphaned) await navigate(parentPath(orphaned, rootPath))
+            else await refresh()
           } catch (e) {
-            fail('Failed to delete', e)
+            await refresh()
+            failAction('Failed to delete', e)
           }
           return
         }
@@ -753,7 +827,10 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
 
         case FileActionId.ConvertHeic: {
           if (targets.length === 0 || !adapter.read || !adapter.upload) return
-          const { convertHeicBytesToJpeg } = await import('../images/heic')
+          const { heicConverter, heicKeepOriginal = false } = optionsRef.current
+          // libheif only when the app has not supplied its own converter: skipping
+          // the ~1.4 MB WASM bundle is the whole reason the option exists.
+          const convert = heicConverter ?? (await import('../images/heic')).convertHeicBytesToJpeg
           store.set({ status: 'loading' })
           let converted = 0
           try {
@@ -761,17 +838,21 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
             for (const entry of targets) {
               if (!isHeic(entry)) continue
               const bytes = new Uint8Array(await adapter.read(entry))
-              const jpeg = await convertHeicBytesToJpeg(bytes, 0.95)
+              const jpeg = await convert(bytes, 0.95)
               const name = uniqueName(entry.name.replace(/\.(heic|heif)$/i, '.jpg'), taken)
               taken.push(name)
               const file = new File([jpeg as BlobPart], name, { type: 'image/jpeg' })
-              await adapter.upload({ file, destination: currentPath, name })
+              await adapter.upload({ file, destination: entry.path ?? currentPath, name })
+              // One photo afterwards, not two — the documented default. Only once
+              // the JPEG is stored, and only where the backend can remove at all.
+              if (!heicKeepOriginal && adapter.remove) await adapter.remove(entry)
               converted++
             }
             await refresh()
             notify({ level: 'success', message: `Converted ${converted} ${converted === 1 ? 'file' : 'files'} to JPG.` })
           } catch (e) {
-            fail('Failed to convert to JPG', e)
+            await refresh()
+            failAction('Failed to convert to JPG', e)
           }
           return
         }
@@ -780,7 +861,7 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
           return
       }
     },
-    [adapter, store, navigate, refresh, prompt, confirm, upload, notify, fail, isEntryLocked],
+    [adapter, store, navigate, refresh, prompt, confirm, upload, notify, failAction, isEntryLocked, rootPath],
   )
 
   const dispatch = useCallback(
@@ -813,6 +894,7 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
         entries: current.entries,
         selection: currentSelection,
         folderChain: current.folderChain,
+        hasDetailsPanel: detailsPanelsRef.current > 0,
         clipboard: current.clipboard,
         readOnly: optionsRef.current.readOnly ?? false,
         browser: handleRef.current,
@@ -851,6 +933,7 @@ export function useFileBrowser(options: UseFileBrowserOptions): FileBrowserEngin
     setPreviewEntry,
     detailsOpen,
     setDetailsOpen,
+    registerDetailsPanel,
     dispatch,
     isActionEnabled,
     isEntryLocked,

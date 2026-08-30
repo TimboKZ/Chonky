@@ -44,9 +44,11 @@ export function ListView({ entries, interaction, scrollRef }: ListViewProps) {
             title={entry.name}
             style={{ transform: `translateY(${row.start}px)`, height: row.size }}
             className={cn(
-              'fsg-fb-entry absolute left-0 top-0 flex w-full cursor-default items-center gap-2 rounded-md border border-transparent px-2 transition-colors',
-              'hover:bg-muted focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
-              'data-[selected=true]:border-primary/40 data-[selected=true]:bg-primary/10',
+              // Full-bleed, matching the details view: a row is a band across the
+              // listing, not a card floating in it, so no radius and no outline.
+              'fsg-fb-entry absolute left-0 top-0 flex w-full cursor-default items-center gap-2 px-2 transition-colors',
+              'hover:bg-muted focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-inset focus-visible:ring-ring/50',
+              'data-[selected=true]:bg-primary/10',
               entry.disabled && 'pointer-events-none opacity-50',
             )}
           >

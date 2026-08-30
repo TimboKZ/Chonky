@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { ArrowDown, ArrowUp } from 'lucide-react'
 import { cn } from '../../util/cn'
+import { useElementWidth } from '../use-element-width'
 import { formatBytes } from '../../util/bytes'
 import { getFileKind, getKindLabel } from '../../util/mime'
 import { formatDateTime } from '../format-date'
@@ -76,16 +77,7 @@ export function DetailsView({ entries, interaction, scrollRef, columns: allColum
   const rowHeight = (coarse ? TOUCH_ROW_HEIGHT : ROW_HEIGHT)[state.density]
 
   // Column visibility follows the listing's own width, not the viewport's.
-  const [available, setAvailable] = useState<number>(Number.POSITIVE_INFINITY)
-  useEffect(() => {
-    const element = scrollRef.current
-    if (!element || typeof ResizeObserver === 'undefined') return
-    const measure = () => setAvailable(element.clientWidth)
-    measure()
-    const observer = new ResizeObserver(measure)
-    observer.observe(element)
-    return () => observer.disconnect()
-  }, [scrollRef])
+  const available = useElementWidth(scrollRef)
 
   const columns = useMemo(
     () => allColumns.filter((column) => column.hideBelow === undefined || available >= column.hideBelow),
@@ -145,19 +137,26 @@ export function DetailsView({ entries, interaction, scrollRef, columns: allColum
               key={column.id}
               role="columnheader"
               aria-sort={sorted ? (state.sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
-              className={cn('relative flex h-full items-center gap-1 px-2', column.align === 'right' && 'justify-end')}
+              className={cn('relative flex h-full items-center gap-1', column.align === 'right' && 'justify-end')}
             >
               {column.sortKey ? (
+                // The button fills the cell rather than hugging its label: a header
+                // is a click target the width of its column, and 48px of live text
+                // in a 732px Name column is a header that looks broken.
                 <button
                   type="button"
                   onClick={() => handle.setSort(column.sortKey!)}
-                  className="flex items-center gap-1 rounded-sm hover:text-foreground focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                  className={cn(
+                    'flex h-full w-full items-center gap-1 px-2 hover:text-foreground',
+                    'focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-inset focus-visible:ring-ring/50',
+                    column.align === 'right' && 'justify-end',
+                  )}
                 >
                   {column.label}
                   {sorted && <Arrow className="size-3" />}
                 </button>
               ) : (
-                <span>{column.label}</span>
+                <span className="px-2">{column.label}</span>
               )}
               {column.width > 0 && (
                 <span

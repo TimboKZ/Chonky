@@ -3,6 +3,9 @@ import { ChevronRight, Folder, FolderOpen } from 'lucide-react'
 import { cn } from '../util/cn'
 import { joinPath, uniqueName } from '../util/names'
 import { useFileBrowserContext } from '../core/context'
+import { FileActionId } from '../core/actions'
+import { FileContextMenu } from './action-menu'
+import type { FileEntry } from '../core/types'
 import { INTERNAL_DRAG_TYPE } from './use-entry-interaction'
 import { Spinner } from './primitives/progress'
 
@@ -12,7 +15,23 @@ interface TreeNode {
   /** Child folder paths, or undefined until the node has been expanded once. */
   children?: string[]
   loading: boolean
+  /**
+   * The entry this row came from, kept so its context menu has something to act
+   * on. A tree row is not part of the listing, so there is no selection to read —
+   * every action has to name its own subject. The root has none: it was never
+   * listed as anyone's child.
+   */
+  entry?: FileEntry
 }
+
+/**
+ * What the tree offers on right-click.
+ *
+ * Only actions that operate on the folder itself. Create and upload would read
+ * the listing's current path rather than the row's, which reads as the menu
+ * lying about what it will do.
+ */
+const TREE_ACTIONS = [FileActionId.OpenFiles, FileActionId.Rename, FileActionId.Delete] as const
 
 /**
  * Lazily-loaded folder tree. Children are fetched on first expand and then cached
@@ -35,13 +54,17 @@ export function FolderTree({ className }: { className?: string }) {
       }))
       try {
         const { entries } = await adapter.list(path)
-        const childPaths = entries.filter((entry) => entry.isDir).map((entry) => joinPath(path, entry.name))
+        const directories = entries.filter((entry) => entry.isDir)
+        const childPaths = directories.map((entry) => joinPath(path, entry.name))
         setNodes((current) => {
           const next = { ...current }
           next[path] = { ...next[path], path, children: childPaths, loading: false }
-          for (const child of childPaths) {
-            next[child] ??= { path: child, name: child.split('/').pop() ?? child, loading: false }
-          }
+          directories.forEach((entry, index) => {
+            const child = childPaths[index]
+            // Refresh the entry even for a node already known: a rename changes the
+            // name and a stale one would rename the wrong thing next time.
+            next[child] = { ...next[child], path: child, name: entry.name, loading: next[child]?.loading ?? false, entry }
+          })
           return next
         })
       } catch {
@@ -58,10 +81,14 @@ export function FolderTree({ className }: { className?: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rootPath])
 
-  // A mutation elsewhere can add or remove folders; refresh the branch currently
-  // being viewed so the tree doesn't drift from the listing.
+  // A mutation can add, remove or rename a folder anywhere, including one renamed
+  // from the tree itself — which the listing never sees. Reloading every expanded
+  // branch is bounded by what the user has actually opened, and is the only way
+  // the tree does not drift from the truth.
   useEffect(() => {
-    if (expanded.has(state.path)) void loadChildren(state.path)
+    for (const path of expanded) {
+      if (nodes[path]?.children) void loadChildren(path)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.entries])
 
@@ -135,9 +162,9 @@ export function FolderTree({ className }: { className?: string }) {
   )
 
   const rows = useMemo(() => {
-    const output: { path: string; name: string; depth: number }[] = []
+    const output: { path: string; name: string; depth: number; entry?: FileEntry }[] = []
     const walk = (path: string, name: string, depth: number) => {
-      output.push({ path, name, depth })
+      output.push({ path, name, depth, entry: nodes[path]?.entry })
       if (!expanded.has(path)) return
       for (const child of nodes[path]?.children ?? []) {
         walk(child, nodes[child]?.name ?? child.split('/').pop() ?? child, depth + 1)
@@ -150,7 +177,7 @@ export function FolderTree({ className }: { className?: string }) {
   return (
     <div className={cn('w-56 shrink-0 overflow-auto border-r border-border bg-sidebar py-2', className)}>
       <ul role="tree" aria-label="Folders" className="text-sm">
-        {rows.map(({ path, name, depth }) => {
+        {rows.map(({ path, name, depth, entry }) => {
           const node = nodes[path]
           const isExpanded = expanded.has(path)
           const isActive = state.path === path
@@ -158,8 +185,14 @@ export function FolderTree({ className }: { className?: string }) {
 
           return (
             <li key={path} role="treeitem" aria-expanded={hasChildren ? isExpanded : undefined} aria-selected={isActive}>
+              <TreeRowMenu entry={entry}>
               <div
                 onClick={() => void handle.navigate(path)}
+                // The root has no entry, so TreeRowMenu leaves it bare. Swallowing
+                // the event keeps it from being the one row in the browser that
+                // answers a plain right-click with the page's own menu. ⌘/Ctrl
+                // still reaches it: that stops propagation before this ever runs.
+                onContextMenu={entry ? undefined : (event) => event.preventDefault()}
                 onDragOver={(event) => {
                   if (!canDrop || !event.dataTransfer.types.includes(INTERNAL_DRAG_TYPE)) return
                   event.preventDefault()
@@ -206,10 +239,28 @@ export function FolderTree({ className }: { className?: string }) {
                 {isExpanded ? <FolderOpen className="size-4 shrink-0 text-primary" /> : <Folder className="size-4 shrink-0 text-primary" />}
                 <span className="truncate">{name}</span>
               </div>
+              </TreeRowMenu>
             </li>
           )
         })}
       </ul>
     </div>
+  )
+}
+
+/**
+ * Wraps a tree row in the browser's own context menu.
+ *
+ * The root row has no entry behind it — nothing lists the mount point itself — and
+ * none of the tree's actions apply to it: it cannot be renamed, deleted, or opened
+ * to anywhere it is not already. It is left unwrapped, and the row swallows the
+ * event rather than offering a menu with nothing in it.
+ */
+function TreeRowMenu({ entry, children }: { entry?: FileEntry; children: React.ReactNode }) {
+  if (!entry) return <>{children}</>
+  return (
+    <FileContextMenu target={entry} include={TREE_ACTIONS}>
+      {children}
+    </FileContextMenu>
   )
 }

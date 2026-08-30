@@ -9,6 +9,21 @@
 
 const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent || '')
 
+/**
+ * Whether a right-click is asking for the browser's own menu instead of ours.
+ *
+ * ⌘ on macOS, Ctrl elsewhere — the same `mod` key the hotkeys use. Deliberately
+ * not Ctrl on macOS: Ctrl+click *is* the secondary click there, so treating it as
+ * the modifier would hand every Mac user who clicks that way the native menu and
+ * never ours.
+ *
+ * Nothing in the UI advertises this. It exists so a developer can reach Inspect
+ * over a listing that has covered every row in its own menu.
+ */
+export function wantsNativeContextMenu(event: { metaKey: boolean; ctrlKey: boolean }): boolean {
+  return isMac ? event.metaKey : event.ctrlKey
+}
+
 export function matchesHotkey(event: KeyboardEvent, spec: string): boolean {
   const parts = spec.toLowerCase().split('+').map((part) => part.trim())
   const key = parts[parts.length - 1]

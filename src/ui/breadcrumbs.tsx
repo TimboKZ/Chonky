@@ -20,7 +20,10 @@ export function Breadcrumbs({ className }: { className?: string }) {
   // is the one on screen rather than the root they started from.
   useLayoutEffect(() => {
     const element = containerRef.current
-    if (element) element.scrollLeft = element.scrollWidth
+    // Nothing to reveal with a single crumb, and scrolling to the end of one would
+    // only hide its start. The trail's min-width is what keeps it legible; this
+    // just makes sure the effect cannot undo that.
+    if (element && chain.length > 1) element.scrollLeft = element.scrollWidth
   }, [chain.length])
 
   const canDropInto = dragAndDropEnabled

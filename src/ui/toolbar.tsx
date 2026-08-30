@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useElementWidth } from './use-element-width'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -69,7 +70,10 @@ function SearchBox() {
   }, [state.search])
 
   return (
-    <div className="relative w-full min-w-24 max-w-56 shrink">
+    // Narrower until there is room to spare: at full width 224px of search is
+    // proportionate, but in a 600px sheet the same field is what squeezes the
+    // folder path down to a couple of characters.
+    <div className="relative w-full min-w-24 max-w-40 shrink @2xl:max-w-56">
       <Search className="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
       <Input
         ref={inputRef}
@@ -106,14 +110,14 @@ function SearchBox() {
   )
 }
 
-function OverflowMenu() {
+function OverflowMenu({ showActions }: { showActions: boolean }) {
   const { state, handle, actions, actionContext, isActionEnabled, dispatch } = useFileBrowserContext()
 
   // Toolbar actions that didn't fit as buttons, plus the view preferences that have
   // no dedicated control.
-  const overflow = actions.filter(
-    (action) => action.toolbar && action.iconOnly !== true && (action.isVisible?.(actionContext) ?? true),
-  )
+  const overflow = showActions
+    ? actions.filter((action) => action.toolbar && action.iconOnly !== true && (action.isVisible?.(actionContext) ?? true))
+    : []
 
   return (
     <DropdownMenu>
@@ -124,7 +128,7 @@ function OverflowMenu() {
       </DropdownMenuTrigger>
       {/* fsg-fb-surface: portalled to document.body, outside the browser root. */}
       <DropdownMenuContent className="fsg-fb-surface" align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        {overflow.length > 0 && <DropdownMenuLabel>Actions</DropdownMenuLabel>}
         {overflow.map((action) => {
           const Icon = action.icon
           return (
@@ -135,7 +139,7 @@ function OverflowMenu() {
           )
         })}
 
-        <DropdownMenuSeparator />
+        {overflow.length > 0 && <DropdownMenuSeparator />}
         <DropdownMenuLabel>View</DropdownMenuLabel>
         <DropdownMenuCheckboxItem
           checked={state.density === 'compact'}
@@ -159,6 +163,11 @@ export interface FileToolbarProps {
 
 export function FileToolbar({ className, children }: FileToolbarProps) {
   const { state, handle, actions, actionContext, isActionEnabled, dispatch, rootPath } = useFileBrowserContext()
+  const barRef = useRef<HTMLDivElement>(null)
+  // Matches the `@xl` container query that hides the action buttons below. The menu
+  // itself is always present: density and hidden files live nowhere else, and
+  // gating it on width left them unreachable on every desktop-width browser.
+  const actionsCollapsed = useElementWidth(barRef) < 576
 
   const buttons = actions.filter((action) => action.toolbar && (action.isVisible?.(actionContext) ?? true))
   const primary = buttons.filter((action) => !action.iconOnly)
@@ -166,14 +175,17 @@ export function FileToolbar({ className, children }: FileToolbarProps) {
   const atRoot = state.path === rootPath
 
   return (
-    <div className={cn('flex flex-wrap items-center gap-2 border-b border-border px-2 py-2', className)}>
+    <div ref={barRef} className={cn('flex flex-wrap items-center gap-2 border-b border-border px-2 py-2', className)}>
       <Tooltip content="Up one folder">
         <Button variant="ghost" size="icon-sm" aria-label="Up one folder" disabled={atRoot} onClick={() => void handle.navigateUp()}>
           <ArrowUp className="size-4" />
         </Button>
       </Tooltip>
 
-      <Breadcrumbs className="min-w-0 flex-1" />
+      {/* A floor, not `min-w-0`: `flex-1` alone lets the path absorb every pixel of
+          shrinkage before the search field gives up any, and in a 600px sheet that
+          leaves the current folder name clipped to a couple of characters. */}
+      <Breadcrumbs className="min-w-32 flex-1" />
 
       <div className="flex items-center gap-2">
         <SearchBox />
@@ -220,9 +232,7 @@ export function FileToolbar({ className, children }: FileToolbarProps) {
         })}
 
         {children}
-        <div className="@xl:hidden">
-          <OverflowMenu />
-        </div>
+        <OverflowMenu showActions={actionsCollapsed} />
       </div>
     </div>
   )

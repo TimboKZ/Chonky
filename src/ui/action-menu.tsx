@@ -1,8 +1,8 @@
-import { Fragment, type ReactNode } from 'react'
+import { Fragment, useMemo, type ReactNode } from 'react'
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuTrigger } from '@fsg/gui-bytes/components/ui'
 import { useFileBrowserContext } from '../core/context'
 import { formatHotkey } from '../core/hotkeys'
-import type { FileAction } from '../core/types'
+import type { FileAction, FileEntry } from '../core/types'
 
 /**
  * Menu section order, which is not the same as the toolbar's.
@@ -33,11 +33,36 @@ function groupActions(actions: FileAction[]): [string, FileAction[]][] {
   return [...groups.entries()].sort(([a], [b]) => rank(a) - rank(b))
 }
 
-export function FileContextMenu({ children }: { children: ReactNode }) {
+export interface FileContextMenuProps {
+  children: ReactNode
+  /**
+   * Act on this entry instead of the current selection.
+   *
+   * The folder tree needs it: its rows are not part of the listing, so there is no
+   * selection to read and every action has to name its own subject.
+   */
+  target?: FileEntry
+  /** Restrict the menu to these action ids, in the order the action list declares them. */
+  include?: readonly string[]
+}
+
+export function FileContextMenu({ children, target, include }: FileContextMenuProps) {
   const { actions, actionContext, isActionEnabled, dispatch } = useFileBrowserContext()
 
-  const items = actions.filter((action) => action.contextMenu && (action.isVisible?.(actionContext) ?? true))
+  const items = useMemo(() => {
+    const allowed = include ? actions.filter((action) => include.includes(action.id)) : actions
+    return allowed.filter((action) => action.contextMenu && (action.isVisible?.(actionContext) ?? true))
+  }, [actions, include, actionContext])
+
   const groups = groupActions(items)
+
+  /* With an explicit target the selection is irrelevant — an action is available if
+   * its own `appliesTo` accepts that entry. */
+  const enabled = (action: FileAction) =>
+    target ? !action.appliesTo || action.appliesTo(target) : isActionEnabled(action)
+
+  const run = (action: FileAction) =>
+    target ? dispatch(action.id, { origin: target, targets: [target] }) : dispatch(action.id)
 
   return (
     <ContextMenu>
@@ -54,8 +79,8 @@ export function FileContextMenu({ children }: { children: ReactNode }) {
                 <ContextMenuItem
                   key={action.id}
                   variant={action.destructive ? 'destructive' : 'default'}
-                  disabled={!isActionEnabled(action)}
-                  onSelect={() => void dispatch(action.id)}
+                  disabled={!enabled(action)}
+                  onSelect={() => void run(action)}
                 >
                   {Icon && <Icon className="size-4" />}
                   <span>{action.label}</span>

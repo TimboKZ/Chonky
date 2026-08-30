@@ -22,9 +22,13 @@ export interface DevSessionOptions {
 export function useDevSession({ identityServiceUrl }: DevSessionOptions) {
   const [state, setState] = useState<SessionState>('checking')
   const [user, setUser] = useState<{ name?: string; email?: string } | null>(null)
+  const loginUrl = `${identityServiceUrl}/login?return_url=${encodeURIComponent(storybookUrl())}`
 
-  const check = useCallback(async () => {
-    setState('checking')
+  // `silent` keeps a background re-check from blanking the panel back to a spinner:
+  // the developer is looking at the sign-in button when the tab regains focus, and
+  // it should stay put unless the answer actually changed.
+  const check = useCallback(async ({ silent = false } = {}) => {
+    if (!silent) setState('checking')
     try {
       const response = await fetch(`${identityServiceUrl}/me`, { credentials: 'include' })
       if (response.status === 401 || response.status === 403) {
@@ -48,13 +52,48 @@ export function useDevSession({ identityServiceUrl }: DevSessionOptions) {
     void check()
   }, [check])
 
-  const signIn = useCallback(() => {
-    // The identity service will not redirect back to localhost, so this opens in a
-    // new tab: sign in there, come back, and hit Retry. The cookie is shared.
-    window.open(identityServiceUrl, '_blank', 'noopener,noreferrer')
-  }, [identityServiceUrl])
 
-  return { state, user, recheck: check, signIn }
+
+  useEffect(() => {
+    if (state !== 'signed-out' && state !== 'unreachable') return
+    // Signing in happens in another tab, so nothing in this one changes when it
+    // succeeds. Re-checking on focus turns the Retry button into a fallback
+    // rather than a step: switch back and the listing is already loading.
+    const recheck = () => {
+      if (!document.hidden) void check({ silent: true })
+    }
+    window.addEventListener('focus', recheck)
+    document.addEventListener('visibilitychange', recheck)
+    return () => {
+      window.removeEventListener('focus', recheck)
+      document.removeEventListener('visibilitychange', recheck)
+    }
+  }, [state, check])
+
+  const signIn = useCallback(() => {
+    // A new tab, not this one: whether the callback honours a localhost
+    // `return_url` is up to the identity service, and either way the session
+    // cookie lands on `.fsgapps.com` before the redirect. Storybook stays put and
+    // picks the session up when it regains focus.
+    window.open(loginUrl, '_blank', 'noopener,noreferrer')
+  }, [loginUrl])
+
+  return { state, user, recheck: () => void check(), signIn, loginUrl }
+}
+
+/**
+ * Where the identity service should send the browser back to.
+ *
+ * Stories render in Storybook's iframe; returning to the iframe URL alone would
+ * drop the developer into a chrome-less story, so this prefers the top window.
+ */
+function storybookUrl() {
+  try {
+    return window.top?.location.href ?? window.location.href
+  } catch {
+    // Cross-origin top window: not the Storybook case, but not worth throwing over.
+    return window.location.href
+  }
 }
 
 export interface DevSessionGateProps {
@@ -81,8 +120,9 @@ export function DevSessionGate({ state, identityServiceUrl, onRetry, onSignIn, c
           <LogIn className="size-8 text-muted-foreground" />
           <p className="text-sm font-medium">Sign in to dev to load real files</p>
           <p className="max-w-md text-xs text-muted-foreground">
-            These stories read the live file-storage service using your <code>fsg_apps_session</code> cookie. Sign in at{' '}
-            <span className="font-mono">{identityServiceUrl}</span> in this browser, then come back and retry.
+            These stories read the live file-storage service using your <code>fsg_apps_session</code> cookie. Signing in opens{' '}
+            <span className="font-mono">{new URL(identityServiceUrl).host}</span> in a new tab; come back to this one when it
+            finishes and the listing loads itself.
           </p>
           <div className="mt-1 flex gap-2">
             <Button size="sm" onClick={onSignIn}>

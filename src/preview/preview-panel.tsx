@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Download, ExternalLink, X } from 'lucide-react'
 import { cn } from '../util/cn'
 import { formatBytes } from '../util/bytes'
@@ -51,6 +51,15 @@ export function FilePreviewPanel({
   const engine = useOptionalFileBrowserContext()
   const adapter = adapterProp ?? engine?.adapter
 
+  // Tells the browser a panel exists, so Preview and File info stop offering
+  // themselves where there is nothing to show the result in.
+  const register = engine?.registerDetailsPanel
+  useEffect(() => register?.(), [register])
+
+  // Driven by the panel only when it is inside a browser: standalone, the caller
+  // decides whether to render it at all.
+  const open = entryProp !== undefined || !engine ? true : engine.detailsOpen
+
   const entry = entryProp !== undefined ? entryProp : (engine?.previewEntry ?? engine?.selection.find((candidate) => !candidate.isDir) ?? null)
 
   const close =
@@ -85,6 +94,9 @@ export function FilePreviewPanel({
         // throw its preview across the whole page. Absolute keeps the overlay
         // inside the browser's own box, which the dropzone establishes as the
         // positioning context.
+        // Hidden rather than unmounted: unmounting would withdraw the registration
+        // above, hiding the very toggle that turns it back on.
+        !open && 'hidden',
         overlayWhenNarrow
           ? cn('absolute inset-0 z-30 w-full @3xl:static @3xl:inset-auto @3xl:z-auto @3xl:w-80 @3xl:shrink-0 @3xl:border-l',
                !entry && 'hidden @3xl:flex')

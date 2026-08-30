@@ -168,12 +168,16 @@ export function createMemoryAdapter(options: MemoryAdapterOptions): FileSystemAd
     async upload({ file, destination, name, onProgress }: UploadRequest) {
       const level = findDirectory(tree, destination)
       if (!level) throw new Error(`No such directory: ${destination || '/'}`)
+      // Read before reporting done: keeping the bytes is what lets an uploaded file
+      // preview and download like the fixtures around it, instead of becoming the
+      // one entry in the listing that cannot be opened.
+      const content = await file.arrayBuffer()
       // Report progress in steps so the queue UI animates rather than snapping to done.
       for (const fraction of [0.25, 0.5, 0.75, 1]) {
         await wait()
         onProgress?.(fraction)
       }
-      level.push({ name, isDir: false, size: file.size, mimeType: file.type, modifiedAt: Date.now() })
+      level.push({ name, isDir: false, size: file.size, mimeType: file.type, modifiedAt: Date.now(), content })
     },
   }
 }

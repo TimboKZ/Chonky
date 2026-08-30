@@ -123,6 +123,12 @@ export interface FileActionContext {
   folderChain: FolderChainItem[]
   clipboard: ClipboardState | null
   readOnly: boolean
+  /**
+   * Whether a details panel is mounted to receive a preview. Actions that only
+   * change what that panel shows have nowhere to put their result without one, so
+   * they hide rather than sit in the menu doing nothing.
+   */
+  hasDetailsPanel: boolean
 }
 
 export interface FileActionEvent extends FileActionContext {

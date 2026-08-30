@@ -878,3 +878,499 @@ describe('FileBrowser — telling similar names apart', () => {
     expect(names.some((name) => name.includes('rev3.pdf'))).toBe(true)
   })
 })
+
+describe('FolderTree — context menu', () => {
+  function renderTree() {
+    const nodes: MemoryNode[] = [
+      { name: 'b9e202da-f771', isDir: true, children: [{ name: 'thumbs', isDir: true, children: [] }] },
+      { name: 'aed55eee-956b', isDir: true, children: [] },
+      { name: 'notes.txt', isDir: false, size: 12 },
+    ]
+    const adapter = createMemoryAdapter({ tree: nodes })
+    render(
+      <div style={{ width: 1100, height: 560 }}>
+        <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} allowFolderDelete />
+      </div>,
+    )
+    return nodes
+  }
+
+  const treeRow = (name: string) => page.getByRole('treeitem', { name: new RegExp(name, 'i') })
+
+  it('offers the browser’s own menu on a tree folder', async () => {
+    renderTree()
+    await expect.element(treeRow('b9e202da')).toBeVisible()
+    await treeRow('b9e202da').click({ button: 'right' })
+
+    // Not exact: a menu item's accessible name carries its shortcut glyph too.
+    // Only Open, Rename and Delete are in this menu, so the substring is unambiguous.
+    await expect.element(page.getByRole('menuitem', { name: 'Rename' })).toBeVisible()
+    await expect.element(page.getByRole('menuitem', { name: 'Open' })).toBeVisible()
+  })
+
+  it('offers only actions that act on the folder itself', async () => {
+    // Upload and New folder would target the listing's path, not the row's.
+    renderTree()
+    await expect.element(treeRow('b9e202da')).toBeVisible()
+    await treeRow('b9e202da').click({ button: 'right' })
+
+    await expect.element(page.getByRole('menuitem', { name: 'Upload files' })).not.toBeInTheDocument()
+    await expect.element(page.getByRole('menuitem', { name: 'New folder' })).not.toBeInTheDocument()
+    await expect.element(page.getByRole('menuitem', { name: 'Copy' })).not.toBeInTheDocument()
+  })
+
+  it('renames a nested folder in place while the listing is somewhere else', async () => {
+    /*
+     * The subject is not in the listing, so the rename has to resolve against the
+     * entry's own folder. Against the listing's path it would *move* the folder
+     * instead. Both folders have to be off the root for that to be visible — at
+     * the root the two paths are both '' and the bug hides.
+     */
+    const nodes = renderTree()
+    await expect.element(treeRow('b9e202da')).toBeVisible()
+
+    // Expand via the chevron, not the row: clicking a row navigates, and then the
+    // listing's path and the entry's path would coincide and the bug would hide.
+    await page.getByRole('button', { name: 'Expand b9e202da-f771' }).click()
+    await expect.element(treeRow('thumbs')).toBeVisible()
+
+    // Now put the listing somewhere else entirely.
+    await treeRow('aed55eee').click()
+    await expect.element(page.getByRole('button', { name: 'aed55eee-956b' })).toBeVisible()
+    await treeRow('thumbs').click({ button: 'right' })
+    await page.getByRole('menuitem', { name: 'Rename' }).click()
+
+    const input = page.getByRole('dialog').getByRole('textbox')
+    await expect.element(input).toBeVisible()
+    await input.fill('Renders')
+    await page.getByRole('dialog').getByRole('button', { name: 'Rename' }).click()
+
+    await expect.element(treeRow('Renders')).toBeVisible()
+
+    const parent = nodes.find((node) => node.name === 'b9e202da-f771')
+    const elsewhere = nodes.find((node) => node.name === 'aed55eee-956b')
+    expect(parent?.children?.map((child) => child.name)).toEqual(['Renders'])
+    // Renamed, not relocated into whatever the listing happened to be showing.
+    expect(elsewhere?.children ?? []).toHaveLength(0)
+  })
+
+  it('opens a nested folder from the tree without resolving against the listing', async () => {
+    renderTree()
+    await expect.element(treeRow('b9e202da')).toBeVisible()
+    await treeRow('b9e202da').click()
+    await expect.element(treeRow('thumbs')).toBeVisible()
+
+    await treeRow('thumbs').click({ button: 'right' })
+    await page.getByRole('menuitem', { name: 'Open' }).click()
+
+    // Landed in b9e202da-f771/thumbs, not <listing>/thumbs.
+    await expect.element(page.getByRole('button', { name: 'thumbs', exact: true })).toBeVisible()
+  })
+})
+
+describe('FileBrowser — native context menu escape hatch', () => {
+  /** ⌘ on macOS, Ctrl elsewhere — matching the modifier the component looks for. */
+  const ESCAPE_MODIFIER = navigator.platform.includes('Mac') ? 'Meta' : 'Control'
+
+  /**
+   * Whether the page's own menu would have opened.
+   *
+   * A real native menu cannot be observed from script, so this asks the question
+   * the component actually controls: was the event left un-prevented for the
+   * browser to act on, and did Radix leave it alone.
+   */
+  async function rightClick(target: Element, modifiers: string[] = []) {
+    const menusBefore = document.querySelectorAll('[role="menu"]').length
+    let defaultPrevented = false
+    const watch = (event: Event) => {
+      defaultPrevented = event.defaultPrevented
+    }
+    // Bubble phase on the document: everything that was going to handle the event
+    // already has by the time this runs.
+    document.addEventListener('contextmenu', watch)
+    target.dispatchEvent(
+      new MouseEvent('contextmenu', {
+        bubbles: true,
+        cancelable: true,
+        button: 2,
+        metaKey: modifiers.includes('Meta'),
+        ctrlKey: modifiers.includes('Control'),
+      }),
+    )
+    await new Promise((resolve) => setTimeout(resolve, 120))
+    document.removeEventListener('contextmenu', watch)
+    return { defaultPrevented, openedMenu: document.querySelectorAll('[role="menu"]').length > menusBefore }
+  }
+
+  /** The row inside a treeitem: `role="treeitem"` sits on the li, the handlers on
+   *  the div that fills it and is what a real cursor lands on. */
+  const treeRow = (name: string) => {
+    const item = page.getByRole('treeitem', { name: new RegExp(name) }).element()
+    return item.querySelector('div') ?? item
+  }
+
+  function renderBrowserWithTree() {
+    const nodes: MemoryNode[] = [{ name: 'Photos', isDir: true, children: [] }, { name: 'notes.txt', isDir: false, size: 12 }]
+    render(
+      <div style={{ width: 1100, height: 500 }}>
+        <FileBrowser adapter={createMemoryAdapter({ tree: nodes })} rootLabel="Files" persistKey={false} />
+      </div>,
+    )
+  }
+
+  it('opens the browser’s own menu on a plain right-click', async () => {
+    renderBrowserWithTree()
+    await expect.element(option('notes.txt')).toBeVisible()
+
+    const result = await rightClick(option('notes.txt').element())
+    expect(result.openedMenu).toBe(true)
+  })
+
+  it('lets the modifier through to the page’s menu instead', async () => {
+    // Undocumented on purpose: a developer needs some way to reach Inspect over a
+    // listing whose every row carries a custom menu.
+    renderBrowserWithTree()
+    await expect.element(option('notes.txt')).toBeVisible()
+
+    const result = await rightClick(option('notes.txt').element(), [ESCAPE_MODIFIER])
+    expect(result.openedMenu).toBe(false)
+    expect(result.defaultPrevented).toBe(false)
+  })
+
+  it('applies to folder-tree rows too', async () => {
+    renderBrowserWithTree()
+    await expect.element(page.getByRole('treeitem', { name: /Photos/ })).toBeVisible()
+    // Resolved once: an open Radix menu marks the rest of the page aria-hidden, so
+    // a second role lookup would find nothing.
+    const row = treeRow('Photos')
+
+    expect((await rightClick(row)).openedMenu).toBe(true)
+    await userEvent.keyboard('{Escape}')
+    expect((await rightClick(row, [ESCAPE_MODIFIER])).openedMenu).toBe(false)
+  })
+
+  it('keeps the other modifier on the browser’s own menu', async () => {
+    // Ctrl+click is the secondary click on macOS. Treating Ctrl as the escape there
+    // would hand every Mac user who clicks that way the page's menu, always.
+    renderBrowserWithTree()
+    await expect.element(option('notes.txt')).toBeVisible()
+    const other = ESCAPE_MODIFIER === 'Meta' ? 'Control' : 'Meta'
+
+    expect((await rightClick(option('notes.txt').element(), [other])).openedMenu).toBe(true)
+  })
+
+  it('does not let the root tree row fall through on a plain right-click', async () => {
+    // No entry backs the root, so it gets no menu — but it should not be the one
+    // row in the browser that answers a plain right-click with the page's menu.
+    renderBrowserWithTree()
+    await expect.element(page.getByRole('treeitem', { name: 'Files' })).toBeVisible()
+
+    const result = await rightClick(treeRow('Files'))
+    expect(result.openedMenu).toBe(false)
+    expect(result.defaultPrevented).toBe(true)
+  })
+
+  it('still lets the modifier through on the root row', async () => {
+    renderBrowserWithTree()
+    await expect.element(page.getByRole('treeitem', { name: 'Files' })).toBeVisible()
+
+    expect((await rightClick(treeRow('Files'), [ESCAPE_MODIFIER])).defaultPrevented).toBe(false)
+  })
+})
+
+describe('FolderTree — deleting the folder you are standing in', () => {
+  const treeRow = (name: string) => page.getByRole('treeitem', { name: new RegExp(name, 'i') })
+  const crumb = (name: string) =>
+    page.getByRole('navigation', { name: 'Folder path' }).getByRole('button', { name, exact: true })
+
+  function renderDeletable() {
+    const nodes: MemoryNode[] = [
+      { name: 'Submittals', isDir: true, children: [] },
+      { name: 'Site Photos', isDir: true, children: [{ name: 'Before', isDir: true, children: [] }] },
+      { name: 'Invoices', isDir: true, children: [] },
+    ]
+    render(
+      <div style={{ width: 1100, height: 560 }}>
+        <FileBrowser adapter={createMemoryAdapter({ tree: nodes })} rootLabel="Files" persistKey={false} allowFolderDelete />
+      </div>,
+    )
+  }
+
+  async function deleteFromTree(name: string) {
+    await treeRow(name).click({ button: 'right' })
+    await page.getByRole('menuitem', { name: 'Delete' }).click()
+    await page.getByRole('alertdialog').getByRole('button', { name: 'Delete' }).click()
+  }
+
+  it('lands in the parent instead of failing to load what was just deleted', async () => {
+    // Refreshing after this delete asks the adapter for a folder that no longer
+    // exists, and the browser answers with its "failed to load this folder" screen
+    // — an error state the user can only escape by clicking another tree row.
+    renderDeletable()
+    await treeRow('Submittals').click()
+    await expect.element(crumb('Submittals')).toBeVisible()
+
+    await deleteFromTree('Submittals')
+
+    await expect.element(crumb('Files')).toBeVisible()
+    await expect.element(page.getByText('Failed to load this folder')).not.toBeInTheDocument()
+  })
+
+  it('drops the deleted folder from the tree', async () => {
+    renderDeletable()
+    await treeRow('Submittals').click()
+    await expect.element(crumb('Submittals')).toBeVisible()
+
+    await deleteFromTree('Submittals')
+
+    await expect.element(treeRow('Invoices')).toBeVisible()
+    await expect.element(treeRow('Submittals')).not.toBeInTheDocument()
+  })
+
+  it('climbs out of a deleted ancestor, not just a deleted current folder', async () => {
+    renderDeletable()
+    await page.getByRole('button', { name: 'Expand Site Photos' }).click()
+    await treeRow('Before').click()
+    await expect.element(crumb('Before')).toBeVisible()
+
+    await deleteFromTree('Site Photos')
+
+    await expect.element(crumb('Files')).toBeVisible()
+    await expect.element(page.getByText('Failed to load this folder')).not.toBeInTheDocument()
+  })
+})
+
+describe('FileBrowser — HEIC conversion', () => {
+  const heicTree = (): MemoryNode[] => [{ name: 'roof.heic', isDir: false, mimeType: 'image/heic', content: 'raw-heic' }]
+
+  /** A converter that records what it was handed, so we can prove it was used. */
+  function stubConverter() {
+    const calls: number[] = []
+    const convert = async (bytes: Uint8Array) => {
+      calls.push(bytes.byteLength)
+      return new TextEncoder().encode('jpeg-bytes')
+    }
+    return { calls, convert }
+  }
+
+  it('uses the supplied converter instead of the bundled decoder', async () => {
+    // Without this the option was inert: an app could pass a converter and silently
+    // get the 1.4 MB WASM path anyway.
+    const { calls, convert } = stubConverter()
+    render(
+      <div style={{ height: 600, width: 900 }}>
+        <FileBrowser adapter={createMemoryAdapter({ tree: heicTree() })} rootLabel="Files" persistKey={false} heicConverter={convert} />
+      </div>,
+    )
+    await option('roof.heic').click({ button: 'right' })
+    await page.getByRole('menuitem', { name: 'Convert to JPG' }).click()
+
+    await expect.element(option('roof.jpg')).toBeVisible()
+    expect(calls).toEqual(['raw-heic'.length])
+  })
+
+  it('removes the original by default, leaving one photo rather than two', async () => {
+    const { convert } = stubConverter()
+    render(
+      <div style={{ height: 600, width: 900 }}>
+        <FileBrowser adapter={createMemoryAdapter({ tree: heicTree() })} rootLabel="Files" persistKey={false} heicConverter={convert} />
+      </div>,
+    )
+    await option('roof.heic').click({ button: 'right' })
+    await page.getByRole('menuitem', { name: 'Convert to JPG' }).click()
+
+    await expect.element(option('roof.jpg')).toBeVisible()
+    await expect.element(option('roof.heic')).not.toBeInTheDocument()
+  })
+
+  it('keeps the original when asked to', async () => {
+    const { convert } = stubConverter()
+    render(
+      <div style={{ height: 600, width: 900 }}>
+        <FileBrowser
+          adapter={createMemoryAdapter({ tree: heicTree() })}
+          rootLabel="Files"
+          persistKey={false}
+          heicConverter={convert}
+          heicKeepOriginal
+        />
+      </div>,
+    )
+    await option('roof.heic').click({ button: 'right' })
+    await page.getByRole('menuitem', { name: 'Convert to JPG' }).click()
+
+    await expect.element(option('roof.jpg')).toBeVisible()
+    await expect.element(option('roof.heic')).toBeVisible()
+  })
+})
+
+describe('FileBrowser — a failed action keeps the folder', () => {
+  it('reports a failed rename without blanking the listing', async () => {
+    // The listing's error state means "this folder could not be listed". A failed
+    // rename is not that: the folder is still there and still correct, and trading
+    // it for an error screen loses far more than the message explains.
+    const adapter = createMemoryAdapter({ tree: tree() })
+    const errors: Error[] = []
+    render(
+      <div style={{ height: 600, width: 900 }}>
+        <FileBrowser
+          adapter={{ ...adapter, move: () => Promise.reject(new Error('Permission denied')) }}
+          rootLabel="Files"
+          persistKey={false}
+          onError={(error) => errors.push(error)}
+        />
+      </div>,
+    )
+
+    await option('notes.txt').click({ button: 'right' })
+    await page.getByRole('menuitem', { name: 'Rename' }).click()
+    await page.getByRole('dialog').getByRole('textbox').fill('renamed.txt')
+    await page.getByRole('dialog').getByRole('button', { name: 'Rename' }).click()
+
+    await expect.element(option('notes.txt')).toBeVisible()
+    await expect.element(option('budget.xlsx')).toBeVisible()
+    await vi.waitFor(() => expect(errors.map((error) => error.message)).toContain('Permission denied'))
+  })
+})
+
+describe('FileBrowser — controls that have to be reachable', () => {
+  it('makes the whole column header sort, not just its label', async () => {
+    // The label is a fraction of the column: 48px of live target in a 732px Name
+    // header is a header that looks broken to anyone who clicks the empty part.
+    render(
+      <div style={{ width: 1100, height: 400 }}>
+        <FileBrowser adapter={createMemoryAdapter({ tree: tree() })} rootLabel="Files" persistKey={false} initialViewMode="details" />
+      </div>,
+    )
+    const header = page.getByRole('columnheader', { name: /Name/ })
+    await expect.element(header).toBeVisible()
+
+    const cell = header.element().getBoundingClientRect()
+    const target = header.getByRole('button').element().getBoundingClientRect()
+    expect(Math.round(cell.width - target.width)).toBe(0)
+    expect(Math.round(cell.height - target.height)).toBe(0)
+  })
+
+  it('reverses the sort when the header is clicked away from its label', async () => {
+    render(
+      <div style={{ width: 1100, height: 400 }}>
+        <FileBrowser adapter={createMemoryAdapter({ tree: tree() })} rootLabel="Files" persistKey={false} initialViewMode="details" />
+      </div>,
+    )
+    const header = page.getByRole('columnheader', { name: /Name/ })
+    await expect.element(header).toHaveAttribute('aria-sort', 'ascending')
+
+    const box = header.element().getBoundingClientRect()
+    await userEvent.click(header.element(), { position: { x: box.width - 12, y: box.height / 2 } })
+
+    await expect.element(header).toHaveAttribute('aria-sort', 'descending')
+  })
+
+  it('keeps the view preferences reachable at desktop width', async () => {
+    // Compact rows and hidden files live in this menu and nowhere else. Gating the
+    // menu on a narrow container left them unreachable in every real browser.
+    render(
+      <div style={{ width: 1100, height: 400 }}>
+        <FileBrowser adapter={createMemoryAdapter({ tree: tree() })} rootLabel="Files" persistKey={false} />
+      </div>,
+    )
+    await page.getByRole('button', { name: 'More options' }).click()
+
+    await expect.element(page.getByRole('menuitemcheckbox', { name: 'Compact rows' })).toBeVisible()
+    await expect.element(page.getByRole('menuitemcheckbox', { name: 'Show hidden files' })).toBeVisible()
+  })
+
+  it('does not repeat the toolbar buttons in the menu when they are already on screen', async () => {
+    render(
+      <div style={{ width: 1100, height: 400 }}>
+        <FileBrowser adapter={createMemoryAdapter({ tree: tree() })} rootLabel="Files" persistKey={false} />
+      </div>,
+    )
+    await page.getByRole('button', { name: 'More options' }).click()
+
+    await expect.element(page.getByRole('menuitem', { name: 'New folder' })).not.toBeInTheDocument()
+  })
+})
+
+describe('FileBrowser — breadcrumbs', () => {
+  const LONG_ROOT = 'Job 40112 Riverside'
+  const folderPath = page.getByRole('navigation', { name: 'Folder path' })
+
+  /** A chain deep enough, and named long enough, to overflow a narrow trail. */
+  function deepTree(): MemoryNode[] {
+    return [
+      {
+        name: 'Site Photographs',
+        isDir: true,
+        children: [{ name: 'Before Remediation', isDir: true, children: [{ name: 'North Elevation', isDir: true, children: [] }] }],
+      },
+    ]
+  }
+
+  function renderAt(width: number, nodes: MemoryNode[] = tree()) {
+    render(
+      <div style={{ width, height: 400 }}>
+        <FileBrowser adapter={createMemoryAdapter({ tree: nodes })} rootLabel={LONG_ROOT} persistKey={false} />
+      </div>,
+    )
+  }
+
+  /** How far the crumb sits outside the visible trail, in pixels. Zero means legible. */
+  function clippedBy(name: string) {
+    const nav = folderPath.element().getBoundingClientRect()
+    const button = crumb(name).element().getBoundingClientRect()
+    return Math.max(0, Math.round(nav.left - button.left), Math.round(button.right - nav.right))
+  }
+
+  it('shows the whole root crumb in a sheet-width browser', async () => {
+    // The regression: the trail took every pixel of the toolbar's shrinkage, then
+    // scrolled its one crumb past its own start — "Job 40112" painted as "b 40112".
+    renderAt(600)
+    await expect.element(crumb(LONG_ROOT)).toBeVisible()
+    expect(clippedBy(LONG_ROOT)).toBe(0)
+    expect(folderPath.element().scrollLeft).toBe(0)
+  })
+
+  it('still scrolls a deep trail to the folder the user just opened', async () => {
+    renderAt(420, deepTree())
+    await option('Site Photographs').dblClick()
+    await option('Before Remediation').dblClick()
+    await option('North Elevation').dblClick()
+    await expect.element(crumb('North Elevation')).toBeVisible()
+
+    const nav = folderPath.element()
+    // The point of scrolling at all: the trail overflows, and the crumb worth
+    // seeing is the last one rather than the root.
+    expect(nav.scrollWidth).toBeGreaterThan(nav.clientWidth)
+    expect(nav.scrollLeft).toBeGreaterThan(0)
+    expect(clippedBy('North Elevation')).toBe(0)
+  })
+})
+
+describe('FileBrowser — row highlight', () => {
+  /** Renders one view mode and reports the selected row's corner radius. */
+  async function selectedRowRadius(viewMode: 'list' | 'details' | 'grid') {
+    const adapter = createMemoryAdapter({ tree: tree() })
+    render(
+      <div style={{ width: 900, height: 400 }}>
+        <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} showSidebar={false} initialViewMode={viewMode} />
+      </div>,
+    )
+    await option('notes.txt').click()
+    await expect.element(option('notes.txt')).toHaveAttribute('aria-selected', 'true')
+    return getComputedStyle(option('notes.txt').element()).borderTopLeftRadius
+  }
+
+  it('gives list rows the same full-bleed highlight as details rows', async () => {
+    // A row is a band across the listing, not a card floating in it.
+    expect(await selectedRowRadius('list')).toBe('0px')
+  })
+
+  it('gives details rows a full-bleed highlight', async () => {
+    expect(await selectedRowRadius('details')).toBe('0px')
+  })
+
+  it('keeps the radius on grid tiles, which are cards', async () => {
+    expect(await selectedRowRadius('grid')).not.toBe('0px')
+  })
+})

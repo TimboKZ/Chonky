@@ -101,12 +101,56 @@ describe('Preview action gating', () => {
     const adapter = createMemoryAdapter({ tree: [{ name: 'firmware.bin', isDir: false, content: 'x' }] })
     render(
       <div style={{ height: 600, width: 1100 }}>
-        <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} />
+        <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} aside={<FilePreviewPanel overlayWhenNarrow />} />
       </div>,
     )
     await option('firmware.bin').click({ button: 'right' })
 
     await expect.element(page.getByRole('menuitem', { name: 'Preview' })).toBeDisabled()
+  })
+
+  it('is hidden entirely when no panel is mounted to show the result', async () => {
+    // Both Preview and File info only move what a panel displays. Without one they
+    // are buttons that depress and do nothing, so they should not be offered.
+    const adapter = createMemoryAdapter({ tree: tree() })
+    render(
+      <div style={{ height: 600, width: 1100 }}>
+        <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} />
+      </div>,
+    )
+    await option('punch-list.csv').click({ button: 'right' })
+
+    await expect.element(page.getByRole('menuitem', { name: 'Rename' })).toBeVisible()
+    await expect.element(page.getByRole('menuitem', { name: 'Preview' })).not.toBeInTheDocument()
+    await expect.element(page.getByRole('button', { name: 'File info' })).not.toBeInTheDocument()
+  })
+
+  it('offers File info once a panel is there', async () => {
+    renderWithPanel()
+    await expect.element(page.getByRole('button', { name: 'File info' })).toBeVisible()
+  })
+})
+
+describe('File info toggle', () => {
+  it('hides and restores the panel', async () => {
+    renderWithPanel()
+    await option('punch-list.csv').click()
+    await expect.element(panel().getByText('Complete')).toBeVisible()
+
+    await page.getByRole('button', { name: 'File info' }).click()
+    await expect.element(panel()).not.toBeInTheDocument()
+
+    await page.getByRole('button', { name: 'File info' }).click()
+    await expect.element(panel().getByText('Complete')).toBeVisible()
+  })
+
+  it('closes the panel from its own close button', async () => {
+    renderWithPanel()
+    await option('punch-list.csv').click()
+    await expect.element(panel().getByText('Complete')).toBeVisible()
+
+    await panel().getByRole('button', { name: 'Close' }).click()
+    await expect.element(panel()).not.toBeInTheDocument()
   })
 })
 

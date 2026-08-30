@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
+import { Toaster, toast } from 'sonner'
 import { FileBrowser } from './file-browser'
 import { FilePicker } from './file-picker'
 import { FilePreviewPanel } from '../preview/preview-panel'
@@ -7,6 +8,18 @@ import { createMemoryAdapter, type MemoryNode } from '../adapter/memory-adapter'
 import { useImageOptimization } from '../images/use-image-optimization'
 import { ImageOptimizationDialog } from '../images/optimization-dialog'
 import type { FileEntry, Notification } from '../core/types'
+import {
+  Sheet,
+  SheetActionButtons,
+  SheetBody,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetLayout,
+  SheetTitle,
+  SheetTrigger,
+} from '@fsg/gui-bytes/components/ui'
+import { Button } from './primitives/button'
 import {
   APPROVAL_EML,
   BRACKET_STL,
@@ -43,7 +56,7 @@ function sampleTree(): MemoryNode[] {
           content: SITE_PHOTO_SVG,
           thumbnailUrl: toDataUrl(SITE_PHOTO_SVG, 'image/svg+xml'),
         },
-        { name: 'roof-detail.heic', isDir: false, size: 3_902_000, mimeType: 'image/heic', modifiedAt: ago(2) },
+        { name: 'roof-detail.heic', isDir: false, size: 3_902_000, mimeType: 'image/heic', modifiedAt: ago(2), content: 'HEIC placeholder bytes' },
         {
           name: 'Before',
           isDir: true,
@@ -123,6 +136,121 @@ const meta = {
 
 export default meta
 type Story = StoryObj<typeof meta>
+
+/**
+ * Every capability wired at once.
+ *
+ * Open this one when something elsewhere appears to do nothing: the other stories
+ * deliberately leave pieces out — no preview panel, no toast host, no HEIC
+ * converter — and an action whose whole effect lands in a piece that isn't mounted
+ * looks identical to a broken one. Here everything is present, and the log records
+ * each action as it is dispatched, so "wired but quiet" is distinguishable from
+ * "actually broken".
+ */
+export const Everything: Story = {
+  render: function Render() {
+    const nodes = useMemo(() => sampleTree(), [])
+    const adapter = useMemo(() => createMemoryAdapter({ tree: nodes, latency: 140 }), [nodes])
+    const optimization = useImageOptimization({ mode: 'modal' })
+    const [log, setLog] = useState<string[]>([])
+
+    const record = useCallback((line: string) => {
+      const at = new Date().toLocaleTimeString([], { hour12: false })
+      setLog((entries) => [`${at}  ${line}`, ...entries].slice(0, 60))
+    }, [])
+
+    return (
+      <Frame>
+        {/* The browser routes every message — upload failures, locked items, HEIC
+            fallbacks — through a notify adapter. Without a host they vanish. */}
+        <Toaster position="bottom-right" richColors />
+
+        <div className="flex h-full gap-3">
+          <div className="min-w-0 flex-1">
+            <FileBrowser
+              adapter={adapter}
+              rootLabel="Job 40112"
+              persistKey={false}
+              allowFolderDelete
+              aside={<FilePreviewPanel overlayWhenNarrow />}
+              transformUpload={optimization.transform}
+              heicConverter={heicToJpeg}
+              isEntryLocked={(entry) => entry.name === 'Signed Contract.pdf'}
+              notify={(notification) => {
+                record(`notify.${notification.level}: ${notification.message}`)
+                toast[notification.level](notification.message)
+              }}
+              onFileAction={(event) => {
+                const targets = event.targets.map((entry) => entry.name).join(', ')
+                record(`${event.id}${targets ? ` → ${targets}` : ''}`)
+              }}
+              onSelectionChange={(selected) => record(`selection: ${selected.length || 'none'}`)}
+              onPathChange={(path) => record(`path: ${path || '/'}`)}
+            />
+          </div>
+
+          <aside className="hidden w-72 shrink-0 flex-col rounded-lg border border-border bg-background lg:flex">
+            <div className="flex items-center justify-between border-b border-border px-3 py-2">
+              <h2 className="text-sm font-semibold">Action log</h2>
+              <button
+                type="button"
+                onClick={() => setLog([])}
+                className="rounded-sm px-1.5 py-0.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                Clear
+              </button>
+            </div>
+            <ol className="min-h-0 flex-1 overflow-auto p-2 font-mono text-[11px] leading-relaxed text-muted-foreground">
+              {log.length === 0 ? (
+                <li className="p-2 font-sans text-xs">Nothing yet. Click, drag, rename, upload — every dispatch lands here.</li>
+              ) : (
+                log.map((line, index) => (
+                  <li key={`${line}-${index}`} className="border-b border-border/40 py-1 last:border-0">
+                    {line}
+                  </li>
+                ))
+              )}
+            </ol>
+          </aside>
+        </div>
+
+        <ImageOptimizationDialog
+          open={optimization.open}
+          onOpenChange={optimization.onOpenChange}
+          oversizedFiles={optimization.oversizedFiles}
+          onConfirm={optimization.confirm}
+          onSkip={optimization.skip}
+        />
+      </Frame>
+    )
+  },
+}
+
+/**
+ * Stands in for the real HEIC decoder, which is a WASM dependency the package
+ * deliberately does not carry. Paints the file's size onto a canvas and encodes
+ * that as JPEG — enough that a converted file is a real, previewable image rather
+ * than the original bytes under a new extension.
+ */
+async function heicToJpeg(bytes: Uint8Array): Promise<Uint8Array> {
+  const canvas = document.createElement('canvas')
+  canvas.width = 640
+  canvas.height = 480
+  const context = canvas.getContext('2d')
+  if (!context) throw new Error('No 2D context in this browser')
+  context.fillStyle = '#1e3a5f'
+  context.fillRect(0, 0, canvas.width, canvas.height)
+  context.fillStyle = '#e2e8f0'
+  context.font = '24px system-ui, sans-serif'
+  context.textAlign = 'center'
+  context.fillText('Converted from HEIC', canvas.width / 2, canvas.height / 2 - 12)
+  context.font = '16px system-ui, sans-serif'
+  context.fillText(`${bytes.byteLength.toLocaleString()} bytes in`, canvas.width / 2, canvas.height / 2 + 20)
+
+  const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.9))
+  if (!blob) throw new Error('Could not encode the converted image')
+  return new Uint8Array(await blob.arrayBuffer())
+}
 
 export const Default: Story = {
   render: function Render() {
@@ -469,6 +597,114 @@ export const WithImageOptimization: Story = {
           onSkip={optimization.skip}
         />
       </Frame>
+    )
+  },
+}
+
+/*
+ * Several apps open the browser in a sheet rather than on a page, so the two
+ * stories below are the reference for that arrangement.
+ *
+ * `SheetLayout` is a three-row grid — header, body, footer — with the body as the
+ * only flexible row, which is already what the browser wants: it fills the height
+ * it is given and scrolls its own listing. Two overrides make that work:
+ *
+ *   - `SheetBody` scrolls by default. Left alone, the sheet scrolls the browser and
+ *     the browser scrolls the listing, and the toolbar drifts out of view. `p-0`
+ *     plus `overflow-hidden` hands scrolling back to the listing.
+ *   - The browser draws its own border and corners, which read as a card floating
+ *     inside the sheet. `rounded-none border-0` lets it meet the sheet's edges.
+ *
+ * Width is the other thing to know: the browser's responsive behaviour keys off its
+ * own width, so a `md` (540px) or `lg` (600px) sheet gets the compact layout with no
+ * folder tree. The tree comes back at `full`.
+ */
+export const InSheet: Story = {
+  render: function Render() {
+    const adapter = useMemo(() => createMemoryAdapter({ tree: sampleTree(), latency: 150 }), [])
+    const [open, setOpen] = useState(true)
+    return (
+      <div className="p-6">
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild>
+            <Button variant="outline">Open files</Button>
+          </SheetTrigger>
+          <SheetLayout side="right" size="lg">
+            <SheetHeader>
+              <SheetTitle>Job 40112</SheetTitle>
+              <SheetDescription>Documents and photos attached to this work order.</SheetDescription>
+            </SheetHeader>
+            <SheetBody bodySpacing="none" className="overflow-hidden p-0">
+              <FileBrowser
+                adapter={adapter}
+                rootLabel="Job 40112"
+                notify={useStoryNotify()}
+                persistKey={false}
+                className="rounded-none border-0"
+              />
+            </SheetBody>
+          </SheetLayout>
+        </Sheet>
+      </div>
+    )
+  },
+}
+
+/**
+ * The picker shape: a full-width sheet that hands a selection back to the app.
+ *
+ * `onSelectionChange` is the whole integration — the sheet owns the confirm button
+ * and the browser stays a browser. At this width the folder tree returns and the
+ * preview panel sits beside the listing instead of covering it.
+ */
+export const InSheetPicker: Story = {
+  render: function Render() {
+    const adapter = useMemo(() => createMemoryAdapter({ tree: sampleTree(), latency: 150 }), [])
+    const [open, setOpen] = useState(true)
+    const [selection, setSelection] = useState<FileEntry[]>([])
+    const [attached, setAttached] = useState<string[]>([])
+    const files = selection.filter((entry) => !entry.isDir)
+
+    return (
+      <div className="space-y-3 p-6">
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild>
+            <Button variant="outline">Attach files</Button>
+          </SheetTrigger>
+          <SheetLayout side="right" size="full">
+            <SheetHeader>
+              <SheetTitle>Attach from Job 40112</SheetTitle>
+              <SheetDescription>Select one or more files to attach to this message.</SheetDescription>
+            </SheetHeader>
+            <SheetBody bodySpacing="none" className="overflow-hidden p-0">
+              <FileBrowser
+                adapter={adapter}
+                rootLabel="Job 40112"
+                initialViewMode="details"
+                persistKey={false}
+                readOnly
+                onSelectionChange={setSelection}
+                className="rounded-none border-0"
+                aside={<FilePreviewPanel overlayWhenNarrow />}
+              />
+            </SheetBody>
+            <SheetFooter>
+              <SheetActionButtons
+                cancelBtn={{ buttonText: 'Cancel', onClick: () => setOpen(false) }}
+                primaryAction={{
+                  buttonText: files.length ? `Attach ${files.length}` : 'Attach',
+                  disabled: files.length === 0,
+                  onClick: () => {
+                    setAttached(files.map((entry) => entry.name))
+                    setOpen(false)
+                  },
+                }}
+              />
+            </SheetFooter>
+          </SheetLayout>
+        </Sheet>
+        {attached.length > 0 && <p className="text-sm text-muted-foreground">Attached: {attached.join(', ')}</p>}
+      </div>
     )
   },
 }

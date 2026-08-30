@@ -12,6 +12,7 @@ import { UploadQueue } from './upload-queue'
 import { FileBrowserDialogs } from './dialogs'
 import { StatusBar } from './status-bar'
 import { useHotkeys } from './use-hotkeys'
+import { useNativeContextMenuEscape } from './use-native-context-menu'
 import type { DetailsColumn } from './views/details-view'
 import type { FileBrowserHandle } from '../core/types'
 
@@ -79,6 +80,7 @@ function FileBrowserShell({
 }: Pick<FileBrowserProps, 'className' | 'showSidebar' | 'showToolbar' | 'showStatusBar' | 'detailsColumns' | 'aside' | 'toolbarExtra'>) {
   const rootRef = useRef<HTMLDivElement>(null)
   useHotkeys(rootRef)
+  useNativeContextMenuEscape(rootRef)
 
   return (
     <div

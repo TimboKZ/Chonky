@@ -90,6 +90,7 @@ export const previewAction: FileAction = {
   // Offering Preview on a file no viewer handles just opens a panel that says it
   // cannot preview it.
   appliesTo: (entry) => !entry.isDir && getPreviewStrategy(entry) !== 'none',
+  isVisible: (ctx) => ctx.hasDetailsPanel,
 }
 
 export const renameAction: FileAction = {
@@ -205,6 +206,8 @@ export const toggleDetailsAction: FileAction = {
   icon: Info,
   toolbar: true,
   iconOnly: true,
+  // Nothing to toggle without a panel — the button would depress and do nothing.
+  isVisible: (ctx) => ctx.hasDetailsPanel,
 }
 
 /** Ids of every action that changes stored state. `readOnly` strips all of them. */
