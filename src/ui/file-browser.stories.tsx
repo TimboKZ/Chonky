@@ -179,6 +179,37 @@ export const WithPreviewPanel: Story = {
   },
 }
 
+/**
+ * The panel rendered *beside* the browser rather than inside it, which is how
+ * meetings composes it — a resizable pane holding a standalone panel. The panel
+ * fills whatever box it is given and adds no chrome of its own; the container
+ * owns the border and the rounding.
+ */
+export const PanelBesideBrowser: Story = {
+  render: function Render() {
+    const adapter = useMemo(() => createMemoryAdapter({ tree: sampleTree() }), [])
+    const [entry, setEntry] = useState<FileEntry | null>(null)
+    return (
+      <Frame>
+        <div className="flex h-full gap-3">
+          <div className="min-w-0 flex-1">
+            <FileBrowser
+              adapter={adapter}
+              rootLabel="Job 40112"
+              initialViewMode="list"
+              persistKey={false}
+              onSelectionChange={(selected) => setEntry(selected.find((item) => !item.isDir) ?? null)}
+            />
+          </div>
+          <div className="w-96 shrink-0 overflow-hidden rounded-lg border border-border">
+            <FilePreviewPanel entry={entry} adapter={adapter} />
+          </div>
+        </div>
+      </Frame>
+    )
+  },
+}
+
 export const ReadOnly: Story = {
   render: function Render() {
     const adapter = useMemo(() => createMemoryAdapter({ tree: sampleTree() }), [])

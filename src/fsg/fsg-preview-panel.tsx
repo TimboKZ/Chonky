@@ -32,8 +32,8 @@ export function FsgPreviewPanel({ file, apiConfig, request, previewPage, onBack,
     <CorePreviewPanel
       entry={entry}
       adapter={adapter}
-      // Standalone, the panel always sits in a container that owns its size, so it
-      // fills rather than keeping the fixed sidebar width it uses inside a browser.
+      // Standalone, the panel always sits in a container that owns its size and its
+      // chrome, so it fills its box and draws no border of its own.
       className={cn('h-full w-full', className)}
       onClose={previewPage ? onBack : undefined}
     />

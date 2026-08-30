@@ -88,7 +88,11 @@ export function FilePreviewPanel({
         overlayWhenNarrow
           ? cn('absolute inset-0 z-30 w-full @3xl:static @3xl:inset-auto @3xl:z-auto @3xl:w-80 @3xl:shrink-0 @3xl:border-l',
                !entry && 'hidden @3xl:flex')
-          : 'w-full border-l',
+          : // Standalone, the panel adds no chrome of its own. It has no way to know
+            // its container's corner radius, so a border here runs straight past a
+            // rounded corner and leaves a visible seam. The container owns its
+            // border; pass `className="border-l"` if you want one and have none.
+            'w-full',
         className,
       )}
       // Clicks inside the panel must not reach the listing's clear-selection handler.

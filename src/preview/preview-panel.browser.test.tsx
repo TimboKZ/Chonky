@@ -170,3 +170,35 @@ describe('FilePreviewPanel — narrow layout', () => {
     expect(listbox.right).toBeLessThanOrEqual(panelBox.left + 1)
   })
 })
+
+describe('FilePreviewPanel — chrome', () => {
+  it('draws no border of its own when standalone', async () => {
+    // It cannot know its container's corner radius, so a border here runs straight
+    // past a rounded corner and leaves a seam. The container owns its chrome.
+    const adapter = createMemoryAdapter({ tree: tree() })
+    render(
+      <div style={{ width: 380, height: 400, borderRadius: 12, border: '1px solid #ccc', overflow: 'hidden' }}>
+        <FilePreviewPanel entry={{ id: 'a', name: 'punch-list.csv', isDir: false, path: '' }} adapter={adapter} />
+      </div>,
+    )
+    await expect.element(panel()).toBeVisible()
+
+    const styles = getComputedStyle(panel().element())
+    expect(styles.borderLeftWidth).toBe('0px')
+    expect(styles.borderRightWidth).toBe('0px')
+  })
+
+  it('keeps a separator when it sits beside the listing inside a browser', async () => {
+    // There it *is* the chrome: nothing else divides the panel from the listing.
+    const adapter = createMemoryAdapter({ tree: tree() })
+    render(
+      <div style={{ width: 900, height: 500 }}>
+        <FileBrowser adapter={adapter} rootLabel="Files" persistKey={false} aside={<FilePreviewPanel overlayWhenNarrow />} />
+      </div>,
+    )
+    await option('punch-list.csv').click()
+    await expect.element(panel()).toBeVisible()
+
+    expect(getComputedStyle(panel().element()).borderLeftWidth).toBe('1px')
+  })
+})

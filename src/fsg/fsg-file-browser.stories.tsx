@@ -177,7 +177,8 @@ export const LivePreviewPanel: Story = {
               setPreviewFile={setFile}
             />
           </div>
-          <div className="w-96 shrink-0 rounded-lg border border-border">
+          {/* overflow-hidden so the panel's square corners clip to the radius. */}
+          <div className="w-96 shrink-0 overflow-hidden rounded-lg border border-border">
             <FsgPreviewPanel file={file} apiConfig={{ baseUrl: args.baseUrl, area: args.area }} />
           </div>
         </div>
